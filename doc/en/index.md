@@ -4,7 +4,7 @@
 > for project roles, see [`roles.md`](roles.md); for how to contribute, see
 > the root [`CONTRIBUTING.md`](../../CONTRIBUTING.md).
 >
-> **App**: [Routime.web.app](https://Routime.web.app) · **Repository**: [github.com/thenkdframe/Routime](https://github.com/thenkdframe/Routime) · **Other language**: [Español](../es/indice.md)
+> **App**: [routime.apptonomia.uk](https://routime.apptonomia.uk) · **Repository**: [github.com/thenkdframe/routime](https://github.com/thenkdframe/routime) · **Other language**: [Español](../es/indice.md)
 
 ---
 

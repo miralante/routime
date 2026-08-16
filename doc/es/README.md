@@ -41,7 +41,7 @@ tabla completa de módulos y sus objetivos terapéuticos en
 
 ### 1. Abrir la aplicación
 
-Visita **[Routime.web.app](https://Routime.web.app)** o abre el archivo `site/index.html` desde un servidor local.
+Visita **[routime.apptonomia.uk](https://routime.apptonomia.uk)** o abre el archivo `site/index.html` desde un servidor local.
 
 ### 2. Elegir una actividad
 

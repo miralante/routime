@@ -41,7 +41,7 @@ and the complete activity-by-activity catalog in
 
 ### 1. Open the app
 
-Visit **[Routime.web.app](https://Routime.web.app)** or open `site/index.html` from a local server.
+Visit **[routime.apptonomia.uk](https://routime.apptonomia.uk)** or open `site/index.html` from a local server.
 
 ### 2. Choose an activity
 

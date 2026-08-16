@@ -57,7 +57,7 @@ Elige la que más te convenga:
 2. Escribe en la barra de direcciones:
 
    ```
-   Routime.web.app
+   routime.apptonomia.uk
    ```
 
 3. Pulsa **Enter**
@@ -77,7 +77,7 @@ Elige la que más te convenga:
 #### Paso 1 · Descarga el código desde GitHub
 
 1. Abre en tu navegador:
-   [github.com/thenkdframe/Routime](https://github.com/thenkdframe/Routime)
+   [github.com/thenkdframe/routime](https://github.com/thenkdframe/routime)
 2. Pulsa el botón verde **`<> Code`**
 3. Elige **«Download ZIP»**
 4. Guarda el archivo (por ejemplo en `Descargas`)
@@ -452,6 +452,6 @@ Si necesitas más información:
 | Ver mi progreso | Mira las estrellas ⭐ en el menú |
 | Repetir una actividad | Toca "Jugar otra vez" |
 | Volver al menú | Toca "← Volver" |
-| Abrir la app sin instalar nada | Visita [Routime.web.app](https://Routime.web.app) |
+| Abrir la app sin instalar nada | Visita [routime.apptonomia.uk](https://routime.apptonomia.uk) |
 | Usarla en mi propio ordenador | Descarga el ZIP de GitHub y abre `site/index.html` |
 | Experiencia completa (PWA, offline) | `python -m http.server 8080` y abre `http://localhost:8080/site/index.html` |

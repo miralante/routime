@@ -6,7 +6,7 @@ Multi-language web application for occupational therapy activities for people wi
 intellectual disability. Designed to be used autonomously, in the browser,
 free of charge and without personal data.
 
-- 🌐 **App**: [routime.web.app](https://routime.web.app)
+- 🌐 **App**: [routime.apptonomia.uk](https://routime.apptonomia.uk)
 - 📦 **Repository**: [github.com/miralante/routime](https://github.com/miralante/routime)
 - 💻 **Run locally**: see [`doc/en/quick-guide.md`](doc/en/quick-guide.md) §1 — download the ZIP and double-click `site/index.html`, or use `python -m http.server 8080` for the full PWA experience.
 

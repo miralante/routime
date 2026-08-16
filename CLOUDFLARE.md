@@ -20,12 +20,12 @@
 > `sinonimia` repos' `CLOUDFLARE.md` for the same correction and how
 > it was diagnosed.
 >
-> **`routime.web.app` (Firebase Hosting) is still live and is what
+> **`routime.apptonomia.uk` (Firebase Hosting) is still live and is what
 > this repo's own README links to as "the App"** — it predates the
 > Cloudflare migration described below in "Custom domain", which
 > looks incomplete: that section says the Firebase mapping should be
 > removed only after Cloudflare is verified end-to-end, but
-> `routime.web.app` still serves the site with **no `_headers`
+> `routime.apptonomia.uk` still serves the site with **no `_headers`
 > protection at all** (no CSP, no security headers — Firebase Hosting
 > doesn't read that file). This needs a human decision (finish the
 > DNS/custom-domain migration, or update the README link to point at
@@ -194,12 +194,12 @@ and select **"Retry deployment"** or **"Rollback to this deployment"**.
 **Status as of this writing: this migration looks unfinished.** The
 plan below predates the correction at the top of this file (Cloudflare
 ended up serving from a `workers.dev` address, not `routime.pages.dev`
-as step 1 assumed), and `routime.web.app` — the pre-migration
+as step 1 assumed), and `routime.apptonomia.uk` — the pre-migration
 Firebase Hosting URL, still linked from this repo's own README — is
 still live and still serving traffic with none of the `_headers`
 protections. That's a real gap: verify with whoever owns the
 Cloudflare/DNS/Firebase consoles whether the custom domain move ever
-happened, and either finish it or decommission `routime.web.app`
+happened, and either finish it or decommission `routime.apptonomia.uk`
 and repoint the README. Not something to change from a repo edit.
 
 Original plan:
