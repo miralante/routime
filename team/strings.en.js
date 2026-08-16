@@ -68,7 +68,7 @@
     "module6Title": '💜 Emotions — Emotions and relationships',
     "module6Intro": 'Recognizing and expressing emotions, self-regulation, breathing and conflict resolution.',
     "module7Title": '💗 Body and relationships — Affective-sexual education',
-    "module7Intro": 'Body, consent, healthy relationships and sexual and reproductive health, always pointing to trusted adults or health professionals.',
+    "module7Intro": 'Body, consent, healthy relationships and sexual and reproductive health, always pointing to trusted people or health professionals.',
     activity: {
       "catch": {
         "name": 'Catch It',
@@ -133,7 +133,7 @@
       "bullying-chat": {
         "name": 'Bullying Chat',
         "does": 'Practices in simulated chats how to recognize bullying among peers (insults, exclusion, rumors, photos taken to laugh at someone, threats, pressure to bully someone else) and what to do about it.',
-        "works": 'Telling bullying and cyberbullying apart from normal conflict; the right response always includes telling a trusted adult; the bystander’s role (not joining in, supporting, and reporting it).',
+        "works": 'Telling bullying and cyberbullying apart from normal conflict; the right response always includes telling a trusted person; the bystander’s role (not joining in, supporting, and reporting it).',
         "daily": 'Agree together on who the trusted person is to tell if something happens.'
       },
       "post-or-not": {
@@ -146,7 +146,7 @@
         "name": 'Social Media, Privacy and the Law',
         "does": 'Works through 27 non-graphic cases about sexual manipulation, intimate images, pornography, blackmail, fake images and asking for help.',
         "works": 'Recognizing grooming and sexual pressure, consent, digital privacy, stopping the spread of content, and a basic understanding of possible legal consequences.',
-        "daily": 'Always use it with professional or family supervision. Remind them that asking for help never means it is their fault, and agree on who the trusted adults are.'
+        "daily": 'Always use it with professional or family supervision. Remind them that asking for help never means it is their fault, and agree on who the trusted people are.'
       },
       "signs": {
         "name": 'Signs',
@@ -252,7 +252,7 @@
       },
       "first-aid-kit": {
         "name": 'My First-Aid Kit',
-        "does": 'Reads an everyday health situation (small cut, burn, fever, strong pain…) and chooses what to do: take care of themselves following what they have practised, or — if the situation is urgent — ask a trusted adult or call 112.',
+        "does": 'Reads an everyday health situation (small cut, burn, fever, strong pain…) and chooses what to do: take care of themselves following what they have practised, or — if the situation is urgent — ask a trusted person or call 112.',
         "works": 'Closes the health-autonomy cycle between noticing the signal (My Body Tells Me) and putting it into words (I Tell the Doctor). Level 2 explicitly trains the safety net: ask for help or call 112, never self-medicate or hold the pain in.',
         "daily": 'When a small cut or a minor burn happens at home, review together what to do and, in doubt, who to ask for help.'
       },
@@ -382,12 +382,6 @@
         "works": 'Reading comprehension, sentence analysis.',
         "daily": 'Read short sentences together (signs, messages) and ask who and what.'
       },
-      "words": {
-        "name": 'Words',
-        "does": 'Learns themed vocabulary with a picture, text and audio.',
-        "works": 'Receptive and expressive vocabulary.',
-        "daily": 'Name real objects at home in the language they are learning.'
-      },
       "dictionary": {
         "name": 'Dictionary',
         "does": 'For each group of 8 difficult words: first a card per word (the word, its meaning in Plain Language and a real-life example), then a 3-option test to check what was remembered.',
@@ -480,7 +474,7 @@
         "name": 'My Body, My Choices',
         "does": 'Practises 48 non-graphic cases about consent, healthy relationships, contraception, hygiene and sexual health, pressure and blackmail, and protection and infections.',
         "works": 'Body autonomy, recognizing consent, warning signs of harmful relationships, and knowing when to ask a health professional for help instead of getting clinical instructions from the app.',
-        "daily": 'Always use it with professional or family supervision. Remember that asking for help never implies blame, and agree together on who the trusted adults or professionals are.'
+        "daily": 'Always use it with professional or family supervision. Remember that asking for help never implies blame, and agree together on who the trusted people or professionals are.'
       }
     },
     "scopeNote1": 'Out of scope',

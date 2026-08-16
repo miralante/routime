@@ -146,7 +146,7 @@ apptonomia/
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (euro activities)
 │   └── img/               #   SVG pictograms and PWA icons; the UI uses system icons and emojis first for simple graphical elements; if more is needed, use free images downloaded locally from CC0/public-domain sources
-├── tools/<slug>/          # Level 2: one folder per ACTIVITY (69 current)
+├── tools/<slug>/          # Level 2: one folder per ACTIVITY (68 current)
 │   ├── index.html         #   structure and asset loading
 │   ├── app.js             #   logic only
 │   ├── data.js            #   data only
@@ -484,7 +484,7 @@ site/strings.en.js    ← English only (registers in locale 'en')
 
 tools/pairs/strings.es.js    ← Spanish only
 tools/pairs/strings.en.js    ← English only
-... (same pattern for all 69 activities)
+... (same pattern for all 68 activities)
 ```
 
 Each file follows this pattern:
@@ -687,7 +687,7 @@ Seven sections: the project's origin, the six non-negotiable principles
 (autonomy, no pressure, privacy, Easy Reading, accessibility, sober
 technology), how the application is built (static PWA, no backend, single
 `localStorage`, MIT, only external assets are the fonts), the six
-therapeutic areas and the total of 69 activities, the sibling projects
+therapeutic areas and the total of 68 activities, the sibling projects
 (Calculia, Okeymoney, Sinonimia, Teclatlon — same team and philosophy,
 independent services with an external link to their own domain),
 authorship, and five ways to help (testing, proposing, reviewing,
@@ -776,6 +776,18 @@ Only if the area does not fit the 7 existing modules (check coverage in
   1. New file → add it to the `ARCHIVOS` list.
   2. Any change to cached files → **bump `VERSION`** (`apptonomia-vNN`),
      otherwise users with the installed PWA won't receive the change.
+- **Bump `VERSION` on every committed change to a cached file.** This
+  is not just "add a new activity" — it applies to every CSS tweak,
+  every string fix, every JS refactor in `tools/`, every classroom
+  assignment of a colour value. The cache is silent: the developer
+  sees the new code on a Ctrl+Shift+R reload, but the user sees the
+  old one until the SW is manually unregistered. The cost of bumping
+  is one integer; the cost of not bumping is "the user thinks the fix
+  didn't land". Bump liberally rather than conservatively.
+  The bug pattern in practice: developer edits a CSS class, expects
+  to see the new colour in the running app, doesn't, "fixes" the
+  source again, still doesn't — and the only thing missing was the
+  integer bump. The fix is to bump `VERSION` first, then verify.
 - The fetch handler also caches new same-origin resources on demand and
   falls back to `site/index.html` offline.
 - No update notice: the SW does `skipWaiting()` + `clients.claim()` without
@@ -821,7 +833,7 @@ node scripts/check.js
 node scripts/smoke.js
 ```
 
-Opens all 69 activities in Chromium (ES and EN) and verifies there are no console errors.
+Opens all 68 activities in Chromium (ES and EN) and verifies there are no console errors.
 
 ### 12.4 Cross-browser and cross-device test
 

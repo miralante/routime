@@ -61,8 +61,9 @@ mismo stack.
 
 | Proyecto | Qué es | Repositorio |
 |---|---|---|
-| **Apptonomia** *(principal — este repo)* | Terapia ocupacional: 7 módulos, 69 actividades | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
+| **Apptonomia** *(principal — este repo)* | Terapia ocupacional: 7 módulos, 68 actividades | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Cálculo y razonamiento lógico: 12 actividades | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
+| Memofun | Tarjetas de memoria con aprendizaje significativo | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Finanzas personales y autonomía cotidiana | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
 | Sinonimia | Diccionario en lectura fácil | [github.com/miralante/sinonimia](https://github.com/miralante/sinonimia) |
 | Teclatlon | Mecanografía con el teclado físico | [github.com/miralante/teclatlon](https://github.com/miralante/teclatlon) |

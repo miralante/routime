@@ -6,7 +6,7 @@
    Nivel 1: cuidados que la persona puede aplicar ella misma
    siguiendo lo aprendido (lavar, frío, tirita, descansar).
    Nivel 2: la situación es urgente — la opción correcta es
-   siempre pedir ayuda a un adulto de confianza o llamar al 112,
+   siempre pedir ayuda a una persona de confianza o llamar al 112,
    nunca automedicar ni aguantar. Ronda de 8. El error nunca se
    castiga; primer fallo = pista, segundo = explicación
    (método socrático).

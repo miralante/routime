@@ -84,7 +84,7 @@ const DATA = {
         items: [
           { situacion: 'Te sientes muy enfadado.', picto: '😠', opciones: ['Respiro y me calmo', 'Grito y rompo cosas', 'Pego a alguien'], correcta: 0 },
           { situacion: 'Estás nervioso antes de un examen.', picto: '😰', opciones: ['Respiro despacio para calmarme', 'Dejo de estudiar del todo', 'Me enfado con todos'], correcta: 0 },
-          { situacion: 'Alguien se burla de ti.', picto: '😞', opciones: ['Se lo cuento a un adulto de confianza', 'Le pego', 'Me lo callo y sufro solo'], correcta: 0 },
+          { situacion: 'Alguien se burla de ti.', picto: '😞', opciones: ['Se lo cuento a una persona de confianza', 'Le pego', 'Me lo callo y sufro solo'], correcta: 0 },
           { situacion: 'Te sientes triste sin saber por qué.', picto: '😢', opciones: ['Hablo de cómo me siento', 'Me lo guardo todo', 'Grito a los demás'], correcta: 0 },
           { situacion: 'Has cometido un error.', picto: '😳', opciones: ['Pido perdón y lo arreglo', 'Echo la culpa a otro', 'Me enfado conmigo mismo'], correcta: 0 },
           { situacion: 'Tienes miedo de algo nuevo.', picto: '😨', opciones: ['Pido ayuda a alguien de confianza', 'Evito hacerlo siempre', 'Finjo que no tengo miedo'], correcta: 0 },
@@ -189,7 +189,7 @@ const DATA = {
         items: [
           { situacion: 'You feel very angry.', picto: '😠', opciones: ['I breathe and calm down', 'I shout and break things', 'I hit someone'], correcta: 0 },
           { situacion: 'You feel nervous before a test.', picto: '😰', opciones: ['I breathe slowly to calm down', 'I stop studying completely', 'I get angry at everyone'], correcta: 0 },
-          { situacion: 'Someone makes fun of you.', picto: '😞', opciones: ['I tell an adult I trust', 'I hit them', 'I keep it to myself and suffer alone'], correcta: 0 },
+          { situacion: 'Someone makes fun of you.', picto: '😞', opciones: ['I tell someone I trust', 'I hit them', 'I keep it to myself and suffer alone'], correcta: 0 },
           { situacion: 'You feel sad without knowing why.', picto: '😢', opciones: ['I talk about how I feel', 'I keep it all inside', 'I shout at other people'], correcta: 0 },
           { situacion: 'You have made a mistake.', picto: '😳', opciones: ['I say sorry and fix it', 'I blame someone else', 'I get angry at myself'], correcta: 0 },
           { situacion: 'You are afraid of something new.', picto: '😨', opciones: ['I ask someone I trust for help', 'I always avoid doing it', 'I pretend I am not afraid'], correcta: 0 },

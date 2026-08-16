@@ -60,8 +60,9 @@ Apptonomia or built next to it on the same stack.
 
 | Project | What it is | Repository |
 |---|---|---|
-| **Apptonomia** *(main — this repo)* | Occupational therapy: 7 modules, 69 activities | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
+| **Apptonomia** *(main — this repo)* | Occupational therapy: 7 modules, 68 activities | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Math and logical reasoning: 12 activities | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
+| Memofun | Flashcards built around meaningful learning | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Personal finance and everyday autonomy | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
 | Sinonimia | Plain-language dictionary (easy-read) | [github.com/miralante/sinonimia](https://github.com/miralante/sinonimia) |
 | Teclatlon | Touch-typing with a physical keyboard | [github.com/miralante/teclatlon](https://github.com/miralante/teclatlon) |

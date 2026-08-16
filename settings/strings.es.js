@@ -52,7 +52,7 @@
       'visual-sudoku': 'Sudoku Visual', 'domino': 'Dominó', 'checkers': 'Las Damas', 'chess': 'El Ajedrez',
       'connect-four': 'Cuatro en Raya',
       'comedy-club': 'Chistes', 'idioms': 'Dichos', 'double-meaning': 'Doble Sentido', 'categories': 'Categorías',
-      'sentence': 'La Frase', 'words': 'Palabras', 'dictionary': 'Diccionario', 'spelling': 'Completa la Palabra',
+      'sentence': 'La Frase', 'dictionary': 'Diccionario', 'spelling': 'Completa la Palabra',
       'word-search': 'Sopa de Letras',
       'emotions': '¿Cómo me siento?', 'calm': 'Calma', 'friends': 'Entre Amigos', 'my-body': 'Mi Cuerpo Me Avisa', 'good-manners': 'Buenos Modales', 'school-rules': 'Normas del Cole y Civismo',
       'self-esteem': 'Así Soy Yo',

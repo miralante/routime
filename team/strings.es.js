@@ -68,7 +68,7 @@
     "module6Title": '💜 Emociones — Emociones y relaciones',
     "module6Intro": 'Reconocimiento y expresión de emociones, autorregulación, respiración y resolución de conflictos.',
     "module7Title": '💗 Cuerpo y relaciones — Educación afectivo-sexual',
-    "module7Intro": 'Cuerpo, consentimiento, relaciones sanas y salud sexual y reproductiva, siempre derivando a personas adultas de confianza o profesionales de la salud.',
+    "module7Intro": 'Cuerpo, consentimiento, relaciones sanas y salud sexual y reproductiva, siempre derivando a personas de confianza o profesionales de la salud.',
     activity: {
       "catch": {
         "name": 'Atrapa',
@@ -133,7 +133,7 @@
       "bullying-chat": {
         "name": 'Chat Acoso',
         "does": 'Practica en chats simulados cómo reconocer el acoso entre compañeros (insultos, exclusión, rumores, fotos para reírse, amenazas, presión para molestar a otro) y qué hacer.',
-        "works": 'Identificación de acoso escolar (bullying y ciberacoso) frente a conflicto normal, la respuesta correcta siempre incluye contárselo a un adulto de confianza, papel del testigo (no unirse, apoyar y contarlo).',
+        "works": 'Identificación de acoso escolar (bullying y ciberacoso) frente a conflicto normal, la respuesta correcta siempre incluye contárselo a una persona de confianza, papel del testigo (no unirse, apoyar y contarlo).',
         "daily": 'Acordad quién es la persona de confianza a la que contarle algo.'
       },
       "post-or-not": {
@@ -146,7 +146,7 @@
         "name": 'Redes, intimidad y ley',
         "does": 'Practica 27 casos no gráficos sobre manipulación sexual, imágenes íntimas, pornografía, chantaje, montajes y petición de ayuda.',
         "works": 'Reconocimiento de captación y presión sexual, consentimiento, intimidad digital, freno de la difusión y comprensión básica de posibles consecuencias legales.',
-        "daily": 'Usadla siempre con supervisión profesional o familiar. Recordad que pedir ayuda nunca implica culpa y acordad quiénes son las personas adultas de confianza.'
+        "daily": 'Usadla siempre con supervisión profesional o familiar. Recordad que pedir ayuda nunca implica culpa y acordad quiénes son las personas de confianza.'
       },
       "signs": {
         "name": 'Señales',
@@ -252,7 +252,7 @@
       },
       "first-aid-kit": {
         "name": 'Mi Botiquín',
-        "does": 'Lee una situación cotidiana de salud (raspadura, quemadura, fiebre, dolor fuerte…) y elige qué hacer: cuidarse uno mismo siguiendo lo aprendido o, si la situación es urgente, pedir ayuda a un adulto de confianza o al 112.',
+        "does": 'Lee una situación cotidiana de salud (raspadura, quemadura, fiebre, dolor fuerte…) y elige qué hacer: cuidarse uno mismo siguiendo lo aprendido o, si la situación es urgente, pedir ayuda a una persona de confianza o al 112.',
         "works": 'Cierre del ciclo de autonomía en salud entre notar la señal (Mi Cuerpo Me Avisa) y ponerla en palabras (Se lo Cuento al Médico). El nivel 2 entrena explícitamente la red de seguridad: pedir ayuda o llamar al 112, nunca automedicar ni aguantar.',
         "daily": 'Cuando se haga un raspones o una pequeña quemadura en casa, repasad juntos qué hacer y, ante la duda, a quién pedir ayuda.'
       },
@@ -382,12 +382,6 @@
         "works": 'Comprensión lectora, análisis de la oración.',
         "daily": 'Leed juntos frases cortas (carteles, mensajes) y preguntad quién y qué.'
       },
-      "words": {
-        "name": 'Palabras',
-        "does": 'Aprende vocabulario temático con imagen, texto y audio.',
-        "works": 'Léxico comprensivo y expresivo.',
-        "daily": 'Nombrad objetos reales de casa en el idioma que esté aprendiendo.'
-      },
       "dictionary": {
         "name": 'Diccionario',
         "does": 'Por cada grupo de 8 palabras difíciles: primero una ficha por palabra (la palabra, su significado en Lectura Fácil y un ejemplo real), después un test de 3 opciones para comprobar qué se recuerda.',
@@ -482,7 +476,7 @@
         "name": 'Mi Cuerpo, Mis Decisiones',
         "does": 'Practica 48 casos no gráficos sobre consentimiento, relaciones sanas, anticoncepción, higiene y salud sexual, presión y chantaje, y protección e infecciones.',
         "works": 'Autonomía corporal, reconocimiento del consentimiento, señales de relaciones dañinas, y saber pedir ayuda a un profesional de la salud en vez de recibir instrucciones clínicas de la app.',
-        "daily": 'Usadla siempre con supervisión profesional o familiar. Recordad que pedir ayuda nunca implica culpa y acordad quiénes son las personas adultas o profesionales de confianza.'
+        "daily": 'Usadla siempre con supervisión profesional o familiar. Recordad que pedir ayuda nunca implica culpa y acordad quiénes son las personas o profesionales de confianza.'
       }
     },
     "scopeNote1": 'Fuera del alcance',

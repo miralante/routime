@@ -136,12 +136,12 @@ aviso: 'Cuando alguien dice "nadie se va a enterar", es señal de trampa. Para y
               { tipo: 'msg', texto: 'Tengo una foto tuya que me pasó un amigo.' },
               { tipo: 'msg', texto: 'Si no me mandas otra, se la enseño a todo el mundo.' },
               { tipo: 'eleccion', opciones: [
-                { texto: 'No te mando nada. Esto se lo cuento YA a un adulto.', segura: true,
-                  avisoSeguro: 'Cuando alguien amenaza con una foto, lo seguro es no obedecer y contarlo enseguida. Los adultos saben qué hacer.' },
+                { texto: 'No te mando nada. Esto se lo cuento YA a una persona de confianza.', segura: true,
+                  avisoSeguro: 'Cuando alguien amenaza con una foto, lo seguro es no obedecer y contarlo enseguida. Las personas de confianza saben qué hacer.' },
                 { texto: 'Vale, no se la enseñes a nadie. Te mando otra.',
 segura: false,
-pista: '¿De verdad: si obedeces, pedirá más. Las amenazas se cortan contándolo a un adulto de confianza, nunca obedeciendo?',
-aviso: 'Si obedeces, pedirá más. Las amenazas se cortan contándolo a un adulto de confianza, nunca obedeciendo.' }
+pista: '¿De verdad: si obedeces, pedirá más. Las amenazas se cortan contándolo a una persona de confianza, nunca obedeciendo?',
+aviso: 'Si obedeces, pedirá más. Las amenazas se cortan contándolo a una persona de confianza, nunca obedeciendo.' }
               ] },
               { tipo: 'msg', texto: 'Si se lo cuentas a alguien será peor para ti.' },
               { tipo: 'eleccion', opciones: [
@@ -149,13 +149,13 @@ aviso: 'Si obedeces, pedirá más. Las amenazas se cortan contándolo a un adult
                   avisoSeguro: 'Quien te amenaza no quiere que pidas ayuda, porque la ayuda funciona. Tú no has hecho nada malo.' },
                 { texto: 'Mejor no digo nada y ya está.',
 segura: false,
-pista: '¿De verdad: callar deja el problema en tus manos. Esto lo tiene que arreglar un adulto?',
-aviso: 'Callar deja el problema en tus manos. Esto lo tiene que arreglar un adulto. Tú no tienes la culpa.' }
+pista: '¿De verdad: callar deja el problema en tus manos. Esto lo tiene que arreglar una persona de confianza?',
+aviso: 'Callar deja el problema en tus manos. Esto lo tiene que arreglar una persona de confianza. Tú no tienes la culpa.' }
               ] },
               { tipo: 'accion', texto: '🚫 Bloquear y contarlo ahora mismo',
                 confirmacion: 'Has bloqueado a esta persona y lo has contado. Eso es justo lo que hay que hacer.' }
             ],
-            regla: 'Si alguien te amenaza con una foto, no obedezcas: cuéntaselo enseguida a un adulto de confianza. Tú no tienes la culpa.'
+            regla: 'Si alguien te amenaza con una foto, no obedezcas: cuéntaselo enseguida a una persona de confianza. Si no tienes a quién contárselo, también puedes denunciarlo a la policía. Tú no tienes la culpa.'
           },
           {
             contacto: 'Chico_Guapo',
@@ -185,12 +185,12 @@ aviso: 'Dar dinero no arregla nada: seguirá pidiendo más. Nunca se paga a quie
                 { texto: 'Mejor no digo nada, por si acaso.',
 segura: false,
 pista: 'Si Callar, ¿te protege, solo protege a quien chantajea?',
-aviso: 'Callar no te protege, solo protege a quien chantajea. Un adulto de confianza sabe qué hacer.' }
+aviso: 'Callar no te protege, solo protege a quien chantajea. Una persona de confianza sabe qué hacer.' }
               ] },
-              { tipo: 'accion', texto: '🚫 Bloquear y contarlo a un adulto de confianza',
+              { tipo: 'accion', texto: '🚫 Bloquear y contarlo a una persona de confianza',
                 confirmacion: 'Has bloqueado a Chico_Guapo y lo has contado. Ni fotos ni dinero: has hecho lo correcto.' }
             ],
-            regla: 'Si alguien pide una foto íntima o dinero y amenaza si dices que no, es chantaje. No pagues, no mandes nada: bloquea y cuéntaselo a un adulto de confianza.'
+            regla: 'Si alguien pide una foto íntima o dinero y amenaza si dices que no, es chantaje. No pagues, no mandes nada: bloquea y cuéntaselo a una persona de confianza, o denúncialo a la policía si no tienes a quién contárselo.'
           }
         ]
       },
@@ -299,8 +299,8 @@ aviso: 'La parada también dice dónde estás cada día. No hay dato "pequeño" 
               { tipo: 'msg', texto: 'Para seguir jugando debes verificar tu edad. ✅' },
               { tipo: 'msg', texto: 'Manda una foto de tu DNI o del carnet de tu familiar.' },
               { tipo: 'eleccion', opciones: [
-                { texto: 'No mando documentos. Lo comprobaré con un adulto.', segura: true,
-                  avisoSeguro: 'Los juegos de verdad no piden fotos del DNI por chat. Un adulto puede comprobar si es real.' },
+                { texto: 'No mando documentos. Lo comprobaré con una persona de confianza.', segura: true,
+                  avisoSeguro: 'Los juegos de verdad no piden fotos del DNI por chat. Una persona de confianza puede comprobar si es real.' },
                 { texto: 'Vale, le hago una foto al DNI.',
 segura: false,
 pista: '¿De verdad: con la foto de un DNI pueden hacerse pasar por ti o por tu familia?',
@@ -312,13 +312,13 @@ aviso: 'Con la foto de un DNI pueden hacerse pasar por ti o por tu familia. Nunc
                   avisoSeguro: 'Amenazar con borrar la cuenta es para asustarte. Ninguna cuenta vale un documento.' },
                 { texto: '¡Mi cuenta no! Lo mando ya.',
 segura: false,
-pista: 'Si Te meten miedo para que, ¿pienses. Para, respira y pregunta a un adulto?',
-aviso: 'Te meten miedo para que no pienses. Para, respira y pregunta a un adulto.' }
+pista: 'Si Te meten miedo para que, ¿pienses. Para, respira y pregunta a una persona de confianza?',
+aviso: 'Te meten miedo para que no pienses. Para, respira y pregunta a una persona de confianza.' }
               ] },
-              { tipo: 'accion', texto: '🚫 Bloquear y avisar a un adulto',
+              { tipo: 'accion', texto: '🚫 Bloquear y avisar a una persona de confianza',
                 confirmacion: 'Has bloqueado a Juego_Verifica. El juego de verdad nunca pide el DNI así.' }
             ],
-            regla: 'El DNI y los documentos no se fotografían ni se mandan por chat. Si algo pide "verificar", pregunta antes a un adulto.'
+            regla: 'El DNI y los documentos no se fotografían ni se mandan por chat. Si algo pide "verificar", pregunta antes a una persona de confianza.'
           }
         ]
       },
@@ -460,7 +460,7 @@ aviso: 'Cuando alguien pide un secreto en internet, algo va mal. Las personas bu
               { tipo: 'msg', texto: 'Si se lo cuentas a alguien, te vas a meter en un lío.' },
               { tipo: 'eleccion', opciones: [
                 { texto: 'Contarlo no es meterse en un lío. Lo voy a contar.', segura: true,
-                  avisoSeguro: 'Contar lo que pasa nunca mete en un lío; ayuda a que un adulto de confianza lo sepa.' },
+                  avisoSeguro: 'Contar lo que pasa nunca mete en un lío; ayuda a que una persona de confianza lo sepa.' },
                 { texto: 'Vale, no se lo cuento a nadie.',
 segura: false,
 pista: '¿De verdad: contar lo que te pasa nunca es malo?',
@@ -481,8 +481,8 @@ aviso: 'Contar lo que te pasa nunca es malo. Las personas de confianza te ayudan
                   avisoSeguro: 'Querer llevarte a un sitio "donde nadie os vea" es una señal de alarma muy clara.' },
                 { texto: 'Vale, me bajo esa app.',
 segura: false,
-pista: '¿De verdad: te quiere llevar donde ningún adulto pueda ver la conversación?',
-aviso: 'Te quiere llevar donde ningún adulto pueda ver la conversación. Ahí es donde empiezan los problemas.' }
+pista: '¿De verdad: te quiere llevar donde ninguna persona de confianza pueda ver la conversación?',
+aviso: 'Te quiere llevar donde ninguna persona de confianza pueda ver la conversación. Ahí es donde empiezan los problemas.' }
               ] },
               { tipo: 'msg', texto: 'Es que aquí no puedo contarte mi sorpresa…' },
               { tipo: 'eleccion', opciones: [
@@ -513,16 +513,16 @@ aviso: 'Si borras los mensajes, nadie podrá ayudarte después. Quien pide borra
               { tipo: 'msg', texto: 'Es por privacidad… los mayores no lo entenderían.' },
               { tipo: 'eleccion', opciones: [
                 { texto: 'Si los mayores no pueden verlo, es que está mal. Lo cuento.', segura: true,
-                  avisoSeguro: 'Esa frase es la clave: lo que no puede ver un adulto de confianza, no es bueno para ti.' },
+                  avisoSeguro: 'Esa frase es la clave: lo que no puede ver una persona de confianza, no es bueno para ti.' },
                 { texto: 'Tienes razón, mejor que no lo vean.',
 segura: false,
 pista: 'Si "Los mayores, ¿lo entenderían" significa "los mayores me pararían"?',
 aviso: '"Los mayores no lo entenderían" significa "los mayores me pararían". Cuéntaselo a uno.' }
               ] },
               { tipo: 'accion', texto: '🚫 Bloquear sin borrar nada',
-                confirmacion: 'Has bloqueado a Mister_X y has guardado los mensajes. Así un adulto puede verlos y ayudarte.' }
+                confirmacion: 'Has bloqueado a Mister_X y has guardado los mensajes. Así una persona de confianza puede verlos y ayudarte.' }
             ],
-            regla: 'No borres conversaciones que te hagan sentir raro: son la prueba que ayuda a los adultos a protegerte.'
+            regla: 'No borres conversaciones que te hagan sentir raro: son la prueba que ayuda a las personas de confianza a protegerte.'
           },
           {
             contacto: 'Rober_Bici',
@@ -631,12 +631,12 @@ aviso: 'Cualquiera puede decir que es de tu barrio. Sigue siendo un desconocido 
               ] },
               { tipo: 'msg', texto: 'Sé cómo es la puerta de tu cole. ¿A qué hora sales?' },
               { tipo: 'eleccion', opciones: [
-                { texto: 'No te lo digo. Esto se lo cuento hoy a un adulto.', segura: true,
-                  avisoSeguro: 'Preguntar tu hora de salida es lo más serio que hay: cuéntaselo hoy mismo a un adulto de confianza.' },
+                { texto: 'No te lo digo. Esto se lo cuento hoy a una persona de confianza.', segura: true,
+                  avisoSeguro: 'Preguntar tu hora de salida es lo más serio que hay: cuéntaselo hoy mismo a una persona de confianza.' },
                 { texto: 'Salgo a las cinco.',
 segura: false,
 pista: '¿De verdad: nunca digas a nadie de internet a qué hora sales?',
-aviso: 'Nunca digas a nadie de internet a qué hora sales. Cuéntale esta conversación a un adulto ya.' }
+aviso: 'Nunca digas a nadie de internet a qué hora sales. Cuéntale esta conversación a una persona de confianza ya.' }
               ] },
               { tipo: 'accion', texto: '🚫 Bloquear y contarlo hoy mismo',
                 confirmacion: 'Has bloqueado a Casi_Vecino y lo has contado hoy mismo. Justo lo que había que hacer.' }
@@ -755,7 +755,7 @@ aviso: 'Los números de una tarjeta regalo son como dinero: si los mandas, desap
               ] },
               { tipo: 'msg', texto: '¡No hay tiempo de preguntar a nadie! Confía en mí.' },
               { tipo: 'eleccion', opciones: [
-                { texto: 'Si es tan urgente, que te ayude un adulto. Yo aviso al mío.', segura: true,
+                { texto: 'Si es tan urgente, que te ayude una persona de confianza. Yo aviso al mío.', segura: true,
                   avisoSeguro: '"No preguntes a nadie" es la señal más clara de engaño. Las cosas de verdad aguantan una pregunta.' },
                 { texto: 'Vale, vale, no pregunto. Ya voy.',
 segura: false,
@@ -966,12 +966,12 @@ aviso: 'When someone says "nobody will know", it is a sign of a trap. Stop and t
               { tipo: 'msg', texto: 'I have a photo of you that a friend gave me.' },
               { tipo: 'msg', texto: "If you don't send me another one, I'll show it to everyone." },
               { tipo: 'eleccion', opciones: [
-                { texto: "I'm sending nothing. I'm telling an adult RIGHT NOW.", segura: true,
-                  avisoSeguro: 'When someone threatens you with a photo, the safe thing is not to obey and to tell right away. Adults know what to do.' },
+                { texto: "I'm sending nothing. I'm telling a trusted person RIGHT NOW.", segura: true,
+                  avisoSeguro: 'When someone threatens you with a photo, the safe thing is not to obey and to tell right away. Trusted people know what to do.' },
                 { texto: "Okay, don't show anyone. I'll send another.",
 segura: false,
 pista: '¿De verdad: if you obey, they will ask for more?',
-aviso: 'If you obey, they will ask for more. Threats are stopped by telling a trusted adult, never by obeying.' }
+aviso: 'If you obey, they will ask for more. Threats are stopped by telling a trusted person, never by obeying.' }
               ] },
               { tipo: 'msg', texto: 'If you tell anyone it will be worse for you.' },
               { tipo: 'eleccion', opciones: [
@@ -980,12 +980,12 @@ aviso: 'If you obey, they will ask for more. Threats are stopped by telling a tr
                 { texto: "I'd better say nothing then.",
 segura: false,
 pista: '¿De verdad: staying quiet leaves the problem in your hands?',
-aviso: 'Staying quiet leaves the problem in your hands. An adult must fix this. It is not your fault.' }
+aviso: 'Staying quiet leaves the problem in your hands. A trusted person must fix this. It is not your fault.' }
               ] },
               { tipo: 'accion', texto: '🚫 Block and tell right now',
                 confirmacion: 'You blocked this person and told someone. That is exactly the right thing to do.' }
             ],
-            regla: 'If someone threatens you with a photo, do not obey: tell a trusted adult right away. It is not your fault.'
+            regla: 'If someone threatens you with a photo, do not obey: tell a trusted person right away. If you have no one to tell, you can also report it to the police. It is not your fault.'
           },
           {
             contacto: 'Nice_Guy',
@@ -1015,12 +1015,12 @@ aviso: 'Giving money fixes nothing: they will ask for more. Never pay someone wh
                 { texto: "I'd better say nothing, just in case.",
 segura: false,
 pista: '¿De verdad: staying quiet does not protect you, it only protects the person blackmailing you?',
-aviso: 'Staying quiet does not protect you, it only protects the person blackmailing you. A trusted adult knows what to do.' }
+aviso: 'Staying quiet does not protect you, it only protects the person blackmailing you. A trusted person knows what to do.' }
               ] },
-              { tipo: 'accion', texto: '🚫 Block and tell a trusted adult',
+              { tipo: 'accion', texto: '🚫 Block and tell a trusted person',
                 confirmacion: 'You blocked Nice_Guy and told someone. No photos, no money: you did the right thing.' }
             ],
-            regla: 'If someone asks for an intimate photo or money and threatens you if you say no, that is blackmail. Do not pay, do not send anything: block and tell a trusted adult.'
+            regla: 'If someone asks for an intimate photo or money and threatens you if you say no, that is blackmail. Do not pay, do not send anything: block and tell a trusted person, or report it to the police if you have no one to tell.'
           }
         ]
       },
@@ -1127,8 +1127,8 @@ aviso: 'The bus stop also says where you are every day. No detail about your rou
               { tipo: 'msg', texto: 'To keep playing you must verify your age. ✅' },
               { tipo: 'msg', texto: "Send a photo of your ID card or a family member's." },
               { tipo: 'eleccion', opciones: [
-                { texto: "I don't send documents. I'll check with an adult.", segura: true,
-                  avisoSeguro: 'Real games do not ask for ID photos over chat. An adult can check if it is real.' },
+                { texto: "I don't send documents. I'll check with a trusted person.", segura: true,
+                  avisoSeguro: 'Real games do not ask for ID photos over chat. A trusted person can check if it is real.' },
                 { texto: "Okay, I'll take a photo of the ID.",
 segura: false,
 pista: '¿De verdad: with an ID photo, someone can pretend to be you or your family?',
@@ -1140,13 +1140,13 @@ aviso: 'With an ID photo, someone can pretend to be you or your family. It is ne
                   avisoSeguro: 'Threatening to delete your account is meant to scare you. No account is worth a document.' },
                 { texto: "Not my account! Sending it now.",
 segura: false,
-pista: '¿De verdad: they scare you so you stop thinking. Stop, breathe, and ask an adult?',
-aviso: 'They scare you so you stop thinking. Stop, breathe, and ask an adult.' }
+pista: '¿De verdad: they scare you so you stop thinking. Stop, breathe, and ask a trusted person?',
+aviso: 'They scare you so you stop thinking. Stop, breathe, and ask a trusted person.' }
               ] },
-              { tipo: 'accion', texto: '🚫 Block and tell an adult',
+              { tipo: 'accion', texto: '🚫 Block and tell a trusted person',
                 confirmacion: 'You blocked Game_Verify. The real game never asks for ID like that.' }
             ],
-            regla: 'ID cards and documents are never photographed or sent by chat. If something asks you to "verify", ask an adult first.'
+            regla: 'ID cards and documents are never photographed or sent by chat. If something asks you to "verify", ask a trusted person first.'
           }
         ]
       },
@@ -1288,7 +1288,7 @@ aviso: 'When someone asks for a secret online, something is wrong. Good people d
               { tipo: 'msg', texto: "If you tell anyone, you'll get in trouble." },
               { tipo: 'eleccion', opciones: [
                 { texto: "Telling someone isn't getting in trouble. I'm going to tell.", segura: true,
-                  avisoSeguro: 'Telling someone what is happening never gets you in trouble; it helps a trusted adult find out.' },
+                  avisoSeguro: 'Telling someone what is happening never gets you in trouble; it helps a trusted person find out.' },
                 { texto: "Okay, I won't tell anyone.",
 segura: false,
 pista: '¿De verdad: telling someone what is happening is never wrong?',
@@ -1309,8 +1309,8 @@ aviso: 'Telling someone what is happening is never wrong. People you trust can h
                   avisoSeguro: 'Wanting to take you somewhere "where nobody sees you" is a very clear warning sign.' },
                 { texto: "Okay, I'll download that app.",
 segura: false,
-pista: 'Si They want to take you where, ¿adult can see the conversation?',
-aviso: 'They want to take you where no adult can see the conversation. That is where problems start.' }
+pista: 'Si They want to take you where, ¿trusted person can see the conversation?',
+aviso: 'They want to take you where no trusted person can see the conversation. That is where problems start.' }
               ] },
               { tipo: 'msg', texto: "It's just that I can't tell you my surprise here…" },
               { tipo: 'eleccion', opciones: [
@@ -1341,16 +1341,16 @@ aviso: 'If you delete the messages, nobody can help you later. Whoever asks you 
               { tipo: 'msg', texto: "It's for privacy… grown-ups wouldn't understand." },
               { tipo: 'eleccion', opciones: [
                 { texto: "If grown-ups can't see it, it must be wrong. I'm telling.", segura: true,
-                  avisoSeguro: 'That phrase is the key: what a trusted adult cannot see is not good for you.' },
+                  avisoSeguro: 'That phrase is the key: what a trusted person cannot see is not good for you.' },
                 { texto: "You're right, better they don't see it.",
 segura: false,
 pista: '¿De verdad: "Grown-ups wouldn\'t understand" means "grown-ups would stop me"?',
 aviso: '"Grown-ups wouldn\'t understand" means "grown-ups would stop me". Tell one.' }
               ] },
               { tipo: 'accion', texto: '🚫 Block without deleting anything',
-                confirmacion: 'You blocked Mister_X and kept the messages. Now an adult can see them and help you.' }
+                confirmacion: 'You blocked Mister_X and kept the messages. Now a trusted person can see them and help you.' }
             ],
-            regla: 'Never delete conversations that make you feel strange: they are the proof that helps adults protect you.'
+            regla: 'Never delete conversations that make you feel strange: they are the proof that helps trusted people protect you.'
           },
           {
             contacto: 'Robbie_Bike',
@@ -1459,12 +1459,12 @@ aviso: 'Anyone can say they are from your neighbourhood. They are still an inter
               ] },
               { tipo: 'msg', texto: 'I know what your school gate looks like. What time do you finish?' },
               { tipo: 'eleccion', opciones: [
-                { texto: "I'm not telling you. I am telling an adult about this today.", segura: true,
-                  avisoSeguro: 'Asking what time you finish school is as serious as it gets: tell a trusted adult today.' },
+                { texto: "I'm not telling you. I am telling a trusted person about this today.", segura: true,
+                  avisoSeguro: 'Asking what time you finish school is as serious as it gets: tell a trusted person today.' },
                 { texto: 'I finish at five.',
 segura: false,
 pista: '¿De verdad: never tell anyone online what time you finish?',
-aviso: 'Never tell anyone online what time you finish. Tell an adult about this conversation right away.' }
+aviso: 'Never tell anyone online what time you finish. Tell a trusted person about this conversation right away.' }
               ] },
               { tipo: 'accion', texto: '🚫 Block and tell someone today',
                 confirmacion: 'You blocked Almost_Neighbour and told someone today. Exactly the right thing to do.' }
@@ -1583,7 +1583,7 @@ aviso: 'Gift card numbers are like cash: if you send them, they are gone forever
               ] },
               { tipo: 'msg', texto: 'There is no time to ask anyone! Trust me.' },
               { tipo: 'eleccion', opciones: [
-                { texto: 'If it is so urgent, an adult should help you. I am telling mine.', segura: true,
+                { texto: 'If it is so urgent, a trusted person should help you. I am telling mine.', segura: true,
                   avisoSeguro: '"Don\'t ask anyone" is the clearest scam signal. Real things can survive a question.' },
                 { texto: "Okay, okay, I won't ask. On my way.",
 segura: false,

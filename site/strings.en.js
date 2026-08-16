@@ -132,8 +132,6 @@
     "categories_detalle": "Which group does it belong to?",
     "sentence_nombre": "The Sentence",
     "sentence_detalle": "Read and answer.",
-    "words_nombre": "Words",
-    "words_detalle": "What is this called?",
     "dictionary_nombre": "Dictionary",
     "dictionary_detalle": "Hard words, made easy.",
     "spelling_nombre": "Complete the Word",
@@ -159,10 +157,6 @@
     "trustcircle_nombre": "Circle of Trust",
     "trustcircle_detalle": "Friend, companion or acquaintance, and how to recognize manipulation.",
     "sexualhealth_nombre": "My Body, My Choices",
-    "sexualhealth_detalle": "Body, relationships and health, with support.",
-    "calculia_nombre": "Calculia",
-    "okeymoney_nombre": "Okeymoney",
-    "sinonimia_nombre": "Sinonimia",
-    "teclatlon_nombre": "Teclatlon"
+    "sexualhealth_detalle": "Body, relationships and health, with support."
   }, 'en');
 })();

@@ -1,5 +1,27 @@
 ﻿# CLAUDE.md — AI agent workflow
 
+## Service worker cache (read this before touching any cached file)
+
+`sw.js` is cache-first for the app shell — every HTML/CSS/JS file listed
+in `ARCHIVOS` is served from the cache. **Any change to a cached file
+without bumping `VERSION` is invisible to users with the PWA installed.**
+The bug is silent: the developer sees the change on a hard refresh,
+but the user sees the old version until they manually unregister the SW
+or the cache expires.
+
+**Rule**: when you edit any file listed in `ARCHIVOS` (or any new file
+that should be cached), bump `VERSION` in `sw.js` (e.g. `apptonomia-v120`
+→ `apptonomia-v121`). The `install` handler will re-fetch every file into
+the new cache and the `activate` handler will delete the old one. This
+is also called out in `doc/en/technical.md` §4.
+
+This applies to every CSS tweak, every string fix, every JS refactor in
+`tools/`, every colour value tweak. The cache is silent: the developer
+sees the new code on a Ctrl+Shift+R reload, but the user sees the old
+one until the SW is manually unregistered. The cost of bumping is one
+integer; the cost of not bumping is "the user thinks the fix didn't
+land". Bump liberally rather than conservatively.
+
 ## Language policy
 
 - **UI**: multilingual. Default locales: **Spanish (`es`)** and **English (`en`)**; `es` is the default and fallback when a key is missing or the detected locale is unsupported.

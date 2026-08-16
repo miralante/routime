@@ -168,7 +168,7 @@ Some activities deal with sensitive topics:
 | **Social media, intimacy and law** | Sexual manipulation, digital intimacy and legal consequences | Always with professional or family supervision |
 | **My Body, My Choices** | Consent, relationships, contraception, hygiene and sexual health, pressure and blackmail, protection and infections | Always with professional or family supervision |
 | **I Tell the Doctor** | Putting a body symptom into words for a health professional | Review first; pairs well with **My Body Tells Me** |
-| **My First-Aid Kit** | Everyday self-care at home, knowing when to ask for help or call 112 | Review first; level 2 explicitly trains asking a trusted adult or 112 |
+| **My First-Aid Kit** | Everyday self-care at home, knowing when to ask for help or call 112 | Review first; level 2 explicitly trains asking a trusted person or 112 |
 | **Circle of Trust** | In-person manipulation in friendships and requests for money | Requires support from a support person |
 
 ---
@@ -190,7 +190,7 @@ identify gaps and choose an activity for a support goal. See
 | Attention | ✔ | Spot the Difference, What's missing? |
 | Visual and short-term memory | ✔ | Pairs, What's missing? |
 | Auditory and verbal memory | ✔ | Echoes |
-| Vocabulary and categories | ✔ | Categories, Words, Word Search |
+| Vocabulary and categories | ✔ | Categories, Word Search |
 | Advanced vocabulary and meaningful learning | ✔ | Dictionary, Topic Vocabulary |
 | Spelling | ✔ | Complete the Word, Colored Spelling |
 | Language comprehension | ✔ | The Sentence |

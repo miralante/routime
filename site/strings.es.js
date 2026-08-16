@@ -132,8 +132,6 @@
     "categories_detalle": "¿En qué grupo va?",
     "sentence_nombre": "La Frase",
     "sentence_detalle": "Lee y responde.",
-    "words_nombre": "Palabras",
-    "words_detalle": "¿Cómo se llama esto?",
     "dictionary_nombre": "Diccionario",
     "dictionary_detalle": "Palabras difíciles, fácil de entender.",
     "spelling_nombre": "Completa la Palabra",
@@ -159,10 +157,6 @@
     "trustcircle_nombre": "Círculo de Confianza",
     "trustcircle_detalle": "Amigo, compañero o conocido, y cómo reconocer la manipulación.",
     "sexualhealth_nombre": "Mi Cuerpo, Mis Decisiones",
-    "sexualhealth_detalle": "Cuerpo, relaciones y salud, con apoyo.",
-    "calculia_nombre": "Calculia",
-    "okeymoney_nombre": "Okeymoney",
-    "sinonimia_nombre": "Sinonimia",
-    "teclatlon_nombre": "Teclatlon"
+    "sexualhealth_detalle": "Cuerpo, relaciones y salud, con apoyo."
   }, 'es');
 })();

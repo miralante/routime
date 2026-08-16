@@ -1,6 +1,6 @@
 # Catálogo de actividades
 
-Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo de habilidad que trabajan. El orden de los módulos va de lo más ligado a la terapia ocupacional (autonomía, emociones) a lo más académico (memoria, razonamiento, lenguaje), sigue con el módulo específico de dificultades motoras y termina con el módulo de educación afectivo-sexual, añadido después por requerir siempre supervisión profesional o familiar.
+Apptonomia tiene **68 actividades** organizadas en **7 módulos** según el tipo de habilidad que trabajan. El orden de los módulos va de lo más ligado a la terapia ocupacional (autonomía, emociones) a lo más académico (memoria, razonamiento, lenguaje), sigue con el módulo específico de dificultades motoras y termina con el módulo de educación afectivo-sexual, añadido después por requerir siempre supervisión profesional o familiar.
 
 ---
 
@@ -37,7 +37,7 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 | **La Tienda** | Usa dinero real en una compra: pagar, recibir cambio, controlar gastos |
 | **Comida Sana** | Clasifica alimentos en "cada día" o "de vez en cuando" y descubre cómo te sientan |
 | **Se lo Cuento al Médico** | Practica poner en palabras sencillas en primera persona un síntoma del cuerpo (dónde, qué, desde cuándo) para que el médico lo entienda |
-| **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a un adulto de confianza o llamar al 112 |
+| **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a una persona de confianza o llamar al 112 |
 
 ---
 
@@ -117,7 +117,6 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 | **Doble Sentido** | Detecta si una palabra de la frase puede significar una cosa o dos |
 | **Categorías** | Clasifica palabras en grupos (animales, frutas...) |
 | **La Frase** | Completa frases diciendo quién, qué o dónde |
-| **Palabras** | Aprende vocabulario temático (colores, animales, profesiones...) |
 | **Vocabulario por tema** | Aprende vocabulario adulto por bloques (vida autónoma, salud, social) y niveles de dificultad |
 | **Diccionario** | Aprende palabras difíciles con un significado sencillo y un ejemplo |
 | **Completa la Palabra** | Elige la letra que falta para escribir bien la palabra |
@@ -147,7 +146,7 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 
 **Área:** Educación afectivo-sexual · **Color del módulo:** Terracota
 
-**¿Qué trabaja?** Cuerpo, consentimiento, relaciones sanas, anticoncepción e higiene y salud sexual. Contenido no gráfico que siempre deriva a una persona adulta de confianza o a un profesional de la salud — nunca da instrucciones clínicas. **Usar siempre con supervisión profesional o familiar.**
+**¿Qué trabaja?** Cuerpo, consentimiento, relaciones sanas, anticoncepción e higiene y salud sexual. Contenido no gráfico que siempre deriva a una persona de confianza o a un profesional de la salud — nunca da instrucciones clínicas. **Usar siempre con supervisión profesional o familiar.**
 
 | Actividad | Descripción |
 |-----------|-------------|
@@ -167,13 +166,13 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 | 🎯 Puntería y manos | 6 | Azul |
 | 💗 Cuerpo y relaciones | 1 | Terracota |
 
-**Total: 69 actividades**
+**Total: 68 actividades**
 
 ---
 
-## Actividades por nivel de dificultad
+## Actividades ordenadas por dificultad
 
-### Actividades para empezar
+De más sencillas a más difíciles:
 
 - Parejas
 - Atrapa
@@ -181,18 +180,12 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 - Trazos
 - ¿Cómo me siento?
 - Mis Rutinas
-
-### Actividades intermedias
-
 - Diferencias
 - La Casa
 - Mi agenda
 - Chat Seguro
 - Calma
 - Mis Datos
-
-### Actividades avanzadas
-
 - Dominó
 - Ajedrez
 - La Tienda
@@ -205,16 +198,16 @@ Apptonomia tiene **69 actividades** organizadas en **7 módulos** según el tipo
 
 ## Actividades de juegos de mesa
 
-Apptonomia incluye varios juegos de mesa clásicos adaptados:
+Apptonomia incluye varios juegos de mesa clásicos adaptados, ordenados de más fácil a más difícil:
 
-| Juego | Descripción | Dificultad |
-|-------|-------------|------------|
-| **Tres en Raya** | Tres en línea contra el ordenador | Fácil-Medio |
-| **Dominó** | Encadena fichas contra el ordenador | Medio |
-| **Sudoku Visual** | Sudoku 4×4 con pictos | Medio |
-| **Cuatro en Raya** | Conecta 4 contra el ordenador | Medio |
-| **Las Damas** | Damas 6×6 contra el ordenador | Medio-Difícil |
-| **El Ajedrez** | Puzzles de piezas de ajedrez | Difícil |
+| Juego | Descripción |
+|-------|-------------|
+| **Tres en Raya** | Tres en línea contra el ordenador |
+| **Dominó** | Encadena fichas contra el ordenador |
+| **Sudoku Visual** | Sudoku 4×4 con pictos |
+| **Cuatro en Raya** | Conecta 4 contra el ordenador |
+| **Las Damas** | Damas 6×6 contra el ordenador |
+| **El Ajedrez** | Puzzles de piezas de ajedrez |
 
 ---
 
@@ -233,7 +226,7 @@ Apptonomia incluye varios juegos de mesa clásicos adaptados:
 → **Módulo 4**: El Monedero, El Reloj, Los Números, Cantidades, Las Tablas, Números Romanos, La Oca
 
 ### Si quieres aprender más palabras
-→ **Módulo 5**: Categorías, Palabras, Vocabulario por tema, Diccionario, Completa la Palabra, Sopa de Letras, Dichos, Doble Sentido, Chistes
+→ **Módulo 5**: Categorías, Vocabulario por tema, Diccionario, Completa la Palabra, Sopa de Letras, Dichos, Doble Sentido, Chistes
 
 ### Si quieres practicar movimientos con las manos
 → **Módulo 6**: Atrapa, Une los Puntos, Trazos, Colorear, Piano, Constructores

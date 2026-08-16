@@ -5,7 +5,7 @@
    you know (insults, exclusion, rumors, photos, threats, pressure to
    join in on bothering someone else). A mistake is never punished:
    it's explained with advice and the person chooses again. Every
-   chat ends by telling a trusted adult.
+   chat ends by telling a trusted person.
    Data in data.js. Shared modules in assets/js/.
    ============================================================ */
 (function () {

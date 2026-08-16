@@ -82,22 +82,10 @@
         responder(btnCaja, momento === items[idx].momento, items[idx], momento);
       });
 
-      var btnAudio = document.createElement('button');
-      btnAudio.type = 'button';
-      btnAudio.className = 'btn btn-audio';
-      btnAudio.textContent = '🔊';
-      btnAudio.setAttribute('aria-label', App.i18n.t('escucharMomento').replace('{momento}', momento));
-      btnAudio.addEventListener('click', function () { App.tts.speak(momento); });
-
-      var fila = document.createElement('div');
-      fila.className = 'fila-caja';
-      fila.appendChild(btnCaja);
-      fila.appendChild(btnAudio);
-
       var lista = document.createElement('ul');
       lista.className = 'lista-tareas';
 
-      columna.appendChild(fila);
+      columna.appendChild(btnCaja);
       columna.appendChild(lista);
       listasDiaEl.appendChild(columna);
       listasEl[momento] = { lista: lista, boton: btnCaja };

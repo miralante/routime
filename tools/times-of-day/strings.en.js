@@ -10,7 +10,6 @@
     "title": "🌗 Times of Day",
     "instruccion": "Look at the task. Touch the box for the right time of day.",
     "elegirNivel": "Choose a level",
-    "escucharMomento": "Listen: {momento}",
     "veces": "({n} times)",
     "resumenFinal": "You won {n} stars. You now have {total} stars.",
     "elegirOtroNivel": "Choose another level",

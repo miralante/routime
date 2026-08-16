@@ -153,7 +153,7 @@ apptonomia/
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (actividades de euros)
 │   └── img/               #   pictogramas SVG e iconos PWA; la interfaz usa primero iconos del sistema y emojis para gráficos simples; si hace falta algo más, usar imágenes libres descargadas localmente desde fuentes CC0/domino público
-├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (69 actuales)
+├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (68 actuales)
 │   ├── index.html         #   estructura y carga de assets
 │   ├── app.js             #   solo lógica
 │   ├── data.js            #   solo datos
@@ -496,7 +496,7 @@ site/strings.en.js    ← solo inglés (registra en locale 'en')
 
 tools/pairs/strings.es.js    ← solo español
 tools/pairs/strings.en.js    ← solo inglés
-... (mismo patrón para todas las 69 actividades)
+... (mismo patrón para todas las 68 actividades)
 ```
 
 Cada archivo sigue este patrón:
@@ -708,7 +708,7 @@ Tiene siete secciones: el origen del proyecto, los seis principios que no se
 negocian (autonomía, sin presión, privacidad, Lectura Fácil, accesibilidad,
 tecnología sobria), cómo está hecha la aplicación (PWA estática, sin backend,
 `localStorage` único, MIT, sólo fuentes externas), las seis áreas terapéuticas
-con el total de 69 actividades, los proyectos hermanos (Calculia, Okeymoney,
+con el total de 68 actividades, los proyectos hermanos (Calculia, Okeymoney,
 Sinonimia, Teclatlon — mismo equipo y filosofía, servicios independientes con
 enlace externo a su propio dominio), autoría y cinco formas de colaborar
 (probar, proponer, revisar, contribuir código, difundir). El pie enlaza al
@@ -798,6 +798,21 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
 - `sw.js` es **cache-first** del app shell. Contrato al tocar archivos:
   1. Archivo nuevo → añadirlo a la lista `ARCHIVOS`.
   2. Cualquier cambio en archivos cacheados → **subir `VERSION`** (`apptonomia-vNN`),
+     de lo contrario quienes tengan la PWA instalada no recibirán el cambio.
+- **Sube `VERSION` en cada commit que toque un archivo cacheado.** No
+  es solo "añadir una actividad": aplica a cualquier retoo de CSS,
+  cualquier fix de cadena, cualquier refactor de JS en `tools/`, cada
+  asignación de color de un símbolo. La caché es silenciosa: el
+  desarrollador ve el código nuevo en un Ctrl+Shift+R, pero el usuario
+  ve la versión vieja hasta desregistrar el SW a mano. El coste de
+  subir el entero es trivial; el coste de no subirlo es "el usuario
+  cree que el fix no llegó". Sube liberalmente, no de forma
+  conservadora.
+  El patrón de bug en la práctica: el desarrollador edita una clase
+  CSS, espera ver el nuevo color en la app en ejecución, no lo ve,
+  "arregla" el código otra vez, sigue sin verlo — y lo único que
+  faltaba era el bump de `VERSION`. La solución es bumpear primero y
+  verificar después.
      si no, los usuarios con la PWA instalada no reciben el cambio.
 - El fetch handler cachea también recursos nuevos del mismo origen bajo demanda y
   hace fallback a `site/index.html` sin conexión.
@@ -845,7 +860,7 @@ node scripts/check.js
 node scripts/smoke.js
 ```
 
-Abre las 69 actividades en Chromium (ES y EN) y verifica que no hay errores de consola.
+Abre las 68 actividades en Chromium (ES y EN) y verifica que no hay errores de consola.
 
 ### 12.4 Test cross-browser y cross-device
 

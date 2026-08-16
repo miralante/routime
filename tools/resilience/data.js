@@ -45,7 +45,7 @@ const DATA = {
         items: [
           { picto: '📱', situacion: 'La tablet se queda colgada justo cuando ibas a terminar algo.', opciones: ['Respiras hondo y lo vuelves a intentar', 'Golpeas la pantalla', 'Tiras la tablet'], correcta: 0 },
           { picto: '🔁', situacion: 'Llevas varios días practicando algo y sigue sin salirte.', opciones: ['Sigues practicando a tu ritmo, sin rendirte', 'Piensas que nunca lo vas a conseguir', 'Dejas de intentarlo del todo'], correcta: 0 },
-          { picto: '⚖️', situacion: 'Algo te parece injusto, como que otro tenga más tiempo que tú.', opciones: ['Lo dices con calma a un adulto', 'Gritas que no es justo sin parar', 'Rompes algo para desahogarte'], correcta: 0 },
+          { picto: '⚖️', situacion: 'Algo te parece injusto, como que otro tenga más tiempo que tú.', opciones: ['Lo dices con calma a una persona de confianza', 'Gritas que no es justo sin parar', 'Rompes algo para desahogarte'], correcta: 0 },
           { picto: '⏳', situacion: 'Tienes que esperar mucho tiempo para algo importante para ti.', opciones: ['Buscas algo tranquilo que hacer mientras esperas', 'Te pones a gritar', 'Molestas a los demás para distraerte'], correcta: 0 },
           { picto: '🧩', situacion: 'Un puzle o un juego es mucho más difícil de lo que pensabas.', opciones: ['Lo dejas a un lado y lo intentas más tarde', 'Lo tiras al suelo enfadado/a', 'Dices que eres tonto/a por no saber hacerlo'], correcta: 0 },
           { picto: '🚗', situacion: 'Un plan que esperabas con ganas se cancela.', opciones: ['Aceptas que a veces los planes cambian', 'Gritas y pataleas', 'Te enfadas con quien te lo dice'], correcta: 0 },
@@ -64,16 +64,16 @@ const DATA = {
         estrellas: 3,
         items: [
           { picto: '📖', situacion: 'No entiendes una palabra en un texto que estás leyendo.', opciones: ['Preguntas qué significa esa palabra', 'Sigues leyendo sin entender nada', 'Dices que no te gusta leer nunca'], correcta: 0 },
-          { picto: '🧮', situacion: 'No sabes cómo hacer un ejercicio de clase.', opciones: ['Pides ayuda a un adulto o compañero', 'Te quedas callado/a y no entregas nada', 'Dices que no lo vas a hacer nunca'], correcta: 0 },
+          { picto: '🧮', situacion: 'No sabes cómo hacer un ejercicio de clase.', opciones: ['Pides ayuda a una persona de confianza o compañero', 'Te quedas callado/a y no entregas nada', 'Dices que no lo vas a hacer nunca'], correcta: 0 },
           { picto: '🥾', situacion: 'Te cuesta atarte los cordones tú solo/a.', opciones: ['Pides ayuda sin que te dé vergüenza', 'Te escondes para que nadie lo vea', 'Dices que no te importan los zapatos'], correcta: 0 },
           { picto: '🧭', situacion: 'Te has perdido y no sabes por dónde ir.', opciones: ['Pides ayuda a una persona de confianza', 'Sigues caminando sin decir nada', 'Te enfadas contigo mismo/a'], correcta: 0 },
           { picto: '🗣️', situacion: 'No entiendes lo que alguien te está explicando.', opciones: ['Pides que te lo expliquen otra vez', 'Dices que sí lo entiendes aunque no sea verdad', 'Te callas y te vas frustrado/a'], correcta: 0 },
           { picto: '🧴', situacion: 'No sabes usar algo nuevo, como una herramienta o un aparato.', opciones: ['Preguntas cómo se usa', 'Lo intentas a lo loco sin preguntar', 'Dices que no sirves para nada nuevo'], correcta: 0 },
-          { picto: '🎒', situacion: 'Se te olvida algo importante y no sabes qué hacer.', opciones: ['Se lo cuentas a un adulto de confianza', 'Lo escondes para que nadie lo note', 'Te enfadas contigo mismo/a en silencio'], correcta: 0 },
+          { picto: '🎒', situacion: 'Se te olvida algo importante y no sabes qué hacer.', opciones: ['Se lo cuentas a una persona de confianza', 'Lo escondes para que nadie lo note', 'Te enfadas contigo mismo/a en silencio'], correcta: 0 },
           { picto: '🏫', situacion: 'El primer día en un sitio nuevo no sabes qué hacer.', opciones: ['Preguntas a alguien qué toca hacer', 'Te quedas parado/a sin decir nada', 'Finges que ya sabías todo'], correcta: 0 },
           { picto: '💻', situacion: 'No sabes cómo abrir un archivo o programa en el ordenador.', opciones: ['Preguntas a alguien cómo se hace', 'Aprietas botones al azar y te frustras', 'Dices que la tecnología no es para ti'], correcta: 0 },
           { picto: '🍳', situacion: 'No sabes cómo seguir una receta para cocinar algo.', opciones: ['Pides que te expliquen el paso que no entiendes', 'Improvisas sin preguntar y sale mal', 'Dices que nunca vas a saber cocinar'], correcta: 0 },
-          { picto: '🩹', situacion: 'Te haces daño y no sabes qué hacer.', opciones: ['Buscas a un adulto para que te ayude', 'Te aguantas el dolor en silencio', 'Dices que no ha pasado nada aunque duela'], correcta: 0 },
+          { picto: '🩹', situacion: 'Te haces daño y no sabes qué hacer.', opciones: ['Buscas a una persona de confianza para que te ayude', 'Te aguantas el dolor en silencio', 'Dices que no ha pasado nada aunque duela'], correcta: 0 },
           { picto: '📝', situacion: 'No entiendes las instrucciones de un examen o ejercicio.', opciones: ['Levantas la mano y preguntas', 'Dejas el ejercicio en blanco sin decir nada', 'Copias a otro compañero sin entender'], correcta: 0 }
         ]
       },
@@ -130,7 +130,7 @@ const DATA = {
         items: [
           { picto: '📱', situacion: 'The tablet freezes right when you were about to finish something.', opciones: ['You take a deep breath and try again', 'You hit the screen', 'You throw the tablet'], correcta: 0 },
           { picto: '🔁', situacion: 'You have been practising something for days and it still is not working.', opciones: ['You keep practising at your own pace, without giving up', 'You think you will never manage it', 'You stop trying completely'], correcta: 0 },
-          { picto: '⚖️', situacion: 'Something feels unfair, like someone else getting more time than you.', opciones: ['You calmly tell a trusted adult', 'You keep shouting that it is not fair', 'You break something to let it out'], correcta: 0 },
+          { picto: '⚖️', situacion: 'Something feels unfair, like someone else getting more time than you.', opciones: ['You calmly tell a trusted person', 'You keep shouting that it is not fair', 'You break something to let it out'], correcta: 0 },
           { picto: '⏳', situacion: 'You have to wait a long time for something important to you.', opciones: ['You find something calm to do while you wait', 'You start shouting', 'You bother others to distract yourself'], correcta: 0 },
           { picto: '🧩', situacion: 'A puzzle or game is much harder than you thought.', opciones: ['You set it aside and try again later', 'You throw it on the floor, angry', 'You say you are stupid for not knowing how to do it'], correcta: 0 },
           { picto: '🚗', situacion: 'A plan you were looking forward to gets cancelled.', opciones: ['You accept that plans sometimes change', 'You shout and stomp your feet', 'You get angry at whoever tells you'], correcta: 0 },
@@ -149,16 +149,16 @@ const DATA = {
         estrellas: 3,
         items: [
           { picto: '📖', situacion: 'You do not understand a word in something you are reading.', opciones: ['You ask what that word means', 'You keep reading without understanding anything', 'You say you will never like reading'], correcta: 0 },
-          { picto: '🧮', situacion: 'You do not know how to do a class exercise.', opciones: ['You ask an adult or classmate for help', 'You stay quiet and hand in nothing', 'You say you will never do it'], correcta: 0 },
+          { picto: '🧮', situacion: 'You do not know how to do a class exercise.', opciones: ['You ask a trusted person or classmate for help', 'You stay quiet and hand in nothing', 'You say you will never do it'], correcta: 0 },
           { picto: '🥾', situacion: 'Tying your own shoelaces is hard for you.', opciones: ['You ask for help without feeling ashamed', 'You hide so nobody sees', 'You say you do not care about shoes'], correcta: 0 },
           { picto: '🧭', situacion: 'You are lost and do not know which way to go.', opciones: ['You ask a trusted person for help', 'You keep walking without saying anything', 'You get angry with yourself'], correcta: 0 },
           { picto: '🗣️', situacion: 'You do not understand what someone is explaining to you.', opciones: ['You ask them to explain it again', "You say you understand even though you don't", 'You go quiet and walk away, frustrated'], correcta: 0 },
           { picto: '🧴', situacion: 'You do not know how to use something new, like a tool or a device.', opciones: ['You ask how it works', 'You try it randomly without asking', 'You say you are no good at anything new'], correcta: 0 },
-          { picto: '🎒', situacion: 'You forget something important and do not know what to do.', opciones: ['You tell a trusted adult about it', 'You hide it so nobody notices', 'You get angry with yourself in silence'], correcta: 0 },
+          { picto: '🎒', situacion: 'You forget something important and do not know what to do.', opciones: ['You tell a trusted person about it', 'You hide it so nobody notices', 'You get angry with yourself in silence'], correcta: 0 },
           { picto: '🏫', situacion: 'On your first day somewhere new, you do not know what to do.', opciones: ['You ask someone what you are supposed to do', 'You freeze and say nothing', 'You pretend you already knew everything'], correcta: 0 },
           { picto: '💻', situacion: 'You do not know how to open a file or program on the computer.', opciones: ['You ask someone how to do it', 'You press buttons at random and get frustrated', 'You say technology is not for you'], correcta: 0 },
           { picto: '🍳', situacion: 'You do not know how to follow a recipe to cook something.', opciones: ['You ask about the step you do not understand', 'You improvise without asking and it goes wrong', 'You say you will never know how to cook'], correcta: 0 },
-          { picto: '🩹', situacion: 'You hurt yourself and do not know what to do.', opciones: ['You find an adult to help you', 'You bear the pain in silence', 'You say nothing happened even though it hurts'], correcta: 0 },
+          { picto: '🩹', situacion: 'You hurt yourself and do not know what to do.', opciones: ['You find a trusted person to help you', 'You bear the pain in silence', 'You say nothing happened even though it hurts'], correcta: 0 },
           { picto: '📝', situacion: 'You do not understand the instructions for a test or exercise.', opciones: ['You raise your hand and ask', 'You leave the exercise blank without saying anything', 'You copy a classmate without understanding'], correcta: 0 }
         ]
       },

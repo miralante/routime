@@ -26,7 +26,7 @@
     "paraRecordarHablado": "Remember this.",
   "contexto": "You are chatting online with someone you do not know. That person is asking for something: a photo, a secret or to meet up.",
   "pista": "🤔 Does that seem normal? Would you do that with someone you do not know?",
-  "explicacion": "✅ On the internet you never share that with strangers. Telling a trusted adult is the right thing to do.",
+  "explicacion": "✅ On the internet you never share that with strangers. Telling a trusted person is the right thing to do.",
   "transferencia": "This will help you stay safe in chats and on social media: if someone asks for something strange, you will know what to do.",
   }, 'en');
 })();

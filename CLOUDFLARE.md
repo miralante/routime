@@ -76,7 +76,7 @@ Cloudflare serves every static file in the repo automatically,
 including the implicit `index.html` lookup for any directory: visiting
 `/tools/pairs/` resolves to `tools/pairs/index.html`, `/team/` to
 `team/index.html`, and so on, without any rewrite rule. Every section
-of Apptonomia (`site/`, `tools/<slug>/` for all 69 activities,
+of Apptonomia (`site/`, `tools/<slug>/` for all 68 activities,
 `team/`, `about/`, `settings/`, `legal/`) ships its own real
 `index.html`, so a catch-all rewrite is unnecessary and would in fact
 break: the previous version had `/* /index.html 200` (Firebase-era

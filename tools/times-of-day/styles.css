@@ -47,16 +47,10 @@
   border-radius: var(--radio);
 }
 
-.fila-caja {
-  display: flex;
-  align-items: center;
-  gap: var(--espacio);
-  margin-bottom: var(--espacio);
-}
-
 .caja {
-  flex: 1;
+  width: 100%;
   min-height: 64px;
+  margin-bottom: var(--espacio);
   font-size: var(--texto-base);
 }
 

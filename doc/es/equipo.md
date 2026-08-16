@@ -168,7 +168,7 @@ Algunas actividades tratan temas delicados:
 | **Redes, intimidad y ley** | Manipulación sexual, intimidad digital y consecuencias legales | Siempre con supervisión profesional o familiar |
 | **Mi Cuerpo, Mis Decisiones** | Consentimiento, relaciones, anticoncepción, higiene y salud sexual, presión y chantaje, protección e infecciones | Siempre con supervisión profesional o familiar |
 | **Se lo Cuento al Médico** | Poner en palabras un síntoma del cuerpo para un profesional sanitario | Revisar antes; se complementa bien con **Mi Cuerpo Me Avisa** |
-| **Mi Botiquín** | Cuidado cotidiano en casa; saber cuándo pedir ayuda o llamar al 112 | Revisar antes; el nivel 2 entrena explícitamente pedir ayuda a un adulto de confianza o al 112 |
+| **Mi Botiquín** | Cuidado cotidiano en casa; saber cuándo pedir ayuda o llamar al 112 | Revisar antes; el nivel 2 entrena explícitamente pedir ayuda a una persona de confianza o al 112 |
 | **Círculo de Confianza** | Manipulación presencial en amistades y petición de dinero | Requiere supervisión de la persona de apoyo |
 
 ---
@@ -190,7 +190,7 @@ actividad está en [`actividades.md`](actividades.md).
 | Atención | ✔ | Diferencias, ¿Qué falta? |
 | Memoria visual y a corto plazo | ✔ | Parejas, ¿Qué falta? |
 | Memoria auditiva y verbal | ✔ | Ecos |
-| Vocabulario y categorías | ✔ | Categorías, Palabras, Sopa de Letras |
+| Vocabulario y categorías | ✔ | Categorías, Sopa de Letras |
 | Vocabulario avanzado y aprendizaje significativo | ✔ | Diccionario, Vocabulario por tema |
 | Ortografía | ✔ | Completa la Palabra, Ortografía en Colores |
 | Comprensión del lenguaje | ✔ | La Frase |

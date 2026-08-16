@@ -1,6 +1,6 @@
 # Activity catalog
 
-Apptonomia has **69 activities** organized into **7 modules** according to the type of skill they work on. Modules are ordered from most tied to occupational therapy (autonomy, emotions) to most academic (memory, reasoning, language), then the module specific to motor difficulties, and end with the affective-sexual education module, added last because it always requires professional or family supervision.
+Apptonomia has **68 activities** organized into **7 modules** according to the type of skill they work on. Modules are ordered from most tied to occupational therapy (autonomy, emotions) to most academic (memory, reasoning, language), then the module specific to motor difficulties, and end with the affective-sexual education module, added last because it always requires professional or family supervision.
 
 ---
 
@@ -37,7 +37,7 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 | **The Shop** | Use real money in shopping: pay, receive change, manage expenses |
 | **Healthy Food** | Sort foods into "every day" or "now and then" and discover how they make you feel |
 | **I Tell the Doctor** | Practise putting a body symptom into simple first-person words so a doctor can understand (location, type, since when) |
-| **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted adult or call 112 |
+| **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted person or call 112 |
 
 ---
 
@@ -117,7 +117,6 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 | **Double Meaning** | Detect whether a word in the phrase can mean one thing or two |
 | **Categories** | Classify words into groups (animals, fruits...) |
 | **The Sentence** | Complete sentences by saying who, what or where |
-| **Words** | Learn thematic vocabulary (colors, animals, professions...) |
 | **Topic Vocabulary** | Learn adult vocabulary by blocks (independent living, health, social) and difficulty levels |
 | **Dictionary** | Learn hard words with a simple meaning and an example |
 | **Complete the Word** | Choose the missing letter to spell the word correctly |
@@ -147,7 +146,7 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 
 **Area:** Affective-sexual education · **Module color:** Terracotta
 
-**What it works on?** Body, consent, healthy relationships, contraception, and hygiene and sexual health. Non-graphic content that always points to a trusted adult or a health professional — it never gives clinical instructions. **Always use with professional or family supervision.**
+**What it works on?** Body, consent, healthy relationships, contraception, and hygiene and sexual health. Non-graphic content that always points to a trusted person or a health professional — it never gives clinical instructions. **Always use with professional or family supervision.**
 
 | Activity | Description |
 |----------|-------------|
@@ -167,13 +166,13 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 | 🎯 Coordination and motor skills | 6 | Blue |
 | 💗 Body and relationships | 1 | Terracotta |
 
-**Total: 69 activities**
+**Total: 68 activities**
 
 ---
 
-## Activities by difficulty level
+## Activities ordered by difficulty
 
-### Activities to start with
+From easier to harder:
 
 - Pairs
 - Catch It
@@ -181,18 +180,12 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 - Traces
 - How do I feel?
 - My Routines
-
-### Intermediate activities
-
 - Spot the Difference
 - The House
 - My Schedule
 - Safe Chat
 - Calm
 - My Details
-
-### Advanced activities
-
 - Dominoes
 - Chess
 - The Shop
@@ -207,21 +200,21 @@ Apptonomia has **69 activities** organized into **7 modules** according to the t
 
 ## Board game activities
 
-Apptonomia includes several classic board games adapted:
+Apptonomia includes several classic board games adapted, ordered from easier to harder:
 
-| Game | Description | Difficulty |
-|------|-------------|------------|
-| **Tic-Tac-Toe** | Three in a row against the computer | Easy-Medium |
-| **Dominoes** | Chain dominoes against the computer | Medium |
-| **Visual Sudoku** | 4×4 sudoku with pictures | Medium |
-| **Four in a Row** | Connect 4 against the computer | Medium |
-| **Checkers** | 6×6 checkers against the computer | Medium-Hard |
-| **Chess** | Chess piece puzzles | Hard |
+| Game | Description |
+|------|-------------|
+| **Tic-Tac-Toe** | Three in a row against the computer |
+| **Dominoes** | Chain dominoes against the computer |
+| **Visual Sudoku** | 4×4 sudoku with pictures |
+| **Four in a Row** | Connect 4 against the computer |
+| **Checkers** | 6×6 checkers against the computer |
+| **Chess** | Chess piece puzzles |
 
 ---
 
 ## How to choose the right activity
-While Help Is on Its Way, Before the Emergency, 
+
 ### If you want to be more independent at home
 → **Module 1**: Routines, The House, My Schedule, Emergencies, Important Phone Numbers, My Details, The Shopping, The Shop, Healthy Food, I Tell the Doctor, My First-Aid Kit
 
@@ -235,7 +228,7 @@ While Help Is on Its Way, Before the Emergency,
 → **Module 4**: The Coin Purse, The Clock, Numbers, Quantities, Math Tables, Roman Numerals, The Goose Game
 
 ### If you want to learn more words
-→ **Module 5**: Categories, Words, Topic Vocabulary, Dictionary, Complete the Word, Word Search, Idioms, Double Meaning, Comedy Club
+→ **Module 5**: Categories, Topic Vocabulary, Dictionary, Complete the Word, Word Search, Idioms, Double Meaning, Comedy Club
 
 ### If you want to practice hand movements
 → **Module 6**: Catch It, Connect the Dots, Traces, Coloring, Piano, Builders

@@ -69,17 +69,17 @@ const DATA = {
         estrellas: 3,
         items: [
           { picto: '😠', situacion: "Un compañero te llama 'tonto/a' porque te has equivocado.", opciones: ['Sabes que equivocarte no te hace tonto/a', 'Piensas que tiene razón', 'Le insultas también más fuerte'], correcta: 0 },
-          { picto: '🚫', situacion: 'Un grupo no te deja jugar porque haces las cosas de forma distinta.', opciones: ['Buscas otro grupo o se lo cuentas a un adulto', 'Piensas que no vales para jugar con nadie', 'Te enfadas y empujas a alguien'], correcta: 0 },
+          { picto: '🚫', situacion: 'Un grupo no te deja jugar porque haces las cosas de forma distinta.', opciones: ['Buscas otro grupo o se lo cuentas a una persona de confianza', 'Piensas que no vales para jugar con nadie', 'Te enfadas y empujas a alguien'], correcta: 0 },
           { picto: '😏', situacion: 'Alguien se ríe de ti porque necesitas ayuda para algo.', opciones: ['Sabes que pedir ayuda no es motivo de burla', 'Dejas de pedir ayuda aunque la necesites', 'Te ríes tú también de esa persona'], correcta: 0 },
-          { picto: '🗯️', situacion: "Un compañero repite varias veces que 'no sirves para nada'.", opciones: ['Sabes que eso no es verdad y se lo cuentas a un adulto', 'Empiezas a creer que es verdad', 'Le gritas delante de todos'], correcta: 0 },
-          { picto: '🙅', situacion: 'Te excluyen de un grupo de trabajo porque dicen que eres muy diferente.', opciones: ['Pides ayuda a un adulto de confianza', 'Piensas que es normal que te excluyan', 'Dejas de ir a clase'], correcta: 0 },
+          { picto: '🗯️', situacion: "Un compañero repite varias veces que 'no sirves para nada'.", opciones: ['Sabes que eso no es verdad y se lo cuentas a una persona de confianza', 'Empiezas a creer que es verdad', 'Le gritas delante de todos'], correcta: 0 },
+          { picto: '🙅', situacion: 'Te excluyen de un grupo de trabajo porque dicen que eres muy diferente.', opciones: ['Pides ayuda a una persona de confianza', 'Piensas que es normal que te excluyan', 'Dejas de ir a clase'], correcta: 0 },
           { picto: '🤳', situacion: 'Alguien hace una broma sobre cómo hablas o te mueves.', opciones: ['Sabes que esa broma no dice nada de tu valor', 'Te sientes avergonzado/a para siempre', 'Le devuelves la broma con un insulto'], correcta: 0 },
           { picto: '📣', situacion: "Un compañero dice delante de todos que eres 'diferente' para burlarse.", opciones: ['Sabes que ser diferente no es malo', 'Te escondes en el recreo a partir de ahora', 'Le insultas para defenderte'], correcta: 0 },
-          { picto: '🧍', situacion: 'Nadie te elige para el equipo por ser más lento/a.', opciones: ['Se lo cuentas a un adulto y sigues participando', 'Piensas que nunca vas a valer para nada', 'Dejas de intentarlo en cualquier equipo'], correcta: 0 },
-          { picto: '🚷', situacion: 'Un grupo se aleja de ti cada vez que te acercas, sin explicar por qué.', opciones: ['Se lo cuento a un adulto de confianza y busco otro grupo', 'Pienso que hago algo mal siempre', 'Dejo de acercarme a nadie nunca más'], correcta: 0 },
+          { picto: '🧍', situacion: 'Nadie te elige para el equipo por ser más lento/a.', opciones: ['Se lo cuentas a una persona de confianza y sigues participando', 'Piensas que nunca vas a valer para nada', 'Dejas de intentarlo en cualquier equipo'], correcta: 0 },
+          { picto: '🚷', situacion: 'Un grupo se aleja de ti cada vez que te acercas, sin explicar por qué.', opciones: ['Se lo cuento a una persona de confianza y busco otro grupo', 'Pienso que hago algo mal siempre', 'Dejo de acercarme a nadie nunca más'], correcta: 0 },
           { picto: '📵', situacion: 'Alguien te pone motes feos delante de otras personas.', opciones: ['Sé que un mote feo no dice quién soy', 'Empiezo a creer que es verdad', 'Le pongo un mote feo también'], correcta: 0 },
           { picto: '🖍️', situacion: 'Se ríen de tu forma de dibujar o de hacer algo a tu manera.', opciones: ['Sé que hacerlo a mi manera también vale', 'Dejo de dibujar para siempre', 'Rompo el dibujo de quien se ríe'], correcta: 0 },
-          { picto: '🎒', situacion: 'Un compañero esconde tus cosas para reírse de ti.', opciones: ['Se lo cuento a un adulto de confianza', 'Pienso que me lo merezco', 'Escondo también las cosas de otros'], correcta: 0 }
+          { picto: '🎒', situacion: 'Un compañero esconde tus cosas para reírse de ti.', opciones: ['Se lo cuento a una persona de confianza', 'Pienso que me lo merezco', 'Escondo también las cosas de otros'], correcta: 0 }
         ]
       },
       {
@@ -154,17 +154,17 @@ const DATA = {
         estrellas: 3,
         items: [
           { picto: '😠', situacion: "A classmate calls you 'stupid' because you made a mistake.", opciones: ['You know a mistake does not make you stupid', 'You think they are right', 'You insult them back even harder'], correcta: 0 },
-          { picto: '🚫', situacion: 'A group will not let you play because you do things differently.', opciones: ['You find another group or tell a trusted adult', 'You think you are not fit to play with anyone', 'You get angry and push someone'], correcta: 0 },
+          { picto: '🚫', situacion: 'A group will not let you play because you do things differently.', opciones: ['You find another group or tell a trusted person', 'You think you are not fit to play with anyone', 'You get angry and push someone'], correcta: 0 },
           { picto: '😏', situacion: 'Someone laughs at you because you need help with something.', opciones: ['You know asking for help is not something to mock', 'You stop asking for help even when you need it', 'You laugh at that person too'], correcta: 0 },
-          { picto: '🗯️', situacion: "A classmate keeps saying you are 'no good at anything'.", opciones: ['You know that is not true and tell a trusted adult', 'You start believing it is true', 'You shout at them in front of everyone'], correcta: 0 },
-          { picto: '🙅', situacion: 'You are left out of a group project because they say you are too different.', opciones: ['You ask a trusted adult for help', 'You think it is normal to be left out', 'You stop going to class'], correcta: 0 },
+          { picto: '🗯️', situacion: "A classmate keeps saying you are 'no good at anything'.", opciones: ['You know that is not true and tell a trusted person', 'You start believing it is true', 'You shout at them in front of everyone'], correcta: 0 },
+          { picto: '🙅', situacion: 'You are left out of a group project because they say you are too different.', opciones: ['You ask a trusted person for help', 'You think it is normal to be left out', 'You stop going to class'], correcta: 0 },
           { picto: '🤳', situacion: 'Someone jokes about how you talk or move.', opciones: ['You know that joke says nothing about your worth', 'You feel ashamed forever', 'You mock them back with an insult'], correcta: 0 },
           { picto: '📣', situacion: "A classmate calls you 'different' in front of everyone to mock you.", opciones: ['You know being different is not a bad thing', 'You start hiding at break time from now on', 'You insult them to defend yourself'], correcta: 0 },
-          { picto: '🧍', situacion: 'Nobody picks you for the team because you are slower.', opciones: ['You tell a trusted adult and keep taking part', 'You think you will never be good enough', 'You stop trying in any team'], correcta: 0 },
-          { picto: '🚷', situacion: 'A group moves away every time you come closer, without explaining why.', opciones: ['I tell a trusted adult and look for another group', 'I think I always do something wrong', 'I stop approaching anyone ever again'], correcta: 0 },
+          { picto: '🧍', situacion: 'Nobody picks you for the team because you are slower.', opciones: ['You tell a trusted person and keep taking part', 'You think you will never be good enough', 'You stop trying in any team'], correcta: 0 },
+          { picto: '🚷', situacion: 'A group moves away every time you come closer, without explaining why.', opciones: ['I tell a trusted person and look for another group', 'I think I always do something wrong', 'I stop approaching anyone ever again'], correcta: 0 },
           { picto: '📵', situacion: 'Someone calls you ugly nicknames in front of others.', opciones: ['I know an ugly nickname does not say who I am', 'I start believing it is true', 'I call them an ugly nickname too'], correcta: 0 },
           { picto: '🖍️', situacion: 'People laugh at your way of drawing or doing something your own way.', opciones: ['I know doing it my own way is fine too', 'I stop drawing forever', 'I tear up the drawing of whoever laughs'], correcta: 0 },
-          { picto: '🎒', situacion: 'A classmate hides your things to laugh at you.', opciones: ['I tell a trusted adult', 'I think I deserve it', "I hide other people's things too"], correcta: 0 }
+          { picto: '🎒', situacion: 'A classmate hides your things to laugh at you.', opciones: ['I tell a trusted person', 'I think I deserve it', "I hide other people's things too"], correcta: 0 }
         ]
       },
       {

@@ -20,7 +20,7 @@
     "explicacionCorrecta": "✅ Correct!",
     "explicacionIncorrectaA": "❌ That is not the safest choice. The safest is: ",
     "pista": "🤔 Try again. Think about the situation: ",
-    "transferencia": "What you learned today is also useful every day: speaking up before acting, not moving an injured person, asking a trusted adult for help, and staying calm are things you use at home, at school, and on the street.",
+    "transferencia": "What you learned today is also useful every day: speaking up before acting, not moving an injured person, asking a trusted person for help, and staying calm are things you use at home, at school, and on the street.",
     "instruccionOrdenar": "Tap the steps in the right order to act while you wait for help.",
     "etiquetaOrden": "Your steps",
     "etiquetaPasos": "Steps",

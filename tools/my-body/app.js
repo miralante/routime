@@ -4,7 +4,7 @@
    Mecánica: leer una señal del cuerpo (hambre, sed, sueño, dolor,
    nervios…) y elegir qué hacer, entre 3 opciones. La opción correcta
    siempre cuida de la señal (comer, beber, descansar, respirar,
-   contarlo a un adulto), nunca ignorarla. Ronda de 8. El error
+   contarlo a una persona de confianza), nunca ignorarla. Ronda de 8. El error
    nunca se castiga.
    ============================================================ */
 (function () {

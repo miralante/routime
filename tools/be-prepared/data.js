@@ -30,7 +30,7 @@ var DATA = {
       { picto: '🧯', pregunta: '¿Dónde tiene que estar el detector de humo?', opciones: ['En el techo de la cocina y del pasillo, con pilas que funcionen', 'En el suelo del salón', 'No hace falta tener detector'], correcta: 0 },
       { picto: '💊', pregunta: '¿Dónde deben estar las pastillas y los productos de limpieza?', opciones: ['En un armario alto o con cierre, fuera del alcance de niños pequeños', 'En una mesa baja para tenerlas a mano', 'En el suelo del baño'], correcta: 0 },
       { picto: '⚡', pregunta: '¿Sabes dónde está la llave de la luz de casa?', opciones: ['Sí, y sé dónde se apaga todo el interruptor general', 'No, pero la busca mi madre cuando hace falta', 'No hace falta saberlo'], correcta: 0 },
-      { picto: '🔥', pregunta: '¿Sabes dónde se cierra la llave del gas?', opciones: ['Sí, y la he practicado con un adulto', 'No, no sé dónde está', 'No hace falta, el gas se cierra solo'], correcta: 0 },
+      { picto: '🔥', pregunta: '¿Sabes dónde se cierra la llave del gas?', opciones: ['Sí, y la he practicado con una persona de confianza', 'No, no sé dónde está', 'No hace falta, el gas se cierra solo'], correcta: 0 },
       { picto: '🌩️', pregunta: 'Si hay una tormenta muy fuerte, ¿qué haces con los aparatos enchufados?', opciones: ['Desenchufar lo importante y no tocar cables', 'Seguir usándolos normalmente', 'Abrir ventanas para que entre aire'], correcta: 0 }
     ],
     checklist: [
@@ -40,7 +40,7 @@ var DATA = {
       { id: 'det', picto: '🧯', nombre: 'Hay detector de humo con pilas que funcionan en la cocina o el pasillo', hecho: false },
       { id: 'pas', picto: '💊', nombre: 'Las pastillas y productos de limpieza están fuera del alcance de niños pequeños', hecho: false },
       { id: 'luz', picto: '⚡', nombre: 'Sé dónde está el interruptor general de la luz', hecho: false },
-      { id: 'gas', picto: '🔥', nombre: 'Sé dónde se cierra la llave del gas (y lo he practicado con un adulto)', hecho: false },
+      { id: 'gas', picto: '🔥', nombre: 'Sé dónde se cierra la llave del gas (y lo he practicado con una persona de confianza)', hecho: false },
       { id: 'punto', picto: '🤝', nombre: 'Tengo con mi familia un punto de encuentro fuera de casa por si tenemos que salir', hecho: false }
     ]
   },
@@ -53,7 +53,7 @@ var DATA = {
       { picto: '🧯', pregunta: 'Where should a smoke detector be placed?', opciones: ['On the kitchen ceiling and the hallway, with working batteries', 'On the living-room floor', 'You do not need a smoke detector'], correcta: 0 },
       { picto: '💊', pregunta: 'Where should pills and cleaning products be kept?', opciones: ['In a high or locked cupboard, out of reach of small children', 'On a low table so they are at hand', 'On the bathroom floor'], correcta: 0 },
       { picto: '⚡', pregunta: 'Do you know where the house lights switch is?', opciones: ['Yes, and I also know where the main breaker is', 'No, but my mother looks for it when needed', 'You do not need to know'], correcta: 0 },
-      { picto: '🔥', pregunta: 'Do you know where the gas shut-off valve is?', opciones: ['Yes, and I have practiced it with an adult', 'No, I do not know where it is', 'You do not need to, the gas turns itself off'], correcta: 0 },
+      { picto: '🔥', pregunta: 'Do you know where the gas shut-off valve is?', opciones: ['Yes, and I have practiced it with a trusted person', 'No, I do not know where it is', 'You do not need to, the gas turns itself off'], correcta: 0 },
       { picto: '🌩️', pregunta: 'If there is a very strong storm, what do you do with plugged-in devices?', opciones: ['Unplug the important ones and do not touch cables', 'Keep using them as usual', 'Open the windows to let air in'], correcta: 0 }
     ],
     checklist: [
@@ -63,7 +63,7 @@ var DATA = {
       { id: 'det', picto: '🧯', nombre: 'There is a smoke detector with working batteries in the kitchen or hallway', hecho: false },
       { id: 'pas', picto: '💊', nombre: 'Pills and cleaning products are out of reach of small children', hecho: false },
       { id: 'luz', picto: '⚡', nombre: 'I know where the main electricity switch is', hecho: false },
-      { id: 'gas', picto: '🔥', nombre: 'I know where the gas shut-off valve is (and have practiced with an adult)', hecho: false },
+      { id: 'gas', picto: '🔥', nombre: 'I know where the gas shut-off valve is (and have practiced with a trusted person)', hecho: false },
       { id: 'punto', picto: '🤝', nombre: 'My family and I have a meeting point outside the house in case we have to leave', hecho: false }
     ]
   }

@@ -10,7 +10,6 @@
     "title": "🌗 Partes del Día",
     "instruccion": "Mira la tarea. Toca la caja del momento del día correcto.",
     "elegirNivel": "Elige el nivel",
-    "escucharMomento": "Escuchar: {momento}",
     "veces": "({n} veces)",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
     "elegirOtroNivel": "Elegir otro nivel",
