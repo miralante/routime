@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Ortografía en Colores (ES)
+   Routime — Textos de Ortografía en Colores (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

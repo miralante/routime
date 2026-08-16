@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Mis Datos (memoria: dirección y teléfono propios
+   Routime — Mis Datos (memoria: dirección y teléfono propios
    y de la familia, para saber decirlos si hace falta).
    Los datos reales (dirección, teléfonos) los escribe quien
    gestiona el dispositivo en /settings/ y viven solo en

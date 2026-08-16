@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Protección de datos (ES)
+   Routime — Textos de Protección de datos (ES)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */
@@ -9,7 +9,7 @@
   App.i18n.register({
     "pageTitle": 'Protección de datos',
     "tagline": 'Sin registro. Sin cookies. Sin analítica.',
-    "lead": 'Apptonomia no pide tus datos personales. Todo lo que guarda vive únicamente en este dispositivo. Aquí explicamos, en detalle, qué guardamos y por qué.',
+    "lead": 'Routime no pide tus datos personales. Todo lo que guarda vive únicamente en este dispositivo. Aquí explicamos, en detalle, qué guardamos y por qué.',
 
     "navResponsible": 'Quién trata tus datos',
     "navData": 'Qué guardamos',
@@ -18,14 +18,14 @@
     "navContact": 'Cambios y contacto',
 
     "responsibleTitle": 'Quién trata tus datos',
-    "responsibleP1a": 'Apptonomia es una iniciativa de ',
+    "responsibleP1a": 'Routime es una iniciativa de ',
     "responsibleP1b": ', un estudio independiente que desarrolla y mantiene la aplicación. No hay ningún servidor propio que reciba o almacene tus datos: la aplicación es un conjunto de páginas estáticas que se ejecutan en tu navegador.',
     "responsibleP2a": 'El código fuente completo es público y auditable en el ',
     "responsibleP2Link": 'repositorio de GitHub',
     "responsibleP2b": '. Cualquier pregunta sobre esta página puede plantearse abriendo un issue allí.',
 
     "dataTitle": 'Qué guardamos y por qué',
-    "dataP1": 'Apptonomia funciona sin cuentas, sin cookies y sin analítica: no sabemos quién eres ni cómo usas la aplicación.',
+    "dataP1": 'Routime funciona sin cuentas, sin cookies y sin analítica: no sabemos quién eres ni cómo usas la aplicación.',
     "dataP2": 'Lo único que se guarda vive en el localStorage de tu navegador, en tu propio dispositivo, y nunca se envía a ningún servidor:',
     "dataItem1Label": 'Progreso del juego',
     "dataItem1Text": 'las estrellas ganadas y los niveles completados de cada actividad.',
@@ -47,7 +47,7 @@
     "rightsLinkSettings": 'Ir a Ajustes',
 
     "minorsTitle": 'Menores de edad y personas con discapacidad',
-    "minorsP1": 'Apptonomia está pensada para que la use de forma autónoma cualquier persona, incluidas personas menores de edad y personas con discapacidad intelectual.',
+    "minorsP1": 'Routime está pensada para que la use de forma autónoma cualquier persona, incluidas personas menores de edad y personas con discapacidad intelectual.',
     "minorsP2": 'Como la aplicación no recoge datos personales en ningún servidor, no es necesario el consentimiento de un tutor para tratar datos: no hay ningún tratamiento que autorizar. Sí recomendamos la supervisión habitual que una familia o un profesional haga sobre el uso de cualquier dispositivo.',
 
     "contactTitle": 'Cambios y contacto',

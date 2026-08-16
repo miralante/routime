@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — La Casa (autonomía: ordenar tareas del hogar).
+   Routime — La Casa (autonomía: ordenar tareas del hogar).
    Datos en data.js (DATA.tareas). Módulos compartidos en assets/js/.
    Sin niveles: la persona entra y ordena las tareas del hogar
    directamente. Cada partida muestra 'porRonda' tareas elegidas

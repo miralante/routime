@@ -1,6 +1,6 @@
 # Technical information
 
-> Documentation for developers who want to understand, maintain or extend Apptonomia.
+> Documentation for developers who want to understand, maintain or extend Routime.
 >
 > Repository documentation map:
 
@@ -51,8 +51,8 @@ Spanish, in Easy Reading format.
 ### 1.1 Hosting and deployment
 
 The app is served as a static site on **Cloudflare Pages** via the
-Git connector (`miralante/apptonomia` → `apptonomia` → branch
-`master`). Canonical URL: **https://apptonomia.pages.dev**. Operational
+Git connector (`miralante/Routime` → `Routime` → branch
+`master`). Canonical URL: **https://Routime.pages.dev**. Operational
 details — dashboard configuration, why there is no `wrangler.toml` or
 `_redirects`, naming requirements, rollback, custom domain setup, and
 the SW note — live in [`CLOUDFLARE.md`](../../CLOUDFLARE.md). Five
@@ -73,7 +73,7 @@ things suffice here:
 - **`manifest.json` and `sw.js` must use relative paths** (start `./`)
   so the app works on any host without changes.
 - **One-time setup lives in the dashboard**, not in the repo: project
-  name `apptonomia`, framework preset `None`, build output `.`,
+  name `Routime`, framework preset `None`, build output `.`,
   production branch `master`.
 
 The service worker **never caches or serves redirects.** The `fetch`
@@ -132,7 +132,7 @@ Practical rules that follow from that:
 The project has **three levels of modularity**:
 
 ```
-apptonomia/
+Routime/
 ├── index.html             # Level 0: redirect to site/index.html
 ├── site/index.html        # Level 0: landing = activity menu (7 modules)
 ├── assets/                # Level 1: SHARED CORE
@@ -233,7 +233,7 @@ Each activity is **autonomous and isolated**:
 
 ### 3.3 `window.App.i18n` (`i18n.js`)
 
-ES/EN system. Active language: `localStorage['apptonomia:locale']`, or detected
+ES/EN system. Active language: `localStorage['routime:locale']`, or detected
 from `navigator.language` if nothing is saved. Changing language reloads the page.
 **Complete architecture reference and recipe for adding a new language: `doc/en/I18N.md`.**
 
@@ -259,16 +259,29 @@ and rules for numbers and dates are documented in [`doc/en/I18N.md`](I18N.md).
 
 ### 3.4 `window.App.storage` (`storage.js`)
 
-Internal key: `apptonomia:<toolId>`. All functions are failure-tolerant
+Internal key: `routime:<toolId>`. All functions are failure-tolerant
 (private mode, full storage): they never throw.
+
+**Legacy-key auto-migration.** Until the rename to `Routime`, the prefix
+was `apptonomia:` and existing users accumulated progress under that
+prefix. The first time the new code reads a key, a one-shot migration
+copies `apptonomia:<id>` → `routime:<id>` (only if the new key is
+absent) and removes the legacy one, so existing users keep their
+progress without any manual step. The migration is tracked per-id in
+an in-memory flag to avoid re-scanning on every call; it is also
+fault-tolerant (private mode, quota errors): any failure leaves the
+legacy key readable and returns an empty progress object. `remove()`
+cleans both prefixes. `listaToolIds()` sweeps both prefixes so
+`settings/` reports legacy keys as "saved" until the next `get()` on
+each one migrates it.
 
 | Function | Signature | Description |
 |---|---|---|
-| `get` | `(toolId) → object` | Saved progress, or `{}` if nothing or error |
+| `get` | `(toolId) → object` | Saved progress, or `{}` if nothing or error. Migrates `apptonomia:<toolId>` → `routime:<toolId>` on first read |
 | `set` | `(toolId, data) → boolean` | Saves JSON. `false` if failed |
-| `remove` | `(toolId) → boolean` | Deletes the tool's progress |
-| `estrellasTotales` | `() → number` | Sums `datos.estrellas` of all `apptonomia:*` keys (used by landing) |
-| `listaToolIds` | `() → string[]` | Ids of tools with something saved, without `'locale'` (used by `settings/`) |
+| `remove` | `(toolId) → boolean` | Deletes the tool's progress under both prefixes |
+| `estrellasTotales` | `() → number` | Sums `datos.estrellas` of all `routime:*` keys (used by landing) |
+| `listaToolIds` | `() → string[]` | Ids of tools with something saved under either prefix (without `'locale'`/`'prefs'`); used by `settings/` |
 
 **Progress contract**: the saved object should include `estrellas` (number) if the
 activity gives stars — that's what the landing sums. The rest of the object is free
@@ -338,7 +351,7 @@ Each activity in `tools/<slug>/` follows this pattern:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apptonomia</title>
+    <title>Routime</title>
     <link rel="stylesheet" href="../../assets/css/tokens.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/components.css">
@@ -644,7 +657,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
   manipulative reciprocity / dark patterns (forced signups, pre-checked
   boxes, hidden costs, fake alerts), or exploitative loss aversion
   ("you had 5 ⭐, you lost 2"). Pressure is not a persuasion technique in
-  Apptonomia.
+  Routime.
 ---
 
 ## 8. Hidden routes
@@ -674,14 +687,14 @@ deletes):
   empty the `nombre` field of tools that ask for it (currently
   `piano-keys` — keep this list in
   `settings/app.js` if a new tool requires a name).
-- **Reset entire application**: deletes all `apptonomia:*` keys
+- **Reset entire application**: deletes all `routime:*` keys
   (`App.storage.listaToolIds()` + `remove('locale')`). Equivalent to a first use.
 
 ### 8.3 `/about/`
 
 Public-facing presentation of the project, aimed at journalists, funders, new
 contributors and anyone arriving from the repository or the site who wants to
-understand what Apptonomia is without opening the source code.
+understand what Routime is without opening the source code.
 
 Seven sections: the project's origin, the six non-negotiable principles
 (autonomy, no pressure, privacy, Easy Reading, accessibility, sober
@@ -705,7 +718,7 @@ any project in the group changes.
 
 ### 8.4 `/legal/`
 
-Data protection page: what Apptonomia stores (`localStorage` only — see
+Data protection page: what Routime stores (`localStorage` only — see
 §3.4/SPEC.md), where, why, how to see or delete it (link to `/settings/`),
 and how to raise a question (the public GitHub repository). It is the one
 exception to the "hidden route" rules above: it **is** linked from every
@@ -774,7 +787,7 @@ Only if the area does not fit the 7 existing modules (check coverage in
 
 - `sw.js` is **cache-first** for the app shell. Contract when touching files:
   1. New file → add it to the `ARCHIVOS` list.
-  2. Any change to cached files → **bump `VERSION`** (`apptonomia-vNN`),
+  2. Any change to cached files → **bump `VERSION`** (`Routime-vNN`),
      otherwise users with the installed PWA won't receive the change.
 - **Bump `VERSION` on every committed change to a cached file.** This
   is not just "add a new activity" — it applies to every CSS tweak,
@@ -881,16 +894,16 @@ zero-dependency `scripts/check.js`, `scripts/i18n-keys-smoke.js` and
 
 ### 12.5 Deployment
 
-The site is deployed on **Cloudflare Pages** (project `apptonomia`). The
+The site is deployed on **Cloudflare Pages** (project `Routime`). The
 repository root is the build output — there is no bundler or build step.
 Cloudflare picks up `_headers` automatically. See `CLOUDFLARE.md` at
 the repository root for the full setup.
 
 There is no custom GitHub Actions workflow and no CLI deploy script: pushes
 to `master` trigger the build through the Cloudflare Git connector, and pull
-requests get an automatic preview channel (`https://<hash>.apptonomia.pages.dev`).
+requests get an automatic preview channel (`https://<hash>.Routime.pages.dev`).
 A redeploy is just a push, and a rollback is done from the Cloudflare
-dashboard (Workers & Pages → `apptonomia` → Deployments).
+dashboard (Workers & Pages → `Routime` → Deployments).
 
 The only "deploy" command relevant to maintenance is opening a PR — the
 preview channel replaces local browser checks for **remote-control** sessions,

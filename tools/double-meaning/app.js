@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Doble Sentido (lenguaje: detectar si una palabra
+   Routime — Doble Sentido (lenguaje: detectar si una palabra
    de la frase puede significar una cosa o dos)
    Datos en data.js (DATA.es/DATA.en, grupos de 8 frases cada uno,
    mezclando a propósito frases con doble sentido y frases con un

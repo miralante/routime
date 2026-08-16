@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Apptonomia — Text to speech (Web Speech API)
+   Routime — Text to speech (Web Speech API)
    Exposes window.App.tts.speak(texto, onEnd) and App.tts.stop()
    Voice and language follow App.i18n.lang() (CLAUDE.md rule 4: rate 0.9).
    Requires i18n.js loaded first.

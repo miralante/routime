@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Teléfonos Importantes (memoria: recordar que el
+   Routime — Teléfonos Importantes (memoria: recordar que el
    112 sirve para policía, bomberos y emergencia médica)
    Datos en data.js (DATA.cards, DATA.number, DATA.quiz). Flujo
    lineal en 3 pasos, tal y como se pidió la actividad:

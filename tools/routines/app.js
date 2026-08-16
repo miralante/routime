@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Mis Rutinas (secuenciación y autonomía)
+   Routime — Mis Rutinas (secuenciación y autonomía)
    Rutinas diarias paso a paso. Cada paso se marca como "Hecho".
    El estado se reinicia automáticamente cada día.
    ============================================================ */

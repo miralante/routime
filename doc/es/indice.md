@@ -1,10 +1,10 @@
-# Documentación de Apptonomia
+# Documentación de Routime
 
 > Mapa de navegación de la documentación. Para saber por dónde empezar según
 > tu perfil, y para los roles del proyecto, ver [`roles.md`](roles.md); para
 > cómo contribuir, ver [`CONTRIBUTING.es.md`](../../CONTRIBUTING.es.md) de la raíz.
 >
-> **Aplicación**: [apptonomia.web.app](https://apptonomia.web.app) · **Repositorio**: [github.com/thenkdframe/apptonomia](https://github.com/thenkdframe/apptonomia) · **Otro idioma**: [English](../en/index.md)
+> **Aplicación**: [Routime.web.app](https://Routime.web.app) · **Repositorio**: [github.com/thenkdframe/Routime](https://github.com/thenkdframe/Routime) · **Otro idioma**: [English](../en/index.md)
 
 ---
 
@@ -48,7 +48,7 @@ están en el [`README.md`](../../README.md) y
 
 | Si quieres… | Empieza por |
 |---|---|
-| Entender qué es Apptonomia y para quién | [`SPEC.md`](SPEC.md) |
+| Entender qué es Routime y para quién | [`SPEC.md`](SPEC.md) |
 | **Abrir la app y usarla (4 métodos: internet, ZIP, Python, Node)** | [`guia-rapida.md`](guia-rapida.md) |
 | Ver la arquitectura y recetas técnicas | [`tecnico.md`](tecnico.md) |
 | **Crear una actividad nueva (diseño + técnicas didácticas, gamificación, neuromarketing)** | [`guia-crear-actividades.md`](guia-crear-actividades.md) |

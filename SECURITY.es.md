@@ -1,6 +1,6 @@
 # Política de seguridad
 
-Apptonomia es una aplicación web completamente del lado del cliente: no
+Routime es una aplicación web completamente del lado del cliente: no
 tiene servidor propio, ni backend, ni base de datos, ni telemetría. La
 superficie de ataque es esencialmente la del navegador sobre el mismo
 origen.
@@ -13,7 +13,7 @@ versiones antiguas.
 ## Cómo reportar una vulnerabilidad
 
 Abre un aviso privado a través de
-[GitHub Security Advisories](https://github.com/miralante/apptonomia/security/advisories/new).
+[GitHub Security Advisories](https://github.com/miralante/Routime/security/advisories/new).
 
 Por favor, incluye:
 

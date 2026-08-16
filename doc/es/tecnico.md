@@ -1,6 +1,6 @@
 # Información técnica
 
-> Documentación para desarrolladores que quieran entender, mantener o ampliar Apptonomia.
+> Documentación para desarrolladores que quieran entender, mantener o ampliar Routime.
 >
 > Mapa de la documentación del repo:
 
@@ -50,8 +50,8 @@ Aplicación web de terapia ocupacional para personas con discapacidad intelectua
 ### 1.1 Hosting y despliegue
 
 La app se sirve como sitio estático en **Cloudflare Pages** mediante
-el conector de Git (`miralante/apptonomia` → `apptonomia` → rama
-`master`). URL canónica: **https://apptonomia.pages.dev**. El detalle
+el conector de Git (`miralante/Routime` → `Routime` → rama
+`master`). URL canónica: **https://Routime.pages.dev**. El detalle
 operativo — configuración del dashboard, por qué no hay `wrangler.toml`
 ni `_redirects`, requisitos de nombres, rollback, dominio
 personalizado y la nota sobre el SW — vive en
@@ -74,7 +74,7 @@ cosas:
 - **`manifest.json` y `sw.js` deben usar rutas relativas** (empezar
   por `./`) para que la app funcione en cualquier host sin tocarlos.
 - **La configuración puntual vive en el panel** de Cloudflare, no en
-  el repo: nombre de proyecto `apptonomia`, framework preset `None`,
+  el repo: nombre de proyecto `Routime`, framework preset `None`,
   directorio de salida `.`, rama de producción `master`.
 
 El service worker **nunca cachea ni sirve redirecciones.** El handler
@@ -139,7 +139,7 @@ Reglas prácticas que se derivan de esto:
 El proyecto tiene **tres niveles de modularidad**:
 
 ```
-apptonomia/
+Routime/
 ├── index.html             # Nivel 0: redirección a site/index.html
 ├── site/index.html        # Nivel 0: landing = menú de actividades (7 módulos)
 ├── assets/                # Nivel 1: NÚCLEO COMPARTIDO
@@ -166,7 +166,7 @@ apptonomia/
 ├── manifest.json          # PWA
 ├── sw.js                  # Service worker: lista de caché + VERSION (§7)
 ├── firebase.json          # Hosting (despliegue)
-└── .firebaserc            # Proyecto Firebase: apptonomia
+└── .firebaserc            # Proyecto Firebase: Routime
 ```
 
 ### 2.1 Nivel 1 — Núcleo compartido (`assets/`)
@@ -241,7 +241,7 @@ Cada actividad es **autónoma y aislada**:
 
 ### 3.3 `window.App.i18n` (`i18n.js`)
 
-Sistema ES/EN. Idioma activo: `localStorage['apptonomia:locale']`, o se detecta de
+Sistema ES/EN. Idioma activo: `localStorage['routime:locale']`, o se detecta de
 `navigator.language` si no hay nada guardado. Cambiar de idioma recarga la página.
 **Referencia completa de la arquitectura y receta para añadir un idioma nuevo: `I18N.md`.**
 
@@ -268,16 +268,27 @@ están desarrollados en [`I18N.md`](I18N.md).
 
 ### 3.4 `window.App.storage` (`storage.js`)
 
-Clave interna: `apptonomia:<toolId>`. Todas las funciones son tolerantes a fallos
+Clave interna: `routime:<toolId>`. Todas las funciones son tolerantes a fallos
 (modo privado, storage lleno): nunca lanzan.
+
+**Migración automática de claves heredadas.** Hasta el renombrado a `Routime`, el prefijo
+era `apptonomia:` y las personas usuarias existentes acumularon progreso bajo ese prefijo.
+La primera vez que el código nuevo lee una clave, una migración de un solo paso copia
+`apptonomia:<id>` → `routime:<id>` (solo si la clave nueva está ausente) y borra la
+heredada, así las personas usuarias existentes conservan su progreso sin hacer nada
+manual. La migración se registra por id en una bandera en memoria para no re-escanear en
+cada llamada; también es tolerante a fallos (modo privado, errores de cuota): cualquier
+fallo deja la clave heredada legible y devuelve un progreso vacío. `remove()` limpia
+ambos prefijos. `listaToolIds()` recorre ambos prefijos para que `settings/` muestre las
+claves heredadas como "guardadas" hasta que el siguiente `get()` de cada una la migre.
 
 | Función | Firma | Descripción |
 |---|---|---|
-| `get` | `(toolId) → object` | Progreso guardado, o `{}` si no hay nada o hay error |
+| `get` | `(toolId) → object` | Progreso guardado, o `{}` si no hay nada o hay error. Migra `apptonomia:<toolId>` → `routime:<toolId>` en la primera lectura |
 | `set` | `(toolId, data) → boolean` | Guarda JSON. `false` si falló |
-| `remove` | `(toolId) → boolean` | Borra el progreso de la herramienta |
-| `estrellasTotales` | `() → number` | Suma `datos.estrellas` de todas las claves `apptonomia:*` (la usa la landing) |
-| `listaToolIds` | `() → string[]` | Ids de las herramientas con algo guardado, sin `'locale'` (la usa `settings/`) |
+| `remove` | `(toolId) → boolean` | Borra el progreso de la herramienta bajo ambos prefijos |
+| `estrellasTotales` | `() → number` | Suma `datos.estrellas` de todas las claves `routime:*` (la usa la landing) |
+| `listaToolIds` | `() → string[]` | Ids de las herramientas con algo guardado bajo cualquier prefijo (sin `'locale'`/`'prefs'`); la usa `settings/` |
 
 **Contrato de progreso**: el objeto guardado debe incluir `estrellas` (number) si la
 actividad da estrellas — es lo que suma la landing. El resto del objeto es libre por
@@ -348,7 +359,7 @@ Cada actividad en `tools/<slug>/` sigue este patrón:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apptonomia</title>
+    <title>Routime</title>
     <link rel="stylesheet" href="../../assets/css/tokens.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/components.css">
@@ -665,7 +676,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
   manipuladora / dark patterns (registros forzados, casillas
   premarcadas, costes ocultos, alertas falsas), ni aversión explotadora
   a la pérdida ("tenías 5 ⭐, has perdido 2"). La presión no es una
-  técnica de persuasión en Apptonomia.
+  técnica de persuasión en Routime.
 ---
 
 ## 8. Rutas ocultas
@@ -695,14 +706,14 @@ borra):
   vaciar el campo `nombre` de las herramientas que lo piden (hoy
   `piano-keys` — mantener esta lista en
   `settings/app.js` si una herramienta nueva pide un nombre).
-- **Restablecer toda la aplicación**: borra todas las claves `apptonomia:*`
+- **Restablecer toda la aplicación**: borra todas las claves `routime:*`
   (`App.storage.listaToolIds()` + `remove('locale')`). Equivale a un primer uso.
 
 ### 8.3 `/about/`
 
 Página pública de presentación del proyecto, pensada para periodistas,
 financiadores, nuevos colaboradores y cualquier persona que llega al sitio o al
-repositorio y quiere entender qué es Apptonomia sin abrir el código.
+repositorio y quiere entender qué es Routime sin abrir el código.
 
 Tiene siete secciones: el origen del proyecto, los seis principios que no se
 negocian (autonomía, sin presión, privacidad, Lectura Fácil, accesibilidad,
@@ -725,7 +736,7 @@ usuaria: esa página no es para ella.
 
 ### 8.4 `/legal/`
 
-Página de protección de datos: qué guarda Apptonomia (solo `localStorage`
+Página de protección de datos: qué guarda Routime (solo `localStorage`
 — ver §3.4/SPEC.md), dónde, para qué, cómo verlo o borrarlo (enlaza a
 `/settings/`) y cómo plantear una pregunta (el repositorio público de
 GitHub). Es la única excepción a las reglas de "ruta oculta" de arriba:
@@ -797,7 +808,7 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
 
 - `sw.js` es **cache-first** del app shell. Contrato al tocar archivos:
   1. Archivo nuevo → añadirlo a la lista `ARCHIVOS`.
-  2. Cualquier cambio en archivos cacheados → **subir `VERSION`** (`apptonomia-vNN`),
+  2. Cualquier cambio en archivos cacheados → **subir `VERSION`** (`Routime-vNN`),
      de lo contrario quienes tengan la PWA instalada no recibirán el cambio.
 - **Sube `VERSION` en cada commit que toque un archivo cacheado.** No
   es solo "añadir una actividad": aplica a cualquier retoo de CSS,
@@ -908,7 +919,7 @@ ejecuta los scripts sin dependencias `scripts/check.js`,
 
 ### 12.5 Despliegue
 
-El sitio se publica en **Cloudflare Pages** (proyecto `apptonomia`). La raíz
+El sitio se publica en **Cloudflare Pages** (proyecto `Routime`). La raíz
 del repositorio es el build output: no hay bundler ni paso de build.
 Cloudflare recoge `_headers` automáticamente. Consulta `CLOUDFLARE.md`
 en la raíz del repo para la configuración completa.
@@ -916,9 +927,9 @@ en la raíz del repo para la configuración completa.
 No hay workflow personalizado de GitHub Actions ni script CLI de despliegue:
 los pushes a `master` disparan el build a través del conector Git de
 Cloudflare, y los pull requests reciben un canal de preview automático
-(`https://<hash>.apptonomia.pages.dev`). Redesplegar es hacer push, y
+(`https://<hash>.Routime.pages.dev`). Redesplegar es hacer push, y
 cualquier rollback se hace desde el dashboard de Cloudflare
-(Workers & Pages → `apptonomia` → Deployments).
+(Workers & Pages → `Routime` → Deployments).
 
 El único "comando de despliegue" relevante para mantenimiento es abrir un PR
 — el canal de preview sustituye a las pruebas locales con navegador en

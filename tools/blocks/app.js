@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Blocks (visual-spatial construction)
+   Routime — Blocks (visual-spatial construction)
    Data in data.js (DATA.niveles with 16-cell models).
    Mechanic: a 4×4 model with colored blocks is shown; next to it,
    an empty grid and a palette of 3 colors. Pick a color and tap

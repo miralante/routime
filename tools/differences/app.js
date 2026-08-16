@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Diferencias (memoria y atención / percepción)
+   Routime — Diferencias (memoria y atención / percepción)
    Datos en data.js (DATA.escenas). Módulos compartidos en assets/js/.
    Mecánica: dos rejillas iguales salvo unas pocas celdas.
    Tocar en la rejilla derecha lo que es distinto. Sin límite de

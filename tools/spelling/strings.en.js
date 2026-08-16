@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Complete the Word strings (EN)
+   Routime — Complete the Word strings (EN)
    Single-language file. Same keys as strings.es.js.
    Loaded conditionally from index.html based on App.i18n.locale().
    ============================================================ */

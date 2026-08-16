@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Dónde lo guardo? (autonomía: organización del hogar)
+   Routime — ¿Dónde lo guardo? (autonomía: organización del hogar)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: aparece un objeto con picto y hay que tocar la caja
    del sitio de la casa donde se guarda. Ronda de 10 objetos por nivel.

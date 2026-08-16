@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Vocabulario por tema (ES)
+   Routime — Textos de Vocabulario por tema (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

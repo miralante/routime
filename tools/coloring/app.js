@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Colorear (creatividad y motricidad fina)
+   Routime — Colorear (creatividad y motricidad fina)
    Datos en data.js (DATA.dibujos, DATA.colores). Módulos
    compartidos en assets/js/. Mecánica: elegir un color y tocar
    una zona del dibujo para pintarla. Actividad libre, sin

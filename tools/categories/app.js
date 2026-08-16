@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Categorías (lenguaje)
+   Routime — Categorías (lenguaje)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: aparece una palabra con picto y hay que tocar la caja
    del grupo al que pertenece. Ronda de 10 palabras por nivel.

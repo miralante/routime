@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Señales (señales de peligro, avisos, baño, etc.)
+   Routime — Señales (señales de peligro, avisos, baño, etc.)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: ver una señal y elegir qué significa entre 4 opciones.
    Ronda de 8. El error nunca se castiga.

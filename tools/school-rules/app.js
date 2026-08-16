@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — School Rules and Civics (normas del cole y civismo)
+   Routime — School Rules and Civics (normas del cole y civismo)
    Data in data.js (DATA.niveles + DATA.situaciones).
    Shared core in assets/js/.
    Mechanic: read / hear a school-or-public situation, choose the

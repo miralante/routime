@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de categorias (ES)
+   Routime — Textos de categorias (ES)
    Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

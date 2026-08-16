@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Catch (eye-hand coordination)
+   Routime — Catch (eye-hand coordination)
    The target appears at random positions. Tapping it triggers
    positive reinforcement and it moves again (at least 30% away).
    10 taps = round completed. No visible timer, no size choice —

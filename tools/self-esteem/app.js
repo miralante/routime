@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — This Is Me (self-esteem and self-acceptance)
+   Routime — This Is Me (self-esteem and self-acceptance)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: read a situation about self-worth and choose the
    response that reflects healthy self-esteem, among 3 options.

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Entre Amigos (emociones en otros y conflictos)
+   Routime — Entre Amigos (emociones en otros y conflictos)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una situación con amigos y elegir la respuesta
    más adecuada entre 3 opciones. Ronda de 8. Sin castigo por fallo.

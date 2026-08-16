@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/rename-tool-slugs-docs.js
+   Routime — scripts/rename-tool-slugs-docs.js
    Updates the tools/<slug>/ paths in the technical documentation
    to reflect the renamed neutral slugs.
 

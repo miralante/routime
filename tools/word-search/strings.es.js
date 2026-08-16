@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Word Search strings (ES)
+   Routime — Word Search strings (ES)
    Single-language file. Same keys as strings.en.js.
    Loaded conditionally from index.html based on App.i18n.locale().
    ============================================================ */

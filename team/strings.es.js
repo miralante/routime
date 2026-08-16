@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de la Guía del equipo de apoyo (ES)
+   Routime — Textos de la Guía del equipo de apoyo (ES)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */
@@ -9,7 +9,7 @@
   App.i18n.register({
     "pageTitle": 'Guía para el equipo de apoyo',
     "routeNotice": 'Página para el equipo de apoyo. No aparece en el menú de la aplicación: solo se llega escribiendo esta dirección.',
-    "title": 'Apptonomia — Guía para el equipo de apoyo',
+    "title": 'Routime — Guía para el equipo de apoyo',
     "intro1": 'Información para ',
     "introStrong": 'familias, terapeutas ocupacionales y profesorado',
     "intro2": ' sobre los objetivos del proyecto, las áreas que se trabajan y el propósito terapéutico de cada actividad. Incluye una nota técnica para el agente de inteligencia artificial que mantiene el código.',
@@ -21,7 +21,7 @@
     "navExceptions": 'Habilidad pura',
     "navAgentAI": 'Nota técnica (IA)',
     "projectTitle": 'El proyecto',
-    "projectP1a": 'Apptonomia es una aplicación web de ',
+    "projectP1a": 'Routime es una aplicación web de ',
     "projectP1Strong1": 'terapia ocupacional',
     "projectP1b": ' para personas con discapacidad intelectual. Su objetivo es ofrecer ejercicios de estimulación cognitiva, motricidad y habilidades de la vida diaria que la persona pueda hacer ',
     "projectP1Strong2": 'de forma autónoma',
@@ -501,7 +501,7 @@
     "supportLi4": 'El registro semanal de "¿Cómo me siento?" puede ser un buen punto de conversación, siempre sin juzgar la emoción elegida.',
     "supportLi5": 'Cada actividad tiene niveles o modos: empezad por el más fácil aunque parezca sencillo; terminar con éxito refuerza más que "estar a la altura".',
     "exceptionsTitle": 'Habilidad pura: decisión de diseño priorizada',
-    "exceptionsIntro": 'La mayoría de actividades de Apptonomia siguen el contrato de simulación de la vida diaria (escena reconocible, decisión, feedback socrático y cierre con transferencia a la realidad, ver SPEC §3.6). Las siguientes actividades usan el otro vehículo reconocido por el producto — el entrenamiento de habilidad pura — que es una decisión de diseño priorizada, no una excepción a justificar (ver SPEC §3.6.b). El estímulo es el contexto (el piano, la cuadrícula, las piezas, la secuencia): añadir una escena cotidiana aquí confundiría el objetivo terapéutico y saturaría la pantalla. Estas actividades mantienen el resto de principios del producto (sin presión, sin castigo, con refuerzo positivo) y, cuando aporta, exponen contexto verbal y una frase de transferencia.',
+    "exceptionsIntro": 'La mayoría de actividades de Routime siguen el contrato de simulación de la vida diaria (escena reconocible, decisión, feedback socrático y cierre con transferencia a la realidad, ver SPEC §3.6). Las siguientes actividades usan el otro vehículo reconocido por el producto — el entrenamiento de habilidad pura — que es una decisión de diseño priorizada, no una excepción a justificar (ver SPEC §3.6.b). El estímulo es el contexto (el piano, la cuadrícula, las piezas, la secuencia): añadir una escena cotidiana aquí confundiría el objetivo terapéutico y saturaría la pantalla. Estas actividades mantienen el resto de principios del producto (sin presión, sin castigo, con refuerzo positivo) y, cuando aporta, exponen contexto verbal y una frase de transferencia.',
     "exceptionBlocks": 'Bloques · copia de modelos con piezas de colores (motricidad fina, percepción espacial).',
     "exceptionBuilders": 'Constructores · composición libre con bloques y piezas (creatividad y motricidad).',
     "exceptionCatch": 'Atrapa · coordinación ojo-mano y reflejos.',

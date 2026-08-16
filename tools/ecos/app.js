@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Ecos (memoria auditiva y ritmo)
+   Routime — Ecos (memoria auditiva y ritmo)
    Datos en data.js (DATA.colores, DATA.niveles). Módulos
    compartidos en assets/js/. Mecánica tipo "Simon": se reproduce
    una secuencia de colores con sonido y hay que repetirla tocando

@@ -1,12 +1,12 @@
 # Guide for professionals and families
 
-This guide is intended for occupational therapists, families and professionals who want to use Apptonomia as a support tool.
+This guide is intended for occupational therapists, families and professionals who want to use Routime as a support tool.
 
 ---
 
-## Who is Apptonomia for?
+## Who is Routime for?
 
-Apptonomia is primarily designed for:
+Routime is primarily designed for:
 
 - **People with intellectual disability** who want to practice daily living skills
 - **Families** looking for resources to work on at home
@@ -20,7 +20,7 @@ The application **does not replace** professional intervention, but can serve as
 
 ---
 
-## How to use Apptonomia in therapy
+## How to use Routime in therapy
 
 ### Initial assessment
 
@@ -135,7 +135,7 @@ ___________________________________
 
 ### Guidelines for families
 
-If you are a family member working with Apptonomia at home:
+If you are a family member working with Routime at home:
 
 1. **Don't constantly correct**: let the user explore and fail without pressure
 2. **Celebrate attempts**: not just correct answers
@@ -175,7 +175,7 @@ Some activities deal with sensitive topics:
 
 ## Therapeutic objective coverage
 
-This taxonomy summarizes the areas currently covered by Apptonomia. It helps
+This taxonomy summarizes the areas currently covered by Routime. It helps
 identify gaps and choose an activity for a support goal. See
 [`activities.md`](activities.md) for details about each activity.
 
@@ -316,7 +316,7 @@ When the 🔊 button is present and audio doesn't work:
 
 ## Credits
 
-Apptonomia was developed with the collaboration of:
+Routime was developed with the collaboration of:
 
 - People with intellectual disability
 - Families and caregivers

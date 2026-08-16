@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Lightweight secret scanner for Apptonomia.
+// Lightweight secret scanner for Routime.
 // Scans the working tree and the staged changes for common secret patterns.
 // Exit code 0 = clean, 1 = secrets found, 2 = scanner error.
 //

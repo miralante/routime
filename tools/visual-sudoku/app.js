@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Sudoku Visual (razonamiento: lógica sin números)
+   Routime — Sudoku Visual (razonamiento: lógica sin números)
    Datos en data.js (DATA.soluciones, DATA.temas, DATA.niveles).
    Mecánica: tablero 4×4 con pictos; se toca un hueco y después el
    picto de la paleta. Se valida contra la solución precalculada:

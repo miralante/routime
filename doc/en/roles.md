@@ -1,6 +1,6 @@
 # Project roles
 
-Apptonomia has **three differentiated roles**. Each has its own space:
+Routime has **three differentiated roles**. Each has its own space:
 
 | Role | Who they are | How they participate | Where to look first |
 |---|---|---|---|
@@ -22,7 +22,7 @@ Apptonomia has **three differentiated roles**. Each has its own space:
 | If you are… | Start with… | Then… |
 |---|---|---|
 | 👤 End user or direct family member | [`README.md`](README.md) — what it is, how to open it | [`quick-guide.md`](quick-guide.md) — how to use it |
-| ❤️ Therapist, family or support professional | [`team.md`](team.md) — how to use Apptonomia in therapy | [`activities.md`](activities.md) — what's there |
+| ❤️ Therapist, family or support professional | [`team.md`](team.md) — how to use Routime in therapy | [`activities.md`](activities.md) — what's there |
 | 👩‍🏫 Teacher | [`quick-guide.md`](quick-guide.md) | [`activities.md`](activities.md) (filter by level) |
 | 🤔 I just want to understand what this is | [`SPEC.md`](SPEC.md) — product definition | — |
 | 💻 Developer | [`technical.md`](technical.md) — architecture, recipes | [`CONTRIBUTING.md`](../../CONTRIBUTING.md) — GitHub workflow |
@@ -32,7 +32,7 @@ Apptonomia has **three differentiated roles**. Each has its own space:
 
 ## 🤝 Multidisciplinary project
 
-Apptonomia brings together **support people** (therapists, families, teachers)
+Routime brings together **support people** (therapists, families, teachers)
 and **developers**, coordinated on GitHub.
 
 > 👉 **Want to participate?** Start with [`CONTRIBUTING.md`](../../CONTRIBUTING.md)

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Mi Botiquín (Mi día a día: autonomía en salud)
+   Routime — Mi Botiquín (Mi día a día: autonomía en salud)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una escena cotidiana (raspadura, quemadura,
    fiebre, dolor fuerte…) y elegir, entre 3 opciones, qué hacer.

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/smoke.js
+   Routime — scripts/smoke.js
    Dynamic smoke test of all activities with Playwright: opens
    every tools/<slug>/index.html in Spanish and English, clicks the
    first level if there is one, and fails if any console or page
@@ -110,7 +110,7 @@ function main() {
 
 function forzarIdioma(page, locale) {
   return page.addInitScript(function (loc) {
-    try { window.localStorage.setItem('apptonomia:locale', loc); } catch (e) {}
+    try { window.localStorage.setItem('routime:locale', loc); } catch (e) {}
   }, locale);
 }
 

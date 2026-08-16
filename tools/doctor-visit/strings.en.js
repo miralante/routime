@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de doctor-visit (EN)
+   Routime — Textos de doctor-visit (EN)
    Archivo específico del idioma. Se carga condicionalmente desde
    index.html según App.i18n.locale().
    ============================================================ */

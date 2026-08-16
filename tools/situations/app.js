@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Situaciones (autonomía: ¿qué haces si...?)
+   Routime — Situaciones (autonomía: ¿qué haces si...?)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una situación cotidiana y elegir la respuesta más
    adecuada entre 3 opciones. Ronda de 8. El error nunca se castiga.

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Qué falta? (memoria visual a corto plazo)
+   Routime — ¿Qué falta? (memoria visual a corto plazo)
    Datos en data.js (DATA.pool, DATA.niveles). Módulos compartidos
    en assets/js/. Mecánica: memorizar unos objetos a su ritmo (sin
    cronómetro), luego decir cuál ha desaparecido. Ronda de 6 escenas.

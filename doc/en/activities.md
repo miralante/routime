@@ -1,6 +1,6 @@
 # Activity catalog
 
-Apptonomia has **68 activities** organized into **7 modules** according to the type of skill they work on. Modules are ordered from most tied to occupational therapy (autonomy, emotions) to most academic (memory, reasoning, language), then the module specific to motor difficulties, and end with the affective-sexual education module, added last because it always requires professional or family supervision.
+Routime has **68 activities** organized into **7 modules** according to the type of skill they work on. Modules are ordered from most tied to occupational therapy (autonomy, emotions) to most academic (memory, reasoning, language), then the module specific to motor difficulties, and end with the affective-sexual education module, added last because it always requires professional or family supervision.
 
 ---
 
@@ -200,7 +200,7 @@ From easier to harder:
 
 ## Board game activities
 
-Apptonomia includes several classic board games adapted, ordered from easier to harder:
+Routime includes several classic board games adapted, ordered from easier to harder:
 
 | Game | Description |
 |------|-------------|

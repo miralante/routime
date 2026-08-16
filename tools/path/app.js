@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — El Camino (orientación espacial y rutas)
+   Routime — El Camino (orientación espacial y rutas)
    Datos en data.js (DATA.niveles con nº de obstáculos). Los caminos
    se generan al vuelo: salida y meta con distancia mínima, árboles
    al azar, y una búsqueda en anchura (BFS) garantiza que siempre

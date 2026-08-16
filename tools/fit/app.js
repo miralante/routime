@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Encaja la Pieza (tetris adaptado, viso-espacial)
+   Routime — Encaja la Pieza (tetris adaptado, viso-espacial)
    Datos en data.js (DATA.piezas con orientaciones, DATA.niveles).
    Mecánica: una pieza arriba del tablero se mueve (⬅️➡️), se gira
    (🔄) y se baja (⬇️) — también con las flechas del teclado. Abajo

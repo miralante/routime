@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de que-necesito (ES)
+   Routime — Textos de que-necesito (ES)
    Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

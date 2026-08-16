@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de resilience (EN)
+   Routime — Textos de resilience (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */

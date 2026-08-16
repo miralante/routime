@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const root = path.join('c:', 'apps', 'onedrive', 'jrodriguezgar', 'OneDrive', 'dev', 'apptonomia');
+const root = path.join('c:', 'apps', 'onedrive', 'jrodriguezgar', 'OneDrive', 'dev', 'Routime');
 const reNoOp = /\$\('#btnInstruccion'\)\.addEventListener\('click', function \(\) \{\}\);/;
 const dir = path.join(root, 'tools');
 const tools = fs.readdirSync(dir).filter(name => fs.existsSync(path.join(dir, name, 'app.js')));

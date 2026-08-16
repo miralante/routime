@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — When It's Hard (frustration tolerance and
+   Routime — When It's Hard (frustration tolerance and
    vulnerability: asking for help, showing real feelings)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: read a situation about frustration or vulnerability

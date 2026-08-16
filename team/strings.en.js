@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Support team guide text (EN)
+   Routime — Support team guide text (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */
@@ -9,7 +9,7 @@
   App.i18n.register({
     "pageTitle": 'Guide for the support team',
     "routeNotice": 'Page for the support team. It does not appear in the app menu: the only way here is typing this address.',
-    "title": 'Apptonomia — Guide for the support team',
+    "title": 'Routime — Guide for the support team',
     "intro1": 'Information for ',
     "introStrong": 'families, occupational therapists and teachers',
     "intro2": ' about the project’s goals, the areas it works on, and the therapeutic purpose of each activity. It includes a technical note for the AI agent that maintains the code.',
@@ -21,7 +21,7 @@
     "navExceptions": 'Pure-skill training',
     "navAgentAI": 'Technical note (AI)',
     "projectTitle": 'The project',
-    "projectP1a": 'Apptonomia is an ',
+    "projectP1a": 'Routime is an ',
     "projectP1Strong1": 'occupational therapy',
     "projectP1b": ' web app for people with intellectual disabilities. Its goal is to offer cognitive stimulation, motor skill and daily-living exercises that the person can do ',
     "projectP1Strong2": 'on their own',
@@ -499,7 +499,7 @@
     "supportLi4": 'The weekly "How Do I Feel?" log can be a good conversation starter, always without judging the emotion they picked.',
     "supportLi5": 'Every activity has levels or modes: start with the easiest one even if it looks simple; finishing successfully builds more confidence than "living up to" a harder level.',
     "exceptionsTitle": 'Pure-skill training: prioritised design decision',
-    "exceptionsIntro": "Most Apptonomia activities follow the daily-life simulation contract (a recognisable scene, a decision, Socratic feedback and a closing transfer to the real world, see SPEC §3.6). The activities below use the other vehicle the product recognises — pure-skill training — which is a prioritised design decision, not an exception to justify (see SPEC §3.6.b). The stimulus is the context (the piano, the grid, the pieces, the sequence): adding an everyday scene here would confuse the therapeutic goal and saturate the screen. These activities keep the rest of the product principles (no pressure, no punishment, positive reinforcement) and, when they add value, expose a verbal context and a transfer line.",
+    "exceptionsIntro": "Most Routime activities follow the daily-life simulation contract (a recognisable scene, a decision, Socratic feedback and a closing transfer to the real world, see SPEC §3.6). The activities below use the other vehicle the product recognises — pure-skill training — which is a prioritised design decision, not an exception to justify (see SPEC §3.6.b). The stimulus is the context (the piano, the grid, the pieces, the sequence): adding an everyday scene here would confuse the therapeutic goal and saturate the screen. These activities keep the rest of the product principles (no pressure, no punishment, positive reinforcement) and, when they add value, expose a verbal context and a transfer line.",
     "exceptionBlocks": 'Blocks · copy the model with coloured pieces (fine motor skills, spatial perception).',
     "exceptionBuilders": 'Builders · free composition with blocks and pieces (creativity and fine motor).',
     "exceptionCatch": 'Catch It · hand-eye coordination and reflexes.',

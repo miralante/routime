@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Completa la Palabra (lenguaje: ortografía)
+   Routime — Completa la Palabra (lenguaje: ortografía)
    Datos en data.js (DATA.es/DATA.en, grupos de 8 palabras cada
    uno). Por cada palabra se tapa una letra (DATA.<loc>[i].words[j]
    .blank) y se ofrecen 3 opciones (options[0] es siempre la

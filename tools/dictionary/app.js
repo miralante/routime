@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Diccionario (lenguaje: palabras difíciles con
+   Routime — Diccionario (lenguaje: palabras difíciles con
    significado sencillo, aprendizaje significativo)
    Datos en data.js (DATA.es/DATA.en, cada uno una lista de grupos
    de 8 palabras). Por cada grupo, flujo en 2 pasos:

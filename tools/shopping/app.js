@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — La Compra (AVD instrumental: supermercado y lista
+   Routime — La Compra (AVD instrumental: supermercado y lista
    de la compra)
    Datos en data.js (DATA.secciones, DATA.lista). Dos actividades
    elegibles desde un menú (regla 10: una acción principal por

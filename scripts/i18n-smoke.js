@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-smoke.js
+   Routime — scripts/i18n-smoke.js
    Runtime smoke for the i18n refactor.
    Loads tools/<slug>/data.js + strings.es.js + strings.en.js in
    a vm sandbox that mimics the browser's script loading order,

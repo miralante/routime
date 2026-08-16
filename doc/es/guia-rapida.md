@@ -2,7 +2,7 @@
 
 > 🌐 **Otro idioma:** [English](../en/quick-guide.md)
 
-Esta guía explica paso a paso cómo usar Apptonomia: desde cómo abrirla
+Esta guía explica paso a paso cómo usar Routime: desde cómo abrirla
 hasta cómo se gana estrellas, cambiar idioma o instalarla en tu
 teléfono. Incluye también **cuatro formas de abrir la app**, ordenadas
 de más fácil a más difícil.
@@ -11,7 +11,7 @@ de más fácil a más difícil.
 
 ## 📑 Índice rápido
 
-1. [Cómo abrir Apptonomia (4 métodos)](#1-cómo-abrir-apptonomia)
+1. [Cómo abrir Routime (4 métodos)](#1-cómo-abrir-Routime)
    - [A · Desde internet](#a-desde-internet-más-fácil)
    - [B · Descargando el ZIP desde GitHub](#b-descargando-el-zip-desde-github)
    - [C · Con un servidor local en Python](#c-con-un-servidor-local-en-python)
@@ -31,7 +31,7 @@ de más fácil a más difícil.
 
 ---
 
-## 1. Cómo abrir Apptonomia
+## 1. Cómo abrir Routime
 
 Tienes **cuatro maneras**, ordenadas de más fácil a más difícil.
 Elige la que más te convenga:
@@ -57,7 +57,7 @@ Elige la que más te convenga:
 2. Escribe en la barra de direcciones:
 
    ```
-   apptonomia.web.app
+   Routime.web.app
    ```
 
 3. Pulsa **Enter**
@@ -77,25 +77,25 @@ Elige la que más te convenga:
 #### Paso 1 · Descarga el código desde GitHub
 
 1. Abre en tu navegador:
-   [github.com/thenkdframe/apptonomia](https://github.com/thenkdframe/apptonomia)
+   [github.com/thenkdframe/Routime](https://github.com/thenkdframe/Routime)
 2. Pulsa el botón verde **`<> Code`**
 3. Elige **«Download ZIP»**
 4. Guarda el archivo (por ejemplo en `Descargas`)
 
-Se descargará algo como `apptonomia-main.zip` (~70 MB; la mayoría son
+Se descargará algo como `Routime-main.zip` (~70 MB; la mayoría son
 imágenes y fuentes).
 
 #### Paso 2 · Descomprime el ZIP
 
 - **Windows**: clic derecho → **Extraer todo…** → elige una carpeta,
-  p. ej. `C:\apptonomia\`
+  p. ej. `C:\Routime\`
 - **macOS**: doble clic sobre el ZIP (se crea una carpeta al lado)
 - **Linux**: clic derecho → **Extraer aquí** o desde terminal:
-  `unzip apptonomia-main.zip -d ~/apptonomia`
+  `unzip Routime-main.zip -d ~/Routime`
 
 > ⚠️ **Importante**: la carpeta resultante debe contener directamente
 > `index.html`, `site/`, `tools/`, `assets/`, etc. Si ves una carpeta
-> intermedia tipo `apptonomia-main/apptonomia/...`, muévete a la
+> intermedia tipo `Routime-main/Routime/...`, muévete a la
 > carpeta interior.
 
 #### Paso 3 · Abre la app
@@ -131,15 +131,15 @@ Python viene preinstalado en **macOS** y en la mayoría de **Linux**. En
 #### Paso 1 · Descarga y descomprime
 
 Igual que en el método B, pasos 1 y 2. Acabas con una carpeta, p. ej.
-`C:\apptonomia\` o `~/apptonomia`.
+`C:\Routime\` o `~/Routime`.
 
 #### Paso 2 · Abre una terminal en esa carpeta
 
-- **Windows**: abre el **Explorador de archivos** en `C:\apptonomia`,
+- **Windows**: abre el **Explorador de archivos** en `C:\Routime`,
   escribe `cmd` en la barra de direcciones y pulsa **Enter**
 - **macOS**: abre **Terminal**, escribe `cd ` (con espacio) y **arrastra**
   la carpeta a la ventana
-- **Linux**: abre la terminal y ejecuta `cd /ruta/a/apptonomia`
+- **Linux**: abre la terminal y ejecuta `cd /ruta/a/Routime`
 
 #### Paso 3 · Arranca el servidor
 
@@ -165,7 +165,7 @@ Visita:
 http://localhost:8080/site/index.html
 ```
 
-¡Listo! Ya tienes Apptonomia funcionando localmente, **con PWA y modo
+¡Listo! Ya tienes Routime funcionando localmente, **con PWA y modo
 offline** la primera vez que cargues cada pantalla. ✅
 
 #### Para detener el servidor
@@ -181,7 +181,7 @@ Vuelve a la terminal y pulsa **`Ctrl + C`**.
 
 #### Paso 1 · Descarga y descomprime
 
-Igual que antes. Terminas con la carpeta `apptonomia/` en tu equipo.
+Igual que antes. Terminas con la carpeta `Routime/` en tu equipo.
 
 #### Paso 2 · Arranca un servidor en una sola línea
 
@@ -229,7 +229,7 @@ local). **No funciona** con el método **B** (`file://`).
    flecha en Chrome/Edge, o un icono de compartir en Safari)
 3. Pulsa **«Instalar»** o **«Añadir a la pantalla de inicio»**
 4. Se creará un icono en tu escritorio / menú inicio que abre
-   Apptonomia como si fuera una aplicación nativa
+   Routime como si fuera una aplicación nativa
 
 ---
 
@@ -395,7 +395,7 @@ Toca el botón de **settings** (⚙️) si quieres:
 
 ## 10. Instalar la aplicación en el móvil
 
-Puedes tener Apptonomia como si fuera una app en tu teléfono:
+Puedes tener Routime como si fuera una app en tu teléfono:
 
 **En Android (Chrome):**
 1. Abre la web
@@ -427,7 +427,7 @@ Puedes tener Apptonomia como si fuera una app en tu teléfono:
 - Prueba a usar otro navegador (Chrome o Firefox)
 
 ### Otros problemas
-- Cierra todas las pestañas de Apptonomia
+- Cierra todas las pestañas de Routime
 - Vuelve a abrir la aplicación
 
 ---
@@ -452,6 +452,6 @@ Si necesitas más información:
 | Ver mi progreso | Mira las estrellas ⭐ en el menú |
 | Repetir una actividad | Toca "Jugar otra vez" |
 | Volver al menú | Toca "← Volver" |
-| Abrir la app sin instalar nada | Visita [apptonomia.web.app](https://apptonomia.web.app) |
+| Abrir la app sin instalar nada | Visita [Routime.web.app](https://Routime.web.app) |
 | Usarla en mi propio ordenador | Descarga el ZIP de GitHub y abre `site/index.html` |
 | Experiencia completa (PWA, offline) | `python -m http.server 8080` y abre `http://localhost:8080/site/index.html` |

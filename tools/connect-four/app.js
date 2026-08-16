@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Cuatro en Raya (razonamiento: lógica y anticipación)
+   Routime — Cuatro en Raya (razonamiento: lógica y anticipación)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: Conecta 4 adaptado en tablero de 6 columnas × 5 filas.
    Cada COLUMNA es un único botón grande: al tocarla, la ficha cae

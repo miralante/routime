@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Qué necesito? (autonomía: planificación)
+   Routime — ¿Qué necesito? (autonomía: planificación)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una tarea u objetivo y elegir qué hace falta
    preparar antes, entre 3 opciones. Ronda de 8. El error nunca se

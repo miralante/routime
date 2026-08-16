@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Dónde está? (direccionamiento y localización)
+   Routime — ¿Dónde está? (direccionamiento y localización)
    Datos en data.js (DATA.objetos, DATA.niveles). Los ítems se
    generan al vuelo: 3 objetos (referencia en el centro, objetivo a
    un lado, distractor al otro) colocados en fila o columna según el

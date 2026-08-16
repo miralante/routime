@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Tracing texts (EN)
+   Routime — Tracing texts (EN)
    Language-specific file. Conditionally loaded from index.html
    according to App.i18n.locale().
 

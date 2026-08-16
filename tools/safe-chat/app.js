@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Chat Seguro (autonomía: seguridad en internet)
+   Routime — Chat Seguro (autonomía: seguridad en internet)
    Simulador de chats para practicar cómo responder a personas
    que intentan engañar (fotos, datos, contraseñas, secretos…).
    El error nunca se castiga: se explica el peligro con un consejo

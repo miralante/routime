@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Word Search (language: word recognition)
+   Routime — Word Search (language: word recognition)
    Data in data.js (DATA.levels + DATA[loc].topics). Shared modules in assets/js/.
    Mechanic: choose a topic and a level; a board is generated with
    hidden words. A word is marked by tapping its first and last letter.

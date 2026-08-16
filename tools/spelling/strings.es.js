@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Completa la Palabra (ES)
+   Routime — Textos de Completa la Palabra (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

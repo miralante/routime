@@ -1,6 +1,6 @@
 # Guía para crear actividades / herramientas
 
-> **Cómo diseñar y construir una actividad nueva en Apptonomia aplicando las
+> **Cómo diseñar y construir una actividad nueva en Routime aplicando las
 > reglas de producto de [`SPEC.md`](SPEC.md) §3, las 13 reglas de
 > accesibilidad de [`tecnico.md`](tecnico.md) §5, la receta técnica de
 > §9, y un conjunto de técnicas de **didáctica**, **gamificación**,
@@ -31,7 +31,7 @@ Antes de crear nada, vuelve a leer y tener presente:
 
 ## 2. Cómo debe ser una actividad
 
-Una actividad de Apptonomia debe ser **autónoma** (usable sin profesional),
+Una actividad de Routime debe ser **autónoma** (usable sin profesional),
 **segura emocionalmente**, **progresiva** (una variable nueva por nivel) y
 **significativa** (lo que se practica conecta con la vida diaria).
 
@@ -66,7 +66,7 @@ Una actividad de Apptonomia debe ser **autónoma** (usable sin profesional),
 ### 2.3 La actividad es una simulación de la vida diaria siempre que se pueda
 
 Según [`SPEC.md` §3.6 y el principio 11](SPEC.md), una actividad de
-Apptonomia no es un ejercicio abstracto: es **entrenamiento mediante
+Routime no es un ejercicio abstracto: es **entrenamiento mediante
 simulación**. En la medida en que el objetivo terapéutico lo permita,
 cada actividad se construye alrededor de una escena reconocible en la
 que la persona toma una decisión y ve su consecuencia en el espacio
@@ -154,7 +154,7 @@ actividad debe cumplir:
 **Prohibidos por [`SPEC.md` §3.7](SPEC.md)**: escasez, falsa urgencia,
 prueba social como presión, coste irrecuperable / FOMO, reciprocidad
 manipuladora / dark patterns, aversión explotadora a la pérdida. En
-Apptonomia la presión no es una técnica de persuasión — lo es el
+Routime la presión no es una técnica de persuasión — lo es el
 enganche.
 
 ---
@@ -350,7 +350,7 @@ contrato de §7.
 
 ### 5.2 Método socrático (regla 12 + algo más)
 
-El método socrático en Apptonomia tiene tres niveles:
+El método socrático en Routime tiene tres niveles:
 
 | Momento | Lo que muestra la app | Mensaje implícito |
 |---|---|---|
@@ -437,7 +437,7 @@ historia larga:
 
 ### 5.7 Llamada a la acción (CTA)
 
-En Apptonomia el CTA es **la propia acción** ("Toca", "Busca",
+En Routime el CTA es **la propia acción** ("Toca", "Busca",
 "Escucha"). Pero además:
 
 - **CTA visible y único** por pantalla. Si hay un botón principal,
@@ -461,7 +461,7 @@ día en el que será útil. Sin esta capa, la simulación es solo
 decoración.
 
 Ausubel y Novak hablan de **anclar lo nuevo en lo que la persona ya
-sabe**. En la práctica, cada actividad de Apptonomia debería respetar
+sabe**. En la práctica, cada actividad de Routime debería respetar
 estos cuatro **anclajes del aprendizaje significativo**:
 
 - **Usa vocabulario cotidiano** que la persona ya maneja en casa
@@ -487,7 +487,7 @@ estos cuatro **anclajes del aprendizaje significativo**:
 > conceptos**, respetando siempre `SPEC.md` §3 (sin presión, sin
 > castigo, sin datos).
 
-### 6.1 Las 7 claves del neuromarketing aplicadas a Apptonomia
+### 6.1 Las 7 claves del neuromarketing aplicadas a Routime
 
 | Clave | Aplicación concreta |
 |---|---|

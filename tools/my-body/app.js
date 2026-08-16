@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Mi Cuerpo Me Avisa (emociones: interocepción)
+   Routime — Mi Cuerpo Me Avisa (emociones: interocepción)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una señal del cuerpo (hambre, sed, sueño, dolor,
    nervios…) y elegir qué hacer, entre 3 opciones. La opción correcta

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Mis Datos (ES)
+   Routime — Textos de Mis Datos (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

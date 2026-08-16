@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-split.js
+   Routime — scripts/i18n-split.js
    Refactor helper: takes a tools/<slug>/data.js with the legacy
    form `const DATA = { es: {...}, en: {...} }` and rewrites it
    so that:
@@ -227,7 +227,7 @@ function renderStrings(locale, root, uiKeys) {
     .join('\n');
   var header = [
     '/* ============================================================',
-    '   Apptonomia — Texts (' + commentEs + ')',
+    '   Routime — Texts (' + commentEs + ')',
     '   Per-language file. Conditionally loaded from index.html',
     '   according to App.i18n.locale().',
     '   Carries two kinds of texts:',
@@ -326,7 +326,7 @@ function refactor(slugOrPath, dryRun) {
   /* Render files. */
   var dataJs =
     '/* ============================================================\n' +
-    '   Apptonomia — Data: structure-only (no text).\n' +
+    '   Routime — Data: structure-only (no text).\n' +
     '   Locale-neutral data (ids, types, flags, pictograms) for the\n' +
     '   tool. The translated content lives in strings.es.js /\n' +
     '   strings.en.js, registered as { data: { ... } } per locale.\n' +

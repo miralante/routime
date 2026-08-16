@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Parejas (memoria y funciones ejecutivas)
+   Routime — Parejas (memoria y funciones ejecutivas)
    Emparejar cartas idénticas. Sin límite de tiempo ni intentos.
    Si no coinciden: mensaje de ánimo y se tapan tras 1,5 s.
    ============================================================ */

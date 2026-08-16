@@ -1,6 +1,6 @@
 # Catálogo de actividades
 
-Apptonomia tiene **68 actividades** organizadas en **7 módulos** según el tipo de habilidad que trabajan. El orden de los módulos va de lo más ligado a la terapia ocupacional (autonomía, emociones) a lo más académico (memoria, razonamiento, lenguaje), sigue con el módulo específico de dificultades motoras y termina con el módulo de educación afectivo-sexual, añadido después por requerir siempre supervisión profesional o familiar.
+Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de habilidad que trabajan. El orden de los módulos va de lo más ligado a la terapia ocupacional (autonomía, emociones) a lo más académico (memoria, razonamiento, lenguaje), sigue con el módulo específico de dificultades motoras y termina con el módulo de educación afectivo-sexual, añadido después por requerir siempre supervisión profesional o familiar.
 
 ---
 
@@ -198,7 +198,7 @@ De más sencillas a más difíciles:
 
 ## Actividades de juegos de mesa
 
-Apptonomia incluye varios juegos de mesa clásicos adaptados, ordenados de más fácil a más difícil:
+Routime incluye varios juegos de mesa clásicos adaptados, ordenados de más fácil a más difícil:
 
 | Juego | Descripción |
 |-------|-------------|

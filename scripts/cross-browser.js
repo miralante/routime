@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/cross-browser.js
+   Routime — scripts/cross-browser.js
    Cross-browser and cross-device functional test: launches every
    activity in Chromium (Chrome), Firefox and WebKit (Safari), on
    desktop and on two emulated mobile devices (iPhone 12 and Pixel 5).
@@ -149,7 +149,7 @@ function combosSegunArgs(args) {
 
 function forzarIdioma(page, locale) {
     return page.addInitScript(function (loc) {
-        try { window.localStorage.setItem('apptonomia:locale', loc); } catch (e) {}
+        try { window.localStorage.setItem('routime:locale', loc); } catch (e) {}
     }, locale);
 }
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Apptonomia — Shared visual money (euros drawn with CSS)
+   Routime — Shared visual money (euros drawn with CSS)
    Exposes window.App.dinero: the coin/banknote catalog and the
    format/speech helpers used by the money tools (El Monedero, La
    Tienda). CSS classes (.dinero, .m5c … .b50e, .mesa-dinero) live in

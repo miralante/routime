@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Dominó (razonamiento: juego de mesa real adaptado)
+   Routime — Dominó (razonamiento: juego de mesa real adaptado)
    Datos en data.js (DATA.niveles con maxPips). Reescritura completa:
    la versión anterior era un solitario donde había que GIRAR la
    ficha a mano antes de colocarla (mucha fricción). Ahora es el

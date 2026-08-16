@@ -1,6 +1,6 @@
 # SPEC.md — Product definition
 
-> **This document defines WHAT Apptonomia is, WHO it's for, and why.**
+> **This document defines WHAT Routime is, WHO it's for, and why.**
 >
 > To know HOW the application is built (architecture, APIs, recipes),
 > see [`technical.md`](technical.md).
@@ -9,7 +9,7 @@
 
 ## 1. Product
 
-Apptonomia is a **web application for occupational therapy activities** for
+Routime is a **web application for occupational therapy activities** for
 people with intellectual disability. It's designed so the end user can practice
 daily living skills **autonomously**, without needing a professional present at
 all times.
@@ -50,7 +50,7 @@ all times.
 
 ### 2.1 Therapeutic objectives
 
-Apptonomia works on **6 therapeutic areas** (modules):
+Routime works on **6 therapeutic areas** (modules):
 
 | Module | Area | Main objective |
 |--------|------|----------------|
@@ -272,7 +272,7 @@ this section just elevates them to a non-negotiable product layer.
    - **Exploitative loss aversion**: "you had 5 ⭐, you lost 2".
      Stars are only ever added (`§3.1`).
 
-The default in Apptonomia is the **calm, autotelic** posture described
+The default in Routime is the **calm, autotelic** posture described
 in `creating-activities-guide.md` §6.7 — the user practices because
 the activity is engaging, not because they are being pushed.
 ---
@@ -313,7 +313,7 @@ the principles win. They are the product's compass.
 
 ## 5. Success criteria
 
-A change in Apptonomia is considered successful when:
+A change in Routime is considered successful when:
 
 1. **Maintains autonomy**: the user can continue using the app without external help for that activity
 2. **Is accessible**: complies with WCAG AA and the 13 rules in `technical.md` §5
@@ -327,7 +327,7 @@ A change in Apptonomia is considered successful when:
 
 ---
 
-## 6. What Apptonomia does NOT do
+## 6. What Routime does NOT do
 
 Explicit decisions that may surprise — they're here so they aren't "suggested"
 in the future:

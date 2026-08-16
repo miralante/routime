@@ -1,8 +1,8 @@
-# Contributing to Apptonomia
+# Contributing to Routime
 
 > 🌐 **Other languages:** [Español](CONTRIBUTING.es.md)
 
-Apptonomia has **three differentiated roles** in its community:
+Routime has **three differentiated roles** in its community:
 
 1. 👤 **People with intellectual disability** → are the **end users** of the app
 2. ❤️ **Family and therapists** → are the **support people** who accompany them
@@ -97,7 +97,7 @@ Examples:
 
 ### How to start
 
-1. Read [`doc/en/SPEC.md`](doc/en/SPEC.md) — you'll understand WHAT Apptonomia is and WHY it exists
+1. Read [`doc/en/SPEC.md`](doc/en/SPEC.md) — you'll understand WHAT Routime is and WHY it exists
 2. Read [`doc/en/team.md`](doc/en/team.md) — clinical view of the activities
 3. Examine [`doc/en/activities.md`](doc/en/activities.md) — what's there and what's missing
 4. Read SPEC §3: the **non-negotiable constraints** are what your content must never break

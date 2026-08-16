@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Mientras Llega la Ayuda (ES)
+   Routime — Textos de Mientras Llega la Ayuda (ES)
    Archivo específico del idioma. Se carga condicionalmente
    desde index.html según App.i18n.locale().
    ============================================================ */

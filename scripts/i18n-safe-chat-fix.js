@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-safe-chat-fix.js
+   Routime — scripts/i18n-safe-chat-fix.js
    Inlines the two `regla +=` post-processing blocks that used to
    live at the bottom of tools/safe-chat/data.js into each `regla`
    string inside DATA.es / DATA.en. After this, data.js is a pure
@@ -69,7 +69,7 @@ function main() {
   }
   applySufijos(DATA);
   var out = '/* ============================================================\n' +
-    '   Apptonomia — Datos: Chat Seguro (autonomía — seguridad en internet).\n' +
+    '   Routime — Datos: Chat Seguro (autonomía — seguridad en internet).\n' +
     '   Chats simulados para practicar cómo responder a personas que\n' +
     '   intentan engañar (fotos, datos, contraseñas, secretos, dinero…).\n' +
     '   Formato: DATA.es / DATA.en, cada uno con:\n' +

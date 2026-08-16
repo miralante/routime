@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Tres en Raya (razonamiento: lógica y anticipación)
+   Routime — Tres en Raya (razonamiento: lógica y anticipación)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: la persona es ❌ y siempre empieza; el rival es ⭕ y
    juega según la habilidad del nivel (azar / remata su línea /

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Cómo me siento? (gestión emocional)
+   Routime — ¿Cómo me siento? (gestión emocional)
    Identificar la emoción actual → respuesta adaptada + registro.
    Todas las emociones son válidas: nunca se juzga.
    Registro diario en storage → vista "Mi semana" (7 días).

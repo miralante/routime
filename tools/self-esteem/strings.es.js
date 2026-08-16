@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de self-esteem (ES)
+   Routime — Textos de self-esteem (ES)
    Archivo específico del idioma. Se carga condicionalmente
    desde index.html según App.i18n.locale().
    ============================================================ */

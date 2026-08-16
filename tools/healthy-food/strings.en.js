@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Healthy Food strings (EN)
+   Routime — Healthy Food strings (EN)
    Language-specific file. Conditionally loaded from index.html
    according to App.i18n.locale().
    ============================================================ */

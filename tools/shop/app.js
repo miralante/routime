@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — La Tienda (autonomía: usar el dinero en la vida
+   Routime — La Tienda (autonomía: usar el dinero en la vida
    real). Datos en data.js. Dinero visual compartido en
    assets/js/dinero.js (App.dinero). Tres actividades:
    - Una compra: simulación guiada completa en 3 pasos —

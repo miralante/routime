@@ -1,9 +1,9 @@
 /* ============================================================
-   Apptonomia — Service Worker
+   Routime — Service Worker
    Cache-first strategy for the app shell (works offline).
    When adding new files: add them to ARCHIVOS and bump VERSION.
    ============================================================ */
-var VERSION = 'apptonomia-v121';
+var VERSION = 'routime-v1';
 
 var ARCHIVOS = [
   './index.html',

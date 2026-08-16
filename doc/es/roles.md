@@ -1,6 +1,6 @@
 # Roles del proyecto
 
-Apptonomia tiene **tres roles diferenciados**. Cada uno tiene su espacio:
+Routime tiene **tres roles diferenciados**. Cada uno tiene su espacio:
 
 | Rol | Quién es | Cómo participa | Dónde mira primero |
 |---|---|---|---|
@@ -23,7 +23,7 @@ Apptonomia tiene **tres roles diferenciados**. Cada uno tiene su espacio:
 | Si eres… | Empieza por… | Después… |
 |---|---|---|
 | 👤 Persona usuaria o familiar directo | [`README.md`](README.md) — qué es, cómo abrirla | [`guia-rapida.md`](guia-rapida.md) — cómo se usa |
-| ❤️ Terapeuta, familiar o profesional de apoyo | [`equipo.md`](equipo.md) — cómo usar Apptonomia en terapia | [`actividades.md`](actividades.md) — qué hay |
+| ❤️ Terapeuta, familiar o profesional de apoyo | [`equipo.md`](equipo.md) — cómo usar Routime en terapia | [`actividades.md`](actividades.md) — qué hay |
 | 👩‍🏫 Profesorado | [`guia-rapida.md`](guia-rapida.md) | [`actividades.md`](actividades.md) (filtros por nivel) |
 | 🤔 Solo quiero entender qué es | [`SPEC.md`](SPEC.md) — definición del producto | — |
 | 💻 Desarrollador/a | [`tecnico.md`](tecnico.md) — arquitectura, recetas | [`CONTRIBUTING.es.md`](../../CONTRIBUTING.es.md) — flujo GitHub |
@@ -33,7 +33,7 @@ Apptonomia tiene **tres roles diferenciados**. Cada uno tiene su espacio:
 
 ## 🤝 Proyecto multidisciplinar
 
-La construcción de Apptonomia une a **personas de apoyo** (terapeutas,
+La construcción de Routime une a **personas de apoyo** (terapeutas,
 familias, profesorado) y **desarrolladores**, coordinados en GitHub.
 
 > 👉 **¿Quieres participar?** Empieza por [`CONTRIBUTING.es.md`](../../CONTRIBUTING.es.md)

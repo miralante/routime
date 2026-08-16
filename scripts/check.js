@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/check.js
+   Routime — scripts/check.js
    Structural check with no dependencies (plain Node only).
    Usage: node scripts/check.js
    Checks:
@@ -28,7 +28,7 @@
       trailing quote — catches malformed quoting like ''self'' that
       browsers silently drop, turning a directive into "block
       everything" (this is why teclatlon's CSP was silently broken;
-      see the sibling repo's CLOUDFLARE.md). Apptonomia's _headers has
+      see the sibling repo's CLOUDFLARE.md). Routime's _headers has
       no CSP line by design, so this check does not require one to
       exist — it only validates whatever is actually there.
    Output: list of failures with the exact file. Exit code 1 if there

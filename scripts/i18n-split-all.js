@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-split-all.js
+   Routime — scripts/i18n-split-all.js
    Apply scripts/i18n-split.js to every tools/<slug>/data.js
    with the legacy form `const DATA = { es:..., en:... }`.
    Refuses to touch files whose es/en shapes differ.

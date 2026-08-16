@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Texts for first-aid-kit (EN)
+   Routime — Texts for first-aid-kit (EN)
    Language-specific file. Loaded conditionally from index.html
    according to App.i18n.locale().
    ============================================================ */

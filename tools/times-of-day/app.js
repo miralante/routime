@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Partes del Día (autonomía: organizar tareas diarias)
+   Routime — Partes del Día (autonomía: organizar tareas diarias)
    Datos en data.js (DATA.niveles, DATA.momentos). Módulos
    compartidos en assets/js/. Mecánica: aparece una tarea con picto
    y hay que tocar la caja del momento del día al que pertenece

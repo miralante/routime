@@ -1,6 +1,6 @@
 # SPEC.md — Definición del producto
 
-> **Este documento define QUÉ es Apptonomia, PARA QUIÉN es y por qué.**
+> **Este documento define QUÉ es Routime, PARA QUIÉN es y por qué.**
 >
 > Para saber CÓMO está construida la aplicación (arquitectura, APIs, recetas),
 > consulta [`tecnico.md`](tecnico.md).
@@ -9,7 +9,7 @@
 
 ## 1. Producto
 
-Apptonomia es una **aplicación web de actividades de terapia ocupacional** para
+Routime es una **aplicación web de actividades de terapia ocupacional** para
 personas con discapacidad intelectual. Está pensada para que la persona usuaria
 pueda practicar habilidades de la vida diaria de forma **autónoma**, sin necesidad
 de que un profesional esté presente en cada momento.
@@ -50,7 +50,7 @@ de que un profesional esté presente en cada momento.
 
 ### 2.1 Objetivos terapéuticos
 
-Apptonomia trabaja **6 áreas terapéuticas** (módulos):
+Routime trabaja **6 áreas terapéuticas** (módulos):
 
 | Módulo | Área | Objetivo principal |
 |--------|------|-------------------|
@@ -275,7 +275,7 @@ elevan a capa innegociable del producto.
    - **Aversión a la pérdida explotadora**: "tenías 5 ⭐, has perdido
      2". Las estrellas solo se suman (`§3.1`).
 
-El tono por defecto en Apptonomia es el **calmo y autotélico** descrito
+El tono por defecto en Routime es el **calmo y autotélico** descrito
 en `guia-crear-actividades.md` §6.7 — la persona practica porque la
 actividad es atractiva, no porque la estemos empujando.
 
@@ -303,7 +303,7 @@ conflicto con ellos, ganan los principios. Son la brújula del producto.
 
 ## 5. Criterios de éxito
 
-Un cambio en Apptonomia se considera exitoso cuando:
+Un cambio en Routime se considera exitoso cuando:
 
 1. **Mantiene la autonomía**: la persona usuaria puede seguir usando la app sin ayuda externa para esa actividad
 2. **Es accesible**: cumple WCAG AA y los 13 reglas de `tecnico.md` §5
@@ -317,7 +317,7 @@ Un cambio en Apptonomia se considera exitoso cuando:
 
 ---
 
-## 6. Lo que Apptonomia NO hace
+## 6. Lo que Routime NO hace
 
 Decisiones explícitas que pueden sorprender — están aquí para que no se
 "sugieran" en el futuro:

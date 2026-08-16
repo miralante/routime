@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Doble Sentido (ES)
+   Routime — Textos de Doble Sentido (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

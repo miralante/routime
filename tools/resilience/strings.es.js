@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de resilience (ES)
+   Routime — Textos de resilience (ES)
    Archivo específico del idioma. Se carga condicionalmente
    desde index.html según App.i18n.locale().
    ============================================================ */

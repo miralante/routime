@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Qué hago primero? (autonomía: priorización)
+   Routime — ¿Qué hago primero? (autonomía: priorización)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una situación con dos o más cosas posibles que
    hacer y elegir cuál es la más urgente o necesaria entre 3

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-clean-trailing.js
+   Routime — scripts/i18n-clean-trailing.js
    Removes trailing runtime/DOM code at the bottom of any
    tools/<slug>/data.js whose leading shape is a monolito {es, en}.
    The split only works on pure data trees, so any post-processing

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Before the Emergency texts (EN)
+   Routime — Before the Emergency texts (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */

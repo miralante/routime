@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Trazos (motricidad fina)
+   Routime — Trazos (motricidad fina)
    Datos en data.js (DATA.niveles + FORMAS_COMUNES). Módulos
    compartidos en assets/js/. Mecánica: repasar con el dedo o el
    ratón una guía de puntos. Se comprueba cuánta guía se ha

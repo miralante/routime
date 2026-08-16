@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Teléfonos Importantes (ES)
+   Routime — Textos de Teléfonos Importantes (ES)
    Archivo específico del idioma. Mismas claves que strings.en.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

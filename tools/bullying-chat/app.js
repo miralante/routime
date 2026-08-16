@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Bullying Chat (autonomy: recognizing peer bullying
+   Routime — Bullying Chat (autonomy: recognizing peer bullying
    and knowing how to react)
    Chat simulator to practice how to respond to bullying from people
    you know (insults, exclusion, rumors, photos, threats, pressure to

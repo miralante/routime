@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Se lo Cuento al Médico (Mi día a día)
+   Routime — Se lo Cuento al Médico (Mi día a día)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una escena con un síntoma corporal (dolor, picor,
    mareo, fiebre…) y elegir, entre 3 opciones, la frase que mejor

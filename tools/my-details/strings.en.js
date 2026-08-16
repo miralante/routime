@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — My Details texts (EN)
+   Routime — My Details texts (EN)
    Language-specific file. Same keys as strings.es.js.
    Conditionally loaded from index.html based on App.i18n.locale().
    ============================================================ */

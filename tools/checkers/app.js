@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Las Damas (razonamiento: lógica y anticipación)
+   Routime — Las Damas (razonamiento: lógica y anticipación)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: damas adaptadas en tablero 6×6 (solo casillas oscuras),
    6 fichas por bando. La persona es 🔴 y siempre empieza; el rival

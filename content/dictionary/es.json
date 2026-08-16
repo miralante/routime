@@ -2,7 +2,7 @@
   "meta": {
     "idioma": "es",
     "descripcion": "Banco de palabras complejas en español, con significado en Lectura Fácil y un ejemplo de la vida real. Contenido propio (no traducción de content/dictionary/en.json — ver doc/es/I18N.md §3).",
-    "fuente": "Palabras seleccionadas a partir de listas de vocabulario avanzado C1/C2 (DELE, ProfedeELE, ELE) y, para los vocabularios vinculados a personas con discapacidad intelectual, de las publicaciones y glosarios de Plena Inclusión España (estándar Lectura Fácil), ARASAAC, FEAPS/Plena Inclusión, Down España, federaciones autonómicas, Inclusion Europe (edición española 'Information for All'), Servicio de Información sobre Discapacidad (SID / INICO) y el SID-MDSA. Definiciones y ejemplos escritos de cero en Lectura Fácil para Apptonomia, no copiados de ninguna fuente.",
+    "fuente": "Palabras seleccionadas a partir de listas de vocabulario avanzado C1/C2 (DELE, ProfedeELE, ELE) y, para los vocabularios vinculados a personas con discapacidad intelectual, de las publicaciones y glosarios de Plena Inclusión España (estándar Lectura Fácil), ARASAAC, FEAPS/Plena Inclusión, Down España, federaciones autonómicas, Inclusion Europe (edición española 'Information for All'), Servicio de Información sobre Discapacidad (SID / INICO) y el SID-MDSA. Definiciones y ejemplos escritos de cero en Lectura Fácil para Routime, no copiados de ninguna fuente.",
     "estado": "Banco de contenido independiente, no conectado todavía a ninguna actividad. tools/dictionary/data.js contiene el subconjunto ya usado por la actividad Diccionario (24 palabras); este archivo es una base más amplia para esa u otras actividades futuras.",
     "campos": {
       "word": "la palabra",

@@ -1,10 +1,10 @@
 /* ==========================================================================
-   Apptonomia — Internationalization (i18n)
+   Routime — Internationalization (i18n)
    Exposes window.App.i18n. Load AFTER utils.js and BEFORE tts.js/feedback.js.
    Standard order: utils.js -> i18n.js -> tts.js -> storage.js -> feedback.js ->
    conditional load of strings.<locale>.js -> data.js -> app.js.
 
-   Active language: localStorage 'apptonomia:locale' if supported; otherwise
+   Active language: localStorage 'routime:locale' if supported; otherwise
    detected from navigator.language ('en' prefix -> 'en', anything else -> 'es').
 
    Multi-file system (recommended):
@@ -17,7 +17,7 @@
 
   window.App = window.App || {};
 
-  var CLAVE_LOCALE = 'apptonomia:locale';
+  var CLAVE_LOCALE = 'routime:locale';
   var SOPORTADOS = ['es', 'en'];
   var POR_DEFECTO = 'es';
 
@@ -35,7 +35,7 @@
         loading: 'Cargando…',
         roundComplete: '¡Ronda completada!',
         rest: '¡Llevas un buen rato! Puedes descansar si quieres.',
-        dataProtection: 'Apptonomia no recolecta datos'
+        dataProtection: 'Routime no recolecta datos'
       },
       feedback: {
         success: ['¡Muy bien!', '¡Genial!', '¡Lo has conseguido!', '¡Estupendo!', '¡Sigue así!'],
@@ -55,7 +55,7 @@
         loading: 'Loading…',
         roundComplete: 'Round complete!',
         rest: 'You have been playing a while! You can rest if you want.',
-        dataProtection: 'Apptonomia does not collect data'
+        dataProtection: 'Routime does not collect data'
       },
       feedback: {
         success: ['Well done!', 'Great!', 'You got it!', 'Fantastic!', 'Keep it up!'],
@@ -348,7 +348,7 @@
     if (tituloClave) {
       var valorTitulo = resolver(tituloClave);
       if (valorTitulo !== undefined) {
-        document.title = (Array.isArray(valorTitulo) ? valorTitulo.join(', ') : valorTitulo) + ' | Apptonomia';
+        document.title = (Array.isArray(valorTitulo) ? valorTitulo.join(', ') : valorTitulo) + ' | Routime';
       }
     }
   }

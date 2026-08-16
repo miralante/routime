@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — While Help is on its Way texts (EN)
+   Routime — While Help is on its Way texts (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */

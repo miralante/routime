@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Calm (guided breathing and relaxation)
+   Routime — Calm (guided breathing and relaxation)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: a circle grows and shrinks marking the breathing
    rhythm, with text and voice. No visible timer and no way to

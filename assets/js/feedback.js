@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Apptonomia — Positive reinforcement and encouragement messages
+   Routime — Positive reinforcement and encouragement messages
    Exposes window.App.feedback.success(zona) / .encourage(zona) / .celebrate(msg) /
    .lockUntilAck(botones, zona, alConfirmar)
    Rules 5 and 6 of CLAUDE.md: mistakes are never punished; feedback <= 2 s.

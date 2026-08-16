@@ -58,7 +58,7 @@ Las palabras se seleccionaron a partir de tres familias de fuentes:
      Easy-Read, y el corpus Easy-Read de la NDIS australiana.
 
 3. **Definiciones y ejemplos**: **redacción propia en Lectura Fácil** para
-   Apptonomia, no copias de esas fuentes ni traducción literal entre
+   Routime, no copias de esas fuentes ni traducción literal entre
    idiomas (cada idioma tiene su propio vocabulario y dificultad — ver
    `doc/es/I18N.md` §3 / `doc/en/I18N.md` §3). Los términos
    jurídicamente cambiantes (p. ej. LPS/DOLS en Inglaterra, *tutela* /

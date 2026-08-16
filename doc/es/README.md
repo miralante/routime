@@ -1,12 +1,12 @@
-# Apptonomia
+# Routime
 
 **Aplicación web de actividades de terapia ocupacional para personas con discapacidad intelectual.**
 
 ---
 
-## ¿Qué es Apptonomia?
+## ¿Qué es Routime?
 
-Apptonomia es una herramienta digital pensada para que personas con discapacidad intelectual puedan practicar habilidades de la vida diaria de forma **autónoma**, sin necesidad de que un profesional esté a su lado en todo momento.
+Routime es una herramienta digital pensada para que personas con discapacidad intelectual puedan practicar habilidades de la vida diaria de forma **autónoma**, sin necesidad de que un profesional esté a su lado en todo momento.
 
 La aplicación ofrece **68 actividades** organizadas en **6 módulos**. Ver la
 tabla completa de módulos y sus objetivos terapéuticos en
@@ -41,7 +41,7 @@ tabla completa de módulos y sus objetivos terapéuticos en
 
 ### 1. Abrir la aplicación
 
-Visita **[apptonomia.web.app](https://apptonomia.web.app)** o abre el archivo `site/index.html` desde un servidor local.
+Visita **[Routime.web.app](https://Routime.web.app)** o abre el archivo `site/index.html` desde un servidor local.
 
 ### 2. Elegir una actividad
 
@@ -98,13 +98,13 @@ Si aciertas, aparecerá una celebración breve. Si no, recibirá un mensaje de �
 
 - [Guía rápida de uso](guia-rapida.md) — Explicación paso a paso
 - [Catálogo de actividades](actividades.md) — Lista completa de las 68 actividades
-- [Guía para profesionales](equipo.md) — Cómo usar Apptonomia en terapia
+- [Guía para profesionales](equipo.md) — Cómo usar Routime en terapia
 - [Información técnica](tecnico.md) — Para desarrolladores
 
 ---
 
 ## Créditos y licencia
 
-Apptonomia es un proyecto de código abierto. Fue creado pensando en las necesidades de las personas con discapacidad intelectual y sus familias.
+Routime es un proyecto de código abierto. Fue creado pensando en las necesidades de las personas con discapacidad intelectual y sus familias.
 
 Los pictogramas utilizados son emojis estándar del sistema operativo para máxima compatibilidad.

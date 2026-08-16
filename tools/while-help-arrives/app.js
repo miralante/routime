@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Mientras Llega la Ayuda (autonomía: qué hacer
+   Routime — Mientras Llega la Ayuda (autonomía: qué hacer
    después de llamar al 112, mientras llega la ambulancia /
    bomberos / policía).
    Datos en data.js (DATA.queHago, DATA.pasos). Dos actividades

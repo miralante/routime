@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de comida-sana (ES)
+   Routime — Textos de comida-sana (ES)
    Archivo específico del idioma. Se carga condicionalmente desde
    index.html según App.i18n.locale().
    ============================================================ */

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Settings text (EN)
+   Routime — Settings text (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */
@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    title: '⚙️ Apptonomia — Settings',
+    title: '⚙️ Routime — Settings',
     routeNotice: 'Settings page. It does not appear in the app menu: the only way here is typing this address.',
     intro: 'This is where whatever is saved in this browser can be deleted. Meant for whoever manages the device (family, teachers), not for the person using the app.',
 
@@ -73,7 +73,7 @@
     importWarning2: ' the current progress of any activity found in the file.',
     feedbackReadError: 'The file could not be read. Try again.',
     feedbackInvalidFile: 'That file is not a valid backup (it cannot be read). Nothing was changed.',
-    feedbackInvalidBackup: 'That file is not a valid Apptonomia backup. Nothing was changed.',
+    feedbackInvalidBackup: 'That file is not a valid Routime backup. Nothing was changed.',
     feedbackImportDone: 'Done. The progress saved in the file has been restored.',
 
     myDetailsTitle: 'My Details: address and phone numbers',

@@ -138,7 +138,7 @@ slugs.forEach(function (slug) {
 function pct(n, d) { return d ? Math.round(100 * n / d) : 0; }
 
 // Print summary
-console.log('# Apptonomia activity audit (v2)');
+console.log('# Routime activity audit (v2)');
 console.log('# Total slugs: ' + results.length);
 console.log('');
 console.log('## Columns:');

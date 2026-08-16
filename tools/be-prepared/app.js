@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Antes de la Emergencia (autonomía: lo que se
+   Routime — Antes de la Emergencia (autonomía: lo que se
    puede tener en casa con la familia, antes de que pase algo).
    Datos en data.js (DATA.saber, DATA.checklist). Dos actividades
    elegibles desde un menú (regla 10: una acción principal por

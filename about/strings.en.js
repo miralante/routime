@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Project presentation text (EN)
+   Routime — Project presentation text (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */
@@ -10,7 +10,7 @@
     "pageTitle": 'Project presentation',
     "routeNotice": 'This page is not linked from the app. The only way here is typing the address.',
     "tagline": 'An app for autonomy.',
-    "lead1": 'Apptonomia is an ',
+    "lead1": 'Routime is an ',
     "leadStrong": 'occupational therapy web app',
     "lead2": ' built so people with intellectual disabilities can practice daily-living skills on their own, without pressure and with respect for their privacy.',
     "navOrigin": 'The origin',
@@ -21,7 +21,7 @@
     "navAuthorship": 'Who makes it',
     "navCollaborate": 'How to help',
     "originTitle": 'The origin',
-    "originP1a": 'Apptonomia comes from a question that comes up at the end of every occupational therapy session: ',
+    "originP1a": 'Routime comes from a question that comes up at the end of every occupational therapy session: ',
     "originP1em": 'what happens between one session and the next?',
     "originP2": 'A person with an intellectual disability practices with their therapist in a clinic, but afterwards they are on their own at home, at school, or in their free time. We wanted a tool that respected that autonomy, gave families peace of mind, and served the therapist as a complement between sessions, not a replacement.',
     "originP3": 'This app is the result: 66 self-guided activities, all in Plain Language, all accessible, all designed so the person using them can go at their own pace.',
@@ -40,7 +40,7 @@
     "principleSoberTechTitle": '🧱 Sober technology',
     "principleSoberTechText": 'HTML, CSS and JavaScript, no frameworks. Works offline and can be installed as an app. Open source, in a public repository.',
     "techTitle": 'How it is built',
-    "techIntro1": 'Apptonomia is an installable web app (PWA) made up of more than ',
+    "techIntro1": 'Routime is an installable web app (PWA) made up of more than ',
     "techIntroStrong": '70 static HTML pages',
     "techIntro2": ': a landing page, 66 activities, and hidden routes for families, therapists and maintenance.',
     "techItem1Label": 'No server of its own',
@@ -55,7 +55,7 @@
     "techItem5Label": 'Open source (MIT license)',
     "techItem5Text": 'anyone can read it, audit it and suggest improvements. Product decisions are written down in this repository, not in closed-door presentations.',
     "techItem6Label": 'Internationalized from day one',
-    "techItem6Text": 'every piece of text lives in a file per language. Today Apptonomia is available in Spanish (Spain) and English.',
+    "techItem6Text": 'every piece of text lives in a file per language. Today Routime is available in Spanish (Spain) and English.',
     "techItem7Label": 'External dependencies: none',
     "techItem7Text": ', except for downloading the Atkinson Hyperlegible and Nunito typefaces (chosen for their high legibility).',
     "areasTitle": 'The areas of work',
@@ -84,7 +84,7 @@
     "areasNoteStrong": '66 activities',
     "areasNote2": ', organized so the person chooses by interest, not by obligation. The menu order is not an itinerary: everyone takes their own path.',
     "siblingsTitle": 'Sibling projects',
-    "siblingsIntro": 'Apptonomia is the main project of a small group of sibling projects: same team, same accessibility-first philosophy, and no server of their own. Each one is an independent service, with its own domain, reachable from here.',
+    "siblingsIntro": 'Routime is the main project of a small group of sibling projects: same team, same accessibility-first philosophy, and no server of their own. Each one is an independent service, with its own domain, reachable from here.',
     "siblingCalculiaName": 'Calculia',
     "siblingCalculiaText": 'Math and logical reasoning.',
     "siblingOkeymoneyName": 'Okeymoney',
@@ -95,12 +95,12 @@
     "siblingTeclatlonText": 'Touch-typing with a physical keyboard.',
     "siblingLinkHint": 'Opens in a new tab.',
     "authorshipTitle": 'Who makes it',
-    "authorshipP1a": 'Apptonomia is an initiative by ',
+    "authorshipP1a": 'Routime is an initiative by ',
     "authorshipP1b": ', an independent studio working on open projects with social and educational impact.',
     "authorshipP2": 'The app is built with the involvement of people with intellectual disabilities, families, occupational therapists and teachers, who test every change and review the content before it reaches production.',
     "authorshipP3": 'The code, the text and the decisions are published openly so anyone or any team can audit them, learn from them, and adapt them to other contexts.',
     "collaborateTitle": 'How to help',
-    "collaborateIntro": 'Apptonomia is an open project. There are ways to help that do not require coding:',
+    "collaborateIntro": 'Routime is an open project. There are ways to help that do not require coding:',
     "collaborateItem1Label": 'Try it and share feedback',
     "collaborateItem1Text": 'families, therapists and the people who use the app and report what works and what does not are the key piece of the project. Plain Language mistakes, unfriendly tone and activities that are hard to follow only surface through actual use.',
     "collaborateItem2Label": 'Suggest activities',

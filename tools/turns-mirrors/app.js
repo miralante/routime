@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Giros y Espejos (percepción viso-espacial)
+   Routime — Giros y Espejos (percepción viso-espacial)
    Datos en data.js (DATA.niveles, con tipo giro/espejo/letras).
    Mecánica: se muestra un modelo y 3 opciones (regla 11); hay que
    tocar la opción correcta según el tipo del nivel:

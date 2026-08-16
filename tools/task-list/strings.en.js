@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de lista-tareas (EN)
+   Routime — Textos de lista-tareas (EN)
    Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

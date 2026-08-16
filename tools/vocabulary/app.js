@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Vocabulario por tema (lenguaje: palabras complejas
+   Routime — Vocabulario por tema (lenguaje: palabras complejas
    con significado sencillo, aprendizaje significativo)
    Datos en data.js (DATA.bloques con rondas de 8 palabras). Por
    cada ronda, flujo en 3 pasos:

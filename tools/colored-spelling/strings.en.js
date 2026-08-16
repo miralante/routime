@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Colored Spelling strings (EN)
+   Routime — Colored Spelling strings (EN)
    Single-language file. Same keys as strings.es.js.
    Loaded conditionally from index.html based on App.i18n.locale().
    ============================================================ */

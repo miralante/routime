@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Qué me pongo? (autonomía: vestirse según el tiempo)
+   Routime — ¿Qué me pongo? (autonomía: vestirse según el tiempo)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer qué tiempo hace (mucho calor, mucho frío, lluvia)
    y elegir la prenda adecuada para una parte del cuerpo entre 3

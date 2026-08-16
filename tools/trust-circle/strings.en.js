@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Circle of Trust strings (EN)
+   Routime — Circle of Trust strings (EN)
    Language-specific file. Loaded conditionally from index.html
    based on App.i18n.locale().
    ============================================================ */

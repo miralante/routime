@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Ortografía en Colores (lenguaje: ortografía)
+   Routime — Ortografía en Colores (lenguaje: ortografía)
    Datos en data.js (DATA.es/DATA.en, cada nivel con 6
    oraciones completas).
    Flujo por oración:

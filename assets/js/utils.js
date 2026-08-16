@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Apptonomia — Shared utilities
+   Routime — Shared utilities
    Exposes window.App.utils
    Load with: <script src="../../assets/js/utils.js"></script>
    ========================================================================== */

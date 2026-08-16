@@ -1,6 +1,6 @@
 # Guide to creating activities / tools
 
-> **How to design and build a new activity in Apptonomia, applying the
+> **How to design and build a new activity in Routime, applying the
 > product rules in [`SPEC.md`](SPEC.md) §3, the 13 accessibility rules
 > in [`technical.md`](technical.md) §5, the technical recipe in §9,
 > and a set of **didactic**, **gamification**, **persuasion** and
@@ -33,7 +33,7 @@ Before you create anything, read and keep in mind:
 
 ## 2. How an activity should be
 
-An Apptonomia activity must be **autonomous** (usable without a
+An Routime activity must be **autonomous** (usable without a
 professional present), **emotionally safe**, **progressive** (one new
 variable per level) and **meaningful** (what is practised connects to
 daily life).
@@ -70,7 +70,7 @@ daily life).
 
 ### 2.3 The activity is a daily-life simulation whenever possible
 
-Per [`SPEC.md` §3.6 and principle 11](SPEC.md), an Apptonomia activity is
+Per [`SPEC.md` §3.6 and principle 11](SPEC.md), an Routime activity is
 not an abstract drill: it is **training through simulation**. As far as
 the therapeutic goal allows, every activity is built around a
 recognisable scene in which the person makes a decision and sees its
@@ -154,7 +154,7 @@ ethical neuromarketing). The summary that every activity must satisfy:
 **Forbidden by [`SPEC.md` §3.7](SPEC.md)**: scarcity, false urgency,
 social-proof pressure, sunk-cost / FOMO, manipulative reciprocity /
 dark patterns, exploitative loss aversion. Pressure is not a
-persuasion technique in Apptonomia — engagement is.
+persuasion technique in Routime — engagement is.
 
 ---
 
@@ -349,7 +349,7 @@ contract.
 
 ### 5.2 Socratic method (rule 12 + a bit more)
 
-The Socratic method in Apptonomia has three levels:
+The Socratic method in Routime has three levels:
 
 | Moment | What the app shows | Implicit message |
 |---|---|---|
@@ -436,7 +436,7 @@ it into a long story:
 
 ### 5.7 Call to action (CTA)
 
-In Apptonomia the CTA **is** the action itself ("Tap", "Find",
+In Routime the CTA **is** the action itself ("Tap", "Find",
 "Listen"). On top of that:
 
 - **Visible and unique CTA** per screen. If there is a primary
@@ -459,7 +459,7 @@ ends with an explicit transfer to a moment of the day it will be
 useful in. Without this layer, simulation is just decoration.
 
 Ausubel and Novak talk about **anchoring the new on what the
-person already knows**. In practice, every Apptonomia activity should
+person already knows**. In practice, every Routime activity should
 honour these four **meaningful-learning anchors**:
 
 - **Use everyday vocabulary** that the person already uses at home
@@ -485,7 +485,7 @@ honour these four **meaningful-learning anchors**:
 > anchor concepts**, always respecting `SPEC.md` §3 (no pressure,
 > no punishment, no data).
 
-### 6.1 The 7 neuromarketing keys applied to Apptonomia
+### 6.1 The 7 neuromarketing keys applied to Routime
 
 | Key | Concrete application |
 |---|---|

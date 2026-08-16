@@ -1,12 +1,12 @@
-# Apptonomia
+# Routime
 
 **Web application for occupational therapy activities for people with intellectual disability.**
 
 ---
 
-## What is Apptonomia?
+## What is Routime?
 
-Apptonomia is a digital tool designed for people with intellectual disability to practice daily living skills **independently**, without needing a professional by their side at all times.
+Routime is a digital tool designed for people with intellectual disability to practice daily living skills **independently**, without needing a professional by their side at all times.
 
 The app offers **68 activities** organized into **6 modules**. See the full
 table of modules and their therapeutic goals in [`SPEC.md`](SPEC.md) §2.1,
@@ -41,7 +41,7 @@ and the complete activity-by-activity catalog in
 
 ### 1. Open the app
 
-Visit **[apptonomia.web.app](https://apptonomia.web.app)** or open `site/index.html` from a local server.
+Visit **[Routime.web.app](https://Routime.web.app)** or open `site/index.html` from a local server.
 
 ### 2. Choose an activity
 
@@ -98,13 +98,13 @@ If you get it right, a brief celebration appears. If not, you'll receive an enco
 
 - [Quick guide](quick-guide.md) — Step by step explanation
 - [Activity catalog](activities.md) — Complete list of all 68 activities
-- [Guide for professionals](team.md) — How to use Apptonomia in therapy
+- [Guide for professionals](team.md) — How to use Routime in therapy
 - [Technical information](technical.md) — For developers
 
 ---
 
 ## Credits and license
 
-Apptonomia is an open source project. It was created with the needs of people with intellectual disability and their families in mind.
+Routime is an open source project. It was created with the needs of people with intellectual disability and their families in mind.
 
 The pictograms used are standard system emojis for maximum compatibility.

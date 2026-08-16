@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — El Teatro (construcción de escenas con profundidad)
+   Routime — El Teatro (construcción de escenas con profundidad)
    Datos en data.js (DATA.referencias, DATA.personajes, DATA.niveles).
    Mecánica: escenario de 2 filas × 4 columnas — arriba el FONDO
    (se ve más pequeño), abajo DELANTE (más grande, más cerca).

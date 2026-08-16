@@ -1,11 +1,11 @@
 /* ============================================================
-   Apptonomia — Settings (hidden route)
+   Routime — Settings (hidden route)
    View/reset what's saved in localStorage. Two actions:
    - "Reset the person's data": deletes language + name
      (Piano is the only tool with a name).
      Progress in every activity is kept.
    - "Reset the whole app": deletes everything under
-     'apptonomia:*' (equivalent to opening the app for the first time).
+     'routime:*' (equivalent to opening the app for the first time).
    Two-step confirmation (same pattern as piano-keys's
    "Delete my progress"): one tap asks to confirm, the second deletes.
    ============================================================ */
@@ -26,10 +26,10 @@
   var MY_DETAILS_TOOL_ID = 'my-details';
   var MAX_FAMILY_CONTACTS = 4;
 
-  var PREFIX = 'apptonomia:';
+  var PREFIX = 'routime:';
 
   /* --- Backup of my progress (F1): export/import every
-     'apptonomia:*' key exactly as it is in localStorage (some are
+     'routime:*' key exactly as it is in localStorage (some are
      JSON, 'locale' is a plain string) — this way there's no need to
      know each tool's internal format. --- */
   function exportProgress() {
@@ -44,7 +44,7 @@
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'apptonomia-progress.json';
+    a.download = 'Routime-progress.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -127,7 +127,7 @@
   }
 
   /* --- Preferences: font size and sounds.
-     Saved together under 'apptonomia:prefs' (a single JSON object,
+     Saved together under 'routime:prefs' (a single JSON object,
      not one key per preference) so as not to clutter
      listaToolIds()/estrellasTotales() with more keys to exclude —
      storage.js already excludes the whole 'prefs' key. */

@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de tres-en-raya (EN)
+   Routime — Textos de tres-en-raya (EN)
    Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
    Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */

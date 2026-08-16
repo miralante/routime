@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Connect the Dots (eye-hand coordination)
+   Routime — Connect the Dots (eye-hand coordination)
    Data in data.js (SHAPES, dots as {x, y} percentages of the
    play area). Each round picks a random dot count between 5 and
    10, then a random shape with that count — no level selection.

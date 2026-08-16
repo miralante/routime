@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Emergencias (autonomía: reconocer una emergencia
+   Routime — Emergencias (autonomía: reconocer una emergencia
    de verdad y practicar cómo pedir ayuda)
    Datos en data.js (DATA.reconocer, DATA.llamadas). Dos actividades
    elegibles desde un menú (regla 10: una acción principal por

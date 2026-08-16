@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Antes de la Emergencia (ES)
+   Routime — Textos de Antes de la Emergencia (ES)
    Archivo específico del idioma. Se carga condicionalmente
    desde index.html según App.i18n.locale().
    ============================================================ */

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/rename-tool-slugs.js
+   Routime — scripts/rename-tool-slugs.js
    Renames tools/<old>/ to tools/<new>/ and updates every
    reference in sw.js, site/index.html and site/strings.<locale>.js.
 

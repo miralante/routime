@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Textos de Ajustes (ES)
+   Routime — Textos de Ajustes (ES)
    Archivo específico del idioma. Se carga condicionalmente
    desde index.html según App.i18n.locale().
    ============================================================ */
@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    title: '⚙️ Apptonomia — Ajustes',
+    title: '⚙️ Routime — Ajustes',
     routeNotice: 'Página de ajustes. No aparece en el menú de la aplicación: solo se llega escribiendo esta dirección.',
     intro: 'Aquí se puede borrar lo guardado en este navegador. Pensada para quien gestiona el dispositivo (familia, profesorado), no para la persona usuaria.',
 
@@ -73,7 +73,7 @@
     importWarning2: ' el progreso actual de las actividades que aparezcan en el archivo.',
     feedbackReadError: 'No se ha podido leer el archivo. Inténtalo otra vez.',
     feedbackInvalidFile: 'Ese archivo no es una copia válida (no se puede leer). No se ha tocado nada.',
-    feedbackInvalidBackup: 'Ese archivo no es una copia de Apptonomia válida. No se ha tocado nada.',
+    feedbackInvalidBackup: 'Ese archivo no es una copia de Routime válida. No se ha tocado nada.',
     feedbackImportDone: 'Hecho. Se ha recuperado el progreso guardado en el archivo.',
 
     myDetailsTitle: 'Mis Datos: dirección y teléfonos',

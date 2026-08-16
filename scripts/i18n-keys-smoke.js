@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Apptonomia — scripts/i18n-keys-smoke.js
+   Routime — scripts/i18n-keys-smoke.js
    UI key parity smoke: extracts every App.i18n.t('key') call from
    tools/<slug>/app.js and verifies each key is registered in BOTH
    strings.es.js and strings.en.js. Fails if any UI text referenced

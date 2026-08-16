@@ -1,8 +1,8 @@
-# Contribuir a Apptonomia
+# Contribuir a Routime
 
 > 🌐 **Otros idiomas:** [English](CONTRIBUTING.md)
 
-Apptonomia tiene **tres roles diferenciados** en su comunidad:
+Routime tiene **tres roles diferenciados** en su comunidad:
 
 1. 👤 **Personas con discapacidad intelectual** → son las **usuarias finales** de la app
 2. ❤️ **Familiares y terapeutas** → son las **personas de apoyo** que las acompañan
@@ -98,7 +98,7 @@ Ejemplos:
 
 ### Cómo empezar
 
-1. Lee [`doc/es/SPEC.md`](doc/es/SPEC.md) — entenderás QUÉ es Apptonomia y POR QUÉ existe
+1. Lee [`doc/es/SPEC.md`](doc/es/SPEC.md) — entenderás QUÉ es Routime y POR QUÉ existe
 2. Lee [`doc/es/equipo.md`](doc/es/equipo.md) — visión clínica de las actividades
 3. Examina [`doc/es/actividades.md`](doc/es/actividades.md) — qué hay y qué falta
 4. Lee el apartado §3 del SPEC: las **restricciones innegociables** son las que tu contenido nunca debe romper

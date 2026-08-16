@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — ¿Lo publico? (autonomía: peligros de las redes sociales)
+   Routime — ¿Lo publico? (autonomía: peligros de las redes sociales)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una situación de redes sociales y elegir la
    opción más segura entre 3. Ronda de 8. El error nunca se castiga.

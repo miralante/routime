@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — El Ajedrez (razonamiento: planificación y
+   Routime — El Ajedrez (razonamiento: planificación y
    anticipación). Datos en data.js. Módulos compartidos en assets/js/.
    Dos actividades desde un menú (patrón La Compra):
    - Las piezas: puzzles de recoger estrellas ⭐ en tablero 5×5 para

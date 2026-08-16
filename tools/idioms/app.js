@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Dichos de España (lógica)
+   Routime — Dichos de España (lógica)
    Datos en data.js (const DATA). Módulos compartidos en assets/js/.
    Mecánica: ronda de 10 preguntas con opción múltiple.
    El error nunca se castiga: se anima a reintentar.

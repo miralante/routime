@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Circle of Trust (amigo/compañero/conocido and
+   Routime — Circle of Trust (amigo/compañero/conocido and
    recognizing manipulation, including money requests).
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: read a situation and choose the correct answer among

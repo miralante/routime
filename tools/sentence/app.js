@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — La Frase (lenguaje: comprensión lectora)
+   Routime — La Frase (lenguaje: comprensión lectora)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una frase y responder quién/qué/dónde/por qué
    con 3 opciones. Ronda de 8 frases. El error nunca se castiga.

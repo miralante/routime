@@ -1,5 +1,5 @@
 /* ============================================================
-   Apptonomia — Comida Sana (autonomía/hogar)
+   Routime — Comida Sana (autonomía/hogar)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: aparece un alimento con picto y hay que tocar la caja
    "Cada día" o "De vez en cuando". Ronda de 10 alimentos por nivel.
