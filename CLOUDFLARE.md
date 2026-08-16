@@ -20,16 +20,9 @@
 > `sinonimia` repos' `CLOUDFLARE.md` for the same correction and how
 > it was diagnosed.
 >
-> **`routime.apptonomia.uk` (Firebase Hosting) is still live and is what
-> this repo's own README links to as "the App"** — it predates the
-> Cloudflare migration described below in "Custom domain", which
-> looks incomplete: that section says the Firebase mapping should be
-> removed only after Cloudflare is verified end-to-end, but
-> `routime.apptonomia.uk` still serves the site with **no `_headers`
-> protection at all** (no CSP, no security headers — Firebase Hosting
-> doesn't read that file). This needs a human decision (finish the
-> DNS/custom-domain migration, or update the README link to point at
-> the Workers URL) — not something to silently change here.
+> **`routime.apptonomia.uk`** is the canonical custom domain and is
+> served by this Cloudflare Workers deployment (Firebase Hosting was
+> decommissioned; see "Custom domain" below for the history).
 
 **Live URL:** <https://routime.miralante.workers.dev>
 
@@ -191,18 +184,19 @@ and select **"Retry deployment"** or **"Rollback to this deployment"**.
 
 ## Custom domain
 
-**Status as of this writing: this migration looks unfinished.** The
-plan below predates the correction at the top of this file (Cloudflare
-ended up serving from a `workers.dev` address, not `routime.pages.dev`
-as step 1 assumed), and `routime.apptonomia.uk` — the pre-migration
-Firebase Hosting URL, still linked from this repo's own README — is
-still live and still serving traffic with none of the `_headers`
-protections. That's a real gap: verify with whoever owns the
-Cloudflare/DNS/Firebase consoles whether the custom domain move ever
-happened, and either finish it or decommission `routime.apptonomia.uk`
-and repoint the README. Not something to change from a repo edit.
+`routime.apptonomia.uk` is served by this Cloudflare Workers
+deployment. Firebase Hosting was decommissioned; the domain now
+points to Cloudflare only.
 
-Original plan:
+**History (kept for context, no action needed).** The original
+plan was the three-step migration below. It predates the correction
+at the top of this file (Cloudflare ended up serving from a
+`workers.dev` address, not `routime.pages.dev` as step 1 assumed),
+and at one point Firebase was still live with no `_headers`
+protection, so this section doubled as a real-gap warning. After
+the rename to Routime and the domain switch to
+`routime.apptonomia.uk`, the custom domain is correctly served by
+Cloudflare and Firebase has been removed.
 
 1. Add the domain to the Cloudflare project.
 2. Update DNS at the registrar to the Cloudflare nameservers.
