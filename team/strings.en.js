@@ -160,6 +160,12 @@
         "works": 'Structure and sequence of the daily routine, time orientation, autonomy in organizing the day.',
         "daily": 'Use a real visual schedule at home with Morning/Afternoon/Night.'
       },
+      "clock": {
+        "name": 'The Clock',
+        "does": 'Read the time on an analog, digital or word clock; set the hands to a given time; pair the analog clock with its digital twin; and match each moment of the day (breakfast, lunch, dinner…) with the right time.',
+        "works": 'Temporal orientation, understanding of analog (hands, 12-3-6-9) and digital (HH:MM) formats, equivalence between them, time vocabulary (o’clock, quarter past, half past, quarter to) and autonomy to read a real kitchen or wristwatch.',
+        "daily": 'Ask them what time the kitchen or school clock shows and check together if they can read it.'
+      },
       "what-first": {
         "name": 'What Do I Do First?',
         "does": 'Reads a situation with two or more things that could be done and picks the most urgent or necessary one.',

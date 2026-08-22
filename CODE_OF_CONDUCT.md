@@ -11,9 +11,9 @@ ethnicity, sex characteristics, gender identity and expression, level of
 experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.
 
-Since Routime exists to help people with intellectual disability
-practice autonomy with dignity and without pressure, we expect that same
-spirit of patience, clarity, and respect in how we treat each other.
+Since Routime exists to help our typical user profile practice
+autonomy with dignity and without pressure, we expect that same spirit
+of patience, clarity, and respect in how we treat each other.
 
 ## Our standards
 

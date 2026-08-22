@@ -18,8 +18,75 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <!-- Game screen -->
-    <section id="pantallaJuego" class="pila">
+    <!-- =========================================================
+         Screen 1 — List of tasks
+         Two columns: source (unordered, all available tasks)
+         and ordered (the user's planned order). Tapping a task in
+         either column opens the step-ordering screen for it.
+         ========================================================= -->
+    <section id="pantallaLista" class="pila">
+      <p class="instruccion centrado" data-i18n="instruccionLista">
+        Elige las tareas que vas a hacer y ordénalas. Toca una tarea para ver sus pasos.
+      </p>
+
+      <div class="lista-dos-columnas">
+        <!-- Source column: every available task, unsorted. -->
+        <div class="columna columna-origen">
+          <h2 class="columna-titulo" data-i18n="tituloOrigen">Tareas disponibles</h2>
+          <ul class="lista-tareas" id="listaOrigen" aria-live="polite"></ul>
+          <button type="button" class="btn btn-anadir" id="btnAnadir" data-i18n="anadir">➕ Añadir tarea</button>
+        </div>
+
+        <!-- Destination column: the user's planned order. -->
+        <div class="columna columna-destino">
+          <h2 class="columna-titulo" data-i18n="tituloDestino">Mi orden</h2>
+          <ul class="lista-tareas lista-ordenada" id="listaDestino" aria-live="polite"></ul>
+          <p class="mensaje-vacio" id="mensajeVacio" data-i18n="destinoVacio">
+            Añade tareas desde la izquierda para empezar.
+          </p>
+        </div>
+      </div>
+
+      <div class="feedback" id="feedbackLista" aria-live="polite"></div>
+    </section>
+
+    <!-- =========================================================
+         Screen 1.5 — Add new task (collapsed by default).
+         A small form: text + icon picker + 5 pictogram steps.
+         Stored only for the current session, never persisted.
+         ========================================================= -->
+    <section id="pantallaAnadir" class="oculto pila" aria-labelledby="tituloAnadir">
+      <h2 id="tituloAnadir" class="centrado" data-i18n="anadirTitulo">Añadir una tarea</h2>
+
+      <label class="campo">
+        <span data-i18n="anadirNombre">Nombre de la tarea</span>
+        <input type="text" id="anadirNombre" maxlength="40" autocomplete="off">
+      </label>
+
+      <label class="campo">
+        <span data-i18n="anadirIcono">Icono</span>
+        <div class="iconos-grid" id="iconosGrid" role="radiogroup" aria-label="Icono"></div>
+      </label>
+
+      <p class="etiqueta centrado" data-i18n="anadirPasos">Pasos (toca el emoji para cambiarlo)</p>
+      <ol class="lista-pasos-anadir" id="pasosAnadir"></ol>
+
+      <div class="feedback" id="feedbackAnadir" aria-live="polite"></div>
+
+      <div class="acciones-formulario">
+        <button type="button" class="btn btn-secundario" id="btnAnadirCancelar" data-i18n="anadirCancelar">← Volver</button>
+        <button type="button" class="btn" id="btnAnadirGuardar" data-i18n="anadirGuardar">Guardar</button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen 2 — Step ordering (kept from the original house
+         activity, one task at a time). "← Volver a la lista" lets
+         the user go back to the list screen.
+         ========================================================= -->
+    <section id="pantallaJuego" class="oculto pila" aria-labelledby="tareaTitulo">
+      <button type="button" class="btn btn-secundario btn-volver-lista" id="btnVolverLista" data-i18n="volverLista">← Volver a la lista</button>
+
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText">0 / 5</span>
@@ -39,18 +106,19 @@
       <div class="pila-disponibles" id="disponibles"></div>
 
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next">Siguiente →</button>
+      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
-    <!-- End screen -->
+    <!-- End screen (round of the step-ordering sub-mechanic) -->
     <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverMenu" data-i18n="core.backToMenu">Volver al menú</button>
+      <button type="button" class="btn btn-secundario" id="btnVolverMenu" data-i18n="volverLista">← Volver a la lista</button>
     </section>
+
     <footer class="pie-app">
       <a href="../../legal/index.html" class="enlace-legal" data-i18n="core.dataProtection">Protección de datos</a>
     </footer>

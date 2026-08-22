@@ -72,7 +72,7 @@ If you get it right, a brief celebration appears. If not, you'll receive an enco
 | Activity | What it does |
 |----------|-------------|
 | **My Routines** | Review daily routines: wake up, get dressed, eat... |
-| **The House** | Put in order the steps for household tasks |
+| **The House** | Pick household tasks, put them in your order, then put each task's steps in order |
 | **Emergencies** | Learn when to call 112 and what to say |
 | **Shopping** | Practice at the supermarket |
 

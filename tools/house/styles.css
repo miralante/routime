@@ -6,9 +6,295 @@
   background: var(--mod-secuencia);
 }
 
+/* =================================================================
+   LIST SCREEN — two columns, task rows
+   ================================================================= */
+
+.lista-dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--espacio);
+  margin-top: var(--espacio);
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  /* On phones, stack the columns vertically: origin above destino. */
+  .lista-dos-columnas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.columna {
+  background: var(--color-superficie);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: var(--espacio);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.columna-destino { border-color: var(--mod-secuencia); }
+
+.columna-titulo {
+  font-size: var(--texto-grande);
+  font-weight: 700;
+  margin: 0 0 var(--espacio) 0;
+  color: var(--mod-secuencia);
+  text-align: center;
+}
+
+.lista-tareas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-ordenada { gap: 6px; }
+
+.mensaje-vacio {
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: var(--texto-base);
+  margin-top: var(--espacio);
+}
+
+/* A single task row inside either list */
+.fila-tarea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-fondo);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 8px 10px;
+  min-height: 56px;
+}
+
+.fila-ordenada {
+  background: var(--mod-secuencia-suave);
+  border-color: var(--mod-secuencia);
+}
+
+.fila-picto {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+  text-align: center;
+}
+
+.fila-numero {
+  font-weight: 700;
+  color: var(--mod-secuencia);
+  font-size: var(--texto-base);
+  min-width: 24px;
+  text-align: right;
+}
+
+.fila-nombre {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  font-size: var(--texto-base);
+  font-weight: 600;
+  color: var(--color-texto);
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.fila-nombre:hover { background: rgba(0,0,0,0.04); }
+.fila-nombre:focus-visible {
+  outline: 3px solid var(--mod-secuencia);
+  outline-offset: 1px;
+}
+
+.fila-controles {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.btn-fila {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: var(--radio);
+  border: 2px solid var(--color-borde);
+  background: var(--color-superficie);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 0;
+}
+
+.btn-fila:hover:not(:disabled) { background: var(--color-fondo); }
+.btn-fila:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-fila:focus-visible {
+  outline: 3px solid var(--mod-secuencia);
+  outline-offset: 1px;
+}
+
+.mover-derecha {
+  border-color: var(--mod-secuencia);
+  color: var(--mod-secuencia);
+}
+.mover-izquierda {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.btn-anadir {
+  margin-top: var(--espacio);
+  width: 100%;
+  background: var(--mod-secuencia);
+}
+
+/* =================================================================
+   ADD-NEW-TASK FORM
+   ================================================================= */
+
+#pantallaAnadir {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--espacio);
+}
+
+.campo input {
+  font-size: var(--texto-base);
+  padding: 12px 14px;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  font-family: inherit;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+.campo input:focus-visible {
+  outline: 3px solid var(--mod-secuencia);
+  outline-offset: 1px;
+  border-color: var(--mod-secuencia);
+}
+
+.iconos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 6px;
+  background: var(--color-fondo);
+  padding: 8px;
+  border-radius: var(--radio);
+  border: 2px solid var(--color-borde);
+}
+
+.icono-opcion {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  font-size: 24px;
+  border: 2px solid var(--color-borde);
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.icono-opcion.seleccionado {
+  border-color: var(--mod-secuencia);
+  background: var(--mod-secuencia-suave);
+}
+
+.icono-opcion:focus-visible {
+  outline: 3px solid var(--mod-secuencia);
+  outline-offset: 1px;
+}
+
+.lista-pasos-anadir {
+  list-style: none;
+  margin: 0 0 var(--espacio) 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.paso-anadir {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  background: var(--color-fondo);
+  border-radius: var(--radio);
+}
+
+.paso-numero {
+  font-weight: 700;
+  color: var(--color-texto-suave);
+  min-width: 24px;
+  text-align: right;
+}
+
+.paso-picto {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  font-size: 32px;
+  border: 2px solid var(--color-borde);
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.paso-picto:focus-visible {
+  outline: 3px solid var(--mod-secuencia);
+  outline-offset: 1px;
+}
+
+.acciones-formulario {
+  display: flex;
+  gap: var(--espacio);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =================================================================
+   STEP-ORDERING SCREEN (kept from the original house activity)
+   ================================================================= */
+
 .instruccion { font-size: var(--texto-base); }
 
 .progress-bar { margin-top: var(--espacio); }
+
+.btn-volver-lista {
+  align-self: flex-start;
+}
 
 .tarea-cabecera {
   display: flex;

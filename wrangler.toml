@@ -1,0 +1,39 @@
+# wrangler.toml — Cloudflare Workers (static assets) configuration for
+# Routime.
+#
+# Routime is the suite's main project: a fully static site (plain
+# HTML/CSS/JS, no build step, no server-side code) covering 68
+# activities under `tools/<slug>/` plus a `site/` landing, a `team/`
+# route, `settings/`, `about/` and `legal/`. It's deployed as a Cloudflare
+# Worker with no `main` script — just a static-assets binding — which
+# is Cloudflare's currently recommended path for static sites (the
+# classic "Pages" product is being superseded by Workers + static
+# assets). Mirrors the shape of the sibling `teclatlon`, `sinonimia`,
+# `calculia` and `okeymoney` projects.
+#
+# Routime previously did NOT commit a `wrangler.toml` ("lowest-risk
+# path for the main project" — see CLOUDFLARE.md §"Why still no
+# `wrangler.toml`?"). The file was added back on 2026-08-21 because
+# the project now ships a 404.html and needs `not_found_handling =
+# "404-page"` to make Cloudflare serve it; without that flag, an
+# unmatched path returns a bare empty 404. The file is intentionally
+# minimal: name + [assets] binding, no `main`, no `compatibility_flags`.
+#
+# See: https://developers.cloudflare.com/workers/static-assets/
+
+name = "Routime"
+compatibility_date = "2026-07-27"
+
+[assets]
+directory = "."
+# Serve 404.html for any path that isn't a static asset, instead of
+# Cloudflare's default empty 404. Routime is a multi-activity site
+# (every `tools/<slug>/`, `site/`, `team/`, `settings/`, `about/`,
+# `legal/` already has a real index.html on disk), so a 404 here means
+# a stale bookmark, a typo, or a link shared before a slug was renamed
+# — exactly the situations where a localised fallback that bounces
+# to `site/` is useful. The page itself is minimal (meta refresh + a
+# single "Volver al inicio" link) on purpose: the site's real entry
+# point is `site/index.html`, and any branded chrome would be
+# duplicate.
+not_found_handling = "404-page"

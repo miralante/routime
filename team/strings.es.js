@@ -160,6 +160,12 @@
         "works": 'Estructura y secuencia de la rutina diaria, orientación temporal, autonomía en la organización del día a día.',
         "daily": 'Usad un horario visual real en casa con Mañana/Tarde/Noche.'
       },
+      "clock": {
+        "name": 'El Reloj',
+        "does": 'Lee la hora en un reloj analógico, digital o de palabras; pone las agujas a una hora; empareja el reloj analógico con su hora digital; y asocia cada momento del día (desayuno, comida, cena…) con la hora correcta.',
+        "works": 'Orientación temporal, comprensión del formato analógico (agujas, números 12-3-6-9) y digital (HH:MM), equivalencia entre ambos, vocabulario del tiempo (en punto, y cuarto, y media, menos cuarto) y autonomía para leer un reloj real de cocina o de pulsera.',
+        "daily": 'Preguntadle la hora que marca el reloj de casa o del cole y comprobad juntos si la sabe decir.'
+      },
       "what-first": {
         "name": '¿Qué hago primero?',
         "does": 'Lee una situación con dos o más cosas que se podrían hacer y elige la más urgente o necesaria.',

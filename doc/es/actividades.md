@@ -13,7 +13,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | Actividad | Descripción |
 |-----------|-------------|
 | **Mis Rutinas** | Repasa las rutinas típicas de la casa: mañana, cuidado personal, comidas, tareas del hogar, mascotas, tarde, salida y noche. También permite crear y guardar listas libres propias para practicar a hacer listas |
-| **La Casa** | Ordena los pasos de tareas del hogar: poner la mesa, barrer, fregar, hacer la cama, sacar la basura, regar, cuidar mascotas… |
+| **La Casa** | Dos pantallas: primero eliges tareas del hogar de una lista y las pones en tu orden; luego, al abrir cada tarea, ordenas sus pasos (poner la mesa, barrer, fregar, hacer la cama, sacar la basura, regar, cuidar mascotas, vestirse, salir, volver, cargar el móvil…). También puedes añadir tareas propias a la lista (solo en esta sesión). |
 | **Situaciones** | ¿Qué haces si pasa algo? Aprende a responder ante problemas cotidianos |
 | **Chat Seguro** | Practica cómo responder si alguien te manipula por internet |
 | **Chat Acoso** | Reconoce situaciones de acoso entre compañeros y cómo actuar |

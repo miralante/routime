@@ -3,11 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apptonomia</title>
-  <meta name="description" content="Actividades para entrenar tu mente y tus habilidades, a tu ritmo.">
+
+  <!-- ===== SEO: título, descripción, keywords, canonical, robots =====
+       Routime is the historical Apptonomia suite of activities; the
+       canonical URL is routime.apptonomia.uk (NOT apptonomia.uk,
+       which is the gateway portal). Both names are kept in the
+       alternateName so existing links/SEO weight don't leak. -->
+  <title>Routime — Actividades para entrenar tu mente y tus habilidades</title>
+  <meta name="description" content="Routime es una aplicación web gratuita y sin registro con actividades para entrenar tu mente y tus habilidades a tu ritmo: coordinación, razonamiento, memoria, comunicación, autorregulación, vida diaria y juegos de mesa. Parte de la suite Apptonomia.">
+  <meta name="keywords" content="routime, apptonomia, actividades terapéuticas, terapia ocupacional, accesibilidad cognitiva, easy read, lectura fácil, coordinación, razonamiento, memoria, autorregulación, vida diaria, aplicaciones gratuitas sin registro">
+  <meta name="author" content="Apptonomia">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://routime.apptonomia.uk/">
+  <link rel="alternate" hreflang="es" href="https://routime.apptonomia.uk/?lang=es">
+  <link rel="alternate" hreflang="en" href="https://routime.apptonomia.uk/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://routime.apptonomia.uk/">
+
+  <!-- ===== Open Graph ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Apptonomia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Routime — Actividades para entrenar tu mente y tus habilidades">
+  <meta property="og:description" content="Actividades para entrenar tu mente y tus habilidades a tu ritmo. Gratis y sin registro. Parte de la suite Apptonomia.">
+  <meta property="og:url" content="https://routime.apptonomia.uk/">
+  <meta property="og:image" content="https://routime.apptonomia.uk/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Routime: actividades para entrenar mente y habilidades">
+
+  <!-- ===== Twitter Card ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Routime — Actividades para entrenar tu mente y tus habilidades">
+  <meta name="twitter:description" content="Actividades para entrenar tu mente y tus habilidades a tu ritmo. Gratis y sin registro.">
+  <meta name="twitter:image" content="https://routime.apptonomia.uk/og-image.png">
+
+  <!-- ===== Theme / appearance ===== -->
   <meta name="theme-color" content="#FAF7F2">
+  <meta name="color-scheme" content="light">
+
   <link rel="manifest" href="../manifest.json">
   <link rel="icon" href="../assets/img/icono.svg" type="image/svg+xml">
+
+  <!-- ===== JSON-LD: SoftwareApplication + parentOrganization =====
+       alternateName preserves the "Apptonomia" historical brand so
+       existing external links don't lose weight. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://routime.apptonomia.uk/#app",
+        "name": "Routime",
+        "alternateName": "Apptonomia (activities suite)",
+        "url": "https://routime.apptonomia.uk/",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Actividades cotidianas",
+        "operatingSystem": "Web",
+        "inLanguage": ["es", "en"],
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "description": "Actividades para entrenar tu mente y tus habilidades a tu ritmo: coordinación, razonamiento, memoria, comunicación, autorregulación, vida diaria y juegos de mesa.",
+        "parentOrganization": { "@id": "https://apptonomia.uk/#org" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Apptonomia", "item": "https://apptonomia.uk/" },
+          { "@type": "ListItem", "position": 2, "name": "Routime", "item": "https://routime.apptonomia.uk/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
@@ -89,6 +159,11 @@
             <span class="picto" aria-hidden="true">🌗</span>
             <span class="nombre" data-i18n="timesofday_nombre">Partes del Día</span>
             <span class="detalle" data-i18n="timesofday_detalle">¿Mañana, tarde o noche?</span>
+          </a>
+          <a href="../tools/clock/index.html" class="tarjeta">
+            <span class="picto" aria-hidden="true">🕐</span>
+            <span class="nombre" data-i18n="clock_nombre">El Reloj</span>
+            <span class="detalle" data-i18n="clock_detalle">¿Qué hora es?</span>
           </a>
           <a href="../tools/what-first/index.html" class="tarjeta">
             <span class="picto" aria-hidden="true">📝</span>

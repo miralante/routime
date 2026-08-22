@@ -72,7 +72,7 @@ Si aciertas, aparecerá una celebración breve. Si no, recibirá un mensaje de �
 | Actividad | ¿Qué hace? |
 |-----------|------------|
 | **Mis Rutinas** | Repasa las rutinas del día: despertar, vestirse, comer... |
-| **La Casa** | Ordena los pasos para hacer tareas del hogar |
+| **La Casa** | Elige tareas del hogar, ordénalas, y luego pon los pasos de cada tarea en orden |
 | **Emergencias** | Aprende cuándo llamar al 112 y qué decir |
 | **La Compra** | Practica en el supermercado |
 

@@ -13,7 +13,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | Activity | Description |
 |----------|-------------|
 | **My Routines** | Reviews the typical routines of a home: morning, personal care, meals, household tasks, pets, afternoon, leaving home and night. Also lets the person build and save their own free-form lists to practise list-making |
-| **The House** | Orders the steps of household tasks: setting the table, sweeping, mopping, making the bed, taking out the trash, watering plants, caring for pets… |
+| **The House** | Two screens: first, pick household tasks from a list and put them in your own order; then, open each task and put its steps in the right order (setting the table, sweeping, mopping, making the bed, taking out the trash, watering plants, caring for pets, getting dressed, going out, coming home, charging the phone…). The person can also add their own tasks to the list (session only). |
 | **Situations** | What do you do if something happens? Learn to respond to everyday problems |
 | **Safe Chat** | Practice how to respond if someone manipulates you online |
 | **Bullying Chat** | Recognize bullying situations among peers and how to act |

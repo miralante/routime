@@ -361,3 +361,35 @@ button.dinero:disabled { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   button.dinero:hover { transform: none; }
 }
+
+/* ---- Responsive: móvil (≤ 640px) ----
+   Sin `@media (max-width)` previo — solo hay reglas `min-height: 720px`
+   que se aplican a escritorios típicos pero no estrechan el contenido en
+   teléfonos. Apretamos padding del container y de los botones en
+   pantallas estrechas (los botones siguen >= 64px por la regla
+   CLAUDE.md §3.7). */
+@media (max-width: 640px) {
+  .container {
+    padding-left: var(--espacio);
+    padding-right: var(--espacio);
+  }
+  .btn { padding: 10px 20px; }
+  .tarjeta { padding: var(--espacio); }
+}
+
+/* ---- Responsive: tablet (641px–1023px) ----
+   Ajustes intermedios: tipografía algo mayor, padding cómodo. Layout
+   sigue siendo una columna principal. */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .tarjeta { padding: calc(var(--espacio) * 1.25); }
+}
+
+/* ---- Responsive: escritorio ancho (≥ 1024px) ----
+   El container (max-width: 900px) ya centra bien en pantallas grandes,
+   pero las tarjetas de actividad se ven pequeñas. Damos más padding y
+   engordamos los títulos de actividad para mantener proporción con el
+   viewport. */
+@media (min-width: 1024px) {
+  .tarjeta { padding: calc(var(--espacio) * 1.5); }
+  .tool-header h1 { font-size: 2.25rem; }
+}

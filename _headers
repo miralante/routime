@@ -1,9 +1,11 @@
 # Cloudflare Pages headers — applied to every matching path.
 # Mirror of the cache policy that used to live in `firebase.json`.
 #
-# The HTML entry points and service worker must NOT be long-cached, otherwise
-# the PWA's cache-first strategy gets pinned to an old shell. JS/CSS/image
-# assets are fingerprinted only when changed, so a 1-year cache is safe.
+# The HTML entry points, the 404 page and the service worker must NOT
+# be long-cached, otherwise the PWA's cache-first strategy pins users
+# to an old shell and a 404 page edit wouldn't reach visitors until
+# they cleared the cache. JS/CSS/image assets are fingerprinted only
+# when changed, so a 1-year cache is safe.
 
 /
   X-Content-Type-Options: nosniff
@@ -11,6 +13,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
 
 /index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/404.html
   Cache-Control: public, max-age=0, must-revalidate
 
 /site/*

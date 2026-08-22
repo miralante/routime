@@ -37,7 +37,7 @@
       'tracing': 'Traces', 'coloring': 'Coloring', 'builders': 'Builders',
       'routines': 'My Routines', 'house': 'The House', 'situations': 'Situations',
       'safe-chat': 'Safe Chat', 'bullying-chat': 'Bullying Chat', 'post-or-not': 'Should I Post It?',
-      'social-safety': 'Social Media, Privacy and the Law', 'signs': 'Signs', 'times-of-day': 'Times of Day',
+      'social-safety': 'Social Media, Privacy and the Law', 'signs': 'Signs', 'times-of-day': 'Times of Day', 'clock': 'The Clock',
       'what-first': 'What Do I Do First?', 'what-do-i-need': 'What Do I Need?', 'where-to-store': 'Where Do I Keep It?',
       'task-list': 'Task List', 'my-agenda': 'My Schedule', 'what-to-wear': 'What Do I Wear?',
       'street': 'The Street', 'emergencies': 'Emergencies', 'phone-numbers': 'Important Phone Numbers',

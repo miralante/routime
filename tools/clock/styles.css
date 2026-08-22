@@ -1,0 +1,152 @@
+/* El Reloj — estilos específicos de la actividad. Los estilos
+   compartidos viven en assets/css/. El acento del módulo Autonomía
+   y hogar es --mod-secuencia (verde). */
+
+.cabecera-app h1 { color: var(--mod-secuencia); }
+
+.btn:not(.btn-secundario):not(.btn-audio) {
+  background: var(--mod-secuencia);
+}
+
+.instruccion { font-size: var(--texto-base); }
+
+.centrado-fila { justify-content: center; }
+
+.btn-nivel { min-width: 300px; align-self: center; }
+
+/* ---- Selector de modo (pantalla inicial) ---- */
+.btn-modo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 300px;
+  align-self: center;
+  text-align: left;
+  padding: 16px 20px;
+}
+.btn-modo .modo-desc {
+  font-weight: 400;
+  font-size: var(--texto-base);
+  opacity: 0.85;
+}
+
+/* ---- Pantalla digital (LCD) ---- */
+.digital-face {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 28px;
+  background: #1F2933;
+  color: #F9FAFB;
+  border-radius: 12px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  min-width: 200px;
+  user-select: none;
+}
+.digital-face .dig-pair { font-size: 2.5rem; line-height: 1; }
+.digital-face .dig-seg  { font-size: 1.5rem; opacity: 0.85; line-height: 1; }
+.btn-opcion .dig-pair   { font-size: 1.6rem; }
+
+/* ---- Modo "poner": steppers accesibles ---- */
+.opciones-steppers {
+  align-items: center;
+  gap: 12px;
+}
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: 2px solid var(--mod-secuencia);
+  border-radius: 999px;
+  background: #FFFFFF;
+}
+.stepper-etiqueta { font-weight: 700; color: var(--color-texto); }
+.stepper-valor {
+  min-width: 3ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+.btn-step {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid var(--mod-secuencia);
+  background: var(--mod-secuencia);
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.btn-step:focus-visible {
+  outline: 3px solid var(--color-foco, #2563EB);
+  outline-offset: 2px;
+}
+.btn-confirmar {
+  align-self: center;
+  min-width: 240px;
+  margin-top: 8px;
+}
+
+/* ---- Objetivo del modo "poner" ---- */
+.objetivo-poner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.objetivo-poner .objetivo-etiqueta {
+  font-size: 1rem;
+  color: var(--color-texto-secundario, #555);
+}
+.objetivo-poner .objetivo-hora {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ---- Relojes de respuesta (asociar / convertir digital→analógico) ---- */
+.opciones-reloj {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.opcion-reloj {
+  width: auto;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Pictograma del momento del día ---- */
+.momento-picto { font-size: 72px; }
+
+.barra-progreso { margin-top: var(--espacio); }
+
+.card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
+
+.pregunta { color: var(--color-texto-suave); }
+
+.emoji-grande { font-size: 96px; }
+
+#pantallaFinal { padding-top: 48px; }
+
+#pantallaFinal .btn {
+  align-self: center;
+  min-width: 280px;
+}
+
+#pantallaFinal .transferencia {
+  margin: 8px auto 24px;
+  font-size: 1.1rem;
+  color: var(--color-texto-secundario, #555);
+  max-width: 480px;
+}

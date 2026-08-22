@@ -3,7 +3,7 @@
    Cache-first strategy for the app shell (works offline).
    When adding new files: add them to ARCHIVOS and bump VERSION.
    ============================================================ */
-var VERSION = 'routime-v1';
+var VERSION = 'routime-v6';
 
 var ARCHIVOS = [
   './index.html',
@@ -369,6 +369,12 @@ var ARCHIVOS = [
   './tools/times-of-day/strings.es.js',
   './tools/times-of-day/strings.en.js',
   './tools/times-of-day/styles.css',
+  './tools/clock/index.html',
+  './tools/clock/app.js',
+  './tools/clock/data.js',
+  './tools/clock/strings.es.js',
+  './tools/clock/strings.en.js',
+  './tools/clock/styles.css',
   './tools/piano-keys/index.html',
   './tools/piano-keys/app.js',
   './tools/piano-keys/data.js',

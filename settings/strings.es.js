@@ -37,7 +37,7 @@
       'tracing': 'Trazos', 'coloring': 'Colorear', 'builders': 'Constructores',
       'routines': 'Mis Rutinas', 'house': 'La Casa', 'situations': 'Situaciones',
       'safe-chat': 'Chat Seguro', 'bullying-chat': 'Chat Acoso', 'post-or-not': '¿Lo publico?',
-      'social-safety': 'Redes, intimidad y ley', 'signs': 'Señales', 'times-of-day': 'Partes del Día',
+      'social-safety': 'Redes, intimidad y ley', 'signs': 'Señales', 'times-of-day': 'Partes del Día', 'clock': 'El Reloj',
       'what-first': '¿Qué hago primero?', 'what-do-i-need': '¿Qué necesito?', 'where-to-store': '¿Dónde lo guardo?',
       'task-list': 'Lista de Tareas', 'my-agenda': 'Mi agenda', 'what-to-wear': '¿Qué me pongo?',
       'street': 'La Calle', 'emergencies': 'Emergencias', 'phone-numbers': 'Teléfonos Importantes',

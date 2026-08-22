@@ -1,18 +1,30 @@
 .dev/
 .claude/
+.vscode/
 .DS_Store
 Thumbs.db
 node_modules/
 .firebase/
 temp_*
+.tmp_*.txt
+.check_out.txt
+.ck_exit.txt
+_ck_exit.txt
+_ck_err.txt
+_rt_*_err.txt
+_rt_*_out.txt
 **/graphify-out/
 .graphify*
 .graphifyignore
-.check_out.txt
 .sw-cache/
 # one-shot migration helpers (do not keep in repo)
 scripts/_fix-*.js
 scripts/.smoke.out
+scripts/check_debug.js
+# Vanilla-only project: do not introduce a package manager.
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 # Secrets and credentials — never commit
 .env

@@ -38,18 +38,20 @@
   }
 
   /**
-   * Reads a text aloud. Cancels any previous reading.
+   * Reads a text aloud. Cancels any previous reading. Strips simple HTML
+   * tags (e.g. <mark>, <b>) so the tags themselves are never read aloud.
    * @param {string} texto
    * @param {function} [onEnd] - callback on finish (optional)
    */
   function speak(texto, onEnd) {
-    if (!disponible || !texto) {
+    var limpio = String(texto || '').replace(/<[^>]+>/g, '');
+    if (!disponible || !limpio) {
       if (onEnd) onEnd();
       return;
     }
     window.speechSynthesis.cancel();
     var lang = idiomaActivo();
-    var u = new SpeechSynthesisUtterance(texto);
+    var u = new SpeechSynthesisUtterance(limpio);
     u.lang = lang;
     u.rate = 0.9;
     u.pitch = 1;

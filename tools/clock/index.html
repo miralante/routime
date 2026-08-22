@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es" data-i18n-title="titulo">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Teatro | Routime</title>
+  <title>El Reloj | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -12,51 +12,60 @@
 </head>
 <body>
   <div class="container">
-    <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🎭 El Teatro</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+    <header class="cabecera-app">
+      <a href="../../site/index.html" class="enlace-volver" data-i18n="core.back">← Volver</a>
+      <h1 data-i18n="titulo">🕐 El Reloj</h1>
+      <span class="estrellas" id="estrellas">⭐ 0</span>
     </header>
 
-    <!-- Start screen -->
+    <!-- Pantalla inicial: elegir modo -->
     <section id="pantallaInicio" class="pila centrado">
       <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Monta la escena. Pon cada personaje donde diga la frase.</p>
+        <p class="instruccion" id="instruccion" data-i18n="instruccion">Mira el reloj. Elige la hora correcta.</p>
       </div>
+      <h2 data-i18n="elegirModo">Elige una actividad</h2>
+      <div class="pila" id="modos"></div>
+    </section>
+
+    <!-- Pantalla de niveles (tras elegir modo) -->
+    <section id="pantallaNiveles" class="oculto pila centrado">
       <h2 data-i18n="elegirNivel">Elige el nivel</h2>
       <div class="pila" id="niveles"></div>
     </section>
 
-    <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila centrado">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-        <span class="progress-text" id="progressText">0 / 3</span>
+    <!-- Pantalla de juego -->
+    <section id="pantallaJuego" class="oculto pila">
+      <div class="barra-progreso">
+        <div class="progreso-relleno" id="progresoRelleno"></div>
+        <span class="progreso-texto" id="progresoTexto">0 / 8</span>
       </div>
 
-      <div class="fila centrado-fila">
-        <span class="personaje-actual" id="personajeActual" aria-hidden="true"></span>
-        <h2 class="consigna" id="consigna" aria-live="polite"></h2>
-        <button type="button" class="btn btn-audio" id="btnConsigna" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
+      <div class="card centrado pila">
+        <div id="zonaPregunta"></div>
       </div>
-
-      <div class="escenario" id="escenario"></div>
-
+      <h2 class="pregunta centrado" id="textoPregunta" data-i18n="queHora">¿Qué hora es?</h2>
+      <button type="button" class="btn btn-audio oculto" id="btnEscuchar"
+        data-i18n-aria="core.listenText" aria-label="Escuchar la pregunta">
+        <span data-i18n="core.listen">🔊 Escuchar</span>
+      </button>
+      <div class="pila" id="opciones"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="explicacionWrap">
         <p id="explicacion" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn oculto" id="btnSiguiente"
+        data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
-    <!-- End screen -->
+    <!-- Pantalla final -->
     <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
+      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="elegirOtroNivel">Elegir otro nivel</button>
+      <button type="button" class="btn btn-secundario" id="btnOtroModo" data-i18n="elegirOtroModo">Elegir otro modo</button>
       <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer class="pie-app">
@@ -80,4 +89,3 @@
   </script>
 </body>
 </html>
-
