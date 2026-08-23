@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    "title": "Apptonomia",
+    "title": "Routime",
     "saludo": "Hola. ¿Qué quieres hacer hoy?",
     "listenGreeting": "Escuchar el saludo",
     "yourStars": "Tus estrellas",

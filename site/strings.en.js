@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    "title": "Apptonomia",
+    "title": "Routime",
     "saludo": "Hello. What do you want to do today?",
     "listenGreeting": "Listen to the greeting",
     "yourStars": "Your stars",
