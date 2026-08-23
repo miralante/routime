@@ -28,10 +28,12 @@
 
 Routime is deployed as a **Cloudflare Worker (static assets)**
 project, using the Cloudflare Git connector. There is no custom
-GitHub Actions workflow that deploys, and — deliberately, see "Why
-still no `wrangler.toml`?" below — no `wrangler.toml` in the repo;
-the Cloudflare dashboard owns the build and deploy, and project
-configuration lives entirely there.
+GitHub Actions workflow that deploys. A `wrangler.toml` is committed
+in the repo (name + `[assets]` binding + `not_found_handling =
+"404-page"`, see that file for the rationale); the Cloudflare
+dashboard owns the build and deploy, the file is kept for parity
+with the sibling projects and so a local `wrangler deploy` does the
+same thing Cloudflare's CI does.
 
 ## How it works
 
@@ -46,20 +48,23 @@ configuration lives entirely there.
 
 The `Routime.<account-subdomain>.workers.dev` address is assigned
 by Cloudflare from the project name `Routime` declared in the
-Cloudflare dashboard. The project name is **not** declared in the
-repo — that avoids the "project type misdetected as Worker" failure
-mode that a Pages-style `wrangler.toml` introduced here in the past
-(see "Why still no `wrangler.toml`?" below).
+Cloudflare dashboard. The project name is also pinned in
+`wrangler.toml` so a local `wrangler deploy` (or a manual CLI
+debugging session) sees the same project. The file is the
+**Workers + static assets** shape (`[assets] directory = "."`, no
+`main`), which is what Cloudflare's current docs recommend for
+static sites and what the dashboard project is already configured
+as.
 
 ## Files in this repository
 
 | File | Purpose |
 |---|---|
 | `_headers` | Cache and security headers, replaces the old `firebase.json` `headers` |
+| `wrangler.toml` | Pins the project name + the `[assets]` binding + `not_found_handling = "404-page"` |
 | `.github/workflows/ci.yml` | `node scripts/check.js`, i18n smoke and secrets scan on every push/PR (does **not** deploy) |
 
-No deploy-side configuration is committed: no `wrangler.toml`, no
-`_redirects`, no `functions/`, no `_routes.json`, no Cloudflare
+No `_redirects`, no `functions/`, no `_routes.json`, no Cloudflare
 service-account keys. The dashboard is the source of truth for project
 settings; the repo holds the static assets and the CI that gates them.
 
@@ -82,35 +87,40 @@ The root `/index.html` keeps its `<meta http-equiv="refresh">` to
 under Firebase Hosting — that has nothing to do with the server-side
 routing and does not cause a loop.
 
-## Why still no `wrangler.toml`?
+## Why a `wrangler.toml` now?
 
-A `wrangler.toml` containing `name = "Routime"` and a Pages-style
-`pages_build_output_dir = "."` setting looked correct, but in
-practice the Cloudflare Git connector mis-detected the project type
-when that file was present: it fell back to `wrangler deploy`
-expecting a hand-authored Worker, which then failed with *"Missing
-entry-point to Worker script or to assets directory"* because the
-file declared neither a `main` entry-point nor an `[assets]` binding.
-Removing `wrangler.toml` sidestepped the issue.
+The project previously did NOT commit a `wrangler.toml` — the rationale
+was a real failure mode observed in this repo: a `wrangler.toml`
+containing `name = "routime"` (capitalised as `"Routime"` was
+rejected at deploy time with *Expected "name" to be of type string,
+alphanumeric and lowercase with dashes only but got "Routime"*) and
+a Pages-style `pages_build_output_dir
+= "."` setting caused the Cloudflare Git connector to mis-detect the
+project type as a hand-authored Worker, which then failed with
+*"Missing entry-point to Worker script or to assets directory"*
+because the file declared neither a `main` entry-point nor an
+`[assets]` binding. Removing `wrangler.toml` sidestepped the issue.
 
-The sibling `teclatlon`, `sinonimia`, `calculia` and `okeymoney`
-projects have since added back a `wrangler.toml` each — with the
-correct shape (`[assets] directory = "."`, no `main`) — because it's
-Cloudflare's currently recommended path and, for the ones with a
-`404.html`, because `not_found_handling = "404-page"` is the only way
-to make Cloudflare serve it (without it, an unmatched path gets a
-bare empty 404). Routime doesn't have a `404.html` to protect and
-is the project every other sibling's deploy guide points to as
-canonical, so — until there's a concrete reason to add one —
-`wrangler.toml` stays out here on purpose, favouring the
-lowest-risk path for the main project over strict consistency with
-the siblings.
+That escape hatch stopped being necessary once Cloudflare's current
+shape for static sites became the well-supported **Workers + static
+assets** model (`[assets]` table, no `main`), which is the shape
+`teclatlon`, `sinonimia`, `calculia` and `okeymoney` already use.
+Routime adopted the same shape on 2026-08-21 because the project now
+ships a `404.html` and needs `not_found_handling = "404-page"` to
+make Cloudflare serve it on an unmatched path (without it, every
+unmatched URL — stale bookmark, typo, link shared before a rename —
+returns a bare empty 404 instead of the localised fallback). The
+file is intentionally minimal: `name = "routime"`, `[assets]
+directory = "."`, `not_found_handling = "404-page"`, no `main`, no
+`compatibility_flags`. Same name and binding Cloudflare's dashboard
+already has, so the Git connector detects the project as a Worker
+with static assets rather than mis-falling back to hand-authored
+deploy.
 
 If the project ever needs a manual CLI deploy (for example, to attach
-preview channels during a local debugging session), Wrangler can be
-installed transiently via `npx wrangler deploy --name routime
---assets .` from the repo root, without committing a `wrangler.toml`
-or a `wrangler` devDependency.
+preview channels during a local debugging session), the same file
+works out of the box: `npx wrangler deploy` from the repo root,
+picking up `wrangler.toml` automatically.
 
 ## Configuration in Cloudflare
 
