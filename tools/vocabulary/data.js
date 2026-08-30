@@ -1,10 +1,14 @@
 /* ============================================================
-   Routime ÔÇö Vocabulario por tema (lenguaje: banco de
-   palabras complejas de content/dictionary/, en una sola
-   actividad con filtro por bloque y por tier).
-   Este data.js es una copia est+ítica generada a partir del
-   banco. Para ampliarlo, regenera con scripts/gen-vocabulary-data.js
-   tras actualizar content/dictionary/{es,en}.json.
+   Routime â€” Vocabulario por tema (lenguaje: banco de palabras
+   complejas en una sola actividad con filtro por bloque y por
+   tier).
+   Este data.js es una copia estÃ¡tica del banco histÃ³rico
+   `content/dictionary/{es,en}.json` (eliminado en 2026-08-30;
+   el contenido de este archivo es la versiÃ³n conservada para la
+   actividad). Las opciones incorrectas del test se generan
+   tomando el significado de otras palabras del mismo bloque
+   (nunca inventadas). El filtro por tier deja ver solo rondas
+   con palabras del tier elegido (1, 2, 3 o 4).
    ============================================================ */
 (function () {
   'use strict';
@@ -24,7 +28,7 @@
       "en": "General adult vocabulary"
     },
     "categorias": [
-      "d+¡a a d+¡a",
+      "d+ï¿½a a d+ï¿½a",
       "personalidad y emociones",
       "trabajo y sociedad",
       "ciencia, ideas y mundo",
@@ -32,16 +36,16 @@
       "el dinero y las compras",
       "el tiempo y el calendario",
       "los viajes y los lugares",
-      "la tecnolog+¡a y la comunicaci+¦n",
+      "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
       "los derechos y la convivencia",
       "pensar y aprender",
-      "acciones del d+¡a a d+¡a (avanzado)"
+      "acciones del d+ï¿½a a d+ï¿½a (avanzado)"
     ],
     "rondas": [
       {
         "id": "A-dia-a-dia-1",
         "bloqueId": "A",
-        "category": "d+¡a a d+¡a",
+        "category": "d+ï¿½a a d+ï¿½a",
         "chunkIndex": 0,
         "chunkCount": 4,
         "tier": 1,
@@ -50,56 +54,56 @@
             "word": "asequible",
             "definition": "Que se puede comprar o conseguir sin gastar mucho dinero.",
             "example": "Este piso es asequible: cuesta menos que otros del barrio.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "rutinario",
             "definition": "Que se repite siempre de la misma manera.",
             "example": "Guardar la compra es una tarea rutinaria en casa.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
-            "word": "pr+íctico",
-            "definition": "Que sirve para algo +¦til, sin complicaciones.",
-            "example": "Este bolso es pr+íctico: cabe todo lo que necesito.",
-            "category": "d+¡a a d+¡a",
+            "word": "pr+ï¿½ctico",
+            "definition": "Que sirve para algo +ï¿½til, sin complicaciones.",
+            "example": "Este bolso es pr+ï¿½ctico: cabe todo lo que necesito.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "accesible",
-            "definition": "Que es f+ícil de usar o de llegar hasta +®l.",
+            "definition": "Que es f+ï¿½cil de usar o de llegar hasta +ï¿½l.",
             "example": "La rampa hace que la entrada sea accesible en silla de ruedas.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "puntual",
-            "definition": "Que llega a la hora exacta, ni antes ni despu+®s.",
-            "example": "Fue puntual: lleg+¦ justo a las nueve.",
-            "category": "d+¡a a d+¡a",
+            "definition": "Que llega a la hora exacta, ni antes ni despu+ï¿½s.",
+            "example": "Fue puntual: lleg+ï¿½ justo a las nueve.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "razonable",
             "definition": "Que tiene sentido y no es exagerado.",
-            "example": "El precio del billete me pareci+¦ razonable.",
-            "category": "d+¡a a d+¡a",
+            "example": "El precio del billete me pareci+ï¿½ razonable.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "suficiente",
             "definition": "Que hay la cantidad justa que hace falta.",
             "example": "Tenemos comida suficiente para toda la semana.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "previsible",
             "definition": "Que se puede saber antes de que pase.",
-            "example": "La lluvia era previsible: lo dijo el tiempo esta ma+¦ana.",
-            "category": "d+¡a a d+¡a",
+            "example": "La lluvia era previsible: lo dijo el tiempo esta ma+ï¿½ana.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           }
         ]
@@ -107,7 +111,7 @@
       {
         "id": "A-dia-a-dia-2",
         "bloqueId": "A",
-        "category": "d+¡a a d+¡a",
+        "category": "d+ï¿½a a d+ï¿½a",
         "chunkIndex": 1,
         "chunkCount": 4,
         "tier": 1,
@@ -115,57 +119,57 @@
           {
             "word": "duradero",
             "definition": "Que dura mucho tiempo sin romperse.",
-            "example": "Estos zapatos son duraderos: los uso desde hace tres a+¦os.",
-            "category": "d+¡a a d+¡a",
+            "example": "Estos zapatos son duraderos: los uso desde hace tres a+ï¿½os.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "sencillo",
-            "definition": "Que no tiene complicaciones, es f+ícil de entender.",
+            "definition": "Que no tiene complicaciones, es f+ï¿½cil de entender.",
             "example": "La receta es sencilla: solo tiene tres pasos.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "habitual",
             "definition": "Que pasa casi siempre, es lo normal.",
-            "example": "Tomar caf+® por la ma+¦ana es habitual en mi casa.",
-            "category": "d+¡a a d+¡a",
+            "example": "Tomar caf+ï¿½ por la ma+ï¿½ana es habitual en mi casa.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "urgente",
             "definition": "Que hay que hacerlo ya, no puede esperar.",
-            "example": "La llamada era urgente: hab+¡a un problema en el trabajo.",
-            "category": "d+¡a a d+¡a",
+            "example": "La llamada era urgente: hab+ï¿½a un problema en el trabajo.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "provisional",
             "definition": "Que dura poco tiempo, hasta que llegue algo definitivo.",
             "example": "Vivimos en un piso provisional mientras arreglan el nuestro.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "voluntario",
             "definition": "Que se hace porque uno quiere, no porque lo obliguen.",
             "example": "Ayudar en el comedor social es un trabajo voluntario.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "gradual",
             "definition": "Que pasa poco a poco, no de golpe.",
             "example": "El cambio de horario fue gradual, un poco cada semana.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "notable",
-            "definition": "Que se nota mucho, es f+ícil de ver.",
+            "definition": "Que se nota mucho, es f+ï¿½cil de ver.",
             "example": "Hizo una mejora notable en su forma de leer.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           }
         ]
@@ -173,65 +177,65 @@
       {
         "id": "A-dia-a-dia-3",
         "bloqueId": "A",
-        "category": "d+¡a a d+¡a",
+        "category": "d+ï¿½a a d+ï¿½a",
         "chunkIndex": 2,
         "chunkCount": 4,
         "tier": 1,
         "words": [
           {
             "word": "impecable",
-            "definition": "Que est+í perfecto, sin ning+¦n fallo.",
-            "example": "Dej+¦ la cocina impecable despu+®s de limpiar.",
-            "category": "d+¡a a d+¡a",
+            "definition": "Que est+ï¿½ perfecto, sin ning+ï¿½n fallo.",
+            "example": "Dej+ï¿½ la cocina impecable despu+ï¿½s de limpiar.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "viable",
             "definition": "Que se puede hacer de verdad, es posible.",
             "example": "El plan es viable si empezamos esta semana.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
-            "word": "c+¦modo",
+            "word": "c+ï¿½modo",
             "definition": "Que hace sentir bien, sin molestias.",
-            "example": "Este sill+¦n es muy c+¦modo para ver la tele.",
-            "category": "d+¡a a d+¡a",
+            "example": "Este sill+ï¿½n es muy c+ï¿½modo para ver la tele.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
-            "word": "vers+ítil",
+            "word": "vers+ï¿½til",
             "definition": "Que sirve para muchas cosas distintas.",
-            "example": "Esta herramienta es vers+ítil: sirve para varios trabajos.",
-            "category": "d+¡a a d+¡a",
+            "example": "Esta herramienta es vers+ï¿½til: sirve para varios trabajos.",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "fiable",
             "definition": "Que se puede confiar en ello, no falla.",
             "example": "Este reloj es fiable: siempre da la hora bien.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "moderado",
             "definition": "Que no es ni mucho ni poco, es equilibrado.",
             "example": "Hizo un gasto moderado en el viaje.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "flexible",
             "definition": "Que se puede cambiar o adaptar con facilidad.",
             "example": "Mi horario de trabajo es flexible, puedo elegirlo.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           },
           {
             "word": "eventual",
             "definition": "Que puede pasar, pero no es seguro.",
             "example": "Hay un eventual cambio de planes si llueve.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           }
         ]
@@ -239,7 +243,7 @@
       {
         "id": "A-dia-a-dia-4",
         "bloqueId": "A",
-        "category": "d+¡a a d+¡a",
+        "category": "d+ï¿½a a d+ï¿½a",
         "chunkIndex": 3,
         "chunkCount": 4,
         "tier": 1,
@@ -248,7 +252,7 @@
             "word": "genuino",
             "definition": "Que es de verdad, no es una copia.",
             "example": "Ese cuadro es un genuino Picasso.",
-            "category": "d+¡a a d+¡a",
+            "category": "d+ï¿½a a d+ï¿½a",
             "tier": 1
           }
         ]
@@ -264,20 +268,20 @@
           {
             "word": "optimista",
             "definition": "Que ve el lado bueno de las cosas.",
-            "example": "Es optimista: cree que todo saldr+í bien.",
+            "example": "Es optimista: cree que todo saldr+ï¿½ bien.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "pesimista",
             "definition": "Que ve el lado malo de las cosas.",
-            "example": "Es pesimista: piensa que algo saldr+í mal.",
+            "example": "Es pesimista: piensa que algo saldr+ï¿½ mal.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "generoso",
-            "definition": "Que le gusta compartir lo que tiene con los dem+ís.",
+            "definition": "Que le gusta compartir lo que tiene con los dem+ï¿½s.",
             "example": "Fue generoso: dio la mitad de su comida.",
             "category": "personalidad y emociones",
             "tier": 2
@@ -285,7 +289,7 @@
           {
             "word": "orgulloso",
             "definition": "Que se siente muy contento por algo que ha hecho.",
-            "example": "Est+í orgulloso de haber aprobado el examen.",
+            "example": "Est+ï¿½ orgulloso de haber aprobado el examen.",
             "category": "personalidad y emociones",
             "tier": 2
           },
@@ -298,22 +302,22 @@
           },
           {
             "word": "impulsivo",
-            "definition": "Que act+¦a r+ípido, sin pensar antes.",
-            "example": "Fue impulsivo: compr+¦ el coche sin mirar el precio.",
+            "definition": "Que act+ï¿½a r+ï¿½pido, sin pensar antes.",
+            "example": "Fue impulsivo: compr+ï¿½ el coche sin mirar el precio.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "prudente",
             "definition": "Que piensa bien antes de actuar, para evitar problemas.",
-            "example": "Fue prudente: mir+¦ a los dos lados antes de cruzar.",
+            "example": "Fue prudente: mir+ï¿½ a los dos lados antes de cruzar.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "curioso",
             "definition": "Que quiere saber cosas nuevas todo el rato.",
-            "example": "Es curioso: siempre pregunta c+¦mo funcionan las cosas.",
+            "example": "Es curioso: siempre pregunta c+ï¿½mo funcionan las cosas.",
             "category": "personalidad y emociones",
             "tier": 2
           }
@@ -329,8 +333,8 @@
         "words": [
           {
             "word": "resiliente",
-            "definition": "Que se recupera bien despu+®s de algo dif+¡cil.",
-            "example": "Fue resiliente: volvi+¦ a intentarlo despu+®s del fracaso.",
+            "definition": "Que se recupera bien despu+ï¿½s de algo dif+ï¿½cil.",
+            "example": "Fue resiliente: volvi+ï¿½ a intentarlo despu+ï¿½s del fracaso.",
             "category": "personalidad y emociones",
             "tier": 2
           },
@@ -351,28 +355,28 @@
           {
             "word": "sensible",
             "definition": "Que se emociona con facilidad.",
-            "example": "Es sensible: llora viendo pel+¡culas tristes.",
+            "example": "Es sensible: llora viendo pel+ï¿½culas tristes.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "cauteloso",
             "definition": "Que tiene cuidado para no equivocarse.",
-            "example": "Fue cauteloso: ley+¦ el contrato dos veces antes de firmar.",
+            "example": "Fue cauteloso: ley+ï¿½ el contrato dos veces antes de firmar.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "compasivo",
             "definition": "Que siente pena por el dolor de otros y quiere ayudar.",
-            "example": "Fue compasivo: ayud+¦ al se+¦or que se hab+¡a ca+¡do.",
+            "example": "Fue compasivo: ayud+ï¿½ al se+ï¿½or que se hab+ï¿½a ca+ï¿½do.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "rencoroso",
-            "definition": "Que no olvida ni perdona cuando le hacen da+¦o.",
-            "example": "Es rencoroso: sigue enfadado por algo de hace un a+¦o.",
+            "definition": "Que no olvida ni perdona cuando le hacen da+ï¿½o.",
+            "example": "Es rencoroso: sigue enfadado por algo de hace un a+ï¿½o.",
             "category": "personalidad y emociones",
             "tier": 2
           },
@@ -395,43 +399,43 @@
         "words": [
           {
             "word": "altruista",
-            "definition": "Que ayuda a los dem+ís sin esperar nada a cambio.",
-            "example": "Fue altruista: don+¦ dinero sin dec+¡rselo a nadie.",
+            "definition": "Que ayuda a los dem+ï¿½s sin esperar nada a cambio.",
+            "example": "Fue altruista: don+ï¿½ dinero sin dec+ï¿½rselo a nadie.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "desconfiado",
-            "definition": "Que no cree f+ícilmente en lo que dicen los dem+ís.",
+            "definition": "Que no cree f+ï¿½cilmente en lo que dicen los dem+ï¿½s.",
             "example": "Es desconfiado: pregunta varias veces antes de creer algo.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "entusiasta",
-            "definition": "Que muestra mucha ilusi+¦n y ganas por algo.",
-            "example": "Es entusiasta con el nuevo trabajo: llega feliz cada d+¡a.",
+            "definition": "Que muestra mucha ilusi+ï¿½n y ganas por algo.",
+            "example": "Es entusiasta con el nuevo trabajo: llega feliz cada d+ï¿½a.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "obstinado",
             "definition": "Que no cambia de idea aunque le digan que se equivoca.",
-            "example": "Fue obstinado: sigui+¦ con su plan aunque todos le avisaron.",
+            "example": "Fue obstinado: sigui+ï¿½ con su plan aunque todos le avisaron.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "servicial",
-            "definition": "Que le gusta ayudar a los dem+ís.",
+            "definition": "Que le gusta ayudar a los dem+ï¿½s.",
             "example": "Es servicial: siempre ayuda a cargar las bolsas.",
             "category": "personalidad y emociones",
             "tier": 2
           },
           {
             "word": "vulnerable",
-            "definition": "Que puede sufrir da+¦o con facilidad, necesita protecci+¦n.",
-            "example": "Las personas mayores son m+ís vulnerables al fr+¡o.",
+            "definition": "Que puede sufrir da+ï¿½o con facilidad, necesita protecci+ï¿½n.",
+            "example": "Las personas mayores son m+ï¿½s vulnerables al fr+ï¿½o.",
             "category": "personalidad y emociones",
             "tier": 2
           },
@@ -443,9 +447,9 @@
             "tier": 2
           },
           {
-            "word": "melanc+¦lico",
-            "definition": "Que siente una tristeza suave, como a+¦oranza.",
-            "example": "Se puso melanc+¦lico al ver fotos antiguas.",
+            "word": "melanc+ï¿½lico",
+            "definition": "Que siente una tristeza suave, como a+ï¿½oranza.",
+            "example": "Se puso melanc+ï¿½lico al ver fotos antiguas.",
             "category": "personalidad y emociones",
             "tier": 2
           }
@@ -461,8 +465,8 @@
         "words": [
           {
             "word": "jovial",
-            "definition": "Que est+í alegre y de buen humor casi siempre.",
-            "example": "La abuela es jovial: siempre est+í riendo y contando historias.",
+            "definition": "Que est+ï¿½ alegre y de buen humor casi siempre.",
+            "example": "La abuela es jovial: siempre est+ï¿½ riendo y contando historias.",
             "category": "personalidad y emociones",
             "tier": 2
           }
@@ -478,7 +482,7 @@
         "words": [
           {
             "word": "jornada",
-            "definition": "El tiempo que se trabaja en un d+¡a.",
+            "definition": "El tiempo que se trabaja en un d+ï¿½a.",
             "example": "Su jornada laboral empieza a las ocho.",
             "category": "trabajo y sociedad",
             "tier": 3
@@ -486,14 +490,14 @@
           {
             "word": "contrato",
             "definition": "Un papel que dice las condiciones de un trabajo o acuerdo.",
-            "example": "Firm+¦ el contrato antes de empezar a trabajar.",
+            "example": "Firm+ï¿½ el contrato antes de empezar a trabajar.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "sueldo",
             "definition": "El dinero que se recibe por trabajar.",
-            "example": "Cobra el sueldo el +¦ltimo d+¡a del mes.",
+            "example": "Cobra el sueldo el +ï¿½ltimo d+ï¿½a del mes.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
@@ -519,16 +523,16 @@
             "tier": 3
           },
           {
-            "word": "tr+ímite",
+            "word": "tr+ï¿½mite",
             "definition": "Un paso que hay que hacer para conseguir algo oficial.",
-            "example": "Pedir el DNI es un tr+ímite en la comisar+¡a.",
+            "example": "Pedir el DNI es un tr+ï¿½mite en la comisar+ï¿½a.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "solicitud",
             "definition": "Un papel donde se pide algo de forma oficial.",
-            "example": "Rellen+¦ la solicitud para pedir la beca.",
+            "example": "Rellen+ï¿½ la solicitud para pedir la beca.",
             "category": "trabajo y sociedad",
             "tier": 3
           }
@@ -544,57 +548,57 @@
         "words": [
           {
             "word": "entidad",
-            "definition": "Una organizaci+¦n, como una empresa o una asociaci+¦n.",
+            "definition": "Una organizaci+ï¿½n, como una empresa o una asociaci+ï¿½n.",
             "example": "El banco es una entidad que guarda el dinero.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "colectivo",
-            "definition": "Un grupo de personas que comparten algo en com+¦n.",
+            "definition": "Un grupo de personas que comparten algo en com+ï¿½n.",
             "example": "Ayuda a un colectivo de personas mayores.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "inclusi+¦n",
+            "word": "inclusi+ï¿½n",
             "definition": "Hacer que todas las personas puedan participar, sin dejar a nadie fuera.",
-            "example": "La rampa mejora la inclusi+¦n de las personas en silla de ruedas.",
+            "example": "La rampa mejora la inclusi+ï¿½n de las personas en silla de ruedas.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "discriminaci+¦n",
+            "word": "discriminaci+ï¿½n",
             "definition": "Tratar peor a una persona por ser diferente.",
-            "example": "La ley proh+¡be la discriminaci+¦n por el origen de la persona.",
+            "example": "La ley proh+ï¿½be la discriminaci+ï¿½n por el origen de la persona.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "autonom+¡a",
+            "word": "autonom+ï¿½a",
             "definition": "Poder hacer las cosas uno mismo, sin ayuda de otros.",
-            "example": "Cocinar solo le da m+ís autonom+¡a.",
+            "example": "Cocinar solo le da m+ï¿½s autonom+ï¿½a.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "instituci+¦n",
-            "definition": "Una organizaci+¦n grande, como el Ayuntamiento o un hospital.",
-            "example": "El Ayuntamiento es una instituci+¦n del pueblo.",
+            "word": "instituci+ï¿½n",
+            "definition": "Una organizaci+ï¿½n grande, como el Ayuntamiento o un hospital.",
+            "example": "El Ayuntamiento es una instituci+ï¿½n del pueblo.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "comunidad",
             "definition": "Un grupo de personas que viven o comparten algo en el mismo lugar.",
-            "example": "Toda la comunidad ayud+¦ a limpiar el parque.",
+            "example": "Toda la comunidad ayud+ï¿½ a limpiar el parque.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "ciudadan+¡a",
-            "definition": "El derecho y el deber de vivir como parte de un pa+¡s.",
-            "example": "Votar es parte de la ciudadan+¡a.",
+            "word": "ciudadan+ï¿½a",
+            "definition": "El derecho y el deber de vivir como parte de un pa+ï¿½s.",
+            "example": "Votar es parte de la ciudadan+ï¿½a.",
             "category": "trabajo y sociedad",
             "tier": 3
           }
@@ -609,43 +613,43 @@
         "tier": 3,
         "words": [
           {
-            "word": "legislaci+¦n",
-            "definition": "El conjunto de leyes de un pa+¡s.",
-            "example": "La legislaci+¦n protege los derechos de los trabajadores.",
+            "word": "legislaci+ï¿½n",
+            "definition": "El conjunto de leyes de un pa+ï¿½s.",
+            "example": "La legislaci+ï¿½n protege los derechos de los trabajadores.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "convocatoria",
             "definition": "Un aviso para que la gente vaya a un sitio o participe en algo.",
-            "example": "Sali+¦ la convocatoria para el nuevo curso.",
+            "example": "Sali+ï¿½ la convocatoria para el nuevo curso.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "subvenci+¦n",
+            "word": "subvenci+ï¿½n",
             "definition": "Dinero que da el Estado para ayudar a hacer algo.",
-            "example": "La asociaci+¦n recibi+¦ una subvenci+¦n para el taller.",
+            "example": "La asociaci+ï¿½n recibi+ï¿½ una subvenci+ï¿½n para el taller.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
-            "word": "gesti+¦n",
+            "word": "gesti+ï¿½n",
             "definition": "Organizar y llevar bien las tareas de algo.",
-            "example": "La gesti+¦n del dinero de la casa la hace entre los dos.",
+            "example": "La gesti+ï¿½n del dinero de la casa la hace entre los dos.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "infraestructura",
             "definition": "Las cosas construidas que hacen falta para vivir, como carreteras o el agua.",
-            "example": "El pueblo mejor+¦ su infraestructura con una carretera nueva.",
+            "example": "El pueblo mejor+ï¿½ su infraestructura con una carretera nueva.",
             "category": "trabajo y sociedad",
             "tier": 3
           },
           {
             "word": "sostenible",
-            "definition": "Que se puede mantener en el tiempo sin da+¦ar las cosas.",
+            "definition": "Que se puede mantener en el tiempo sin da+ï¿½ar las cosas.",
             "example": "Usar la bici es un transporte sostenible.",
             "category": "trabajo y sociedad",
             "tier": 3
@@ -660,7 +664,7 @@
           {
             "word": "representante",
             "definition": "La persona que habla en nombre de un grupo.",
-            "example": "El representante de los vecinos habl+¦ en la reuni+¦n.",
+            "example": "El representante de los vecinos habl+ï¿½ en la reuni+ï¿½n.",
             "category": "trabajo y sociedad",
             "tier": 3
           }
@@ -677,7 +681,7 @@
           {
             "word": "transparencia",
             "definition": "Hacer las cosas de forma clara, sin esconder nada.",
-            "example": "El club explic+¦ con transparencia en qu+® gasta el dinero.",
+            "example": "El club explic+ï¿½ con transparencia en qu+ï¿½ gasta el dinero.",
             "category": "trabajo y sociedad",
             "tier": 3
           }
@@ -692,30 +696,30 @@
         "tier": 4,
         "words": [
           {
-            "word": "hip+¦tesis",
-            "definition": "Una idea que se piensa que puede ser verdad, pero a+¦n no se sabe seguro.",
-            "example": "El cient+¡fico hizo una hip+¦tesis antes del experimento.",
+            "word": "hip+ï¿½tesis",
+            "definition": "Una idea que se piensa que puede ser verdad, pero a+ï¿½n no se sabe seguro.",
+            "example": "El cient+ï¿½fico hizo una hip+ï¿½tesis antes del experimento.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "teor+¡a",
-            "definition": "Una explicaci+¦n de por qu+® pasan las cosas, basada en pruebas.",
-            "example": "La teor+¡a explica por qu+® llueve.",
+            "word": "teor+ï¿½a",
+            "definition": "Una explicaci+ï¿½n de por qu+ï¿½ pasan las cosas, basada en pruebas.",
+            "example": "La teor+ï¿½a explica por qu+ï¿½ llueve.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "fen+¦meno",
+            "word": "fen+ï¿½meno",
             "definition": "Algo que pasa en la naturaleza y se puede observar.",
-            "example": "El arco+¡ris es un fen+¦meno que pasa cuando llueve y hace sol.",
+            "example": "El arco+ï¿½ris es un fen+ï¿½meno que pasa cuando llueve y hace sol.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
             "word": "ecosistema",
             "definition": "Todos los seres vivos y el lugar donde viven juntos.",
-            "example": "El bosque es un ecosistema con +írboles, animales e insectos.",
+            "example": "El bosque es un ecosistema con +ï¿½rboles, animales e insectos.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
@@ -729,21 +733,21 @@
           {
             "word": "clima",
             "definition": "El tiempo que suele hacer en un lugar durante mucho tiempo.",
-            "example": "El clima de Espa+¦a es c+ílido en verano.",
+            "example": "El clima de Espa+ï¿½a es c+ï¿½lido en verano.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "tecnolog+¡a",
-            "definition": "Las m+íquinas y herramientas que ayudan a hacer las cosas m+ís f+ícil.",
-            "example": "El m+¦vil es un ejemplo de tecnolog+¡a.",
+            "word": "tecnolog+ï¿½a",
+            "definition": "Las m+ï¿½quinas y herramientas que ayudan a hacer las cosas m+ï¿½s f+ï¿½cil.",
+            "example": "El m+ï¿½vil es un ejemplo de tecnolog+ï¿½a.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
             "word": "digital",
             "definition": "Que funciona con ordenadores o pantallas, no en papel.",
-            "example": "Ahora muchos tr+ímites se hacen de forma digital.",
+            "example": "Ahora muchos tr+ï¿½mites se hacen de forma digital.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           }
@@ -759,15 +763,15 @@
         "words": [
           {
             "word": "innovador",
-            "definition": "Que trae algo nuevo que no exist+¡a antes.",
-            "example": "Ese invento es innovador: nadie lo hab+¡a hecho antes.",
+            "definition": "Que trae algo nuevo que no exist+ï¿½a antes.",
+            "example": "Ese invento es innovador: nadie lo hab+ï¿½a hecho antes.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "globalizaci+¦n",
-            "definition": "Cuando pa+¡ses de todo el mundo est+ín conectados y se parecen m+ís.",
-            "example": "La globalizaci+¦n hace que se pueda comprar de otros pa+¡ses f+ícilmente.",
+            "word": "globalizaci+ï¿½n",
+            "definition": "Cuando pa+ï¿½ses de todo el mundo est+ï¿½n conectados y se parecen m+ï¿½s.",
+            "example": "La globalizaci+ï¿½n hace que se pueda comprar de otros pa+ï¿½ses f+ï¿½cilmente.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
@@ -779,37 +783,37 @@
             "tier": 4
           },
           {
-            "word": "civilizaci+¦n",
+            "word": "civilizaci+ï¿½n",
             "definition": "Un grupo grande de personas que vive de forma organizada, con normas y cultura.",
-            "example": "Los romanos fueron una gran civilizaci+¦n.",
+            "example": "Los romanos fueron una gran civilizaci+ï¿½n.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "filosof+¡a",
+            "word": "filosof+ï¿½a",
             "definition": "La forma de pensar sobre la vida y sus grandes preguntas.",
-            "example": "La filosof+¡a intenta responder qu+® es la felicidad.",
+            "example": "La filosof+ï¿½a intenta responder qu+ï¿½ es la felicidad.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "+®tica",
+            "word": "+ï¿½tica",
             "definition": "Lo que se considera bueno o malo hacer.",
-            "example": "Por +®tica, un m+®dico debe decir la verdad sobre tu salud.",
+            "example": "Por +ï¿½tica, un m+ï¿½dico debe decir la verdad sobre tu salud.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "emp+¡rico",
+            "word": "emp+ï¿½rico",
             "definition": "Que se sabe porque se ha comprobado, no porque se imagina.",
-            "example": "El resultado es emp+¡rico: se comprob+¦ varias veces en el laboratorio.",
+            "example": "El resultado es emp+ï¿½rico: se comprob+ï¿½ varias veces en el laboratorio.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
             "word": "objetivo",
             "definition": "Que se basa en hechos reales, no en lo que uno siente.",
-            "example": "El +írbitro debe ser objetivo y no favorecer a ning+¦n equipo.",
+            "example": "El +ï¿½rbitro debe ser objetivo y no favorecer a ning+ï¿½n equipo.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           }
@@ -826,7 +830,7 @@
           {
             "word": "subjetivo",
             "definition": "Que depende de lo que piensa o siente cada persona.",
-            "example": "Que una pel+¡cula sea buena es algo subjetivo.",
+            "example": "Que una pel+ï¿½cula sea buena es algo subjetivo.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
@@ -847,21 +851,21 @@
           {
             "word": "paradoja",
             "definition": "Algo que parece imposible o contradictorio, pero puede ser cierto.",
-            "example": "Es una paradoja: cuanto m+ís r+ípido corres en la cinta, menos avanzas.",
+            "example": "Es una paradoja: cuanto m+ï¿½s r+ï¿½pido corres en la cinta, menos avanzas.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "analog+¡a",
+            "word": "analog+ï¿½a",
             "definition": "Comparar dos cosas distintas porque se parecen en algo.",
-            "example": "Explic+¦ el coraz+¦n con una analog+¡a: es como una bomba de agua.",
+            "example": "Explic+ï¿½ el coraz+ï¿½n con una analog+ï¿½a: es como una bomba de agua.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
           {
-            "word": "herm+®tico",
-            "definition": "Que est+í cerrado del todo, no deja pasar nada.",
-            "example": "El bote es herm+®tico: no entra ni sale aire.",
+            "word": "herm+ï¿½tico",
+            "definition": "Que est+ï¿½ cerrado del todo, no deja pasar nada.",
+            "example": "El bote es herm+ï¿½tico: no entra ni sale aire.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           },
@@ -873,9 +877,9 @@
             "tier": 4
           },
           {
-            "word": "aut+¦ctono",
+            "word": "aut+ï¿½ctono",
             "definition": "Que es originario del lugar donde vive, no viene de fuera.",
-            "example": "El lince es un animal aut+¦ctono de Espa+¦a.",
+            "example": "El lince es un animal aut+ï¿½ctono de Espa+ï¿½a.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           }
@@ -892,7 +896,7 @@
           {
             "word": "universal",
             "definition": "Que vale o se entiende en todas partes, para todo el mundo.",
-            "example": "La m+¦sica es un lenguaje universal.",
+            "example": "La m+ï¿½sica es un lenguaje universal.",
             "category": "ciencia, ideas y mundo",
             "tier": 4
           }
@@ -907,36 +911,36 @@
         "tier": 1,
         "words": [
           {
-            "word": "s+¡ntoma",
-            "definition": "Una se+¦al del cuerpo que avisa de que algo no va bien.",
-            "example": "La fiebre es un s+¡ntoma de que el cuerpo est+í luchando contra una infecci+¦n.",
+            "word": "s+ï¿½ntoma",
+            "definition": "Una se+ï¿½al del cuerpo que avisa de que algo no va bien.",
+            "example": "La fiebre es un s+ï¿½ntoma de que el cuerpo est+ï¿½ luchando contra una infecci+ï¿½n.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
             "word": "remedio",
             "definition": "Algo que se toma o se hace para curar o aliviar una dolencia.",
-            "example": "El m+®dico le dio un remedio para el dolor de cabeza.",
+            "example": "El m+ï¿½dico le dio un remedio para el dolor de cabeza.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
             "word": "receta",
-            "definition": "Un papel del m+®dico que dice qu+® medicina tienes que tomar.",
-            "example": "Llev+¦ la receta a la farmacia para comprar las pastillas.",
+            "definition": "Un papel del m+ï¿½dico que dice qu+ï¿½ medicina tienes que tomar.",
+            "example": "Llev+ï¿½ la receta a la farmacia para comprar las pastillas.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
             "word": "alergia",
-            "definition": "Reacci+¦n del cuerpo que molesta cuando toca o come algo.",
+            "definition": "Reacci+ï¿½n del cuerpo que molesta cuando toca o come algo.",
             "example": "Tiene alergia a los frutos secos: le pica la piel.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
             "word": "cita",
-            "definition": "El d+¡a y la hora acordados para ir al m+®dico o a otro sitio.",
+            "definition": "El d+ï¿½a y la hora acordados para ir al m+ï¿½dico o a otro sitio.",
             "example": "Tengo cita con el dentista el jueves a las cinco.",
             "category": "el cuerpo y la salud",
             "tier": 1
@@ -944,20 +948,20 @@
           {
             "word": "urgencias",
             "definition": "La zona del hospital para los casos graves que no pueden esperar.",
-            "example": "Lo llevaron a urgencias porque se hab+¡a hecho una herida muy grande.",
+            "example": "Lo llevaron a urgencias porque se hab+ï¿½a hecho una herida muy grande.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
-            "word": "an+ílisis",
-            "definition": "Una prueba m+®dica para ver c+¦mo est+í tu cuerpo.",
-            "example": "Le hicieron un an+ílisis de sangre para ver si estaba enfermo.",
+            "word": "an+ï¿½lisis",
+            "definition": "Una prueba m+ï¿½dica para ver c+ï¿½mo est+ï¿½ tu cuerpo.",
+            "example": "Le hicieron un an+ï¿½lisis de sangre para ver si estaba enfermo.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
             "word": "vacuna",
-            "definition": "Una inyecci+¦n que protege al cuerpo de algunas enfermedades.",
+            "definition": "Una inyecci+ï¿½n que protege al cuerpo de algunas enfermedades.",
             "example": "Le pusieron la vacuna de la gripe en octubre.",
             "category": "el cuerpo y la salud",
             "tier": 1
@@ -974,15 +978,15 @@
         "words": [
           {
             "word": "muleta",
-            "definition": "Un bast+¦n que se apoya debajo del brazo para caminar cuando te duele una pierna.",
-            "example": "Andaba con muletas despu+®s de romperse un tobillo.",
+            "definition": "Un bast+ï¿½n que se apoya debajo del brazo para caminar cuando te duele una pierna.",
+            "example": "Andaba con muletas despu+ï¿½s de romperse un tobillo.",
             "category": "el cuerpo y la salud",
             "tier": 1
           },
           {
-            "word": "rehabilitaci+¦n",
-            "definition": "Un conjunto de ejercicios para recuperar el cuerpo despu+®s de una lesi+¦n.",
-            "example": "Hace rehabilitaci+¦n dos veces por semana para mover mejor el brazo.",
+            "word": "rehabilitaci+ï¿½n",
+            "definition": "Un conjunto de ejercicios para recuperar el cuerpo despu+ï¿½s de una lesi+ï¿½n.",
+            "example": "Hace rehabilitaci+ï¿½n dos veces por semana para mover mejor el brazo.",
             "category": "el cuerpo y la salud",
             "tier": 1
           }
@@ -1006,42 +1010,42 @@
           {
             "word": "descuento",
             "definition": "Una cantidad de dinero que te quitan del precio.",
-            "example": "Con el descuento, la televisi+¦n cost+¦ la mitad.",
+            "example": "Con el descuento, la televisi+ï¿½n cost+ï¿½ la mitad.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
             "word": "factura",
-            "definition": "Un papel que dice cu+ínto tienes que pagar y por qu+®.",
-            "example": "Recibi+¦ la factura de la luz por correo electr+¦nico.",
+            "definition": "Un papel que dice cu+ï¿½nto tienes que pagar y por qu+ï¿½.",
+            "example": "Recibi+ï¿½ la factura de la luz por correo electr+ï¿½nico.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
             "word": "recibo",
-            "definition": "Un papel peque+¦o que demuestra que has pagado algo.",
-            "example": "Guard+¦ el recibo de la compra por si tiene que devolverla.",
+            "definition": "Un papel peque+ï¿½o que demuestra que has pagado algo.",
+            "example": "Guard+ï¿½ el recibo de la compra por si tiene que devolverla.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
             "word": "deuda",
-            "definition": "Dinero que le debes a alguien y a+¦n no has pagado.",
-            "example": "Tiene una deuda con el banco por el pr+®stamo del coche.",
+            "definition": "Dinero que le debes a alguien y a+ï¿½n no has pagado.",
+            "example": "Tiene una deuda con el banco por el pr+ï¿½stamo del coche.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
             "word": "ahorro",
-            "definition": "Dinero que guardas en lugar de gastarlo, para usarlo m+ís tarde.",
+            "definition": "Dinero que guardas en lugar de gastarlo, para usarlo m+ï¿½s tarde.",
             "example": "Cada mes aparta algo de dinero como ahorro.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
-            "word": "pr+®stamo",
-            "definition": "Dinero que te deja una entidad y que tienes que devolver despu+®s.",
-            "example": "Pidi+¦ un pr+®stamo al banco para reformar la cocina.",
+            "word": "pr+ï¿½stamo",
+            "definition": "Dinero que te deja una entidad y que tienes que devolver despu+ï¿½s.",
+            "example": "Pidi+ï¿½ un pr+ï¿½stamo al banco para reformar la cocina.",
             "category": "el dinero y las compras",
             "tier": 2
           },
@@ -1064,15 +1068,15 @@
         "words": [
           {
             "word": "cambio",
-            "definition": "Lo que te devuelven cuando pagas con dinero de m+ís.",
+            "definition": "Lo que te devuelven cuando pagas con dinero de m+ï¿½s.",
             "example": "Si pagas con un billete de veinte y cuesta doce, te dan ocho de cambio.",
             "category": "el dinero y las compras",
             "tier": 2
           },
           {
-            "word": "garant+¡a",
+            "word": "garant+ï¿½a",
             "definition": "La promesa de que algo se arregla o se cambia si se rompe en un tiempo.",
-            "example": "El m+¦vil tiene dos a+¦os de garant+¡a.",
+            "example": "El m+ï¿½vil tiene dos a+ï¿½os de garant+ï¿½a.",
             "category": "el dinero y las compras",
             "tier": 2
           }
@@ -1088,15 +1092,15 @@
         "words": [
           {
             "word": "calendario",
-            "definition": "Una tabla con los d+¡as, semanas y meses del a+¦o.",
-            "example": "Mira el calendario para saber qu+® d+¡a es hoy.",
+            "definition": "Una tabla con los d+ï¿½as, semanas y meses del a+ï¿½o.",
+            "example": "Mira el calendario para saber qu+ï¿½ d+ï¿½a es hoy.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
           {
             "word": "cita previa",
-            "definition": "El acuerdo de ir a un sitio un d+¡a y hora que se ha decidido antes.",
-            "example": "Pidi+¦ cita previa en el m+®dico por internet.",
+            "definition": "El acuerdo de ir a un sitio un d+ï¿½a y hora que se ha decidido antes.",
+            "example": "Pidi+ï¿½ cita previa en el m+ï¿½dico por internet.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
@@ -1109,28 +1113,28 @@
           },
           {
             "word": "retraso",
-            "definition": "Cuando algo pasa m+ís tarde de la hora prevista.",
-            "example": "El tren lleg+¦ con veinte minutos de retraso.",
+            "definition": "Cuando algo pasa m+ï¿½s tarde de la hora prevista.",
+            "example": "El tren lleg+ï¿½ con veinte minutos de retraso.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
           {
-            "word": "antelaci+¦n",
+            "word": "antelaci+ï¿½n",
             "definition": "Tiempo de antes con el que preparas o avisas de algo.",
-            "example": "Hay que avisar con una semana de antelaci+¦n para cambiar la cita.",
+            "example": "Hay que avisar con una semana de antelaci+ï¿½n para cambiar la cita.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
           {
             "word": "vencimiento",
-            "definition": "El d+¡a en que algo deja de ser v+ílido o se tiene que pagar.",
-            "example": "La fecha de vencimiento del carn+® es en mayo.",
+            "definition": "El d+ï¿½a en que algo deja de ser v+ï¿½lido o se tiene que pagar.",
+            "example": "La fecha de vencimiento del carn+ï¿½ es en mayo.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
           {
             "word": "aniversario",
-            "definition": "El d+¡a del a+¦o en que se cumple otro a+¦o de un hecho importante.",
+            "definition": "El d+ï¿½a del a+ï¿½o en que se cumple otro a+ï¿½o de un hecho importante.",
             "example": "Celebraron el aniversario de bodas con una cena.",
             "category": "el tiempo y el calendario",
             "tier": 2
@@ -1155,7 +1159,7 @@
           {
             "word": "horario",
             "definition": "La lista de las horas a las que se hace cada cosa.",
-            "example": "El horario del autob+¦s est+í pegado en la parada.",
+            "example": "El horario del autob+ï¿½s est+ï¿½ pegado en la parada.",
             "category": "el tiempo y el calendario",
             "tier": 2
           },
@@ -1186,28 +1190,28 @@
           {
             "word": "destino",
             "definition": "El sitio al que quieres llegar.",
-            "example": "El destino del avi+¦n es Barcelona.",
+            "example": "El destino del avi+ï¿½n es Barcelona.",
             "category": "los viajes y los lugares",
             "tier": 2
           },
           {
             "word": "equipaje",
             "definition": "Las maletas y bolsas que llevas cuando viajas.",
-            "example": "Factur+¦ el equipaje antes de subir al avi+¦n.",
+            "example": "Factur+ï¿½ el equipaje antes de subir al avi+ï¿½n.",
             "category": "los viajes y los lugares",
             "tier": 2
           },
           {
             "word": "alojamiento",
-            "definition": "El sitio donde te quedas a dormir cuando est+ís de viaje.",
-            "example": "Reserv+¦ el alojamiento en un hotel cerca de la playa.",
+            "definition": "El sitio donde te quedas a dormir cuando est+ï¿½s de viaje.",
+            "example": "Reserv+ï¿½ el alojamiento en un hotel cerca de la playa.",
             "category": "los viajes y los lugares",
             "tier": 2
           },
           {
-            "word": "documentaci+¦n",
+            "word": "documentaci+ï¿½n",
             "definition": "Los papeles oficiales que necesitas para un viaje, como el DNI o el pasaporte.",
-            "example": "Lleva la documentaci+¦n en la maleta de mano para ense+¦arla al subir al avi+¦n.",
+            "example": "Lleva la documentaci+ï¿½n en la maleta de mano para ense+ï¿½arla al subir al avi+ï¿½n.",
             "category": "los viajes y los lugares",
             "tier": 2
           },
@@ -1220,7 +1224,7 @@
           },
           {
             "word": "turista",
-            "definition": "Una persona que visita un lugar por diversi+¦n, no para vivir all+¡.",
+            "definition": "Una persona que visita un lugar por diversi+ï¿½n, no para vivir all+ï¿½.",
             "example": "En verano la ciudad se llena de turistas.",
             "category": "los viajes y los lugares",
             "tier": 2
@@ -1243,16 +1247,16 @@
         "tier": 2,
         "words": [
           {
-            "word": "and+®n",
+            "word": "and+ï¿½n",
             "definition": "La zona alargada y elevada desde donde se sube al tren.",
-            "example": "El tren espera en el and+®n n+¦mero tres.",
+            "example": "El tren espera en el and+ï¿½n n+ï¿½mero tres.",
             "category": "los viajes y los lugares",
             "tier": 2
           },
           {
             "word": "frontera",
-            "definition": "La l+¡nea que separa un pa+¡s de otro.",
-            "example": "Pasaron la frontera entre Espa+¦a y Francia por la tarde.",
+            "definition": "La l+ï¿½nea que separa un pa+ï¿½s de otro.",
+            "example": "Pasaron la frontera entre Espa+ï¿½a y Francia por la tarde.",
             "category": "los viajes y los lugares",
             "tier": 2
           }
@@ -1261,65 +1265,65 @@
       {
         "id": "A-la-tecnologia-y-la-comunicacion-1",
         "bloqueId": "A",
-        "category": "la tecnolog+¡a y la comunicaci+¦n",
+        "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
-            "word": "contrase+¦a",
+            "word": "contrase+ï¿½a",
             "definition": "Una palabra secreta que se usa para entrar en una cuenta o aparato.",
-            "example": "Cambi+¦ la contrase+¦a del banco despu+®s de leer sobre seguridad.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "example": "Cambi+ï¿½ la contrase+ï¿½a del banco despu+ï¿½s de leer sobre seguridad.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "wifi",
-            "definition": "La se+¦al sin cables que permite conectarse a internet.",
-            "example": "Pidi+¦ la clave del wifi del bar para navegar con el m+¦vil.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "definition": "La se+ï¿½al sin cables que permite conectarse a internet.",
+            "example": "Pidi+ï¿½ la clave del wifi del bar para navegar con el m+ï¿½vil.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "descarga",
-            "definition": "Pasar un archivo de internet a tu aparato para usarlo sin conexi+¦n.",
-            "example": "Hizo la descarga de la aplicaci+¦n en su m+¦vil.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "definition": "Pasar un archivo de internet a tu aparato para usarlo sin conexi+ï¿½n.",
+            "example": "Hizo la descarga de la aplicaci+ï¿½n en su m+ï¿½vil.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "pantalla",
-            "definition": "La superficie del ordenador o del m+¦vil donde se ven las im+ígenes.",
-            "example": "Se le rompi+¦ la pantalla del m+¦vil y necesita arreglarla.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "definition": "La superficie del ordenador o del m+ï¿½vil donde se ven las im+ï¿½genes.",
+            "example": "Se le rompi+ï¿½ la pantalla del m+ï¿½vil y necesita arreglarla.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "notificaci+¦n",
+            "word": "notificaci+ï¿½n",
             "definition": "Un aviso que aparece en la pantalla para decirte algo.",
-            "example": "Le lleg+¦ una notificaci+¦n del banco por un cargo en la cuenta.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "example": "Le lleg+ï¿½ una notificaci+ï¿½n del banco por un cargo en la cuenta.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "videollamada",
             "definition": "Una llamada donde te ves y te oyes por una pantalla.",
             "example": "Hicieron una videollamada con la familia que vive lejos.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "adjuntar",
             "definition": "Poner un archivo junto a un mensaje para que la otra persona lo reciba.",
-            "example": "Adjunt+¦ la foto del documento al correo electr+¦nico.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "example": "Adjunt+ï¿½ la foto del documento al correo electr+ï¿½nico.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "borrador",
-            "definition": "Un mensaje que a+¦n no has enviado y que guardas para terminar luego.",
+            "definition": "Un mensaje que a+ï¿½n no has enviado y que guardas para terminar luego.",
             "example": "Guardo el correo en borradores para repasarlo antes de enviarlo.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           }
         ]
@@ -1327,23 +1331,23 @@
       {
         "id": "A-la-tecnologia-y-la-comunicacion-2",
         "bloqueId": "A",
-        "category": "la tecnolog+¡a y la comunicaci+¦n",
+        "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
             "word": "red social",
-            "definition": "Una p+ígina de internet donde la gente comparte cosas y se relaciona.",
+            "definition": "Una p+ï¿½gina de internet donde la gente comparte cosas y se relaciona.",
             "example": "Sube fotos de sus paseos a una red social.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "navegar",
             "definition": "Buscar y ver cosas en internet.",
-            "example": "Naveg+¦ por internet buscando horarios de autob+¦s.",
-            "category": "la tecnolog+¡a y la comunicaci+¦n",
+            "example": "Naveg+ï¿½ por internet buscando horarios de autob+ï¿½s.",
+            "category": "la tecnolog+ï¿½a y la comunicaci+ï¿½n",
             "tier": 3
           }
         ]
@@ -1373,14 +1377,14 @@
           {
             "word": "igualdad",
             "definition": "Tratar a todas las personas de la misma manera, sin favoritismos.",
-            "example": "La igualdad entre hombres y mujeres es un principio b+ísico.",
+            "example": "La igualdad entre hombres y mujeres es un principio b+ï¿½sico.",
             "category": "los derechos y la convivencia",
             "tier": 3
           },
           {
             "word": "respeto",
-            "definition": "Tratar a los dem+ís con educaci+¦n, sin ofender ni molestar.",
-            "example": "Habl+¦ con respeto aunque no estaba de acuerdo.",
+            "definition": "Tratar a los dem+ï¿½s con educaci+ï¿½n, sin ofender ni molestar.",
+            "example": "Habl+ï¿½ con respeto aunque no estaba de acuerdo.",
             "category": "los derechos y la convivencia",
             "tier": 3
           },
@@ -1394,21 +1398,21 @@
           {
             "word": "mediador",
             "definition": "Una persona que ayuda a que dos partes se entiendan.",
-            "example": "Un mediador habl+¦ con los vecinos para llegar a un acuerdo.",
+            "example": "Un mediador habl+ï¿½ con los vecinos para llegar a un acuerdo.",
             "category": "los derechos y la convivencia",
             "tier": 3
           },
           {
             "word": "denuncia",
-            "definition": "Un aviso oficial que se hace a la polic+¡a cuando pasa algo ilegal.",
-            "example": "Puso una denuncia porque le hab+¡an robado la bicicleta.",
+            "definition": "Un aviso oficial que se hace a la polic+ï¿½a cuando pasa algo ilegal.",
+            "example": "Puso una denuncia porque le hab+ï¿½an robado la bicicleta.",
             "category": "los derechos y la convivencia",
             "tier": 3
           },
           {
             "word": "testigo",
             "definition": "Una persona que vio pasar algo y puede contarlo.",
-            "example": "La testigo cont+¦ a la polic+¡a lo que hab+¡a visto.",
+            "example": "La testigo cont+ï¿½ a la polic+ï¿½a lo que hab+ï¿½a visto.",
             "category": "los derechos y la convivencia",
             "tier": 3
           }
@@ -1424,15 +1428,15 @@
         "words": [
           {
             "word": "consentimiento",
-            "definition": "Decir que s+¡ de forma clara a algo que afecta a tu cuerpo o a tus cosas.",
-            "example": "El m+®dico pidi+¦ su consentimiento antes de operarla.",
+            "definition": "Decir que s+ï¿½ de forma clara a algo que afecta a tu cuerpo o a tus cosas.",
+            "example": "El m+ï¿½dico pidi+ï¿½ su consentimiento antes de operarla.",
             "category": "los derechos y la convivencia",
             "tier": 3
           },
           {
             "word": "intimidad",
             "definition": "La parte privada de tu vida que solo compartes si quieres.",
-            "example": "Respet+¦ su intimidad y no abri+¦ sus cartas.",
+            "example": "Respet+ï¿½ su intimidad y no abri+ï¿½ sus cartas.",
             "category": "los derechos y la convivencia",
             "tier": 3
           }
@@ -1448,43 +1452,43 @@
         "words": [
           {
             "word": "aprender",
-            "definition": "Conseguir un conocimiento o habilidad nuevos con pr+íctica.",
-            "example": "Aprendi+¦ a montar en bicicleta con su hermano mayor.",
+            "definition": "Conseguir un conocimiento o habilidad nuevos con pr+ï¿½ctica.",
+            "example": "Aprendi+ï¿½ a montar en bicicleta con su hermano mayor.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
-            "word": "ense+¦ar",
+            "word": "ense+ï¿½ar",
             "definition": "Mostrar a alguien algo para que lo entienda o lo sepa hacer.",
-            "example": "La profesora ense+¦a a leer a los ni+¦os con cuentos.",
+            "example": "La profesora ense+ï¿½a a leer a los ni+ï¿½os con cuentos.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
             "word": "recordar",
             "definition": "Tener algo en la memoria, ser capaz de decirlo otra vez.",
-            "example": "No recuerda d+¦nde dej+¦ las llaves esta ma+¦ana.",
+            "example": "No recuerda d+ï¿½nde dej+ï¿½ las llaves esta ma+ï¿½ana.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
             "word": "olvidar",
             "definition": "Dejar de tener algo en la memoria, no ser capaz de recordarlo.",
-            "example": "Olvid+® comprar el pan al salir del trabajo.",
+            "example": "Olvid+ï¿½ comprar el pan al salir del trabajo.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
             "word": "entender",
-            "definition": "Comprender el sentido de algo, saber qu+® quiere decir.",
-            "example": "No entendi+¦ las instrucciones del electrodom+®stico.",
+            "definition": "Comprender el sentido de algo, saber qu+ï¿½ quiere decir.",
+            "example": "No entendi+ï¿½ las instrucciones del electrodom+ï¿½stico.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
             "word": "reflexionar",
             "definition": "Pensar despacio sobre algo para sacar conclusiones.",
-            "example": "Se sent+¦ a reflexionar antes de tomar la decisi+¦n.",
+            "example": "Se sent+ï¿½ a reflexionar antes de tomar la decisi+ï¿½n.",
             "category": "pensar y aprender",
             "tier": 4
           },
@@ -1498,7 +1502,7 @@
           {
             "word": "imaginar",
             "definition": "Pensar algo que no ha pasado o que no existe, como una historia.",
-            "example": "Le gusta imaginar c+¦mo ser+¡a vivir en otra ciudad.",
+            "example": "Le gusta imaginar c+ï¿½mo ser+ï¿½a vivir en otra ciudad.",
             "category": "pensar y aprender",
             "tier": 4
           }
@@ -1514,15 +1518,15 @@
         "words": [
           {
             "word": "observar",
-            "definition": "Mirar algo con atenci+¦n para entenderlo mejor.",
-            "example": "Observ+¦ las nubes un rato antes de decir que iba a llover.",
+            "definition": "Mirar algo con atenci+ï¿½n para entenderlo mejor.",
+            "example": "Observ+ï¿½ las nubes un rato antes de decir que iba a llover.",
             "category": "pensar y aprender",
             "tier": 4
           },
           {
             "word": "comparar",
-            "definition": "Mirar dos cosas juntas para ver en qu+® se parecen y en qu+® se diferencian.",
-            "example": "Compar+¦ los precios de dos tiendas antes de comprar.",
+            "definition": "Mirar dos cosas juntas para ver en qu+ï¿½ se parecen y en qu+ï¿½ se diferencian.",
+            "example": "Compar+ï¿½ los precios de dos tiendas antes de comprar.",
             "category": "pensar y aprender",
             "tier": 4
           }
@@ -1531,7 +1535,7 @@
       {
         "id": "A-acciones-del-dia-a-dia-avanzado-1",
         "bloqueId": "A",
-        "category": "acciones del d+¡a a d+¡a (avanzado)",
+        "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 4,
@@ -1539,57 +1543,57 @@
           {
             "word": "encargarse",
             "definition": "Hacerse cargo de algo, ocuparse de que se haga bien.",
-            "example": "Ella se encarga de pedir la cita del m+®dico.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Ella se encarga de pedir la cita del m+ï¿½dico.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "enterarse",
             "definition": "Llegar a saber algo que pasaba, conocer la noticia.",
-            "example": "Se enter+¦ del cambio de hora por la radio.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Se enter+ï¿½ del cambio de hora por la radio.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "atreverse",
             "definition": "Ser capaz de hacer algo que da miedo o verg++enza.",
-            "example": "Se atrevi+¦ a hablar en p+¦blico por primera vez.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Se atrevi+ï¿½ a hablar en p+ï¿½blico por primera vez.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "quejarse",
             "definition": "Decir que algo no te gusta o que te molesta.",
-            "example": "Se quej+¦ del ruido de la obra de al lado.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Se quej+ï¿½ del ruido de la obra de al lado.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "arrepentirse",
-            "definition": "Sentir que ojal+í no hubieras hecho algo.",
-            "example": "Se arrepinti+¦ de no haber ido a la cita del m+®dico.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "definition": "Sentir que ojal+ï¿½ no hubieras hecho algo.",
+            "example": "Se arrepinti+ï¿½ de no haber ido a la cita del m+ï¿½dico.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "esforzarse",
-            "definition": "Poner mucho empe+¦o en algo para que salga bien.",
-            "example": "Se esforz+¦ mucho y aprob+¦ el examen a la primera.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "definition": "Poner mucho empe+ï¿½o en algo para que salga bien.",
+            "example": "Se esforz+ï¿½ mucho y aprob+ï¿½ el examen a la primera.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "fijarse",
-            "definition": "Poner atenci+¦n en algo que se ve o se oye.",
-            "example": "No se fij+¦ en el cartel y se pas+¦ la parada.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "definition": "Poner atenci+ï¿½n en algo que se ve o se oye.",
+            "example": "No se fij+ï¿½ en el cartel y se pas+ï¿½ la parada.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "asumir",
             "definition": "Aceptar una responsabilidad o una consecuencia.",
-            "example": "Asumi+¦ las consecuencias de llegar tarde al trabajo.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Asumi+ï¿½ las consecuencias de llegar tarde al trabajo.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           }
         ]
@@ -1597,23 +1601,23 @@
       {
         "id": "A-acciones-del-dia-a-dia-avanzado-2",
         "bloqueId": "A",
-        "category": "acciones del d+¡a a d+¡a (avanzado)",
+        "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 4,
         "words": [
           {
             "word": "someterse",
-            "definition": "Hacerse una prueba m+®dica o un tratamiento que te han indicado.",
-            "example": "Se someti+¦ a una revisi+¦n m+®dica el mes pasado.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "definition": "Hacerse una prueba m+ï¿½dica o un tratamiento que te han indicado.",
+            "example": "Se someti+ï¿½ a una revisi+ï¿½n m+ï¿½dica el mes pasado.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           },
           {
             "word": "beneficiarse",
             "definition": "Recibir algo bueno que te ayuda o te mejora.",
-            "example": "Se benefici+¦ de una ayuda del Gobierno para pagar el alquiler.",
-            "category": "acciones del d+¡a a d+¡a (avanzado)",
+            "example": "Se benefici+ï¿½ de una ayuda del Gobierno para pagar el alquiler.",
+            "category": "acciones del d+ï¿½a a d+ï¿½a (avanzado)",
             "tier": 4
           }
         ]
@@ -1623,7 +1627,7 @@
   {
     "id": "B",
     "nombre": {
-      "es": "Vida adulta aut+¦noma",
+      "es": "Vida adulta aut+ï¿½noma",
       "en": "Autonomous adult life"
     },
     "categorias": [
@@ -1642,7 +1646,7 @@
       "ingresos y gastos del hogar",
       "vida independiente y hogar",
       "transporte y ciudad",
-      "alimentaci+¦n y cocina"
+      "alimentaci+ï¿½n y cocina"
     ],
     "rondas": [
       {
@@ -1668,23 +1672,23 @@
             "tier": 2
           },
           {
-            "word": "asociaci+¦n de vecinos",
+            "word": "asociaci+ï¿½n de vecinos",
             "definition": "Un grupo de personas del barrio que se unen para cuidar los asuntos comunes.",
-            "example": "La asociaci+¦n de vecinos organiza la fiesta del barrio cada a+¦o.",
+            "example": "La asociaci+ï¿½n de vecinos organiza la fiesta del barrio cada a+ï¿½o.",
             "category": "vida cotidiana y apoyos",
             "tier": 2
           },
           {
-            "word": "servicio de atenci+¦n",
+            "word": "servicio de atenci+ï¿½n",
             "definition": "Un lugar al que se llama para preguntar o pedir una ayuda concreta.",
-            "example": "Llam+¦ al servicio de atenci+¦n al cliente para resolver su duda.",
+            "example": "Llam+ï¿½ al servicio de atenci+ï¿½n al cliente para resolver su duda.",
             "category": "vida cotidiana y apoyos",
             "tier": 2
           },
           {
             "word": "cita previa",
-            "definition": "Un acuerdo para ir a un sitio a una hora y d+¡a concretos.",
-            "example": "Pidi+¦ cita previa en el m+®dico para el martes por la tarde.",
+            "definition": "Un acuerdo para ir a un sitio a una hora y d+ï¿½a concretos.",
+            "example": "Pidi+ï¿½ cita previa en el m+ï¿½dico para el martes por la tarde.",
             "category": "vida cotidiana y apoyos",
             "tier": 2
           },
@@ -1698,7 +1702,7 @@
           {
             "word": "presupuesto",
             "definition": "Una lista previa de lo que cuesta algo antes de hacerlo.",
-            "example": "Pidi+¦ un presupuesto antes de empezar la obra en casa.",
+            "example": "Pidi+ï¿½ un presupuesto antes de empezar la obra en casa.",
             "category": "vida cotidiana y apoyos",
             "tier": 2
           },
@@ -1721,7 +1725,7 @@
         "words": [
           {
             "word": "derechos humanos",
-            "definition": "Las cosas b+ísicas que todas las personas tienen solo por ser personas.",
+            "definition": "Las cosas b+ï¿½sicas que todas las personas tienen solo por ser personas.",
             "example": "La libertad y el respeto son derechos humanos.",
             "category": "derechos y autodefensa",
             "tier": 3
@@ -1743,21 +1747,21 @@
           {
             "word": "abogado",
             "definition": "La persona que te aconseja y te defiende ante la ley.",
-            "example": "Habl+¦ con su abogado antes de firmar el contrato.",
+            "example": "Habl+ï¿½ con su abogado antes de firmar el contrato.",
             "category": "derechos y autodefensa",
             "tier": 3
           },
           {
             "word": "queja",
-            "definition": "Decir de forma oficial que algo no est+í bien o que no te han tratado bien.",
-            "example": "Puso una queja en el hospital por la mala atenci+¦n recibida.",
+            "definition": "Decir de forma oficial que algo no est+ï¿½ bien o que no te han tratado bien.",
+            "example": "Puso una queja en el hospital por la mala atenci+ï¿½n recibida.",
             "category": "derechos y autodefensa",
             "tier": 3
           },
           {
-            "word": "reclamaci+¦n",
+            "word": "reclamaci+ï¿½n",
             "definition": "Pedir por escrito que se solucione algo que no se hizo bien.",
-            "example": "Envi+¦ una reclamaci+¦n a la empresa porque le cobraron de m+ís.",
+            "example": "Envi+ï¿½ una reclamaci+ï¿½n a la empresa porque le cobraron de m+ï¿½s.",
             "category": "derechos y autodefensa",
             "tier": 3
           }
@@ -1773,29 +1777,29 @@
         "words": [
           {
             "word": "consentimiento informado",
-            "definition": "Cuando el m+®dico te explica un tratamiento y t+¦ aceptas hacerlo.",
-            "example": "Firm+¦ el consentimiento informado antes de la operaci+¦n.",
+            "definition": "Cuando el m+ï¿½dico te explica un tratamiento y t+ï¿½ aceptas hacerlo.",
+            "example": "Firm+ï¿½ el consentimiento informado antes de la operaci+ï¿½n.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
           {
-            "word": "diagn+¦stico",
-            "definition": "Lo que dice el m+®dico sobre qu+® enfermedad tienes.",
-            "example": "El diagn+¦stico fue diabetes: tiene que cuidar el az+¦car.",
+            "word": "diagn+ï¿½stico",
+            "definition": "Lo que dice el m+ï¿½dico sobre qu+ï¿½ enfermedad tienes.",
+            "example": "El diagn+ï¿½stico fue diabetes: tiene que cuidar el az+ï¿½car.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
           {
             "word": "tratamiento",
-            "definition": "Lo que hace el m+®dico o lo que tomas para curarte o estar mejor.",
-            "example": "El tratamiento son pastillas cada d+¡a durante un mes.",
+            "definition": "Lo que hace el m+ï¿½dico o lo que tomas para curarte o estar mejor.",
+            "example": "El tratamiento son pastillas cada d+ï¿½a durante un mes.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
           {
             "word": "efecto secundario",
             "definition": "Una molestia que causa una medicina y que no es lo principal que cura.",
-            "example": "Esta pastilla me da sue+¦o como efecto secundario.",
+            "example": "Esta pastilla me da sue+ï¿½o como efecto secundario.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
@@ -1809,21 +1813,21 @@
           {
             "word": "hospital",
             "definition": "Un edificio grande donde atienden a personas enfermas o heridas.",
-            "example": "Estuvo en el hospital tres d+¡as tras la operaci+¦n.",
+            "example": "Estuvo en el hospital tres d+ï¿½as tras la operaci+ï¿½n.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
           {
             "word": "ambulancia",
-            "definition": "Un veh+¡culo que lleva a personas enfermas o heridas al hospital.",
-            "example": "La ambulancia lleg+¦ en cinco minutos.",
+            "definition": "Un veh+ï¿½culo que lleva a personas enfermas o heridas al hospital.",
+            "example": "La ambulancia lleg+ï¿½ en cinco minutos.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           },
           {
-            "word": "historial m+®dico",
-            "definition": "El papel donde se guardan todas las enfermedades y visitas al m+®dico.",
-            "example": "El m+®dico mir+¦ su historial m+®dico antes de recetarle.",
+            "word": "historial m+ï¿½dico",
+            "definition": "El papel donde se guardan todas las enfermedades y visitas al m+ï¿½dico.",
+            "example": "El m+ï¿½dico mir+ï¿½ su historial m+ï¿½dico antes de recetarle.",
             "category": "salud, citas y consentimiento",
             "tier": 3
           }
@@ -1840,55 +1844,55 @@
           {
             "word": "servicios sociales",
             "definition": "El conjunto de ayudas que da el Estado a las personas que lo necesitan.",
-            "example": "Pidi+¦ ayuda a servicios sociales para pagar el alquiler.",
+            "example": "Pidi+ï¿½ ayuda a servicios sociales para pagar el alquiler.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
             "word": "dependencia",
             "definition": "Cuando una persona necesita ayuda para hacer las tareas de la vida diaria.",
-            "example": "Le reconocieron la dependencia tras la valoraci+¦n.",
+            "example": "Le reconocieron la dependencia tras la valoraci+ï¿½n.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
             "word": "ayuda a domicilio",
-            "definition": "Una persona que va a tu casa a ayudarte con las tareas de cada d+¡a.",
+            "definition": "Una persona que va a tu casa a ayudarte con las tareas de cada d+ï¿½a.",
             "example": "Recibe ayuda a domicilio para limpiar y cocinar.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
             "word": "teleasistencia",
-            "definition": "Un servicio con un bot+¦n para pedir ayuda en casa si te pasa algo.",
-            "example": "Pulsa el bot+¦n de teleasistencia si se cae en casa.",
+            "definition": "Un servicio con un bot+ï¿½n para pedir ayuda en casa si te pasa algo.",
+            "example": "Pulsa el bot+ï¿½n de teleasistencia si se cae en casa.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
-            "word": "prestaci+¦n",
-            "definition": "Una ayuda econ+¦mica o un servicio que da el Estado a quien lo necesita.",
-            "example": "Cobra una prestaci+¦n por hijo a cargo.",
+            "word": "prestaci+ï¿½n",
+            "definition": "Una ayuda econ+ï¿½mica o un servicio que da el Estado a quien lo necesita.",
+            "example": "Cobra una prestaci+ï¿½n por hijo a cargo.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
             "word": "solicitar",
             "definition": "Pedir algo por escrito de forma oficial.",
-            "example": "Solicit+¦ la beca en el Ayuntamiento.",
+            "example": "Solicit+ï¿½ la beca en el Ayuntamiento.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
-            "word": "valoraci+¦n",
-            "definition": "Cuando un profesional eval+¦a tu situaci+¦n para ver qu+® ayuda necesitas.",
-            "example": "Tras la valoraci+¦n, le dieron el grado de dependencia.",
+            "word": "valoraci+ï¿½n",
+            "definition": "Cuando un profesional eval+ï¿½a tu situaci+ï¿½n para ver qu+ï¿½ ayuda necesitas.",
+            "example": "Tras la valoraci+ï¿½n, le dieron el grado de dependencia.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           },
           {
             "word": "subsidio",
-            "definition": "Una ayuda econ+¦mica que da el Estado a quien cumple unas condiciones.",
+            "definition": "Una ayuda econ+ï¿½mica que da el Estado a quien cumple unas condiciones.",
             "example": "Cobra un subsidio de desempleo mientras busca trabajo.",
             "category": "servicios sociales y ayudas",
             "tier": 3
@@ -1905,8 +1909,8 @@
         "words": [
           {
             "word": "baremo",
-            "definition": "Una lista de puntos que se usa para decidir cu+ínto ayuda recibe una persona.",
-            "example": "Seg+¦n el baremo, le corresponden tres horas de ayuda.",
+            "definition": "Una lista de puntos que se usa para decidir cu+ï¿½nto ayuda recibe una persona.",
+            "example": "Seg+ï¿½n el baremo, le corresponden tres horas de ayuda.",
             "category": "servicios sociales y ayudas",
             "tier": 3
           }
@@ -1922,49 +1926,49 @@
         "words": [
           {
             "word": "emergencia",
-            "definition": "Una situaci+¦n grave que necesita ayuda r+ípida.",
+            "definition": "Una situaci+ï¿½n grave que necesita ayuda r+ï¿½pida.",
             "example": "Llama al 112 si tienes una emergencia.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "112",
-            "definition": "El n+¦mero de tel+®fono al que se llama en Europa para pedir ayuda urgente.",
+            "definition": "El n+ï¿½mero de tel+ï¿½fono al que se llama en Europa para pedir ayuda urgente.",
             "example": "Llama al 112 si ves un fuego o un accidente.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
-            "word": "polic+¡a",
+            "word": "polic+ï¿½a",
             "definition": "Las personas que velan por la seguridad y la ley en un lugar.",
-            "example": "Llam+¦ a la polic+¡a cuando oy+¦ un ruido extra+¦o.",
+            "example": "Llam+ï¿½ a la polic+ï¿½a cuando oy+ï¿½ un ruido extra+ï¿½o.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "bombero",
             "definition": "La persona que apaga fuegos y rescata a personas en accidentes.",
-            "example": "Los bomberos sacaron al gato del +írbol.",
+            "example": "Los bomberos sacaron al gato del +ï¿½rbol.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "accidente",
-            "definition": "Algo malo que pasa sin querer y causa da+¦o.",
+            "definition": "Algo malo que pasa sin querer y causa da+ï¿½o.",
             "example": "Tuvo un accidente de coche en la carretera.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "peligro",
-            "definition": "Algo que puede hacerte da+¦o.",
-            "example": "El cartel avisa del peligro de ca+¡da de piedras.",
+            "definition": "Algo que puede hacerte da+ï¿½o.",
+            "example": "El cartel avisa del peligro de ca+ï¿½da de piedras.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "primeros auxilios",
-            "definition": "La ayuda que se le da a alguien herido antes de que llegue el m+®dico.",
+            "definition": "La ayuda que se le da a alguien herido antes de que llegue el m+ï¿½dico.",
             "example": "Le hizo los primeros auxilios hasta que vino la ambulancia.",
             "category": "seguridad y emergencias",
             "tier": 2
@@ -1989,13 +1993,13 @@
           {
             "word": "alarma",
             "definition": "Un aviso fuerte que suena para avisar de un peligro.",
-            "example": "La alarma del coche son+¦ al abrir la puerta.",
+            "example": "La alarma del coche son+ï¿½ al abrir la puerta.",
             "category": "seguridad y emergencias",
             "tier": 2
           },
           {
             "word": "evacuar",
-            "definition": "Salir r+ípido de un lugar porque hay un peligro.",
+            "definition": "Salir r+ï¿½pido de un lugar porque hay un peligro.",
             "example": "Tuvieron que evacuar el edificio por el fuego.",
             "category": "seguridad y emergencias",
             "tier": 2
@@ -2012,7 +2016,7 @@
         "words": [
           {
             "word": "banco",
-            "definition": "Una entidad donde se guarda dinero y se hacen tr+ímites de dinero.",
+            "definition": "Una entidad donde se guarda dinero y se hacen tr+ï¿½mites de dinero.",
             "example": "Va al banco una vez al mes a ingresar la paga.",
             "category": "dinero y fraudes",
             "tier": 3
@@ -2020,21 +2024,21 @@
           {
             "word": "cuenta bancaria",
             "definition": "Un sitio en el banco donde se guarda tu dinero.",
-            "example": "Cobra la pensi+¦n en su cuenta bancaria.",
+            "example": "Cobra la pensi+ï¿½n en su cuenta bancaria.",
             "category": "dinero y fraudes",
             "tier": 3
           },
           {
             "word": "cajero",
-            "definition": "Una m+íquina del banco que da o recibe dinero.",
-            "example": "Sac+¦ dinero del cajero con su tarjeta.",
+            "definition": "Una m+ï¿½quina del banco que da o recibe dinero.",
+            "example": "Sac+ï¿½ dinero del cajero con su tarjeta.",
             "category": "dinero y fraudes",
             "tier": 3
           },
           {
             "word": "tarjeta",
-            "definition": "Una pieza de pl+ístico con tu nombre que sirve para pagar sin dinero en mano.",
-            "example": "Pag+¦ con la tarjeta en el supermercado.",
+            "definition": "Una pieza de pl+ï¿½stico con tu nombre que sirve para pagar sin dinero en mano.",
+            "example": "Pag+ï¿½ con la tarjeta en el supermercado.",
             "category": "dinero y fraudes",
             "tier": 3
           },
@@ -2047,22 +2051,22 @@
           },
           {
             "word": "estafa",
-            "definition": "Enga+¦ar a alguien para quedarse con su dinero.",
+            "definition": "Enga+ï¿½ar a alguien para quedarse con su dinero.",
             "example": "Le estafaron por internet con un premio falso.",
             "category": "dinero y fraudes",
             "tier": 3
           },
           {
             "word": "fraude",
-            "definition": "Enga+¦ar a otra persona o a una empresa para conseguir un beneficio.",
-            "example": "Lo condenaron por fraude fiscal: no declar+¦ todo su dinero.",
+            "definition": "Enga+ï¿½ar a otra persona o a una empresa para conseguir un beneficio.",
+            "example": "Lo condenaron por fraude fiscal: no declar+ï¿½ todo su dinero.",
             "category": "dinero y fraudes",
             "tier": 3
           },
           {
             "word": "phishing",
-            "definition": "Un enga+¦o por internet que intenta sacarte datos o dinero.",
-            "example": "No abri+¦ el mensaje: era un intento de phishing.",
+            "definition": "Un enga+ï¿½o por internet que intenta sacarte datos o dinero.",
+            "example": "No abri+ï¿½ el mensaje: era un intento de phishing.",
             "category": "dinero y fraudes",
             "tier": 3
           }
@@ -2079,7 +2083,7 @@
           {
             "word": "robo de identidad",
             "definition": "Cuando alguien usa tus datos personales para hacerse pasar por ti.",
-            "example": "Sufr+¡o un robo de identidad: pidieron un pr+®stamo con su nombre.",
+            "example": "Sufr+ï¿½o un robo de identidad: pidieron un pr+ï¿½stamo con su nombre.",
             "category": "dinero y fraudes",
             "tier": 3
           }
@@ -2094,15 +2098,15 @@
         "tier": 4,
         "words": [
           {
-            "word": "curr+¡culum",
+            "word": "curr+ï¿½culum",
             "definition": "Un papel con tu experiencia y tus estudios para buscar trabajo.",
-            "example": "Llev+¦ su curr+¡culum a la entrevista.",
+            "example": "Llev+ï¿½ su curr+ï¿½culum a la entrevista.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
           {
             "word": "entrevista de trabajo",
-            "definition": "Una reuni+¦n en la que una empresa decide si te da un trabajo.",
+            "definition": "Una reuni+ï¿½n en la que una empresa decide si te da un trabajo.",
             "example": "Tiene una entrevista de trabajo el jueves.",
             "category": "trabajo con apoyo",
             "tier": 4
@@ -2110,21 +2114,21 @@
           {
             "word": "contrato de trabajo",
             "definition": "Un papel firmado que dice las condiciones de un trabajo.",
-            "example": "Firm+¦ el contrato de trabajo antes de empezar.",
+            "example": "Firm+ï¿½ el contrato de trabajo antes de empezar.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
           {
             "word": "jornada laboral",
-            "definition": "Las horas que trabajas cada d+¡a.",
+            "definition": "Las horas que trabajas cada d+ï¿½a.",
             "example": "Su jornada laboral es de ocho horas, de nueve a cinco.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
           {
             "word": "preparador laboral",
-            "definition": "Una persona que ense+¦a y acompa+¦a a alguien en su trabajo.",
-            "example": "El preparador laboral le ense+¦a c+¦mo usar la caja registradora.",
+            "definition": "Una persona que ense+ï¿½a y acompa+ï¿½a a alguien en su trabajo.",
+            "example": "El preparador laboral le ense+ï¿½a c+ï¿½mo usar la caja registradora.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
@@ -2138,14 +2142,14 @@
           {
             "word": "taller ocupacional",
             "definition": "Un sitio donde se aprende un oficio y se hacen tareas adaptadas.",
-            "example": "Va al taller ocupacional tres d+¡as a la semana.",
+            "example": "Va al taller ocupacional tres d+ï¿½as a la semana.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
           {
-            "word": "jubilaci+¦n",
+            "word": "jubilaci+ï¿½n",
             "definition": "El tiempo de la vida en que una persona deja de trabajar por edad.",
-            "example": "Con la jubilaci+¦n cobra una pensi+¦n cada mes.",
+            "example": "Con la jubilaci+ï¿½n cobra una pensi+ï¿½n cada mes.",
             "category": "trabajo con apoyo",
             "tier": 4
           }
@@ -2160,16 +2164,16 @@
         "tier": 4,
         "words": [
           {
-            "word": "pensi+¦n",
+            "word": "pensi+ï¿½n",
             "definition": "El dinero que cobra cada mes una persona jubilada o que no puede trabajar.",
-            "example": "Cobra una pensi+¦n desde que se jubil+¦.",
+            "example": "Cobra una pensi+ï¿½n desde que se jubil+ï¿½.",
             "category": "trabajo con apoyo",
             "tier": 4
           },
           {
             "word": "sindicato",
-            "definition": "Una asociaci+¦n que defiende los derechos de los trabajadores.",
-            "example": "Se apunt+¦ al sindicato para tener asesoramiento legal.",
+            "definition": "Una asociaci+ï¿½n que defiende los derechos de los trabajadores.",
+            "example": "Se apunt+ï¿½ al sindicato para tener asesoramiento legal.",
             "category": "trabajo con apoyo",
             "tier": 4
           }
@@ -2184,15 +2188,15 @@
         "tier": 4,
         "words": [
           {
-            "word": "l+¡mite",
-            "definition": "Una l+¡nea que marca hasta d+¦nde puedes llegar con alguien.",
-            "example": "Es sano poner l+¡mites en las relaciones.",
+            "word": "l+ï¿½mite",
+            "definition": "Una l+ï¿½nea que marca hasta d+ï¿½nde puedes llegar con alguien.",
+            "example": "Es sano poner l+ï¿½mites en las relaciones.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           },
           {
             "word": "espacio personal",
-            "definition": "La distancia que necesitas con otra persona para sentirte c+¦modo.",
+            "definition": "La distancia que necesitas con otra persona para sentirte c+ï¿½modo.",
             "example": "Respeta su espacio personal: no le gusta que le abracen.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
@@ -2206,15 +2210,15 @@
           },
           {
             "word": "autoestima",
-            "definition": "La buena opini+¦n que tienes de ti mismo.",
-            "example": "Tras el curso mejor+¦ su autoestima y se siente m+ís seguro.",
+            "definition": "La buena opini+ï¿½n que tienes de ti mismo.",
+            "example": "Tras el curso mejor+ï¿½ su autoestima y se siente m+ï¿½s seguro.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           },
           {
             "word": "bienestar",
             "definition": "Sentirse bien por dentro, con calma y salud.",
-            "example": "Medita cada d+¡a para cuidar su bienestar.",
+            "example": "Medita cada d+ï¿½a para cuidar su bienestar.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           },
@@ -2227,15 +2231,15 @@
           },
           {
             "word": "abuso",
-            "definition": "Cuando alguien hace da+¦o a otra persona de forma repetida.",
-            "example": "Pidi+¦ ayuda por el abuso que sufr+¡a en casa.",
+            "definition": "Cuando alguien hace da+ï¿½o a otra persona de forma repetida.",
+            "example": "Pidi+ï¿½ ayuda por el abuso que sufr+ï¿½a en casa.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           },
           {
             "word": "maltrato",
             "definition": "Tratar mal a otra persona, con insultos, golpes o desprecio.",
-            "example": "Llam+¦ al tel+®fono contra el maltrato para pedir ayuda.",
+            "example": "Llam+ï¿½ al tel+ï¿½fono contra el maltrato para pedir ayuda.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           }
@@ -2252,14 +2256,14 @@
           {
             "word": "aislamiento",
             "definition": "Estar solo y sin contacto con otras personas durante mucho tiempo.",
-            "example": "Tras la mudanza sinti+¦ un gran aislamiento.",
+            "example": "Tras la mudanza sinti+ï¿½ un gran aislamiento.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           },
           {
             "word": "apoyo emocional",
-            "definition": "La ayuda que das a alguien para que se sienta mejor cuando est+í mal.",
-            "example": "Su amiga le dio apoyo emocional tras la operaci+¦n.",
+            "definition": "La ayuda que das a alguien para que se sienta mejor cuando est+ï¿½ mal.",
+            "example": "Su amiga le dio apoyo emocional tras la operaci+ï¿½n.",
             "category": "emociones avanzadas y relaciones",
             "tier": 4
           }
@@ -2275,57 +2279,57 @@
         "words": [
           {
             "word": "contrato de alquiler",
-            "definition": "Un papel firmado por el due+¦o y el inquilino con las condiciones para vivir en una casa de alquiler.",
-            "example": "Firm+¦ el contrato de alquiler por un a+¦o.",
+            "definition": "Un papel firmado por el due+ï¿½o y el inquilino con las condiciones para vivir en una casa de alquiler.",
+            "example": "Firm+ï¿½ el contrato de alquiler por un a+ï¿½o.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "firmar",
-            "definition": "Poner tu firma en un papel para decir que est+ís de acuerdo con lo que dice.",
+            "definition": "Poner tu firma en un papel para decir que est+ï¿½s de acuerdo con lo que dice.",
             "example": "Tuvo que firmar el contrato antes de empezar el trabajo.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "firma",
-            "definition": "El nombre que escribes de tu pu+¦o y letra para decir que aceptas un papel.",
+            "definition": "El nombre que escribes de tu pu+ï¿½o y letra para decir que aceptas un papel.",
             "example": "Puso su firma al final de la carta.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
-            "word": "cl+íusula",
+            "word": "cl+ï¿½usula",
             "definition": "Cada uno de los puntos o reglas que aparecen en un contrato.",
-            "example": "Ley+¦ cada cl+íusula del contrato antes de firmar.",
+            "example": "Ley+ï¿½ cada cl+ï¿½usula del contrato antes de firmar.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
-            "word": "letra peque+¦a",
-            "definition": "Las partes de un contrato que est+ín escritas con letra muy chica y son dif+¡ciles de leer.",
-            "example": "Pregunt+¦ al abogado qu+® dec+¡a la letra peque+¦a del seguro.",
+            "word": "letra peque+ï¿½a",
+            "definition": "Las partes de un contrato que est+ï¿½n escritas con letra muy chica y son dif+ï¿½ciles de leer.",
+            "example": "Pregunt+ï¿½ al abogado qu+ï¿½ dec+ï¿½a la letra peque+ï¿½a del seguro.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "condiciones generales",
             "definition": "Las reglas que pone una empresa para usar su servicio o comprar su producto.",
-            "example": "Acept+¦ las condiciones generales antes de abrir la cuenta.",
+            "example": "Acept+ï¿½ las condiciones generales antes de abrir la cuenta.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "plazo de pago",
-            "definition": "Los d+¡as que tienes para pagar una factura antes de que cobre recargo.",
-            "example": "El plazo de pago de la factura termina el d+¡a 10.",
+            "definition": "Los d+ï¿½as que tienes para pagar una factura antes de que cobre recargo.",
+            "example": "El plazo de pago de la factura termina el d+ï¿½a 10.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "fecha de vencimiento",
-            "definition": "El d+¡a en que algo deja de ser v+ílido o se tiene que pagar.",
-            "example": "La fecha de vencimiento del carn+® es en mayo.",
+            "definition": "El d+ï¿½a en que algo deja de ser v+ï¿½lido o se tiene que pagar.",
+            "example": "La fecha de vencimiento del carn+ï¿½ es en mayo.",
             "category": "contratos y firmas",
             "tier": 3
           }
@@ -2341,15 +2345,15 @@
         "words": [
           {
             "word": "rescindir",
-            "definition": "Acabar con un contrato antes del tiempo que se hab+¡a acordado.",
-            "example": "Rescindi+¦ el contrato del gimnasio por no usarlo.",
+            "definition": "Acabar con un contrato antes del tiempo que se hab+ï¿½a acordado.",
+            "example": "Rescindi+ï¿½ el contrato del gimnasio por no usarlo.",
             "category": "contratos y firmas",
             "tier": 3
           },
           {
             "word": "renovar contrato",
-            "definition": "Volver a firmar un contrato para que siga valiendo por m+ís tiempo.",
-            "example": "Renov+¦ el contrato del alquiler por dos a+¦os m+ís.",
+            "definition": "Volver a firmar un contrato para que siga valiendo por m+ï¿½s tiempo.",
+            "example": "Renov+ï¿½ el contrato del alquiler por dos a+ï¿½os m+ï¿½s.",
             "category": "contratos y firmas",
             "tier": 3
           }
@@ -2366,20 +2370,20 @@
           {
             "word": "herencia",
             "definition": "Los bienes y el dinero que deja una persona cuando se muere.",
-            "example": "Recibi+¦ una herencia de su t+¡a: una casa y algo de dinero.",
+            "example": "Recibi+ï¿½ una herencia de su t+ï¿½a: una casa y algo de dinero.",
             "category": "herencias y testamentos",
             "tier": 4
           },
           {
             "word": "heredero",
             "definition": "La persona que recibe los bienes de alguien que ha fallecido.",
-            "example": "Es la heredera +¦nica de la casa de sus padres.",
+            "example": "Es la heredera +ï¿½nica de la casa de sus padres.",
             "category": "herencias y testamentos",
             "tier": 4
           },
           {
             "word": "testamento",
-            "definition": "Un papel firmado donde una persona dice a qui+®n deja sus bienes cuando muera.",
+            "definition": "Un papel firmado donde una persona dice a qui+ï¿½n deja sus bienes cuando muera.",
             "example": "Hizo el testamento ante notario antes de operarse.",
             "category": "herencias y testamentos",
             "tier": 4
@@ -2394,14 +2398,14 @@
           {
             "word": "legado",
             "definition": "Un bien concreto que una persona deja a otra en su testamento.",
-            "example": "Le dej+¦ como legado el reloj de su abuelo.",
+            "example": "Le dej+ï¿½ como legado el reloj de su abuelo.",
             "category": "herencias y testamentos",
             "tier": 4
           },
           {
-            "word": "sucesi+¦n",
+            "word": "sucesi+ï¿½n",
             "definition": "El proceso legal por el que los bienes pasan de una persona fallecida a sus herederos.",
-            "example": "La sucesi+¦n tard+¦ un a+¦o en resolverse.",
+            "example": "La sucesi+ï¿½n tard+ï¿½ un a+ï¿½o en resolverse.",
             "category": "herencias y testamentos",
             "tier": 4
           },
@@ -2415,7 +2419,7 @@
           {
             "word": "renunciar a herencia",
             "definition": "Decir formalmente que no quieres recibir los bienes que te han dejado.",
-            "example": "Renunci+¦ a la herencia porque ten+¡a muchas deudas.",
+            "example": "Renunci+ï¿½ a la herencia porque ten+ï¿½a muchas deudas.",
             "category": "herencias y testamentos",
             "tier": 4
           }
@@ -2432,14 +2436,14 @@
           {
             "word": "notario",
             "definition": "Una persona con autoridad legal que da fe de los papeles oficiales.",
-            "example": "Firm+¦ la herencia delante del notario.",
+            "example": "Firm+ï¿½ la herencia delante del notario.",
             "category": "herencias y testamentos",
             "tier": 4
           },
           {
-            "word": "escritura p+¦blica",
+            "word": "escritura p+ï¿½blica",
             "definition": "Un papel oficial firmado por un notario que prueba un acuerdo legal.",
-            "example": "La escritura p+¦blica de la casa est+í en la caja fuerte.",
+            "example": "La escritura p+ï¿½blica de la casa est+ï¿½ en la caja fuerte.",
             "category": "herencias y testamentos",
             "tier": 4
           }
@@ -2455,28 +2459,28 @@
         "words": [
           {
             "word": "factura de la luz",
-            "definition": "El papel donde la empresa de electricidad dice cu+ínta energ+¡a has gastado y cu+ínto tienes que pagar.",
+            "definition": "El papel donde la empresa de electricidad dice cu+ï¿½nta energ+ï¿½a has gastado y cu+ï¿½nto tienes que pagar.",
             "example": "La factura de la luz de este mes ha subido.",
             "category": "facturas y recibos del hogar",
             "tier": 2
           },
           {
             "word": "recibo digital",
-            "definition": "Un papel electr+¦nico que demuestra que has pagado, enviado por correo o por una aplicaci+¦n.",
-            "example": "Me lleg+¦ el recibo digital de la compra al m+¦vil.",
+            "definition": "Un papel electr+ï¿½nico que demuestra que has pagado, enviado por correo o por una aplicaci+ï¿½n.",
+            "example": "Me lleg+ï¿½ el recibo digital de la compra al m+ï¿½vil.",
             "category": "facturas y recibos del hogar",
             "tier": 2
           },
           {
             "word": "contador",
-            "definition": "El aparato que mide cu+ínta agua, luz o gas se ha gastado en una casa.",
-            "example": "El operario pas+¦ a leer el contador del agua.",
+            "definition": "El aparato que mide cu+ï¿½nta agua, luz o gas se ha gastado en una casa.",
+            "example": "El operario pas+ï¿½ a leer el contador del agua.",
             "category": "facturas y recibos del hogar",
             "tier": 2
           },
           {
             "word": "IBI",
-            "definition": "Un impuesto municipal que se paga cada a+¦o por ser due+¦o de una casa o un piso.",
+            "definition": "Un impuesto municipal que se paga cada a+ï¿½o por ser due+ï¿½o de una casa o un piso.",
             "example": "Paga el IBI del piso en el banco antes de junio.",
             "category": "facturas y recibos del hogar",
             "tier": 2
@@ -2490,8 +2494,8 @@
           },
           {
             "word": "comunidad de propietarios",
-            "definition": "El grupo formado por todos los due+¦os de las casas o pisos de un edificio.",
-            "example": "La comunidad de propietarios se re+¦ne una vez al a+¦o.",
+            "definition": "El grupo formado por todos los due+ï¿½os de las casas o pisos de un edificio.",
+            "example": "La comunidad de propietarios se re+ï¿½ne una vez al a+ï¿½o.",
             "category": "facturas y recibos del hogar",
             "tier": 2
           },
@@ -2505,7 +2509,7 @@
           {
             "word": "presupuesto mensual",
             "definition": "Una lista de lo que entra y lo que sale de dinero cada mes en una casa.",
-            "example": "Hicimos un presupuesto mensual para no gastar de m+ís.",
+            "example": "Hicimos un presupuesto mensual para no gastar de m+ï¿½s.",
             "category": "facturas y recibos del hogar",
             "tier": 2
           }
@@ -2528,7 +2532,7 @@
           },
           {
             "word": "lectura del contador",
-            "definition": "El n+¦mero que se anota del contador para saber cu+ínta energ+¡a o agua se ha gastado.",
+            "definition": "El n+ï¿½mero que se anota del contador para saber cu+ï¿½nta energ+ï¿½a o agua se ha gastado.",
             "example": "Manda la lectura del contador por la app de la empresa.",
             "category": "facturas y recibos del hogar",
             "tier": 2
@@ -2546,14 +2550,14 @@
           {
             "word": "efectivo",
             "definition": "El dinero en monedas y billetes, no en tarjeta ni en banco.",
-            "example": "Pag+¦ la compra en efectivo con un billete de veinte euros.",
+            "example": "Pag+ï¿½ la compra en efectivo con un billete de veinte euros.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
-            "word": "tarjeta de d+®bito",
-            "definition": "Una tarjeta de pl+ístico que usa el dinero que ya tienes en tu cuenta del banco.",
-            "example": "Pag+¦ el pan con la tarjeta de d+®bito.",
+            "word": "tarjeta de d+ï¿½bito",
+            "definition": "Una tarjeta de pl+ï¿½stico que usa el dinero que ya tienes en tu cuenta del banco.",
+            "example": "Pag+ï¿½ el pan con la tarjeta de d+ï¿½bito.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
@@ -2566,35 +2570,35 @@
           },
           {
             "word": "bizum",
-            "definition": "Un servicio del banco que permite enviar dinero al momento con el m+¦vil.",
-            "example": "Le envi+¦ el dinero por bizum para pagar la mitad de la cena.",
+            "definition": "Un servicio del banco que permite enviar dinero al momento con el m+ï¿½vil.",
+            "example": "Le envi+ï¿½ el dinero por bizum para pagar la mitad de la cena.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
-            "word": "cajero autom+ítico",
-            "definition": "Una m+íquina del banco que permite sacar o ingresar dinero a cualquier hora.",
-            "example": "Sac+¦ cincuenta euros del cajero autom+ítico.",
+            "word": "cajero autom+ï¿½tico",
+            "definition": "Una m+ï¿½quina del banco que permite sacar o ingresar dinero a cualquier hora.",
+            "example": "Sac+ï¿½ cincuenta euros del cajero autom+ï¿½tico.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
             "word": "banco online",
-            "definition": "La aplicaci+¦n o p+ígina web del banco que te permite operar sin ir a la oficina.",
-            "example": "Consult+¦ el saldo desde el banco online.",
+            "definition": "La aplicaci+ï¿½n o p+ï¿½gina web del banco que te permite operar sin ir a la oficina.",
+            "example": "Consult+ï¿½ el saldo desde el banco online.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
             "word": "saldo",
             "definition": "El dinero que tienes en una cuenta del banco en un momento dado.",
-            "example": "Queda poco saldo en la cuenta hasta que llegue la n+¦mina.",
+            "example": "Queda poco saldo en la cuenta hasta que llegue la n+ï¿½mina.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
             "word": "moneda suelta",
-            "definition": "Las monedas peque+¦as que llevas encima para pagar cosas de poco dinero.",
+            "definition": "Las monedas peque+ï¿½as que llevas encima para pagar cosas de poco dinero.",
             "example": "Llevaba moneda suelta en el bolsillo para el parking.",
             "category": "formas de pago y cuentas",
             "tier": 3
@@ -2610,16 +2614,16 @@
         "tier": 3,
         "words": [
           {
-            "word": "c+¦digo IBAN",
-            "definition": "Un n+¦mero largo que identifica tu cuenta del banco para hacer transferencias.",
-            "example": "Le dio su c+¦digo IBAN al amigo para que le pagara.",
+            "word": "c+ï¿½digo IBAN",
+            "definition": "Un n+ï¿½mero largo que identifica tu cuenta del banco para hacer transferencias.",
+            "example": "Le dio su c+ï¿½digo IBAN al amigo para que le pagara.",
             "category": "formas de pago y cuentas",
             "tier": 3
           },
           {
             "word": "pago sin contacto",
-            "definition": "Una forma de pagar acercando la tarjeta o el m+¦vil a un aparato, sin meterla en ning+¦n sitio.",
-            "example": "Pag+¦ el caf+® con el m+¦vil, con pago sin contacto.",
+            "definition": "Una forma de pagar acercando la tarjeta o el m+ï¿½vil a un aparato, sin meterla en ning+ï¿½n sitio.",
+            "example": "Pag+ï¿½ el caf+ï¿½ con el m+ï¿½vil, con pago sin contacto.",
             "category": "formas de pago y cuentas",
             "tier": 3
           }
@@ -2634,15 +2638,15 @@
         "tier": 3,
         "words": [
           {
-            "word": "n+¦mina",
-            "definition": "Un papel que dice cu+ínto dinero ha ganado una persona en un mes y lo que se le ha descontado.",
-            "example": "La empresa le manda la n+¦mina cada final de mes.",
+            "word": "n+ï¿½mina",
+            "definition": "Un papel que dice cu+ï¿½nto dinero ha ganado una persona en un mes y lo que se le ha descontado.",
+            "example": "La empresa le manda la n+ï¿½mina cada final de mes.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
             "word": "sueldo neto",
-            "definition": "El dinero que te queda del sueldo despu+®s de quitar los impuestos y la seguridad social.",
+            "definition": "El dinero que te queda del sueldo despu+ï¿½s de quitar los impuestos y la seguridad social.",
             "example": "Su sueldo neto es menor que el sueldo bruto.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
@@ -2650,42 +2654,42 @@
           {
             "word": "IRPF",
             "definition": "El impuesto que se quita del sueldo de los trabajadores para el Estado.",
-            "example": "En la n+¦mina le descontaron el IRPF.",
+            "example": "En la n+ï¿½mina le descontaron el IRPF.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
-            "word": "aut+¦nomo",
+            "word": "aut+ï¿½nomo",
             "definition": "Una persona que trabaja por su cuenta y paga sus propios impuestos.",
-            "example": "Es aut+¦noma: tiene una peluquer+¡a en casa.",
+            "example": "Es aut+ï¿½noma: tiene una peluquer+ï¿½a en casa.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
             "word": "ingreso",
             "definition": "El dinero que entra en una casa o en una cuenta, por el sueldo o por otras cosas.",
-            "example": "Los ingresos de la familia son el sueldo y la pensi+¦n.",
+            "example": "Los ingresos de la familia son el sueldo y la pensi+ï¿½n.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
             "word": "gasto",
             "definition": "El dinero que sale de una casa o de una cuenta para pagar algo.",
-            "example": "El alquiler es el gasto m+ís grande del mes.",
+            "example": "El alquiler es el gasto m+ï¿½s grande del mes.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
             "word": "hipoteca",
-            "definition": "Un pr+®stamo que pide un banco para comprar una casa y se paga durante muchos a+¦os.",
-            "example": "Paga la hipoteca del piso durante veinte a+¦os.",
+            "definition": "Un pr+ï¿½stamo que pide un banco para comprar una casa y se paga durante muchos a+ï¿½os.",
+            "example": "Paga la hipoteca del piso durante veinte a+ï¿½os.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
             "word": "alquiler",
             "definition": "El dinero que se paga cada mes por vivir en una casa que no es tuya.",
-            "example": "El alquiler del piso sube cada a+¦o.",
+            "example": "El alquiler del piso sube cada a+ï¿½o.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           }
@@ -2701,15 +2705,15 @@
         "words": [
           {
             "word": "deuda pendiente",
-            "definition": "Dinero que todav+¡a debes y no has terminado de pagar.",
+            "definition": "Dinero que todav+ï¿½a debes y no has terminado de pagar.",
             "example": "Tiene una deuda pendiente con la tienda del barrio.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           },
           {
-            "word": "recibo de n+¦mina",
+            "word": "recibo de n+ï¿½mina",
             "definition": "El papel o archivo digital que te entrega la empresa con el detalle de lo que has cobrado.",
-            "example": "Guarda el recibo de n+¦mina por si lo necesita para el alquiler.",
+            "example": "Guarda el recibo de n+ï¿½mina por si lo necesita para el alquiler.",
             "category": "ingresos y gastos del hogar",
             "tier": 3
           }
@@ -2725,7 +2729,7 @@
         "words": [
           {
             "word": "alquiler compartido",
-            "definition": "Vivir en una casa con otras personas que tambi+®n pagan su parte.",
+            "definition": "Vivir en una casa con otras personas que tambi+ï¿½n pagan su parte.",
             "example": "Vive en un alquiler compartido con dos amigas.",
             "category": "vida independiente y hogar",
             "tier": 2
@@ -2747,20 +2751,20 @@
           {
             "word": "tareas del hogar",
             "definition": "Las cosas que hay que hacer en casa para mantenerla limpia y ordenada.",
-            "example": "Se reparte las tareas del hogar con su compa+¦ero de piso.",
+            "example": "Se reparte las tareas del hogar con su compa+ï¿½ero de piso.",
             "category": "vida independiente y hogar",
             "tier": 2
           },
           {
             "word": "limpieza",
             "definition": "El trabajo de quitar la suciedad y dejar algo ordenado.",
-            "example": "La limpieza del ba+¦o la hace los s+íbados.",
+            "example": "La limpieza del ba+ï¿½o la hace los s+ï¿½bados.",
             "category": "vida independiente y hogar",
             "tier": 2
           },
           {
             "word": "lavadora",
-            "definition": "Una m+íquina que lava la ropa.",
+            "definition": "Una m+ï¿½quina que lava la ropa.",
             "example": "Pone la lavadora tres veces por semana.",
             "category": "vida independiente y hogar",
             "tier": 2
@@ -2791,8 +2795,8 @@
         "words": [
           {
             "word": "mudanza",
-            "definition": "El cambio de una casa a otra llev+índose los muebles.",
-            "example": "La mudanza al piso nuevo fue el s+íbado.",
+            "definition": "El cambio de una casa a otra llev+ï¿½ndose los muebles.",
+            "example": "La mudanza al piso nuevo fue el s+ï¿½bado.",
             "category": "vida independiente y hogar",
             "tier": 2
           },
@@ -2814,58 +2818,58 @@
         "tier": 2,
         "words": [
           {
-            "word": "autob+¦s urbano",
-            "definition": "Un autob+¦s que recorre el camino dentro de una ciudad.",
-            "example": "Coge el autob+¦s urbano para ir al centro.",
+            "word": "autob+ï¿½s urbano",
+            "definition": "Un autob+ï¿½s que recorre el camino dentro de una ciudad.",
+            "example": "Coge el autob+ï¿½s urbano para ir al centro.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
             "word": "metro",
             "definition": "Un tren que circula bajo tierra por dentro de una ciudad.",
-            "example": "Va al trabajo en metro cada ma+¦ana.",
+            "example": "Va al trabajo en metro cada ma+ï¿½ana.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
-            "word": "tranv+¡a",
-            "definition": "Un veh+¡culo que circula por railes en la calle, con catenaria el+®ctrica.",
-            "example": "El tranv+¡a les lleva al centro comercial.",
+            "word": "tranv+ï¿½a",
+            "definition": "Un veh+ï¿½culo que circula por railes en la calle, con catenaria el+ï¿½ctrica.",
+            "example": "El tranv+ï¿½a les lleva al centro comercial.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
             "word": "taxi",
             "definition": "Un coche con conductor que cobra por llevar a una persona de un sitio a otro.",
-            "example": "Tom+¦ un taxi para volver a casa de noche.",
+            "example": "Tom+ï¿½ un taxi para volver a casa de noche.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
             "word": "VTC",
-            "definition": "Un coche con conductor que pides desde una aplicaci+¦n del m+¦vil.",
-            "example": "Pidi+¦ un VTC con el m+¦vil a las once de la noche.",
+            "definition": "Un coche con conductor que pides desde una aplicaci+ï¿½n del m+ï¿½vil.",
+            "example": "Pidi+ï¿½ un VTC con el m+ï¿½vil a las once de la noche.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
-            "word": "tren de cercan+¡as",
+            "word": "tren de cercan+ï¿½as",
             "definition": "Un tren que hace trayectos cortos entre pueblos y ciudades cercanas.",
-            "example": "Coge el tren de cercan+¡as para ir al pueblo de su madre.",
+            "example": "Coge el tren de cercan+ï¿½as para ir al pueblo de su madre.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
-            "word": "avi+¦n",
-            "definition": "Un veh+¡culo que vuela y que lleva pasajeros de una ciudad a otra, a veces a otro pa+¡s.",
-            "example": "El avi+¦n a Mallorca sale a las seis de la ma+¦ana.",
+            "word": "avi+ï¿½n",
+            "definition": "Un veh+ï¿½culo que vuela y que lleva pasajeros de una ciudad a otra, a veces a otro pa+ï¿½s.",
+            "example": "El avi+ï¿½n a Mallorca sale a las seis de la ma+ï¿½ana.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
             "word": "bicicleta",
-            "definition": "Un veh+¡culo de dos ruedas que se mueve pedaleando.",
-            "example": "Va al trabajo en bicicleta todos los d+¡as.",
+            "definition": "Un veh+ï¿½culo de dos ruedas que se mueve pedaleando.",
+            "example": "Va al trabajo en bicicleta todos los d+ï¿½as.",
             "category": "transporte y ciudad",
             "tier": 2
           }
@@ -2880,16 +2884,16 @@
         "tier": 2,
         "words": [
           {
-            "word": "parada de autob+¦s",
-            "definition": "El sitio marcado en la calle donde se espera el autob+¦s.",
-            "example": "Te espero en la parada de autob+¦s de la plaza.",
+            "word": "parada de autob+ï¿½s",
+            "definition": "El sitio marcado en la calle donde se espera el autob+ï¿½s.",
+            "example": "Te espero en la parada de autob+ï¿½s de la plaza.",
             "category": "transporte y ciudad",
             "tier": 2
           },
           {
             "word": "billete de transporte",
             "definition": "Un papel o una app que demuestra que has pagado el viaje.",
-            "example": "Compr+¦ el billete de transporte en la m+íquina.",
+            "example": "Compr+ï¿½ el billete de transporte en la m+ï¿½quina.",
             "category": "transporte y ciudad",
             "tier": 2
           }
@@ -2898,7 +2902,7 @@
       {
         "id": "B-alimentacion-y-cocina-1",
         "bloqueId": "B",
-        "category": "alimentaci+¦n y cocina",
+        "category": "alimentaci+ï¿½n y cocina",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 2,
@@ -2906,57 +2910,57 @@
           {
             "word": "receta de cocina",
             "definition": "Una lista de pasos e ingredientes para preparar una comida.",
-            "example": "Busc+¦ una receta de cocina de lentejas en internet.",
-            "category": "alimentaci+¦n y cocina",
+            "example": "Busc+ï¿½ una receta de cocina de lentejas en internet.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
             "word": "ingrediente",
             "definition": "Cada uno de los alimentos que se usan para preparar una receta.",
             "example": "Los huevos y la harina son los ingredientes de la tortilla.",
-            "category": "alimentaci+¦n y cocina",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
             "word": "alimento fresco",
             "definition": "Un alimento que no ha sido congelado ni procesado.",
             "example": "Compra fruta y verdura, que son alimentos frescos.",
-            "category": "alimentaci+¦n y cocina",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
             "word": "dieta equilibrada",
             "definition": "Una forma de comer que tiene alimentos sanos en cantidades justas.",
-            "example": "Lleva una dieta equilibrada con fruta y verdura cada d+¡a.",
-            "category": "alimentaci+¦n y cocina",
+            "example": "Lleva una dieta equilibrada con fruta y verdura cada d+ï¿½a.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
-            "word": "porci+¦n",
+            "word": "porci+ï¿½n",
             "definition": "La cantidad de comida que se sirve a una persona en una comida.",
-            "example": "Puso una porci+¦n de pasta en cada plato.",
-            "category": "alimentaci+¦n y cocina",
+            "example": "Puso una porci+ï¿½n de pasta en cada plato.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
-            "word": "al+®rgeno alimentario",
-            "definition": "Un alimento que puede causar una reacci+¦n al+®rgica en algunas personas.",
-            "example": "Lee las etiquetas para ver si lleva al+®rgenos alimentarios.",
-            "category": "alimentaci+¦n y cocina",
+            "word": "al+ï¿½rgeno alimentario",
+            "definition": "Un alimento que puede causar una reacci+ï¿½n al+ï¿½rgica en algunas personas.",
+            "example": "Lee las etiquetas para ver si lleva al+ï¿½rgenos alimentarios.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
             "word": "desayuno",
-            "definition": "La comida que se toma por la ma+¦ana al empezar el d+¡a.",
-            "example": "Toma un caf+® con tostadas en el desayuno.",
-            "category": "alimentaci+¦n y cocina",
+            "definition": "La comida que se toma por la ma+ï¿½ana al empezar el d+ï¿½a.",
+            "example": "Toma un caf+ï¿½ con tostadas en el desayuno.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
             "word": "cena",
-            "definition": "La comida que se toma al final del d+¡a, antes de dormir.",
+            "definition": "La comida que se toma al final del d+ï¿½a, antes de dormir.",
             "example": "Hoy cenamos una ensalada y un pescado.",
-            "category": "alimentaci+¦n y cocina",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           }
         ]
@@ -2964,23 +2968,23 @@
       {
         "id": "B-alimentacion-y-cocina-2",
         "bloqueId": "B",
-        "category": "alimentaci+¦n y cocina",
+        "category": "alimentaci+ï¿½n y cocina",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 2,
         "words": [
           {
             "word": "hambre",
-            "definition": "La sensaci+¦n que tiene el cuerpo cuando necesita comer.",
+            "definition": "La sensaci+ï¿½n que tiene el cuerpo cuando necesita comer.",
             "example": "Siento hambre: toca comer algo.",
-            "category": "alimentaci+¦n y cocina",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           },
           {
-            "word": "hidrataci+¦n",
+            "word": "hidrataci+ï¿½n",
             "definition": "Beber suficiente agua para que el cuerpo funcione bien.",
-            "example": "Lleva una botella para mantener una buena hidrataci+¦n.",
-            "category": "alimentaci+¦n y cocina",
+            "example": "Lleva una botella para mantener una buena hidrataci+ï¿½n.",
+            "category": "alimentaci+ï¿½n y cocina",
             "tier": 2
           }
         ]
@@ -2996,7 +3000,7 @@
     "categorias": [
       "salud (especialidades y pruebas)",
       "salud (pruebas y seguimientos)",
-      "farmacia y medicaci+¦n",
+      "farmacia y medicaci+ï¿½n",
       "salud mental y bienestar"
     ],
     "rondas": [
@@ -3009,58 +3013,58 @@
         "tier": 3,
         "words": [
           {
-            "word": "cardiolog+¡a",
-            "definition": "La parte de la medicina que cuida el coraz+¦n.",
-            "example": "Le derivaron a cardiolog+¡a por unas palpitaciones.",
+            "word": "cardiolog+ï¿½a",
+            "definition": "La parte de la medicina que cuida el coraz+ï¿½n.",
+            "example": "Le derivaron a cardiolog+ï¿½a por unas palpitaciones.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "dermatolog+¡a",
+            "word": "dermatolog+ï¿½a",
             "definition": "La parte de la medicina que cuida la piel.",
-            "example": "Pidi+¦ cita en dermatolog+¡a por una mancha en la cara.",
+            "example": "Pidi+ï¿½ cita en dermatolog+ï¿½a por una mancha en la cara.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "ginecolog+¡a",
-            "definition": "La parte de la medicina que cuida los +¦rganos sexuales de la mujer.",
-            "example": "Va a ginecolog+¡a para la revisi+¦n anual.",
+            "word": "ginecolog+ï¿½a",
+            "definition": "La parte de la medicina que cuida los +ï¿½rganos sexuales de la mujer.",
+            "example": "Va a ginecolog+ï¿½a para la revisi+ï¿½n anual.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "oftalmolog+¡a",
+            "word": "oftalmolog+ï¿½a",
             "definition": "La parte de la medicina que cuida los ojos.",
-            "example": "En oftalmolog+¡a le revisaron la vista y le cambiaron la graduaci+¦n.",
+            "example": "En oftalmolog+ï¿½a le revisaron la vista y le cambiaron la graduaci+ï¿½n.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
             "word": "otorrino",
-            "definition": "La parte de la medicina que cuida los o+¡dos, la nariz y la garganta.",
-            "example": "Fue al otorrino por un dolor de o+¡do que no se le quitaba.",
+            "definition": "La parte de la medicina que cuida los o+ï¿½dos, la nariz y la garganta.",
+            "example": "Fue al otorrino por un dolor de o+ï¿½do que no se le quitaba.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
             "word": "digestivo",
-            "definition": "La parte de la medicina que cuida el est+¦mago y los intestinos.",
-            "example": "El digest+¦logo le mand+¦ una prueba para ver qu+® le sentaba mal.",
+            "definition": "La parte de la medicina que cuida el est+ï¿½mago y los intestinos.",
+            "example": "El digest+ï¿½logo le mand+ï¿½ una prueba para ver qu+ï¿½ le sentaba mal.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "traumatolog+¡a",
-            "definition": "La parte de la medicina que cuida los huesos, las articulaciones y los m+¦sculos.",
-            "example": "Tras la ca+¡da, le vio traumatolog+¡a por un esguince.",
+            "word": "traumatolog+ï¿½a",
+            "definition": "La parte de la medicina que cuida los huesos, las articulaciones y los m+ï¿½sculos.",
+            "example": "Tras la ca+ï¿½da, le vio traumatolog+ï¿½a por un esguince.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "psiquiatr+¡a",
-            "definition": "La parte de la medicina que trata los problemas mentales con medicaci+¦n.",
-            "example": "Su m+®dico de cabecera le deriv+¦ a psiquiatr+¡a por la ansiedad.",
+            "word": "psiquiatr+ï¿½a",
+            "definition": "La parte de la medicina que trata los problemas mentales con medicaci+ï¿½n.",
+            "example": "Su m+ï¿½dico de cabecera le deriv+ï¿½ a psiquiatr+ï¿½a por la ansiedad.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           }
@@ -3075,16 +3079,16 @@
         "tier": 3,
         "words": [
           {
-            "word": "psicolog+¡a",
+            "word": "psicolog+ï¿½a",
             "definition": "La disciplina que trata los problemas emocionales y de conducta hablando con la persona.",
-            "example": "Va a psicolog+¡a cada quince d+¡as para hablar de sus miedos.",
+            "example": "Va a psicolog+ï¿½a cada quince d+ï¿½as para hablar de sus miedos.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           },
           {
-            "word": "endocrinolog+¡a",
+            "word": "endocrinolog+ï¿½a",
             "definition": "La parte de la medicina que cuida las hormonas y el metabolismo.",
-            "example": "En endocrinolog+¡a le controlan la diabetes.",
+            "example": "En endocrinolog+ï¿½a le controlan la diabetes.",
             "category": "salud (especialidades y pruebas)",
             "tier": 3
           }
@@ -3099,58 +3103,58 @@
         "tier": 3,
         "words": [
           {
-            "word": "an+ílisis de sangre",
-            "definition": "Una prueba donde se saca sangre para ver c+¦mo est+í el cuerpo.",
-            "example": "Le hicieron un an+ílisis de sangre en ayunas.",
+            "word": "an+ï¿½lisis de sangre",
+            "definition": "Una prueba donde se saca sangre para ver c+ï¿½mo est+ï¿½ el cuerpo.",
+            "example": "Le hicieron un an+ï¿½lisis de sangre en ayunas.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
-            "word": "radiograf+¡a",
+            "word": "radiograf+ï¿½a",
             "definition": "Una foto del interior del cuerpo que se hace con rayos para ver huesos o pulmones.",
-            "example": "Le hicieron una radiograf+¡a del pecho por la tos.",
+            "example": "Le hicieron una radiograf+ï¿½a del pecho por la tos.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
-            "word": "ecograf+¡a",
+            "word": "ecograf+ï¿½a",
             "definition": "Una imagen del interior del cuerpo que se hace con sonido.",
-            "example": "La ecograf+¡a del embarazo muestra c+¦mo va el beb+®.",
+            "example": "La ecograf+ï¿½a del embarazo muestra c+ï¿½mo va el beb+ï¿½.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
             "word": "TAC",
-            "definition": "Una prueba que hace muchas fotos del interior del cuerpo para ver un +¦rgano.",
+            "definition": "Una prueba que hace muchas fotos del interior del cuerpo para ver un +ï¿½rgano.",
             "example": "Le hicieron un TAC de cabeza tras el golpe.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
-            "word": "resonancia magn+®tica",
+            "word": "resonancia magn+ï¿½tica",
             "definition": "Una prueba que usa imanes para ver con detalle el interior del cuerpo.",
-            "example": "Le mandaron una resonancia magn+®tica de la rodilla.",
+            "example": "Le mandaron una resonancia magn+ï¿½tica de la rodilla.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
-            "word": "mamograf+¡a",
-            "definition": "Una radiograf+¡a de los pechos para detectar problemas a tiempo.",
-            "example": "Se hace una mamograf+¡a cada dos a+¦os.",
+            "word": "mamograf+ï¿½a",
+            "definition": "Una radiograf+ï¿½a de los pechos para detectar problemas a tiempo.",
+            "example": "Se hace una mamograf+ï¿½a cada dos a+ï¿½os.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
             "word": "colonoscopia",
-            "definition": "Una prueba donde se mira el interior del intestino con una c+ímara fina.",
+            "definition": "Una prueba donde se mira el interior del intestino con una c+ï¿½mara fina.",
             "example": "Le hicieron una colonoscopia para ver el motivo del dolor.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
-            "word": "m+®dico de cabecera",
-            "definition": "El m+®dico que ve normalmente y que te env+¡a a otros especialistas si hace falta.",
-            "example": "Pidi+¦ cita con su m+®dico de cabecera para el resfriado.",
+            "word": "m+ï¿½dico de cabecera",
+            "definition": "El m+ï¿½dico que ve normalmente y que te env+ï¿½a a otros especialistas si hace falta.",
+            "example": "Pidi+ï¿½ cita con su m+ï¿½dico de cabecera para el resfriado.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           }
@@ -3165,16 +3169,16 @@
         "tier": 3,
         "words": [
           {
-            "word": "derivaci+¦n m+®dica",
-            "definition": "Cuando tu m+®dico te env+¡a a otro especialista para una prueba o un tratamiento.",
-            "example": "Recibi+¦ una derivaci+¦n m+®dica al cardi+¦logo.",
+            "word": "derivaci+ï¿½n m+ï¿½dica",
+            "definition": "Cuando tu m+ï¿½dico te env+ï¿½a a otro especialista para una prueba o un tratamiento.",
+            "example": "Recibi+ï¿½ una derivaci+ï¿½n m+ï¿½dica al cardi+ï¿½logo.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           },
           {
             "word": "chequeo",
-            "definition": "Una revisi+¦n m+®dica completa para ver si todo est+í bien.",
-            "example": "Cada a+¦o se hace un chequeo general.",
+            "definition": "Una revisi+ï¿½n m+ï¿½dica completa para ver si todo est+ï¿½ bien.",
+            "example": "Cada a+ï¿½o se hace un chequeo general.",
             "category": "salud (pruebas y seguimientos)",
             "tier": 3
           }
@@ -3183,65 +3187,65 @@
       {
         "id": "C-farmacia-y-medicacion-1",
         "bloqueId": "C",
-        "category": "farmacia y medicaci+¦n",
+        "category": "farmacia y medicaci+ï¿½n",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 2,
         "words": [
           {
             "word": "pastilla",
-            "definition": "Un medicamento peque+¦o y s+¦lido que se toma con agua.",
+            "definition": "Un medicamento peque+ï¿½o y s+ï¿½lido que se toma con agua.",
             "example": "Se toma una pastilla para el dolor de cabeza.",
-            "category": "farmacia y medicaci+¦n",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
-            "word": "c+ípsula",
-            "definition": "Un medicamento dentro de una cubierta que se disuelve en el est+¦mago.",
-            "example": "La c+ípsula de omega 3 se toma despu+®s de comer.",
-            "category": "farmacia y medicaci+¦n",
+            "word": "c+ï¿½psula",
+            "definition": "Un medicamento dentro de una cubierta que se disuelve en el est+ï¿½mago.",
+            "example": "La c+ï¿½psula de omega 3 se toma despu+ï¿½s de comer.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "jarabe",
-            "definition": "Un medicamento l+¡quido que se toma con una cuchara.",
-            "example": "Le dio jarabe para la tos al ni+¦o.",
-            "category": "farmacia y medicaci+¦n",
+            "definition": "Un medicamento l+ï¿½quido que se toma con una cuchara.",
+            "example": "Le dio jarabe para la tos al ni+ï¿½o.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
-            "word": "inyecci+¦n",
+            "word": "inyecci+ï¿½n",
             "definition": "Una medicina que se mete en el cuerpo con una aguja.",
-            "example": "Le pusieron una inyecci+¦n en el brazo.",
-            "category": "farmacia y medicaci+¦n",
+            "example": "Le pusieron una inyecci+ï¿½n en el brazo.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "pomada",
             "definition": "Una crema medicinal que se aplica sobre la piel.",
             "example": "Se puso pomada en la quemadura del sol.",
-            "category": "farmacia y medicaci+¦n",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "gotas",
-            "definition": "Un medicamento l+¡quido que se echa en los ojos, los o+¡dos o la nariz.",
-            "example": "Se echa gotas en los ojos tres veces al d+¡a.",
-            "category": "farmacia y medicaci+¦n",
+            "definition": "Un medicamento l+ï¿½quido que se echa en los ojos, los o+ï¿½dos o la nariz.",
+            "example": "Se echa gotas en los ojos tres veces al d+ï¿½a.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "inhalador",
             "definition": "Un aparato que echa un medicamento en forma de vapor para respirar.",
             "example": "Usa el inhalador cuando le falta el aire.",
-            "category": "farmacia y medicaci+¦n",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "parche",
             "definition": "Un trozo que se pega a la piel y va soltando medicina poco a poco.",
             "example": "Lleva un parche para el dolor de espalda.",
-            "category": "farmacia y medicaci+¦n",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           }
         ]
@@ -3249,23 +3253,23 @@
       {
         "id": "C-farmacia-y-medicacion-2",
         "bloqueId": "C",
-        "category": "farmacia y medicaci+¦n",
+        "category": "farmacia y medicaci+ï¿½n",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 2,
         "words": [
           {
-            "word": "antibi+¦tico",
+            "word": "antibi+ï¿½tico",
             "definition": "Un medicamento que mata las bacterias que causan infecciones.",
-            "example": "Le recetaron antibi+¦tico diez d+¡as para la infecci+¦n.",
-            "category": "farmacia y medicaci+¦n",
+            "example": "Le recetaron antibi+ï¿½tico diez d+ï¿½as para la infecci+ï¿½n.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           },
           {
             "word": "antiinflamatorio",
-            "definition": "Un medicamento que baja la hinchaz+¦n y el dolor.",
-            "example": "Tom+¦ un antiinflamatorio para el tobillo hinchado.",
-            "category": "farmacia y medicaci+¦n",
+            "definition": "Un medicamento que baja la hinchaz+ï¿½n y el dolor.",
+            "example": "Tom+ï¿½ un antiinflamatorio para el tobillo hinchado.",
+            "category": "farmacia y medicaci+ï¿½n",
             "tier": 2
           }
         ]
@@ -3279,37 +3283,37 @@
         "tier": 3,
         "words": [
           {
-            "word": "estr+®s",
-            "definition": "La sensaci+¦n de tensi+¦n del cuerpo y la mente cuando hay mucha presi+¦n.",
-            "example": "Siente mucho estr+®s antes de cada examen.",
+            "word": "estr+ï¿½s",
+            "definition": "La sensaci+ï¿½n de tensi+ï¿½n del cuerpo y la mente cuando hay mucha presi+ï¿½n.",
+            "example": "Siente mucho estr+ï¿½s antes de cada examen.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
           {
             "word": "ansiedad",
-            "definition": "Una sensaci+¦n de miedo o nervios fuerte que no se va.",
-            "example": "La ansiedad no la deja dormir antes de la revisi+¦n.",
+            "definition": "Una sensaci+ï¿½n de miedo o nervios fuerte que no se va.",
+            "example": "La ansiedad no la deja dormir antes de la revisi+ï¿½n.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
           {
-            "word": "depresi+¦n",
+            "word": "depresi+ï¿½n",
             "definition": "Una tristeza profunda que dura mucho y no deja hacer cosas.",
-            "example": "Tras el fallecimiento pas+¦ una depresi+¦n larga.",
+            "example": "Tras el fallecimiento pas+ï¿½ una depresi+ï¿½n larga.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
           {
             "word": "insomnio",
             "definition": "Cuando una persona no puede dormir o se despierta muchas veces.",
-            "example": "El insomnio la deja cansada al d+¡a siguiente.",
+            "example": "El insomnio la deja cansada al d+ï¿½a siguiente.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
           {
-            "word": "apoyo psicol+¦gico",
+            "word": "apoyo psicol+ï¿½gico",
             "definition": "La ayuda que da un profesional para hablar de las emociones y los problemas.",
-            "example": "Recibe apoyo psicol+¦gico tras la p+®rdida del trabajo.",
+            "example": "Recibe apoyo psicol+ï¿½gico tras la p+ï¿½rdida del trabajo.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
@@ -3322,15 +3326,15 @@
           },
           {
             "word": "grupo de apoyo",
-            "definition": "Un grupo de personas con un problema parecido que se ayudan entre s+¡.",
+            "definition": "Un grupo de personas con un problema parecido que se ayudan entre s+ï¿½.",
             "example": "Asiste a un grupo de apoyo para personas con ansiedad.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
           {
             "word": "mindfulness",
-            "definition": "Una t+®cnica para prestar atenci+¦n al momento presente y calmar la mente.",
-            "example": "Practica mindfulness diez minutos al d+¡a.",
+            "definition": "Una t+ï¿½cnica para prestar atenci+ï¿½n al momento presente y calmar la mente.",
+            "example": "Practica mindfulness diez minutos al d+ï¿½a.",
             "category": "salud mental y bienestar",
             "tier": 3
           }
@@ -3346,8 +3350,8 @@
         "words": [
           {
             "word": "resiliencia",
-            "definition": "La capacidad de una persona para recuperarse despu+®s de algo dif+¡cil.",
-            "example": "Demostr+¦ mucha resiliencia tras la operaci+¦n.",
+            "definition": "La capacidad de una persona para recuperarse despu+ï¿½s de algo dif+ï¿½cil.",
+            "example": "Demostr+ï¿½ mucha resiliencia tras la operaci+ï¿½n.",
             "category": "salud mental y bienestar",
             "tier": 3
           },
@@ -3369,77 +3373,77 @@
       "en": "Social, digital and cultural world"
     },
     "categorias": [
-      "educaci+¦n y formaci+¦n",
+      "educaci+ï¿½n y formaci+ï¿½n",
       "clima y naturaleza",
-      "geograf+¡a y mundo",
+      "geograf+ï¿½a y mundo",
       "cultura, ocio y deporte",
-      "comunicaci+¦n y gestos",
+      "comunicaci+ï¿½n y gestos",
       "comunidad y tradiciones",
-      "derechos digitales y verificaci+¦n"
+      "derechos digitales y verificaci+ï¿½n"
     ],
     "rondas": [
       {
         "id": "D-educacion-y-formacion-1",
         "bloqueId": "D",
-        "category": "educaci+¦n y formaci+¦n",
+        "category": "educaci+ï¿½n y formaci+ï¿½n",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
-            "word": "matr+¡cula",
+            "word": "matr+ï¿½cula",
             "definition": "El pago que se hace al centro para apuntarse a un curso o estudios.",
-            "example": "Pag+¦ la matr+¡cula del curso de cocina.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "Pag+ï¿½ la matr+ï¿½cula del curso de cocina.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "beca",
-            "definition": "Una ayuda econ+¦mica que se da para poder pagar estudios.",
+            "definition": "Una ayuda econ+ï¿½mica que se da para poder pagar estudios.",
             "example": "Le concedieron una beca por sus buenas notas.",
-            "category": "educaci+¦n y formaci+¦n",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "curso de formaci+¦n",
+            "word": "curso de formaci+ï¿½n",
             "definition": "Unas clases para aprender un trabajo o habilidad.",
-            "example": "Hizo un curso de formaci+¦n en cocina.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "Hizo un curso de formaci+ï¿½n en cocina.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "certificado",
             "definition": "Un papel oficial que dice que has terminado un curso o sabes hacer algo.",
             "example": "Le dieron un certificado de manipulador de alimentos.",
-            "category": "educaci+¦n y formaci+¦n",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "t+¡tulo",
+            "word": "t+ï¿½tulo",
             "definition": "Un papel oficial que dice que has acabado unos estudios.",
-            "example": "Sac+¦ el t+¡tulo de auxiliar administrativo.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "Sac+ï¿½ el t+ï¿½tulo de auxiliar administrativo.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "expediente acad+®mico",
+            "word": "expediente acad+ï¿½mico",
             "definition": "El historial con todas las notas y materias de una persona.",
-            "example": "Pidi+¦ el expediente acad+®mico al instituto.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "Pidi+ï¿½ el expediente acad+ï¿½mico al instituto.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "tutor",
-            "definition": "La persona que acompa+¦a a un alumno para guiar sus estudios.",
-            "example": "Habl+¦ con su tutor del colegio sobre las notas.",
-            "category": "educaci+¦n y formaci+¦n",
+            "definition": "La persona que acompa+ï¿½a a un alumno para guiar sus estudios.",
+            "example": "Habl+ï¿½ con su tutor del colegio sobre las notas.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "educaci+¦n especial",
-            "definition": "Una ense+¦anza con apoyos extra para quien lo necesite, en clase o en un aula aparte.",
-            "example": "Asisti+¦ a educaci+¦n especial hasta los veinte a+¦os.",
-            "category": "educaci+¦n y formaci+¦n",
+            "word": "educaci+ï¿½n especial",
+            "definition": "Una ense+ï¿½anza con apoyos extra para quien lo necesite, en clase o en un aula aparte.",
+            "example": "Asisti+ï¿½ a educaci+ï¿½n especial hasta los veinte a+ï¿½os.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           }
         ]
@@ -3447,7 +3451,7 @@
       {
         "id": "D-educacion-y-formacion-2",
         "bloqueId": "D",
-        "category": "educaci+¦n y formaci+¦n",
+        "category": "educaci+ï¿½n y formaci+ï¿½n",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 3,
@@ -3455,15 +3459,15 @@
           {
             "word": "apoyo escolar",
             "definition": "Una ayuda extra que recibe un alumno en el colegio para aprender mejor.",
-            "example": "Recibe apoyo escolar en lengua y matem+íticas.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "Recibe apoyo escolar en lengua y matem+ï¿½ticas.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "logopeda",
             "definition": "El profesional que ayuda a una persona a hablar y pronunciar mejor.",
-            "example": "El logopeda le ense+¦a ejercicios para pronunciar la r.",
-            "category": "educaci+¦n y formaci+¦n",
+            "example": "El logopeda le ense+ï¿½a ejercicios para pronunciar la r.",
+            "category": "educaci+ï¿½n y formaci+ï¿½n",
             "tier": 3
           }
         ]
@@ -3479,13 +3483,13 @@
           {
             "word": "lluvia",
             "definition": "El agua que cae de las nubes en gotas.",
-            "example": "Hoy amaneci+¦ con lluvia fina.",
+            "example": "Hoy amaneci+ï¿½ con lluvia fina.",
             "category": "clima y naturaleza",
             "tier": 2
           },
           {
             "word": "viento",
-            "definition": "Aire que se mueve en la atm+¦sfera.",
+            "definition": "Aire que se mueve en la atm+ï¿½sfera.",
             "example": "Hace mucho viento: cierra la ventana.",
             "category": "clima y naturaleza",
             "tier": 2
@@ -3493,14 +3497,14 @@
           {
             "word": "nieve",
             "definition": "Agua congelada que cae del cielo en copos blancos.",
-            "example": "Anoche cay+¦ nieve en la monta+¦a.",
+            "example": "Anoche cay+ï¿½ nieve en la monta+ï¿½a.",
             "category": "clima y naturaleza",
             "tier": 2
           },
           {
             "word": "tormenta",
-            "definition": "Una lluvia muy fuerte con truenos, rel+ímpagos y viento.",
-            "example": "Por la tarde habr+í tormenta con aparato el+®ctrico.",
+            "definition": "Una lluvia muy fuerte con truenos, rel+ï¿½mpagos y viento.",
+            "example": "Por la tarde habr+ï¿½ tormenta con aparato el+ï¿½ctrico.",
             "category": "clima y naturaleza",
             "tier": 2
           },
@@ -3512,23 +3516,23 @@
             "tier": 2
           },
           {
-            "word": "fr+¡o",
+            "word": "fr+ï¿½o",
             "definition": "Una temperatura baja del ambiente o del cuerpo.",
-            "example": "Siente mucho fr+¡o: ponte el abrigo.",
+            "example": "Siente mucho fr+ï¿½o: ponte el abrigo.",
             "category": "clima y naturaleza",
             "tier": 2
           },
           {
             "word": "sol",
             "definition": "La estrella que da luz y calor a la Tierra.",
-            "example": "Sali+¦ el sol y nos fuimos a la playa.",
+            "example": "Sali+ï¿½ el sol y nos fuimos a la playa.",
             "category": "clima y naturaleza",
             "tier": 2
           },
           {
             "word": "nube",
             "definition": "Una masa blanca o gris que flota en el cielo y puede soltar lluvia.",
-            "example": "El cielo est+í lleno de nubes oscuras.",
+            "example": "El cielo est+ï¿½ lleno de nubes oscuras.",
             "category": "clima y naturaleza",
             "tier": 2
           }
@@ -3544,15 +3548,15 @@
         "words": [
           {
             "word": "primavera",
-            "definition": "La estaci+¦n del a+¦o entre el invierno y el verano, cuando las flores abren.",
+            "definition": "La estaci+ï¿½n del a+ï¿½o entre el invierno y el verano, cuando las flores abren.",
             "example": "En primavera vamos al parque a ver los cerezos.",
             "category": "clima y naturaleza",
             "tier": 2
           },
           {
-            "word": "oto+¦o",
-            "definition": "La estaci+¦n del a+¦o entre el verano y el invierno, cuando caen las hojas.",
-            "example": "En oto+¦o las hojas se vuelven amarillas.",
+            "word": "oto+ï¿½o",
+            "definition": "La estaci+ï¿½n del a+ï¿½o entre el verano y el invierno, cuando caen las hojas.",
+            "example": "En oto+ï¿½o las hojas se vuelven amarillas.",
             "category": "clima y naturaleza",
             "tier": 2
           }
@@ -3561,65 +3565,65 @@
       {
         "id": "D-geografia-y-mundo-1",
         "bloqueId": "D",
-        "category": "geograf+¡a y mundo",
+        "category": "geograf+ï¿½a y mundo",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
-            "word": "pa+¡s",
+            "word": "pa+ï¿½s",
             "definition": "Una zona grande de tierra con su propio gobierno.",
-            "example": "Espa+¦a es un pa+¡s del sur de Europa.",
-            "category": "geograf+¡a y mundo",
+            "example": "Espa+ï¿½a es un pa+ï¿½s del sur de Europa.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "continente",
             "definition": "Cada una de las grandes extensiones de tierra del mundo.",
             "example": "Europa es uno de los cinco continentes habitados.",
-            "category": "geograf+¡a y mundo",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "ciudad capital",
-            "definition": "La ciudad m+ís importante de un pa+¡s, donde suele estar el gobierno.",
-            "example": "Madrid es la ciudad capital de Espa+¦a.",
-            "category": "geograf+¡a y mundo",
+            "definition": "La ciudad m+ï¿½s importante de un pa+ï¿½s, donde suele estar el gobierno.",
+            "example": "Madrid es la ciudad capital de Espa+ï¿½a.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
-            "word": "oc+®ano",
-            "definition": "Una extensi+¦n muy grande de agua salada que cubre gran parte de la Tierra.",
-            "example": "El oc+®ano Atl+íntico separa Europa de Am+®rica.",
-            "category": "geograf+¡a y mundo",
+            "word": "oc+ï¿½ano",
+            "definition": "Una extensi+ï¿½n muy grande de agua salada que cubre gran parte de la Tierra.",
+            "example": "El oc+ï¿½ano Atl+ï¿½ntico separa Europa de Am+ï¿½rica.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "isla",
-            "definition": "Una porci+¦n de tierra rodeada de agua por todas partes.",
-            "example": "Mallorca es una isla del Mediterr+íneo.",
-            "category": "geograf+¡a y mundo",
+            "definition": "Una porci+ï¿½n de tierra rodeada de agua por todas partes.",
+            "example": "Mallorca es una isla del Mediterr+ï¿½neo.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "desierto",
             "definition": "Una zona de tierra muy seca donde casi nunca llueve.",
-            "example": "El S+íhara es el desierto m+ís grande del mundo.",
-            "category": "geograf+¡a y mundo",
+            "example": "El S+ï¿½hara es el desierto m+ï¿½s grande del mundo.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "selva tropical",
-            "definition": "Un bosque muy grande, caluroso y h+¦medo, con much+¡simas plantas y animales.",
-            "example": "La Amazonia es una selva tropical de Sudam+®rica.",
-            "category": "geograf+¡a y mundo",
+            "definition": "Un bosque muy grande, caluroso y h+ï¿½medo, con much+ï¿½simas plantas y animales.",
+            "example": "La Amazonia es una selva tropical de Sudam+ï¿½rica.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "cordillera",
-            "definition": "Una cadena de monta+¦as seguidas unas de otras.",
+            "definition": "Una cadena de monta+ï¿½as seguidas unas de otras.",
             "example": "Los Andes son una cordillera muy larga.",
-            "category": "geograf+¡a y mundo",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           }
         ]
@@ -3627,23 +3631,23 @@
       {
         "id": "D-geografia-y-mundo-2",
         "bloqueId": "D",
-        "category": "geograf+¡a y mundo",
+        "category": "geograf+ï¿½a y mundo",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
-            "word": "volc+ín",
-            "definition": "Una monta+¦a con un agujero por donde sale roca caliente del interior de la Tierra.",
-            "example": "El Teide es un volc+ín en la isla de Tenerife.",
-            "category": "geograf+¡a y mundo",
+            "word": "volc+ï¿½n",
+            "definition": "Una monta+ï¿½a con un agujero por donde sale roca caliente del interior de la Tierra.",
+            "example": "El Teide es un volc+ï¿½n en la isla de Tenerife.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           },
           {
             "word": "hemisferio",
             "definition": "Cada una las dos mitades en que se divide la Tierra.",
-            "example": "Espa+¦a est+í en el hemisferio norte.",
-            "category": "geograf+¡a y mundo",
+            "example": "Espa+ï¿½a est+ï¿½ en el hemisferio norte.",
+            "category": "geograf+ï¿½a y mundo",
             "tier": 3
           }
         ]
@@ -3672,21 +3676,21 @@
           },
           {
             "word": "cine",
-            "definition": "Un sitio o una sala donde se ven pel+¡culas en una pantalla grande.",
+            "definition": "Un sitio o una sala donde se ven pel+ï¿½culas en una pantalla grande.",
             "example": "Fueron al cine a ver una comedia.",
             "category": "cultura, ocio y deporte",
             "tier": 3
           },
           {
             "word": "concierto",
-            "definition": "Un espect+ículo en directo donde se toca m+¦sica para el p+¦blico.",
-            "example": "Compr+¦ entradas para un concierto de rock.",
+            "definition": "Un espect+ï¿½culo en directo donde se toca m+ï¿½sica para el p+ï¿½blico.",
+            "example": "Compr+ï¿½ entradas para un concierto de rock.",
             "category": "cultura, ocio y deporte",
             "tier": 3
           },
           {
             "word": "festival",
-            "definition": "Una celebraci+¦n que dura varios d+¡as con actividades, m+¦sica o comida.",
+            "definition": "Una celebraci+ï¿½n que dura varios d+ï¿½as con actividades, m+ï¿½sica o comida.",
             "example": "El festival de jazz se celebra en julio.",
             "category": "cultura, ocio y deporte",
             "tier": 3
@@ -3700,15 +3704,15 @@
           },
           {
             "word": "libro",
-            "definition": "Un conjunto de p+íginas escritas y encuadernadas juntas.",
+            "definition": "Un conjunto de p+ï¿½ginas escritas y encuadernadas juntas.",
             "example": "Le gusta leer un libro antes de dormir.",
             "category": "cultura, ocio y deporte",
             "tier": 3
           },
           {
             "word": "deporte",
-            "definition": "Una actividad f+¡sica que se hace para competir o para mantenerse sano.",
-            "example": "El f+¦tbol es su deporte favorito.",
+            "definition": "Una actividad f+ï¿½sica que se hace para competir o para mantenerse sano.",
+            "example": "El f+ï¿½tbol es su deporte favorito.",
             "category": "cultura, ocio y deporte",
             "tier": 3
           }
@@ -3723,9 +3727,9 @@
         "tier": 3,
         "words": [
           {
-            "word": "afici+¦n",
+            "word": "afici+ï¿½n",
             "definition": "Algo que te gusta hacer en tu tiempo libre.",
-            "example": "La lectura es su gran afici+¦n.",
+            "example": "La lectura es su gran afici+ï¿½n.",
             "category": "cultura, ocio y deporte",
             "tier": 3
           },
@@ -3741,7 +3745,7 @@
       {
         "id": "D-comunicacion-y-gestos-1",
         "bloqueId": "D",
-        "category": "comunicaci+¦n y gestos",
+        "category": "comunicaci+ï¿½n y gestos",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 2,
@@ -3749,57 +3753,57 @@
           {
             "word": "saludar",
             "definition": "Decir hola o algo amable a una persona cuando la ves.",
-            "example": "Le gusta saludar a los vecinos por la ma+¦ana.",
-            "category": "comunicaci+¦n y gestos",
+            "example": "Le gusta saludar a los vecinos por la ma+ï¿½ana.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "despedirse",
-            "definition": "Decir adi+¦s a una persona cuando te vas.",
-            "example": "Se despidi+¦ antes de cerrar la puerta.",
-            "category": "comunicaci+¦n y gestos",
+            "definition": "Decir adi+ï¿½s a una persona cuando te vas.",
+            "example": "Se despidi+ï¿½ antes de cerrar la puerta.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "disculparse",
             "definition": "Decir que sientes haber hecho algo mal.",
-            "example": "Se disculp+¦ por llegar tarde.",
-            "category": "comunicaci+¦n y gestos",
+            "example": "Se disculp+ï¿½ por llegar tarde.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "agradecer",
             "definition": "Mostrar a una persona que valoras algo que ha hecho por ti.",
-            "example": "Le agradeci+¦ el regalo con una carta.",
-            "category": "comunicaci+¦n y gestos",
+            "example": "Le agradeci+ï¿½ el regalo con una carta.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "preguntar",
             "definition": "Hacer una pregunta para saber algo.",
-            "example": "Pregunt+¦ al m+®dico qu+® medicina ten+¡a que tomar.",
-            "category": "comunicaci+¦n y gestos",
+            "example": "Pregunt+ï¿½ al m+ï¿½dico qu+ï¿½ medicina ten+ï¿½a que tomar.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "responder",
             "definition": "Contestar a algo que te han dicho o preguntado.",
-            "example": "Tard+¦ en responder al mensaje.",
-            "category": "comunicaci+¦n y gestos",
+            "example": "Tard+ï¿½ en responder al mensaje.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
-            "word": "conversaci+¦n",
-            "definition": "Una charla entre dos o m+ís personas.",
-            "example": "Tuvieron una conversaci+¦n larga por tel+®fono.",
-            "category": "comunicaci+¦n y gestos",
+            "word": "conversaci+ï¿½n",
+            "definition": "Una charla entre dos o m+ï¿½s personas.",
+            "example": "Tuvieron una conversaci+ï¿½n larga por tel+ï¿½fono.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "escuchar",
-            "definition": "Prestar atenci+¦n a lo que dice otra persona.",
+            "definition": "Prestar atenci+ï¿½n a lo que dice otra persona.",
             "example": "Le cuesta escuchar cuando hay ruido.",
-            "category": "comunicaci+¦n y gestos",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           }
         ]
@@ -3807,23 +3811,23 @@
       {
         "id": "D-comunicacion-y-gestos-2",
         "bloqueId": "D",
-        "category": "comunicaci+¦n y gestos",
+        "category": "comunicaci+ï¿½n y gestos",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 2,
         "words": [
           {
-            "word": "sonre+¡r",
-            "definition": "Hacer con la cara una expresi+¦n de alegr+¡a mostrando los dientes.",
-            "example": "Sonri+¦ al ver a su hijo.",
-            "category": "comunicaci+¦n y gestos",
+            "word": "sonre+ï¿½r",
+            "definition": "Hacer con la cara una expresi+ï¿½n de alegr+ï¿½a mostrando los dientes.",
+            "example": "Sonri+ï¿½ al ver a su hijo.",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           },
           {
             "word": "abrazar",
-            "definition": "Pasar los brazos alrededor de una persona como muestra de cari+¦o.",
+            "definition": "Pasar los brazos alrededor de una persona como muestra de cari+ï¿½o.",
             "example": "Se abrazaron al reencontrarse.",
-            "category": "comunicaci+¦n y gestos",
+            "category": "comunicaci+ï¿½n y gestos",
             "tier": 2
           }
         ]
@@ -3839,21 +3843,21 @@
           {
             "word": "colectivo local",
             "definition": "El grupo de personas que se unen en un mismo lugar para cosas comunes.",
-            "example": "El colectivo local del pueblo se re+¦ne cada domingo.",
+            "example": "El colectivo local del pueblo se re+ï¿½ne cada domingo.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
           {
             "word": "amistad",
-            "definition": "La relaci+¦n de cari+¦o y confianza entre personas amigas.",
+            "definition": "La relaci+ï¿½n de cari+ï¿½o y confianza entre personas amigas.",
             "example": "Cuida su amistad desde el colegio.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
           {
             "word": "pareja sentimental",
-            "definition": "Las dos personas que tienen una relaci+¦n amorosa.",
-            "example": "Lleva cinco a+¦os con su pareja sentimental.",
+            "definition": "Las dos personas que tienen una relaci+ï¿½n amorosa.",
+            "example": "Lleva cinco a+ï¿½os con su pareja sentimental.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
@@ -3872,16 +3876,16 @@
             "tier": 3
           },
           {
-            "word": "celebraci+¦n",
+            "word": "celebraci+ï¿½n",
             "definition": "Un acto que se hace para festejar algo importante.",
-            "example": "Hizo una celebraci+¦n por su cumple.",
+            "example": "Hizo una celebraci+ï¿½n por su cumple.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
           {
-            "word": "cumplea+¦os",
-            "definition": "El d+¡a del a+¦o en que una persona cumple un a+¦o m+ís.",
-            "example": "Celebramos el cumplea+¦os con una tarta.",
+            "word": "cumplea+ï¿½os",
+            "definition": "El d+ï¿½a del a+ï¿½o en que una persona cumple un a+ï¿½o m+ï¿½s.",
+            "example": "Celebramos el cumplea+ï¿½os con una tarta.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
@@ -3903,16 +3907,16 @@
         "tier": 3,
         "words": [
           {
-            "word": "tradici+¦n",
+            "word": "tradici+ï¿½n",
             "definition": "Una costumbre que pasa de padres a hijos durante mucho tiempo.",
-            "example": "Comer doce uvas en Nochevieja es una tradici+¦n.",
+            "example": "Comer doce uvas en Nochevieja es una tradici+ï¿½n.",
             "category": "comunidad y tradiciones",
             "tier": 3
           },
           {
             "word": "Navidad",
-            "definition": "La fiesta que se celebra a finales de diciembre en muchos pa+¡ses.",
-            "example": "En Navidad se re+¦ne toda la familia.",
+            "definition": "La fiesta que se celebra a finales de diciembre en muchos pa+ï¿½ses.",
+            "example": "En Navidad se re+ï¿½ne toda la familia.",
             "category": "comunidad y tradiciones",
             "tier": 3
           }
@@ -3921,65 +3925,65 @@
       {
         "id": "D-derechos-digitales-y-verificacion-1",
         "bloqueId": "D",
-        "category": "derechos digitales y verificaci+¦n",
+        "category": "derechos digitales y verificaci+ï¿½n",
         "chunkIndex": 0,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
             "word": "huella digital",
-            "definition": "La informaci+¦n que dejas en internet cuando navegas, escribes o compras.",
+            "definition": "La informaci+ï¿½n que dejas en internet cuando navegas, escribes o compras.",
             "example": "Cada vez que publicas algo dejas huella digital.",
-            "category": "derechos digitales y verificaci+¦n",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "datos personales",
-            "definition": "Informaci+¦n sobre una persona, como el nombre, la direcci+¦n o el DNI.",
+            "definition": "Informaci+ï¿½n sobre una persona, como el nombre, la direcci+ï¿½n o el DNI.",
             "example": "No compartas tus datos personales con desconocidos.",
-            "category": "derechos digitales y verificaci+¦n",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "consentimiento digital",
-            "definition": "Decir que s+¡ de forma clara a usar tus datos en una p+ígina o aplicaci+¦n.",
+            "definition": "Decir que s+ï¿½ de forma clara a usar tus datos en una p+ï¿½gina o aplicaci+ï¿½n.",
             "example": "La web te pide consentimiento digital para usar cookies.",
-            "category": "derechos digitales y verificaci+¦n",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "cookies",
-            "definition": "Peque+¦os archivos que una p+ígina web guarda en tu aparato para recordar tus visitas.",
-            "example": "La p+ígina pregunta si aceptas las cookies.",
-            "category": "derechos digitales y verificaci+¦n",
+            "definition": "Peque+ï¿½os archivos que una p+ï¿½gina web guarda en tu aparato para recordar tus visitas.",
+            "example": "La p+ï¿½gina pregunta si aceptas las cookies.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "suplantaci+¦n de identidad",
-            "definition": "Cuando alguien se hace pasar por ti en internet para enga+¦ar a otros.",
-            "example": "Le hackearon la cuenta y sufrieron suplantaci+¦n de identidad.",
-            "category": "derechos digitales y verificaci+¦n",
+            "word": "suplantaci+ï¿½n de identidad",
+            "definition": "Cuando alguien se hace pasar por ti en internet para enga+ï¿½ar a otros.",
+            "example": "Le hackearon la cuenta y sufrieron suplantaci+ï¿½n de identidad.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "bulo",
             "definition": "Una noticia falsa que se difunde como si fuera verdad.",
             "example": "No compartas el mensaje sin comprobar que no sea un bulo.",
-            "category": "derechos digitales y verificaci+¦n",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
             "word": "noticia falsa",
-            "definition": "Una informaci+¦n inventada que se presenta como verdadera para confundir.",
-            "example": "Esa noticia falsa se desminti+¦ en televisi+¦n.",
-            "category": "derechos digitales y verificaci+¦n",
+            "definition": "Una informaci+ï¿½n inventada que se presenta como verdadera para confundir.",
+            "example": "Esa noticia falsa se desminti+ï¿½ en televisi+ï¿½n.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "verificar informaci+¦n",
+            "word": "verificar informaci+ï¿½n",
             "definition": "Comprobar si una noticia o un dato es verdadero antes de difundirlo.",
-            "example": "Verifica la informaci+¦n antes de reenviar el mensaje.",
-            "category": "derechos digitales y verificaci+¦n",
+            "example": "Verifica la informaci+ï¿½n antes de reenviar el mensaje.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           }
         ]
@@ -3987,23 +3991,23 @@
       {
         "id": "D-derechos-digitales-y-verificacion-2",
         "bloqueId": "D",
-        "category": "derechos digitales y verificaci+¦n",
+        "category": "derechos digitales y verificaci+ï¿½n",
         "chunkIndex": 1,
         "chunkCount": 2,
         "tier": 3,
         "words": [
           {
-            "word": "contrase+¦a segura",
-            "definition": "Una contrase+¦a larga y dif+¡cil de adivinar que protege tu cuenta.",
-            "example": "Usa una contrase+¦a segura con n+¦meros y s+¡mbolos.",
-            "category": "derechos digitales y verificaci+¦n",
+            "word": "contrase+ï¿½a segura",
+            "definition": "Una contrase+ï¿½a larga y dif+ï¿½cil de adivinar que protege tu cuenta.",
+            "example": "Usa una contrase+ï¿½a segura con n+ï¿½meros y s+ï¿½mbolos.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           },
           {
-            "word": "doble verificaci+¦n",
-            "definition": "Un paso extra de seguridad que pide un c+¦digo aparte de la contrase+¦a.",
-            "example": "Activa la doble verificaci+¦n en tu correo.",
-            "category": "derechos digitales y verificaci+¦n",
+            "word": "doble verificaci+ï¿½n",
+            "definition": "Un paso extra de seguridad que pide un c+ï¿½digo aparte de la contrase+ï¿½a.",
+            "example": "Activa la doble verificaci+ï¿½n en tu correo.",
+            "category": "derechos digitales y verificaci+ï¿½n",
             "tier": 3
           }
         ]

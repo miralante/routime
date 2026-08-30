@@ -1,5 +1,5 @@
 /* Complete the Word — tool-specific styles. Shared styles live in assets/css/.
-   Acento del módulo Lenguaje y palabras (frambuesa --mod-lenguaje). */
+   Acento del módulo Lenguaje y comprensión (frambuesa --mod-lenguaje). */
 
 .tool-header h1 { color: var(--mod-lenguaje); }
 

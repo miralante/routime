@@ -31,6 +31,28 @@
       see the sibling repo's CLOUDFLARE.md). Routime's _headers has
       no CSP line by design, so this check does not require one to
       exist — it only validates whatever is actually there.
+  10. _redirects stays within Cloudflare's per-file limits
+      (https://developers.cloudflare.com/pages/configuration/redirects/):
+      a maximum of 2 000 static redirects and 100 dynamic
+      (placeholder) redirects per file — 2 100 in total. If the file
+      is absent the check is skipped: zero is valid. Static: a
+      non-comment, non-blank line ending in 301/302/303/307/308 or
+      200 (proxy). Dynamic: a line containing a :placeholder$ token
+      (e.g. /news/:slug$ /blog/:slug 301).
+  11. _headers stays within Cloudflare's per-file limit of 100
+      header rules per file
+      (https://developers.cloudflare.com/pages/configuration/headers/).
+      Both path-glob lines and individual Key: value lines are
+      counted, because Cloudflare's published limit of 100 applies
+      to the total number of lines in `_headers`, per the wording
+      at the URL above. The 7 currently shipped suites all stay
+      well under 100 either way.
+  12. No shipped file exceeds Cloudflare Pages' 25 MB per-file
+      limit (https://developers.cloudflare.com/pages/limits/). Walks
+      the repo recursively, excluding .git/, node_modules/,
+      .claude/ (graphify skill + agent settings, never uploaded),
+      and graphify-out* (build artifacts). Warns at 20 MB and fails
+      at 25 MB.
    Output: list of failures with the exact file. Exit code 1 if there
    are any, "OK (N checks)" otherwise.
    ============================================================ */
@@ -43,6 +65,7 @@ var execFileSync = require('child_process').execFileSync;
 
 var RAIZ = path.join(__dirname, '..');
 var fallos = [];
+var avisosTamano = [];
 var checks = 0;
 
 function rel(p) {
@@ -78,10 +101,22 @@ var archivosJs = []
 archivosJs.forEach(function (archivo) {
   checks += 1;
   try {
-    execFileSync(process.execPath, ['--check', archivo], { stdio: 'pipe' });
+    /* Hard timeout per file: `node --check` is fast on healthy
+       files (~ 50 ms each). Anything past 15 s on a single file
+       means the sub-process is stuck (slow filesystem, antivirus,
+       OneDrive sync, ...) — fail it as "timeout" so the whole
+       check.js doesn't hang. The other files still get checked. */
+    execFileSync(process.execPath, ['--check', archivo], {
+      stdio: 'pipe',
+      timeout: 15000,
+    });
   } catch (e) {
-    fallos.push(rel(archivo) + ': no parsea (node --check) — ' +
-      (e.stderr ? e.stderr.toString().trim().split('\n')[0] : e.message));
+    if (e.signal === 'SIGTERM' && (e.message || '').toLowerCase().indexOf('timeout') !== -1) {
+      fallos.push(rel(archivo) + ': node --check excedió 15s — probablemente el subproceso se quedó bloqueado (filesystem lento, antivirus o sync OneDrive). El resto del check sigue.');
+    } else {
+      fallos.push(rel(archivo) + ': no parsea (node --check) — ' +
+        (e.stderr ? e.stderr.toString().trim().split('\n')[0] : e.message));
+    }
   }
 });
 
@@ -400,7 +435,135 @@ contenidoHeaders.split('\n').filter(function (linea) {
   });
 });
 
+/* --- 10. _redirects se mantiene dentro de los límites por archivo de
+   Cloudflare (https://developers.cloudflare.com/pages/configuration/redirects/):
+   máximo 2 000 redirecciones estáticas y 100 dinámicas (con
+   placeholders) por archivo — 2 100 en total. Si el archivo no
+   existe el check se salta: cero es válido. Cloudflare cuenta
+   entradas (no bytes).
+
+   - Estática: línea no comentada ni vacía con un código de
+     redirección (301/302/303/307/308) al final o entrada proxy
+     (`200`).
+   - Dinámica: línea que contiene un token `:placeholder$`
+     (p. ej. `/news/:slug$ /blog/:slug 301`). */
+var REDIRECTS_FILE = path.join(RAIZ, '_redirects');
+if (fs.existsSync(REDIRECTS_FILE)) {
+  checks += 1;
+  var redirLines = fs.readFileSync(REDIRECTS_FILE, 'utf8').split('\n');
+  var staticCount = 0;
+  var dynamicCount = 0;
+  redirLines.forEach(function (linea) {
+    var trimmed = linea.trim();
+    if (!trimmed || trimmed.charAt(0) === '#') return;
+    var isStatic = /\s(?:200|301|302|303|307|308)\s*$/.test(trimmed) && !/:\w+\$/.test(trimmed);
+    var isDynamic = /:\w+\$/.test(trimmed);
+    if (isStatic) staticCount += 1;
+    else if (isDynamic) dynamicCount += 1;
+  });
+  var REDIR_STATIC_LIMIT = 2000;
+  var REDIR_DYNAMIC_LIMIT = 100;
+  if (staticCount > REDIR_STATIC_LIMIT) {
+    fallos.push('_redirects: ' + staticCount + ' redirecciones estáticas, máximo es ' + REDIR_STATIC_LIMIT +
+      ' (Cloudflare Pages rechaza el archivo)');
+  }
+  if (dynamicCount > REDIR_DYNAMIC_LIMIT) {
+    fallos.push('_redirects: ' + dynamicCount + ' redirecciones dinámicas, máximo es ' + REDIR_DYNAMIC_LIMIT +
+      ' (Cloudflare Pages rechaza el archivo)');
+  }
+}
+
+/* --- 11. _headers se mantiene dentro del límite por archivo de
+   Cloudflare de 100 reglas de cabeceras por archivo
+   (https://developers.cloudflare.com/pages/configuration/headers/).
+   Contamos tanto las líneas path-glob como las líneas de cabecera
+   individuales porque el límite publicado de 100 se aplica al
+   total de líneas (path-glob + cabeceras), según la redacción en
+   https://developers.cloudflare.com/pages/configuration/headers/.
+   Los 7 proyectos actualmente enviados están muy por debajo de
+   100 de cualquier forma. */
+var HEADERS_FILE = path.join(RAIZ, '_headers');
+if (fs.existsSync(HEADERS_FILE)) {
+  checks += 1;
+  var headersLines = fs.readFileSync(HEADERS_FILE, 'utf8').split('\n');
+  var ruleCount = 0;
+  for (var i = 0; i < headersLines.length; i++) {
+    var hLine = headersLines[i];
+    var hTrim = hLine.trim();
+    if (!hTrim || hTrim.charAt(0) === '#') continue;
+    // Path-glob: a single token starting with '/' with no ':' and no
+    // whitespace inside it (e.g. `/static/*`, `/api/*`, `/`). Headers
+    // like `Link: </foo>; rel=...` are NOT path-globs — the regex
+    // requires the line to be JUST the glob, no whitespace anywhere.
+    if (/^\/[^\s:]*\s*$/.test(hLine)) {
+      ruleCount += 1;
+      continue;
+    }
+    if (/^[A-Za-z][\w-]*:\s/.test(hLine)) ruleCount += 1;
+  }
+  var HEADERS_RULE_LIMIT = 100;
+  if (ruleCount > HEADERS_RULE_LIMIT) {
+    fallos.push('_headers: ' + ruleCount + ' líneas de regla (path-globs + cabeceras), máximo es ' +
+      HEADERS_RULE_LIMIT + ' (Cloudflare Pages rechaza el archivo)');
+  }
+}
+
+/* --- 12. Ningún archivo enviado supera el límite de 25 MB por
+   archivo de Cloudflare Pages
+   (https://developers.cloudflare.com/pages/limits/). Recorre el
+   repositorio excluyendo `.git/`, `node_modules/`, `.claude/`
+   (graphify skill + agent settings, nunca subidos) y
+   `graphify-out*` (artefactos de build). Avisa a 20 MB (todavía
+   legal) y falla a 25 MB (Cloudflare rechaza el deploy). */
+var FILE_SIZE_WARN_MB = 20;
+var FILE_SIZE_FAIL_MB = 25;
+// Directories that are never uploaded to Cloudflare (excluded entirely
+// from the size walk). Mirrors the entries in .gitignore that are not
+// uploaded.
+var fileSizeExcludedDirs = ['.git', 'node_modules', '.claude', '.vscode',
+  '.firebase', '.dev', '.wrangler', 'graphify-out', 'graphify-out-meta'];
+// Top-level files that are never uploaded (helpers, smoke artefacts,
+// migration one-shots, etc.). Mirrors the file patterns in .gitignore.
+var fileSizeExcludedFiles = [
+  '.check_out.txt', '.ck_exit.txt',
+  'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml',
+  '_ck_exit.txt'
+];
+(function walkForLargeFiles(dir) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entrada) {
+    if (fileSizeExcludedDirs.indexOf(entrada.name) !== -1) return;
+    var full = path.join(dir, entrada.name);
+    if (entrada.isDirectory()) {
+      walkForLargeFiles(full);
+    } else if (entrada.isFile()) {
+      // Skip the listed top-level files (only at the repo root, not
+      // nested copies).
+      if (dir === RAIZ && fileSizeExcludedFiles.indexOf(entrada.name) !== -1) return;
+      // Skip one-shot migration helpers (scripts/_fix-*.js) and the
+      // smoke output redirected there by scripts/smoke.js.
+      if (/^scripts[\\/].*\.smoke\.out$/.test(full)) return;
+      if (/^scripts[\\/]_fix-.*\.js$/.test(full)) return;
+      checks += 1;
+      var size = fs.statSync(full).size;
+      var sizeMb = size / (1024 * 1024);
+      if (sizeMb >= FILE_SIZE_FAIL_MB) {
+        fallos.push(rel(full) + ': pesa ' + sizeMb.toFixed(2) + ' MB, máximo por archivo es ' +
+          FILE_SIZE_FAIL_MB + ' MB (Cloudflare Pages rechaza el deploy)');
+      } else if (sizeMb >= FILE_SIZE_WARN_MB) {
+        avisosTamano.push(rel(full) + ': pesa ' + sizeMb.toFixed(2) + ' MB, máximo por archivo es ' +
+          FILE_SIZE_FAIL_MB + ' MB (aviso: todavía legal, acercándose al límite)');
+      }
+    }
+  });
+})(RAIZ);
+
 /* --- Result --- */
+if (avisosTamano.length) {
+  console.log('AVISOS (' + avisosTamano.length + ') - no bloqueantes, ver https://developers.cloudflare.com/pages/limits/ (limite 25 MB por archivo):');
+  avisosTamano.forEach(function (a) { console.log('  - ' + a); });
+  console.log('');
+}
 if (fallos.length) {
   console.log('FALLOS (' + fallos.length + '):');
   fallos.forEach(function (f) { console.log('  - ' + f); });

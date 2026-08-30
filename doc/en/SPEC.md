@@ -5,6 +5,10 @@
 > To know HOW the application is built (architecture, APIs, recipes),
 > see [`technical.md`](technical.md).
 
+This document defines only the product, audience, objectives and experience
+rules. Implementation decisions must be documented in [`technical.md`](technical.md),
+not here.
+
 ---
 
 ## 1. Product
@@ -58,7 +62,7 @@ Routime works on **6 therapeutic areas** (modules):
 | 📋 My daily routine | Autonomy and home | Independent daily living skills |
 | 🧠 Memory and attention | Memory and attention | Visual and auditory memory, attention and concentration |
 | 🔢 Thinking and counting | Reasoning and math | Logic, math and strategies |
-| 💬 Language and words | Language and communication | Vocabulary, comprehension, expression |
+| 💬 Language and comprehension | Language and communication | Vocabulary, comprehension, expression |
 | 💜 Emotions | Emotions and relationships | Emotional recognition and regulation, social skills |
 
 The complete catalog, area by area and activity by activity, is in

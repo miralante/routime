@@ -1,0 +1,21 @@
+{
+  "name": "Routime",
+  "domain": "routime.apptonomia.uk",
+  "title": "Routime — Actividades para entrenar tu mente y tus habilidades",
+  "description": "Routime es una aplicación web gratuita y sin registro con actividades para entrenar tu mente y tus habilidades a tu ritmo: coordinación, razonamiento, memoria, comunicación, autorregulación, vida diaria y juegos de mesa. Parte de la suite Apptonomia.",
+  "keywords": "routime, apptonomia, actividades terapéuticas, terapia ocupacional, accesibilidad cognitiva, easy read, lectura fácil, coordinación, razonamiento, memoria, autorregulación, vida diaria, aplicaciones gratuitas sin registro",
+  "author": "Routime",
+  "ogSiteName": "Routime",
+  "ogDescription": "Actividades para entrenar tu mente y tus habilidades a tu ritmo. Gratis y sin registro. Parte de la suite Apptonomia.",
+  "twitterDescription": "Actividades para entrenar tu mente y tus habilidades a tu ritmo. Gratis y sin registro.",
+  "ogImageAlt": "Routime: actividades para entrenar mente y habilidades",
+  "ogAccent": "#2E7D32",
+  "ogAccentInk": "#FFFFFF",
+  "ogTagline": "Entrena mente y habilidades a tu ritmo",
+  "themeColor": "#FAF7F2",
+  "colorScheme": "light",
+  "ogImageAsset": "../og-image.svg",
+  "iconAsset": "../assets/img/icono.svg",
+  "manifest": "../manifest.json",
+  "hasItemList": false
+}

@@ -4,7 +4,8 @@
 
 Routime has **three differentiated roles** in its community:
 
-1. 👤 **People with intellectual disability** → are the **end users** of the app
+1. 👤 **Typical user profile** (usuarios/as tipo) → are the **end users** of the app
+   (see [`doc/en/roles.md`](doc/en/roles.md) for the full internal context)
 2. ❤️ **Family and therapists** → are the **support people** who accompany them
 3. 💻 **Developers** → are the **people who build** the software
 
@@ -18,7 +19,7 @@ that's precisely the goal: the tool is for them.
 
 | # | Role | Who they are | Participate on GitHub |
 |---|---|---|---|
-| 1 | 👤 **End user** (person with intellectual disability) | Practices activities in the app | No. Uses the app autonomously. Their experience is at the center of the product, but they don't read this documentation. |
+| 1 | 👤 **End user** (typical user profile) | Practices activities in the app | No. Uses the app autonomously. Their experience is at the center of the product, but they don't read this documentation. |
 | 2 | ❤️ **Support person** (family, therapist, caregiver, teacher) | Person close to the end user | **Yes**, with content: proposes activities, reviews content PRs, reports from real use. |
 | 3 | 💻 **Construction person** (developer, UX designer, translator) | Programs or designs the software | **Yes**, with code: implements, reviews, deploys. |
 
@@ -236,5 +237,5 @@ Participating means accepting it.
 
 ## 🙏 Thanks
 
-Thanks for devoting time to a tool that helps people with intellectual
-disability be a little more autonomous every day.
+Thanks for devoting time to a tool that helps our typical user profile
+be a little more autonomous every day.

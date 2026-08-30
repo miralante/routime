@@ -4,7 +4,8 @@
 
 Routime tiene **tres roles diferenciados** en su comunidad:
 
-1. 👤 **Personas con discapacidad intelectual** → son las **usuarias finales** de la app
+1. 👤 **Usuarios/as tipo** → son las **personas usuarias finales** de la app (ver
+   [`doc/es/roles.md`](doc/es/roles.md) para el contexto interno completo)
 2. ❤️ **Familiares y terapeutas** → son las **personas de apoyo** que las acompañan
 3. 💻 **Desarrolladores** → son las **personas que construyen** el software
 
@@ -18,7 +19,7 @@ código**, y ese es justamente el objetivo: que la herramienta sea para ellas.
 
 | # | Rol | Quién es | Participa en GitHub |
 |---|---|---|---|
-| 1 | 👤 **Persona usuaria** (con discapacidad intelectual) | Practica las actividades en la app | No. Usa la app de forma autónoma. Su experiencia es el centro del producto, pero no lee esta documentación. |
+| 1 | 👤 **Persona usuaria** (usuario/a tipo) | Practica las actividades en la app | No. Usa la app de forma autónoma. Su experiencia es el centro del producto, pero no lee esta documentación. |
 | 2 | ❤️ **Persona de apoyo** (familia, terapeuta, cuidador/a, profesor/a) | Persona cercana a la persona usuaria | **Sí**, con contenido: propone actividades, revisa PRs de contenido, reporta desde el uso real. |
 | 3 | 💻 **Persona de construcción** (desarrollador/a, diseñador/a UX, traductor/a) | Programa o diseña el software | **Sí**, con código: implementa, revisa, despliega. |
 
@@ -240,5 +241,5 @@ Participar implica aceptarlo.
 
 ## 🙏 Agradecimientos
 
-Gracias por dedicar tiempo a una herramienta que ayuda a personas con
-discapacidad intelectual a ser un poco más autónomas cada día.
+Gracias por dedicar tiempo a una herramienta que ayuda a nuestros/as
+usuarios/as tipo a ser un poco más autónomos cada día.

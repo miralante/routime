@@ -104,7 +104,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 
 ---
 
-## Módulo 5: 💬 Lenguaje y palabras
+## Módulo 5: 💬 Lenguaje y comprensión
 
 **Color del módulo:** Frambuesa (rosa oscuro)
 
@@ -162,7 +162,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | 💜 Emociones | 9 | Morado |
 | 🧠 Memoria y atención | 10 | Naranja |
 | 🎲 Juegos de mesa | 6 | Teal |
-| 💬 Lenguaje y palabras | 11 | Frambuesa |
+| 💬 Lenguaje y comprensión | 11 | Frambuesa |
 | 🎯 Puntería y manos | 6 | Azul |
 | 💗 Cuerpo y relaciones | 1 | Terracota |
 

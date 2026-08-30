@@ -24,13 +24,13 @@
     colActivity: 'Actividad',
     colProgress: 'Progreso',
 
-    module1: '🎯 Puntería y manos',
-    module2: '📋 Mi día a día',
-    module3: '🧠 Memoria y atención',
-    module4: '🎲 Juegos de mesa',
-    module5: '💬 Lenguaje y palabras',
-    module6: '💜 Emociones',
-    module7: '💗 Cuerpo y relaciones',
+    module1: '📋 Mi día a día',
+    module2: '💜 Emociones',
+    module3: '💗 Cuerpo y relaciones',
+    module4: '💬 Lenguaje y comprensión',
+    module5: '🧠 Memoria y atención',
+    module6: '🎯 Puntería y manos',
+    module7: '🎲 Juegos de mesa',
 
     activity: {
       'catch': 'Atrapa', 'connect-dots': 'Une los Puntos', 'piano-keys': 'Piano',

@@ -4,6 +4,10 @@
 >
 > Mapa de la documentación del repo:
 
+El alcance, la audiencia y las reglas de producto están en
+[`SPEC.md`](SPEC.md). Este documento es la fuente canónica de las decisiones
+técnicas y de implementación.
+
 | Documento | Qué contiene | Cuándo leerlo |
 |---|---|---|
 | `CLAUDE.md` | Flujo operativo y coordinación para agentes IA | Solo si el cambio lo realiza un agente IA |
@@ -189,7 +193,7 @@ no hay código por módulo:
 | 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
 | 🧠 Memoria y atención | Memoria y atención | `--mod-memoria` (naranja) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 🎲 Juegos de mesa | Juegos de mesa reglados | `--mod-razonamiento` (teal) | tic-tac-toe, visual-sudoku, domino, checkers, chess, connect-four |
-| 💬 Lenguaje y palabras | Lenguaje y comunicación | `--mod-lenguaje` (frambuesa) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
+| 💬 Lenguaje y comprensión | Lenguaje y comunicación | `--mod-lenguaje` (frambuesa) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
 | 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, school-rules, self-esteem, resilience, trust-circle |
 | 💗 Cuerpo y relaciones | Educación afectivo-sexual | `--mod-cuerpo` (terracota) | sexual-health |
 
@@ -216,6 +220,53 @@ Cada actividad es **autónoma y aislada**:
   cabecera), lógica en `app.js`, un archivo de texto por idioma
   (`strings.es.js` / `strings.en.js`) y estilos propios en `styles.css`
   (< 150 líneas, usando los tokens del núcleo).
+
+### 2.4 Landing pública (`site/`)
+
+`site/` es la **cara pública** del proyecto: una landing estática, apta para
+SEO, que presenta la app y enlaza hacia ella. **No** es la aplicación en sí:
+el punto de entrada de la PWA es el `index.html` raíz, que redirige a
+`site/index.html` para el menú de actividades.
+
+La carpeta publica exactamente cuatro archivos (la variante `calculia/site/`
+puede incluir también `app.js` si la landing necesita interactividad propia):
+
+```
+site/
+├── index.html        # marcado de la landing, meta SEO, JSON-LD, selector de idioma
+├── styles.css        # estilos exclusivos de la landing (anclas, .tarjeta-cta, .pasos)
+├── strings.es.js     # copia en español, registrada con App.i18n.register
+└── strings.en.js     # copia en inglés (paridad obligatoria)
+```
+
+**Por qué vive junto a la app, no dentro de `assets/`**: la landing necesita
+sus propias meta-etiquetas SEO (canonical, Open Graph, Twitter Card, JSON-LD)
+que contaminarían el shell de actividades. Mantener `site/` separado significa
+que cada sección incluye su propio `index.html` real y Cloudflare resuelve
+`/site/` automáticamente (ver §1.1).
+
+**Cuando añadas un archivo nuevo bajo `site/`** (por ejemplo, una sección
+nueva, una ilustración o una variación de copia), añádelo al array `FILES`
+de `sw.js` y bumpea `VERSION`. Sin el bump, los usuarios con la PWA instalada
+siguen viendo el shell antiguo. Es la misma regla documentada en `CLAUDE.md`
+y se aplica a cualquier archivo cacheado.
+
+**Proyectos de la suite que publican una landing `site/` hoy** (solo estos
+cuatro siguen el patrón canónico; los demás hermanos o bien alojan sus
+actividades en otro sitio, o son la propia landing del metaproyecto — ver
+`apptonomia.uk`):
+
+| Proyecto | `site/` | `tools/` | Notas |
+|---|:---:|:---:|---|
+| `routime` | ✅ | ✅ (69) | Referencia canónica; la landing hace de menú de actividades. |
+| `calculia` | ✅ | ✅ (15) | Referencia canónica; la landing es un catálogo didáctico. |
+| `memofun` | ✅ | ✅ (1) | Flashcards; el catálogo de barajas vive en `decks/concepts/`. |
+| `okeymoney` | ✅ | ✅ (8) | App de finanzas; la landing lleva al `index.html` raíz. |
+
+`apptonomia`, `sinonimia` y `teclatlon` no publican `site/`: el primero es
+la landing del metaproyecto (`apptonomia.uk`), el segundo no tiene catálogo
+`tools/<slug>/`, y el tercero es una app de mecanografía sin landing por
+actividad.
 
 ---
 

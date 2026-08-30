@@ -17,7 +17,7 @@
     "modSecuencia": "📋 My daily life",
     "modMemoria": "🧠 Memory and attention",
     "modRazonamiento": "🎲 Board games",
-    "modLenguaje": "💬 Language and words",
+    "modLenguaje": "💬 Language and comprehension",
     "modEmocional": "💜 Feelings",
     "otraAppLinkHint": "Opens another app, in a new tab.",
     "catch_nombre": "Catch",

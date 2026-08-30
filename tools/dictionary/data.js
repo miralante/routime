@@ -17,12 +17,13 @@
    app.js usa DATA[App.i18n.locale()] || DATA.es. Las opciones
    incorrectas del test se generan tomando el significado de otras
    palabras del mismo grupo (nunca inventadas).
-   Niveles 4-15 se copiaron del banco ampliado en
-   content/dictionary/{es,en}.json (100 palabras/idioma, ver su
-   README): 3 grupos de 8 por cada uno de los 4 temas de ese banco
-   (día a día, emociones y personalidad, trabajo y sociedad,
-   ciencia y el mundo). Quedan 4 palabras sin usar por idioma en
-   ese banco para una futura ampliación.
+   Niveles 4-15 son una copia estática e histórica del banco
+   `content/dictionary/{es,en}.json` (eliminado en 2026-08-30; el
+   contenido de este archivo es la versión conservada para la
+   actividad). 100 palabras/idioma: 3 grupos de 8 por cada uno de
+   los 4 temas del banco original (día a día, emociones y
+   personalidad, trabajo y sociedad, ciencia y el mundo). Quedan 4
+   palabras sin usar por idioma para una futura ampliación.
    ============================================================ */
 var DATA = {
   porRonda: 8,

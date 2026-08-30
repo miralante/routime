@@ -104,7 +104,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 ---
 
-## Module 5: 💬 Language and words
+## Module 5: 💬 Language and comprehension
 
 **Module color:** Raspberry (dark pink)
 
@@ -162,7 +162,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | 💜 Emotions | 9 | Purple |
 | 🧠 Memory and attention | 10 | Orange |
 | 🎲 Board games | 6 | Teal |
-| 💬 Language and words | 11 | Raspberry |
+| 💬 Language and comprehension | 11 | Raspberry |
 | 🎯 Coordination and motor skills | 6 | Blue |
 | 💗 Body and relationships | 1 | Terracotta |
 

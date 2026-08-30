@@ -1,5 +1,5 @@
 /* Ortografía en Colores — tool-specific styles. Shared styles live in assets/css/.
-   Acento del módulo Lenguaje y palabras (frambuesa --mod-lenguaje).
+   Acento del módulo Lenguaje y comprensión (frambuesa --mod-lenguaje).
    Paleta para los tres estados del diff:
      - verde  (acierto, ya en tokens como --color-acierto)
      - rosa suave (error concreto: letra escrita que no coincide)

@@ -17,7 +17,7 @@
     "modSecuencia": "📋 Mi día a día",
     "modMemoria": "🧠 Memoria y atención",
     "modRazonamiento": "🎲 Juegos de mesa",
-    "modLenguaje": "💬 Lenguaje y palabras",
+    "modLenguaje": "💬 Lenguaje y comprensión",
     "modEmocional": "💜 Emociones",
     "otraAppLinkHint": "Se abre en otra aplicación, en una pestaña nueva.",
     "catch_nombre": "Atrapa",

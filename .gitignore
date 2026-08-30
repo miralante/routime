@@ -1,6 +1,7 @@
 .dev/
 .claude/
 .vscode/
+.wrangler/
 .DS_Store
 Thumbs.db
 node_modules/
@@ -9,22 +10,34 @@ temp_*
 .tmp_*.txt
 .check_out.txt
 .ck_exit.txt
-_ck_exit.txt
-_ck_err.txt
-_rt_*_err.txt
-_rt_*_out.txt
+_check*.log
+_check*.txt
+_ck_*.txt
+_ck_*.log
+_rt_*.txt
+_rt_*.log
 **/graphify-out/
 .graphify*
 .graphifyignore
 .sw-cache/
 # one-shot migration helpers (do not keep in repo)
 scripts/_fix-*.js
+scripts/_add-*.js
+scripts/_test-*.js
 scripts/.smoke.out
+scripts/_npmtest.out
 scripts/check_debug.js
-# Vanilla-only project: do not introduce a package manager.
-package.json
-pnpm-lock.yaml
-pnpm-workspace.yaml
+scripts/check.out
+# one-off audit outputs (CSV / PS1 / TXT) and old audit v2 snapshot
+scripts/audit-contratos.csv
+scripts/audit-contratos-brechas.txt
+scripts/audit-contratos.ps1
+scripts/audit-detalle.ps1
+# package.json + pnpm-lock.yaml + pnpm-workspace.yaml are intentionally
+# tracked: the project keeps `playwright` as a single devDependency for
+# the cross-browser smoke test in scripts/cross-browser.js. The pnpm
+# store itself is NOT in OneDrive — see pnpm-workspace.yaml `storeDir`
+# and D:\apps\onedrive\<user>\OneDrive\dev\setups\README.md.
 
 # Secrets and credentials — never commit
 .env

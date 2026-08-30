@@ -14,7 +14,7 @@
     "navResponsible": 'Who processes your data',
     "navData": 'What we save',
     "navRights": 'Your rights',
-    "navMinors": 'Minors',
+    "navMinors": 'All ages',
     "navContact": 'Changes and contact',
 
     "responsibleTitle": 'Who processes your data',
@@ -46,8 +46,8 @@
     "rightsP3": 'You can also delete this data by clearing your browser’s site data for this website from its settings.',
     "rightsLinkSettings": 'Go to Settings',
 
-    "minorsTitle": 'Minors and people with disabilities',
-    "minorsP1": 'Routime is designed to be used autonomously by anyone, including minors and people with intellectual disabilities.',
+    "minorsTitle": 'All ages and abilities',
+    "minorsP1": 'Routime is designed to be used autonomously by anyone, regardless of age or abilities, including younger and older users alike.',
     "minorsP2": 'Because the application does not collect personal data on any server, no guardian consent is needed to process data: there is no processing to authorise. We do recommend the usual supervision a family or professional gives to how any device is used.',
 
     "contactTitle": 'Changes and contact',

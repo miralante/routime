@@ -4,6 +4,9 @@
 >
 > Repository documentation map:
 
+Product scope, audience and product rules live in [`SPEC.md`](SPEC.md). This
+document is the canonical source for technical and implementation decisions.
+
 | Document | What it contains | When to read it |
 |---|---|---|
 | `CLAUDE.md` | Operational workflow and coordination for AI agents | Only when an AI agent performs the change |
@@ -181,7 +184,7 @@ no code per module:
 | 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
 | 🧠 Memory and attention | Memory and attention | `--mod-memoria` (orange) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 🎲 Board games | Rule-based board games | `--mod-razonamiento` (teal) | tic-tac-toe, visual-sudoku, domino, checkers, chess, connect-four |
-| 💬 Language and words | Language and communication | `--mod-lenguaje` (raspberry) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
+| 💬 Language and comprehension | Language and communication | `--mod-lenguaje` (raspberry) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
 | 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, school-rules, self-esteem, resilience, trust-circle |
 | 💗 Body and relationships | Affective-sexual education | `--mod-cuerpo` (terracotta) | sexual-health |
 
@@ -208,6 +211,52 @@ Each activity is **autonomous and isolated**:
 - Strict separation: data in `data.js` (format documented in a header comment),
   logic in `app.js`, one text file per language (`strings.es.js` /
   `strings.en.js`), and own styles in `styles.css` (< 150 lines, using core tokens).
+
+### 2.4 Public landing (`site/`)
+
+`site/` is the **public face** of the project: a static, SEO-friendly landing
+page that markets the app and links into it. It is **not** the application
+itself — the PWA entry point is the root `index.html`, which redirects to
+`site/index.html` for the activity menu.
+
+The folder ships exactly four files (the `calculia/site/` variant may also
+include `app.js` if the landing needs its own interactivity):
+
+```
+site/
+├── index.html        # landing markup, SEO meta, JSON-LD, language selector
+├── styles.css        # landing-only styles (anclas, .tarjeta-cta, .pasos)
+├── strings.es.js     # Spanish copy, registered via App.i18n.register
+└── strings.en.js     # English copy (parity mandatory)
+```
+
+**Why it lives next to the app, not inside `assets/`**: the landing needs its
+own SEO meta tags (canonical, Open Graph, Twitter Card, JSON-LD) that would
+pollute the activity shell. Keeping `site/` separate means each section ships
+its own real `index.html` and Cloudflare resolves `/site/` automatically
+(see §1.1).
+
+**When you add a new file under `site/`** (for example, a new section,
+illustration or copy variation), add it to the `FILES` array in `sw.js` and
+bump `VERSION`. Without the bump, users with the PWA installed keep seeing
+the old shell. This is the same rule documented in `CLAUDE.md` and applies
+to every cached file.
+
+**Suite projects that ship a `site/` landing today** (only these four follow
+the canonical pattern; other siblings either host their activities elsewhere
+or are the metaproject landing itself — see `apptonomia.uk`):
+
+| Project | `site/` | `tools/` | Notes |
+|---|:---:|:---:|---|
+| `routime` | ✅ | ✅ (69) | Canonical reference; landing doubles as the activity menu. |
+| `calculia` | ✅ | ✅ (15) | Canonical reference; landing is a didactic catalog. |
+| `memofun` | ✅ | ✅ (1) | Flashcards; deck catalogue lives in `decks/concepts/`. |
+| `okeymoney` | ✅ | ✅ (8) | Finance app; landing has a CTA to the root `index.html`. |
+
+`apptonomia`, `sinonimia` and `teclatlon` do not ship a `site/` folder: the
+first is the metaproject landing (`apptonomia.uk`), the second has no
+`tools/<slug>/` catalogue, and the third is a typing app without a per-activity
+landing.
 
 ---
 

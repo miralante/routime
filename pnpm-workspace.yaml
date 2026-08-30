@@ -1,0 +1,6 @@
+# storeDir must live on the same drive as OneDrive, under {drive}\apps\,
+# to keep node_modules OUT of the OneDrive sync — see
+# D:\apps\onedrive\<user>\OneDrive\dev\setups\README.md §"Estructura de
+# directorios" / §"Lo que NO se sincroniza". The default below matches
+# the "Proyectos actuales" section of that README for routime.
+storeDir: D:\apps\node_modules_root

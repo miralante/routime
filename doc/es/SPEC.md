@@ -5,6 +5,10 @@
 > Para saber CÓMO está construida la aplicación (arquitectura, APIs, recetas),
 > consulta [`tecnico.md`](tecnico.md).
 
+Este documento define solo el producto, la audiencia, los objetivos y las
+reglas de experiencia. Las decisiones de implementación deben documentarse en
+[`tecnico.md`](tecnico.md), no aquí.
+
 ---
 
 ## 1. Producto
@@ -58,7 +62,7 @@ Routime trabaja **6 áreas terapéuticas** (módulos):
 | 📋 Mi día a día | Autonomía y hogar | Habilidades para la vida diaria independiente |
 | 🧠 Memoria y atención | Memoria y atención | Memoria visual y auditiva, atención y concentración |
 | 🔢 Pensar y contar | Razonamiento y matemáticas | Lógica, matemáticas y estrategias |
-| 💬 Lenguaje y palabras | Lenguaje y comunicación | Vocabulario, comprensión, expresión |
+| 💬 Lenguaje y comprensión | Lenguaje y comunicación | Vocabulario, comprensión, expresión |
 | 💜 Emociones | Emociones y relaciones | Reconocimiento y regulación emocional, habilidades sociales |
 
 El catálogo completo, área por área y actividad por actividad, está en

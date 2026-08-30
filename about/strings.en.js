@@ -74,7 +74,7 @@
     "areaReasoningTitle": '🎲 Board games',
     "areaReasoningText": 'Classic board games, with levels and an opponent that plays gently.',
     "areaReasoningCount": '6 activities',
-    "areaLanguageTitle": '💬 Language and words',
+    "areaLanguageTitle": '💬 Language and comprehension',
     "areaLanguageText": 'Vocabulary, comprehension, spoken and written expression, humor.',
     "areaLanguageCount": '9 activities',
     "areaEmotionsTitle": '💜 Emotions',

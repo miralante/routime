@@ -24,13 +24,13 @@
     colActivity: 'Activity',
     colProgress: 'Progress',
 
-    module1: '🎯 Aiming and hands',
-    module2: '📋 My day to day',
-    module3: '🧠 Memory and attention',
-    module4: '🎲 Board games',
-    module5: '💬 Language and words',
-    module6: '💜 Emotions',
-    module7: '💗 Body and relationships',
+    module1: '📋 My day to day',
+    module2: '💜 Emotions',
+    module3: '💗 Body and relationships',
+    module4: '💬 Language and comprehension',
+    module5: '🧠 Memory and attention',
+    module6: '🎯 Aiming and hands',
+    module7: '🎲 Board games',
 
     activity: {
       'catch': 'Catch It', 'connect-dots': 'Connect the Dots', 'piano-keys': 'Piano',
