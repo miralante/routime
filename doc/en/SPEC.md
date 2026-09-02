@@ -119,7 +119,7 @@ difficulty.
   (in pace, in taste, in language, etc.) and about everyday
   supports without using the clinical term.
 
-### 3.4 Public-facing wording: "usuario/a tipo" euphemism
+### 3.4 Public-facing wording: "persona tipo" euphemism
 
 When presenting Routime to **the general public** (press, talks, public
 READMEs that anyone can read, the metaproject landing at `apptonomia.uk`,
@@ -127,7 +127,7 @@ social media copy, marketing material), the term **"intellectual
 disability" / "discapacidad intelectual"** must not be used as a way
 to describe the audience of the app — even when the surrounding text
 would otherwise be public. The accepted euphemism for that audience in
-those surfaces is **"usuario/a tipo"** (plural "usuarios/as tipo"),
+those surfaces is **"persona tipo"** (plural "personas tipo"),
 used as a generic profile marker, not as a label for any real person.
 
 Where the euphemism applies and where it doesn't:
@@ -136,7 +136,7 @@ Where the euphemism applies and where it doesn't:
   without authentication: `README.md`, `README.es.md`, the portal at
   `apptonomia.uk`, public talks, social media copy, press notes,
   marketing material. In these surfaces, refer to the audience as
-  "el/la usuario/a tipo" or "usuarios/as tipo" of the app.
+  "la persona tipo" or "las personas tipo" of the app.
 - **Does NOT apply** to this repo's internal documentation
   (`CLAUDE.md`, `doc/en/SPEC.md`, `doc/es/SPEC.md`, `technical.md`,
   `roles.md`, `CONTRIBUTING.md`, `CONTRIBUTING.es.md`) — those files
@@ -158,7 +158,7 @@ Where the euphemism applies and where it doesn't:
 Rationale: presenting the project's real objective in maintainer docs
 is useful and necessary; presenting it in marketing or landing
 surfaces is neither necessary nor respectful of the audience —
-"usuario/a tipo" lets public material describe what the app is for
+"persona tipo" lets public material describe what the app is for
 (who the typical profile is) without publicly naming a clinical
 group.
 
@@ -178,7 +178,7 @@ group.
   manages the device (see `/settings/`). Progress is not synced to the cloud
   nor cross-referenced between devices.
 
-### 3.5 Universal accessibility
+### 3.6 Universal accessibility
 
 - Buttons ≥ 64×64 px, spacing ≥ 16 px
 - WCAG AA contrast minimum
@@ -188,7 +188,7 @@ group.
 - Maximum 4–6 options per screen
 - Compatible with screen readers (ARIA)
 
-### 3.6 Train through daily-life simulation whenever possible
+### 3.7 Train through daily-life simulation whenever possible
 
 Activities are **training tools**, not exercises isolated from real life. As
 far as the therapeutic goal allows, each activity is built as a **daily-life
@@ -241,7 +241,7 @@ Pure drills (no scene, no transfer, no anchors) are allowed only when the
 therapeutic goal makes the contextualisation impossible or confusing, and
 that exception must be justified in `team/index.html`.
 
-#### 3.6.b Design decision: pure-skill training
+#### 3.7.b Design decision: pure-skill training
 
 The product **explicitly** recognises a second vehicle alongside
 simulation: **pure-skill training** (sequential memory, fine motor
@@ -250,7 +250,7 @@ design decision**, not an exception to justify case by case.
 
 Operational difference between the two vehicles:
 
-| | Simulation (3.6) | Pure skill (3.6.b) |
+| | Simulation (3.7) | Pure skill (3.7.b) |
 |---|---|---|
 | Preferred vehicle | Yes — the product prefers simulation whenever the therapeutic goal allows it | Valid, not equivalent; occupies a justified second plane |
 | Stimulus that **is** the context | A recognisable scene | The stimulus itself (piano, grid, pieces, sequence) **is** the context |
@@ -270,7 +270,7 @@ Activities in the catalogue that use this vehicle: `blocks`, `builders`,
 > pure-skill activity to "comply with the contract" is an antipattern.
 > See §6, row "Does not design activities as forced simulations".
 
-### 3.7 Persuasive communication in service of learning
+### 3.8 Persuasive communication in service of learning
 
 Beyond the simulation vehicle and the meaningful-learning anchors, every
 activity must communicate **in service of the person, never in service of
@@ -359,8 +359,8 @@ the principles win. They are the product's compass.
 8. **Immediate positive reinforcement**: visual + sound celebration on correct answer (≤ 2 s).
 9. **`prefers-reduced-motion`**: all animations are disabled if the system requests it.
 10. **Autonomy**: works offline (PWA), no login, no cost, no personal data.
-11. **Train through daily-life simulation**: every activity that can be contextualised is built as a recognisable scene (kitchen, shop, street, chat, routine, emergency) in which the person makes a decision and sees its consequence in the safe space of the app. Practice always closes with a **transfer** sentence that anchors what was trained to a moment of the day. When the therapeutic goal is to train a pure skill (memory, fine motor, logic, puzzles, perception), the product uses the **pure-skill** vehicle declared in §3.6.b as a prioritised design decision — **not** as an exception.
-12. **Persuasive communication in service of learning**: every activity is highly didactic (visible goal, modelled example, scaffolding), applies art effects with care (slow, single-element, respects `prefers-reduced-motion`, no flashing), uses a warm micro-narrative, clear copy, a clear call to action and gamification in moderation — and **never** uses scarcity, false urgency, social-proof pressure, FOMO, dark patterns or loss aversion. The full list of forbidden patterns lives in `§3.7`. The user practices because the activity is engaging, not because they are being pushed.
+11. **Train through daily-life simulation**: every activity that can be contextualised is built as a recognisable scene (kitchen, shop, street, chat, routine, emergency) in which the person makes a decision and sees its consequence in the safe space of the app. Practice always closes with a **transfer** sentence that anchors what was trained to a moment of the day. When the therapeutic goal is to train a pure skill (memory, fine motor, logic, puzzles, perception), the product uses the **pure-skill** vehicle declared in §3.7.b as a prioritised design decision — **not** as an exception.
+12. **Persuasive communication in service of learning**: every activity is highly didactic (visible goal, modelled example, scaffolding), applies art effects with care (slow, single-element, respects `prefers-reduced-motion`, no flashing), uses a warm micro-narrative, clear copy, a clear call to action and gamification in moderation — and **never** uses scarcity, false urgency, social-proof pressure, FOMO, dark patterns or loss aversion. The full list of forbidden patterns lives in `§3.8`. The user practices because the activity is engaging, not because they are being pushed.
 
 ---
 
@@ -375,8 +375,8 @@ A change in Routime is considered successful when:
 5. **Respects privacy**: no new personal data is collected
 6. **Maintains ES/EN parity**: any new text appears in both languages
 7. **Doesn't break existing activities**: existing activities keep working the same
-8. **Trains through simulation or pure skill, depending on the goal**: new activities (or major redesigns) pick between the simulation vehicle (§3.6, preferred when applicable) and the pure-skill vehicle (§3.6.b, prioritised design decision). In both cases the content must respect the meaningful-learning anchors (§3.6) and close the round with a `transferencia` line when it adds value.
-9. **Communicates persuasively at the service of learning**: every activity is highly didactic, uses art effects with care, warm micro-narrative, good copy, a clear call to action and gamification in moderation — and avoids the forbidden marketing patterns of `§3.7` (scarcity, false urgency, social-proof pressure, FOMO, dark patterns, exploitative loss aversion).
+8. **Trains through simulation or pure skill, depending on the goal**: new activities (or major redesigns) pick between the simulation vehicle (§3.7, preferred when applicable) and the pure-skill vehicle (§3.7.b, prioritised design decision). In both cases the content must respect the meaningful-learning anchors (§3.7) and close the round with a `transferencia` line when it adds value.
+9. **Communicates persuasively at the service of learning**: every activity is highly didactic, uses art effects with care, warm micro-narrative, good copy, a clear call to action and gamification in moderation — and avoids the forbidden marketing patterns of `§3.8` (scarcity, false urgency, social-proof pressure, FOMO, dark patterns, exploitative loss aversion).
 
 ---
 
@@ -399,9 +399,9 @@ in the future:
 | Works on gross motor skills or postural coordination | Requires physical space and in-person support |
 | Offers real-time teamwork | The application is individual and does not connect multiple people |
 | Automatically assesses oral expression | Speech recognition is not reliable enough for assessment |
-| Designs activities as isolated drills without real-life context | The product trains through daily-life simulations (§3.6, principle 11) or through pure-skill training declared as a prioritised design decision (§3.6.b). Neither vehicle is an "exception" |
-| Designs activities as forced simulations when the therapeutic goal is to train a pure skill | Forcing a scene where the stimulus is already the context saturates the screen and breaks accessibility rule 10; the product rejects the antipattern (see §3.6.b) |
-| Uses scarcity, false urgency or FOMO messaging ("only 1 left", "hurry", "don't lose your streak") | Pressure; clashes with `§3.1`, `§3.2` and principle 12 (forbidden patterns in `§3.7`) |
+| Designs activities as isolated drills without real-life context | The product trains through daily-life simulations (§3.7, principle 11) or through pure-skill training declared as a prioritised design decision (§3.7.b). Neither vehicle is an "exception" |
+| Designs activities as forced simulations when the therapeutic goal is to train a pure skill | Forcing a scene where the stimulus is already the context saturates the screen and breaks accessibility rule 10; the product rejects the antipattern (see §3.7.b) |
+| Uses scarcity, false urgency or FOMO messaging ("only 1 left", "hurry", "don't lose your streak") | Pressure; clashes with `§3.1`, `§3.2` and principle 12 (forbidden patterns in `§3.8`) |
 | Uses social-proof pressure (leaderboards, ranks, "others already did it") | Pressure and discouragement; clashes with `§3.1` and `§6` |
 | Uses dark patterns (forced signups, pre-checked boxes, hidden costs, fake alerts) | Trust and accessibility; clashes with `§3.4` and principle 12 |
 | Subtracts stars or progress as punishment | The product only adds, never subtracts (`§3.1`, principle 7) |

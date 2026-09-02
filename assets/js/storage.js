@@ -16,7 +16,7 @@
 
   /* Keys under 'routime:*' that are NOT an activity's progress:
      'locale' (language) and 'prefs' (font size, sounds — see
-     /settings/). Excluded from estrellasTotales() and listaToolIds(). */
+     /config/). Excluded from estrellasTotales() and listaToolIds(). */
   var CLAVES_NO_HERRAMIENTA = ['locale', 'prefs'];
 
   /* Lazy one-shot migration: copies 'apptonomia:<id>' to 'routime:<id>'
@@ -45,7 +45,7 @@
     return localStorage.getItem(PREFIJO + id);
   }
 
-  /* Applies right away the font-size preference saved in /settings/
+  /* Applies right away the font-size preference saved in /config/
      (rule: only once in the shared core, never per tool — storage.js
      is loaded in site/ and in every activity before anything is
      painted). --escala-texto defaults to 1 (tokens.css), so anyone
@@ -132,7 +132,7 @@
   function listaToolIds() {
     var out = [];
     try {
-      /* Sweep both new and legacy prefixes so settings/ shows legacy
+      /* Sweep both new and legacy prefixes so config/ shows legacy
          progress as 'saved' the first time it inspects storage. The
          migrar() helper called by get() will then copy the value into
          the new prefix on the next per-id read. */

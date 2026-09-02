@@ -99,8 +99,8 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 
 > El cálculo y el razonamiento lógico (Los Números, Cantidades, Las
 > Tablas, Números Romanos, Adivinanzas, Patrones, El Monedero, El Reloj,
-> Historias, ¿Qué no encaja?, Puzzle, La Oca) se separaron a un proyecto
-> hermano, **Calculia**.
+> Historias, ¿Qué no encaja?, Puzzle, La Oca) se separaron a una app
+> de la suite, **Calculia**.
 
 ---
 

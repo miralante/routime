@@ -33,7 +33,7 @@ Spanish, in Easy Reading format.
 
 - **HTML5 + CSS3 + Vanilla JavaScript.** No frameworks, no bundlers, no build step,
   no backend, no npm dependencies at all. There is no `package.json`
-  in the repo (the sibling `sinonimia` project established this
+  in the repo (the Sinonimia app of the suite established this
   pattern), so Cloudflare Pages does not run `npm install` during the
   build and there is nothing to bundle. Local cross-browser tests
   install `playwright` ad-hoc; CI does not need it.
@@ -243,8 +243,9 @@ the old shell. This is the same rule documented in `CLAUDE.md` and applies
 to every cached file.
 
 **Suite projects that ship a `site/` landing today** (only these four follow
-the canonical pattern; other siblings either host their activities elsewhere
-or are the metaproject landing itself — see `apptonomia.uk`):
+the canonical pattern; other apps of the suite either host their
+activities elsewhere or are the metaproject landing itself — see
+`apptonomia.uk`):
 
 | Project | `site/` | `tools/` | Notes |
 |---|:---:|:---:|---|
@@ -735,7 +736,7 @@ deletes):
 - **Reset person data**: `App.storage.remove('locale')` +
   empty the `nombre` field of tools that ask for it (currently
   `piano-keys` — keep this list in
-  `settings/app.js` if a new tool requires a name).
+  `config/app.js` if a new tool requires a name).
 - **Reset entire application**: deletes all `routime:*` keys
   (`App.storage.listaToolIds()` + `remove('locale')`). Equivalent to a first use.
 
@@ -748,20 +749,20 @@ understand what Routime is without opening the source code.
 Seven sections: the project's origin, the six non-negotiable principles
 (autonomy, no pressure, privacy, Easy Reading, accessibility, sober
 technology), how the application is built (static PWA, no backend, single
-`localStorage`, MIT, only external assets are the fonts), the six
-therapeutic areas and the total of 68 activities, the sibling projects
-(Calculia, Okeymoney, Sinonimia, Teclatlon — same team and philosophy,
-independent services with an external link to their own domain),
-authorship, and five ways to help (testing, proposing, reviewing,
-contributing code, spreading the word). The footer links to the activity
-menu and to the team guide, but no public link points at it: it is only
-reached by typing the URL.
+`localStorage`, MIT, only external assets are the fontother apps of
+the suite (Calculia, Okeymoney, Sinonimia, Teclatlon — same team and
+philosophy, independent services with an external link to their own
+domain), authorship, and five ways to help (testing, proposing,
+reviewing, contributing code, spreading the word). The footer links to
+the activity menu and to the team guide, but no public link points at
+it: it is only reached by typing the URL.
 
 Keep it up to date, in both languages, when modules are added or when the
 total activity count changes. Do not add text aimed at the end user here:
 that page is not for them.
 
-Keep the sibling-project list and URLs in sync with `README.md`/
+Keep the other-apps-of-the-suite
+Keep the other-apps-of-the-suite list and URLs in sync with `README.md`/
 `README.es.md` and with the equivalent section in `site/index.html` if
 any project in the group changes.
 
@@ -956,7 +957,7 @@ dashboard (Workers & Pages → `Routime` → Deployments).
 
 The only "deploy" command relevant to maintenance is opening a PR — the
 preview channel replaces local browser checks for **remote-control** sessions,
-per `CLAUDE.md` §3 (preview URLs are still a network operation, so notify the
+per `CLAUDE.md` §A.3 (preview URLs are still a network operation, so notify the
 user before pushing).
 
 The scripts above (`check`, `smoke`, `test:cross`) automate structure and

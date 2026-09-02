@@ -33,7 +33,7 @@ Aplicación web de terapia ocupacional para personas con discapacidad intelectua
 
 - **HTML5 + CSS3 + JavaScript vanilla.** Sin frameworks, sin bundlers, sin build step,
   sin backend, sin dependencias npm en absoluto. No hay `package.json` en el
-  repo (el proyecto hermano `sinonimia` consolidó este patrón), de modo
+  repo (la app `sinonimia` de la suite consolidó este patrón), de modo
   que Cloudflare Pages no ejecuta `npm install` durante el build y no
   hay nada que bundlear. Las pruebas cross-browser locales instalan
   `playwright` ad-hoc; CI no lo necesita.
@@ -252,9 +252,9 @@ siguen viendo el shell antiguo. Es la misma regla documentada en `CLAUDE.md`
 y se aplica a cualquier archivo cacheado.
 
 **Proyectos de la suite que publican una landing `site/` hoy** (solo estos
-cuatro siguen el patrón canónico; los demás hermanos o bien alojan sus
-actividades en otro sitio, o son la propia landing del metaproyecto — ver
-`apptonomia.uk`):
+cuatro siguen el patrón canónico; las demás apps de la suite o bien
+alojan sus actividades en otro sitio, o son la propia landing del
+metaproyecto — ver `apptonomia.uk`):
 
 | Proyecto | `site/` | `tools/` | Notas |
 |---|:---:|:---:|---|
@@ -756,7 +756,7 @@ borra):
 - **Restablecer datos de la persona**: `App.storage.remove('locale')` +
   vaciar el campo `nombre` de las herramientas que lo piden (hoy
   `piano-keys` — mantener esta lista en
-  `settings/app.js` si una herramienta nueva pide un nombre).
+  `config/app.js` si una herramienta nueva pide un nombre).
 - **Restablecer toda la aplicación**: borra todas las claves `routime:*`
   (`App.storage.listaToolIds()` + `remove('locale')`). Equivale a un primer uso.
 
@@ -770,16 +770,17 @@ Tiene siete secciones: el origen del proyecto, los seis principios que no se
 negocian (autonomía, sin presión, privacidad, Lectura Fácil, accesibilidad,
 tecnología sobria), cómo está hecha la aplicación (PWA estática, sin backend,
 `localStorage` único, MIT, sólo fuentes externas), las seis áreas terapéuticas
-con el total de 68 actividades, los proyectos hermanos (Calculia, Okeymoney,
-Sinonimia, Teclatlon — mismo equipo y filosofía, servicios independientes con
-enlace externo a su propio dominio), autoría y cinco formas de colaborar
-(probar, proponer, revisar, contribuir código, difundir). El pie enlaza al
-menú de actividades y a la guía del equipo de apoyo, pero ningún enlace
-público apunta a ella: solo se llega escribiendo la URL.
+con el total de 68 actividades, las otras apps de la suite (Calculia,
+Okeymoney, Sinonimia, Teclatlon — mismo equipo y filosofía, servicios
+independientes con enlace externo a su propio dominio), autoría y cinco
+formas de colaborar (probar, proponer, revisar, contribuir código,
+difundir). El pie enlaza al menú de actividades y a la guía del equipo
+de apoyo, pero ningún enlace público apunta a ella: solo se llega
+escribiendo la URL.
 
-Mantener la lista y las URLs de los proyectos hermanos sincronizadas con
-`README.md`/`README.es.md` y con la sección equivalente de `site/index.html`
-si cambia algún proyecto del grupo.
+Mantener la lista y las URLs de las otras apps de la suite sincronizadas
+con `README.md`/`README.es.md` y con la sección equivalente de
+`site/index.html` si cambia algún proyecto del grupo.
 
 Actualizarla cuando se añadan módulos o cuando cambie el número total de
 actividades, en los dos idiomas. No añadir aquí texto dirigido a la persona
@@ -984,7 +985,7 @@ cualquier rollback se hace desde el dashboard de Cloudflare
 
 El único "comando de despliegue" relevante para mantenimiento es abrir un PR
 — el canal de preview sustituye a las pruebas locales con navegador en
-sesiones **remote-control**, según `CLAUDE.md` §3 (las URLs de preview siguen
+sesiones **remote-control**, según `CLAUDE.md` §A.3 (las URLs de preview siguen
 siendo una operación de red, así que hay que avisar al usuario antes de
 hacer push).
 

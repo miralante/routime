@@ -16,13 +16,21 @@
 > title below. Confirmed by direct testing: `routime.pages.dev`
 > (the URL this file used to call "canonical") does not resolve at
 > all, while `https://routime.miralante.workers.dev` returns 200
-> with real Cloudflare headers. See the sibling `teclatlon` and
-> `sinonimia` repos' `CLOUDFLARE.md` for the same correction and how
-> it was diagnosed.
+> with real Cloudflare headers. See the Teclatlon and Sinonimia apps
+> of the suite's `CLOUDFLARE.md` for the same correction and how it
+> was diagnosed.
 >
 > **`routime.apptonomia.uk`** is the canonical custom domain and is
 > served by this Cloudflare Workers deployment (Firebase Hosting was
 > decommissioned; see "Custom domain" below for the history).
+>
+> **Part of the Miralante suite.** Routime is one of **six apps**
+> (Calculia, Memofun, Okeymoney, Routime, Sinonimia, Teclatlon) that
+> share the same author and the same Cloudflare deploy story.
+> **Apptonomia is the landing portal of the suite, not a runtime
+> app**; this repo just happens to also ship that landing under
+> `site/`. The canonical group-wide guide lives in
+> [Apptonomia's `CLOUDFLARE.md`](https://github.com/miralante/apptonomia/blob/master/CLOUDFLARE.md).
 
 **Live URL:** <https://routime.miralante.workers.dev>
 
@@ -32,8 +40,8 @@ GitHub Actions workflow that deploys. A `wrangler.toml` is committed
 in the repo (name + `[assets]` binding + `not_found_handling =
 "404-page"`, see that file for the rationale); the Cloudflare
 dashboard owns the build and deploy, the file is kept for parity
-with the sibling projects and so a local `wrangler deploy` does the
-same thing Cloudflare's CI does.
+with the other apps of the suite and so a local `wrangler deploy`
+does the same thing Cloudflare's CI does.
 
 ## How it works
 
@@ -75,7 +83,7 @@ including the implicit `index.html` lookup for any directory: visiting
 `/tools/pairs/` resolves to `tools/pairs/index.html`, `/team/` to
 `team/index.html`, and so on, without any rewrite rule. Every section
 of Routime (`site/`, `tools/<slug>/` for all 68 activities,
-`team/`, `about/`, `settings/`, `legal/`) ships its own real
+`team/`, `about/`, `config/`, `legal/`) ships its own real
 `index.html`, so a catch-all rewrite is unnecessary and would in fact
 break: the previous version had `/* /index.html 200` (Firebase-era
 SPA rewrite) and Cloudflare rejected it with *"Infinite loop detected

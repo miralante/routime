@@ -36,7 +36,8 @@
         loading: 'Cargando…',
         roundComplete: '¡Ronda completada!',
         rest: '¡Llevas un buen rato! Puedes descansar si quieres.',
-        dataProtection: 'Routime no recolecta datos'
+        dataProtection: 'Routime no recolecta datos',
+        config: 'Configuración'
       },
       feedback: {
         success: ['¡Muy bien!', '¡Genial!', '¡Lo has conseguido!', '¡Estupendo!', '¡Sigue así!'],
@@ -358,6 +359,14 @@
   function inicio() {
     document.documentElement.lang = locale();
     apply(document);
+    /* Inject the shared footer into every <footer data-pie-app> marker
+       on the page, then apply i18n to the newly inserted nodes. Safe
+       to call when no markers exist (no-op). App.utils.inyectarPie is
+       defined in utils.js, which loads before i18n.js per the standard
+       order documented in this file's header. */
+    if (window.App && window.App.utils && typeof window.App.utils.inyectarPie === 'function') {
+      window.App.utils.inyectarPie();
+    }
   }
 
   if (document.readyState === 'loading') {

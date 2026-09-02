@@ -181,8 +181,8 @@ identify gaps and choose an activity for a support goal. See
 
 > Math and logical-reasoning coverage (deduction and inference, pattern
 > completion, puzzle assembly, mathematical operations, Roman numeral
-> reading) moved with the 12 activities split out to the sibling
-> project **Calculia**.
+> reading) moved with the 12 activities split out to the now separate
+> app of the suite **Calculia**.
 
 | Area | Coverage | Activities |
 |---|---|---|

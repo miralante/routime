@@ -26,7 +26,7 @@
 
 /team/*
   Cache-Control: public, max-age=0, must-revalidate
-/settings/*
+/config/*
   Cache-Control: public, max-age=0, must-revalidate
 /about/*
   Cache-Control: public, max-age=0, must-revalidate

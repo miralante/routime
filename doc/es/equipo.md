@@ -181,8 +181,8 @@ actividad está en [`actividades.md`](actividades.md).
 
 > La cobertura de cálculo y razonamiento lógico (deducción e inferencia,
 > completar patrones, montar puzles, operaciones matemáticas, lectura de
-> números romanos) se fue con las 12 actividades separadas al proyecto
-> hermano **Calculia**.
+> números romanos) se fue con las 12 actividades separadas a la app
+> de la suite **Calculia**.
 
 | Área | Cobertura | Actividades |
 |---|---|---|

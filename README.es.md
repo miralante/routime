@@ -1,4 +1,4 @@
-# Routime 🌱
+﻿# Routime 🌱
 
 > 🌐 **Otros idiomas:** [English](README.md)
 >
@@ -12,7 +12,7 @@
 [![CI](https://img.shields.io/badge/CI-node%20scripts%2Fcheck.js-blue.svg)](.github/workflows/validate.yml)
 
 Aplicación web multi-idioma de actividades de terapia ocupacional diseñada
-para nuestros/as usuarios/as tipo. Pensada para usarse de forma autónoma,
+para nuestras personas tipo. Pensada para usarse de forma autónoma,
 en el navegador, sin coste y sin datos personales.
 
 - 🌐 **Aplicación**: [routime.apptonomia.uk](https://routime.apptonomia.uk)
@@ -28,7 +28,7 @@ Routime está desplegada en **[routime.apptonomia.uk](https://routime.apptonomia
 sin conexión, y elige un módulo. La portada que ves al instalar
 (`site/index.html`) es en sí misma el **landing de Apptonomia**, de
 modo que una sola instalación cubre tanto las actividades de Routime
-como el catálogo de todas las hermanas.
+como el catálogo de toda la suite.
 
 ---
 
@@ -65,11 +65,11 @@ y construcción — cada uno con su propio espacio y su propio punto de
 entrada. Ver [`doc/es/roles.md`](doc/es/roles.md) para quién es cada uno,
 cómo participa, y dónde debe mirar primero.
 
-Routime es la PWA que envuelve varias experiencias hermanas. La
+Routime es la PWA que envuelve varias experiencias de la suite. La
 portada que ves al instalar (`site/index.html`) es en sí misma el
-**landing de Apptonomia** — un proyecto más del grupo de hermanos,
-presentado aquí porque Apptonomia fue el producto original del que
-surgió este repositorio.
+**landing de Apptonomia** — la app que actúa como portal de la
+suite, presentado aquí porque Apptonomia fue el producto original
+del que surgió este repositorio.
 
 ---
 
@@ -97,25 +97,27 @@ Según tu rol y perfil, te interesa una u otra documentación:
 |---|---|
 | [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) | Familias, terapeutas y desarrolladores que quieran contribuir |
 | `CLAUDE.md` | Agentes IA: reglas obligatorias y estado del proyecto |
-| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Guía canónica de despliegue en Cloudflare Workers para el grupo de hermanos (Routime + landing Apptonomia + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
+| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Guía canónica de despliegue en Cloudflare Workers para la suite (Routime + landing Apptonomia + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
 | Historial del proyecto | En `git log`; no se mantiene una hoja de ruta externa |
 | `doc/es/I18N.md` / `doc/en/I18N.md` | Detalles del sistema multiidioma ES/EN |
 
 ---
 
-## 🧩 Proyectos hermanos
+## 🌐 La suite Miralante — proyectos del grupo
 
-Routime es uno más de un pequeño grupo de proyectos hermanos que
-comparten autor, la misma filosofía de accesibilidad sin backend, y
-la misma historia de despliegue. Ninguno es el "principal" — son
-iguales; este repositorio casualmente también envía el **landing de
-Apptonomia** (el producto original del que nació el grupo) bajo la
-carpeta `site/`, para que una sola instalación cubra todo el
-catálogo a quien lo quiera.
+Routime es una de las **seis apps** de la suite **Miralante**, que
+comparten autor, la misma filosofía de accesibilidad sin backend, y la
+misma historia de despliegue. Apptonomia, además de ser una app en sí
+misma, actúa como **portal de la suite** que la presenta al mundo.
+Ninguno de los siete repos es el "principal" — son iguales; este
+repositorio casualmente también envía ese **landing de Apptonomia**
+(el producto original del que nació el grupo) bajo la carpeta
+`site/`, para que una sola instalación cubra todo el catálogo a quien
+lo quiera.
 
 | Proyecto | Qué es | Repositorio |
 |---|---|---|
-| **Apptonomia** *(principal)* | Actividades para rutinas y vida cotidiana (diseñado para nuestros/as usuarios/as tipo) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
+| **Apptonomia** *(portal — landing only, no es app)* | Landing que presenta la suite Miralante (no es una app en tiempo de ejecución) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Cálculo y razonamiento lógico | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
 | Memofun | Tarjetas de memoria con aprendizaje significativo | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Finanzas personales y autonomía cotidiana | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
@@ -124,7 +126,7 @@ catálogo a quien lo quiera.
 | Teclatlon | Mecanografía con el teclado físico | [github.com/miralante/teclatlon](https://github.com/miralante/teclatlon) |
 
 El [`CLOUDFLARE.md`](CLOUDFLARE.md) de este repo es la guía canónica
-de despliegue del grupo; cada repo hermano tiene su propio doc
+de despliegue de la suite; cada repo de la suite tiene su propio doc
 específico que apunta aquí.
 
 ---
@@ -137,7 +139,7 @@ actividad trae los mismos seis archivos (`index.html`, `app.js`,
 cambio tiene que respetar el bloqueo de paridad del catálogo (el
 mismo conjunto de slugs debe aparecer en `tools/` en disco, en las
 tarjetas de `site/index.html`, en las filas de progreso de
-`settings/index.html` y en `ARCHIVOS` de `sw.js`).
+`config/index.html` y en `ARCHIVOS` de `sw.js`).
 
 Para añadir una actividad nueva:
 
@@ -145,8 +147,8 @@ Para añadir una actividad nueva:
    actividad existente como plantilla).
 2. Registra la actividad: añade su tarjeta a `site/index.html` (+ las
    claves en ambos `site/strings.<locale>.js`), su fila de progreso a
-   `settings/index.html` (+ las claves en ambos
-   `settings/strings.<locale>.js`), y sus seis archivos a `ARCHIVOS` de
+    `config/index.html` (+ las claves en ambos
+    `config/strings.<locale>.js`), y sus seis archivos a `ARCHIVOS` de
    `sw.js`.
 3. Sube el `VERSION` en `sw.js` (p. ej. `routime-vN` → `routime-vN+1`).
 4. Lee primero [`doc/es/guia-crear-actividades.md`](doc/es/guia-crear-actividades.md)
@@ -173,7 +175,7 @@ anatomía canónica de cada carpeta de actividad, paridad entre `sw.js`
 y el contenido en disco, paridad de claves es/en, y la regla de paridad
 del catálogo (el mismo conjunto de slugs debe aparecer en `tools/` en
 disco, en las tarjetas de `site/index.html`, en las filas de progreso
-de `settings/index.html` y en `ARCHIVOS` de `sw.js`).
+de `config/index.html` y en `ARCHIVOS` de `sw.js`).
 
 ---
 
@@ -235,13 +237,13 @@ o editar ficheros allí no necesita `VERSION` bump.
 
 ## 🙏 Créditos
 
-Routime es la PWA que envuelve varias experiencias hermanas (el
-catálogo de Apptonomia, más las hermanas Apptonomia, Calculia, Memofun,
-Okeymoney, Sinonimia, Teclatlon) sobre la misma filosofía de
-accesibilidad sin backend. La portada que ves al instalar
-(`site/index.html`) es el landing de Apptonomia, que se mantiene aquí
-por motivos históricos — Apptonomia fue el producto original del que
-nació el grupo.
+Routime es la PWA que envuelve varias experiencias de la suite (el
+catálogo de Apptonomia como portal, más las apps de la suite
+Calculia, Memofun, Okeymoney, Sinonimia y Teclatlon) sobre la misma
+filosofía de accesibilidad sin backend. La portada que ves al
+instalar (`site/index.html`) es el landing de Apptonomia, que se
+mantiene aquí por motivos históricos — Apptonomia fue el producto
+original del que nació el grupo.
 
 El diseño de actividades sigue los patrones documentados en
 [`doc/es/guia-crear-actividades.md`](doc/es/guia-crear-actividades.md)
@@ -249,3 +251,9 @@ El diseño de actividades sigue los patrones documentados en
 `tecnico.md` como fuente de verdad cuando ambas guías entran en
 conflicto.
 
+
+## More about this project
+
+- [About this project](https://routime.apptonomia.uk/about/)
+- [About this project](https://routime.apptonomia.uk/about/)
+- [Team](https://routime.apptonomia.uk/team/)

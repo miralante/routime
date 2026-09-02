@@ -257,7 +257,7 @@ not on disk). This means:
 - ⚠️ **If you clear browser data**, you'll lose stars and levels
 
 You can view and delete your progress from the hidden
-[`settings/`](../../settings/index.html) menu.
+[`config/`](../../config/index.html) menu.
 
 ---
 

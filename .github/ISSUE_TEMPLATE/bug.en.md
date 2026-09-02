@@ -23,7 +23,7 @@
 - **Browser and version**:
 - **Operating system**:
 - **UI language**:
-- **Site section where it happens**: <!-- site, tools/<slug>, about, settings, team, legal, … -->
+- **Site section where it happens**: <!-- site, tools/<slug>, about, config, team, legal, … -->
 
 ## Screenshots or logs
 

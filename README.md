@@ -1,4 +1,4 @@
-# Routime 🌱
+﻿# Routime 🌱
 
 > 🌐 **Other languages:** [Español](README.es.md)
 >
@@ -27,7 +27,7 @@ Routime is deployed at **[routime.apptonomia.uk](https://routime.apptonomia.uk)*
 — open it in a browser, install it to the home screen for offline use,
 and pick a module. The site you land on (`site/index.html`) is itself
 the **Apptonomia landing**, so a single install covers both Routime's
-activities and the catalogue of all siblings.
+activities and the catalogue of the whole suite.
 
 ---
 
@@ -63,7 +63,7 @@ a settings page for progress visibility.
 | 💻 **Construction** (developer) | Programs the application | Implements code, maintains architecture, reviews PRs, deploys | [`technical.md`](doc/en/technical.md) |
 
 See [`doc/en/roles.md`](doc/en/roles.md) for the full role description
-and the trio-vs-pair-vs-sole patterns across the sibling suite.
+and the trio-vs-pair-vs-sole patterns across the apps of the suite.
 
 ---
 
@@ -91,7 +91,7 @@ By role and profile, the most relevant docs are:
 |---|---|
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Anyone who wants to contribute (family, therapists, devs) |
 | `CLAUDE.md` | AI agents: operational workflow, coordination and approvals |
-| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Canonical Cloudflare Workers deploy guide for the sibling group (Routime + Apptonomia landing + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
+| [`CLOUDFLARE.md`](CLOUDFLARE.md) | Canonical Cloudflare Workers deploy guide for the suite (Routime + Apptonomia landing + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
 | Project history | Lives in `git log`; no external roadmap is maintained |
 | `doc/es/I18N.md` / `doc/en/I18N.md` | Details of the ES/EN multilanguage system |
 
@@ -104,7 +104,7 @@ activity ships the six canonical files (`index.html`, `app.js`,
 `data.js`, `strings.es.js`, `strings.en.js`, `styles.css`); every
 change must respect the catalog parity lock (the same set of slugs
 must appear in `tools/` on disk, in `site/index.html`'s cards, in
-`settings/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
+`config/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
 
 To add a new activity:
 
@@ -112,7 +112,7 @@ To add a new activity:
    existing activity as a template).
 2. Register the activity: add its card to `site/index.html` (+ both
    `site/strings.<locale>.js` keys), its progress row to
-   `settings/index.html` (+ both `settings/strings.<locale>.js` keys),
+   `config/index.html` (+ both `config/strings.<locale>.js` keys),
    and its six files to `sw.js`'s `ARCHIVOS`.
 3. Bump `VERSION` in `sw.js` (e.g. `routime-vN` → `routime-vN+1`).
 4. Read `doc/en/creating-activities-guide.md` first — didactic,
@@ -137,7 +137,7 @@ It checks JS syntax across `tools/`, `site/` and `assets/js/`,
 canonical file anatomy per activity folder, `sw.js` ↔ disk parity,
 es/en key parity, and the catalog-parity lock (the same set of slugs
 must appear in `tools/` on disk, in `site/index.html`'s cards, in
-`settings/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
+`config/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
 
 ---
 
@@ -199,10 +199,10 @@ app. Adding or editing files there does not need a `VERSION` bump.
 
 ## 🙏 Credits
 
-Routime is the PWA shell that wraps several sibling experiences
-(Apptonomia's catalogue, plus the siblings Apptonomia, Calculia,
-Memofun, Okeymoney, Sinonimia, Teclatlon) on the same accessibility-
-first / no-backend philosophy. The site you land on
+Routime is the PWA shell that wraps several apps of the suite
+(Apptonomia's catalogue, plus the apps of the suite Apptonomia,
+Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) on the same
+accessibility-first / no-backend philosophy. The site you land on
 (`site/index.html`) is the Apptonomia landing, kept here for
 historical reasons — Apptonomia was the original product this group
 grew out of.
@@ -214,19 +214,20 @@ Activity design follows the patterns documented in
 
 ---
 
-## 🧩 Sibling projects
+## 🌐 The Miralante suite — projects in the suite
 
-Routime is one of a small group of sibling projects that share the
-same author, the same accessibility-first / no-backend philosophy
-and the same deploy story. None of them is the "main" one — they are
-peers; this repo just happens to also ship the **Apptonomia landing**
-(the original product this group grew out of) under its `site/`
-folder so a single install covers the whole catalogue for users who
-want it.
+Routime is one of **six apps** in the **Miralante** suite, sharing
+the same author, the same accessibility-first / no-backend philosophy
+and the same deploy story. Apptonomia, on top of being an app itself,
+also acts as the **landing portal** that introduces the whole suite.
+None of the seven repos is the "main" one — they are peers; this repo
+just happens to also ship that **Apptonomia landing** (the original
+product this group grew out of) under its `site/` folder so a single
+install covers the whole catalogue for users who want it.
 
 | Project | What it is | Repository |
 |---|---|---|
-| **Apptonomia** *(main)* | Activities for routines and daily-life skills (designed for our typical user profile) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
+| **Apptonomia** *(portal — landing only, no app)* | Landing page that introduces the Miralante suite (not a runtime app) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Math and logical reasoning | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
 | Memofun | Flashcards built around meaningful learning | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Personal finance and everyday autonomy | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
@@ -235,6 +236,11 @@ want it.
 | Teclatlon | Touch-typing with a physical keyboard | [github.com/miralante/teclatlon](https://github.com/miralante/teclatlon) |
 
 This repo's [`CLOUDFLARE.md`](CLOUDFLARE.md) is the canonical deploy
-guide for the whole group; each sibling repo has its own
+guide for the whole suite; each suite repo has its own
 project-specific doc that links back here.
 
+
+## More about this project
+
+- [About this project](https://routime.apptonomia.uk/about/)
+- [Team](https://routime.apptonomia.uk/team/)

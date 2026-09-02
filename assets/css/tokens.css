@@ -35,7 +35,7 @@
   --color-estrella: #B8860B;
 
   /* Typography. --escala-texto is applied by assets/js/storage.js based
-     on the preference saved in /settings/ (Normal=1/Large/Extra large);
+     on the preference saved in /config/ (Normal=1/Large/Extra large);
      defaults to 1, so anyone who hasn't touched that preference sees
      no change. */
   --fuente: 'Atkinson Hyperlegible', 'Nunito', system-ui, -apple-system, sans-serif;

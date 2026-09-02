@@ -74,7 +74,7 @@
   var typedNextBtn = $('#typedNextBtn');
 
   /* Persistent progress. ownAddress/familyAddress/ownPhone/
-     familyContacts are written only by settings/app.js; this
+     familyContacts are written only by config/app.js; this
      tool only reads them and writes estrellas/completedRounds. */
   var state = App.storage.get(TOOL_ID);
   if (typeof state.estrellas !== 'number') state.estrellas = 0;

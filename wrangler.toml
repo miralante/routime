@@ -4,7 +4,7 @@
 # Routime is the suite's main project: a fully static site (plain
 # HTML/CSS/JS, no build step, no server-side code) covering 68
 # activities under `tools/<slug>/` plus a `site/` landing, a `team/`
-# route, `settings/`, `about/` and `legal/`. It's deployed as a Cloudflare
+# route, `config/`, `about/` and `legal/`. It's deployed as a Cloudflare
 # Worker with no `main` script — just a static-assets binding — which
 # is Cloudflare's currently recommended path for static sites (the
 # classic "Pages" product is being superseded by Workers + static
@@ -28,7 +28,7 @@ compatibility_date = "2026-07-27"
 directory = "."
 # Serve 404.html for any path that isn't a static asset, instead of
 # Cloudflare's default empty 404. Routime is a multi-activity site
-# (every `tools/<slug>/`, `site/`, `team/`, `settings/`, `about/`,
+# (every `tools/<slug>/`, `site/`, `team/`, `config/`, `about/`,
 # `legal/` already has a real index.html on disk), so a 404 here means
 # a stale bookmark, a typo, or a link shared before a slug was renamed
 # — exactly the situations where a localised fallback that bounces

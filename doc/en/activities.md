@@ -99,8 +99,8 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 > Math and logical reasoning (Numbers, Quantities, Math Tables, Roman
 > Numerals, Riddles, Patterns, The Wallet, The Clock, Stories, What
-> Doesn't Belong?, Puzzle, Goose Game) were split out to a sibling
-> project, **Calculia**.
+> Doesn't Belong?, Puzzle, Goose Game) were split out to a separate
+> app of the suite, **Calculia**.
 
 ---
 

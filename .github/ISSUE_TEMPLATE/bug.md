@@ -23,7 +23,7 @@
 - **Navegador y versión**:
 - **Sistema operativo**:
 - **Idioma de la UI**:
-- **Sección del sitio donde ocurre**: <!-- site, tools/<slug>, about, settings, team, legal, … -->
+- **Sección del sitio donde ocurre**: <!-- site, tools/<slug>, about, config, team, legal, … -->
 
 ## Capturas o logs
 

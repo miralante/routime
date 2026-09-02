@@ -13,7 +13,7 @@ experiencia, la educación, el estatus socioeconómico, la nacionalidad, la
 apariencia física, la raza, la religión, o la identidad y orientación
 sexual.
 
-Dado que Routime existe para ayudar a nuestros/as usuarios/as tipo a
+Dado que Routime existe para ayudar a nuestras personas tipo a
 practicar su autonomía con dignidad y sin presión, esperamos esa misma
 paciencia, claridad y respeto en cómo nos tratamos entre nosotros.
 

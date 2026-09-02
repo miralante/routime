@@ -257,7 +257,7 @@ navegador, no en disco). Esto significa:
 - ⚠️ **Si borras datos del navegador**, perderás las estrellas y niveles
 
 Puedes ver y borrar tu progreso desde el menú oculto
-[`settings/`](../../settings/index.html).
+[`config/`](../../config/index.html).
 
 ---
 

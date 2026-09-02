@@ -4,7 +4,7 @@
 
 Routime has **three differentiated roles** in its community:
 
-1. 👤 **Typical user profile** (usuarios/as tipo) → are the **end users** of the app
+1. 👤 **Typical user profile** (personas tipo) → are the **end users** of the app
    (see [`doc/en/roles.md`](doc/en/roles.md) for the full internal context)
 2. ❤️ **Family and therapists** → are the **support people** who accompany them
 3. 💻 **Developers** → are the **people who build** the software

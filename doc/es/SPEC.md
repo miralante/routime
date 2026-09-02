@@ -119,7 +119,7 @@ técnica expresada con dificultad.
   diferencias (de ritmo, de gusto, de idioma, etc.) y de apoyos
   cotidianos sin usar el término clínico.
 
-### 3.4 Eufemismo público: "usuario/a tipo"
+### 3.4 Eufemismo público: "persona tipo"
 
 Cuando se presenta Routime de cara al **público general** (prensa,
 charlas, READMEs públicos que cualquiera pueda leer, el portal
@@ -127,7 +127,7 @@ charlas, READMEs públicos que cualquiera pueda leer, el portal
 "discapacidad intelectual" **no debe usarse** para describir la
 audiencia de la app, ni siquiera cuando el texto que lo rodea sería
 público. El eufemismo aceptado en esas superficies para referirse a
-la audiencia es **"usuario/a tipo"** (plural "usuarios/as tipo"),
+la audiencia es **"persona tipo"** (plural "personas tipo"),
 entendido como marcador genérico de perfil, no como etiqueta para
 ninguna persona real.
 
@@ -137,8 +137,8 @@ Dónde se aplica y dónde no:
   proyecto pueda leer sin autenticarse: `README.es.md`, `README.md`,
   el portal en `apptonomia.uk`, charlas públicas, copy en redes,
   notas de prensa, material de marketing. En estas superficies se
-  habla de la audiencia como "el/la usuario/a tipo" o "los/las
-  usuarios/as tipo" de la app.
+  habla de la audiencia como "la persona tipo" o "las personas
+  tipo" de la app.
 - **No se aplica** a la documentación interna de este repositorio
   (`CLAUDE.md`, `doc/es/SPEC.md`, `doc/en/SPEC.md`, `tecnico.md`,
   `roles.md`, `CONTRIBUTING.es.md`, `CONTRIBUTING.md`) — esos
@@ -151,7 +151,7 @@ Dónde se aplica y dónde no:
   trámite administrativo real relacionado con discapacidad): eso es
   contenido, no etiquetado de la audiencia.
 - **No se aplica** a la UI de la propia app: la regla de §3.3 sigue
-  prohibiendo **cualquier** mención, incluida "usuario/a tipo", en
+  prohibiendo **cualquier** mención, incluida "persona tipo", en
   `index.html`, `app.js`, `strings.<locale>.js`, `js/i18n.js`,
   `about/privacidad.html` y cualquier otra superficie visible. El
   eufemismo es para el exterior, no para lo que lee quien visita la
@@ -160,7 +160,7 @@ Dónde se aplica y dónde no:
 Razón: presentar el objetivo real del proyecto en documentación
 interna es útil y necesario; presentarlo en superficies de marketing
 o landing no es necesario ni respetuoso con la audiencia —
-"usuario/a tipo" permite describir en público para qué sirve la app
+"persona tipo" permite describir en público para qué sirve la app
 (qué perfil tiene quien la usa) sin nombrar públicamente un grupo
 clínico.
 
@@ -180,7 +180,7 @@ clínico.
   local es responsabilidad de quien gestiona el dispositivo (ver `/settings/`).
   El progreso no se sincroniza en la nube ni se cruza entre dispositivos.
 
-### 3.5 Accesibilidad universal
+### 3.6 Accesibilidad universal
 
 - Botones ≥ 64×64 px, separación ≥ 16 px
 - Contraste WCAG AA mínimo
@@ -190,7 +190,7 @@ clínico.
 - Máximo 4–6 opciones por pantalla
 - Compatible con lectores de pantalla (ARIA)
 
-### 3.6 Entrenar con simulación de la vida diaria siempre que sea posible
+### 3.7 Entrenar con simulación de la vida diaria siempre que sea posible
 
 Las actividades son **herramientas de entrenamiento**, no ejercicios aislados
 de la vida real. En la medida en que el objetivo terapéutico lo permita,
@@ -241,7 +241,7 @@ cuatro **anclajes del aprendizaje significativo**:
 - **Práctica espaciada**: `localStorage` guarda el nivel alcanzado; la
   landing sugiere retomar ese nivel y no uno aleatorio.
 
-#### 3.6.b Decisión de diseño: entrenamiento de habilidad pura
+#### 3.7.b Decisión de diseño: entrenamiento de habilidad pura
 
 El producto reconoce **explícitamente** un segundo vehículo junto a la
 simulación: el **entrenamiento de habilidad pura** (memoria secuencial,
@@ -251,7 +251,7 @@ por caso.
 
 La diferencia operativa entre los dos vehículos:
 
-| | Simulación (3.6) | Habilidad pura (3.6.b) |
+| | Simulación (3.7) | Habilidad pura (3.7.b) |
 |---|---|---|
 | Vehículo preferente | Sí — el producto prefiere simular siempre que el objetivo terapéutico lo permita | Válido, no equivalente; ocupa un segundo plano justificado |
 | Estímulo que es contexto | Una escena reconocible | El propio estímulo (piano, cuadrícula, piezas, secuencia) **es** el contexto |
@@ -273,7 +273,7 @@ Actividades del catálogo que aplican este vehículo: `blocks`,
 > antipatrón. Ver §6, fila "No diseña actividades como simulaciones
 > forzadas".
 
-### 3.7 Comunicación persuasiva al servicio del aprendizaje
+### 3.8 Comunicación persuasiva al servicio del aprendizaje
 
 Más allá del vehículo de simulación y de los anclajes del aprendizaje
 significativo, cada actividad debe comunicar **al servicio de la persona,
@@ -351,8 +351,8 @@ conflicto con ellos, ganan los principios. Son la brújula del producto.
 8. **Refuerzo positivo inmediato**: celebración visual + sonora al acertar (≤ 2 s).
 9. **`prefers-reduced-motion`**: todas las animaciones se desactivan si el sistema lo pide.
 10. **Autonomía**: funciona offline (PWA), sin login, sin coste, sin datos personales.
-11. **Entrenar con simulación de la vida diaria**: toda actividad que pueda contextualizarse se construye como una escena reconocible (cocina, tienda, calle, chat, rutina, emergencia) en la que la persona toma una decisión y ve su consecuencia en el espacio seguro de la app. La práctica cierra siempre con una frase de **transferencia** que ancla lo entrenado a un momento del día. Cuando el objetivo terapéutico es entrenar una habilidad pura (memoria, motricidad fina, lógica, puzzles, percepción), el producto usa el vehículo de **habilidad pura** declarado en §3.6.b como decisión de diseño priorizada, **no** como excepción.
-12. **Comunicación persuasiva al servicio del aprendizaje**: toda actividad es muy didáctica (objetivo visible, ejemplo modelado, andamiaje), aplica art effects con cuidado (lentos, de un solo elemento, respetuosos con `prefers-reduced-motion`, sin destellos), usa un micro-relato cercano, buen copy, una llamada a la acción clara y gamificación con moderación — y **nunca** usa escasez, falsa urgencia, prueba social como presión, FOMO, dark patterns ni aversión explotadora a la pérdida. La lista completa de patrones prohibidos vive en `§3.7`. La persona practica porque la actividad es atractiva, no porque la estemos empujando.
+11. **Entrenar con simulación de la vida diaria**: toda actividad que pueda contextualizarse se construye como una escena reconocible (cocina, tienda, calle, chat, rutina, emergencia) en la que la persona toma una decisión y ve su consecuencia en el espacio seguro de la app. La práctica cierra siempre con una frase de **transferencia** que ancla lo entrenado a un momento del día. Cuando el objetivo terapéutico es entrenar una habilidad pura (memoria, motricidad fina, lógica, puzzles, percepción), el producto usa el vehículo de **habilidad pura** declarado en §3.7.b como decisión de diseño priorizada, **no** como excepción.
+12. **Comunicación persuasiva al servicio del aprendizaje**: toda actividad es muy didáctica (objetivo visible, ejemplo modelado, andamiaje), aplica art effects con cuidado (lentos, de un solo elemento, respetuosos con `prefers-reduced-motion`, sin destellos), usa un micro-relato cercano, buen copy, una llamada a la acción clara y gamificación con moderación — y **nunca** usa escasez, falsa urgencia, prueba social como presión, FOMO, dark patterns ni aversión explotadora a la pérdida. La lista completa de patrones prohibidos vive en `§3.8`. La persona practica porque la actividad es atractiva, no porque la estemos empujando.
 
 ---
 
@@ -367,8 +367,8 @@ Un cambio en Routime se considera exitoso cuando:
 5. **Respeta la privacidad**: no se recoge ningún dato personal nuevo
 6. **Mantiene la paridad ES/EN**: cualquier texto nuevo aparece en ambos idiomas
 7. **No rompe actividades existentes**: las actividades existentes siguen funcionando igual
-8. **Entrena con simulación o con habilidad pura, según el objetivo**: las actividades nuevas (o los rediseños importantes) eligen entre el vehículo de simulación (§3.6, preferente cuando aplica) y el vehículo de habilidad pura (§3.6.b, decisión de diseño priorizada). En ambos casos el contenido debe respetar los anclajes del aprendizaje significativo (§3.6) y cerrar la ronda con una `transferencia` cuando aporte.
-9. **Comunica persuasivamente al servicio del aprendizaje**: cada actividad es muy didáctica, usa art effects con cuidado, un micro-relato cercano, buen copy, una llamada a la acción clara y gamificación con moderación — y evita los patrones de mercado prohibidos del `§3.7` (escasez, falsa urgencia, prueba social como presión, FOMO, dark patterns, aversión explotadora a la pérdida).
+8. **Entrena con simulación o con habilidad pura, según el objetivo**: las actividades nuevas (o los rediseños importantes) eligen entre el vehículo de simulación (§3.7, preferente cuando aplica) y el vehículo de habilidad pura (§3.7.b, decisión de diseño priorizada). En ambos casos el contenido debe respetar los anclajes del aprendizaje significativo (§3.7) y cerrar la ronda con una `transferencia` cuando aporte.
+9. **Comunica persuasivamente al servicio del aprendizaje**: cada actividad es muy didáctica, usa art effects con cuidado, un micro-relato cercano, buen copy, una llamada a la acción clara y gamificación con moderación — y evita los patrones de mercado prohibidos del `§3.8` (escasez, falsa urgencia, prueba social como presión, FOMO, dark patterns, aversión explotadora a la pérdida).
 
 ---
 
@@ -391,9 +391,9 @@ Decisiones explícitas que pueden sorprender — están aquí para que no se
 | No trabaja motricidad gruesa ni coordinación postural | Requiere espacio físico y acompañamiento presencial |
 | No ofrece trabajo en equipo en tiempo real | La aplicación es individual y no conecta a varias personas |
 | No evalúa automáticamente la expresión oral | El reconocimiento de voz no ofrece fiabilidad suficiente para evaluar |
-| No diseña actividades como ejercicios abstractos sin contexto de la vida real | El producto entrena con simulaciones de la vida diaria (§3.6, principio 11) o con habilidad pura declarada como decisión de diseño priorizada (§3.6.b). Ninguno de los dos vehículos es una "excepción" |
-| No diseña actividades como simulaciones forzadas cuando el objetivo terapéutico es entrenar una habilidad pura | Forzar una escena donde el estímulo ya es contexto satura la pantalla y rompe la regla 10 de las 13 de accesibilidad; el producto rechaza el antipatrón (ver §3.6.b) |
-| No usa mensajes de escasez, falsa urgencia ni FOMO ("solo te queda 1", "date prisa", "no pierdas tu racha") | Presión; choca con `§3.1`, `§3.2` y el principio 12 (patrones prohibidos en `§3.7`) |
+| No diseña actividades como ejercicios abstractos sin contexto de la vida real | El producto entrena con simulaciones de la vida diaria (§3.7, principio 11) o con habilidad pura declarada como decisión de diseño priorizada (§3.7.b). Ninguno de los dos vehículos es una "excepción" |
+| No diseña actividades como simulaciones forzadas cuando el objetivo terapéutico es entrenar una habilidad pura | Forzar una escena donde el estímulo ya es contexto satura la pantalla y rompe la regla 10 de las 13 de accesibilidad; el producto rechaza el antipatrón (ver §3.7.b) |
+| No usa mensajes de escasez, falsa urgencia ni FOMO ("solo te queda 1", "date prisa", "no pierdas tu racha") | Presión; choca con `§3.1`, `§3.2` y el principio 12 (patrones prohibidos en `§3.8`) |
 | No usa prueba social como presión (rankings, posiciones, "otros ya lo han hecho") | Presión y desánimo; choca con `§3.1` y `§6` |
 | No usa dark patterns (registros forzados, casillas premarcadas, costes ocultos, alertas falsas) | Confianza y accesibilidad; choca con `§3.4` y el principio 12 |
 | No resta estrellas ni progreso como castigo | El producto solo suma, nunca resta (`§3.1`, principio 7) |
