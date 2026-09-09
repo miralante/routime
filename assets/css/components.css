@@ -153,14 +153,7 @@
 }
 
 .progress-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--texto-pequeno);
-  font-weight: 700;
-  color: var(--color-texto);
+  display: none;
 }
 
 /* ---- Stars ---- */
@@ -392,4 +385,17 @@ button.dinero:disabled { cursor: default; }
 @media (min-width: 1024px) {
   .tarjeta { padding: calc(var(--espacio) * 1.5); }
   .tool-header h1 { font-size: 2.25rem; }
+}
+
+/* Mobile activity layout: compact vertical rhythm while preserving touch
+   targets. Keep the progress fill as the visual status indicator. */
+@media (max-width: 640px) {
+  .actividad { padding-top: calc(var(--espacio) * 0.75); }
+  .actividad .tool-header { row-gap: var(--espacio); margin-bottom: var(--espacio-3); }
+  .actividad .tool-header h1 { font-size: clamp(1.9rem, 9vw, 2.45rem); }
+  .actividad-objetivo { margin-bottom: var(--espacio-3); padding: var(--espacio-3); }
+  .actividad .instruccion { margin: var(--espacio-3) auto var(--espacio-2); }
+  .actividad > .escena { min-height: 120px; padding: var(--espacio-3) var(--espacio-2); }
+  .actividad > .opciones { gap: var(--espacio-2); margin-top: var(--espacio-3); }
+  .actividad > .opciones .opcion-btn { min-height: 76px; padding: var(--espacio-3) var(--espacio-2); }
 }
