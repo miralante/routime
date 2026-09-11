@@ -24,6 +24,10 @@
   var feedbackEl = $('#feedback');
   var feedbackOrdenar = $('#feedbackOrdenar');
   var starsEl = $('#stars');
+  var tabPredefinidas = $('#tabPredefinidas');
+  var tabPropias = $('#tabPropias');
+  var arrastreOrden = null;
+  var suprimirClickArrastre = false;
 
   /* Progreso persistente. Si la fecha guardada no es hoy, se reinicia. */
   var progreso = App.storage.get(TOOL_ID);
@@ -85,8 +89,6 @@
     pantallaListaLibre.classList.add('oculto');
     pantallaMenu.classList.remove('oculto');
     listaRutinas.innerHTML = '';
-
-    listaRutinas.appendChild(crearSeccionListasLibres());
 
     /* Subsecciones por momento: "Pasos" (marcar paso a paso) y "Ordenar"
        (secuenciar la rutina). Cada momento tiene su propia lista de
@@ -209,6 +211,23 @@
     });
 
     pintarEstrellas();
+  }
+
+  function mostrarTab(tab) {
+    var propias = tab === 'propias';
+    pantallaRutina.classList.add('oculto');
+    pantallaFinal.classList.add('oculto');
+    pantallaOrdenar.classList.add('oculto');
+    pantallaMenu.classList.toggle('oculto', propias);
+    pantallaListaLibre.classList.toggle('oculto', !propias);
+    tabPredefinidas.classList.toggle('activa', !propias);
+    tabPropias.classList.toggle('activa', propias);
+    tabPredefinidas.setAttribute('aria-selected', String(!propias));
+    tabPropias.setAttribute('aria-selected', String(propias));
+    if (propias) {
+      pintarListaActual();
+      pintarListasGuardadas();
+    }
   }
 
   /* Tarjeta de entrada a "Crea tu lista": no viene del catálogo DATA,
@@ -405,6 +424,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       var lleno = idPaso !== null;
       li.className = 'slot-orden' + (lleno ? ' lleno' : '') + (i === sel ? ' seleccionado' : '') +
         (ordenActual.pistaSlot === i ? ' pista' : '');
+      li.dataset.slotIndex = i;
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', '0');
 
@@ -440,7 +460,11 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
         li.appendChild(hint);
       }
 
-      li.addEventListener('click', function () { tocarSlot(i); });
+      li.addEventListener('click', function () {
+        if (suprimirClickArrastre) return;
+        tocarSlot(i);
+      });
+      hacerArrastrableOrden(li, { tipo: 'slot', indice: i });
       li.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -455,6 +479,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'paso-disponible';
+      btn.dataset.pasoId = idPaso;
       btn.setAttribute(
         'aria-label',
         App.i18n.t('ariaPasoDisponible').replace('{texto}', paso.texto)
@@ -468,12 +493,71 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       t.className = 'paso-disponible-texto';
       t.textContent = paso.texto;
       btn.appendChild(t);
-      btn.addEventListener('click', function () { colocarDesdeDisponible(idPaso); });
+      btn.addEventListener('click', function () {
+        if (suprimirClickArrastre) return;
+        colocarDesdeDisponible(idPaso);
+      });
+      hacerArrastrableOrden(btn, { tipo: 'disponible', pasoId: idPaso });
       dispEl.appendChild(btn);
     });
 
     actualizarBarraMover();
     actualizarBotonesSocraticos();
+  }
+
+  /* Arrastre unificado para ratón, dedo y lápiz. El clic sigue siendo la
+     alternativa para teclado y para dispositivos que no soporten Pointer
+     Events. */
+  function hacerArrastrableOrden(el, origen) {
+    if (!window.PointerEvent) return;
+    el.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      arrastreOrden = { origen: origen, inicioX: e.clientX, inicioY: e.clientY,
+        activo: false, elemento: el, pointerId: e.pointerId };
+      el.setPointerCapture(e.pointerId);
+    });
+    el.addEventListener('pointermove', function (e) {
+      if (!arrastreOrden || arrastreOrden.pointerId !== e.pointerId) return;
+      var dx = e.clientX - arrastreOrden.inicioX;
+      var dy = e.clientY - arrastreOrden.inicioY;
+      if (!arrastreOrden.activo && Math.sqrt(dx * dx + dy * dy) < 8) return;
+      arrastreOrden.activo = true;
+      el.classList.add('arrastrando');
+      e.preventDefault();
+    });
+    el.addEventListener('pointerup', function (e) {
+      if (!arrastreOrden || arrastreOrden.pointerId !== e.pointerId) return;
+      var datos = arrastreOrden;
+      arrastreOrden = null;
+      el.classList.remove('arrastrando');
+      if (!datos.activo) return;
+      suprimirClickArrastre = true;
+      var destino = document.elementFromPoint(e.clientX, e.clientY);
+      var slot = destino && destino.closest ? destino.closest('.slot-orden') : null;
+      if (slot) soltarPasoEnSlot(datos.origen, Number(slot.dataset.slotIndex));
+      setTimeout(function () { suprimirClickArrastre = false; }, 0);
+    });
+    el.addEventListener('pointercancel', function () {
+      arrastreOrden = null;
+      el.classList.remove('arrastrando');
+    });
+  }
+
+  function soltarPasoEnSlot(origen, destino) {
+    if (!ordenActual || destino < 0 || destino >= ordenActual.slots.length) return;
+    if (origen.tipo === 'disponible') {
+      var anterior = ordenActual.slots[destino];
+      ordenActual.slots[destino] = origen.pasoId;
+      ordenActual.disponibles = ordenActual.disponibles.filter(function (x) { return x !== origen.pasoId; });
+      if (anterior !== null) ordenActual.disponibles.push(anterior);
+    } else if (origen.indice !== destino) {
+      var paso = ordenActual.slots[origen.indice];
+      ordenActual.slots[origen.indice] = ordenActual.slots[destino];
+      ordenActual.slots[destino] = paso;
+    }
+    ordenActual.seleccionadoSlot = destino;
+    ordenActual.pistaSlot = -1;
+    pintarOrdenar();
   }
 
   function actualizarBotonesSocraticos() {
@@ -826,6 +910,21 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
 
       var acciones = document.createElement('div');
       acciones.className = 'lista-guardada-acciones';
+      var btnPracticar = document.createElement('button');
+      btnPracticar.type = 'button';
+      btnPracticar.className = 'btn btn-empezar';
+      btnPracticar.textContent = App.i18n.t('btnPracticarLista');
+      btnPracticar.setAttribute('aria-label', App.i18n.t('btnPracticarLista') + ': ' + lista.nombre);
+      btnPracticar.addEventListener('click', function () {
+        abrirRutina({
+          id: 'lista-' + i,
+          nombre: lista.nombre,
+          picto: '📝',
+          pasos: lista.items.map(function (texto) {
+            return { picto: '✅', texto: texto };
+          })
+        });
+      });
       var btnEditar = document.createElement('button');
       btnEditar.type = 'button';
       btnEditar.textContent = '✏️';
@@ -852,6 +951,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
         feedbackEl.className = 'feedback';
         feedbackEl.textContent = App.i18n.t('listaBorradaFeedback');
       });
+      acciones.appendChild(btnPracticar);
       acciones.appendChild(btnEditar);
       acciones.appendChild(btnEscuchar);
       acciones.appendChild(btnBorrar);
@@ -881,6 +981,8 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
 
   /* Events */
   $('#btnOtraRutina').addEventListener('click', pintarMenu);
+  tabPredefinidas.addEventListener('click', function () { pintarMenu(); });
+  tabPropias.addEventListener('click', function () { mostrarTab('propias'); });
   $('#btnComprobar').addEventListener('click', comprobarOrden);
   $('#btnPistaOrdenar').addEventListener('click', pistaOrdenar);
   $('#btnSubirPaso').addEventListener('click', function () { moverSlot(-1); });

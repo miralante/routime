@@ -287,6 +287,15 @@
   outline-offset: 2px;
 }
 
+.slot-orden,
+.paso-disponible { touch-action: none; }
+
+.slot-orden.arrastrando,
+.paso-disponible.arrastrando {
+  opacity: 0.55;
+  outline: 4px solid var(--mod-secuencia);
+}
+
 .slot-posicion {
   font-size: var(--texto-grande);
   font-weight: 800;
