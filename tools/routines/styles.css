@@ -388,14 +388,14 @@
   #pantallaOrdenar .instruccion { min-width: 0; }
 
   #pantallaOrdenar .orden-dos-columnas {
-    gap: var(--espacio-grande);
+    gap: var(--espacio);
   }
 
   #pantallaOrdenar .slot-orden {
     grid-template-columns: 36px 44px minmax(0, 1fr);
     gap: 8px;
-    min-height: 72px;
-    padding: 10px;
+    min-height: 60px;
+    padding: 8px;
   }
 
   #pantallaOrdenar .slot-picto,
@@ -404,8 +404,18 @@
   #pantallaOrdenar .paso-disponible {
     grid-template-columns: 44px minmax(0, 1fr);
     gap: 8px;
-    min-height: 72px;
-    padding: 10px;
+    min-height: 64px;
+    padding: 8px;
+  }
+
+  #pantallaOrdenar .slot-texto,
+  #pantallaOrdenar .paso-disponible-texto {
+    overflow-wrap: anywhere;
+    line-height: 1.15;
+  }
+
+  #pantallaOrdenar .barra-mover-slot {
+    margin-top: 8px;
   }
 
   #pantallaOrdenar > .fila {
