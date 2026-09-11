@@ -3,7 +3,7 @@
    Cache-first strategy for the app shell (works offline).
    When adding new files: add them to ARCHIVOS and bump VERSION.
    ============================================================ */
-var VERSION = 'routime-v17';
+var VERSION = 'routime-v18';
 
 var ARCHIVOS = [
   './index.html',
@@ -490,6 +490,28 @@ self.addEventListener('activate', function (event) {
 
 self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
+  /* Always ask the network for document navigations first. This prevents
+     Safari from opening a stale cached landing/activity page while a new
+     service-worker version is being installed; the cache remains the
+     offline fallback. */
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).then(function (r) {
+        if (r.status === 200) {
+          var copiaNavegacion = r.clone();
+          caches.open(VERSION).then(function (cache) {
+            cache.put(event.request, copiaNavegacion);
+          });
+        }
+        return r;
+      }).catch(function () {
+        return caches.match(event.request).then(function (respuesta) {
+          return respuesta || new Response('Sin conexión', { status: 503 });
+        });
+      })
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(function (respuesta) {
       if (respuesta) return respuesta;
