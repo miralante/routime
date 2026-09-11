@@ -8,6 +8,32 @@
 
 .instruccion { flex: 1; min-width: 200px; }
 
+.pestanas-rutinas {
+  display: flex;
+  gap: var(--espacio);
+  margin: var(--espacio-grande) 0;
+  border-bottom: 2px solid var(--color-borde);
+}
+
+.pestana-rutinas {
+  flex: 1;
+  min-height: 64px;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  background: transparent;
+  color: var(--color-texto);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pestana-rutinas:hover,
+.pestana-rutinas:focus-visible,
+.pestana-rutinas.activa {
+  color: var(--mod-secuencia);
+  border-bottom-color: var(--mod-secuencia);
+}
+
 /* Routine menu sections */
 .lista-rutinas {
   display: flex;
@@ -354,6 +380,43 @@
 @media (max-width: 760px) {
   .orden-dos-columnas { grid-template-columns: 1fr; }
   .orden-col-tu { border-right: none; border-bottom: 3px solid var(--color-borde); padding-right: 0; padding-bottom: var(--espacio); }
+}
+
+/* Ordenar rutina: en teléfonos cada acción debe ser fácil de localizar,
+   tocar y leer sin obligar a hacer zoom ni desplazar horizontalmente. */
+@media (max-width: 640px) {
+  #pantallaOrdenar .instruccion { min-width: 0; }
+
+  #pantallaOrdenar .orden-dos-columnas {
+    gap: var(--espacio-grande);
+  }
+
+  #pantallaOrdenar .slot-orden {
+    grid-template-columns: 36px 44px minmax(0, 1fr);
+    gap: 8px;
+    min-height: 72px;
+    padding: 10px;
+  }
+
+  #pantallaOrdenar .slot-picto,
+  #pantallaOrdenar .paso-disponible-picto { font-size: 32px; }
+
+  #pantallaOrdenar .paso-disponible {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 8px;
+    min-height: 72px;
+    padding: 10px;
+  }
+
+  #pantallaOrdenar > .fila {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #pantallaOrdenar > .fila .btn {
+    width: 100%;
+  }
 }
 
 /* ---- Crea tu lista libre ---- */
