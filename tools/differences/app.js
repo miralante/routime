@@ -60,8 +60,7 @@
 
   function pintarProgresoGlobal() {
     progressFill.style.width = ((escenaIdx / porRonda) * 100) + '%';
-    progressText.textContent = App.i18n.t('progresoEscena')
-      .replace('{n}', escenaIdx + 1).replace('{total}', porRonda);
+    progressText.textContent = '';
   }
 
   function crearRejilla(contenedor) {
@@ -114,8 +113,7 @@
 
   function pintarContadorDiferencias() {
     var n = Object.keys(encontradas).length;
-    contadorEl.textContent = App.i18n.t('contador')
-      .replace('{n}', n).replace('{total}', totalDiferencias);
+    contadorEl.textContent = '';
   }
 
   function tocar(celda, btn) {
@@ -128,6 +126,7 @@
       fallosSeguidos = 0;
       App.feedback.success(feedbackEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosRonda += 1;
       guardar();
       pintarEstrellas();
@@ -183,9 +182,8 @@
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 

@@ -57,11 +57,11 @@ Before using the application, observe the user with these questions:
 
 | Activity | Skill worked |
 |----------|--------------|
-| **Dominoes** | Strategy, counting |
 | **The Shop** | Money use, calculation |
 | **Emergencies** | Crisis decision-making |
 | **The Theatre** | Spatiality, complex instructions |
 | **Among Friends** | Social skills |
+| **Differences** | Visual comparison |
 | **Visual Sudoku** | Logical reasoning |
 
 ### Adaptations
@@ -209,7 +209,7 @@ identify gaps and choose an activity for a support goal. See
 | Global and detailed perception | ✔ | Spot the Difference |
 | Breathing and body awareness | ✔ | How do I feel?, Calm, My Body Tells Me |
 | Eye-hand coordination and fine motor skills | ✔ | Catch It, Traces |
-| Board games | ✔ | Tic-Tac-Toe, Dominoes, Checkers, Chess, Four in a Row |
+
 | Community mobility | ✔ | The Street |, My First-Aid Kit
 | Health autonomy | ✔ | Emergencies, Important Phone Numbers, My Details, My Body Tells Me, I Tell the Doctor |
 | Shopping and money in real contexts | ✔ | The Shopping, The Shop |

@@ -10,12 +10,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }

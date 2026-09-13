@@ -1,4 +1,4 @@
-﻿# Routime 🌱
+# Routime 🌱
 
 > 🌐 **Otros idiomas:** [English](README.md)
 >
@@ -86,9 +86,9 @@ Según tu rol y perfil, te interesa una u otra documentación:
 
 | Soy… | Empieza por… |
 |---|---|
-| 👤 Persona usuaria o familiar | [`doc/es/README.md`](doc/es/README.md) |
+| 👤 Persona usuaria o familiar | [`doc/es/indice.md`](doc/es/indice.md) |
 | ❤️ Terapeuta, familiar o profesional de apoyo | [`doc/es/equipo.md`](doc/es/equipo.md) |
-| 🤔 Quiero entender qué es Routime y por qué | [`doc/es/SPEC.md`](doc/es/SPEC.md) |
+| 🤔 Quiero entender qué es Routime y por qué | [`doc/es/spec.md`](doc/es/spec.md) |
 | 💻 Desarrollador/a | [`doc/es/tecnico.md`](doc/es/tecnico.md) |
 
 ### 📄 Otros documentos del repo
@@ -99,7 +99,7 @@ Según tu rol y perfil, te interesa una u otra documentación:
 | `CLAUDE.md` | Agentes IA: reglas obligatorias y estado del proyecto |
 | [`CLOUDFLARE.md`](CLOUDFLARE.md) | Guía canónica de despliegue en Cloudflare Workers para la suite (Routime + landing Apptonomia + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
 | Historial del proyecto | En `git log`; no se mantiene una hoja de ruta externa |
-| `doc/es/I18N.md` / `doc/en/I18N.md` | Detalles del sistema multiidioma ES/EN |
+| `doc/es/i18n.md` / `doc/en/i18n.md` | Detalles del sistema multiidioma ES/EN |
 
 ---
 
@@ -151,14 +151,15 @@ Para añadir una actividad nueva:
     `config/strings.<locale>.js`), y sus seis archivos a `ARCHIVOS` de
    `sw.js`.
 3. Sube el `VERSION` en `sw.js` (p. ej. `routime-vN` → `routime-vN+1`).
-4. Lee primero [`doc/es/guia-crear-actividades.md`](doc/es/guia-crear-actividades.md)
+4. Lee primero [`doc/es/guia-crear-elementos.md`](doc/es/guia-crear-elementos.md)
    — técnicas de didáctica, gamificación, persuasión y neuromarketing
    para nuestra audiencia; si una regla de la guía entra en conflicto
    con `tecnico.md`, gana `tecnico.md`.
 
 Para ampliar el **contenido** de una actividad existente, edita su
 `data.js` (más `data.js` dividido por idioma si lo hay) —
-`node scripts/check.js` impone paridad de claves entre
+
+ode scripts/check.js` impone paridad de claves entre
 `strings.es.js` y `strings.en.js`.
 
 ---
@@ -169,7 +170,8 @@ Para ampliar el **contenido** de una actividad existente, edita su
 node scripts/check.js
 ```
 
-No hace falta `npm install` — el script solo usa la librería estándar de
+No hace falta 
+pm install` — el script solo usa la librería estándar de
 Node. Comprueba sintaxis JS en `tools/`, `site/` y `assets/js/`, la
 anatomía canónica de cada carpeta de actividad, paridad entre `sw.js`
 y el contenido en disco, paridad de claves es/en, y la regla de paridad
@@ -223,7 +225,8 @@ MIT — ver [`LICENSE`](LICENSE).
 
 ## 🧹 Mantenimiento
 
-Este repo no tiene `node_modules` ni artefactos de build. Para limpiar
+Este repo no tiene 
+ode_modules` ni artefactos de build. Para limpiar
 la caché local de la PWA durante el desarrollo, desregistra el SW
 desde DevTools (`Application → Service workers → Unregister`) y borra
 los datos del sitio. La suite completa es dependency-free: solo Node.js
@@ -246,14 +249,11 @@ mantiene aquí por motivos históricos — Apptonomia fue el producto
 original del que nació el grupo.
 
 El diseño de actividades sigue los patrones documentados en
-[`doc/es/guia-crear-actividades.md`](doc/es/guia-crear-actividades.md)
+[`doc/es/guia-crear-elementos.md`](doc/es/guia-crear-elementos.md)
 (didáctica, gamificación, persuasión, neuromarketing), con
 `tecnico.md` como fuente de verdad cuando ambas guías entran en
 conflicto.
 
 
-## More about this project
 
-- [About this project](https://routime.apptonomia.uk/about/)
-- [About this project](https://routime.apptonomia.uk/about/)
-- [Team](https://routime.apptonomia.uk/team/)
+

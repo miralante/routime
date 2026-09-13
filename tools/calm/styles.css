@@ -1,4 +1,4 @@
-/* Calm — tool-specific styles. Shared styles live in assets/css/. */
+﻿/* Calm â€” tool-specific styles. Shared styles live in assets/css/. */
 
 .tool-header h1 { color: var(--mod-emocional); }
 
@@ -10,27 +10,39 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
-/* Breathing: circle that grows and shrinks (4 s per phase) */
+/* Breathing: circle that grows and shrinks (4 s per phase).
+   Positioned absolutely so expansion doesn't push the text down. */
 #circuloRespiracion {
+  position: absolute;
+  left: 50%;
+  /* Centre the circle's vertical midpoint at ~40% from the top so it
+     expands upward and stays visually centred — never covers the text. */
+  top: 40%;
+  transform: translateX(-50%) translateY(-50%);
   width: 120px;
   height: 120px;
-  margin: 48px auto 24px;
   border-radius: 50%;
   background: var(--mod-emocional-suave);
   border: 4px solid var(--mod-emocional);
   transition: transform 4s ease-in-out;
+  z-index: 0;
 }
 
-#circuloRespiracion.crecer { transform: scale(1.8); }
-#circuloRespiracion.encoger { transform: scale(1); }
+#textoRespiracion {
+  position: relative;
+  z-index: 1;
+}
+
+#pantallaSesion {
+  position: relative;
+  padding-top: 220px;  /* space for the absolute circle */
+  padding-bottom: 48px;
+}
 
 #pantallaSesion .btn { align-self: center; min-width: 280px; margin-top: 48px; }
 

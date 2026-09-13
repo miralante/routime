@@ -9,7 +9,7 @@
    1º fallo → pista socrática; 2º → se marca el hueco; 3º → se
    encaja sola con explicación (nadie se queda atascado).
    Ronda de 4 piezas; 1 estrella por pieza encajada.
-   Cada tipo de pieza (clavePieza: domino/triI/triL/cuadrado/barra/te/
+   Cada tipo de pieza (clavePieza: duo/triI/triL/cuadrado/barra/te/
    ele) recibe una clase 't-<clave>' en las celdas .pieza/.encajada
    para pintarla de un color fijo tipo tetrominó clásico (ver
    styles.css) — mecánica intacta, solo aspecto más "gaming".
@@ -32,14 +32,16 @@
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var dificultadEl = $('#dificultad');
 
   /* Persistent progress */
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Estado de la partida */
-  var nivel = null;
+  var nivelActual = null;
   var idxPieza = 0;
   var aciertosRonda = 0;
   var llenas = [];          /* filled row*columns+col indexes */
@@ -70,40 +72,41 @@
     return max + 1;
   }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    banco().niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarRonda(n); });
-      cont.appendChild(btn);
-    });
+  /* Determina el nivel según el progreso: cada ronda completada,
+     sube un nivel (regla 13: un solo cambio por nivel). */
+  function nivelSegunProgreso() {
+    var idx = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idx];
   }
 
-  function iniciarRonda(n) {
-    nivel = n;
+  /* Muestra la dificultad actual (número de piezas en el nivel). */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      var n = nivelActual.piezas.length;
+      dificultadEl.textContent = n + ' ' + App.i18n.t(n === 1 ? 'pieza' : 'piezas');
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
     idxPieza = 0;
     aciertosRonda = 0;
     pantallaInicio.classList.add('oculto');
     pantallaFinal.classList.add('oculto');
     pantallaJuego.classList.remove('oculto');
+    pintarDificultad();
     nuevaPieza();
   }
 
   function pintarProgreso() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idxPieza / porRonda) * 100) + '%';
-    progressText.textContent = idxPieza + ' / ' + porRonda;
+    progressText.textContent = '';
   }
 
   /* ---- Generation: hueco = footprint of the piece resting on the floor ---- */
   function nuevaPieza() {
-    clavePieza = App.utils.shuffle(nivel.piezas)[0];
+    clavePieza = App.utils.shuffle(nivelActual.piezas)[0];
     var ors = banco().piezas[clavePieza];
     var orFinal = Math.floor(Math.random() * ors.length);
     var celdas = ors[orFinal];
@@ -241,6 +244,7 @@
     idxPieza += 1;
     aciertosRonda += 1;
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     guardar();
     pintarEstrellas();
     pintarProgreso();
@@ -257,7 +261,6 @@
   }
 
   function siguiente() {
-    App.tts.stop();
     if (idxPieza >= banco().porRonda) {
       terminarRonda();
     } else {
@@ -266,13 +269,15 @@
   }
 
   function terminarRonda() {
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
+    progreso.rondasCompletadas += 1;
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -289,14 +294,15 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); bajar(); }
   });
   btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarRonda(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
+  $('#btnJugar').addEventListener('click', function () { iniciarJuego(); });
+  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  $('#btnMenu').addEventListener('click', function () {
     pantallaFinal.classList.add('oculto');
-    pintarNiveles();
+    pantallaJuego.classList.add('oculto');
     pantallaInicio.classList.remove('oculto');
+    pintarEstrellas();
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

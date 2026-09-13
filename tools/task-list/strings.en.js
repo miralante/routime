@@ -1,13 +1,13 @@
-/* ============================================================
-   Routime — Textos de lista-tareas (EN)
-   Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
-   Se carga condicionalmente desde index.html según App.i18n.locale().
+﻿/* ============================================================
+   Routime â€” Textos de lista-tareas (EN)
+   Archivo especÃ­fico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
+   Se carga condicionalmente desde index.html segÃºn App.i18n.locale().
    ============================================================ */
 (function () {
   'use strict';
 
   App.i18n.register({
-    "title": "🗒️ Task List",
+    "title": "ðŸ—’ï¸ Task List",
     "instruccion": "Touch the tasks in the right order, from first to last.",
     "instruccionNivel": " First, choose the level.",
     "elegirNivel": "Choose the level",
@@ -15,33 +15,35 @@
     "etiquetaTareas": "Tasks",
     "ariaTarea": "Task",
     "veces": "times",
+    "btnJugar": "Play!",
     "resumenFinal": "You won {n} stars. You now have {total} stars.",
     "btnOtroNivel": "Choose another level",
+    "btnMenu": "Back to start",
     "contexto": "You have several tasks to do during the day. Put them in a good order.",
-    "pista": "🤔 Think: what do you have to do first today?",
-    "explicacion": "✅ That is how to plan a day. Starting with the important things makes everything easier.",
+    "pista": "ðŸ¤” Think: what do you have to do first today?",
+    "explicacion": "âœ… That is how to plan a day. Starting with the important things makes everything easier.",
     "transferencia": "This will help you organise your real day: at home, at school or when there is a lot to do.",
     "nivelListasTitulo": "Level 3",
     "nivelListasDescripcion": "Create your list",
     "nivelListasEstrellas": 1,
     "nivelListasBoton": "Start",
-    "crearTitulo": "📝 Create your list",
+    "crearTitulo": "ðŸ“ Create your list",
     "crearInstruccion": "Practise making a list: add things, change the order, mark them as done and delete them.",
     "transferenciaCrear": "This list is for practice. It stays on this device and helps you train how to make a real list.",
-    "consejoListaTitulo": "💡 How to make a good list",
+    "consejoListaTitulo": "ðŸ’¡ How to make a good list",
     "consejoListaPaso1": "Think about what you have to do.",
     "consejoListaPaso2": "Write down each thing on the list.",
     "consejoListaPaso3": "Put them in the order you will do them.",
     "consejoListaPaso4": "Mark them as done when you finish them.",
-    "btnMisListas": "📋 My lists",
+    "btnMisListas": "ðŸ“‹ My lists",
     "ariaMisListas": "Go back to your lists to create another one, open it or delete it",
     "labelNombreLista": "Name of the list",
     "ariaNombreLista": "Name of the list",
     "btnEmpezarCrear": "Start",
     "placeholderInputItem": "Write something...",
     "ariaInputItem": "Write an item for your list",
-    "btnAnadirItem": "➕ Add",
-    "btnHechoItem": "✔ Done",
+    "btnAnadirItem": "âž• Add",
+    "btnHechoItem": "âœ” Done",
     "btnPendienteItem": "Mark as done",
     "ariaBtnAnadirItem": "Add to the list",
     "ariaSubirItem": "Move the selected item up",
@@ -50,8 +52,8 @@
     "ariaItemHecho": "Item done: {texto}",
     "ariaItemPendiente": "Item pending: {texto}. Tap to mark as done.",
     "ariaQuitarItem": "Remove {texto}",
-    "btnGuardarLista": "💾 Save list",
-    "btnVaciarLista": "🗑️ Clear",
+    "btnGuardarLista": "ðŸ’¾ Save list",
+    "btnVaciarLista": "ðŸ—‘ï¸ Clear",
     "ariaVaciarLista": "Clear the current list",
     "listaGuardadaFeedback": "List saved! You earn 1 star.",
     "listaBorradaFeedback": "List deleted.",

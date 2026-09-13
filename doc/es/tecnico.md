@@ -156,7 +156,7 @@ Routime/
 │   ├── js/storage.js      #   window.App.storage
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (actividades de euros)
-│   └── img/               #   pictogramas SVG e iconos PWA; la interfaz usa primero iconos del sistema y emojis para gráficos simples; si hace falta algo más, usar imágenes libres descargadas localmente desde fuentes CC0/domino público
+│   └── img/               #   pictogramas SVG e iconos PWA; la interfaz usa primero iconos del sistema y emojis para gráficos simples; si hace falta algo más, usar imágenes libres descargadas localmente desde fuentes CC0 o de uso libre
 ├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (69 actuales)
 │   ├── index.html         #   estructura y carga de assets
 │   ├── app.js             #   solo lógica
@@ -192,9 +192,8 @@ no hay código por módulo:
 | 🎯 Puntería y manos | Coordinación y motricidad | `--mod-coordinacion` (azul) | catch, connect-dots, tracing, coloring, piano-keys, builders |
 | 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
 | 🧠 Memoria y atención | Memoria y atención | `--mod-memoria` (naranja) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
-| 🎲 Juegos de mesa | Juegos de mesa reglados | `--mod-razonamiento` (teal) | tic-tac-toe, visual-sudoku, domino, checkers, chess, connect-four |
 | 💬 Lenguaje y comprensión | Lenguaje y comunicación | `--mod-lenguaje` (frambuesa) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
-| 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, school-rules, self-esteem, resilience, trust-circle |
+| 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
 | 💗 Cuerpo y relaciones | Educación afectivo-sexual | `--mod-cuerpo` (terracota) | sexual-health |
 
 > **Nota multi-área**: una actividad puede trabajar más de un área terapéutica
@@ -999,3 +998,14 @@ manual.
 ## 13. Licencia
 
 Este proyecto es de código abierto bajo licencia MIT. Consulta el repositorio para más detalles.
+
+## Cabecera compacta de la aplicación
+
+La cabecera principal sigue el modelo de Memofun: icono de 44px (32px por
+debajo de 650px), título Nunito de 28px (22px en móvil), atribución a la suite
+y controles alineados. Usa un margen interior vertical de 8px y separa las
+filas 6px. El texto secundario tiene peso normal y el contador de estrellas
+es compacto. Los botones de idioma de la cabecera muestran nombres completos en escritorio
+y ES/EN en móvil, con nombres accesibles completos. Teclatlon conserva sus
+controles de teclado y ajustes; Enroca conserva navegación y ajustes. Estos
+estilos de cabecera no cambian los controles de las actividades.

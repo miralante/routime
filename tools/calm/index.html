@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-i18n-title="title">
 <head>
   <meta charset="UTF-8">
@@ -13,44 +13,43 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1>🧘 <span data-i18n="title">Calma</span></h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link" data-i18n="core.back">â† Volver</a>
+      <h1>ðŸ§˜ <span data-i18n="title">Calma</span></h1>
+      <span class="stars" id="stars">â­ 0</span>
     </header>
 
     <!-- Start screen -->
     <section id="pantallaInicio" class="pila centrado">
       <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Respira despacio siguiendo el círculo. Coge aire cuando crece, suelta el aire cuando encoge.</p>
+        <p class="instruccion" id="instruccion" data-i18n="instruccion">Respira despacio siguiendo el cÃ­rculo. Coge aire cuando crece, suelta el aire cuando encoge.</p>
       </div>
-      <h2 data-i18n="elegirSesion">Elige una sesión</h2>
+      <h2 data-i18n="elegirSesion">Elige una sesiÃ³n</h2>
       <div class="pila" id="niveles"></div>
     </section>
 
     <!-- Session screen -->
     <section id="pantallaSesion" class="oculto centrado pila">
       <div id="circuloRespiracion" aria-hidden="true"></div>
-      <h2 id="textoRespiracion" aria-live="polite" data-i18n="cogeAire">Coge aire…</h2>
+      <h2 id="textoRespiracion" aria-live="polite" data-i18n="cogeAire">Coge aireâ€¦</h2>
       <p id="ciclosRespiracion"></p>
       <button type="button" class="btn btn-secundario" id="btnTerminarSesion" data-i18n="terminar">Terminar</button>
     </section>
 
     <!-- End screen -->
     <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">😌</div>
-      <h2 data-i18n="finalTitulo">¡Muy bien! ¿Estás más tranquilo?</h2>
+      <div class="emoji-grande" aria-hidden="true">ðŸ˜Œ</div>
+      <h2 data-i18n="finalTitulo">Â¡Muy bien! Â¿EstÃ¡s mÃ¡s tranquilo?</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="repetirSesion">Repetir sesión</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="otraSesion">Elegir otra sesión</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnRepetir" data-i18n="repetirSesion">Repetir sesiÃ³n</button>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
+      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menÃº</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

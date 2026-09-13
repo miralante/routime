@@ -61,14 +61,13 @@
     "module2Intro": 'Reconocimiento y expresión de emociones, autorregulación, respiración y resolución de conflictos.',
     "module3Title": '💗 Cuerpo y relaciones — Educación afectivo-sexual',
     "module3Intro": 'Cuerpo, consentimiento, relaciones sanas y salud sexual y reproductiva, siempre derivando a personas de confianza o profesionales de la salud.',
-    "module4Title": '💬 Lenguaje y comprensión — Lenguaje y comunicación',
-    "module4Intro": 'Vocabulario, categorías, comprensión lectora, lenguaje figurado y humor.',
+
     "module5Title": '🧠 Memoria y atención',
     "module5Intro": 'Memoria visual, auditiva y de corto plazo; atención sostenida; percepción global y de detalles.',
     "module6Title": '🎯 Puntería y manos — Coordinación y motricidad',
     "module6Intro": 'Coordinación ojo-mano, motricidad fina, grafomotricidad, escritura y copia.',
-    "module7Title": '🎲 Juegos de mesa',
-    "module7Intro": 'Seis juegos de mesa clásicos, con niveles y un rival que juega suave.',
+    "module7Title": '💗 Cuerpo y relaciones',
+    "module7Intro": 'Educación afectivo-sexual no gráfica, siempre derivando a personas de confianza o profesionales de la salud.',
     activity: {
       "catch": {
         "name": 'Atrapa',
@@ -322,42 +321,6 @@
         "works": 'Profundidad y planos (fondo / primer plano), vocabulario delante/detrás, comprensión de consignas espaciales.',
         "daily": 'Montad escenas reales con muñecos: "pon el oso delante de la caja".'
       },
-      "tic-tac-toe": {
-        "name": 'Tres en Raya',
-        "does": 'Hace su línea de tres contra un rival que juega suave (por niveles: al azar, remata su línea, también bloquea).',
-        "works": 'Lógica, anticipación de la jugada del otro, turnos, tolerar perder sin castigo (perder solo da un consejo y otra partida). Botón 💡 de ayuda a demanda: primero una pregunta que dirige la atención, después la casilla concreta con su porqué.',
-        "daily": 'Jugad al tres en raya en papel; pensad en voz alta dónde conviene poner la ficha.'
-      },
-      "visual-sudoku": {
-        "name": 'Sudoku Visual',
-        "does": 'Rellena un tablero de 4×4 con dibujos sin repetir ninguno en cada fila, columna y caja.',
-        "works": 'Razonamiento por descarte, atención a filas/columnas, flexibilidad cognitiva. Pista en el primer fallo; en el segundo se coloca solo para no atascarse. Botón 💡 de ayuda a demanda: marca el hueco más fácil y pregunta qué falta; a la segunda pulsación dice el dibujo y el porqué (colocarlo sigue siendo cosa de la persona).',
-        "daily": 'Buscad cuadernos de sudokus fáciles con dibujos o colores para hacer en papel.'
-      },
-      "domino": {
-        "name": 'Dominó',
-        "does": 'Partida real contra un rival tranquilo: mano de 4 fichas, montón para robar y turnos. La ficha se orienta sola al tocarla; solo pregunta el lado si encaja en los dos extremos.',
-        "works": 'Correspondencia de cantidades (puntos), juego de mesa reglado con turnos, decidir entre opciones y tolerar perder sin castigo (perder solo da ánimo y otra partida).',
-        "daily": 'Jugad partidas reales de dominó en familia, empezando con pocas fichas.'
-      },
-      "checkers": {
-        "name": 'Las Damas',
-        "does": 'Damas adaptadas en tablero 6×6 con 6 fichas por bando, contra un rival tranquilo. Toca su ficha y después una casilla iluminada: solo se pueden tocar jugadas legales. Comer no es obligatorio y no hay saltos múltiples; llegar al final corona la ficha como dama. Botón 💡 de ayuda socrática en dos pasos.',
-        "works": 'Anticipación y planificación (mirar qué puede hacer el rival antes de mover), razonamiento espacial en diagonal, turnos y tolerar perder sin castigo (el cierre por bloqueo compara fichas y el empate se celebra).',
-        "daily": 'Jugad a las damas de verdad en casa, empezando con menos fichas en un rincón del tablero.'
-      },
-      "chess": {
-        "name": 'El Ajedrez',
-        "does": 'Menú con dos actividades. "Las piezas": puzzles de recoger estrellas en tablero 5×5 para aprender el movimiento de cada pieza (un nivel por pieza: torre, alfil, dama, caballo); los tableros se generan al vuelo y siempre tienen solución. "Mini partida": duelo 5×5 con esas piezas + el rey, sin peones ni jaque — se gana capturando el rey del rival. Ayuda socrática 💡 en dos pasos.',
-        "works": 'Razonamiento espacial (recto, diagonal, salto en L), planificación y anticipación (mirar qué amenaza el rival), memoria de reglas y tolerar perder sin castigo.',
-        "daily": 'Si engancha, probad el ajedrez real empezando solo con torres y peones.'
-      },
-      "connect-four": {
-        "name": 'Cuatro en Raya',
-        "does": 'Conecta 4 adaptado (6 columnas × 5 filas): cada columna es un único botón grande y la ficha cae sola hasta abajo, sin cronómetro. El rival juega como en Tres en Raya (al azar → remata → también tapa). Ayuda socrática 💡 en dos pasos.',
-        "works": 'Anticipación en dos direcciones (rematar la línea propia y tapar la del rival), atención sostenida sobre un tablero mayor que el de Tres en Raya, turnos y tolerar perder sin castigo (el empate se celebra).',
-        "daily": 'El Conecta 4 físico existe en muchas casas: jugad la versión real con las mismas ideas (mira su línea antes de tirar).'
-      },
       "comedy-club": {
         "name": 'Chistes',
         "does": 'Lee o escucha un chiste y responde por qué es gracioso.',
@@ -454,11 +417,11 @@
         "works": 'Normas sociales básicas, habilidades sociales, interacción respetuosa.',
         "daily": 'Reforzad estas fórmulas en la vida real: celebrad cuando las use espontáneamente.'
       },
-      "school-rules": {
-        "name": 'Normas del Cole y Civismo',
-        "does": 'Lee situaciones del cole y de sitios públicos (aula, comedor, biblioteca, autobús, calle, parque, cine) y elige la acción cívica adecuada: pedir la palabra, hacer cola, reciclar, cruzar con el semáforo en verde, apagar la luz, mediar en una discusión, invitar a jugar a alguien excluido.',
-        "works": 'Normas de convivencia, civismo, respeto en espacios públicos y compartidos, cuidado del entorno, inclusión, honestidad y responsabilidad.',
-        "daily": 'Acompañadle en el cole y en salidas: reconoced las normas que aplica solo y celebrad cada gesto cívico (ceder el paso, recoger un papel, reciclar) en la vida real.'
+      "education-norms": {
+        "name": 'Normas de Educación',
+        "does": 'Lee situaciones del día a día y de sitios con otras personas (colegio, biblioteca, autobús, calle, parque, cine) y elige la respuesta que demuestra buena educación: pedir la palabra, hacer cola, reciclar, cruzar con el semáforo en verde, apagar la luz, mediar en una discusión, invitar a jugar a alguien excluido.',
+        "works": 'Normas de buena educación, respeto, convivencia en espacios públicos y compartidos, cuidado del entorno, inclusión, honestidad y responsabilidad.',
+        "daily": 'Acompañadle en el día a día y en salidas: reconoced las buenas prácticas que aplica solo y celebrad cada gesto de buena educación (ceder el paso, recoger un papel, reciclar) en la vida real.'
       },
       "self-esteem": {
         "name": 'Así Soy Yo',
@@ -511,13 +474,9 @@
     "exceptionBlocks": 'Bloques · copia de modelos con piezas de colores (motricidad fina, percepción espacial).',
     "exceptionBuilders": 'Constructores · composición libre con bloques y piezas (creatividad y motricidad).',
     "exceptionCatch": 'Atrapa · coordinación ojo-mano y reflejos.',
-    "exceptionCheckers": 'Damas · estrategia y anticipación.',
-    "exceptionChess": 'Ajedrez · estrategia, planificación y respeto de turnos.',
     "exceptionColoring": 'Colorear · creatividad libre y motricidad fina.',
     "exceptionConnectDots": 'Une los puntos · secuencia numérica y precisión del trazo.',
-    "exceptionConnectFour": 'Cuatro en raya · estrategia y atención sostenida.',
     "exceptionDifferences": 'Diferencias · atención al detalle y comparación visual.',
-    "exceptionDomino": 'Dominó · conteo y emparejamiento.',
     "exceptionEcos": 'Ecos · memoria auditiva.',
     "exceptionFit": 'Encajar · percepción de formas y motricidad fina.',
     "exceptionKeyboardTyping": 'Teclado · mecanografía guiada letra a letra.',
@@ -526,10 +485,8 @@
     "exceptionPath": 'Camino · orientación espacial en un laberinto.',
     "exceptionPianoKeys": 'Teclas de piano · exploración musical libre.',
     "exceptionPuzzle": 'Puzle · encaje de piezas y percepción de la forma global.',
-    "exceptionTicTacToe": 'Tres en raya · estrategia simple.',
     "exceptionTracing": 'Trazos · grafomotricidad.',
     "exceptionTurnsMirrors": 'Giros y espejos · percepción espacial y orientación.',
-    "exceptionVisualSudoku": 'Sudoku visual · razonamiento lógico con pictogramas.',
     "exceptionCalm": 'Calma · respiración guiada (sin decisión, sin acierto/error).',
     "exceptionEmotions": 'Emociones · reconocimiento emocional sin respuesta correcta única.',
     "exceptionsNote": 'La simulación de la vida diaria sigue siendo el vehículo preferente del producto (SPEC §3.6): cualquier actividad nueva que represente una decisión cotidiana debe incorporar el contrato completo. Esta lista declara qué actividades se construyen, por decisión de diseño priorizada, sobre el vehículo de habilidad pura (SPEC §3.6.b). Se revisa y actualiza junto con el repositorio (git log contiene el histórico de cada inclusión y exclusión).',

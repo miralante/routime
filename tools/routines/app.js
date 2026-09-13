@@ -343,6 +343,7 @@
 
     if (contarHechos(rutinaActual) === rutinaActual.pasos.length) {
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       guardar();
       terminarRutina();
     } else {
@@ -354,8 +355,8 @@
     pintarPasos();
     pantallaRutina.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal').replace('{nombre}', rutinaActual.nombre);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('rutinaCompletadaTitulo'));
     pintarEstrellas();
   }
@@ -405,7 +406,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     pantallaRutina.classList.add('oculto');
     pantallaFinal.classList.add('oculto');
     pantallaOrdenar.classList.remove('oculto');
-    tituloOrdenar.textContent = App.i18n.t('ordenTitulo').replace('{nombre}', rutina.nombre);
+    tituloOrdenar.textContent = '';
     feedbackOrdenar.textContent = '';
     feedbackOrdenar.className = 'feedback';
     pintarOrdenar();
@@ -647,6 +648,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     var todoBien = bien === total;
     if (todoBien) {
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       guardar();
       App.feedback.success(feedbackOrdenar);
       feedbackOrdenar.textContent = App.i18n.t('ordenCorrecto');
@@ -681,9 +683,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     }
     ordenActual.pistaSlot = slotAMarcar;
     ordenActual.pistaUsada = true;
-    feedbackOrdenar.textContent = App.i18n.t('pistaOrdenar')
-      .replace('{primero}', pasos[slotAMarcar].texto)
-      .replace('{posicion}', slotAMarcar + 1);
+    feedbackOrdenar.textContent = '';
     pintarOrdenar();
     /* Quita el resaltado tras unos segundos para no condicionar el siguiente intento. */
     setTimeout(function () {
@@ -723,7 +723,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     pantallaMenu.classList.add('oculto');
     pantallaListaLibre.classList.remove('oculto');
     $('#nombrarLista').classList.add('oculto');
-    $('#feedbackListaLibre').textContent = '';
+    $('#feedbackListaLibre').textContent.textContent = '';
     $('#inputNuevoItem').placeholder = App.i18n.t('placeholderInputItem');
     $('#inputNuevoItem').setAttribute('aria-label', App.i18n.t('ariaInputItem'));
     $('#inputNuevoItem').value = '';
@@ -839,9 +839,9 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     var editando = listaLibre.editando !== null;
     $('#editandoAviso').classList.toggle('oculto', !editando);
     if (editando) {
-      $('#editandoAvisoTexto').textContent = App.i18n.t('editandoListaAviso').replace('{nombre}', listaLibre.nombreOriginal);
+      $('#editandoAvisoTexto').textContent.textContent = '';
     }
-    $('#btnGuardarLista').textContent = App.i18n.t(editando ? 'btnGuardarCambios' : 'btnGuardarLista');
+    $('#btnGuardarLista').textContent.textContent = '';
   }
 
   function mostrarNombrarLista() {
@@ -862,6 +862,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     } else {
       progreso.misListas.push({ nombre: nombre, items: listaLibre.items.slice() });
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     }
     guardar();
     listaLibre.items = [];
@@ -904,7 +905,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       nombre.textContent = lista.nombre;
       var cantidad = document.createElement('span');
       cantidad.className = 'cantidad';
-      cantidad.textContent = App.i18n.t('elementosCount').replace('{n}', lista.items.length);
+      cantidad.textContent = '';
       info.appendChild(nombre);
       info.appendChild(cantidad);
 
@@ -936,7 +937,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       btnEscuchar.textContent = '🔊';
       btnEscuchar.setAttribute('aria-label', App.i18n.t('ariaEscucharLista').replace('{nombre}', lista.nombre));
       btnEscuchar.addEventListener('click', function () {
-        App.tts.speak(lista.nombre + '. ' + lista.items.join(', '));
+        if (false && App.tts && App.tts.speak) App.tts.speak(lista.nombre + '. ' + lista.items.join(', '));
       });
       var btnBorrar = document.createElement('button');
       btnBorrar.type = 'button';
@@ -1007,7 +1008,6 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
         !pantallaOrdenar.classList.contains('oculto') ||
         !pantallaListaLibre.classList.contains('oculto')) {
       e.preventDefault();
-      App.tts.stop();
       pintarMenu();
     }
   });

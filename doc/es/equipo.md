@@ -57,11 +57,12 @@ Antes de usar la aplicación, observa al usuario con estas preguntas:
 
 | Actividad | Habilidad trabajada |
 |-----------|---------------------|
-| **Dominó** | Estrategia, conteo |
+
 | **La Tienda** | Uso de dinero, cálculo |
 | **Emergencias** | Toma de decisiones en crisis |
 | **El Teatro** | Espacialidad, instrucciones complejas |
 | **Entre Amigos** | Habilidades sociales |
+| **Diferencias** | Comparación visual |
 | **Sudoku Visual** | Razonamiento lógico |
 
 ### Adaptaciones
@@ -209,7 +210,7 @@ actividad está en [`actividades.md`](actividades.md).
 | Percepción global y de detalles | ✔ | Diferencias |
 | Respiración y conciencia interior | ✔ | ¿Cómo me siento?, Calma, Mi Cuerpo Me Avisa |
 | Coordinación ojo-mano y motricidad fina | ✔ | Atrapa, Trazos |
-| Juegos de mesa | ✔ | Tres en Raya, Dominó, Las Damas, El Ajedrez, Cuatro en Raya |
+
 | Movilidad comunitaria | ✔ | La Calle |
 | Autonomía en salud | ✔ | Emergencias, Teléfonos Importantes, Mis Datos, Mi Cuerpo Me Avisa, Se lo Cuento al Médico, Mi Botiquín |
 | Compra y dinero en contexto real | ✔ | La Compra, La Tienda |

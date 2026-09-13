@@ -1,5 +1,5 @@
-/* ============================================================
-   Routime — Calm (guided breathing and relaxation)
+﻿/* ============================================================
+   Routime â€” Calm (guided breathing and relaxation)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: a circle grows and shrinks marking the breathing
    rhythm, with text and voice. No visible timer and no way to
@@ -23,26 +23,17 @@
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
-  var nivel = null;
+  var nivelActual = null;
   var timer = null;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    DATOS.niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarSesion(n); });
+  );
       cont.appendChild(btn);
     });
   }
@@ -59,42 +50,41 @@
         terminarSesion();
         return;
       }
-      ciclosEl.textContent = App.i18n.t('cicloContador').replace('{n}', ciclo + 1).replace('{total}', nivel.ciclos);
+      ciclosEl.textContent = '';
       if (inhalar) {
         texto.textContent = App.i18n.t('cogeAire');
-        App.tts.speak(App.i18n.t('cogeAire'));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('cogeAire'));
         circulo.className = 'crecer';
       } else {
         texto.textContent = App.i18n.t('sueltaAire');
-        App.tts.speak(App.i18n.t('sueltaAire'));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('sueltaAire'));
         circulo.className = 'encoger';
         ciclo += 1;
       }
       timer = setTimeout(function () { paso(!inhalar); }, 4000);
     }
 
-    circulo.className = '';
+    /* Start small so the first "coge aire" truly animates from nothing */
+    circulo.className = 'encoger';
     paso(true);
   }
 
   function detener() {
     if (timer) clearTimeout(timer);
-    App.tts.stop();
-  }
+    }
 
   function terminarSesion() {
     detener();
     progreso.estrellas += 1;
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
+    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
     guardar();
     pintarEstrellas();
     pantallaSesion.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
     var palabra = progreso.estrellas === 1 ? App.i18n.t('estrellaSingular') : App.i18n.t('estrellaPlural');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', progreso.estrellas)
-      .replace('{palabra}', palabra);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('celebrarMsg'));
   }
 
@@ -114,7 +104,6 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     pantallaInicio.classList.remove('oculto');
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

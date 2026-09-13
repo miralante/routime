@@ -21,7 +21,7 @@ Routime has **three differentiated roles**. Each has its own space:
 
 | If you are… | Start with… | Then… |
 |---|---|---|
-| 👤 End user or direct family member | [`README.md`](README.md) — what it is, how to open it | [`quick-guide.md`](quick-guide.md) — how to use it |
+| 👤 End user or direct family member | [`index.md`](index.md) — documentation map | [`quick-guide.md`](quick-guide.md) — how to open and use the app |
 | ❤️ Therapist, family or support professional | [`team.md`](team.md) — how to use Routime in therapy | [`activities.md`](activities.md) — what's there |
 | 👩‍🏫 Teacher | [`quick-guide.md`](quick-guide.md) | [`activities.md`](activities.md) (filter by level) |
 | 🤔 I just want to understand what this is | [`SPEC.md`](SPEC.md) — product definition | — |

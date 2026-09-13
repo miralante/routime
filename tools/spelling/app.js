@@ -70,7 +70,6 @@
   }
 
   function goStart() {
-    App.tts.stop();
     paintLevels();
     show(startScreen);
   }
@@ -88,7 +87,6 @@
     items = App.utils.shuffle(level.words);
     idx = 0;
     correctCount = 0;
-    App.tts.stop();
     show(quizScreen);
     render();
   }
@@ -96,7 +94,7 @@
   function paintProgress() {
     var total = items.length;
     progressFill.style.width = ((idx / total) * 100) + '%';
-    progressText.textContent = idx + ' / ' + total;
+    progressText.textContent = '';
   }
 
   function paintTiles(item, revealedLetter) {
@@ -177,7 +175,6 @@
 
   function next() {
     idx += 1;
-    App.tts.stop();
     if (idx >= items.length) {
       finish();
     } else {
@@ -189,9 +186,8 @@
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent = t('finalSummary')
-      .replace('{n}', correctCount).replace('{total}', progress.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#finalSummary').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -199,10 +195,10 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
 
   $('#backLevelsBtn').addEventListener('click', goStart);
   listenBtn.addEventListener('click', function () {
-    App.tts.speak(items[idx].word);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
   });
   $('#explanationListenBtn').addEventListener('click', function () {
-    App.tts.speak(explanationEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
   });
   nextBtn.addEventListener('click', next);
   $('#replayBtn').addEventListener('click', function () { startLevel(currentLevel); });

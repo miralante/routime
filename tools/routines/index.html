@@ -18,6 +18,11 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
+    <div class="pestanas-rutinas" role="tablist" aria-label="Secciones de rutinas">
+      <button type="button" class="pestana-rutinas activa" id="tabPredefinidas" role="tab" aria-selected="true" aria-controls="pantallaMenu" data-i18n="tabPredefinidas">Rutinas predefinidas</button>
+      <button type="button" class="pestana-rutinas" id="tabPropias" role="tab" aria-selected="false" aria-controls="pantallaListaLibre" data-i18n="tabPropias">Mis listas</button>
+    </div>
+
     <!-- Routine menu -->
     <section id="pantallaMenu" class="pila">
       <div id="listaRutinas" class="lista-rutinas"></div>
@@ -62,7 +67,7 @@
     </section>
 
     <!-- Crea tu lista libre -->
-    <section id="pantallaListaLibre" class="oculto pila">
+    <section id="pantallaListaLibre" class="oculto pila" role="tabpanel" aria-labelledby="tabPropias">
       <h2 data-i18n="listaLibreTitulo">📝 Crea tu lista</h2>
       <p class="instruccion centrado" data-i18n="listaLibreInstruccion">Escribe las cosas de tu lista. Tú decides el orden.</p>
       <p class="transferencia centrado" data-i18n="listaLibreTransferencia"></p>
@@ -111,7 +116,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

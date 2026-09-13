@@ -10,18 +10,17 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
-  font-size: var(--texto-pequeno);
-  opacity: 0.9;
-}
-
 .contador {
   font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-memoria);
+  margin-bottom: 4px;
+}
+
+.dificultad {
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-secundario, #666);
+  margin-bottom: var(--espacio);
 }
 
 #tablero {
@@ -64,10 +63,10 @@
 @media (max-width: 480px) {
   .carta { font-size: 36px; min-width: 64px; min-height: 64px; }
 
-#pantallaFinal .transferencia {
-  margin: 8px auto 24px;
-  font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
-  max-width: 480px;
-}
+  #pantallaFinal .transferencia {
+    margin: 8px auto 24px;
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario, #555);
+    max-width: 480px;
+  }
 }

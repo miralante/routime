@@ -9,13 +9,8 @@
   App.i18n.register({
     "title": "🃏 Pairs",
     "instruccion": "Find the two matching cards. Touch a card to see it.",
-    "instruccionExtra": " First, choose a level.",
-    "tituloNiveles": "Choose a level",
-    "nivelFacil": "Easy",
-    "nivelMedio": "Medium",
-    "nivelDificil": "Hard",
-    "nivelParejas": "{n} pairs",
-    "veces": "{n} times",
+    "btnJugar": "Play!",
+    "parejas": "pairs",
     "tableroAria": "Card board",
     "cartaTapada": "Card face down",
     "cartaConSimbolo": "Card showing {picto}",
@@ -23,9 +18,9 @@
     "finalTitulo": "You did it!",
     "resumenFinalUna": "You found all the pairs. You win 1 star.",
     "resumenFinalVarias": "You found all the pairs. You win {n} stars.",
+    "proximoNivel": "Next: {n} pairs",
     "celebrarTexto": "All the pairs!",
-    "otroNivel": "Choose another level"
-  ,
-  "transferencia": "This helps you remember where each thing is at home."
+    "btnMenu": "Back to start",
+    "transferencia": "This helps you remember where each thing is at home."
 }, 'en');
 })();

@@ -22,7 +22,6 @@
       <section id="startScreen" class="pila centrado">
         <div class="fila centered-row">
           <p class="instruction" id="instruction" data-i18n="instruction">Elige el plan que está bien preparado.</p>
-          <button type="button" class="btn btn-audio" id="instructionAudio" data-i18n-aria="core.listenInstructions" aria-label="Escuchar las instrucciones">🔊</button>
         </div>
         <h2 id="levelHeading" tabindex="-1" data-i18n="chooseLevel">Elige el nivel</h2>
         <div class="pila" id="levels"></div>
@@ -37,9 +36,6 @@
         <article class="card case-card centrado pila">
           <div class="case-icon" id="caseIcon" aria-hidden="true">📅</div>
           <p class="case-text" id="caseText" data-i18n="core.loading">Cargando…</p>
-          <button type="button" class="btn btn-audio" id="caseAudio" data-i18n-aria="listenCase" aria-label="Escuchar el caso">
-            <span data-i18n="core.listen">🔊 Escuchar</span>
-          </button>
         </article>
 
         <h2 class="question centrado" id="questionHeading" data-i18n="question">¿Qué plan eliges?</h2>
@@ -68,7 +64,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script>

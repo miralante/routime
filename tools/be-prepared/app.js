@@ -51,15 +51,14 @@
   }
 
   function irMenu() {
-    App.tts.stop();
     ocultarTodas();
     pintarMenu();
     pantallaMenu.classList.remove('oculto');
   }
 
   function pintarMenu() {
-    $('#marcaSaber').textContent = progreso.completadoSaber > 0 ? '⭐' : '';
-    $('#marcaChecklist').textContent = progreso.completadoChecklist > 0 ? '⭐' : '';
+    $('#marcaSaber').textContent.textContent = '';
+    $('#marcaChecklist').textContent.textContent = '';
     pintarEstrellas();
   }
 
@@ -93,7 +92,7 @@
   function pintarProgresoS() {
     var porRonda = banco().porRonda;
     progressSFill.style.width = ((idxS / porRonda) * 100) + '%';
-    progressSText.textContent = idxS + ' / ' + porRonda;
+    progressSText.textContent = '';
   }
 
   function renderSaber() {
@@ -142,6 +141,7 @@
       App.utils.$$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosS += 1;
       guardar();
       pintarEstrellas();
@@ -164,7 +164,6 @@
 
   function siguienteSaber() {
     idxS += 1;
-    App.tts.stop();
     if (idxS >= banco().porRonda) {
       terminarSaber();
     } else {
@@ -177,9 +176,8 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosS).replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -209,7 +207,7 @@
   function pintarProgresoC() {
     var total = itemsChecklist.length;
     progressCFill.style.width = ((idxC / total) * 100) + '%';
-    progressCText.textContent = idxC + ' / ' + total;
+    progressCText.textContent = '';
   }
 
   function renderChecklist() {
@@ -239,6 +237,7 @@
     progreso.checklistMarcado[item.id] = item.marcado;
     if (item.marcado) {
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosC += 1;
       App.feedback.success(feedbackCEl);
     } else {
@@ -266,8 +265,7 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinalChecklist')
-      .replace('{n}', aciertosC).replace('{total}', itemsChecklist.length);
+    $('#resumenFinal').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -278,10 +276,10 @@
   $('#btnVolverChecklist').addEventListener('click', irMenu);
   btnSiguienteS.addEventListener('click', siguienteSaber);
   $('#btnEscucharExplicacionSaber').addEventListener('click', function () {
-    App.tts.speak(explicacionSEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(explicacionSEl.textContent);
   });
   $('#btnEscucharSaber').addEventListener('click', function () {
-    App.tts.speak(itemsSaber[idxS].pregunta);
+    if (false && App.tts && App.tts.speak) App.tts.speak(itemsSaber[idxS].pregunta);
   });
   $('#btnRepetir').addEventListener('click', function () {
     if (actividadActual === 'saber') iniciarSaber();

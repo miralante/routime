@@ -71,9 +71,7 @@
     "areaMemoryTitle": '🧠 Memoria y atención',
     "areaMemoryText": 'Memoria visual y auditiva, atención y percepción del detalle.',
     "areaMemoryCount": '10 actividades',
-    "areaReasoningTitle": '🎲 Juegos de mesa',
-    "areaReasoningText": 'Juegos de mesa clásicos, con niveles y un rival que juega suave.',
-    "areaReasoningCount": '6 actividades',
+
     "areaLanguageTitle": '💬 Lenguaje y comprensión',
     "areaLanguageText": 'Vocabulario, comprensión, expresión oral y escrita, humor.',
     "areaLanguageCount": '9 actividades',

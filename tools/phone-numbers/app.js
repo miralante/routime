@@ -71,7 +71,7 @@
   function paintCardProgress() {
     var total = DATA.cards.length;
     cardsProgressFill.style.width = (((cardIdx + 1) / total) * 100) + '%';
-    cardsProgressText.textContent = (cardIdx + 1) + ' / ' + total;
+    cardsProgressText.textContent = '';
   }
 
   function cardSpeech(card) {
@@ -87,18 +87,16 @@
     cardSituation.textContent = t('card.' + card.id + '.situation');
     cardNumber.textContent = t('numberLabel') + ' ' + DATA.number;
     paintCardProgress();
-    App.tts.speak(cardSpeech(card));
+    if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(card));
   }
 
   function startCards() {
     cardIdx = 0;
-    App.tts.stop();
     show(cardsScreen);
     renderCard();
   }
 
   function nextCard() {
-    App.tts.stop();
     cardIdx += 1;
     if (cardIdx >= DATA.cards.length) {
       goSummary();
@@ -139,7 +137,6 @@
     quizItems = App.utils.shuffle(quizBank()).slice(0, DATA.porRonda);
     quizIdx = 0;
     quizCorrectCount = 0;
-    App.tts.stop();
     show(quizScreen);
     renderQuiz();
   }
@@ -147,7 +144,7 @@
   function paintQuizProgress() {
     var total = DATA.porRonda;
     quizProgressFill.style.width = ((quizIdx / total) * 100) + '%';
-    quizProgressText.textContent = quizIdx + ' / ' + total;
+    quizProgressText.textContent = '';
   }
 
   function renderQuiz() {
@@ -215,7 +212,6 @@
 
   function nextQuiz() {
     quizIdx += 1;
-    App.tts.stop();
     if (quizIdx >= DATA.porRonda) {
       finishQuiz();
     } else {
@@ -227,26 +223,25 @@
     progress.completedRounds += 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent = t('finalSummary')
-      .replace('{n}', quizCorrectCount).replace('{total}', progress.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#finalSummary').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
   nextCardBtn.addEventListener('click', nextCard);
   cardListenBtn.addEventListener('click', function () {
-    App.tts.speak(cardSpeech(DATA.cards[cardIdx]));
+    if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(DATA.cards[cardIdx]));
   });
   summaryListenBtn.addEventListener('click', function () {
-    App.tts.speak(summarySpeech());
+    if (false && App.tts && App.tts.speak) App.tts.speak(summarySpeech());
   });
   startQuizBtn.addEventListener('click', startQuiz);
   quizListenBtn.addEventListener('click', function () {
-    App.tts.speak(quizItems[quizIdx].situacion);
+    if (false && App.tts && App.tts.speak) App.tts.speak(quizItems[quizIdx].situacion);
   });
   quizExplanationListenBtn.addEventListener('click', function () {
-    App.tts.speak(quizExplanation.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
 

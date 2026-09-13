@@ -23,8 +23,8 @@
   'use strict';
 
   var PIEZAS = {
-    /* domino: 2 cells */
-    domino: [
+    /* duo: 2 cells */
+    duo: [
       [[0, 0], [1, 0]],
       [[0, 0], [0, 1]]
     ],
@@ -68,7 +68,7 @@
       filas: 5,
       piezas: PIEZAS,
       niveles: [
-        { id: 1, nombre: 'Nivel 1', descripcion: 'Piezas de 2', piezas: ['domino'] },
+        { id: 1, nombre: 'Nivel 1', descripcion: 'Piezas de 2', piezas: ['duo'] },
         { id: 2, nombre: 'Nivel 2', descripcion: 'Piezas de 3', piezas: ['triI', 'triL'] },
         { id: 3, nombre: 'Nivel 3', descripcion: 'Piezas de 4', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
       ]
@@ -79,7 +79,7 @@
       filas: 5,
       piezas: PIEZAS,
       niveles: [
-        { id: 1, nombre: 'Level 1', descripcion: '2-cell pieces', piezas: ['domino'] },
+        { id: 1, nombre: 'Level 1', descripcion: '2-cell pieces', piezas: ['duo'] },
         { id: 2, nombre: 'Level 2', descripcion: '3-cell pieces', piezas: ['triI', 'triL'] },
         { id: 3, nombre: 'Level 3', descripcion: '4-cell pieces', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
       ]

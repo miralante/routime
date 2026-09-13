@@ -51,7 +51,7 @@
 
   function pintarProgreso() {
     progressFill.style.width = ((idx / CONFIG.porRonda) * 100) + '%';
-    progressText.textContent = idx + ' / ' + CONFIG.porRonda;
+    progressText.textContent = '';
   }
 
   function iniciarRonda() {
@@ -124,6 +124,7 @@
       });
       App.feedback.success(feedbackEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosRonda += 1;
       guardar();
       pintarEstrellas();
@@ -146,7 +147,6 @@
 
   function siguiente() {
     idx += 1;
-    App.tts.stop();
     if (idx >= CONFIG.porRonda) {
       terminarRonda();
     } else {
@@ -160,16 +160,14 @@
     pintarProgreso();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    resumenFinal.textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda)
-      .replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    resumenFinal.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
   btnEscuchar.addEventListener('click', function () {
-    App.tts.speak(items[idx].text);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].text);
   });
   btnSiguiente.addEventListener('click', siguiente);
   $('#btnRepetir').addEventListener('click', iniciarRonda);

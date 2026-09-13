@@ -47,7 +47,6 @@
   }
 
   function irMenu() {
-    App.tts.stop();
     ocultarTodas();
     pintarEstrellas();
     pantallaMenu.classList.remove('oculto');
@@ -79,8 +78,8 @@
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
       var veces = progreso.completadosSecciones[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">' + App.i18n.t('veces').replace('{n}', veces) + '</span>';
+      btn.innerHTML = n.nombre + ' — ' + n.descripcion ;
+
       btn.addEventListener('click', function () { iniciarSecciones(n); });
       cont.appendChild(btn);
     });
@@ -106,7 +105,7 @@
   function pintarProgresoS() {
     var porRonda = banco().secciones.porRonda;
     progressSFill.style.width = ((idxS / porRonda) * 100) + '%';
-    progressSText.textContent = idxS + ' / ' + porRonda;
+    progressSText.textContent = '';
   }
 
   function renderSecciones() {
@@ -138,7 +137,7 @@
       btnAudio.className = 'btn btn-audio';
       btnAudio.textContent = '🔊';
       btnAudio.setAttribute('aria-label', App.i18n.t('escucharCategoria').replace('{categoria}', categoria));
-      btnAudio.addEventListener('click', function () { App.tts.speak(categoria); });
+      btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(categoria); });
 
       fila.appendChild(btn);
       fila.appendChild(btnAudio);
@@ -167,6 +166,7 @@
       App.utils.$$('.caja', cajasSEl).forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosS += 1;
       guardar();
       pintarEstrellas();
@@ -189,7 +189,6 @@
 
   function siguienteSecciones() {
     idxS += 1;
-    App.tts.stop();
     if (idxS >= banco().secciones.porRonda) {
       terminarSecciones();
     } else {
@@ -202,9 +201,8 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosS).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -235,8 +233,8 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
       var veces = progreso.completadosLista[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">' + App.i18n.t('veces').replace('{n}', veces) + '</span>';
+      btn.innerHTML = n.nombre + ' — ' + n.descripcion ;
+
       btn.addEventListener('click', function () { iniciarLista(n); });
       cont.appendChild(btn);
     });
@@ -269,7 +267,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       btnAudio.className = 'btn btn-audio';
       btnAudio.textContent = '🔊';
       btnAudio.setAttribute('aria-label', App.i18n.t('escucharMomento').replace('{momento}', momento));
-      btnAudio.addEventListener('click', function () { App.tts.speak(momento); });
+      btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(momento); });
 
       var fila = document.createElement('div');
       fila.className = 'fila-caja';
@@ -300,7 +298,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
   function pintarProgresoL() {
     var porRonda = banco().lista.porRonda;
     progressLFill.style.width = ((idxL / porRonda) * 100) + '%';
-    progressLText.textContent = idxL + ' / ' + porRonda;
+    progressLText.textContent = '';
   }
 
   function renderLista() {
@@ -320,7 +318,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       b.classList.remove('animo', 'correcta');
     });
 
-    App.tts.speak(item.palabra);
+    if (false && App.tts && App.tts.speak) App.tts.speak(item.palabra);
     pintarProgresoL();
     pintarEstrellas();
   }
@@ -349,6 +347,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       App.utils.$$('.btn.caja', listasDiaEl).forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackLEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosL += 1;
       guardar();
       pintarEstrellas();
@@ -371,7 +370,6 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
 
   function siguienteLista() {
     idxL += 1;
-    App.tts.stop();
     if (idxL >= banco().lista.porRonda) {
       terminarLista();
     } else {
@@ -384,8 +382,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosL).replace('{total}', progreso.estrellas);
+    $('#resumenFinal').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 

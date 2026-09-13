@@ -46,15 +46,14 @@
   }
 
   function irMenu() {
-    App.tts.stop();
     ocultarTodas();
     pintarMenu();
     pantallaMenu.classList.remove('oculto');
   }
 
   function pintarMenu() {
-    $('#marcaReconocer').textContent = progreso.completadoReconocer > 0 ? '⭐' : '';
-    $('#marcaLlamada').textContent = progreso.completadoLlamada > 0 ? '⭐' : '';
+    $('#marcaReconocer').textContent.textContent = '';
+    $('#marcaLlamada').textContent.textContent = '';
     pintarEstrellas();
   }
 
@@ -88,7 +87,7 @@
   function pintarProgresoR() {
     var porRonda = banco().porRonda;
     progressRFill.style.width = ((idxR / porRonda) * 100) + '%';
-    progressRText.textContent = idxR + ' / ' + porRonda;
+    progressRText.textContent = '';
   }
 
   function renderReconocer() {
@@ -137,6 +136,7 @@
       App.utils.$$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackREl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosR += 1;
       guardar();
       pintarEstrellas();
@@ -159,7 +159,6 @@
 
   function siguienteReconocer() {
     idxR += 1;
-    App.tts.stop();
     if (idxR >= banco().porRonda) {
       terminarReconocer();
     } else {
@@ -172,9 +171,8 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosR).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -205,7 +203,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
   function pintarProgresoL() {
     var total = listasLlamada.length;
     progressLFill.style.width = ((idxL / total) * 100) + '%';
-    progressLText.textContent = idxL + ' / ' + total;
+    progressLText.textContent = '';
   }
 
   function renderLlamada() {
@@ -270,6 +268,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
 
   function terminarTareaL() {
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     aciertosL += 1;
     guardar();
     pintarEstrellas();
@@ -286,8 +285,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosL).replace('{total}', progreso.estrellas);
+    $('#resumenFinal').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -298,7 +296,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
   $('#btnVolverLlamada').addEventListener('click', irMenu);
   btnSiguienteR.addEventListener('click', siguienteReconocer);
   $('#btnEscucharReconocer').addEventListener('click', function () {
-    App.tts.speak(itemsReconocer[idxR].situacion);
+    if (false && App.tts && App.tts.speak) App.tts.speak(itemsReconocer[idxR].situacion);
   });
   $('#btnRepetir').addEventListener('click', function () {
     if (actividadActual === 'reconocer') iniciarReconocer();

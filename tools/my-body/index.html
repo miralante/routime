@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-i18n-title="title">
 <head>
   <meta charset="UTF-8">
@@ -13,15 +13,15 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">💗 Mi Cuerpo Me Avisa</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link" data-i18n="core.back">â† Volver</a>
+      <h1 data-i18n="title">ðŸ’— Mi Cuerpo Me Avisa</h1>
+      <span class="stars" id="stars">â­ 0</span>
     </header>
 
     <!-- Start screen -->
     <section id="pantallaInicio" class="pila centrado">
       <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Lee lo que notas en el cuerpo. Elige qué haces.</p>
+        <p class="instruccion" id="instruccion" data-i18n="instruccion">Lee lo que notas en el cuerpo. Elige quÃ© haces.</p>
       </div>
       <h2 data-i18n="elegirNivel">Elige el nivel</h2>
       <div class="pila" id="niveles"></div>
@@ -32,37 +32,35 @@
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText">0 / 8</span>
+        <span class="dificultad" id="dificultad"></span>
       </div>
 
       <div class="card centrado pila">
-        <p class="texto-principal" id="textoPregunta" data-i18n="core.loading">Cargando…</p>
-        <button type="button" class="btn btn-audio" id="btnEscuchar" data-i18n-aria="core.listenText" aria-label="Escuchar la señal"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      </div>
-      <h2 class="pregunta centrado" data-i18n="pregunta">¿Qué haces?</h2>
+        <p class="texto-principal" id="textoPregunta" data-i18n="core.loading">Cargandoâ€¦</p>      </div>
+      <h2 class="pregunta centrado" data-i18n="pregunta">Â¿QuÃ© haces?</h2>
       <div class="pila" id="opciones"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="explicacionWrap">
         <p id="explicacion" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">â†’</button>
     </section>
 
     <!-- End screen -->
     <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
+      <div class="emoji-grande" aria-hidden="true">ðŸŽ‰</div>
+      <h2 data-i18n="core.roundComplete">Â¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
+      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menÃº</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

@@ -132,7 +132,7 @@
     botonAudio.setAttribute('aria-label', App.i18n.t('core.listen'));
     botonAudio.textContent = '🔊 ' + App.i18n.t('core.listen');
     botonAudio.onclick = function () {
-      App.tts.speak(App.i18n.t(state.situacionActual.mensaje));
+      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.situacionActual.mensaje));
     };
     mensaje.appendChild(botonAudio);
 

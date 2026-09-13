@@ -183,9 +183,8 @@ no code per module:
 | 🎯 Aiming and hands | Coordination and motor skills | `--mod-coordinacion` (blue) | catch, connect-dots, tracing, coloring, piano-keys, builders |
 | 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
 | 🧠 Memory and attention | Memory and attention | `--mod-memoria` (orange) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
-| 🎲 Board games | Rule-based board games | `--mod-razonamiento` (teal) | tic-tac-toe, visual-sudoku, domino, checkers, chess, connect-four |
 | 💬 Language and comprehension | Language and communication | `--mod-lenguaje` (raspberry) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
-| 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, school-rules, self-esteem, resilience, trust-circle |
+| 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
 | 💗 Body and relationships | Affective-sexual education | `--mod-cuerpo` (terracotta) | sexual-health |
 
 > **Multi-area note**: an activity may work on more than one therapeutic
@@ -969,3 +968,13 @@ accessibility review still require manual testing.
 ## 13. License
 
 This project is open source under MIT license. See the repository for more details.
+
+## Compact application header
+
+The main header follows Memofun: a 44px app icon (32px below 650px),
+a Nunito brand title at 28px (22px on mobile), suite attribution and aligned
+utility controls. It uses an 8px vertical inset and a 6px row gap. Supporting
+copy uses regular weight; any star counter stays compact. Header language buttons, where present,
+show full names on desktop and ES/EN on mobile, with full accessible names.
+Teclatlon keeps its keyboard controls and settings; Enroca keeps its navigation
+and settings. These header styles do not change activity controls.

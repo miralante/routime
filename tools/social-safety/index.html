@@ -21,7 +21,6 @@
     <section id="startScreen" class="pila centrado">
       <div class="fila centrado-fila">
         <p class="instruccion" id="instruction" data-i18n="instruction">Practica cómo protegerte ante situaciones difíciles en redes sociales.</p>
-        <button type="button" class="btn btn-audio" id="instructionAudio" data-i18n-aria="core.listenInstructions" aria-label="Escuchar las instrucciones">🔊</button>
       </div>
       <div class="safety-note" role="note">
         <span aria-hidden="true">🛟</span>
@@ -36,14 +35,12 @@
       <div class="card centrado pila">
         <div class="case-icon" id="caseIcon" aria-hidden="true"></div>
         <p class="texto-principal" id="caseText"></p>
-        <button type="button" class="btn btn-audio" id="caseAudio" data-i18n-aria="listenCase" aria-label="Escuchar la situación">🔊</button>
       </div>
       <h2 class="pregunta centrado" data-i18n="question">¿Qué haces?</h2>
       <div class="pila" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="explanationWrap">
         <p id="explanation" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="explanationAudio" data-i18n-aria="listenExplanation" aria-label="Escuchar la explicación">🔊</button>
       </div>
       <button type="button" class="btn oculto" id="nextButton" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
@@ -62,7 +59,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

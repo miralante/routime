@@ -209,14 +209,9 @@
   transition: width 0.2s ease;
 }
 
+/* Ocultar números (estilo runtime: barra limpia sin presión) */
 .progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: var(--fs-1);
-  font-weight: 600;
-  color: var(--color-texto);
+  display: none;
 }
 
 #endScreen .transferencia {

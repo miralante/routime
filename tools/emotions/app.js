@@ -65,10 +65,10 @@
     guardar();
 
     /* Paint the adapted response */
-    $('#respuestaPicto').textContent = emo.picto;
-    $('#respuestaMensaje').textContent = emo.mensaje;
+    $('#respuestaPicto').textContent.textContent = '';
+    $('#respuestaMensaje').textContent.textContent = '';
     $('#respuestaMensaje').style.color = emo.color;
-    $('#respuestaSugerencia').textContent = emo.sugerencia.texto;
+    $('#respuestaSugerencia').textContent.textContent = '';
     document.body.style.background = emo.colorSuave;
 
     var btnRespirar = $('#btnRespirar');
@@ -91,22 +91,25 @@
     var ciclo = 0;
     var TOTAL = 3;
 
+    /* Start small so the first "coge aire" truly animates from nothing */
+    circulo.className = 'encoger';
+
     function paso(inhalar) {
       if (ciclo >= TOTAL) {
         texto.textContent = App.i18n.t('respiracionFinal');
         ciclosEl.textContent = '';
-        App.tts.speak(App.i18n.t('respiracionFinal'));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('respiracionFinal'));
         circulo.className = '';
         return;
       }
-      ciclosEl.textContent = App.i18n.t('cicloContador').replace('{n}', ciclo + 1).replace('{total}', TOTAL);
+      ciclosEl.textContent = '';
       if (inhalar) {
         texto.textContent = App.i18n.t('cogeAire');
-        App.tts.speak(App.i18n.t('cogeAire'));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('cogeAire'));
         circulo.className = 'crecer';
       } else {
         texto.textContent = App.i18n.t('sueltaAire');
-        App.tts.speak(App.i18n.t('sueltaAire'));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('sueltaAire'));
         circulo.className = 'encoger';
         ciclo += 1;
       }
@@ -118,7 +121,6 @@
 
   function salirRespiracion() {
     clearTimeout(respiracionTimer);
-    App.tts.stop();
     mostrar(pantallaRespuesta);
   }
 
@@ -155,16 +157,15 @@
 
   function volverSeleccion() {
     document.body.style.background = '';
-    App.tts.stop();
     mostrar(pantallaSeleccion);
   }
 
   /* Events */
   $('#btnPregunta').addEventListener('click', function () {
-    App.tts.speak(App.i18n.t('pregunta'));
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('pregunta'));
   });
   $('#btnOirRespuesta').addEventListener('click', function () {
-    App.tts.speak(emocionActual.mensaje + ' ' + emocionActual.sugerencia.texto);
+    if (false && App.tts && App.tts.speak) App.tts.speak(emocionActual.mensaje + ' ' + emocionActual.sugerencia.texto);
   });
   $('#btnRespirar').addEventListener('click', respirar);
   $('#btnSalirRespiracion').addEventListener('click', salirRespiracion);

@@ -1,0 +1,209 @@
+/* Education and Good Manners activity styles
+ * Module accent: Emotions (--mod-emocional). Tokens from tokens.css.
+ * Reuses the .escenario / .btn-opcion / .btn-audio / .feedback / .progress-bar
+ * patterns from tools/good-manners/styles.css for visual coherence within
+ * the same module. Only one new class (personaje label) is added here.
+ */
+
+.btn-nivel {
+  width: 100%;
+  max-width: 300px;
+  margin: var(--espacio) auto;
+}
+
+.estrellas {
+  font-size: var(--texto-grande);
+  margin: calc(var(--espacio) * 2) 0;
+}
+
+.escenario {
+  background: var(--mod-emocional-suave);
+  border-radius: var(--radio);
+  padding: calc(var(--espacio) * 2);
+  margin: calc(var(--espacio) * 2) 0;
+  border-left: 5px solid var(--mod-emocional);
+}
+
+.contexto-titulo {
+  color: var(--mod-emocional);
+  margin: 0 0 var(--espacio) 0;
+  font-size: var(--texto-base);
+}
+
+.mensaje-dialogos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio);
+  align-items: flex-start;
+}
+
+.mensaje-dialogos .personaje {
+  margin: 0;
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave);
+  font-weight: 600;
+}
+
+.mensaje-dialogos p:not(.personaje) {
+  margin: 0;
+  font-size: var(--texto-base);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.btn-audio {
+  background: var(--color-superficie);
+  border: 2px solid var(--mod-emocional);
+  color: var(--mod-emocional);
+  padding: var(--espacio);
+  border-radius: var(--radio);
+  cursor: pointer;
+  font-size: var(--texto-pequeno);
+  min-width: var(--boton-min);
+  min-height: var(--boton-min);
+  transition: all 0.2s ease;
+}
+
+.btn-audio:hover,
+.btn-audio:focus {
+  background: var(--mod-emocional);
+  color: white;
+}
+
+.btn-audio.hablando {
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.pregunta {
+  text-align: center;
+  margin: calc(var(--espacio) * 2) 0;
+  font-size: var(--texto-base);
+  font-weight: 500;
+}
+
+.opciones-contenedor {
+  gap: var(--espacio);
+  margin: calc(var(--espacio) * 2) 0;
+}
+
+.btn-opcion {
+  width: 100%;
+  text-align: left;
+  padding: calc(var(--espacio) * 1.5);
+  border: 2px solid var(--color-borde);
+  background: white;
+  border-radius: var(--radio);
+  cursor: pointer;
+  font-size: var(--texto-base);
+  min-height: var(--boton-min);
+  transition: all 0.2s ease;
+}
+
+.btn-opcion:hover,
+.btn-opcion:focus {
+  border-color: var(--mod-emocional);
+  background: var(--mod-emocional-suave);
+}
+
+.btn-opcion.correcta {
+  background: var(--color-acierto);
+  border-color: var(--color-acierto);
+  color: white;
+}
+
+.btn-opcion.error {
+  opacity: 0.6;
+}
+
+.instruccion {
+  text-align: center;
+  font-size: var(--texto-base);
+  margin: var(--espacio) auto;
+  color: var(--color-texto-suave);
+  max-width: 60ch;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+  margin: calc(var(--espacio) * 2) 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--mod-emocional);
+  transition: width 0.3s ease;
+}
+
+.feedback {
+  min-height: 60px;
+  padding: var(--espacio);
+  margin: var(--espacio) 0;
+  border-radius: var(--radio);
+  text-align: center;
+  font-size: var(--texto-base);
+  line-height: 1.5;
+}
+
+.feedback.acierto {
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--color-acierto);
+  border: 2px solid var(--color-acierto);
+}
+
+.feedback.animo {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--color-animo);
+  border: 2px solid var(--color-animo);
+}
+
+.titulo-celebracion {
+  text-align: center;
+  font-size: var(--texto-titulo);
+  color: var(--mod-emocional);
+  margin: calc(var(--espacio) * 3) 0;
+}
+
+.estrellas-celebracion {
+  text-align: center;
+  font-size: calc(var(--texto-titulo) * 1.5);
+  margin: calc(var(--espacio) * 2) 0;
+  letter-spacing: var(--espacio);
+}
+
+.total-estrellas {
+  text-align: center;
+  font-size: var(--texto-base);
+  color: var(--color-texto-suave);
+  margin: 0 0 calc(var(--espacio) * 2);
+}
+
+.transferencia {
+  margin: calc(var(--espacio) * 2) auto;
+  font-size: var(--texto-base);
+  color: var(--color-texto-suave);
+  max-width: 50ch;
+  text-align: center;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-audio.hablando {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

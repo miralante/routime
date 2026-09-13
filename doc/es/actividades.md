@@ -82,28 +82,6 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 
 ---
 
-## Módulo 4: 🎲 Juegos de mesa
-
-**Color del módulo:** Teal (verde-azulado)
-
-**¿Qué trabaja?** Juegos de mesa clásicos, con niveles y un rival que juega suave.
-
-| Actividad | Descripción |
-|-----------|-------------|
-| **Tres en Raya** | Juega al tres en raya contra el ordenador |
-| **Sudoku Visual** | Completa un sudoku 4×4 usando imágenes en vez de números |
-| **Dominó** | Juega una partida de dominó contra el ordenador |
-| **Las Damas** | Juega a las damas contra el ordenador (tablero 6×6) |
-| **El Ajedrez** | Puzzles de ajedrez para conocer las piezas |
-| **Cuatro en Raya** | Juega al conecta 4 contra el ordenador |
-
-> El cálculo y el razonamiento lógico (Los Números, Cantidades, Las
-> Tablas, Números Romanos, Adivinanzas, Patrones, El Monedero, El Reloj,
-> Historias, ¿Qué no encaja?, Puzzle, La Oca) se separaron a una app
-> de la suite, **Calculia**.
-
----
-
 ## Módulo 5: 💬 Lenguaje y comprensión
 
 **Color del módulo:** Frambuesa (rosa oscuro)
@@ -161,12 +139,11 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | 📋 Mi día a día | 26 | Verde |
 | 💜 Emociones | 9 | Morado |
 | 🧠 Memoria y atención | 10 | Naranja |
-| 🎲 Juegos de mesa | 6 | Teal |
 | 💬 Lenguaje y comprensión | 11 | Frambuesa |
 | 🎯 Puntería y manos | 6 | Azul |
 | 💗 Cuerpo y relaciones | 1 | Terracota |
 
-**Total: 68 actividades**
+**Total: 62 actividades**
 
 ---
 
@@ -186,28 +163,10 @@ De más sencillas a más difíciles:
 - Chat Seguro
 - Calma
 - Mis Datos
-- Dominó
-- Ajedrez
 - La Tienda
 - El Teatro
 - Entre Amigos
 - Emergencias
-- Sudoku Visual
-
----
-
-## Actividades de juegos de mesa
-
-Routime incluye varios juegos de mesa clásicos adaptados, ordenados de más fácil a más difícil:
-
-| Juego | Descripción |
-|-------|-------------|
-| **Tres en Raya** | Tres en línea contra el ordenador |
-| **Dominó** | Encadena fichas contra el ordenador |
-| **Sudoku Visual** | Sudoku 4×4 con pictos |
-| **Cuatro en Raya** | Conecta 4 contra el ordenador |
-| **Las Damas** | Damas 6×6 contra el ordenador |
-| **El Ajedrez** | Puzzles de piezas de ajedrez |
 
 ---
 

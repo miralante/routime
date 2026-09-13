@@ -70,7 +70,7 @@
       btn.innerHTML = '<span aria-hidden="true">' + tp.picto + '</span> ' + tp.name;
       btn.addEventListener('click', function () {
         topic = tp;
-        App.tts.speak(tp.name);
+        if (false && App.tts && App.tts.speak) App.tts.speak(tp.name);
         paintLevels();
         show(levelsScreen);
       });
@@ -183,7 +183,7 @@
       chip.className = 'chip' + (w.found ? ' found' : '');
       chip.textContent = w.text;
       chip.setAttribute('aria-label', t('listenWord').replace('{word}', w.text));
-      chip.addEventListener('click', function () { App.tts.speak(w.text); });
+      chip.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(w.text); });
       wordListEl.appendChild(chip);
     });
   }
@@ -353,7 +353,7 @@
       ? t('finalSummary').replace('{n}', earned).replace('{total}', progress.estrellas)
       : t('repeatedSummary');
     finalSummaryEl.textContent = summary;
-$('#transferencia').textContent = App.i18n.t('transferencia');
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.pick('feedback.success'), function () {
       show(endScreen);
     });

@@ -30,7 +30,7 @@
     module4: '💬 Lenguaje y comprensión',
     module5: '🧠 Memoria y atención',
     module6: '🎯 Puntería y manos',
-    module7: '🎲 Juegos de mesa',
+    module7: '💗 Cuerpo y relaciones',
 
     activity: {
       'catch': 'Atrapa', 'connect-dots': 'Une los Puntos', 'piano-keys': 'Piano',
@@ -48,13 +48,10 @@
       'pairs': 'Parejas', 'differences': 'Diferencias', 'whats-missing': '¿Qué falta?',
       'ecos': 'Ecos', 'turns-mirrors': 'Giros y Espejos', 'colored-spelling': 'Ortografía en Colores', 'vocabulary': 'Vocabulario por tema', 'blocks': 'Los Bloques',
       'where-is': '¿Dónde está?', 'path': 'El Camino', 'fit': 'Encaja la Pieza', 'theatre': 'El Teatro',
-      'tic-tac-toe': 'Tres en Raya',
-      'visual-sudoku': 'Sudoku Visual', 'domino': 'Dominó', 'checkers': 'Las Damas', 'chess': 'El Ajedrez',
-      'connect-four': 'Cuatro en Raya',
       'comedy-club': 'Chistes', 'idioms': 'Dichos', 'double-meaning': 'Doble Sentido', 'categories': 'Categorías',
       'sentence': 'La Frase', 'dictionary': 'Diccionario', 'spelling': 'Completa la Palabra',
       'word-search': 'Sopa de Letras',
-      'emotions': '¿Cómo me siento?', 'calm': 'Calma', 'friends': 'Entre Amigos', 'my-body': 'Mi Cuerpo Me Avisa', 'good-manners': 'Buenos Modales', 'school-rules': 'Normas del Cole y Civismo',
+      'emotions': '¿Cómo me siento?', 'calm': 'Calma', 'friends': 'Entre Amigos', 'my-body': 'Mi Cuerpo Me Avisa', 'good-manners': 'Buenos Modales', 'education-norms': 'Normas de Educación',
       'self-esteem': 'Así Soy Yo',
       'resilience': 'Cuando Algo Me Cuesta',
       'trust-circle': 'Círculo de Confianza',

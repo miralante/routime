@@ -23,8 +23,9 @@
       <div class="fila centrado-fila">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Mira el modelo. Toca la opción correcta.</p>
       </div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="niveles"></div>
+      <button type="button" class="btn btn-principal" id="btnJugar">
+        <span data-i18n="btnJugar">¡Jugar!</span>
+      </button>
     </section>
 
     <!-- Game screen -->
@@ -32,6 +33,7 @@
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText">0 / 8</span>
+        <span class="dificultad" id="dificultad"></span>
       </div>
 
       <p class="etiqueta-modelo" data-i18n="modelo">Modelo</p>
@@ -60,7 +62,7 @@
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
       <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
@@ -68,7 +70,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

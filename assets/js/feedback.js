@@ -56,6 +56,13 @@
     tono(392, 0.2, 'sine');
   }
 
+  /** Celebratory arpeggio for earning a star */
+  function sonidoEstrella() {
+    tono(523.25, 0.12);           /* C5 */
+    setTimeout(function () { tono(659.25, 0.12); }, 100);  /* E5 */
+    setTimeout(function () { tono(783.99, 0.25); }, 200);  /* G5 */
+  }
+
   /**
    * Positive reinforcement in a feedback zone (element with aria-live).
    * @param {Element} [zona] - element to write the message into
@@ -171,6 +178,7 @@
     success: success,
     encourage: encourage,
     celebrate: celebrate,
-    lockUntilAck: lockUntilAck
+    lockUntilAck: lockUntilAck,
+    star: sonidoEstrella
   };
 })();

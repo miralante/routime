@@ -1,18 +1,18 @@
-/* ============================================================
-   Routime — Lista de Tareas (autonomía: organizar tareas mixtas
-   de casa, trabajo y cuidado personal en el orden lógico del día).
-   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
+﻿/* ============================================================
+   Routime â€” Lista de Tareas (autonomÃ­a: organizar tareas mixtas
+   de casa, trabajo y cuidado personal en el orden lÃ³gico del dÃ­a).
+   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
    Tres niveles:
-     - Niveles 1 y 2: ordenar tareas predefinidas (simulación).
+     - Niveles 1 y 2: ordenar tareas predefinidas (simulaciÃ³n).
        Tocar las tareas en el orden correcto. Un toque fuera de
        orden no penaliza: solo anima a seguir intentando.
-     - Nivel 3: "Crea tu lista" — simulación y proceso de
+     - Nivel 3: "Crea tu lista" â€” simulaciÃ³n y proceso de
        entrenamiento. La persona practica el flujo real de una
-       lista: poner nombre, añadir elementos, reordenarlos con
-       ↑/↓, marcarlos como "Hecho", borrar elementos, guardar la
-       lista y volver a abrirla más tarde. Las listas se guardan
+       lista: poner nombre, aÃ±adir elementos, reordenarlos con
+       â†‘/â†“, marcarlos como "Hecho", borrar elementos, guardar la
+       lista y volver a abrirla mÃ¡s tarde. Las listas se guardan
        en localStorage del dispositivo (no son datos personales,
-       son listas de práctica).
+       son listas de prÃ¡ctica).
    ============================================================ */
 (function () {
   'use strict';
@@ -39,12 +39,13 @@
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
-  /* Listas de práctica del nivel "Crea tu lista". Se persisten en
-     localStorage del dispositivo. Vacío por defecto. */
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  /* Listas de prÃ¡ctica del nivel "Crea tu lista". Se persisten en
+     localStorage del dispositivo. VacÃ­o por defecto. */
   if (!Array.isArray(progreso.misListas)) progreso.misListas = [];
 
   /* Round state */
-  var nivel = null;
+  var nivelActual = null;
   var listas = [];
   var idx = 0;
   var aciertosRonda = 0;
@@ -53,7 +54,7 @@
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
 
   function mostrarPantalla(id) {
     [pantallaInicio, pantallaJuego, pantallaCrear, pantallaFinal].forEach(function (p) {
@@ -63,17 +64,32 @@
     if (dest) dest.classList.remove('oculto');
   }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    DATOS.niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarNivel(n); });
+  /* Determina el nivel según el progreso: cada ronda completada, sube un nivel. */
+  function nivelSegunProgreso() {
+    var idxN = Math.min(progreso.rondasCompletadas, DATOS.niveles.length - 1);
+    return DATOS.niveles[idxN];
+  }
+
+  /* Muestra la dificultad actual (etiqueta del nivel). */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.nombre;
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
+    if (nivelActual.listasLibres) {
+      abrirPantallaCrear();
+      return;
+    }
+    listas = App.utils.shuffle(nivelActual.listas).slice(0, DATOS.porRonda);
+    idx = 0;
+    aciertosRonda = 0;
+    mostrarPantalla('pantallaJuego');
+    pintarDificultad();
+    render();
+  }
       cont.appendChild(btn);
     });
   }
@@ -93,7 +109,7 @@
 
   function pintarProgreso() {
     progressFill.style.width = ((idx / DATOS.porRonda) * 100) + '%';
-    progressText.textContent = idx + ' / ' + DATOS.porRonda;
+    progressText.textContent = '';
   }
 
   function render() {
@@ -160,6 +176,7 @@
 
   function terminarTarea() {
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     aciertosRonda += 1;
     guardar();
     pintarEstrellas();
@@ -169,7 +186,6 @@
 
   function siguiente() {
     idx += 1;
-    App.tts.stop();
     if (idx >= DATOS.porRonda) {
       terminarRonda();
     } else {
@@ -178,34 +194,32 @@
   }
 
   function terminarRonda() {
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
     guardar();
     mostrarPantalla('pantallaFinal');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda)
-      .replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ============================================================
      Pantalla "Crea tu lista" (Nivel 3).
-     Simulación y proceso de entrenamiento del flujo real de una
+     SimulaciÃ³n y proceso de entrenamiento del flujo real de una
      lista:
-       1. Poner nombre a la lista (sin window.prompt: Lectura Fácil).
-       2. Añadir elementos uno a uno (Enter o botón).
-       3. Reordenar con flechas ↑/↓ (seleccionar + mover).
+       1. Poner nombre a la lista (sin window.prompt: Lectura FÃ¡cil).
+       2. AÃ±adir elementos uno a uno (Enter o botÃ³n).
+       3. Reordenar con flechas â†‘/â†“ (seleccionar + mover).
        4. Marcar / desmarcar como "Hecho" (toggle por elemento).
-       5. Quitar un elemento (botón ✕) o vaciar toda la lista.
-       6. Guardar la lista (gana 1⭐ la primera vez).
-       7. Volver a "Mis listas" (botón dentro del editor, sin salir
+       5. Quitar un elemento (botÃ³n âœ•) o vaciar toda la lista.
+       6. Guardar la lista (gana 1â­ la primera vez).
+       7. Volver a "Mis listas" (botÃ³n dentro del editor, sin salir
           del nivel) para crear otra lista, abrir una guardada o
-          borrarla, y así practicar a manejar varias listas.
+          borrarla, y asÃ­ practicar a manejar varias listas.
      Antes de empezar se muestra un consejo breve (piensa, apunta,
-     ordena, marca) para modelar el método antes de practicar.
-     No hay pista/Explicación Socrática: las decisiones son libres
+     ordena, marca) para modelar el mÃ©todo antes de practicar.
+     No hay pista/ExplicaciÃ³n SocrÃ¡tica: las decisiones son libres
      (mismo razonamiento que piano-keys en modo libre o
-     tools/builders). Gana 1⭐ solo al guardar una lista por
+     tools/builders). Gana 1â­ solo al guardar una lista por
      primera vez (regla: solo se suma, nunca se resta).
      ============================================================ */
   var listaCrear = { nombre: '', items: [], seleccionado: -1 };
@@ -238,7 +252,7 @@
     listaCrear.nombre = nombre;
     $('#panelNombre').classList.add('oculto');
     $('#panelEditor').classList.remove('oculto');
-    $('#tituloListaCrear').textContent = nombre;
+    $('#tituloListaCrear').textContent.textContent = '';
     var inputItem = $('#inputNuevoItemCrear');
     inputItem.placeholder = App.i18n.t('placeholderInputItem');
     inputItem.setAttribute('aria-label', App.i18n.t('ariaInputItem'));
@@ -277,7 +291,7 @@
           (it.hecho ? App.i18n.t('ariaItemHecho') : App.i18n.t('ariaItemPendiente'))
             .replace('{texto}', it.texto)
         );
-        check.textContent = it.hecho ? '✔' : '○';
+        check.textContent = it.hecho ? 'âœ”' : 'â—‹';
         check.addEventListener('click', function (e) {
           e.stopPropagation();
           toggleHecho(i);
@@ -292,7 +306,7 @@
         sel.className = 'item-seleccionar';
         sel.setAttribute('aria-label',
           App.i18n.t('ariaSeleccionarItem').replace('{n}', i + 1).replace('{texto}', it.texto));
-        sel.textContent = '↕';
+        sel.textContent = 'â†•';
         sel.addEventListener('click', function (e) {
           e.stopPropagation();
           seleccionarItem(i);
@@ -301,7 +315,7 @@
         var quitar = document.createElement('button');
         quitar.type = 'button';
         quitar.className = 'item-quitar';
-        quitar.textContent = '✕';
+        quitar.textContent = 'âœ•';
         quitar.setAttribute('aria-label', App.i18n.t('ariaQuitarItem').replace('{texto}', it.texto));
         quitar.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -327,8 +341,7 @@
     } else if (hechos === total) {
       progEl.textContent = App.i18n.t('progresoCrearCompleta');
     } else {
-      progEl.textContent = App.i18n.t('progresoCrear')
-        .replace('{hechos}', hechos).replace('{total}', total);
+      progEl.textContent = '';
     }
 
     $('#btnGuardarListaCrear').disabled = listaCrear.items.length === 0;
@@ -366,8 +379,7 @@
     listaCrear.items[j] = tmp;
     listaCrear.seleccionado = j;
     App.feedback.success(feedbackCrearEl);
-    feedbackCrearEl.textContent = App.i18n.t('elementoMovidoFeedback')
-      .replace('{pos}', j + 1);
+    feedbackCrearEl.textContent = '';
     pintarItemsCrear();
   }
 
@@ -378,8 +390,7 @@
     listaCrear.items.push({ texto: texto.slice(0, 60), hecho: false });
     input.value = '';
     App.feedback.success(feedbackCrearEl);
-    feedbackCrearEl.textContent = App.i18n.t('elementoAnadidoFeedback')
-      .replace('{texto}', texto);
+    feedbackCrearEl.textContent = '';
     input.focus();
     pintarItemsCrear();
   }
@@ -391,8 +402,7 @@
     else if (listaCrear.seleccionado > i) listaCrear.seleccionado -= 1;
     feedbackCrearEl.className = 'feedback';
     App.feedback.encourage(feedbackCrearEl);
-    feedbackCrearEl.textContent = App.i18n.t('elementoBorradoFeedback')
-      .replace('{texto}', texto);
+    feedbackCrearEl.textContent = '';
     pintarItemsCrear();
   }
 
@@ -401,11 +411,9 @@
     it.hecho = !it.hecho;
     if (it.hecho) {
       App.feedback.success(feedbackCrearEl);
-      feedbackCrearEl.textContent = App.i18n.t('elementoHechoFeedback')
-        .replace('{texto}', it.texto);
+      feedbackCrearEl.textContent = '';
     } else {
-      feedbackCrearEl.textContent = App.i18n.t('elementoPendienteFeedback')
-        .replace('{texto}', it.texto);
+      feedbackCrearEl.textContent = '';
     }
     pintarItemsCrear();
   }
@@ -423,7 +431,7 @@
     var entradas = listaCrear.items.map(function (it) {
       return { texto: it.texto, hecho: Boolean(it.hecho) };
     });
-    /* Si la lista ya existía (mismo nombre), actualizamos en vez de duplicar. */
+    /* Si la lista ya existÃ­a (mismo nombre), actualizamos en vez de duplicar. */
     var idxExistente = -1;
     for (var i = 0; i < progreso.misListas.length; i++) {
       if (progreso.misListas[i].nombre === listaCrear.nombre) { idxExistente = i; break; }
@@ -435,7 +443,8 @@
         items: entradas,
         guardada: App.utils.hoy()
       });
-      progreso.estrellas += 1; /* Sumar estrella solo al guardar una lista nueva. */
+      progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star(); /* Sumar estrella solo al guardar una lista nueva. */
     } else {
       progreso.misListas[idxExistente].items = entradas;
       progreso.misListas[idxExistente].guardada = App.utils.hoy();
@@ -474,7 +483,7 @@
       nombre.textContent = lista.nombre;
       var cantidad = document.createElement('span');
       cantidad.className = 'cantidad';
-      cantidad.textContent = App.i18n.t('elementosCount').replace('{n}', lista.items.length);
+      cantidad.textContent = '';
       info.appendChild(nombre);
       info.appendChild(cantidad);
 
@@ -483,19 +492,19 @@
 
       var btnEscuchar = document.createElement('button');
       btnEscuchar.type = 'button';
-      btnEscuchar.textContent = '🔊';
+      btnEscuchar.textContent = 'ðŸ”Š';
       btnEscuchar.setAttribute('aria-label', App.i18n.t('ariaEscucharLista').replace('{nombre}', lista.nombre));
       btnEscuchar.addEventListener('click', function (e) {
         e.stopPropagation();
         var hechos = lista.items.filter(function (x) { return x.hecho; }).length;
-        App.tts.speak(lista.nombre + '. ' + lista.items.length + ' ' +
+        if (false && App.tts && App.tts.speak) App.tts.speak(lista.nombre + '. ' + lista.items.length + ' ' +
           App.i18n.t('elementosCount').replace('{n}', lista.items.length) + '. ' +
           lista.items.map(function (x) { return x.texto; }).join(', '));
       });
 
       var btnAbrir = document.createElement('button');
       btnAbrir.type = 'button';
-      btnAbrir.textContent = '✏️';
+      btnAbrir.textContent = 'âœï¸';
       btnAbrir.setAttribute('aria-label', App.i18n.t('ariaAbrirLista').replace('{nombre}', lista.nombre));
       btnAbrir.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -504,7 +513,7 @@
 
       var btnBorrar = document.createElement('button');
       btnBorrar.type = 'button';
-      btnBorrar.textContent = '🗑️';
+      btnBorrar.textContent = 'ðŸ—‘ï¸';
       btnBorrar.setAttribute('aria-label', App.i18n.t('ariaBorrarLista').replace('{nombre}', lista.nombre));
       btnBorrar.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -528,7 +537,7 @@
       lista.items.forEach(function (it) {
         var li = document.createElement('li');
         li.className = it.hecho ? 'hecho' : '';
-        li.textContent = (it.hecho ? '✔ ' : '○ ') + it.texto;
+        li.textContent = (it.hecho ? 'âœ” ' : 'â—‹ ') + it.texto;
         itemsEl.appendChild(li);
       });
       wrap.appendChild(itemsEl);
@@ -546,7 +555,7 @@
   /* Vuelve al panel de "Mis listas" sin salir del Nivel 3, para poder
      crear otra lista, abrir otra guardada o borrar alguna sin perder
      el sitio (los cambios sin guardar de la lista actual se pierden,
-     igual que al pulsar "Volver": guardarListaCrear() es explícito). */
+     igual que al pulsar "Volver": guardarListaCrear() es explÃ­cito). */
   function volverAMisListas() {
     $('#panelEditor').classList.add('oculto');
     $('#panelNombre').classList.remove('oculto');
@@ -570,7 +579,7 @@
     };
     $('#panelNombre').classList.add('oculto');
     $('#panelEditor').classList.remove('oculto');
-    $('#tituloListaCrear').textContent = listaCrear.nombre;
+    $('#tituloListaCrear').textContent.textContent = '';
     var inputItem = $('#inputNuevoItemCrear');
     inputItem.value = '';
     inputItem.placeholder = App.i18n.t('placeholderInputItem');
@@ -583,13 +592,12 @@
 
   /* Events */
   btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarNivel(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
+  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  $('#btnMenu').addEventListener('click', function () {
     mostrarPantalla('pantallaInicio');
-    pintarNiveles();
   });
 
-  /* Eventos del Nivel 3 — "Crea tu lista". */
+  /* Eventos del Nivel 3 â€” "Crea tu lista". */
   $('#btnEmpezarCrear').addEventListener('click', confirmarNombreLista);
   $('#inputNombreListaCrear').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); confirmarNombreLista(); }
@@ -604,19 +612,16 @@
   $('#btnBajarItemCrear').addEventListener('click', function () { moverItemCrear(1); });
   $('#btnMisListas').addEventListener('click', volverAMisListas);
 
-  /* "Volver" contextual: si la persona está en medio de "Crea tu
-     lista", la primera pulsación la lleva al menú de niveles
+  /* "Volver" contextual: si la persona estÃ¡ en medio de "Crea tu
+     lista", la primera pulsaciÃ³n la lleva al menÃº de niveles
      (no al sitio), igual que en routines (btnVolver). */
   $('#btnVolver').addEventListener('click', function (e) {
     if (!pantallaCrear.classList.contains('oculto')) {
       e.preventDefault();
-      App.tts.stop();
       mostrarPantalla('pantallaInicio');
-      pintarNiveles();
     }
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

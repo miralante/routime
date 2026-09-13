@@ -1,11 +1,11 @@
-/* ============================================================
-   Routime — Se lo Cuento al Médico (Mi día a día)
-   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
-   Mecánica: leer una escena con un síntoma corporal (dolor, picor,
-   mareo, fiebre…) y elegir, entre 3 opciones, la frase que mejor
-   se lo describe a un médico. La opción correcta siempre nombra
-   bien la parte del cuerpo y el síntoma; las otras son un síntoma
-   distinto o una frase que no dice nada útil. Ronda de 8. El error
+﻿/* ============================================================
+   Routime â€” Se lo Cuento al MÃ©dico (Mi dÃ­a a dÃ­a)
+   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
+   MecÃ¡nica: leer una escena con un sÃ­ntoma corporal (dolor, picor,
+   mareo, fiebreâ€¦) y elegir, entre 3 opciones, la frase que mejor
+   se lo describe a un mÃ©dico. La opciÃ³n correcta siempre nombra
+   bien la parte del cuerpo y el sÃ­ntoma; las otras son un sÃ­ntoma
+   distinto o una frase que no dice nada Ãºtil. Ronda de 8. El error
    nunca se castiga.
    ============================================================ */
 (function () {
@@ -32,9 +32,10 @@
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Round state */
-  var nivel = null;
+  var nivelActual = null;
   var items = [];
   var idx = 0;
   var aciertosRonda = 0;
@@ -43,40 +44,34 @@
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    banco().niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarRonda(n); });
+  );
       cont.appendChild(btn);
     });
   }
 
-  function iniciarRonda(n) {
-    nivel = n;
-    items = App.utils.shuffle(nivel.items).slice(0, banco().porRonda);
-    idx = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    render();
+    /* Determina el nivel segÃºn el progreso: cada ronda completada, sube un nivel. */
+  function nivelSegunProgreso() {
+    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idxN];
   }
 
-  function pintarProgreso() {
+  /* Muestra la dificultad actual (etiqueta del nivel). */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.nombre;
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
+function pintarProgreso() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = idx + ' / ' + porRonda;
+    progressText.textContent = '';
   }
 
   function render() {
@@ -134,6 +129,7 @@
       App.utils.$$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosRonda += 1;
       guardar();
       pintarEstrellas();
@@ -155,7 +151,6 @@
 
   function siguiente() {
     idx += 1;
-    App.tts.stop();
     if (idx >= banco().porRonda) {
       terminarRonda();
     } else {
@@ -164,28 +159,26 @@
   }
 
   function terminarRonda() {
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda).replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
   btnEscuchar.addEventListener('click', function () {
-    App.tts.speak(items[idx].text);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].text);
   });
   btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarRonda(nivel); });
+  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
   $('#btnOtroNivel').addEventListener('click', function () {
     pantallaFinal.classList.add('oculto');
     pintarNiveles();
     pantallaInicio.classList.remove('oculto');
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();

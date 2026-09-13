@@ -23,12 +23,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -41,7 +38,7 @@
 
 /* ---- Piece palette, classic tetromino style ---- */
 .tablero-piezas {
-  --pz-domino: #F2545B;
+  --pz-duo: #F2545B;
   --pz-triI: #2FBF71;
   --pz-triL: #3E92CC;
   --pz-cuadrado: #F7D94C;
@@ -97,7 +94,7 @@
     0 0 10px currentColor;
 }
 
-.celda.t-domino { background: var(--pz-domino); color: var(--pz-domino); }
+.celda.t-duo { background: var(--pz-duo); color: var(--pz-duo); }
 .celda.t-triI { background: var(--pz-triI); color: var(--pz-triI); }
 .celda.t-triL { background: var(--pz-triL); color: var(--pz-triL); }
 .celda.t-cuadrado { background: var(--pz-cuadrado); color: var(--pz-cuadrado); }

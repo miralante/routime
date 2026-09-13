@@ -1,7 +1,7 @@
-/* First-Aid Kit — tool-specific styles. Shared styles live in assets/css/.
-   Acento del módulo Mi día a día (verde --mod-secuencia, mismo que
+﻿/* First-Aid Kit â€” tool-specific styles. Shared styles live in assets/css/.
+   Acento del mÃ³dulo Mi dÃ­a a dÃ­a (verde --mod-secuencia, mismo que
    emergencias, my-details y doctor-visit para mantener coherencia
-   visual con salud/autonomía). */
+   visual con salud/autonomÃ­a). */
 
 .tool-header h1 { color: var(--mod-secuencia); }
 
@@ -13,12 +13,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }

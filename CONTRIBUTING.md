@@ -98,7 +98,7 @@ Examples:
 
 ### How to start
 
-1. Read [`doc/en/SPEC.md`](doc/en/SPEC.md) — you'll understand WHAT Routime is and WHY it exists
+1. Read [`doc/en/spec.md`](doc/en/spec.md) — you'll understand WHAT Routime is and WHY it exists
 2. Read [`doc/en/team.md`](doc/en/team.md) — clinical view of the activities
 3. Examine [`doc/en/activities.md`](doc/en/activities.md) — what's there and what's missing
 4. Read SPEC §3: the **non-negotiable constraints** are what your content must never break
@@ -165,7 +165,7 @@ When a PR adds an activity, your review as support person is what validates:
 
 ### How to start
 
-1. Read [`doc/en/SPEC.md`](doc/en/SPEC.md) §3–§4 — product constraints and principles
+1. Read [`doc/en/spec.md`](doc/en/spec.md) §3–§4 — product constraints and principles
 2. Read [`doc/en/technical.md`](doc/en/technical.md) entirely — you'll
    understand the architecture, the core API and the recipes
 3. Run `node scripts/check.js` — verifies your environment is good
@@ -174,7 +174,7 @@ When a PR adds an activity, your review as support person is what validates:
 
 - **New activity** → [`doc/en/technical.md`](doc/en/technical.md) §9
 - **New module** → [`doc/en/technical.md`](doc/en/technical.md) §10
-- **New language** → [`doc/en/I18N.md`](doc/en/I18N.md) §5
+- **New language** → [`doc/en/i18n.md`](doc/en/i18n.md) §5
 
 ### Checklist before opening a PR
 
@@ -191,7 +191,7 @@ When a PR adds an activity, your review as support person is what validates:
 ## 🌐 Guide for translators
 
 - All UI lives in `strings.<locale>.js` files inside each activity
-- To add a new language, see [`doc/en/I18N.md`](doc/en/I18N.md) §5
+- To add a new language, see [`doc/en/i18n.md`](doc/en/i18n.md) §5
 - Maintain the **Easy Reading** style also in the translation
 - Be careful with numbers and money (separators and scale): see note in
   [`doc/en/technical.md`](doc/en/technical.md) §3.3
@@ -203,7 +203,7 @@ When a PR adds an activity, your review as support person is what validates:
 (They're here so they don't get suggested and we all save time)
 
 - **Changes that break autonomy, accessibility or privacy** — they are the
-  non-negotiable product constraints ([SPEC §3](doc/en/SPEC.md))
+  non-negotiable product constraints ([SPEC §3](doc/en/spec.md))
 - **New dependencies** (npm, CDNs) — vanilla JS only, see [`doc/en/technical.md`](doc/en/technical.md) §1
 - **Features that add pressure** to the end user (visible timers, rankings,
   comparisons, "game over")

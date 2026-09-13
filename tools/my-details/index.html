@@ -22,9 +22,7 @@
     <section id="emptyScreen" class="oculto pila centrado">
       <div class="big-emoji" aria-hidden="true">🏠</div>
       <h2 data-i18n="emptyTitle">Todavía no hay datos</h2>
-      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>
-      <button type="button" class="btn btn-audio" id="emptyListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
 
     <!-- Pantalla 1: fichas -->
@@ -40,9 +38,7 @@
       <div class="card centrado pila">
         <div class="card-picto" id="cardPicto" aria-hidden="true"></div>
         <h2 id="cardLabel"></h2>
-        <p class="card-value" id="cardValue"></p>
-        <button type="button" class="btn btn-audio" id="cardListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la ficha"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      </div>
+        <p class="card-value" id="cardValue"></p>      </div>
       <button type="button" class="btn" id="nextCardBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -55,15 +51,11 @@
       </div>
       <div class="card centrado pila">
         <div class="situation-picto" id="choicePicto" aria-hidden="true"></div>
-        <p class="quiz-text" id="choiceQuestion" data-i18n="core.loading">Cargando…</p>
-        <button type="button" class="btn btn-audio" id="choiceListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la pregunta">🔊</button>
-      </div>
+        <p class="quiz-text" id="choiceQuestion" data-i18n="core.loading">Cargando…</p>      </div>
       <div class="pila" id="choiceOptions"></div>
       <div class="feedback" id="choiceFeedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="choiceExplanationWrap">
-        <p id="choiceExplanation" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="choiceExplanationListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
+        <p id="choiceExplanation" aria-live="polite"></p>      </div>
       <button type="button" class="btn oculto" id="choiceNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -76,9 +68,7 @@
       </div>
       <div class="card centrado pila">
         <div class="situation-picto" id="typedPicto" aria-hidden="true"></div>
-        <p class="quiz-text" id="typedQuestion" data-i18n="core.loading">Cargando…</p>
-        <button type="button" class="btn btn-audio" id="typedListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la pregunta">🔊</button>
-      </div>
+        <p class="quiz-text" id="typedQuestion" data-i18n="core.loading">Cargando…</p>      </div>
       <label class="oculto" for="typedInput" data-i18n="typedInputLabel">Escribe tu respuesta</label>
       <input
         id="typedInput"
@@ -91,9 +81,7 @@
       <button type="button" class="btn" id="typedCheckBtn" data-i18n="typedCheck">Comprobar</button>
       <div class="feedback" id="typedFeedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="typedExplanationWrap">
-        <p id="typedExplanation" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="typedExplanationListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
+        <p id="typedExplanation" aria-live="polite"></p>      </div>
       <button type="button" class="btn oculto" id="typedNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -111,7 +99,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

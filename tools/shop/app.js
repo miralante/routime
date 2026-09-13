@@ -95,7 +95,7 @@
   function pintarProgresoQuiz() {
     var total = datos().porRonda;
     $('#progressQuizFill').style.width = (idxQ / total * 100) + '%';
-    $('#progressQuizText').textContent = idxQ + ' / ' + total;
+    $('#progressQuizText').textContent.textContent = '';
   }
 
   function iniciarRondaQuiz(nivel) {
@@ -155,6 +155,7 @@
       if (intentosQ === 0) {
         aciertosQ += 1;
         progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
         guardar();
         pintarEstrellas();
       }
@@ -176,7 +177,6 @@
 
   function siguienteQuiz() {
     idxQ += 1;
-    App.tts.stop();
     if (idxQ >= datos().porRonda) terminarRonda(aciertosQ, nivelQ);
     else renderQuiz();
   }
@@ -450,7 +450,7 @@
   function abrirActividad(id) {
     actividadActual = id;
     var cfg = cfgActual();
-    $('#instruccionActividad').textContent = App.i18n.t(cfg.instruccion);
+    $('#instruccionActividad').textContent.textContent = '';
     pintarNiveles();
     mostrar('pantallaNiveles');
   }
@@ -464,8 +464,8 @@
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
       var veces = progreso[cfg.progresoClave][n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + App.i18n.t('vecesTexto').replace('{n}', veces) + ')</span>';
+      btn.innerHTML = n.nombre + ' — ' + n.descripcion ;
+
       btn.addEventListener('click', function () {
         if (cfg.esQuiz) iniciarRondaQuiz(n);
         else iniciarRondaTienda(n);
@@ -479,10 +479,8 @@
     progreso[cfg.progresoClave][nivel.id] = (progreso[cfg.progresoClave][nivel.id] || 0) + 1;
     guardar();
     var total = cfg.esQuiz ? datos().porRonda : datos().porRondaTienda;
-    $('#resumenFinal').textContent = App.i18n.t(cfg.resumen)
-      .replace('{n}', aciertos)
-      .replace('{t}', total);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     mostrar('pantallaFinal');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -552,13 +550,12 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
   function pintarProgresoTienda() {
     var total = datos().porRondaTienda;
     $('#progressTiendaFill').style.width = (compraIdx / total * 100) + '%';
-    $('#progressTiendaText').textContent = App.i18n.t('compraDe')
-      .replace('{n}', Math.min(compraIdx + 1, total)).replace('{t}', total);
+    $('#progressTiendaText').textContent.textContent = '';
   }
 
   function pintarCartel() {
-    $('#productoTienda').textContent = compra.producto.picto;
-    $('#precioTienda').textContent = compra.producto.nombre + ': ' + formatear(compra.producto.precioCent);
+    $('#productoTienda').textContent.textContent = '';
+    $('#precioTienda').textContent.textContent = '';
     $('#cartelProducto').classList.remove('oculto');
   }
 
@@ -705,8 +702,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
       });
       mostradorEl.appendChild(btn);
     });
-    $('#totalMostrador').textContent = App.i18n.t('hasPuesto')
-      .replace('{total}', formatear(totalMostrador()));
+    $('#totalMostrador').textContent.textContent = '';
   }
 
   function pagar() {
@@ -796,11 +792,11 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     if (!compra.fallo) {
       aciertosT += 1;
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       guardar();
       pintarEstrellas();
     }
     compraIdx += 1;
-    App.tts.stop();
     if (compraIdx >= datos().porRondaTienda) terminarRonda(aciertosT, nivelT);
     else nuevaCompra();
   }
@@ -809,12 +805,12 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
   App.utils.$$('.tarjeta-actividad').forEach(function (btn) {
     btn.addEventListener('click', function () { abrirActividad(btn.getAttribute('data-actividad')); });
   });
-  $('#btnVolverMenuNiveles').addEventListener('click', function () { App.tts.stop(); mostrar('pantallaMenu'); });
-  $('#btnVolverMenuFinal').addEventListener('click', function () { App.tts.stop(); mostrar('pantallaMenu'); });
+  $('#btnVolverMenuNiveles').addEventListener('click', function () { mostrar('pantallaMenu'); });
+  $('#btnVolverMenuFinal').addEventListener('click', function () { mostrar('pantallaMenu'); });
 
   btnSiguienteQuiz.addEventListener('click', siguienteQuiz);
   $('#btnEnunciadoQuiz').addEventListener('click', function () {
-    App.tts.speak(enunciadoQuizEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoQuizEl.textContent);
   });
 
   btnContinuarTienda.addEventListener('click', function () {
@@ -823,7 +819,7 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     if (fn) fn();
   });
   $('#btnEnunciadoTienda').addEventListener('click', function () {
-    App.tts.speak(enunciadoTiendaEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoTiendaEl.textContent);
   });
 
   $('#btnRepetir').addEventListener('click', function () {

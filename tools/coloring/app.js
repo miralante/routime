@@ -103,6 +103,7 @@
 
   function terminar() {
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     progreso.dibujosPintados += 1;
     guardar();
     pintarEstrellas();
@@ -114,8 +115,8 @@
     var parteEstrellas = progreso.estrellas === 1
       ? App.i18n.t('estrellasUna')
       : App.i18n.t('estrellasVarias').replace('{n}', progreso.estrellas);
-    $('#resumenFinal').textContent = partePintados + parteEstrellas;
-    $('#transfer').textContent = App.i18n.t('transfer');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transfer').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('finalTitulo'));
   }
 

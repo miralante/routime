@@ -1,35 +1,36 @@
-/* ============================================================
-   Routime — Textos de trazos (ES)
-   Archivo específico del idioma. Se carga condicionalmente
-   desde index.html según App.i18n.locale().
+﻿/* ============================================================
+   Routime â€” Textos de trazos (ES)
+   Archivo especÃ­fico del idioma. Se carga condicionalmente
+   desde index.html segÃºn App.i18n.locale().
 
    El sistema tiene 5 niveles guiados y un modo libre donde el
-   usuario elige letras del abecedario (mayúsculas y/o
-   minúsculas). Los nombres de los niveles vienen de data.js.
+   usuario elige letras del abecedario (mayÃºsculas y/o
+   minÃºsculas). Los nombres de los niveles vienen de data.js.
    ============================================================ */
 (function () {
   'use strict';
 
   App.i18n.register({
     "title": "Trazos",
-    "instruccion": "Repasa la línea de puntos con el dedo o el ratón.",
-    "instruccionCompleta": "Repasa la línea de puntos con el dedo o el ratón. Primero elige el nivel o las letras que quieras practicar.",
+    "instruccion": "Repasa la lÃ­nea de puntos con el dedo o el ratÃ³n.",
+    "instruccionCompleta": "Repasa la lÃ­nea de puntos con el dedo o el ratÃ³n. Primero elige el nivel o las letras que quieras practicar.",
     "elegirNivel": "Elige el nivel",
-    "borrar": "🗑 Borrar",
+    "borrar": "ðŸ—‘ Borrar",
     "comprobar": "Comprobar",
-    "finalTitulo": "¡Ronda completada!",
+    "finalTitulo": "Â¡Ronda completada!",
     "otroNivel": "Elegir otro nivel",
     "veces": "veces",
+    "btnJugar": "Â¡Jugar!",
     "resumenFinal": "Has repasado {n} formas. Ahora tienes {total} estrellas.",
-    "modoLibre": "🔤 Practicar con el abecedario",
+    "modoLibre": "ðŸ”¤ Practicar con el abecedario",
     "seleccionTitulo": "Elige las letras a practicar",
-    "mayusculas": "Mayúsculas",
-    "minusculas": "Minúsculas",
-    "seleccionarMayus": "Mayúsculas",
-    "seleccionarMinus": "Minúsculas",
+    "mayusculas": "MayÃºsculas",
+    "minusculas": "MinÃºsculas",
+    "seleccionarMayus": "MayÃºsculas",
+    "seleccionarMinus": "MinÃºsculas",
     "seleccionarTodo": "Todas",
     "seleccionarNada": "Ninguna",
-    "iniciarPractica": "Practicar →",
+    "iniciarPractica": "Practicar â†’",
     "seleccionResumen": "Has elegido {n} letras. Toca una para quitarla.",
     "ariaNoSeleccionada": "Toca para elegirla."
   ,

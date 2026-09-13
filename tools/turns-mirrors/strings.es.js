@@ -12,6 +12,7 @@
     "instruccionNivel": " Primero elige el nivel.",
     "elegirNivel": "Elige el nivel",
     "veces": "veces",
+    "btnJugar": "¡Jugar!",
     "modelo": "Modelo",
     "preguntaGiro": "Toca el dibujo igual al modelo, aunque esté girado.",
     "preguntaEspejo": "Toca el dibujo como se ve en un espejo.",
@@ -26,6 +27,8 @@
     "malEspejo": "❌ Ese no es el reflejo. El reflejo es el que está marcado.",
     "malLetras": "❌ Esa es otra letra. La letra igual es: {letra}. Está marcada.",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
+    "proximoNivel": "Siguiente paso: {n}",
+    "btnMenu": "Volver al inicio",
     "btnOtroNivel": "Elegir otro nivel",
     "ariaOpcion": "Opción {n}"
   ,

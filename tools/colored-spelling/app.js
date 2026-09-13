@@ -40,7 +40,6 @@
 
   var sentencePicto = $('#sentencePicto');
   var hintLine = $('#hintLine');
-  var listenBtn = $('#listenBtn');
   var inputEl = $('#sentenceInput');
   var feedbackEl = $('#feedback');
   var legendWrap = $('#legendWrap');
@@ -150,7 +149,6 @@
   }
 
   function goStart() {
-    App.tts.stop();
     paintLevels();
     show(startScreen);
   }
@@ -164,7 +162,6 @@
     currentLevel = level;
     items = App.utils.shuffle(level.sentences);
     idx = 0;
-    App.tts.stop();
     show(quizScreen);
     render();
   }
@@ -251,7 +248,6 @@
 
   function next() {
     idx += 1;
-    App.tts.stop();
     if (idx >= items.length) {
       finish();
     } else {
@@ -263,19 +259,12 @@
     show(endScreen);
     finalSummaryEl.textContent = t('finalSummary')
       .replace('{total}', progress.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
-  $('#instructionBtn').addEventListener('click', function () {
-    App.tts.speak($('#instructionText').textContent);
-  });
   $('#backLevelsBtn').addEventListener('click', goStart);
-  listenBtn.addEventListener('click', function () {
-    var item = items[idx];
-    if (item) App.tts.speak(item.correct);
-  });
   clearBtn.addEventListener('click', clearInput);
   checkBtn.addEventListener('click', check);
   // Enter en el input = Comprobar

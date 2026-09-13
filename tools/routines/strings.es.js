@@ -8,6 +8,8 @@
 
   App.i18n.register({
     "title": "📋 Mis Rutinas",
+    "tabPredefinidas": "Rutinas predefinidas",
+    "tabPropias": "Mis listas",
     "seccionManana": "🌅 Por la mañana",
     "seccionComida": "🍽️ Comidas",
     "seccionLimpieza": "🧹 Tareas de la casa",
@@ -20,6 +22,7 @@
     "subseccionOrdenar": "Ordenar",
     "btnEmpezar": "Empezar",
     "btnRepetir": "Hacer otra vez",
+    "btnPracticarLista": "Practicar",
     "btnHecho": "Ya lo he hecho",
     "ariaPasoHecho": "Paso hecho",
     "completadaHoy": "✔ Completada hoy",

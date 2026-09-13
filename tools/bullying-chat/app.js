@@ -29,7 +29,7 @@
   var intentos = 0;   /* Socratic counter per option (rule 12) */
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { $('#stars').textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { $('#stars').textContent.textContent = ''; }
 
   function mostrarPantalla(id) {
     PANTALLAS.forEach(function (p) {
@@ -57,7 +57,6 @@
   }
 
   function irMenu() {
-    App.tts.stop();
     escenario = null;
     pintarMenu();
     mostrarPantalla('pantallaMenu');
@@ -77,7 +76,7 @@
       btn.className = 'btn btn-audio';
       btn.textContent = '🔊';
       btn.setAttribute('aria-label', App.i18n.t('ariaEscucharNorma'));
-      btn.addEventListener('click', function () { App.tts.speak(n.texto); });
+      btn.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(n.texto); });
       fila.appendChild(texto);
       fila.appendChild(btn);
       cont.appendChild(fila);
@@ -98,7 +97,7 @@
       audio.className = 'btn btn-audio btn-burbuja';
       audio.textContent = '🔊';
       audio.setAttribute('aria-label', App.i18n.t('ariaEscucharMensaje'));
-      audio.addEventListener('click', function () { App.tts.speak(texto); });
+      audio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(texto); });
       fila.appendChild(audio);
     }
     $('#chatMensajes').appendChild(fila);
@@ -123,8 +122,8 @@
     var v = esc.variantes[Math.floor(Math.random() * esc.variantes.length)];
     escenario = { id: esc.id, contacto: v.contacto, relacion: v.relacion, pasos: v.pasos, regla: v.regla };
     idx = 0;
-    $('#chatAlias').textContent = escenario.contacto;
-    $('#chatBadge').textContent = escenario.relacion;
+    $('#chatAlias').textContent.textContent = '';
+    $('#chatBadge').textContent.textContent = '';
     $('#chatMensajes').innerHTML = '';
     $('#reglaFinal').classList.add('oculto');
     limpiarZonaRespuesta();
@@ -175,7 +174,7 @@
       App.feedback.success($('#feedback'));
       burbuja('yo', op.texto);
       if (op.avisoSeguro) {
-        $('#consejoSeguroTexto').textContent = op.avisoSeguro;
+        $('#consejoSeguroTexto').textContent.textContent = '';
         $('#consejoSeguro').classList.remove('oculto');
       }
       setTimeout(function () {
@@ -187,7 +186,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage($('#feedback'));
-      $('#consejoTexto').textContent = (intentos === 1 && op.pista) ? op.pista : op.aviso;
+      $('#consejoTexto').textContent.textContent = '';
       $('#consejo').classList.remove('oculto');
       App.feedback.lockUntilAck($$('#chatOpciones .btn-opcion'), $('#consejo'));
     }
@@ -217,11 +216,12 @@
     if (!progreso.completado[esc.id]) {
       progreso.completado[esc.id] = true;
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       guardar();
       pintarEstrellas();
     }
-    $('#reglaTexto').textContent = esc.regla;
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#reglaTexto').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     $('#reglaFinal').classList.remove('oculto');
     App.feedback.celebrate(App.i18n.t('chatSuperado'));
   }
@@ -235,7 +235,7 @@
   $('#btnSalirChat').addEventListener('click', irMenu);
   $('#btnVolverMenu').addEventListener('click', irMenu);
   $('#btnRegla').addEventListener('click', function () {
-    App.tts.speak(App.i18n.t('paraRecordarHablado') + ' ' + $('#reglaTexto').textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('paraRecordarHablado') + ' ' + $('#reglaTexto').textContent);
   });
 
   /* ---------- Startup ---------- */

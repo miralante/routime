@@ -161,7 +161,7 @@
 
   function irNombre() {
     $('#inputNombre').value = state.nombre;
-    $('#avisoNombre').textContent = '';
+    $('#avisoNombre').textContent.textContent = '';
     mostrarPantalla('pantallaNombre');
     $('#inputNombre').focus();
   }
@@ -171,9 +171,7 @@
   }
 
   function pintarMenu() {
-    $('#saludo').textContent = state.nombre
-      ? App.i18n.t('saludoConNombre').replace('{nombre}', bonito(state.nombre))
-      : App.i18n.t('saludoMusico');
+    $('#saludo').textContent.textContent = '';
     $$('.tarjeta-modo').forEach(function (t) {
       var m = t.dataset.modo;
       var badge = t.querySelector('.hecho');
@@ -193,14 +191,14 @@
   }
 
   function actualizarEstrellas() {
-    $('#stars').textContent = '⭐ ' + state.estrellas;
+    $('#stars').textContent.textContent = '';
   }
 
   /* ---------- Modo libre ---------- */
   function irLibre() {
     mostrarPantalla('pantallaLibre');
     $('#btnSalirLibre').onclick = irMenu;
-    $('#instruccionLibre').textContent = App.i18n.t('instruccionLibre');
+    $('#instruccionLibre').textContent.textContent = '';
     state.secuenciaActual = [];
     actualizarSecuenciaLibre();
     actualizarBotonGrabacion();
@@ -238,22 +236,22 @@
   /* ---------- Octava ---------- */
   $('#btnOctavaMas').addEventListener('click', function () {
     if (state.octava >= 1) {
-      App.tts.speak(App.i18n.t('octavaMaxima'));
+      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMaxima'));
       return;
     }
     state.octava += 1;
     guardar();
-    App.tts.speak(App.i18n.t('octavaMasTTS'));
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMasTTS'));
   });
 
   $('#btnOctavaMenos').addEventListener('click', function () {
     if (state.octava <= -1) {
-      App.tts.speak(App.i18n.t('octavaMinima'));
+      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMinima'));
       return;
     }
     state.octava -= 1;
     guardar();
-    App.tts.speak(App.i18n.t('octavaMenosTTS'));
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMenosTTS'));
   });
 
   /* ---------- Recording ---------- */
@@ -285,7 +283,7 @@
   });
 
   $('#btnExplicarLibre').addEventListener('click', function () {
-    App.tts.speak(App.i18n.t('explicarLibreTTS'));
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('explicarLibreTTS'));
   });
 
   /* ---------- Simon says ---------- */
@@ -301,8 +299,8 @@
   }
 
   function actualizarSimonUI() {
-    $('#nivelSimon').textContent = App.i18n.t('nivelLabel').replace('{n}', simon.nivel);
-    $('#puntosSimon').textContent = App.i18n.t('puntosLabel').replace('{n}', simon.puntos);
+    $('#nivelSimon').textContent.textContent = '';
+    $('#puntosSimon').textContent.textContent = '';
   }
 
   function iniciarSimon() {
@@ -395,7 +393,7 @@
     seguir.idx = 0;
     seguir.esperando = true;
     var nombreMelodia = App.i18n.t(MELODIA_KEYS[seguir.melodia.id]);
-    $('#instruccionSeguir').textContent = App.i18n.t('instruccionSeguirConNombre').replace('{nombre}', nombreMelodia);
+    $('#instruccionSeguir').textContent.textContent = '';
     mostrarFeedback('feedbackSeguir', '', '');
     renderProgresoSeguir();
   }
@@ -451,7 +449,7 @@
     mostrarPantalla('pantallaLibre');
     $('#btnSalirLibre').onclick = irCanciones;
     var nombreCancion = App.i18n.t(CANCION_KEYS[cancion.id]);
-    $('#instruccionLibre').textContent = App.i18n.t('cancionInstruccion').replace('{nombre}', nombreCancion);
+    $('#instruccionLibre').textContent.textContent = '';
 
     // Play the song
     var seq = cancion.secuencia.map(function (n) { return { nota: n, duracion: 0.35 }; });
@@ -709,7 +707,7 @@
   });
 
   $('#btnLeerNombre').addEventListener('click', function () {
-    App.tts.speak(App.i18n.t('escribeNombreTTS'));
+    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('escribeNombreTTS'));
   });
 
   /* ---------- Menu ---------- */
@@ -728,7 +726,7 @@
   });
 
   $('#btnLeerSaludo').addEventListener('click', function () {
-    App.tts.speak($('#saludo').textContent + App.i18n.t('elegirModoTTS'));
+    if (false && App.tts && App.tts.speak) App.tts.speak($('#saludo').textContent + App.i18n.t('elegirModoTTS'));
   });
 
   $('#btnCambiarNombre').addEventListener('click', irNombre);

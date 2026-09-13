@@ -35,7 +35,7 @@
 
   function pintarProgreso() {
     progressFill.style.width = ((toques / DATA.toquesPorRonda) * 100) + '%';
-    progressText.textContent = toques + ' / ' + DATA.toquesPorRonda;
+    progressText.textContent = '';
   }
 
   function empezar() {
@@ -72,6 +72,7 @@
   function acierto() {
     toques += 1;
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     guardar();
     pintarEstrellas();
     pintarProgreso();
@@ -87,9 +88,8 @@
     progreso.rondas += 1;
     guardar();
     pantallaFinal.classList.remove('oculto');
-    resumenFinal.textContent =
-      App.i18n.t('resumenFinal').replace('{n}', DATA.toquesPorRonda);
-    $('#transfer').textContent = App.i18n.t('transfer');
+    resumenFinal.textContent = '';
+    $('#transfer').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 

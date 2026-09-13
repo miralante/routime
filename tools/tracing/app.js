@@ -1,13 +1,13 @@
-/* ============================================================
-   Routime — Trazos (motricidad fina)
-   Datos en data.js (DATA.niveles + FORMAS_COMUNES). Módulos
-   compartidos en assets/js/. Mecánica: repasar con el dedo o el
-   ratón una guía de puntos. Se comprueba cuánta guía se ha
-   cubierto (sin exigir perfección). Sin límite de intentos:
+﻿/* ============================================================
+   Routime â€” Trazos (motricidad fina)
+   Datos en data.js (DATA.niveles + FORMAS_COMUNES). MÃ³dulos
+   compartidos en assets/js/. MecÃ¡nica: repasar con el dedo o el
+   ratÃ³n una guÃ­a de puntos. Se comprueba cuÃ¡nta guÃ­a se ha
+   cubierto (sin exigir perfecciÃ³n). Sin lÃ­mite de intentos:
    "Borrar" permite volver a empezar.
 
-   Cada forma se compone por referencia ('ref') al catálogo
-   FORMAS_COMUNES. Esto evita duplicar geometría entre ES y EN y
+   Cada forma se compone por referencia ('ref') al catÃ¡logo
+   FORMAS_COMUNES. Esto evita duplicar geometrÃ­a entre ES y EN y
    mantiene una sola fuente de verdad para cada letra.
    ============================================================ */
 (function () {
@@ -39,14 +39,15 @@
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Round state */
-  var nivel = null;
+  var nivelActual = null;
   var modo = 'guiado';      /* 'guiado' (niveles 1-5) o 'libre' (abecedario) */
   var formas = [];
   var idx = 0;
   var aciertosRonda = 0;
-  var totalRonda = 0;       /* dinámico: porRonda o porRondaLibre */
+  var totalRonda = 0;       /* dinÃ¡mico: porRonda o porRondaLibre */
   var resuelto = false;
   var trazos = [];       /* array de trazos; cada uno, array de [x,y] */
   var dibujando = false;
@@ -55,7 +56,7 @@
   /* Letras elegidas en modo libre. Cada entrada es { id, ref }. */
   var letrasSeleccionadas = [];
 
-  /* Resuelve la geometría (puntos) de una forma: admite tanto
+  /* Resuelve la geometrÃ­a (puntos) de una forma: admite tanto
      el nuevo formato { ref } como el antiguo { puntos } directo,
      para que scripts anteriores o ampliaciones no rompan. */
   function puntosDeForma(forma) {
@@ -68,19 +69,19 @@
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
 
-  /* ---- Modo libre: selección de letras ---- */
+  /* ---- Modo libre: selecciÃ³n de letras ---- */
 
-  /* Pinta las dos rejillas (mayúsculas y minúsculas). Cada letra
-     es un botón con estado presionado/no-presionado. La etiqueta
-     accesible anuncia el nombre de la letra y si está elegida. */
+  /* Pinta las dos rejillas (mayÃºsculas y minÃºsculas). Cada letra
+     es un botÃ³n con estado presionado/no-presionado. La etiqueta
+     accesible anuncia el nombre de la letra y si estÃ¡ elegida. */
   function pintarRejillaLetras() {
     rejillaMayus.innerHTML = '';
     rejillaMinus.innerHTML = '';
-    pintarGrupoLetras(rejillaMayus, DATOS.alfabeto.mayusculas, 'Mayúscula');
-    pintarGrupoLetras(rejillaMinus, DATOS.alfabeto.minusculas, 'Minúscula');
-    /* Restaura selección visual al volver a abrir la pantalla. */
+    pintarGrupoLetras(rejillaMayus, DATOS.alfabeto.mayusculas, 'MayÃºscula');
+    pintarGrupoLetras(rejillaMinus, DATOS.alfabeto.minusculas, 'MinÃºscula');
+    /* Restaura selecciÃ³n visual al volver a abrir la pantalla. */
     marcarSeleccionActual();
   }
 
@@ -160,36 +161,27 @@
     seleccionResumen.textContent = plantilla.replace('{n}', n);
   }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    DATOS.niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarRonda(n); });
+  );
       cont.appendChild(btn);
     });
   }
 
-  function iniciarRonda(n) {
-    nivel = n;
-    modo = 'guiado';
-    formas = App.utils.shuffle(nivel.formas).slice(0, DATOS.porRonda);
-    totalRonda = DATOS.porRonda;
-    idx = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaSeleccion.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    render();
+    /* Determina el nivel segÃºn el progreso: cada ronda completada, sube un nivel. */
+  function nivelSegunProgreso() {
+    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idxN];
   }
 
-  function iniciarPracticaLibre(seleccion) {
+  /* Muestra la dificultad actual (etiqueta del nivel). */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.nombre;
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
+function iniciarPracticaLibre(seleccion) {
     if (!seleccion || !seleccion.length) return;
     nivel = null;
     modo = 'libre';
@@ -212,7 +204,7 @@
 
   function pintarProgreso() {
     progressFill.style.width = ((idx / totalRonda) * 100) + '%';
-    progressText.textContent = idx + ' / ' + totalRonda;
+    progressText.textContent = '';
   }
 
   function cadenaDesdePuntos(puntos) {
@@ -308,6 +300,7 @@
       resuelto = true;
       App.feedback.success(feedbackEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosRonda += 1;
       guardar();
       pintarEstrellas();
@@ -328,7 +321,6 @@
 
   function siguiente() {
     idx += 1;
-    App.tts.stop();
     if (idx >= totalRonda) {
       terminarRonda();
     } else {
@@ -337,17 +329,15 @@
   }
 
   function terminarRonda() {
-    if (nivel && nivel.id) {
-      progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    if (nivel && nivelActual.id) {
+      progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
     }
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
     var plantilla = App.i18n.t('resumenFinal');
-    $('#resumenFinal').textContent = plantilla
-      .replace('{n}', aciertosRonda)
-      .replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('finalTitulo'));
   }
 
@@ -363,7 +353,7 @@
     if (modo === 'libre') {
       iniciarPracticaLibre(letrasSeleccionadas);
     } else if (nivel) {
-      iniciarRonda(nivel);
+      iniciarJuego();
     }
   });
   $('#btnOtroNivel').addEventListener('click', function () {
@@ -411,6 +401,5 @@
     iniciarPracticaLibre(seleccion);
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();

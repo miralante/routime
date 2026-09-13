@@ -1,10 +1,10 @@
-/* ============================================================
-   Routime — El Camino (orientación espacial y rutas)
-   Datos en data.js (DATA.niveles con nº de obstáculos). Los caminos
-   se generan al vuelo: salida y meta con distancia mínima, árboles
-   al azar, y una búsqueda en anchura (BFS) garantiza que siempre
+﻿/* ============================================================
+   Routime â€” El Camino (orientaciÃ³n espacial y rutas)
+   Datos en data.js (DATA.niveles con nÂº de obstÃ¡culos). Los caminos
+   se generan al vuelo: salida y meta con distancia mÃ­nima, Ã¡rboles
+   al azar, y una bÃºsqueda en anchura (BFS) garantiza que siempre
    hay camino. La tortuga se mueve con 4 botones de flecha (y con
-   las flechas del teclado físico). Chocar con árbol o borde solo
+   las flechas del teclado fÃ­sico). Chocar con Ã¡rbol o borde solo
    avisa con calma (regla 5). Llegar a la estrella da 1 estrella.
    Ronda de 3 caminos.
    ============================================================ */
@@ -39,9 +39,10 @@
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
   if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Round state */
-  var nivel = null;
+  var nivelActual = null;
   var idxCamino = 0;
   var aciertosRonda = 0;
   var arboles = [];       /* row*columns+col indexes */
@@ -50,40 +51,35 @@
   var enJuego = false;
 
   function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
   function filas() { return banco().filas; }
   function columnas() { return banco().columnas; }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    banco().niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarRonda(n); });
+  );
       cont.appendChild(btn);
     });
   }
 
-  function iniciarRonda(n) {
-    nivel = n;
-    idxCamino = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    nuevoCamino();
+    /* Determina el nivel segÃºn el progreso: cada ronda completada, sube un nivel. */
+  function nivelSegunProgreso() {
+    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idxN];
   }
 
-  function pintarProgreso() {
+  /* Muestra la dificultad actual (etiqueta del nivel). */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.nombre;
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
+function pintarProgreso() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idxCamino / porRonda) * 100) + '%';
-    progressText.textContent = idxCamino + ' / ' + porRonda;
+    progressText.textContent = '';
   }
 
   /* ---- Generation with a guaranteed solution (BFS) ---- */
@@ -149,9 +145,9 @@
     for (var i = 0; i < total; i++) {
       var div = document.createElement('div');
       div.className = 'casilla';
-      if (i === tortuga) { div.textContent = '🐢'; div.classList.add('tortuga'); }
-      else if (i === meta) { div.textContent = '⭐'; }
-      else if (arboles.indexOf(i) !== -1) { div.textContent = '🌳'; }
+      if (i === tortuga) { div.textContent = 'ðŸ¢'; div.classList.add('tortuga'); }
+      else if (i === meta) { div.textContent = 'â­'; }
+      else if (arboles.indexOf(i) !== -1) { div.textContent = 'ðŸŒ³'; }
       tableroEl.appendChild(div);
     }
   }
@@ -185,6 +181,7 @@
     idxCamino += 1;
     aciertosRonda += 1;
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     guardar();
     pintarEstrellas();
     pintarProgreso();
@@ -195,7 +192,6 @@
   }
 
   function siguiente() {
-    App.tts.stop();
     if (idxCamino >= banco().porRonda) {
       terminarRonda();
     } else {
@@ -204,13 +200,12 @@
   }
 
   function terminarRonda() {
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -225,14 +220,13 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     if (dir) { ev.preventDefault(); mover(dir); }
   });
   btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarRonda(nivel); });
+  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
   $('#btnOtroNivel').addEventListener('click', function () {
     pantallaFinal.classList.add('oculto');
     pintarNiveles();
     pantallaInicio.classList.remove('oculto');
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

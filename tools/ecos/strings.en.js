@@ -1,13 +1,13 @@
-/* ============================================================
-   Routime — Textos de ecos (EN)
-   Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
-   Se carga condicionalmente desde index.html según App.i18n.locale().
+﻿/* ============================================================
+   Routime â€” Textos de ecos (EN)
+   Archivo especÃ­fico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
+   Se carga condicionalmente desde index.html segÃºn App.i18n.locale().
    ============================================================ */
 (function () {
   'use strict';
 
   App.i18n.register({
-    "title": "🔔 Echoes",
+    "title": "ðŸ”” Echoes",
     "instruccion": "Listen and watch the order. Then, touch it the same way.",
     "instruccionExtra": " First, choose a level.",
     "tituloNiveles": "Choose a level",
@@ -18,15 +18,16 @@
     "descripcion4": "4 steps",
     "descripcion5": "5 steps",
     "veces": "{n} times",
+    "btnJugar": "Play!",
     "colorRojo": "Red",
     "colorAzul": "Blue",
     "colorVerde": "Green",
     "colorAmarillo": "Yellow",
-    "etapaMiraEscucha": "Look and listen…",
+    "etapaMiraEscucha": "Look and listenâ€¦",
     "etapaTuTurno": "Now it is your turn",
     "etapaCasi": "Almost. Listen again.",
     "etapaCompleta": "Sequence complete!",
-    "btnRepetirSecuencia": "🔊 Repeat sequence",
+    "btnRepetirSecuencia": "ðŸ”Š Repeat sequence",
     "otroNivel": "Choose another level",
     "rondaCompletadaTitulo": "Round complete!",
     "resumenFinal": "You won {n} stars. You now have {total} stars."

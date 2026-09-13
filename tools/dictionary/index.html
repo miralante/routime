@@ -39,9 +39,7 @@
       <div class="card centrado pila">
         <div class="word-display" id="wordDisplay"></div>
         <p class="definition-text"><span data-i18n="definitionLabel">Significa:</span> <span id="definitionText"></span></p>
-        <p class="example-text"><span data-i18n="exampleLabel">Por ejemplo:</span> <span id="exampleText"></span></p>
-        <button type="button" class="btn btn-audio" id="cardListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la ficha"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      </div>
+        <p class="example-text"><span data-i18n="exampleLabel">Por ejemplo:</span> <span id="exampleText"></span></p>      </div>
       <button type="button" class="btn" id="nextCardBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -55,16 +53,12 @@
         <span class="progress-text" id="quizProgressText">0 / 8</span>
       </div>
       <div class="card centrado pila">
-        <div class="word-display" id="quizWordDisplay"></div>
-        <button type="button" class="btn btn-audio" id="quizListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la palabra">🔊</button>
-      </div>
+        <div class="word-display" id="quizWordDisplay"></div>      </div>
       <h2 class="question centrado" data-i18n="quizQuestion">¿Qué significa esta palabra?</h2>
       <div class="pila" id="quizOptions"></div>
       <div class="feedback" id="quizFeedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="quizExplanationWrap">
-        <p id="quizExplanation" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="quizExplanationListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
+        <p id="quizExplanation" aria-live="polite"></p>      </div>
       <button type="button" class="btn oculto" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -83,7 +77,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

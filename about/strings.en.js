@@ -71,9 +71,7 @@
     "areaMemoryTitle": '🧠 Memory and attention',
     "areaMemoryText": 'Visual and auditory memory, sustained attention and perception of detail.',
     "areaMemoryCount": '10 activities',
-    "areaReasoningTitle": '🎲 Board games',
-    "areaReasoningText": 'Classic board games, with levels and an opponent that plays gently.',
-    "areaReasoningCount": '6 activities',
+
     "areaLanguageTitle": '💬 Language and comprehension',
     "areaLanguageText": 'Vocabulary, comprehension, spoken and written expression, humor.',
     "areaLanguageCount": '9 activities',

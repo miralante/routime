@@ -61,14 +61,13 @@
     "module2Intro": 'Recognizing and expressing emotions, self-regulation, breathing and conflict resolution.',
     "module3Title": '💗 Body and relationships — Affective-sexual education',
     "module3Intro": 'Body, consent, healthy relationships and sexual and reproductive health, always pointing to trusted people or health professionals.',
-    "module4Title": '💬 Language and comprehension — Language and communication',
-    "module4Intro": 'Vocabulary, categories, reading comprehension, figurative language and humor.',
+
     "module5Title": '🧠 Memory and attention',
     "module5Intro": 'Visual, auditory and short-term memory; sustained attention; global and detail perception.',
     "module6Title": '🎯 Aiming and hands — Coordination and motor skills',
     "module6Intro": 'Eye-hand coordination, fine motor skills, graphomotor skills, writing and copying.',
-    "module7Title": '🎲 Board games',
-    "module7Intro": 'Six classic board games, with levels and an opponent that plays gently.',
+    "module7Title": '💗 Body and relationships',
+    "module7Intro": 'Non-graphic affective-sexual education, always pointing to trusted people or health professionals.',
     activity: {
       "catch": {
         "name": 'Catch It',
@@ -322,42 +321,6 @@
         "works": 'Depth and planes (background / foreground), in-front-of/behind vocabulary, understanding spatial instructions.',
         "daily": 'Act out real scenes with toys: "put the bear in front of the box."'
       },
-      "tic-tac-toe": {
-        "name": 'Tic-Tac-Toe',
-        "does": 'Makes a line of three against an opponent that plays gently (by level: random, completes its own line, also blocks).',
-        "works": 'Logic, anticipating the other player’s move, turn-taking, tolerating losing without punishment (losing only gives a tip and another round). An on-demand 💡 help button: first a question that directs attention, then the specific square with the reasoning.',
-        "daily": 'Play tic-tac-toe on paper; think out loud about where it makes sense to place a mark.'
-      },
-      "visual-sudoku": {
-        "name": 'Visual Sudoku',
-        "does": 'Fills a 4×4 board with pictures without repeating any in a row, column or box.',
-        "works": 'Reasoning by elimination, attention to rows/columns, cognitive flexibility. A hint on the first mistake; on the second it places itself so as not to get stuck. An on-demand 💡 help button: marks the easiest gap and asks what is missing; a second tap says the picture and why (placing it is still up to the person).',
-        "daily": 'Look for easy sudoku books with pictures or colors to do on paper.'
-      },
-      "domino": {
-        "name": 'Dominoes',
-        "does": 'A real game against a calm opponent: a hand of 4 tiles, a draw pile and turns. The tile orients itself when tapped; it only asks which side if it fits both ends.',
-        "works": 'Matching quantities (pips), a rule-based board game with turns, choosing between options, and tolerating losing without punishment (losing only gives encouragement and another round).',
-        "daily": 'Play real dominoes as a family, starting with few tiles.'
-      },
-      "checkers": {
-        "name": 'Checkers',
-        "does": 'Adapted checkers on a 6×6 board with 6 pieces per side, against a calm opponent. Tap your piece, then a lit-up square: only legal moves can be tapped. Capturing is not mandatory and there are no multi-jumps; reaching the far end crowns the piece as a king. A two-step Socratic 💡 help button.',
-        "works": 'Anticipation and planning (looking at what the opponent could do before moving), diagonal spatial reasoning, turn-taking and tolerating losing without punishment (a blocked-game ending compares pieces, and a tie is celebrated).',
-        "daily": 'Play real checkers at home, starting with fewer pieces in a corner of the board.'
-      },
-      "chess": {
-        "name": 'Chess',
-        "does": 'A menu with two activities. "The Pieces": star-collecting puzzles on a 5×5 board to learn how each piece moves (one level per piece: rook, bishop, queen, knight); boards are generated on the fly and always have a solution. "Mini Match": a 5×5 duel with those pieces plus the king, no pawns or check — you win by capturing the opponent’s king. Two-step Socratic 💡 help.',
-        "works": 'Spatial reasoning (straight, diagonal, L-shaped jump), planning and anticipation (looking at what the opponent threatens), rule memory and tolerating losing without punishment.',
-        "daily": 'If it catches their interest, try real chess starting with just rooks and pawns.'
-      },
-      "connect-four": {
-        "name": 'Four in a Row',
-        "does": 'An adapted Connect Four (6 columns × 5 rows): each column is a single large button and the piece drops on its own, no timer. The opponent plays like in Tic-Tac-Toe (random → completes its line → also blocks).  Two-step Socratic 💡 help.',
-        "works": 'Anticipation in two directions (completing your own line and blocking the opponent’s), sustained attention on a larger board than Tic-Tac-Toe, turn-taking and tolerating losing without punishment (a tie is celebrated).',
-        "daily": 'Physical Connect Four exists in many homes: play the real version with the same ideas (check their line before dropping a piece).'
-      },
       "comedy-club": {
         "name": 'Comedy Club',
         "does": 'Reads or listens to a joke and answers why it is funny.',
@@ -452,11 +415,11 @@
         "does": 'Practice courtesy phrases in everyday situations: saying thank you, asking politely, greeting, saying goodbye, giving way to others.',
         "works": 'Basic social norms, social skills, respectful interaction.',
         "daily": 'Reinforce these phrases in real life: celebrate when they use them spontaneously.'      },
-      "school-rules": {
-        "name": 'School Rules and Civics',
-        "does": 'Reads situations at school and in public places (classroom, canteen, library, bus, street, park, cinema) and chooses the right civic action: raising your hand, queuing, recycling, crossing on green, turning off the lights, mediating an argument, inviting someone excluded to play.',
-        "works": 'Coexistence rules, civics, respect in shared and public spaces, care for the environment, inclusion, honesty and responsibility.',
-        "daily": 'Stay with them at school and on outings: notice the rules they apply on their own and celebrate each civic gesture (giving way, picking up paper, recycling) in real life.'
+      "education-norms": {
+        "name": 'Education and Good Manners',
+        "does": 'Reads everyday and social situations (school, library, bus, street, park, cinema) and chooses the response that shows good manners: raising your hand, queuing, recycling, crossing on green, turning off the lights, mediating an argument, inviting someone excluded to play.',
+        "works": 'Good manners, respect, coexistence in shared and public spaces, care for the environment, inclusion, honesty and responsibility.',
+        "daily": 'Stay with them in daily life and on outings: notice the good manners they apply on their own and celebrate each gesture of good manners (giving way, picking up paper, recycling) in real life.'
       },
       "self-esteem": {
         "name": 'This Is Me',
@@ -509,13 +472,9 @@
     "exceptionBlocks": 'Blocks · copy the model with coloured pieces (fine motor skills, spatial perception).',
     "exceptionBuilders": 'Builders · free composition with blocks and pieces (creativity and fine motor).',
     "exceptionCatch": 'Catch It · hand-eye coordination and reflexes.',
-    "exceptionCheckers": 'Checkers · strategy and anticipation.',
-    "exceptionChess": 'Chess · strategy, planning and respect for turns.',
     "exceptionColoring": 'Colouring · free creativity and fine motor skills.',
     "exceptionConnectDots": 'Connect the Dots · number sequence and stroke precision.',
-    "exceptionConnectFour": 'Connect Four · strategy and sustained attention.',
     "exceptionDifferences": 'Spot the Difference · attention to detail and visual comparison.',
-    "exceptionDomino": 'Dominoes · counting and matching.',
     "exceptionEcos": 'Echoes · auditory memory.',
     "exceptionFit": 'Fit It · shape perception and fine motor skills.',
     "exceptionKeyboardTyping": 'Keyboard · guided typing one key at a time.',
@@ -524,10 +483,8 @@
     "exceptionPath": 'Path · spatial orientation in a maze.',
     "exceptionPianoKeys": 'Piano Keys · free musical exploration.',
     "exceptionPuzzle": 'Puzzle · piece fitting and global shape perception.',
-    "exceptionTicTacToe": 'Tic-Tac-Toe · simple strategy.',
     "exceptionTracing": 'Traces · graphomotor skills.',
     "exceptionTurnsMirrors": 'Turns and Mirrors · spatial perception and orientation.',
-    "exceptionVisualSudoku": 'Visual Sudoku · logical reasoning with pictograms.',
     "exceptionCalm": 'Calm · guided breathing (no decision, no right/wrong).',
     "exceptionEmotions": 'Emotions · emotional recognition with no single right answer.',
     "exceptionsNote": "Daily-life simulation remains the product's preferred vehicle (SPEC §3.6): any new activity that represents a real-life decision must include the full contract. This list declares which activities are built, by prioritised design decision, on the pure-skill vehicle (SPEC §3.6.b). It is reviewed and updated alongside the repository (git log keeps the history of every inclusion and exclusion).",

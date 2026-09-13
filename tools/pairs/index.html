@@ -23,13 +23,15 @@
       <div class="fila centrado-fila">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Busca las dos cartas iguales. Toca una carta para verla.</p>
       </div>
-      <h2 data-i18n="tituloNiveles">Elige el nivel</h2>
-      <div class="pila" id="niveles"></div>
+      <button type="button" class="btn btn-principal" id="btnJugar">
+        <span data-i18n="btnJugar">¡Jugar!</span>
+      </button>
     </section>
 
     <!-- Game screen -->
     <section id="pantallaJuego" class="oculto pila">
       <p class="contador centrado" id="contador" aria-live="polite"></p>
+      <p class="dificultad centrado" id="dificultad" aria-live="polite"></p>
       <div id="tablero" data-i18n-aria="tableroAria" aria-label="Tablero de cartas"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
@@ -41,7 +43,7 @@
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="otroNivel">Elegir otro nivel</button>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
       <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
@@ -49,7 +51,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

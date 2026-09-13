@@ -259,13 +259,13 @@
 
   function pintarProgresoRefuerzo() {
     progresoRelleno.style.width = (((refuerzoIdx + 1) / refuerzoTotal) * 100) + '%';
-    progresoTexto.textContent = (refuerzoIdx + 1) + ' / ' + refuerzoTotal;
+    progresoTexto.textContent = '';
   }
 
   function pintarProgreso() {
     var total = banco().porRonda;
     progresoRelleno.style.width = ((idx / total) * 100) + '%';
-    progresoTexto.textContent = idx + ' / ' + total;
+    progresoTexto.textContent = '';
   }
 
   /* ---- Render ---- */
@@ -483,6 +483,7 @@
         .forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosRonda += 1;
       guardar();
       pintarEstrellas();
@@ -537,10 +538,8 @@
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda)
-      .replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -559,7 +558,7 @@
   if (btnEscuchar) {
     btnEscuchar.addEventListener('click', function () {
       var t = textoPreguntaEl.textContent || '';
-      if (t) App.tts.speak(t);
+      if (t) if (false && App.tts && App.tts.speak) App.tts.speak(t);
     });
   }
 

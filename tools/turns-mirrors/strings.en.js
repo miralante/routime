@@ -12,6 +12,7 @@
     "instruccionNivel": " First, choose the level.",
     "elegirNivel": "Choose the level",
     "veces": "times",
+    "btnJugar": "Play!",
     "modelo": "Model",
     "preguntaGiro": "Touch the picture that matches the model, even though it is turned.",
     "preguntaEspejo": "Touch the picture as it looks in a mirror.",
@@ -26,6 +27,8 @@
     "malEspejo": "❌ That is not the reflection. The reflection is marked.",
     "malLetras": "❌ That is a different letter. The matching letter is: {letra}. It is marked.",
     "resumenFinal": "You won {n} stars. You now have {total} stars.",
+    "proximoNivel": "Next step: {n}",
+    "btnMenu": "Back to start",
     "btnOtroNivel": "Choose another level",
     "ariaOpcion": "Option {n}"
   ,

@@ -99,7 +99,7 @@ Ejemplos:
 
 ### Cómo empezar
 
-1. Lee [`doc/es/SPEC.md`](doc/es/SPEC.md) — entenderás QUÉ es Routime y POR QUÉ existe
+1. Lee [`doc/es/spec.md`](doc/es/spec.md) — entenderás QUÉ es Routime y POR QUÉ existe
 2. Lee [`doc/es/equipo.md`](doc/es/equipo.md) — visión clínica de las actividades
 3. Examina [`doc/es/actividades.md`](doc/es/actividades.md) — qué hay y qué falta
 4. Lee el apartado §3 del SPEC: las **restricciones innegociables** son las que tu contenido nunca debe romper
@@ -167,7 +167,7 @@ valida que:
 
 ### Cómo empezar
 
-1. Lee [`doc/es/SPEC.md`](doc/es/SPEC.md) §3–§4 — restricciones y principios de producto
+1. Lee [`doc/es/spec.md`](doc/es/spec.md) §3–§4 — restricciones y principios de producto
 2. Lee [`doc/es/tecnico.md`](doc/es/tecnico.md) o [`doc/en/technical.md`](doc/en/technical.md)
    entero — entenderás la arquitectura, la API del núcleo y las recetas
 3. Ejecuta `node scripts/check.js` — verifica que tu entorno está bien
@@ -176,7 +176,7 @@ valida que:
 
 - **Actividad nueva** → [`doc/es/tecnico.md`](doc/es/tecnico.md) §9
 - **Módulo nuevo** → [`doc/es/tecnico.md`](doc/es/tecnico.md) §10
-- **Idioma nuevo** → [`doc/es/I18N.md`](doc/es/I18N.md) §5
+- **Idioma nuevo** → [`doc/es/i18n.md`](doc/es/i18n.md) §5
 
 ### Checklist antes de abrir PR
 
@@ -193,7 +193,7 @@ valida que:
 ## 🌐 Guía para traductores
 
 - Toda la UI vive en archivos `strings.<locale>.js` dentro de cada actividad
-- Para añadir un idioma nuevo, ver [`doc/es/I18N.md`](doc/es/I18N.md) §5
+- Para añadir un idioma nuevo, ver [`doc/es/i18n.md`](doc/es/i18n.md) §5
 - Mantén el estilo **Lectura Fácil** también en la traducción
 - Cuidado con números y dinero (separadores y escala): ver nota en
   [`doc/es/tecnico.md`](doc/es/tecnico.md) §3.3
@@ -205,7 +205,7 @@ valida que:
 (Están aquí para que no se sugieran y nos ahorren tiempo a todos)
 
 - **Cambios que rompan autonomía, accesibilidad o privacidad** — son las
-  restricciones innegociables del producto ([SPEC §3](doc/es/SPEC.md))
+  restricciones innegociables del producto ([SPEC §3](doc/es/spec.md))
 - **Dependencias nuevas** (npm, CDNs) — solo JS vanilla, ver [`doc/es/tecnico.md`](doc/es/tecnico.md) §1
 - **Funcionalidades que añadan presión** al usuario final (cronómetros visibles,
   rankings, comparativas, "game over")

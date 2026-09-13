@@ -18,7 +18,7 @@
   var attempts = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { $('#stars').textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { $('#stars').textContent.textContent = ''; }
 
   function showScreen(id) {
     ['startScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
@@ -51,15 +51,15 @@
     var item = cases[index];
     solved = false;
     attempts = 0;
-    $('#caseIcon').textContent = item.picto;
-    $('#caseText').textContent = item.situacion;
-    $('#feedback').textContent = '';
+    $('#caseIcon').textContent.textContent = '';
+    $('#caseText').textContent.textContent = '';
+    $('#feedback').textContent.textContent = '';
     $('#feedback').className = 'feedback';
     $('#explanationWrap').classList.add('oculto');
     $('#nextButton').classList.add('oculto');
     $('#options').innerHTML = '';
     $('#progressFill').style.width = ((index / bank.porRonda) * 100) + '%';
-    $('#progressText').textContent = (index + 1) + ' / ' + bank.porRonda;
+    $('#progressText').textContent.textContent = '';
 
     App.utils.shuffle(item.opciones.map(function (text, optionIndex) {
       return { text: text, correct: optionIndex === item.correcta };
@@ -74,7 +74,7 @@
   }
 
   function showExplanation(text) {
-    $('#explanation').textContent = text;
+    $('#explanation').textContent.textContent = '';
     $('#explanationWrap').classList.remove('oculto');
   }
 
@@ -101,7 +101,6 @@
 
   function next() {
     index += 1;
-    App.tts.stop();
     if (index < cases.length) {
       renderCase();
       return;
@@ -112,15 +111,12 @@
       save();
     }
     paintStars();
-    $('#endText').textContent = App.i18n.t('endText');
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#endText').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     showScreen('endScreen');
     App.feedback.celebrate(App.i18n.t('roundComplete'));
   }
 
-  $('#instructionAudio').addEventListener('click', function () { App.tts.speak($('#instruction').textContent); });
-  $('#caseAudio').addEventListener('click', function () { App.tts.speak(cases[index].situacion); });
-  $('#explanationAudio').addEventListener('click', function () { App.tts.speak($('#explanation').textContent); });
   $('#nextButton').addEventListener('click', next);
   $('#repeatButton').addEventListener('click', function () { startLevel(level); });
   $('#levelsButton').addEventListener('click', function () { paintLevels(); showScreen('startScreen'); });

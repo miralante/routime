@@ -31,9 +31,7 @@
         <div class="card-picto" id="cardPicto" aria-hidden="true"></div>
         <h2 id="cardName"></h2>
         <p class="card-situation" id="cardSituation"></p>
-        <p class="card-number" id="cardNumber"></p>
-        <button type="button" class="btn btn-audio" id="cardListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la ficha"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      </div>
+        <p class="card-number" id="cardNumber"></p>      </div>
       <button type="button" class="btn" id="nextCardBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -41,9 +39,7 @@
     <section id="summaryScreen" class="oculto pila centrado">
       <h2 data-i18n="summaryTitle">Un solo número para todo</h2>
       <div class="card pila" id="summaryCard"></div>
-      <div class="fila center-row">
-        <button type="button" class="btn btn-audio" id="summaryListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el resumen">🔊</button>
-      </div>
+      <div class="fila center-row">      </div>
       <button type="button" class="btn" id="startQuizBtn" data-i18n="startQuiz">Hacer el test</button>
     </section>
 
@@ -55,16 +51,12 @@
       </div>
       <div class="card centrado pila">
         <div class="situation-picto" id="quizPicto" aria-hidden="true"></div>
-        <p class="quiz-text" id="quizSituation" data-i18n="core.loading">Cargando…</p>
-        <button type="button" class="btn btn-audio" id="quizListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar la situación">🔊</button>
-      </div>
+        <p class="quiz-text" id="quizSituation" data-i18n="core.loading">Cargando…</p>      </div>
       <h2 class="quiz-question centrado" data-i18n="quizQuestion">¿A qué número llamas?</h2>
       <div class="pila" id="quizOptions"></div>
       <div class="feedback" id="quizFeedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="quizExplanationWrap">
-        <p id="quizExplanation" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="quizExplanationListenBtn" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
+        <p id="quizExplanation" aria-live="polite"></p>      </div>
       <button type="button" class="btn oculto" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -82,7 +74,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

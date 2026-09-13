@@ -1,4 +1,4 @@
-/* Should I Post It? — tool-specific styles. Shared styles live in assets/css/.
+﻿/* Should I Post It? â€” tool-specific styles. Shared styles live in assets/css/.
    Autonomy and home module accent (green --mod-secuencia). */
 
 .tool-header h1 { color: var(--mod-secuencia); }
@@ -11,12 +11,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }

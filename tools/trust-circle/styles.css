@@ -15,12 +15,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -42,6 +39,56 @@
 #pantallaFinal { padding-top: 48px; }
 
 #pantallaFinal .btn { align-self: center; min-width: 280px; }
+
+/* Intro screen: friend / classmate / acquaintance cards */
+#pantallaIntro { align-items: center; }
+
+.intro-titulo {
+  font-size: var(--texto-grande);
+  color: var(--mod-emocional);
+  text-align: center;
+  margin-bottom: var(--espacio-grande);
+  font-weight: 700;
+}
+
+.tarjetas-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio);
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: var(--espacio-grande);
+}
+
+.tarjeta-intro {
+  background: #fff;
+  border-radius: 16px;
+  padding: var(--espacio) var(--espacio-medio);
+  border-left: 5px solid;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espacio);
+}
+
+.tarjeta-intro:nth-child(1) { border-color: #F5C842; }
+.tarjeta-intro:nth-child(2) { border-color: #4CAF7D; }
+.tarjeta-intro:nth-child(3) { border-color: #5BA3D9; }
+
+.tarjeta-picto { font-size: 40px; flex-shrink: 0; }
+
+.tarjeta-intro h3 {
+  margin: 0 0 4px;
+  font-size: var(--texto-base);
+  color: var(--color-texto);
+}
+
+.tarjeta-intro p {
+  margin: 0;
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave);
+  line-height: 1.5;
+}
 
 #pantallaFinal .transferencia {
   margin: 8px auto 24px;

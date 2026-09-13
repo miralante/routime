@@ -1,5 +1,5 @@
-/* Task List — tool-specific styles. Shared styles live in assets/css/.
-   Acento del módulo Autonomía y hogar (verde --mod-secuencia). */
+﻿/* Task List â€” tool-specific styles. Shared styles live in assets/css/.
+   Acento del mÃ³dulo AutonomÃ­a y hogar (verde --mod-secuencia). */
 
 .tool-header h1 { color: var(--mod-secuencia); }
 
@@ -11,12 +11,9 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
+.dificultad {
   font-size: var(--texto-pequeno);
-  opacity: 0.9;
+  color: var(--color-texto-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -107,8 +104,8 @@
 
 /* ============================================================
    Pantalla "Crea tu lista" (Nivel 3).
-   Simulación y entrenamiento del flujo real de una lista:
-   nombre, añadir, reordenar, marcar, borrar, guardar, recuperar.
+   SimulaciÃ³n y entrenamiento del flujo real de una lista:
+   nombre, aÃ±adir, reordenar, marcar, borrar, guardar, recuperar.
    ============================================================ */
 .panel-nombre {
   display: flex;
@@ -289,7 +286,7 @@
   border-color: var(--mod-secuencia);
 }
 
-/* Barra de flechas ↑/↓ para reordenar el elemento seleccionado. */
+/* Barra de flechas â†‘/â†“ para reordenar el elemento seleccionado. */
 .barra-mover-slot {
   display: flex;
   justify-content: center;
@@ -324,7 +321,7 @@
   outline-offset: 2px;
 }
 
-/* Input + botón Añadir, debajo del editor. */
+/* Input + botÃ³n AÃ±adir, debajo del editor. */
 .fila-anadir-item {
   display: flex;
   gap: var(--espacio);

@@ -218,7 +218,7 @@
   function paintCardProgress() {
     var total = items.length;
     cardsProgressFill.style.width = ((idx / total) * 100) + '%';
-    cardsProgressText.textContent = (idx + 1) + ' / ' + total;
+    cardsProgressText.textContent = '';
   }
 
   function renderCard() {
@@ -241,7 +241,6 @@
 
   function nextCard() {
     idx += 1;
-    App.tts.stop();
     if (idx >= items.length) {
       startQuiz();
     } else {
@@ -254,7 +253,7 @@
   function paintQuizProgress() {
     var total = items.length;
     quizProgressFill.style.width = ((idx / total) * 100) + '%';
-    quizProgressText.textContent = idx + ' / ' + total;
+    quizProgressText.textContent = '';
   }
 
   function distractorsFor(item, n) {
@@ -342,7 +341,6 @@
 
   function nextQuiz() {
     idx += 1;
-    App.tts.stop();
     if (idx >= items.length) {
       finishRound();
     } else {
@@ -363,12 +361,11 @@
     finalSummary.textContent = t('finalSummary')
       .replace('{n}', aciertosRonda)
       .replace('{total}', progress.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrar(t('core.roundComplete'));
   }
 
   function goStart() {
-    App.tts.stop();
     showScreen('start');
     selectedBlockId = null;
     selectedTier = null;
@@ -381,15 +378,15 @@
   /* ---------- Wire events ---------- */
 
   cardListenBtn.addEventListener('click', function () {
-    App.tts.speak(items[idx].word + '. ' + items[idx].definition);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word + '. ' + items[idx].definition);
   });
   nextCardBtn.addEventListener('click', nextCard);
   quizListenBtn.addEventListener('click', function () {
-    App.tts.speak(items[idx].word);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
   quizExplanationListenBtn.addEventListener('click', function () {
-    App.tts.speak(quizExplanation.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   $('#replayBtn').addEventListener('click', function () {
     if (currentRound) startRound(currentRound);

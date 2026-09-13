@@ -9,13 +9,8 @@
   App.i18n.register({
     "title": "🃏 Parejas",
     "instruccion": "Busca las dos cartas iguales. Toca una carta para verla.",
-    "instruccionExtra": " Primero elige el nivel.",
-    "tituloNiveles": "Elige el nivel",
-    "nivelFacil": "Fácil",
-    "nivelMedio": "Medio",
-    "nivelDificil": "Difícil",
-    "nivelParejas": "{n} parejas",
-    "veces": "{n} veces",
+    "btnJugar": "¡Jugar!",
+    "parejas": "parejas",
     "tableroAria": "Tablero de cartas",
     "cartaTapada": "Carta tapada",
     "cartaConSimbolo": "Carta con {picto}",
@@ -23,9 +18,9 @@
     "finalTitulo": "¡Lo has conseguido!",
     "resumenFinalUna": "Has encontrado todas las parejas. Ganas 1 estrella.",
     "resumenFinalVarias": "Has encontrado todas las parejas. Ganas {n} estrellas.",
+    "proximoNivel": "Siguiente: {n} parejas",
     "celebrarTexto": "¡Todas las parejas!",
-    "otroNivel": "Elegir otro nivel"
-  ,
-  "transferencia": "Esto te ayuda a recordar dónde está cada cosa en casa."
+    "btnMenu": "Volver al inicio",
+    "transferencia": "Esto te ayuda a recordar dónde está cada cosa en casa."
 }, 'es');
 })();

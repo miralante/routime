@@ -13,18 +13,17 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" id="btnVolver" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🗒️ Lista de Tareas</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link" id="btnVolver" data-i18n="core.back">â† Volver</a>
+      <h1 data-i18n="title">ðŸ—’ï¸ Lista de Tareas</h1>
+      <span class="stars" id="stars">â­ 0</span>
     </header>
 
     <!-- Start screen -->
     <section id="pantallaInicio" class="pila centrado">
       <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Toca las tareas en el orden correcto, de primero a último.</p>
+        <p class="instruccion" id="instruccion" data-i18n="instruccion">Toca las tareas en el orden correcto, de primero a Ãºltimo.</p>
       </div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="niveles"></div>
+      <button type="button" class="btn btn-principal" id="btnJugar"><span data-i18n="btnJugar">¡Jugar!</span></button>
     </section>
 
     <!-- Game screen -->
@@ -32,6 +31,7 @@
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText">0 / 5</span>
+        <span class="dificultad" id="dificultad"></span>
       </div>
 
       <p class="lista-titulo centrado" id="listaTitulo"></p>
@@ -43,32 +43,32 @@
       <div class="pila-disponibles" id="disponibles"></div>
 
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">â†’</button>
     </section>
 
     <!-- Pantalla "Crea tu lista" (Nivel 3):
-         simulación y entrenamiento del flujo real de una lista.
+         simulaciÃ³n y entrenamiento del flujo real de una lista.
          La persona:
-           1. Crea una lista de práctica con un nombre y elementos.
-           2. Reordena los elementos con flechas ↑/↓.
+           1. Crea una lista de prÃ¡ctica con un nombre y elementos.
+           2. Reordena los elementos con flechas â†‘/â†“.
            3. Marca cada elemento como "Hecho".
            4. Puede borrar un elemento o vaciar la lista.
-           5. Guarda la lista y la recupera más tarde desde el menú.
+           5. Guarda la lista y la recupera mÃ¡s tarde desde el menÃº.
          Las listas se guardan en localStorage del dispositivo
          (no son datos personales: son listas de entrenamiento). -->
     <section id="pantallaCrear" class="oculto pila">
-      <h2 class="centrado" data-i18n="crearTitulo">📝 Crea tu lista</h2>
-      <p class="instruccion centrado" data-i18n="crearInstruccion">Practica creando una lista: añade cosas, cámbialas de orden, márcalas como hechas y bórralas.</p>
+      <h2 class="centrado" data-i18n="crearTitulo">ðŸ“ Crea tu lista</h2>
+      <p class="instruccion centrado" data-i18n="crearInstruccion">Practica creando una lista: aÃ±ade cosas, cÃ¡mbialas de orden, mÃ¡rcalas como hechas y bÃ³rralas.</p>
       <p class="transferencia centrado" data-i18n="transferenciaCrear"></p>
 
       <div id="panelNombre" class="panel-nombre pila">
         <div class="consejo-lista">
-          <p class="consejo-lista-titulo" data-i18n="consejoListaTitulo">💡 Cómo hacer una buena lista</p>
+          <p class="consejo-lista-titulo" data-i18n="consejoListaTitulo">ðŸ’¡ CÃ³mo hacer una buena lista</p>
           <ol class="consejo-lista-pasos">
-            <li data-i18n="consejoListaPaso1">Piensa qué tienes que hacer.</li>
+            <li data-i18n="consejoListaPaso1">Piensa quÃ© tienes que hacer.</li>
             <li data-i18n="consejoListaPaso2">Apunta cada cosa en la lista.</li>
             <li data-i18n="consejoListaPaso3">Ponlas en el orden en que las vas a hacer.</li>
-            <li data-i18n="consejoListaPaso4">Márcalas como hechas cuando termines.</li>
+            <li data-i18n="consejoListaPaso4">MÃ¡rcalas como hechas cuando termines.</li>
           </ol>
         </div>
         <label for="inputNombreListaCrear" class="instruccion centrado" data-i18n="labelNombreLista">Nombre de la lista</label>
@@ -81,7 +81,7 @@
 
       <div id="panelEditor" class="panel-editor oculto pila">
         <div class="fila centrado">
-          <button type="button" class="btn btn-secundario btn-mis-listas" id="btnMisListas" data-i18n="btnMisListas" data-i18n-aria="ariaMisListas">📋 Mis listas</button>
+          <button type="button" class="btn btn-secundario btn-mis-listas" id="btnMisListas" data-i18n="btnMisListas" data-i18n-aria="ariaMisListas">ðŸ“‹ Mis listas</button>
         </div>
         <p class="lista-titulo centrado" id="tituloListaCrear"></p>
         <p class="lista-progreso centrado" id="progresoListaCrear"></p>
@@ -89,18 +89,18 @@
         <ol id="itemsListaCrear" class="lista-items-crear"></ol>
 
         <div class="barra-mover-slot" role="group" aria-label="Mover el elemento seleccionado">
-          <button type="button" class="btn-flecha-slot btn-subir-slot" id="btnSubirItemCrear" aria-label="Subir el elemento seleccionado" disabled>↑</button>
-          <button type="button" class="btn-flecha-slot btn-bajar-slot" id="btnBajarItemCrear" aria-label="Bajar el elemento seleccionado" disabled>↓</button>
+          <button type="button" class="btn-flecha-slot btn-subir-slot" id="btnSubirItemCrear" aria-label="Subir el elemento seleccionado" disabled>â†‘</button>
+          <button type="button" class="btn-flecha-slot btn-bajar-slot" id="btnBajarItemCrear" aria-label="Bajar el elemento seleccionado" disabled>â†“</button>
         </div>
 
         <div class="fila-anadir-item">
           <input type="text" id="inputNuevoItemCrear" class="input-lista" maxlength="60" autocomplete="off">
-          <button type="button" class="btn" id="btnAnadirItemCrear" data-i18n="btnAnadirItem">➕ Añadir</button>
+          <button type="button" class="btn" id="btnAnadirItemCrear" data-i18n="btnAnadirItem">âž• AÃ±adir</button>
         </div>
 
         <div class="fila centrado">
-          <button type="button" class="btn" id="btnGuardarListaCrear" data-i18n="btnGuardarLista" disabled>💾 Guardar lista</button>
-          <button type="button" class="btn btn-secundario" id="btnVaciarListaCrear" data-i18n="btnVaciarLista" data-i18n-aria="ariaVaciarLista">🗑️ Vaciar</button>
+          <button type="button" class="btn" id="btnGuardarListaCrear" data-i18n="btnGuardarLista" disabled>ðŸ’¾ Guardar lista</button>
+          <button type="button" class="btn btn-secundario" id="btnVaciarListaCrear" data-i18n="btnVaciarLista" data-i18n-aria="ariaVaciarLista">ðŸ—‘ï¸ Vaciar</button>
         </div>
       </div>
 
@@ -109,20 +109,19 @@
 
     <!-- End screen -->
     <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
+      <div class="emoji-grande" aria-hidden="true">ðŸŽ‰</div>
+      <h2 data-i18n="core.roundComplete">Â¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
+      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menÃº</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

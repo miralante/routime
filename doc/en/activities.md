@@ -82,28 +82,6 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 ---
 
-## Module 4: 🎲 Board games
-
-**Module color:** Teal
-
-**What it works on?** Classic board games, with levels and an opponent that plays gently.
-
-| Activity | Description |
-|----------|-------------|
-| **Tic-Tac-Toe** | Play tic tac toe against the computer |
-| **Visual Sudoku** | Complete a 4×4 sudoku using images instead of numbers |
-| **Dominoes** | Play a game of dominoes against the computer |
-| **Checkers** | Play checkers against the computer (6×6 board) |
-| **Chess** | Chess puzzles to learn the pieces |
-| **Four in a Row** | Play connect 4 against the computer |
-
-> Math and logical reasoning (Numbers, Quantities, Math Tables, Roman
-> Numerals, Riddles, Patterns, The Wallet, The Clock, Stories, What
-> Doesn't Belong?, Puzzle, Goose Game) were split out to a separate
-> app of the suite, **Calculia**.
-
----
-
 ## Module 5: 💬 Language and comprehension
 
 **Module color:** Raspberry (dark pink)
@@ -161,12 +139,11 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | 📋 Autonomy and home | 26 | Green |
 | 💜 Emotions | 9 | Purple |
 | 🧠 Memory and attention | 10 | Orange |
-| 🎲 Board games | 6 | Teal |
 | 💬 Language and comprehension | 11 | Raspberry |
 | 🎯 Coordination and motor skills | 6 | Blue |
 | 💗 Body and relationships | 1 | Terracotta |
 
-**Total: 68 activities**
+**Total: 62 activities**
 
 ---
 
@@ -186,30 +163,12 @@ From easier to harder:
 - Safe Chat
 - Calm
 - My Details
-- Dominoes
-- Chess
 - The Shop
 - The Theatre
 - While Help Is on Its Way
 - Before the Emergency
 - Among Friends
 - Emergencies
-- Visual Sudoku
-
----
-
-## Board game activities
-
-Routime includes several classic board games adapted, ordered from easier to harder:
-
-| Game | Description |
-|------|-------------|
-| **Tic-Tac-Toe** | Three in a row against the computer |
-| **Dominoes** | Chain dominoes against the computer |
-| **Visual Sudoku** | 4×4 sudoku with pictures |
-| **Four in a Row** | Connect 4 against the computer |
-| **Checkers** | 6×6 checkers against the computer |
-| **Chess** | Chess piece puzzles |
 
 ---
 

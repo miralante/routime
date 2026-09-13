@@ -2,6 +2,8 @@
    Routime — Parejas (memoria y funciones ejecutivas)
    Emparejar cartas idénticas. Sin límite de tiempo ni intentos.
    Si no coinciden: mensaje de ánimo y se tapan tras 1,5 s.
+   Progresión automática: empieza con 3 parejas y aumenta según
+   el progreso guardado, sin mostrar selección de nivel al usuario.
    ============================================================ */
 (function () {
   'use strict';
@@ -14,16 +16,17 @@
   var pantallaFinal = $('#pantallaFinal');
   var tableroEl = $('#tablero');
   var contadorEl = $('#contador');
+  var dificultadEl = $('#dificultad');
   var feedbackEl = $('#feedback');
   var starsEl = $('#stars');
 
   /* Persistent progress */
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Estado de la partida */
-  var nivel = null;
+  var nivelActual = null;
   var encontradas = 0;
   var primera = null;      /* primera carta destapada */
   var bloqueado = false;   /* mientras se muestran 2 cartas */
@@ -32,34 +35,28 @@
 
   function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
 
+  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+
   function pintarContador() {
-    contadorEl.textContent = App.i18n.t('contador')
-      .replace('{n}', encontradas)
-      .replace('{total}', nivel.parejas);
+    contadorEl.textContent = '';
   }
 
-  /* ---- Pantalla inicial ---- */
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    var banco = DATA[App.i18n.locale()] || DATA.es;
-    banco.niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      var nombre = App.i18n.t(n.nombreKey);
-      var parejasTxt = App.i18n.t('nivelParejas').replace('{n}', n.parejas);
-      var vecesTxt = App.i18n.t('veces').replace('{n}', veces);
-      btn.innerHTML = nombre + ' — ' + parejasTxt +
-        ' <span class="nivel-info">(' + vecesTxt + ')</span>';
-      btn.addEventListener('click', function () { empezar(n); });
-      cont.appendChild(btn);
-    });
+  /* Determina el nivel según el progreso: cada partida completada,
+     sube un nivel (0→facil con 3, 1→medio con 4, 2→dificil con 6) */
+  function nivelSegunProgreso() {
+    var idx = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idx];
   }
 
-  function empezar(n) {
-    nivel = n;
+  /* Muestra la dificultad actual (número de parejas) */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.parejas + ' ' + App.i18n.t('parejas');
+    }
+  }
+
+  function empezarJuego() {
+    nivelActual = nivelSegunProgreso();
     encontradas = 0;
     primera = null;
     bloqueado = false;
@@ -70,11 +67,10 @@
     feedbackEl.className = 'feedback';
 
     /* Pick random symbols and duplicate them (pictograms, language-agnostic) */
-    var banco = DATA[App.i18n.locale()] || DATA.es;
-    var simbolos = App.utils.shuffle(banco.simbolos).slice(0, nivel.parejas);
+    var simbolos = App.utils.shuffle(banco().simbolos).slice(0, nivelActual.parejas);
     var cartas = App.utils.shuffle(simbolos.concat(simbolos));
 
-    tableroEl.style.gridTemplateColumns = 'repeat(' + nivel.columnas + ', 1fr)';
+    tableroEl.style.gridTemplateColumns = 'repeat(' + nivelActual.columnas + ', 1fr)';
     tableroEl.innerHTML = '';
     cartas.forEach(function (simbolo) {
       var btn = document.createElement('button');
@@ -87,6 +83,7 @@
       tableroEl.appendChild(btn);
     });
     pintarContador();
+    pintarDificultad();
     pintarEstrellas();
   }
 
@@ -113,7 +110,7 @@
       encontradas += 1;
       pintarContador();
       App.feedback.success(feedbackEl);
-      if (encontradas === nivel.parejas) terminar();
+      if (encontradas === nivelActual.parejas) terminar();
     } else {
       bloqueado = true;
       App.feedback.encourage(feedbackEl);
@@ -132,28 +129,29 @@
   }
 
   function terminar() {
-    progreso.estrellas += nivel.estrellas;
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.estrellas += nivelActual.estrellas;
+    progreso.rondasCompletadas += 1;
     guardar();
     pintarEstrellas();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = nivel.estrellas === 1
-      ? App.i18n.t('resumenFinalUna')
-      : App.i18n.t('resumenFinalVarias').replace('{n}', nivel.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('celebrarTexto'));
   }
 
   /* Events */
-  $('#btnRepetir').addEventListener('click', function () { empezar(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
+  $('#btnJugar').addEventListener('click', function () { empezarJuego(); });
+  $('#btnRepetir').addEventListener('click', function () { empezarJuego(); });
+  $('#btnMenu').addEventListener('click', function () {
     pantallaFinal.classList.add('oculto');
-    pintarNiveles();
+    pantallaJuego.classList.add('oculto');
     pantallaInicio.classList.remove('oculto');
+    pintarEstrellas();
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

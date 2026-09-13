@@ -399,6 +399,7 @@
     var numBloques = parseInt(contadorBloques.textContent, 10);
 
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     progreso.construcciones += 1;
     guardar();
     pintarEstrellas();
@@ -408,8 +409,8 @@
     var resumen = modoActual === 'plantilla'
       ? App.i18n.t('resumenPlantilla').replace('{n}', numBloques)
       : App.i18n.t('resumenLibre').replace('{n}', numBloques);
-    $('#resumenFinal').textContent = resumen;
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+$('#transferencia').textContent.textContent = '';
 
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');

@@ -23,7 +23,7 @@
   }
 
   function paintStars() {
-    $('#stars').textContent = '⭐ ' + progress.estrellas;
+    $('#stars').textContent.textContent = '';
   }
 
   function showScreen(screenId) {
@@ -56,7 +56,7 @@
   }
 
   function showExplanation(labelKey, text) {
-    $('#explanation').textContent = App.i18n.t(labelKey) + ' ' + text;
+    $('#explanation').textContent.textContent = '';
     $('#explanationWrap').classList.remove('oculto');
   }
 
@@ -64,16 +64,16 @@
     var currentCase = cases[caseIndex];
     solved = false;
     attempts = 0;
-    $('#caseIcon').textContent = currentCase.icon;
-    $('#caseText').textContent = currentCase.scenario;
-    $('#feedback').textContent = '';
+    $('#caseIcon').textContent.textContent = '';
+    $('#caseText').textContent.textContent = '';
+    $('#feedback').textContent.textContent = '';
     $('#feedback').className = 'feedback';
-    $('#explanation').textContent = '';
+    $('#explanation').textContent.textContent = '';
     $('#explanationWrap').classList.add('oculto');
     $('#nextButton').classList.add('oculto');
     $('#options').innerHTML = '';
     $('#progressFill').style.width = ((caseIndex / cases.length) * 100) + '%';
-    $('#progressText').textContent = (caseIndex + 1) + ' / ' + cases.length;
+    $('#progressText').textContent.textContent = '';
 
     App.utils.shuffle(currentCase.choices.slice()).forEach(function (choice) {
       var button = document.createElement('button');
@@ -86,7 +86,6 @@
       $('#options').appendChild(button);
     });
 
-    $('#caseAudio').focus();
   }
 
   function answer(button, choice, currentCase) {
@@ -125,15 +124,14 @@
       save();
     }
     paintStars();
-    $('#endText').textContent = App.i18n.t(firstCompletion ? 'newCompletion' : 'repeatCompletion');
+    $('#endText').textContent.textContent = '';
     showScreen('endScreen');
     $('#endHeading').focus();
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-$('#transferencia').textContent = App.i18n.t('transferencia');
+$('#transferencia').textContent.textContent = '';
   }
 
   function nextCase() {
-    App.tts.stop();
     caseIndex += 1;
     if (caseIndex < cases.length) {
       renderCase();
@@ -142,12 +140,6 @@ $('#transferencia').textContent = App.i18n.t('transferencia');
     }
   }
 
-  $('#instructionAudio').addEventListener('click', function () {
-    App.tts.speak($('#instruction').textContent + ' ' + $('#levelHeading').textContent);
-  });
-  $('#caseAudio').addEventListener('click', function () {
-    App.tts.speak(cases[caseIndex].scenario + ' ' + App.i18n.t('question'));
-  });
   $('#nextButton').addEventListener('click', nextCase);
   $('#repeatButton').addEventListener('click', function () { startLevel(level); });
   $('#levelsButton').addEventListener('click', function () {

@@ -9,6 +9,8 @@
    Primer fallo → pista que enseña qué fila es delante/detrás
    (regla 12); segundo fallo → se marca el sitio (regla 11).
    Ronda de 3 escenas; 1 estrella por escena completada.
+   Progresión automática: empieza con 2 personajes y aumenta según
+   el progreso guardado, sin mostrar selección de nivel al usuario.
    ============================================================ */
 (function () {
   'use strict';
@@ -30,14 +32,15 @@
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var dificultadEl = $('#dificultad');
 
   /* Persistent progress */
   var progreso = App.storage.get(TOOL_ID);
   if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
+  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
 
   /* Round state */
-  var nivel = null;
+  var nivelActual = null;  /* nivel seleccionado según progreso */
   var idxEscena = 0;
   var aciertosRonda = 0;
   var slots = [];           /* 8 posiciones (fila*COLS+col): {picto, nombre} | null */
@@ -51,43 +54,44 @@
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
-  function pintarNiveles() {
-    var cont = $('#niveles');
-    cont.innerHTML = '';
-    banco().niveles.forEach(function (n) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-nivel';
-      var veces = progreso.completados[n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion +
-        ' <span class="nivel-info">(' + veces + ' ' + App.i18n.t('veces') + ')</span>';
-      btn.addEventListener('click', function () { iniciarRonda(n); });
-      cont.appendChild(btn);
-    });
+  /* Determina el nivel según el progreso: cada 3 rondas completadas,
+     sube un nivel (0=nivel1 con 2, 1=nivel2 con 3, 2=nivel3 con 4) */
+  function nivelSegunProgreso() {
+    var idx = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+    return banco().niveles[idx];
   }
 
-  function iniciarRonda(n) {
-    nivel = n;
+  /* Muestra la dificultad actual (número de personajes) */
+  function pintarDificultad() {
+    if (dificultadEl) {
+      dificultadEl.textContent = nivelActual.ordenes + ' ' +
+        (nivelActual.ordenes === 1 ? App.i18n.t('personaje') : App.i18n.t('personajes'));
+    }
+  }
+
+  function iniciarJuego() {
+    nivelActual = nivelSegunProgreso();
     idxEscena = 0;
     aciertosRonda = 0;
     pantallaInicio.classList.add('oculto');
     pantallaFinal.classList.add('oculto');
     pantallaJuego.classList.remove('oculto');
+    pintarDificultad();
     nuevaEscena();
   }
 
   function pintarProgreso() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idxEscena / porRonda) * 100) + '%';
-    progressText.textContent = idxEscena + ' / ' + porRonda;
+    progressText.textContent = '';
   }
 
   /* ---- Montar la escena: 1 referencia por columna, fila al azar;
      las órdenes usan columnas distintas ---- */
   function nuevaEscena() {
     var refs = App.utils.shuffle(banco().referencias).slice(0, COLS);
-    var personajes = App.utils.shuffle(banco().personajes).slice(0, nivel.ordenes);
-    var columnasOrden = App.utils.shuffle([0, 1, 2, 3]).slice(0, nivel.ordenes);
+    var personajes = App.utils.shuffle(banco().personajes).slice(0, nivelActual.ordenes);
+    var columnasOrden = App.utils.shuffle([0, 1, 2, 3]).slice(0, nivelActual.ordenes);
 
     slots = new Array(2 * COLS).fill(null);
     ordenes = [];
@@ -213,6 +217,7 @@
     idxEscena += 1;
     aciertosRonda += 1;
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     guardar();
     pintarEstrellas();
     pintarProgreso();
@@ -225,7 +230,6 @@
   }
 
   function siguiente() {
-    App.tts.stop();
     if (idxEscena >= banco().porRonda) {
       terminarRonda();
     } else {
@@ -234,29 +238,31 @@
   }
 
   function terminarRonda() {
-    progreso.completados[nivel.id] = (progreso.completados[nivel.id] || 0) + 1;
+    progreso.rondasCompletadas += 1;
     guardar();
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda).replace('{total}', progreso.estrellas);
-$('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
   btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarRonda(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
+  $('#btnJugar').addEventListener('click', function () { iniciarJuego(); });
+  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  $('#btnMenu').addEventListener('click', function () {
     pantallaFinal.classList.add('oculto');
-    pintarNiveles();
+    pantallaJuego.classList.add('oculto');
     pantallaInicio.classList.remove('oculto');
+    pintarEstrellas();
   });
   $('#btnConsigna').addEventListener('click', function () {
-    App.tts.speak(consignaEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(consignaEl.textContent);
   });
 
-  pintarNiveles();
   pintarEstrellas();
 })();
 

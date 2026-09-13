@@ -26,29 +26,50 @@
       <div class="fila centrado-fila">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Lee la situación y elige la respuesta correcta.</p>
       </div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="niveles"></div>
+      <button type="button" class="btn btn-principal" id="btnJugar">
+        <span data-i18n="btnJugar">¡Jugar!</span>
+      </button>
+    </section>
+
+    <!-- Intro screen: friend vs classmate vs acquaintance -->
+    <section id="pantallaIntro" class="oculto pila">
+      <h2 class="intro-titulo" data-i18n="introTitulo">Antes de empezar, ¿sabes distinguirlos?</h2>
+      <div class="tarjetas-intro">
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">💛</span>
+          <h3>🤝 <span data-i18n="labelAmigo">Amigo</span></h3>
+          <p data-i18n="introAmigo">Un amigo es alguien que te importa mucho. Confías en esa persona y compartes cosas importantes contigo. Es alguien con quien pasas tiempo también fuera del colegio.</p>
+        </div>
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">💚</span>
+          <h3>📚 <span data-i18n="labelCompanero">Compañero</span></h3>
+          <p data-i18n="introCompanero">Un compañero es alguien que ves en el colegio o en una actividad. Hacéis cosas juntos, pero no necesariamente lo conoces fuera de ese sitio.</p>
+        </div>
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">🩵</span>
+          <h3>👋 <span data-i18n="labelConocido">Conocido</span></h3>
+          <p data-i18n="introConocido">Un conocido es alguien que sabes quién es: lo has visto, conoces su nombre, pero no tienes una relación cercana. Es alguien con quien puedes saludar.</p>
+        </div>
+      </div>
+      <button type="button" class="btn btn-principal" id="btnContinuarIntro" data-i18n="btnContinuarIntro">¡Entendido, jugar!</button>
     </section>
 
     <!-- Game screen -->
     <section id="pantallaJuego" class="oculto pila">
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-        <span class="progress-text" id="progressText">0 / 8</span>
+        <span class="progress-text" id="progressText"></span>
+        <span class="dificultad" id="dificultad"></span>
       </div>
 
       <div class="card centrado pila">
         <div class="situacion-picto" id="situacionPicto"></div>
-        <p class="texto-principal" id="situacionTexto" data-i18n="core.loading">Cargando…</p>
-        <button type="button" class="btn btn-audio" id="btnEscuchar" data-i18n-aria="core.listenText" aria-label="Escuchar la situación"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      </div>
+        <p class="texto-principal" id="situacionTexto" data-i18n="core.loading">Cargando…</p>      </div>
       <h2 class="pregunta centrado" data-i18n="pregunta">¿Cuál es la respuesta correcta?</h2>
       <div class="pila" id="opciones"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="fila explicacion oculto" id="explicacionWrap">
-        <p id="explicacion" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="btnEscucharExplicacion" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
+        <p id="explicacion" aria-live="polite"></p>      </div>
       <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
@@ -59,7 +80,7 @@
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
+      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
       <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
@@ -67,7 +88,6 @@
 
   <script src="../../assets/js/utils.js"></script>
   <script src="../../assets/js/i18n.js"></script>
-  <script src="../../assets/js/tts.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
   <script src="strings.es.js"></script>

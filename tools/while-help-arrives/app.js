@@ -49,15 +49,14 @@
   }
 
   function irMenu() {
-    App.tts.stop();
     ocultarTodas();
     pintarMenu();
     pantallaMenu.classList.remove('oculto');
   }
 
   function pintarMenu() {
-    $('#marcaQueHago').textContent = progreso.completadoQueHago > 0 ? '⭐' : '';
-    $('#marcaOrdenar').textContent = progreso.completadoOrdenar > 0 ? '⭐' : '';
+    $('#marcaQueHago').textContent.textContent = '';
+    $('#marcaOrdenar').textContent.textContent = '';
     pintarEstrellas();
   }
 
@@ -91,7 +90,7 @@
   function pintarProgresoQ() {
     var porRonda = banco().porRonda;
     progressQFill.style.width = ((idxQ / porRonda) * 100) + '%';
-    progressQText.textContent = idxQ + ' / ' + porRonda;
+    progressQText.textContent = '';
   }
 
   function renderQueHago() {
@@ -140,6 +139,7 @@
       App.utils.$$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackQEl);
       progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosQ += 1;
       guardar();
       pintarEstrellas();
@@ -162,7 +162,6 @@
 
   function siguienteQueHago() {
     idxQ += 1;
-    App.tts.stop();
     if (idxQ >= banco().porRonda) {
       terminarQueHago();
     } else {
@@ -175,9 +174,8 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosQ).replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -208,7 +206,7 @@
   function pintarProgresoO() {
     var total = listasOrdenar.length;
     progressOFill.style.width = ((idxO / total) * 100) + '%';
-    progressOText.textContent = idxO + ' / ' + total;
+    progressOText.textContent = '';
   }
 
   function renderOrdenar() {
@@ -273,6 +271,7 @@
 
   function terminarTareaO() {
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     aciertosO += 1;
     guardar();
     pintarEstrellas();
@@ -289,8 +288,7 @@
     guardar();
     ocultarTodas();
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosO).replace('{total}', progreso.estrellas);
+    $('#resumenFinal').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -301,10 +299,10 @@
   $('#btnVolverOrdenar').addEventListener('click', irMenu);
   btnSiguienteQ.addEventListener('click', siguienteQueHago);
   $('#btnEscucharExplicacionQueHago').addEventListener('click', function () {
-    App.tts.speak(explicacionQEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(explicacionQEl.textContent);
   });
   $('#btnEscucharQueHago').addEventListener('click', function () {
-    App.tts.speak(itemsQueHago[idxQ].situacion);
+    if (false && App.tts && App.tts.speak) App.tts.speak(itemsQueHago[idxQ].situacion);
   });
   $('#btnRepetir').addEventListener('click', function () {
     if (actividadActual === 'queHago') iniciarQueHago();

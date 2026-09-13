@@ -14,15 +14,18 @@
 
 .centrado-fila { justify-content: center; }
 
-.btn-nivel { min-width: 300px; align-self: center; }
-
-.nivel-info {
-  font-weight: 400;
-  font-size: var(--texto-pequeno);
-  opacity: 0.9;
+.progress-bar {
+  margin-top: var(--espacio);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.progress-bar { margin-top: var(--espacio); }
+.dificultad {
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-secundario, #666);
+}
 
 .personaje-actual { font-size: 48px; }
 
@@ -94,10 +97,10 @@
   .banda.fondo .sitio { font-size: 28px; }
   .banda.delante .sitio { font-size: 40px; }
 
-#pantallaFinal .transferencia {
-  margin: 8px auto 24px;
-  font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
-  max-width: 480px;
-}
+  #pantallaFinal .transferencia {
+    margin: 8px auto 24px;
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario, #555);
+    max-width: 480px;
+  }
 }

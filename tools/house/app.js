@@ -404,7 +404,7 @@
 
   function pintarProgreso() {
     progressFill.style.width = ((idxRonda / tareasRonda.length) * 100) + '%';
-    progressText.textContent = idxRonda + ' / ' + tareasRonda.length;
+    progressText.textContent = '';
   }
 
   function renderRonda() {
@@ -465,6 +465,7 @@
 
   function terminarTarea() {
     progreso.estrellas += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
     progreso.hechos[tareasRonda[idxRonda].id] = true;
     aciertosRonda += 1;
     guardar();
@@ -475,7 +476,6 @@
 
   function siguiente() {
     idxRonda += 1;
-    App.tts.stop();
     if (idxRonda >= tareasRonda.length) {
       terminarRonda();
     } else {
@@ -486,10 +486,8 @@
   function terminarRonda() {
     pantallaJuego.classList.add('oculto');
     pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal')
-      .replace('{n}', aciertosRonda)
-      .replace('{total}', progreso.estrellas);
-    $('#transferencia').textContent = App.i18n.t('transferencia');
+    $('#resumenFinal').textContent.textContent = '';
+    $('#transferencia').textContent.textContent = '';
     App.feedback.celebrar(App.i18n.t('core.roundComplete'));
   }
 

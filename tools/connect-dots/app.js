@@ -81,7 +81,7 @@
   function paintProgress() {
     var total = currentShape.dots.length;
     progressFill.style.width = (((nextNumber - 1) / total) * 100) + '%';
-    progressText.textContent = (nextNumber - 1) + ' / ' + total;
+    progressText.textContent = '';
   }
 
   function svgPoint(dot) { return dot.x + ',' + dot.y; }
@@ -177,7 +177,7 @@
     show(finishScreen);
     finishEmoji.textContent = currentShape.emoji;
     finishText.textContent = fill('finishText', { shape: t('shape_' + currentShape.id) });
-    $('#transfer').textContent = t('transfer');
+    $('#transfer').textContent.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
