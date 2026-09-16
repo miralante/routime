@@ -19,7 +19,7 @@
     </header>
 
     <!-- Start screen: choose a topic -->
-    <section id="startScreen" class="pila centrado">
+    <section id="startScreen" class="pila centered">
       <div class="fila center-row">
         <p class="instruction" data-i18n="instruction">Busca las palabras escondidas entre las letras.</p>
       </div>
@@ -27,16 +27,11 @@
       <div class="pila" id="topics"></div>
     </section>
 
-    <!-- Levels screen -->
-    <section id="levelsScreen" class="oculto pila centrado">
-      <h2 id="topicTitle"></h2>
-      <p data-i18n="chooseLevel">Elige un nivel</p>
-      <div class="pila" id="levels"></div>
-      <button type="button" class="btn btn-secundario" id="backTopicsBtn" data-i18n="chooseAnotherTopic">Elegir otro tema</button>
-    </section>
-
     <!-- Game screen -->
-    <section id="gameScreen" class="oculto pila">
+    <section id="gameScreen" class="hidden pila">
+      <div class="fila center-row">
+        <span class="dificultad" id="dificultad" aria-live="polite"></span>
+      </div>
       <div class="fila center-row">
         <p class="instruction" data-i18n="howToPlay">Toca la primera letra y la última letra de la palabra.</p>
       </div>
@@ -44,20 +39,19 @@
       <div class="fila center-row" id="wordList"></div>
       <div class="board" id="board" role="grid" aria-label="Sopa de letras"></div>
       <div class="fila center-row">
-        <button type="button" class="btn btn-secundario btn-hint" id="hintBtn" data-i18n="hint">💡 Pista</button>
+        <button type="button" class="btn btn-secondary btn-hint" id="hintBtn" data-i18n="hint">💡 Pista</button>
       </div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
 
     <!-- End screen -->
-    <section id="endScreen" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="big-emoji" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="finalSummary"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="replayBtn" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="otherLevelBtn" data-i18n="chooseAnotherLevel">Elegir otro nivel</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

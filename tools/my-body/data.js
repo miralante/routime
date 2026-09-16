@@ -2,7 +2,7 @@
    Datos: Mi Cuerpo Me Avisa (emociones — interocepción: notar las
    señales del propio cuerpo y elegir qué hacer).
    Formato: DATA.es / DATA.en, cada uno con:
-   { porRonda, niveles: [{ id, nombre, descripcion, estrellas,
+   { porRonda, niveles: [{ id, name, descripcion, estrellas,
      items: [{ text, options: string[3], correct: indice }] }] }
    'text' describe una señal del cuerpo; la opción correcta es
    siempre cuidar de esa señal (comer, beber, descansar, respirar,
@@ -10,7 +10,7 @@
    ignorarla ni aguantar.
    Progresión (regla 13, un solo cambio por nivel): nivel 1 usa
    señales físicas muy claras (hambre, sed, sueño, frío/calor);
-   nivel 2 mantiene el mismo formato de 3 opciones y pasa a señales
+   nivel 2 mantiene el mismo formato de 3 options y pasa a señales
    más sutiles, el puente cuerpo-emoción (nervios, tensión, nudo en
    la garganta antes de llorar), conectando con Calma y ¿Cómo me
    siento?.
@@ -23,7 +23,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Nivel 1',
+        name: 'Nivel 1',
         descripcion: 'Señales claras del cuerpo',
         estrellas: 1,
         items: [
@@ -31,41 +31,41 @@ const DATA = {
           { text: 'Notas la boca seca y tienes sed.', options: ['Beber agua', 'Comer algo', 'Ponerte el abrigo'], correct: 0 },
           { text: 'Se te cierran los ojos y bostezas mucho.', options: ['Descansar o dormir un rato', 'Seguir jugando sin parar', 'Beber agua'], correct: 0 },
           { text: 'Te duele la cabeza.', options: ['Decírselo a una persona de confianza', 'Seguir jugando sin decir nada', 'Gritar muy fuerte'], correct: 0 },
-          { text: 'Notas el corazón muy acelerado después de correr mucho.', options: ['Parar un momento y descansar', 'Seguir corriendo más rápido', 'Aguantar la respiración'], correct: 0 },
+          { text: 'Notas el corazón muy acelerado después de correr mucho.', options: ['Parar un timeOfDay y descansar', 'Seguir corriendo más rápido', 'Aguantar la respiración'], correct: 0 },
           { text: 'Tienes ganas de ir al baño.', options: ['Ir al baño ahora', 'Esperar mucho rato', 'Decir que no pasa nada'], correct: 0 },
           { text: 'Notas que tienes mucho calor y estás sudando.', options: ['Beber agua y quitarte una prenda', 'Ponerte más ropa', 'Seguir corriendo al sol'], correct: 0 },
           { text: 'Notas que tienes frío y tiemblas un poco.', options: ['Ponerte una prenda de abrigo', 'Quitarte ropa', 'No decir nada a nadie'], correct: 0 },
           { text: 'Te pican los ojos después de mucho rato de pantalla.', options: ['Descansar la vista un rato lejos de la pantalla', 'Acercarte más a la pantalla', 'Frotarte los ojos muy fuerte'], correct: 0 },
           { text: 'Te duele una muela al comer.', options: ['Decírselo a una persona de confianza', 'Comer solo por el otro lado y no decir nada', 'Dejar de lavarte los dientes'], correct: 0 },
           { text: 'Notas la nariz tapada y estornudas mucho.', options: ['Sonarte con un pañuelo y decírselo a una persona de confianza', 'Aguantar sin sonarte', 'Estornudar sin taparte encima de otros'], correct: 0 },
-          { text: 'Te has hecho una herida pequeña y te sale un poco de sangre.', options: ['Lavarla y pedir ayuda a una persona de confianza para curarla', 'No mirarla y seguir jugando', 'Tocarla con las manos sucias'], correct: 0 },
+          { text: 'Te has done una herida pequeña y te sale un poco de sangre.', options: ['Lavarla y pedir ayuda a una persona de confianza para curarla', 'No mirarla y seguir jugando', 'Tocarla con las manos sucias'], correct: 0 },
           { text: 'Notas la piel muy caliente después de estar al sol.', options: ['Ponerte a la sombra y beber agua', 'Quedarte más rato al sol', 'No decir nada aunque te escueza'], correct: 0 }
         ]
       },
       {
         id: 2,
-        nombre: 'Nivel 2',
+        name: 'Nivel 2',
         descripcion: 'El cuerpo y las emociones',
         estrellas: 2,
         items: [
           { text: 'Notas que el estómago se te encoge antes de un examen.', options: ['Respirar despacio y decir cómo te sientes', 'Aguantarte sin decir nada', 'Salir corriendo de la clase'], correct: 0 },
           { text: 'Te tiemblan las manos y notas que estás muy nervioso.', options: ['Hacer una respiración tranquila, como en Calma', 'Apretar los puños muy fuerte', 'Ignorarlo y seguir sin parar'], correct: 0 },
-          { text: 'Notas que se te tensan los hombros y aprietas los dientes.', options: ['Parar un momento y relajar el cuerpo', 'Seguir tenso todo el día', 'Golpear algo'], correct: 0 },
-          { text: 'Te sientes muy cansado aunque no hayas hecho mucho ejercicio.', options: ['Descansar y decírselo a una persona de confianza si sigue pasando', 'Forzarte a seguir igual', 'No decir nada a nadie'], correct: 0 },
+          { text: 'Notas que se te tensan los hombros y aprietas los dientes.', options: ['Parar un timeOfDay y relajar el cuerpo', 'Seguir tenso todo el día', 'Golpear algo'], correct: 0 },
+          { text: 'Te sientes muy cansado aunque no hayas done mucho ejercicio.', options: ['Descansar y decírselo a una persona de confianza si sigue pasando', 'Forzarte a seguir igual', 'No decir nada a nadie'], correct: 0 },
           { text: 'Notas un nudo en la garganta y ganas de llorar.', options: ['Decir cómo te sientes a alguien de confianza', 'Aguantarte las ganas de llorar', 'Reírte para disimular'], correct: 0 },
-          { text: 'Te cuesta concentrarte y notas la cabeza espesa.', options: ['Parar un momento a descansar los ojos y la mente', 'Seguir igual sin descansar', 'Ponerte a gritar'], correct: 0 },
+          { text: 'Te cuesta concentrarte y notas la cabeza espesa.', options: ['Parar un timeOfDay a descansar los ojos y la mente', 'Seguir igual sin descansar', 'Ponerte a gritar'], correct: 0 },
           { text: 'Notas mareo después de dar muchas vueltas jugando.', options: ['Sentarte tranquilo hasta que se te pase', 'Seguir dando vueltas más rápido', 'No decir nada a nadie'], correct: 0 },
           { text: 'Sientes un dolor fuerte que no se te pasa en un rato.', options: ['Decírselo enseguida a una persona de confianza', 'Esperar mucho tiempo sin decir nada', 'Tomar una medicina tú solo'], correct: 0 },
-          { text: 'Notas calor en la cara y ganas de gritar cuando algo te enfada.', options: ['Alejarte un momento y respirar despacio', 'Gritar lo primero que se te ocurra', 'Empujar a quien tengas cerca'], correct: 0 },
+          { text: 'Notas calor en la cara y ganas de gritar cuando algo te enfada.', options: ['Alejarte un timeOfDay y respirar despacio', 'Gritar lo primero que se te ocurra', 'Empujar a quien tengas cerca'], correct: 0 },
           { text: 'Notas cosquillas en la tripa antes de algo que te hace ilusión.', options: ['Disfrutarlo: son nervios de alegría', 'Asustarte y quedarte en casa', 'Aguantar la respiración hasta que se pase'], correct: 0 },
-          { text: 'Llevas un rato sentado y notas el cuerpo inquieto, sin parar de mover las piernas.', options: ['Levantarte un momento a estirar o caminar', 'Quedarte quieto a la fuerza', 'Dar patadas a la silla de delante'], correct: 0 },
+          { text: 'Llevas un rato sentado y notas el cuerpo inquieto, sin parar de mover las piernas.', options: ['Levantarte un timeOfDay a estirar o caminar', 'Quedarte quieto a la fuerza', 'Dar patadas a la silla de delante'], correct: 0 },
           { text: 'Por la noche no puedes dormir porque no paras de pensar.', options: ['Respirar despacio y contárselo a alguien al día siguiente', 'Quedarte con el móvil hasta muy tarde', 'No contárselo nunca a nadie'], correct: 0 },
           { text: 'Notas que el ruido fuerte te molesta mucho y te pone nervioso.', options: ['Ir a un sitio más tranquilo o pedir bajar el volumen', 'Quedarte aunque lo pases mal', 'Gritar más fuerte que el ruido'], correct: 0 }
         ]
       },
       {
         id: 3,
-        nombre: 'Nivel 3',
+        name: 'Nivel 3',
         descripcion: 'Las señales previas al bajón',
         estrellas: 3,
         items: [
@@ -73,12 +73,12 @@ const DATA = {
           { text: 'Aprietas la mandíbula sin darte cuenta.', options: ['Soltar la mandíbula, bostezar suave y respirar', 'Apretar más fuerte los dientes', 'No decir nada y aguantar'], correct: 0 },
           { text: 'Sientes el cuerpo rígido, como si te hubieras quedado "congelado".', options: ['Mover un poco los dedos y los pies y respirar despacio', 'Quedarte muy quieto sin respirar', 'Empujar algo con fuerza'], correct: 0 },
           { text: 'Notas la respiración muy corta, como si solo usaras el pecho.', options: ['Hacer una respiración lenta hasta la tripa, como en Calma', 'Respirar más rápido y por la boca', 'Aguantar el aire hasta que se pase'], correct: 0 },
-          { text: 'Te pican las manos y necesitas moverlas todo el rato.', options: ['Levantarte y estirar las manos un momento', 'Quedarte sentado sin moverte', 'Golpear la mesa'], correct: 0 },
+          { text: 'Te pican las manos y necesitas moverlas todo el rato.', options: ['Levantarte y estirar las manos un timeOfDay', 'Quedarte sentado sin moverte', 'Golpear la mesa'], correct: 0 },
           { text: 'Notas el corazón muy rápido sin haber corrido.', options: ['Parar, respirar despacio y decir cómo te sientes', 'Seguir igual sin decir nada', 'Tomar una medicina tú solo'], correct: 0 },
           { text: 'Llevas un rato con una postura encorvada y notas el cuello rígido.', options: ['Enderezarte despacio y mover el cuello con cuidado', 'Seguir encorvado hasta que duela más', 'Girar el cuello de golpe'], correct: 0 },
-          { text: 'Notas calor en la cara y las orejas antes de un momento difícil.', options: ['Alejarte un momento, beber agua y respirar', 'Esconderte bajo la manta sin decir nada', 'Gritar lo primero que se te ocurra'], correct: 0 },
+          { text: 'Notas calor en la cara y las orejas antes de un timeOfDay difícil.', options: ['Alejarte un timeOfDay, beber agua y respirar', 'Esconderte bajo la manta sin decir nada', 'Gritar lo primero que se te ocurra'], correct: 0 },
           { text: 'Tienes la tripa revuelta antes de algo que te pone nervioso.', options: ['Respirar despacio y contárselo a alguien de confianza', 'Comer mucho para "que se pase"', 'Aguantar sin decir nada'], correct: 0 },
-          { text: 'Te sientes muy irritable por todo y cualquier cosa te molesta.', options: ['Parar un momento, respirar y decir que necesitas un descanso', 'Gritar a quien tengas al lado', 'Esconderte y no hablar con nadie en todo el día'], correct: 0 },
+          { text: 'Te sientes muy irritable por todo y cualquier cosa te molesta.', options: ['Parar un timeOfDay, respirar y decir que necesitas un descanso', 'Gritar a quien tengas al lado', 'Esconderte y no hablar con nadie en todo el día'], correct: 0 },
           { text: 'Te cuesta entender lo que te dicen porque la cabeza va muy rápido.', options: ['Pedir que te lo repitan más despacio y respirar', 'Decir que sí sin entender', 'Irte sin decir nada'], correct: 0 },
           { text: 'Tienes los hombros muy altos, casi tocando las orejas.', options: ['Bajar los hombros despacio y soltar el aire', 'Subirlos más todavía', 'No darte cuenta y seguir tenso'], correct: 0 }
         ]
@@ -90,7 +90,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Level 1',
+        name: 'Level 1',
         descripcion: 'Clear body signals',
         estrellas: 1,
         items: [
@@ -111,7 +111,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Level 2',
+        name: 'Level 2',
         descripcion: 'Your body and emotions',
         estrellas: 2,
         items: [
@@ -132,7 +132,7 @@ const DATA = {
       },
       {
         id: 3,
-        nombre: 'Level 3',
+        name: 'Level 3',
         descripcion: 'Early-warning signals before a crash',
         estrellas: 3,
         items: [

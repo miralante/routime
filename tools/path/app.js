@@ -1,232 +1,263 @@
-﻿/* ============================================================
-   Routime â€” El Camino (orientaciÃ³n espacial y rutas)
-   Datos en data.js (DATA.niveles con nÂº de obstÃ¡culos). Los caminos
-   se generan al vuelo: salida y meta con distancia mÃ­nima, Ã¡rboles
-   al azar, y una bÃºsqueda en anchura (BFS) garantiza que siempre
-   hay camino. La tortuga se mueve con 4 botones de flecha (y con
-   las flechas del teclado fÃ­sico). Chocar con Ã¡rbol o borde solo
-   avisa con calma (regla 5). Llegar a la estrella da 1 estrella.
-   Ronda de 3 caminos.
+/* ============================================================
+   Routime — The Path (spatial orientation and routes)
+   Data in data.js (DATA.niveles with obstacle count). Paths are
+   generated on the fly: start and goal with minimum distance,
+   random trees, and a BFS guarantees a solvable board. The turtle
+   moves with 4 arrow buttons (and physical keyboard arrows).
+   Hitting a tree or border only gives a calm notice (rule 5).
+   Reaching the star earns 1 star. 3-path rounds.
    ============================================================ */
 (function () {
   'use strict';
 
   var TOOL_ID = 'el-camino';
   var $ = App.utils.$;
-  var MOVIMIENTOS = {
-    arriba: { df: -1, dc: 0 },
-    abajo: { df: 1, dc: 0 },
-    izquierda: { df: 0, dc: -1 },
-    derecha: { df: 0, dc: 1 }
+  var MOVES = {
+    up: { dr: -1, dc: 0 },
+    down: { dr: 1, dc: 0 },
+    left: { dr: 0, dc: -1 },
+    right: { dr: 0, dc: 1 }
   };
-  var TECLAS = {
-    ArrowUp: 'arriba', ArrowDown: 'abajo',
-    ArrowLeft: 'izquierda', ArrowRight: 'derecha'
+  var KEYS = {
+    ArrowUp: 'up', ArrowDown: 'down',
+    ArrowLeft: 'left', ArrowRight: 'right'
   };
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
-  var tableroEl = $('#tablero');
-  var estadoEl = $('#estado');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
+  var boardEl = $('#board');
+  var statusEl = $('#status');
   var feedbackEl = $('#feedback');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var levelEl = $('#level');
+  var levelsEl = $('#levels');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Round state */
-  var nivelActual = null;
-  var idxCamino = 0;
-  var aciertosRonda = 0;
-  var arboles = [];       /* row*columns+col indexes */
-  var meta = -1;
-  var tortuga = -1;
-  var enJuego = false;
+  var currentLevel = null;
+  var pathIdx = 0;
+  var roundHits = 0;
+  var trees = [];       /* row*columns+col indexes */
+  var goal = -1;
+  var turtle = -1;
+  var inGame = false;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-  function filas() { return banco().filas; }
-  function columnas() { return banco().columnas; }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
+  function rows() { return bank().filas; }
+  function cols() { return bank().columnas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  );
-      cont.appendChild(btn);
-    });
+  /* Determines the level based on progress: each completed round raises one level. */
+  function levelBasedOnProgress() {
+    var idxN = Math.min(progress.roundsCompleted, bank().niveles.length - 1);
+    return bank().niveles[idxN];
   }
 
-    /* Determina el nivel segÃºn el progreso: cada ronda completada, sube un nivel. */
-  function nivelSegunProgreso() {
-    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
-    return banco().niveles[idxN];
-  }
-
-  /* Muestra la dificultad actual (etiqueta del nivel). */
-  function pintarDificultad() {
-    if (dificultadEl) {
-      dificultadEl.textContent = nivelActual.nombre;
+  /* Shows the current difficulty (level label). */
+  function renderLevel() {
+    if (levelEl && currentLevel) {
+      levelEl.textContent = currentLevel.name;
     }
   }
 
-  function iniciarJuego() {
-    nivelActual = nivelSegunProgreso();
-function pintarProgreso() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idxCamino / porRonda) * 100) + '%';
-    progressText.textContent = '';
+  function renderProgress() {
+    var perRound = bank().porRonda;
+    progressFill.style.width = ((pathIdx / perRound) * 100) + '%';
+    progressText.textContent = (pathIdx + 1) + ' / ' + perRound;
+  }
+
+  /* Renders the level selection buttons. */
+  function renderLevels() {
+    levelsEl.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-nivel';
+      btn.innerHTML = '<strong>' + level.name + '</strong><br><small>' + level.descripcion + '</small>';
+      btn.addEventListener('click', function () { selectLevel(level); });
+      levelsEl.appendChild(btn);
+    });
+  }
+
+  function selectLevel(level) {
+    currentLevel = level;
+    pathIdx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    newPath();
   }
 
   /* ---- Generation with a guaranteed solution (BFS) ---- */
-  function hayCamino(desde, hasta, bloqueadas) {
-    var total = filas() * columnas();
-    var visitadas = {};
-    var cola = [desde];
-    visitadas[desde] = true;
-    while (cola.length) {
-      var actual = cola.shift();
-      if (actual === hasta) return true;
-      var f = Math.floor(actual / columnas());
-      var c = actual % columnas();
-      [[f - 1, c], [f + 1, c], [f, c - 1], [f, c + 1]].forEach(function (v) {
-        if (v[0] < 0 || v[0] >= filas() || v[1] < 0 || v[1] >= columnas()) return;
-        var i = v[0] * columnas() + v[1];
-        if (visitadas[i] || bloqueadas.indexOf(i) !== -1) return;
-        visitadas[i] = true;
-        cola.push(i);
+  function hasPath(from, to, blocked) {
+    var total = rows() * cols();
+    var visited = {};
+    var queue = [from];
+    visited[from] = true;
+    while (queue.length) {
+      var current = queue.shift();
+      if (current === to) return true;
+      var r = Math.floor(current / cols());
+      var c = current % cols();
+      [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]].forEach(function (v) {
+        if (v[0] < 0 || v[0] >= rows() || v[1] < 0 || v[1] >= cols()) return;
+        var i = v[0] * cols() + v[1];
+        if (visited[i] || blocked.indexOf(i) !== -1) return;
+        visited[i] = true;
+        queue.push(i);
       });
     }
     return false;
   }
 
-  function distancia(a, b) {
-    var fa = Math.floor(a / columnas()), ca = a % columnas();
-    var fb = Math.floor(b / columnas()), cb = b % columnas();
-    return Math.abs(fa - fb) + Math.abs(ca - cb);
+  function distance(a, b) {
+    var ra = Math.floor(a / cols()), ca = a % cols();
+    var rb = Math.floor(b / cols()), cb = b % cols();
+    return Math.abs(ra - rb) + Math.abs(ca - cb);
   }
 
-  function nuevoCamino() {
-    var total = filas() * columnas();
-    var todas = [];
-    for (var i = 0; i < total; i++) todas.push(i);
-    /* Reintentar hasta obtener un tablero resoluble */
-    for (var intento = 0; intento < 50; intento++) {
-      var mezcla = App.utils.shuffle(todas);
-      var t = mezcla[0];
-      var m = mezcla[1];
-      if (distancia(t, m) < 3) continue;
-      var arbs = mezcla.slice(2, 2 + nivel.obstaculos);
-      if (hayCamino(t, m, arbs)) {
-        tortuga = t;
-        meta = m;
-        arboles = arbs;
+  function newPath() {
+    var total = rows() * cols();
+    var all = [];
+    for (var i = 0; i < total; i++) all.push(i);
+    /* Retry until we get a solvable board */
+    for (var attempt = 0; attempt < 50; attempt++) {
+      var shuffled = App.utils.shuffle(all);
+      var t = shuffled[0];
+      var m = shuffled[1];
+      if (distance(t, m) < 3) continue;
+      var treeBlocks = shuffled.slice(2, 2 + currentLevel.obstaculos);
+      if (hasPath(t, m, treeBlocks)) {
+        turtle = t;
+        goal = m;
+        trees = treeBlocks;
         break;
       }
     }
-    enJuego = true;
+    inGame = true;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    btnSiguiente.classList.add('oculto');
-    estadoEl.textContent = App.i18n.t('enMarcha');
-    pintarTablero();
-    pintarProgreso();
-    pintarEstrellas();
+    btnNext.classList.add('hidden');
+    statusEl.textContent = App.i18n.t('enMarcha');
+    renderBoard();
+    renderProgress();
+    renderLevel();
+    renderStars();
   }
 
-  function pintarTablero() {
-    tableroEl.style.gridTemplateColumns = 'repeat(' + columnas() + ', 1fr)';
-    tableroEl.innerHTML = '';
-    var total = filas() * columnas();
+  function renderBoard() {
+    boardEl.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
+    boardEl.innerHTML = '';
+    var total = rows() * cols();
     for (var i = 0; i < total; i++) {
       var div = document.createElement('div');
       div.className = 'casilla';
-      if (i === tortuga) { div.textContent = 'ðŸ¢'; div.classList.add('tortuga'); }
-      else if (i === meta) { div.textContent = 'â­'; }
-      else if (arboles.indexOf(i) !== -1) { div.textContent = 'ðŸŒ³'; }
-      tableroEl.appendChild(div);
+      if (i === turtle) { div.textContent = '🐢'; div.classList.add('tortuga'); }
+      else if (i === goal) { div.textContent = '⭐'; }
+      else if (trees.indexOf(i) !== -1) { div.textContent = '🌳'; }
+      boardEl.appendChild(div);
     }
   }
 
-  function mover(direccion) {
-    if (!enJuego) return;
-    var mv = MOVIMIENTOS[direccion];
-    var f = Math.floor(tortuga / columnas()) + mv.df;
-    var c = (tortuga % columnas()) + mv.dc;
-    if (f < 0 || f >= filas() || c < 0 || c >= columnas()) {
-      estadoEl.textContent = App.i18n.t('choqueBorde');
+  function move(direction) {
+    if (!inGame) return;
+    var mv = MOVES[direction];
+    var r = Math.floor(turtle / cols()) + mv.dr;
+    var c = (turtle % cols()) + mv.dc;
+    if (r < 0 || r >= rows() || c < 0 || c >= cols()) {
+      statusEl.textContent = App.i18n.t('choqueBorde');
       App.feedback.encourage(feedbackEl);
       return;
     }
-    var destino = f * columnas() + c;
-    if (arboles.indexOf(destino) !== -1) {
-      estadoEl.textContent = App.i18n.t('choqueArbol');
+    var dest = r * cols() + c;
+    if (trees.indexOf(dest) !== -1) {
+      statusEl.textContent = App.i18n.t('choqueArbol');
       App.feedback.encourage(feedbackEl);
       return;
     }
-    tortuga = destino;
-    estadoEl.textContent = App.i18n.t('enMarcha');
+    turtle = dest;
+    statusEl.textContent = App.i18n.t('enMarcha');
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    pintarTablero();
-    if (tortuga === meta) llegar();
+    renderBoard();
+    if (turtle === goal) reachGoal();
   }
 
-  function llegar() {
-    enJuego = false;
-    idxCamino += 1;
-    aciertosRonda += 1;
-    progreso.estrellas += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-    guardar();
-    pintarEstrellas();
-    pintarProgreso();
-    estadoEl.textContent = App.i18n.t('llegada');
-    App.feedback.celebrate(App.i18n.t('llegada'));
-    btnSiguiente.classList.remove('oculto');
-    btnSiguiente.focus();
+  function reachGoal() {
+    inGame = false;
+    pathIdx += 1;
+    roundHits += 1;
+    progress.stars += 1;
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    save();
+    renderStars();
+    renderProgress();
+    statusEl.textContent = App.i18n.t('llegada');
+    App.feedback.success(feedbackEl);
+    btnNext.classList.remove('hidden');
+    btnNext.focus();
   }
 
-  function siguiente() {
-    if (idxCamino >= banco().porRonda) {
-      terminarRonda();
+  function next() {
+    if (pathIdx >= bank().porRonda) {
+      endRound();
     } else {
-      nuevoCamino();
+      newPath();
     }
   }
 
-  function terminarRonda() {
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+  function endRound() {
+    progress.roundsCompleted += 1;
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    save();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#summary').textContent = App.i18n.t('summary', {
+      n: roundHits,
+      total: progress.stars
+    });
+    App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    pathIdx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    newPath();
+  }
+
   /* Events */
-  ['arriba', 'abajo', 'izquierda', 'derecha'].forEach(function (dir) {
+  ['up', 'down', 'left', 'right'].forEach(function (dir) {
     $('#btn' + dir.charAt(0).toUpperCase() + dir.slice(1))
-      .addEventListener('click', function () { mover(dir); });
+      .addEventListener('click', function () { move(dir); });
   });
   document.addEventListener('keydown', function (ev) {
-    if (!enJuego || pantallaJuego.classList.contains('oculto')) return;
-    var dir = TECLAS[ev.key];
-    if (dir) { ev.preventDefault(); mover(dir); }
+    if (!inGame || gameScreen.classList.contains('hidden')) return;
+    var dir = KEYS[ev.key];
+    if (dir) { ev.preventDefault(); move(dir); }
   });
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
-  $('#btnOtroNivel').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pintarNiveles();
-    pantallaInicio.classList.remove('oculto');
+  btnNext.addEventListener('click', next);
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#btnOtherLevel').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    renderLevels();
+    startScreen.classList.remove('hidden');
   });
 
-  pintarEstrellas();
+  /* Init */
+  renderStars();
+  renderLevels();
 })();
-

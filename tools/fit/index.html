@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,59 +13,53 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🕹️ Encaja la Pieza</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>Routime</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Mueve y gira la pieza hasta que esté encima de su hueco. Después bájala.</p>
+    <section id="startScreen" class="hidden pila centered">
+      <div class="row centered-row">
+        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
       </div>
-      <button type="button" class="btn btn-principal" id="btnJugar">
-        <span data-i18n="btnJugar">¡Jugar!</span>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">Jugar!</span>
       </button>
     </section>
 
-    <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila centrado">
+    <section id="gameScreen" class="hidden pila centered">
+
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-        <span class="progress-text" id="progressText">0 / 4</span>
-        <span class="dificultad" id="dificultad"></span>
+        <span class="progress-text" id="progressText"></span>
+        <span class="dificultad" id="level"></span>
       </div>
-
-      <div class="fila centrado-fila">
-        <p class="estado" id="estado" aria-live="polite"></p>
+      <div class="row centered-row">
+        <p class="status" id="status" aria-live="polite"></p>
       </div>
-
-      <div class="tablero-piezas" id="tablero" aria-label="Tablero de las piezas" data-i18n-aria="ariaTablero"></div>
-
+      <div class="tablero-piezas" id="tablero" aria-label="Tablero de las piezas"></div>
       <div class="mando">
-        <button type="button" class="btn btn-control" id="btnIzquierda" data-i18n-aria="ariaIzquierda" aria-label="Mover la pieza a la izquierda">⬅️</button>
-        <button type="button" class="btn btn-control" id="btnGirar" data-i18n-aria="ariaGirar" aria-label="Girar la pieza">🔄</button>
-        <button type="button" class="btn btn-control" id="btnBajar" data-i18n-aria="ariaBajar" aria-label="Bajar la pieza">⬇️</button>
-        <button type="button" class="btn btn-control" id="btnDerecha" data-i18n-aria="ariaDerecha" aria-label="Mover la pieza a la derecha">➡️</button>
+        <button type="button" class="btn btn-control" id="btnIzquierda">&#11013;</button>
+        <button type="button" class="btn btn-control" id="btnGirar">&#128260;</button>
+        <button type="button" class="btn btn-control" id="btnMoveDown">&#11014;</button>
+        <button type="button" class="btn btn-control" id="btnDerecha">&#10145;</button>
       </div>
-
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionWrap">
-        <p id="explicacion" aria-live="polite"></p>
+      <div class="row explicacion hidden" id="explanationWrap">
+        <p id="explanation" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
     </section>
 
-    <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
-    </section>
+      <section id="endScreen" class="hidden centered pila" aria-live="polite">
+        <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+        <h2>Ronda completada!</h2>
+        <p id="endSummary"></p>
+        <p class="transferencia">Sigue praticando para aprender mas.</p>
+        <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+        <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
+      </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
@@ -79,9 +73,8 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-

@@ -1,11 +1,11 @@
-﻿/* ============================================================
-   Routime â€” Blocks (visual-spatial construction)
+/* ============================================================
+   Routime — Blocks (visual-spatial construction)
    Data in data.js (DATA.niveles with 16-cell models).
-   Mechanic: a 4Ã—4 model with colored blocks is shown; next to it,
+   Mechanic: a 4x4 model with colored blocks is shown; next to it,
    an empty grid and a palette of 3 colors. Pick a color and tap
-   cells to copy it. Kind, immediate validation: correct paint â†’
-   success; first mistake on a cell â†’ Socratic hint (rule 12);
-   second mistake â†’ it's explained and self-corrected (rule 11),
+   cells to copy it. Kind, immediate validation: correct paint →
+   success; first mistake on a cell → Socratic hint (rule 12);
+   second mistake → it's explained and self-corrected (rule 11),
    nobody gets stuck. Round of 3 models; 1 star per completed build.
    ============================================================ */
 (function () {
@@ -13,238 +13,269 @@
 
   var TOOL_ID = 'los-bloques';
   var $ = App.utils.$;
-  var CLAVES = ['R', 'B', 'Y'];
+  var KEYS = ['R', 'B', 'Y'];
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
-  var modeloEl = $('#gridModelo');
-  var tableroEl = $('#gridTuyo');
-  var paletaEl = $('#paleta');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
+  var modelEl = $('#modelGrid');
+  var boardEl = $('#userGrid');
+  var paletteEl = $('#palette');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnSiguiente = $('#btnSiguiente');
+  var explanationWrap = $('#explanationWrap');
+  var explanationEl = $('#explanation');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var levelsEl = $('#levels');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Round state */
-  var nivelActual = null;
-  var idxModelo = 0;
-  var aciertosRonda = 0;
-  var modelo = [];          /* 'R'|'B'|'Y'|null Ã—16 */
-  var pintado = [];         /* same shape, what the person has painted so far */
-  var botonesCelda = [];
-  var colorSel = 'R';
-  var intentosCelda = {};   /* idx -> number of mistakes (rule 12) */
-  var completado = false;
+  var currentLevel = null;
+  var modelIdx = 0;
+  var roundHits = 0;
+  var model = [];          /* 'R'|'B'|'Y'|null x16 */
+  var painted = [];         /* same shape, what the person has painted so far */
+  var cellBtns = [];
+  var selectedColor = 'R';
+  var cellAttempts = {};   /* idx -> number of mistakes (rule 12) */
+  var completed = false;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-  function nombreColor(c) { return banco().colores[c]; }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  );
-      cont.appendChild(btn);
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
+
+  function colorName(c) { return bank().colors[c]; }
+
+  /* Renders the level selection buttons. */
+  function renderLevels() {
+    levelsEl.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-nivel';
+      btn.innerHTML = '<strong>' + level.name + '</strong><br><small>' + level.descripcion + '</small>';
+      btn.addEventListener('click', function () { selectLevel(level); });
+      levelsEl.appendChild(btn);
     });
   }
 
-    /* Determina el nivel segÃºn el progreso: cada ronda completada, sube un nivel. */
-  function nivelSegunProgreso() {
-    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
-    return banco().niveles[idxN];
+  /* Determines the level based on progress: each completed round raises one level. */
+  function levelBasedOnProgress() {
+    var idxN = Math.min(progress.roundsCompleted, bank().niveles.length - 1);
+    return bank().niveles[idxN];
   }
 
-  /* Muestra la dificultad actual (etiqueta del nivel). */
-  function pintarDificultad() {
-    if (dificultadEl) {
-      dificultadEl.textContent = nivelActual.nombre;
+  /* Shows the current difficulty (level label). */
+  function renderLevel() {
+    if (currentLevel) {
+      $('#level').textContent = currentLevel.name;
     }
   }
 
-  function iniciarJuego() {
-    nivelActual = nivelSegunProgreso();
-function pintarProgreso() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idxModelo / porRonda) * 100) + '%';
-    progressText.textContent = '';
+  function renderProgress() {
+    var perRound = bank().porRonda;
+    progressFill.style.width = ((modelIdx / perRound) * 100) + '%';
+    progressText.textContent = (modelIdx + 1) + ' / ' + perRound;
   }
 
-  function nuevoModelo() {
-    var str = App.utils.shuffle(nivel.modelos)[0];
-    modelo = str.split('').map(function (ch) { return ch === '.' ? null : ch; });
-    pintado = new Array(16).fill(null);
-    intentosCelda = {};
-    completado = false;
+  function selectLevel(level) {
+    currentLevel = level;
+    modelIdx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    newModel();
+  }
+
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    modelIdx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    newModel();
+  }
+
+  function newModel() {
+    var str = App.utils.shuffle(currentLevel.modelos)[0];
+    model = str.split('').map(function (ch) { return ch === '.' ? null : ch; });
+    painted = new Array(16).fill(null);
+    cellAttempts = {};
+    completed = false;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
-    explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
+    btnNext.classList.add('hidden');
 
-    pintarModelo();
-    pintarTablero();
-    pintarPaleta();
-    pintarProgreso();
-    pintarEstrellas();
+    renderModel();
+    renderBoard();
+    renderPalette();
+    renderProgress();
+    renderLevel();
+    renderStars();
   }
 
-  function pintarModelo() {
-    modeloEl.innerHTML = '';
-    modelo.forEach(function (c) {
+  function renderModel() {
+    modelEl.innerHTML = '';
+    model.forEach(function (c) {
       var div = document.createElement('div');
       div.className = 'celda-modelo' + (c ? ' c-' + c : '');
-      modeloEl.appendChild(div);
+      modelEl.appendChild(div);
     });
   }
 
-  function ariaCelda(i) {
+  function ariaCell(i) {
     var f = Math.floor(i / 4) + 1;
     var c = (i % 4) + 1;
-    var clave = pintado[i] ? 'ariaCeldaPintada' : 'ariaCeldaVacia';
-    return App.i18n.t(clave)
-      .replace('{color}', pintado[i] ? nombreColor(pintado[i]) : '')
+    var key = painted[i] ? 'ariaCellPainted' : 'ariaCellEmpty';
+    return App.i18n.t(key)
+      .replace('{color}', painted[i] ? colorName(painted[i]) : '')
       .replace('{f}', f).replace('{c}', c);
   }
 
-  function pintarTablero() {
-    tableroEl.innerHTML = '';
-    botonesCelda = [];
+  function renderBoard() {
+    boardEl.innerHTML = '';
+    cellBtns = [];
     for (var i = 0; i < 16; i++) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'celda-tuya' + (pintado[i] ? ' c-' + pintado[i] : '');
-      btn.disabled = pintado[i] !== null || completado;
-      btn.setAttribute('aria-label', ariaCelda(i));
+      btn.className = 'celda-tuya' + (painted[i] ? ' c-' + painted[i] : '');
+      btn.disabled = painted[i] !== null || completed;
+      btn.setAttribute('aria-label', ariaCell(i));
       (function (idx, b) {
-        b.addEventListener('click', function () { tocarCelda(idx); });
+        b.addEventListener('click', function () { touchCell(idx); });
       })(i, btn);
-      tableroEl.appendChild(btn);
-      botonesCelda.push(btn);
+      boardEl.appendChild(btn);
+      cellBtns.push(btn);
     }
   }
 
-  function pintarPaleta() {
-    paletaEl.innerHTML = '';
-    CLAVES.forEach(function (c) {
+  function renderPalette() {
+    paletteEl.innerHTML = '';
+    KEYS.forEach(function (c) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-color c-' + c;
-      btn.setAttribute('aria-label', App.i18n.t('ariaColor').replace('{color}', nombreColor(c)));
-      btn.setAttribute('aria-pressed', c === colorSel ? 'true' : 'false');
+      btn.setAttribute('aria-label', App.i18n.t('ariaColor').replace('{color}', colorName(c)));
+      btn.setAttribute('aria-pressed', c === selectedColor ? 'true' : 'false');
       btn.addEventListener('click', function () {
-        colorSel = c;
-        App.utils.$$('.btn-color', paletaEl).forEach(function (b) {
+        selectedColor = c;
+        App.utils.$$('.btn-color', paletteEl).forEach(function (b) {
           b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
         });
-        if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('eligeColor').replace('{color}', nombreColor(c)));
+        if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('pickColor').replace('{color}', colorName(c)));
       });
-      paletaEl.appendChild(btn);
+      paletteEl.appendChild(btn);
     });
   }
 
-  function limpiarAviso() {
+  function clearNotice() {
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
-    explicacionEl.textContent = '';
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
   }
 
-  function mostrarAviso(texto) {
-    explicacionEl.textContent = texto;
-    explicacionWrap.classList.remove('oculto');
+  function showNotice(text) {
+    explanationEl.textContent = text;
+    explanationWrap.classList.remove('hidden');
   }
 
-  function pintarCelda(i, color) {
-    pintado[i] = color;
-    var btn = botonesCelda[i];
+  function paintCell(i, color) {
+    painted[i] = color;
+    var btn = cellBtns[i];
     btn.classList.add('c-' + color, 'recien');
     btn.disabled = true;
-    btn.setAttribute('aria-label', ariaCelda(i));
+    btn.setAttribute('aria-label', ariaCell(i));
   }
 
-  function tocarCelda(i) {
-    if (completado || pintado[i] !== null) return;
-    limpiarAviso();
-    if (modelo[i] === colorSel) {
-      pintarCelda(i, colorSel);
+  function touchCell(i) {
+    if (completed || painted[i] !== null) return;
+    clearNotice();
+    if (model[i] === selectedColor) {
+      paintCell(i, selectedColor);
       App.feedback.success(feedbackEl);
-      comprobarCompletado();
+      checkCompleted();
     } else {
-      intentosCelda[i] = (intentosCelda[i] || 0) + 1;
+      cellAttempts[i] = (cellAttempts[i] || 0) + 1;
       App.feedback.encourage(feedbackEl);
-      if (intentosCelda[i] === 1) {
-        /* Rule 12: first mistake â†’ hint, never the answer */
-        mostrarAviso(App.i18n.t(modelo[i] === null ? 'pistaVacia' : 'pistaColor'));
-      } else if (modelo[i] === null) {
+      if (cellAttempts[i] === 1) {
+        /* Rule 12: first mistake → hint, never the answer */
+        showNotice(App.i18n.t(model[i] === null ? 'hintEmpty' : 'hintColor'));
+      } else if (model[i] === null) {
         /* Empty cell in the model: it's explained, nothing to correct */
-        mostrarAviso(App.i18n.t('malVacia'));
+        showNotice(App.i18n.t('wrongEmpty'));
       } else {
         /* Second mistake with a color: it's explained and self-corrected */
-        mostrarAviso(App.i18n.t('malColor').replace('{color}', nombreColor(modelo[i])));
-        pintarCelda(i, modelo[i]);
-        comprobarCompletado();
+        showNotice(App.i18n.t('wrongColor').replace('{color}', colorName(model[i])));
+        paintCell(i, model[i]);
+        checkCompleted();
       }
     }
   }
 
-  function quedanBloques() {
+  function cellsRemaining() {
     for (var i = 0; i < 16; i++) {
-      if (modelo[i] !== null && pintado[i] === null) return true;
+      if (model[i] !== null && painted[i] === null) return true;
     }
     return false;
   }
 
-  function comprobarCompletado() {
-    if (quedanBloques()) return;
-    completado = true;
-    idxModelo += 1;
-    aciertosRonda += 1;
-    progreso.estrellas += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-    guardar();
-    pintarEstrellas();
-    pintarProgreso();
-    botonesCelda.forEach(function (b) { b.disabled = true; });
-    App.feedback.celebrate(App.i18n.t('construccionCompletada'));
-    btnSiguiente.classList.remove('oculto');
-    btnSiguiente.focus();
+  function checkCompleted() {
+    if (cellsRemaining()) return;
+    completed = true;
+    modelIdx += 1;
+    roundHits += 1;
+    progress.stars += 1;
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    save();
+    renderStars();
+    renderProgress();
+    cellBtns.forEach(function (b) { b.disabled = true; });
+    App.feedback.celebrate(App.i18n.t('buildComplete'));
+    btnNext.classList.remove('hidden');
+    btnNext.focus();
   }
 
-  function siguiente() {
-    if (idxModelo >= banco().porRonda) {
-      terminarRonda();
+  function next() {
+    if (modelIdx >= bank().porRonda) {
+      endRound();
     } else {
-      nuevoModelo();
+      newModel();
     }
   }
 
-  function terminarRonda() {
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+  function endRound() {
+    progress.roundsCompleted += 1;
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    save();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#summary').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
+    App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
-  $('#btnOtroNivel').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pintarNiveles();
-    pantallaInicio.classList.remove('oculto');
+  btnNext.addEventListener('click', next);
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#btnOtherLevel').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    renderLevels();
+    startScreen.classList.remove('hidden');
   });
 
-  pintarEstrellas();
+  /* Init */
+  renderStars();
+  renderLevels();
 })();
-

@@ -9,13 +9,13 @@
    - 'hasDouble' es la respuesta correcta a "¿tiene doble sentido?".
    - 'meanings' tiene 2 entradas si hasDouble es true (los dos
      significados reales) o 1 si es false (el único significado).
-   Cada grupo mezcla a propósito palabras con doble sentido y
-   palabras normales de un solo significado (mitad y mitad), igual
+   Cada grupo mezcla a propósito words con doble sentido y
+   words normales de un solo significado (mitad y mitad), igual
    que Emergencias mezcla emergencias reales y falsas alarmas: el
    contraste es lo que enseña a distinguir, no una lista de solo
    "síes". 'id' de cada grupo se mantiene igual en es/en para
-   conservar el progreso al cambiar de idioma. Las palabras no son
-   traducción unas de otras: cada idioma tiene sus propias palabras
+   conservar el progreso al cambiar de idioma. Las words no son
+   traducción unas de otras: cada idioma tiene sus propias words
    con doble sentido real (I18N.md §3) — coinciden en concepto
    (banco/bank, capital/capital) solo cuando el español y el inglés
    comparten la misma ambigüedad por casualidad.

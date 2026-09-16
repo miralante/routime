@@ -27,37 +27,37 @@
   var pantallaMenu = $('#pantallaMenu');
   var pantallaQueHago = $('#pantallaQueHago');
   var pantallaOrdenar = $('#pantallaOrdenar');
-  var pantallaFinal = $('#pantallaFinal');
+  var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completadoQueHago) progreso.completadoQueHago = 0;
-  if (!progreso.completadoOrdenar) progreso.completadoOrdenar = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completadoQueHago) progress.completadoQueHago = 0;
+  if (!progress.completadoOrdenar) progress.completadoOrdenar = 0;
 
   var actividadActual = null; /* 'queHago' | 'ordenar' */
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function guardar() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function ocultarTodas() {
-    [pantallaMenu, pantallaQueHago, pantallaOrdenar, pantallaFinal].forEach(function (p) {
-      p.classList.add('oculto');
+    [pantallaMenu, pantallaQueHago, pantallaOrdenar, endScreen].forEach(function (p) {
+      p.classList.add('hidden');
     });
   }
 
   function irMenu() {
     ocultarTodas();
     pintarMenu();
-    pantallaMenu.classList.remove('oculto');
+    pantallaMenu.classList.remove('hidden');
   }
 
   function pintarMenu() {
-    $('#marcaQueHago').textContent.textContent = '';
-    $('#marcaOrdenar').textContent.textContent = '';
-    pintarEstrellas();
+    $('#marcaQueHago').textContent = '';
+    $('#marcaOrdenar').textContent = '';
+    renderStars();
   }
 
   /* ================= Actividad 1: ¿Qué hago ahora? ================= */
@@ -83,7 +83,7 @@
     idxQ = 0;
     aciertosQ = 0;
     ocultarTodas();
-    pantallaQueHago.classList.remove('oculto');
+    pantallaQueHago.classList.remove('hidden');
     renderQueHago();
   }
 
@@ -101,62 +101,62 @@
     situacionTextoEl.textContent = item.situacion;
     feedbackQEl.textContent = '';
     feedbackQEl.className = 'feedback';
-    explicacionQWrap.classList.add('oculto');
+    explicacionQWrap.classList.add('hidden');
     explicacionQEl.textContent = '';
-    btnSiguienteQ.classList.add('oculto');
+    btnSiguienteQ.classList.add('hidden');
     opcionesQEl.innerHTML = '';
 
     var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correcta };
+      return { texto: opt, isCorrect: i === item.correcta };
     }));
     opciones.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.texto;
-      btn.addEventListener('click', function () { responderQueHago(btn, op.esCorrecta, item); });
+      btn.addEventListener('click', function () { responderQueHago(btn, op.isCorrect, item); });
       opcionesQEl.appendChild(btn);
     });
 
     pintarProgresoQ();
-    pintarEstrellas();
+    renderStars();
   }
 
-  function mostrarExplicacionQ(esCorrecta, item) {
-    var texto = esCorrecta
+  function mostrarExplicacionQ(isCorrect, item) {
+    var texto = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.opciones[item.correcta] + '.';
     explicacionQEl.textContent = texto;
-    explicacionQWrap.classList.remove('oculto');
+    explicacionQWrap.classList.remove('hidden');
   }
 
-  function responderQueHago(btn, esCorrecta, item) {
+  function responderQueHago(btn, isCorrect, item) {
     if (resueltoQ) return;
-    if (esCorrecta) {
-      mostrarExplicacionQ(esCorrecta, item);
+    if (isCorrect) {
+      mostrarExplicacionQ(isCorrect, item);
       resueltoQ = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackQEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosQ += 1;
       guardar();
-      pintarEstrellas();
-      btnSiguienteQ.classList.remove('oculto');
+      renderStars();
+      btnSiguienteQ.classList.remove('hidden');
       btnSiguienteQ.focus();
     } else {
       intentosQ += 1;
       if (intentosQ === 1) {
         explicacionQEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
-        explicacionQWrap.classList.remove('oculto');
+        explicacionQWrap.classList.remove('hidden');
       } else {
-        mostrarExplicacionQ(esCorrecta, item);
+        mostrarExplicacionQ(isCorrect, item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackQEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesQueHago .btn-opcion'), explicacionQWrap);
+      App.feedback.lockUntilAck(App.utils.$('#opcionesQueHago .btn-opcion'), explicacionQWrap);
     }
   }
 
@@ -170,12 +170,12 @@
   }
 
   function terminarQueHago() {
-    progreso.completadoQueHago += 1;
+    progress.completadoQueHago += 1;
     guardar();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-    $('#transferencia').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -199,7 +199,7 @@
     idxO = 0;
     aciertosO = 0;
     ocultarTodas();
-    pantallaOrdenar.classList.remove('oculto');
+    pantallaOrdenar.classList.remove('hidden');
     renderOrdenar();
   }
 
@@ -234,7 +234,7 @@
     });
 
     pintarProgresoO();
-    pintarEstrellas();
+    renderStars();
   }
 
   function pintarSlotsO() {
@@ -270,11 +270,11 @@
   }
 
   function terminarTareaO() {
-    progreso.estrellas += 1;
+    progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
     aciertosO += 1;
     guardar();
-    pintarEstrellas();
+    renderStars();
     idxO += 1;
     if (idxO >= listasOrdenar.length) {
       setTimeout(terminarOrdenar, 900);
@@ -284,11 +284,11 @@
   }
 
   function terminarOrdenar() {
-    progreso.completadoOrdenar += 1;
+    progress.completadoOrdenar += 1;
     guardar();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -304,7 +304,7 @@
   $('#btnEscucharQueHago').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsQueHago[idxQ].situacion);
   });
-  $('#btnRepetir').addEventListener('click', function () {
+  $('#btnRepeat').addEventListener('click', function () {
     if (actividadActual === 'queHago') iniciarQueHago();
     else iniciarOrdenar();
   });

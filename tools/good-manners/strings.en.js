@@ -87,7 +87,7 @@
     'opcion.no': 'No.',
     
     // Feedback messages
-    'feedback.correcto': 'Very good! That is the correct answer.',
+    'feedback.correct': 'Very good! That is the correct answer.',
     'feedback.pista': 'Think: what phrase do people use when they want to be polite?',
     'feedback.explicacion': 'That is the right way to be polite in this situation. Great!',
     

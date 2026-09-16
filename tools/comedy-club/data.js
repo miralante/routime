@@ -2,7 +2,7 @@
    Datos: chistes (es) y jokes en inglés (en) para comprensión del humor.
    Formato: { text: string, options: string[3], correct: indice }
    options[correct] es la explicación correcta de por qué el chiste es
-   gracioso; se reutiliza como texto de la explicación al responder.
+   gracioso; se reutiliza como text de la explicación al responder.
    Para ampliar: añadir objetos al array del idioma correspondiente.
    'correct' apunta a options. app.js usa DATA[App.i18n.locale()].
    ============================================================ */
@@ -11,7 +11,7 @@ const DATA = {
     {
         text: "¿Qué le dice un jaguar a otro jaguar? Jaguar que te pillo.",
         options: [
-            "Juego de palabras entre 'jaguar' y 'cazar'",
+            "Juego de words entre 'jaguar' y 'cazar'",
             "Los jaguares se persiguen entre sí",
             "Es una expresión de cariño entre animales"
         ],
@@ -22,7 +22,7 @@ const DATA = {
         options: [
             "La abeja zumba cuando hace ejercicio",
             "La abeja está aprendiendo a hablar",
-            "Las palabras con 'bz' son graciosas"
+            "Las words con 'bz' son graciosas"
         ],
         correct: 0
     },
@@ -47,7 +47,7 @@ const DATA = {
     {
         text: "¿Qué hace una pared junto a otra pared? Le hace la paré.",
         options: [
-            "Juego de palabras entre 'pared' y 'parecer'",
+            "Juego de words entre 'pared' y 'parecer'",
             "Las paredes se hablan entre sí",
             "Es un chiste sobre arquitectura"
         ],
@@ -83,7 +83,7 @@ const DATA = {
     {
         text: "¿Por qué los pájaros no van al bar? Porque ya tienen su propio trino-bar.",
         options: [
-            "Juego de palabras: 'trino' (canto del pájaro) y 'bar'",
+            "Juego de words: 'trino' (canto del pájaro) y 'bar'",
             "Los pájaros son más modernos",
             "El bar es para humanos"
         ],
@@ -92,7 +92,7 @@ const DATA = {
     {
         text: "-¿Qué hace una araña en el mercado? Compra una telaraña.",
         options: [
-            "Juego de palabras: 'tela' y 'araña' forman 'telaraña' (telaraña)",
+            "Juego de words: 'tela' y 'araña' forman 'telaraña' (telaraña)",
             "Las arañas van de compras",
             "Los mercados venden cosas de arañas"
         ],
@@ -101,7 +101,7 @@ const DATA = {
     {
         text: "¿Qué hace una abeja en la lavadora? ¡Zum-bailando!",
         options: [
-            "Juego de palabras: 'zumbido' + 'bailando'",
+            "Juego de words: 'zumbido' + 'bailando'",
             "Las abejas pueden sobrevivir a todo",
             "Los españoles les gustan las abejitas"
         ],
@@ -164,7 +164,7 @@ const DATA = {
     {
         text: "-¿Qué le dice un jaguar a otro jaguar? -Jaguar te sientes bien.",
         options: [
-            "Juego de palabras: 'jaguar' + canción famosa española",
+            "Juego de words: 'jaguar' + canción famosa española",
             "Los jaguares son positivos",
             "Los felinos se animan entre sí"
         ],
@@ -173,7 +173,7 @@ const DATA = {
     {
         text: "¿Por qué los pájaros no van al médico? Porque ya tienen el curandero.",
         options: [
-            "Juego de palabras: 'curandero' suena como el pájaro",
+            "Juego de words: 'curandero' suena como el pájaro",
             "Los pájaros son más tradicionales",
             "El médico es para humanos"
         ],
@@ -209,7 +209,7 @@ const DATA = {
     {
         text: "¿Por qué los cerdos no van al mercado? Porque ya tienen su propia charcutería.",
         options: [
-            "Juego de palabras: 'cerdo' y 'charcutería'",
+            "Juego de words: 'cerdo' y 'charcutería'",
             "Los cerdos son privados",
             "El mercado es para humanos"
         ],
@@ -218,7 +218,7 @@ const DATA = {
     {
         text: "-¿Qué le dice un techo a un suelo? Techo, mírame.",
         options: [
-            "Juego de palabras: 'techo' y 'te echo de menos'",
+            "Juego de words: 'techo' y 'te echo de menos'",
             "Los techos y suelos se comunican",
             "Los techos miran hacia abajo"
         ],
@@ -236,7 +236,7 @@ const DATA = {
     {
         text: "-¿Qué hace una rata en una verbena? Se pone a bailar el tang-rat-tán.",
         options: [
-            "Juego de palabras: 'tango' y 'rata'",
+            "Juego de words: 'tango' y 'rata'",
             "Las ratas van a fiestas",
             "Los roedores son bailarines"
         ],
@@ -254,7 +254,7 @@ const DATA = {
     {
         text: "-¿Qué le dice un día a otro? Buenos días.",
         options: [
-            "Juego de palabras: 'Buenos días' y la forma de saludar",
+            "Juego de words: 'Buenos días' y la forma de saludar",
             "Los días hablan entre sí",
             "Los días son bilingües"
         ],
@@ -335,7 +335,7 @@ const DATA = {
     {
         text: "¿Por qué las focas miran al cielo? Porque quieren ver las estrellas del mar.",
         options: [
-            "Juego de palabras: 'estrellas de mar' y 'estrellas del mar'",
+            "Juego de words: 'estrellas de mar' y 'estrellas del mar'",
             "Las focas son curiosas",
             "Los animales miran el cielo"
         ],
@@ -678,7 +678,7 @@ const DATA = {
         text: "¿Qué le dice un gato a otro gato? ¡Miau-presentes!",
         options: [
             "Juego con 'mis presentes' y el sonido 'miau' (suena a 'miau-presentes')",
-            "Los gatos se llaman por su nombre",
+            "Los gatos se llaman por su name",
             "Los gatos van al colegio"
         ],
         correct: 0

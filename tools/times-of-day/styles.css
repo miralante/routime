@@ -7,13 +7,13 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -23,7 +23,7 @@
 .item-picto { font-size: 72px; }
 
 .item-palabra {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
 }
 
@@ -35,7 +35,7 @@
   margin-top: var(--espacio-grande);
 }
 
-.columna-dia {
+.column-dia {
   flex: 1 1 220px;
   min-width: 220px;
   padding: var(--espacio);
@@ -48,7 +48,7 @@
   width: 100%;
   min-height: 64px;
   margin-bottom: var(--espacio);
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
 }
 
 .caja.correcta {
@@ -59,7 +59,7 @@
   background: var(--color-animo);
 }
 
-.lista-tareas {
+.tasks-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -69,8 +69,8 @@
   min-height: 32px;
 }
 
-.lista-tareas li {
-  font-size: var(--texto-base);
+.tasks-list li {
+  font-size: var(--text-base);
   font-weight: 700;
   padding: 6px 10px;
   background: var(--mod-secuencia-suave);
@@ -79,16 +79,16 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen { padding-top: 48px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 640px) {
-  .columna-dia { flex: 1 1 100%; }
+  .column-dia { flex: 1 1 100%; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

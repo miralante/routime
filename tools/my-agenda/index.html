@@ -19,44 +19,46 @@
     </header>
 
     <main>
-      <section id="startScreen" class="pila centrado">
-        <div class="fila centered-row">
+      <section id="startScreen" class="pila centered">
+        <div class="row centered-row">
           <p class="instruction" id="instruction" data-i18n="instruction">Elige el plan que está bien preparado.</p>
         </div>
-        <h2 id="levelHeading" tabindex="-1" data-i18n="chooseLevel">Elige el nivel</h2>
-        <div class="pila" id="levels"></div>
+        <span class="dificultad" id="dificultad" aria-live="polite"></span>
+        <button type="button" class="btn btn-principal" id="btnPlay">
+          <span data-i18n="btnJugar">¡Jugar!</span>
+        </button>
       </section>
 
-      <section id="caseScreen" class="oculto pila" aria-labelledby="questionHeading">
+      <section id="caseScreen" class="hidden pila" aria-labelledby="questionHeading">
         <div class="progress-bar" aria-hidden="true">
           <div class="progress-fill" id="progressFill"></div>
           <span class="progress-text" id="progressText">1 / 5</span>
         </div>
 
-        <article class="card case-card centrado pila">
+        <article class="card case-card centered pila">
           <div class="case-icon" id="caseIcon" aria-hidden="true">📅</div>
           <p class="case-text" id="caseText" data-i18n="core.loading">Cargando…</p>
         </article>
 
-        <h2 class="question centrado" id="questionHeading" data-i18n="question">¿Qué plan eliges?</h2>
+        <h2 class="question centered" id="questionHeading" data-i18n="question">¿Qué plan eliges?</h2>
         <div class="pila" id="options"></div>
         <div class="feedback" id="feedback" aria-live="polite"></div>
-        <div class="fila explicacion oculto" id="explanationWrap">
+        <div class="row explicacion hidden" id="explanationWrap">
           <p id="explanation" aria-live="polite"></p>
         </div>
-        <button type="button" class="btn next-button oculto" id="nextButton" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+        <button type="button" class="btn next-button hidden" id="nextButton" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
       </section>
 
-      <section id="endScreen" class="oculto pila centrado" aria-labelledby="endHeading">
+      <section id="endScreen" class="hidden pila centered" aria-labelledby="endHeading">
         <div class="end-icon" aria-hidden="true">🎉</div>
         <h2 id="endHeading" tabindex="-1" data-i18n="core.roundComplete">¡Ronda completada!</h2>
-        <div class="fila centered-row">
+        <div class="row centered-row">
           <p id="endText" aria-live="polite"></p>
         </div>
-        <button type="button" class="btn" id="repeatButton" data-i18n="core.playAgain">Jugar otra vez</button>
+        <p id="resumenFinal"></p>
         <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-        <button type="button" class="btn btn-secundario" id="levelsButton" data-i18n="chooseAnotherLevel">Elegir otro nivel</button>
-        <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+        <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+        <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
       </section>
     </main>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>

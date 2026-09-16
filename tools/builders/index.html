@@ -19,34 +19,34 @@
     </header>
 
     <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
+    <section id="startScreen" class="pila centered">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Elige bloques de colores. Toca la zona donde quieres ponerlos. ¡Construye lo que quieras!</p>
       </div>
       
       <div class="pila modos">
         <h2 data-i18n="elegirModo">¿Qué quieres hacer?</h2>
-        <div class="fila botones-modo">
+        <div class="row botones-modo">
           <button type="button" class="btn btn-modo" id="btnModoLibre" data-i18n="modoLibre">🎨 Crear libremente</button>
           <button type="button" class="btn btn-modo" id="btnModoPlantilla" data-i18n="modoPlantilla">📋 Seguir un modelo</button>
         </div>
       </div>
 
       <!-- World size selector (free mode, hidden initially) -->
-      <div id="selectorTamano" class="oculto pila">
+      <div id="selectorTamano" class="hidden pila">
         <h2 data-i18n="elegirTamano">Elige el tamaño del mundo</h2>
-        <div class="fila botones-modo" id="tamanos"></div>
+        <div class="row botones-modo" id="tamanos"></div>
       </div>
 
-      <!-- Selector de plantillas (oculto inicialmente) -->
-      <div id="selectorPlantilla" class="oculto pila">
+      <!-- Selector de plantillas (hidden inicialmente) -->
+      <div id="selectorPlantilla" class="hidden pila">
         <h2 data-i18n="elegirPlantilla">Elige un modelo</h2>
         <div class="grid-plantillas" id="plantillas"></div>
       </div>
     </section>
 
     <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto">
+    <section id="gameScreen" class="hidden">
       <div class="construccion-header">
         <p class="construccion-titulo" id="construccionTitulo"></p>
         <div class="contador-bloques">
@@ -61,32 +61,32 @@
       <!-- Paleta de bloques -->
       <div class="paleta-bloques">
         <p class="etiqueta-paleta" data-i18n="eligeBloque">Elige un bloque</p>
-        <div class="fila bloques" id="bloques" role="radiogroup" aria-label="Bloques disponibles"></div>
+        <div class="row bloques" id="bloques" role="radiogroup" aria-label="Bloques disponibles"></div>
       </div>
 
       <!-- Herramientas -->
       <div class="herramientas">
-        <button type="button" class="btn btn-herramienta" id="btnBorrar" data-i18n="modoBorrar">🗑️ Borrar</button>
+        <button type="button" class="btn btn-herramienta" id="btnErase" data-i18n="modoBorrar">🗑️ Borrar</button>
         <button type="button" class="btn btn-herramienta" id="btnLimpiarTodo" data-i18n="btnLimpiarTodo">🧹 Empezar de nuevo</button>
       </div>
 
       <div class="feedback" id="feedback" aria-live="polite"></div>
 
-      <div class="fila acciones">
+      <div class="row acciones">
         <button type="button" class="btn" id="btnTerminado" data-i18n="btnTerminado">✔ ¡Listo!</button>
       </div>
     </section>
 
     <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🏆</div>
       <h2 data-i18n="finalTitulo">¡Bravo!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <div class="vista-miniatura" id="vistaMiniatura"></div>
       <button type="button" class="btn" id="btnSeguirCreando" data-i18n="btnSeguirCreando">Seguir creando</button>
-      <button type="button" class="btn btn-secundario" id="btnCambiarPlantilla" data-i18n="btnCambiarPlantilla">Cambiar modelo</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn btn-secondary" id="btnCambiarPlantilla" data-i18n="btnCambiarPlantilla">Cambiar modelo</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

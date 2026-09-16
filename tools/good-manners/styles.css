@@ -8,7 +8,7 @@
 }
 
 .estrellas {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   margin: calc(var(--espacio) * 2) 0;
 }
 
@@ -23,7 +23,7 @@
 .contexto-titulo {
   color: var(--mod-emocional);
   margin: 0 0 var(--espacio) 0;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
 }
 
 .mensaje-dialogos {
@@ -35,7 +35,7 @@
 
 .mensaje-dialogos p {
   margin: 0;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -47,7 +47,7 @@
   padding: var(--espacio);
   border-radius: var(--radio);
   cursor: pointer;
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   min-width: var(--boton-min);
   min-height: var(--boton-min);
   transition: all 0.2s ease;
@@ -71,11 +71,11 @@
 .pregunta {
   text-align: center;
   margin: calc(var(--espacio) * 2) 0;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 500;
 }
 
-.opciones-contenedor {
+.options-contenedor {
   gap: var(--espacio);
   margin: calc(var(--espacio) * 2) 0;
 }
@@ -88,7 +88,7 @@
   background: white;
   border-radius: var(--radio);
   cursor: pointer;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   min-height: var(--boton-min);
   transition: all 0.2s ease;
 }
@@ -111,9 +111,9 @@
 
 .instruccion {
   text-align: center;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   margin: var(--espacio) 0;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
 .progress-bar {
@@ -137,7 +137,7 @@
   margin: var(--espacio) 0;
   border-radius: var(--radio);
   text-align: center;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   line-height: 1.5;
 }
 
@@ -155,14 +155,14 @@
 
 .titulo-celebracion {
   text-align: center;
-  font-size: var(--texto-titulo);
+  font-size: var(--text-titulo);
   color: var(--mod-emocional);
   margin: calc(var(--espacio) * 3) 0;
 }
 
 .estrellas-celebracion {
   text-align: center;
-  font-size: calc(var(--texto-titulo) * 1.5);
+  font-size: calc(var(--text-titulo) * 1.5);
   margin: calc(var(--espacio) * 2) 0;
   letter-spacing: var(--espacio);
 }
@@ -178,10 +178,10 @@
     transition: none !important;
   }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

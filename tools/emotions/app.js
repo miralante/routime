@@ -1,6 +1,6 @@
 /* ============================================================
    Routime — ¿Cómo me siento? (gestión emocional)
-   Identificar la emoción actual → respuesta adaptada + registro.
+   Identificar la emoción current → respuesta adaptada + registro.
    Todas las emociones son válidas: nunca se juzga.
    Registro diario en storage → vista "Mi semana" (7 días).
    ============================================================ */
@@ -10,29 +10,29 @@
   var TOOL_ID = 'emociones';
   var $ = App.utils.$;
 
-  var pantallaSeleccion = $('#pantallaSeleccion');
-  var pantallaRespuesta = $('#pantallaRespuesta');
-  var pantallaRespiracion = $('#pantallaRespiracion');
-  var pantallaSemana = $('#pantallaSemana');
+  var selectionScreen = $('#selectionScreen');
+  var responseScreen = $('#responseScreen');
+  var breathingScreen = $('#breathingScreen');
+  var weekScreen = $('#weekScreen');
 
   /* Progreso: historial de emociones [{fecha, id}] */
-  var progreso = App.storage.get(TOOL_ID);
-  if (!Array.isArray(progreso.historial)) progreso.historial = [];
+  var progress = App.storage.get(TOOL_ID);
+  if (!Array.isArray(progress.historial)) progress.historial = [];
 
   var emocionActual = null;
   var respiracionTimer = null;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
   function mostrar(pantalla) {
-    [pantallaSeleccion, pantallaRespuesta, pantallaRespiracion, pantallaSemana]
-      .forEach(function (p) { p.classList.add('oculto'); });
-    pantalla.classList.remove('oculto');
+    [selectionScreen, responseScreen, breathingScreen, weekScreen]
+      .forEach(function (p) { p.classList.add('hidden'); });
+    pantalla.classList.remove('hidden');
   }
 
   /* ---- Emotion selection ---- */
-  function pintarEmociones() {
+  function renderEmotions() {
     var cont = $('#emociones');
     cont.innerHTML = '';
     DATOS.emociones.forEach(function (emo) {
@@ -43,50 +43,50 @@
       btn.style.background = emo.colorSuave;
       btn.innerHTML =
         '<span class="picto" aria-hidden="true">' + emo.picto + '</span>' +
-        '<span class="nombre" style="color:' + emo.color + '">' + emo.nombre + '</span>';
-      btn.addEventListener('click', function () { elegir(emo); });
+        '<span class="name" style="color:' + emo.color + '">' + emo.name + '</span>';
+      btn.addEventListener('click', function () { select(emo); });
       cont.appendChild(btn);
     });
   }
 
-  function elegir(emo) {
+  function select(emo) {
     emocionActual = emo;
 
     /* Log it (one entry per day: the last one chosen) */
     var hoy = App.utils.hoy();
-    progreso.historial = progreso.historial.filter(function (r) {
+    progress.historial = progress.historial.filter(function (r) {
       return r.fecha !== hoy;
     });
-    progreso.historial.push({ fecha: hoy, id: emo.id });
+    progress.historial.push({ fecha: hoy, id: emo.id });
     /* Keep only the last 30 days */
-    if (progreso.historial.length > 30) {
-      progreso.historial = progreso.historial.slice(-30);
+    if (progress.historial.length > 30) {
+      progress.historial = progress.historial.slice(-30);
     }
-    guardar();
+    save();
 
     /* Paint the adapted response */
-    $('#respuestaPicto').textContent.textContent = '';
-    $('#respuestaMensaje').textContent.textContent = '';
+    $('#respuestaPicto').textContent = '';
+    $('#respuestaMensaje').textContent = '';
     $('#respuestaMensaje').style.color = emo.color;
-    $('#respuestaSugerencia').textContent.textContent = '';
+    $('#respuestaSugerencia').textContent = '';
     document.body.style.background = emo.colorSuave;
 
     var btnRespirar = $('#btnRespirar');
     if (emo.sugerencia.tipo === 'respiracion') {
-      btnRespirar.classList.remove('oculto');
+      btnRespirar.classList.remove('hidden');
     } else {
-      btnRespirar.classList.add('oculto');
+      btnRespirar.classList.add('hidden');
     }
 
-    mostrar(pantallaRespuesta);
+    mostrar(responseScreen);
     /* Audio only plays if the user taps the "Listen" button (btnOirRespuesta) */
   }
 
   /* ---- Breathing exercise (3 cycles) ---- */
   function respirar() {
-    mostrar(pantallaRespiracion);
+    mostrar(breathingScreen);
     var circulo = $('#circuloRespiracion');
-    var texto = $('#textoRespiracion');
+    var text = $('#textoRespiracion');
     var ciclosEl = $('#ciclosRespiracion');
     var ciclo = 0;
     var TOTAL = 3;
@@ -96,7 +96,7 @@
 
     function paso(inhalar) {
       if (ciclo >= TOTAL) {
-        texto.textContent = App.i18n.t('respiracionFinal');
+        text.textContent = App.i18n.t('respiracionFinal');
         ciclosEl.textContent = '';
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('respiracionFinal'));
         circulo.className = '';
@@ -104,11 +104,11 @@
       }
       ciclosEl.textContent = '';
       if (inhalar) {
-        texto.textContent = App.i18n.t('cogeAire');
+        text.textContent = App.i18n.t('cogeAire');
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('cogeAire'));
         circulo.className = 'crecer';
       } else {
-        texto.textContent = App.i18n.t('sueltaAire');
+        text.textContent = App.i18n.t('sueltaAire');
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('sueltaAire'));
         circulo.className = 'encoger';
         ciclo += 1;
@@ -121,7 +121,7 @@
 
   function salirRespiracion() {
     clearTimeout(respiracionTimer);
-    mostrar(pantallaRespuesta);
+    mostrar(responseScreen);
   }
 
   /* ---- Mi semana ---- */
@@ -138,26 +138,26 @@
         String(d.getDate()).padStart(2, '0');
 
       var registro = null;
-      for (var j = 0; j < progreso.historial.length; j++) {
-        if (progreso.historial[j].fecha === clave) registro = progreso.historial[j];
+      for (var j = 0; j < progress.historial.length; j++) {
+        if (progress.historial[j].fecha === clave) registro = progress.historial[j];
       }
       var emo = registro ? DATOS.emociones.filter(function (e) { return e.id === registro.id; })[0] : null;
 
-      var fila = document.createElement('div');
-      fila.className = 'dia-semana card';
+      var row = document.createElement('div');
+      row.className = 'dia-semana card';
       var nombreDia = (i === 0) ? App.i18n.t('hoy') : DATOS.dias[d.getDay()];
-      fila.innerHTML =
+      row.innerHTML =
         '<span class="dia">' + nombreDia + '</span>' +
         '<span class="picto" aria-hidden="true">' + (emo ? emo.picto : '·') + '</span>' +
-        '<span class="nombre">' + (emo ? emo.nombre : App.i18n.t('sinRegistro')) + '</span>';
-      cont.appendChild(fila);
+        '<span class="name">' + (emo ? emo.name : App.i18n.t('sinRegistro')) + '</span>';
+      cont.appendChild(row);
     }
-    mostrar(pantallaSemana);
+    mostrar(weekScreen);
   }
 
   function volverSeleccion() {
     document.body.style.background = '';
-    mostrar(pantallaSeleccion);
+    mostrar(selectionScreen);
   }
 
   /* Events */
@@ -165,7 +165,7 @@
     if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('pregunta'));
   });
   $('#btnOirRespuesta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(emocionActual.mensaje + ' ' + emocionActual.sugerencia.texto);
+    if (false && App.tts && App.tts.speak) App.tts.speak(emocionActual.mensaje + ' ' + emocionActual.sugerencia.textContent);
   });
   $('#btnRespirar').addEventListener('click', respirar);
   $('#btnSalirRespiracion').addEventListener('click', salirRespiracion);
@@ -173,5 +173,5 @@
   $('#btnSemana').addEventListener('click', verSemana);
   $('#btnVolverDeSemana').addEventListener('click', volverSeleccion);
 
-  pintarEmociones();
+  renderEmotions();
 })();

@@ -2,12 +2,12 @@
    Datos: La Compra (razonamiento/autonomía — AVD instrumental:
    secciones del supermercado y planificar la lista de la compra).
    Formato: DATA.es / DATA.en, cada uno con:
-   { secciones: { porRonda, niveles: [{ id, nombre, descripcion,
+   { secciones: { porRonda, niveles: [{ id, name, descripcion,
        estrellas, categorias: string[3], items: [{ picto, palabra,
        categoria }] }] },
      lista: { porRonda, momentos: string[3] (compartidos por todos
-       los niveles), niveles: [{ id, nombre, descripcion, estrellas,
-       items: [{ picto, palabra, momento }] }] } }
+       los niveles), niveles: [{ id, name, descripcion, estrellas,
+       items: [{ picto, palabra, timeOfDay }] }] } }
    Dos actividades independientes elegibles desde un menú (regla 10):
    - 'secciones': clon exacto del motor de ¿Dónde lo guardo? —
      producto → sección del supermercado (Frutería/Carnicería/
@@ -18,7 +18,7 @@
      lista visual por caja. Regla 13: única variable por nivel es lo
      evidente del producto.
    Cierra la cadena de AVD instrumental junto con El Monedero (pagar)
-   y La Casa (cocinar/guardar).
+   y La Casa (cocinar/save).
    app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 const DATA = {
@@ -28,7 +28,7 @@ const DATA = {
       niveles: [
         {
           id: 1,
-          nombre: 'Nivel 1',
+          name: 'Nivel 1',
           descripcion: 'Productos muy claros',
           estrellas: 1,
           categorias: ['Frutería', 'Carnicería', 'Limpieza'],
@@ -51,7 +51,7 @@ const DATA = {
         },
         {
           id: 2,
-          nombre: 'Nivel 2',
+          name: 'Nivel 2',
           descripcion: 'Productos menos evidentes',
           estrellas: 2,
           categorias: ['Frutería', 'Carnicería', 'Limpieza'],
@@ -80,46 +80,46 @@ const DATA = {
       niveles: [
         {
           id: 1,
-          nombre: 'Nivel 1',
+          name: 'Nivel 1',
           descripcion: 'Productos muy claros',
           estrellas: 1,
           items: [
-            { picto: '🥛', palabra: 'Leche', momento: 'Desayuno' },
-            { picto: '🥐', palabra: 'Cruasán', momento: 'Desayuno' },
-            { picto: '🍞', palabra: 'Pan de molde', momento: 'Desayuno' },
-            { picto: '🍯', palabra: 'Miel', momento: 'Desayuno' },
-            { picto: '🍚', palabra: 'Arroz', momento: 'Comida' },
-            { picto: '🥔', palabra: 'Patatas', momento: 'Comida' },
-            { picto: '🍅', palabra: 'Tomate frito', momento: 'Comida' },
-            { picto: '🐟', palabra: 'Filetes de merluza', momento: 'Comida' },
-            { picto: '🥣', palabra: 'Sopa de sobre', momento: 'Cena' },
-            { picto: '🥗', palabra: 'Lechuga para ensalada', momento: 'Cena' },
-            { picto: '🧀', palabra: 'Queso', momento: 'Cena' },
-            { picto: '🍳', palabra: 'Huevos para tortilla', momento: 'Cena' },
-            { picto: '🍪', palabra: 'Galletas', momento: 'Desayuno' },
-            { picto: '🍗', palabra: 'Pollo asado', momento: 'Comida' }
+            { picto: '🥛', palabra: 'Leche', timeOfDay: 'Desayuno' },
+            { picto: '🥐', palabra: 'Cruasán', timeOfDay: 'Desayuno' },
+            { picto: '🍞', palabra: 'Pan de molde', timeOfDay: 'Desayuno' },
+            { picto: '🍯', palabra: 'Miel', timeOfDay: 'Desayuno' },
+            { picto: '🍚', palabra: 'Arroz', timeOfDay: 'Comida' },
+            { picto: '🥔', palabra: 'Patatas', timeOfDay: 'Comida' },
+            { picto: '🍅', palabra: 'Tomate frito', timeOfDay: 'Comida' },
+            { picto: '🐟', palabra: 'Filetes de merluza', timeOfDay: 'Comida' },
+            { picto: '🥣', palabra: 'Sopa de sobre', timeOfDay: 'Cena' },
+            { picto: '🥗', palabra: 'Lechuga para ensalada', timeOfDay: 'Cena' },
+            { picto: '🧀', palabra: 'Queso', timeOfDay: 'Cena' },
+            { picto: '🍳', palabra: 'Huevos para tortilla', timeOfDay: 'Cena' },
+            { picto: '🍪', palabra: 'Galletas', timeOfDay: 'Desayuno' },
+            { picto: '🍗', palabra: 'Pollo asado', timeOfDay: 'Comida' }
           ]
         },
         {
           id: 2,
-          nombre: 'Nivel 2',
+          name: 'Nivel 2',
           descripcion: 'Productos menos evidentes',
           estrellas: 2,
           items: [
-            { picto: '🥣', palabra: 'Cereales', momento: 'Desayuno' },
-            { picto: '🍊', palabra: 'Zumo de naranja', momento: 'Desayuno' },
-            { picto: '🧈', palabra: 'Mantequilla', momento: 'Desayuno' },
-            { picto: '🍫', palabra: 'Cacao en polvo', momento: 'Desayuno' },
-            { picto: '🍝', palabra: 'Pasta', momento: 'Comida' },
-            { picto: '🫘', palabra: 'Lentejas', momento: 'Comida' },
-            { picto: '🌽', palabra: 'Maíz en lata', momento: 'Comida' },
-            { picto: '🧅', palabra: 'Cebolla para el sofrito', momento: 'Comida' },
-            { picto: '🍲', palabra: 'Caldo', momento: 'Cena' },
-            { picto: '🥒', palabra: 'Pepino', momento: 'Cena' },
-            { picto: '🥪', palabra: 'Pan de sándwich', momento: 'Cena' },
-            { picto: '🍇', palabra: 'Uvas de postre', momento: 'Cena' },
-            { picto: '🫐', palabra: 'Arándanos para el yogur', momento: 'Desayuno' },
-            { picto: '🥫', palabra: 'Atún en lata', momento: 'Cena' }
+            { picto: '🥣', palabra: 'Cereales', timeOfDay: 'Desayuno' },
+            { picto: '🍊', palabra: 'Zumo de naranja', timeOfDay: 'Desayuno' },
+            { picto: '🧈', palabra: 'Mantequilla', timeOfDay: 'Desayuno' },
+            { picto: '🍫', palabra: 'Cacao en polvo', timeOfDay: 'Desayuno' },
+            { picto: '🍝', palabra: 'Pasta', timeOfDay: 'Comida' },
+            { picto: '🫘', palabra: 'Lentejas', timeOfDay: 'Comida' },
+            { picto: '🌽', palabra: 'Maíz en lata', timeOfDay: 'Comida' },
+            { picto: '🧅', palabra: 'Cebolla para el sofrito', timeOfDay: 'Comida' },
+            { picto: '🍲', palabra: 'Caldo', timeOfDay: 'Cena' },
+            { picto: '🥒', palabra: 'Pepino', timeOfDay: 'Cena' },
+            { picto: '🥪', palabra: 'Pan de sándwich', timeOfDay: 'Cena' },
+            { picto: '🍇', palabra: 'Uvas de postre', timeOfDay: 'Cena' },
+            { picto: '🫐', palabra: 'Arándanos para el yogur', timeOfDay: 'Desayuno' },
+            { picto: '🥫', palabra: 'Atún en lata', timeOfDay: 'Cena' }
           ]
         }
       ]
@@ -131,7 +131,7 @@ const DATA = {
       niveles: [
         {
           id: 1,
-          nombre: 'Level 1',
+          name: 'Level 1',
           descripcion: 'Very clear products',
           estrellas: 1,
           categorias: ['Fruit shop', 'Butcher', 'Cleaning'],
@@ -154,7 +154,7 @@ const DATA = {
         },
         {
           id: 2,
-          nombre: 'Level 2',
+          name: 'Level 2',
           descripcion: 'Less obvious products',
           estrellas: 2,
           categorias: ['Fruit shop', 'Butcher', 'Cleaning'],
@@ -183,46 +183,46 @@ const DATA = {
       niveles: [
         {
           id: 1,
-          nombre: 'Level 1',
+          name: 'Level 1',
           descripcion: 'Very clear products',
           estrellas: 1,
           items: [
-            { picto: '🥛', palabra: 'Milk', momento: 'Breakfast' },
-            { picto: '🥐', palabra: 'Croissant', momento: 'Breakfast' },
-            { picto: '🍞', palabra: 'Sliced bread', momento: 'Breakfast' },
-            { picto: '🍯', palabra: 'Honey', momento: 'Breakfast' },
-            { picto: '🍚', palabra: 'Rice', momento: 'Lunch' },
-            { picto: '🥔', palabra: 'Potatoes', momento: 'Lunch' },
-            { picto: '🍅', palabra: 'Tomato sauce', momento: 'Lunch' },
-            { picto: '🐟', palabra: 'Hake fillets', momento: 'Lunch' },
-            { picto: '🥣', palabra: 'Instant soup', momento: 'Dinner' },
-            { picto: '🥗', palabra: 'Lettuce for salad', momento: 'Dinner' },
-            { picto: '🧀', palabra: 'Cheese', momento: 'Dinner' },
-            { picto: '🍳', palabra: 'Eggs for omelette', momento: 'Dinner' },
-            { picto: '🍪', palabra: 'Biscuits', momento: 'Breakfast' },
-            { picto: '🍗', palabra: 'Roast chicken', momento: 'Lunch' }
+            { picto: '🥛', palabra: 'Milk', timeOfDay: 'Breakfast' },
+            { picto: '🥐', palabra: 'Croissant', timeOfDay: 'Breakfast' },
+            { picto: '🍞', palabra: 'Sliced bread', timeOfDay: 'Breakfast' },
+            { picto: '🍯', palabra: 'Honey', timeOfDay: 'Breakfast' },
+            { picto: '🍚', palabra: 'Rice', timeOfDay: 'Lunch' },
+            { picto: '🥔', palabra: 'Potatoes', timeOfDay: 'Lunch' },
+            { picto: '🍅', palabra: 'Tomato sauce', timeOfDay: 'Lunch' },
+            { picto: '🐟', palabra: 'Hake fillets', timeOfDay: 'Lunch' },
+            { picto: '🥣', palabra: 'Instant soup', timeOfDay: 'Dinner' },
+            { picto: '🥗', palabra: 'Lettuce for salad', timeOfDay: 'Dinner' },
+            { picto: '🧀', palabra: 'Cheese', timeOfDay: 'Dinner' },
+            { picto: '🍳', palabra: 'Eggs for omelette', timeOfDay: 'Dinner' },
+            { picto: '🍪', palabra: 'Biscuits', timeOfDay: 'Breakfast' },
+            { picto: '🍗', palabra: 'Roast chicken', timeOfDay: 'Lunch' }
           ]
         },
         {
           id: 2,
-          nombre: 'Level 2',
+          name: 'Level 2',
           descripcion: 'Less obvious products',
           estrellas: 2,
           items: [
-            { picto: '🥣', palabra: 'Cereal', momento: 'Breakfast' },
-            { picto: '🍊', palabra: 'Orange juice', momento: 'Breakfast' },
-            { picto: '🧈', palabra: 'Butter', momento: 'Breakfast' },
-            { picto: '🍫', palabra: 'Cocoa powder', momento: 'Breakfast' },
-            { picto: '🍝', palabra: 'Pasta', momento: 'Lunch' },
-            { picto: '🫘', palabra: 'Lentils', momento: 'Lunch' },
-            { picto: '🌽', palabra: 'Tinned sweetcorn', momento: 'Lunch' },
-            { picto: '🧅', palabra: 'Onion for the sauce', momento: 'Lunch' },
-            { picto: '🍲', palabra: 'Broth', momento: 'Dinner' },
-            { picto: '🥒', palabra: 'Cucumber', momento: 'Dinner' },
-            { picto: '🥪', palabra: 'Sandwich bread', momento: 'Dinner' },
-            { picto: '🍇', palabra: 'Grapes for dessert', momento: 'Dinner' },
-            { picto: '🫐', palabra: 'Blueberries for yoghurt', momento: 'Breakfast' },
-            { picto: '🥫', palabra: 'Tinned tuna', momento: 'Dinner' }
+            { picto: '🥣', palabra: 'Cereal', timeOfDay: 'Breakfast' },
+            { picto: '🍊', palabra: 'Orange juice', timeOfDay: 'Breakfast' },
+            { picto: '🧈', palabra: 'Butter', timeOfDay: 'Breakfast' },
+            { picto: '🍫', palabra: 'Cocoa powder', timeOfDay: 'Breakfast' },
+            { picto: '🍝', palabra: 'Pasta', timeOfDay: 'Lunch' },
+            { picto: '🫘', palabra: 'Lentils', timeOfDay: 'Lunch' },
+            { picto: '🌽', palabra: 'Tinned sweetcorn', timeOfDay: 'Lunch' },
+            { picto: '🧅', palabra: 'Onion for the sauce', timeOfDay: 'Lunch' },
+            { picto: '🍲', palabra: 'Broth', timeOfDay: 'Dinner' },
+            { picto: '🥒', palabra: 'Cucumber', timeOfDay: 'Dinner' },
+            { picto: '🥪', palabra: 'Sandwich bread', timeOfDay: 'Dinner' },
+            { picto: '🍇', palabra: 'Grapes for dessert', timeOfDay: 'Dinner' },
+            { picto: '🫐', palabra: 'Blueberries for yoghurt', timeOfDay: 'Breakfast' },
+            { picto: '🥫', palabra: 'Tinned tuna', timeOfDay: 'Dinner' }
           ]
         }
       ]

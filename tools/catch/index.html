@@ -19,8 +19,8 @@
     </header>
 
     <!-- Game screen -->
-    <section id="pantallaJuego" class="pila">
-      <div class="fila centrado-fila">
+    <section id="gameScreen" class="pila">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Toca el dibujo. Se mueve cuando lo tocas.</p>
       </div>
       <div class="progress-bar">
@@ -28,19 +28,19 @@
         <span class="progress-text" id="progressText">0 / 10</span>
       </div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <div id="areaJuego" data-i18n-aria="areaJuegoAria" aria-label="Zona de juego. Toca el dibujo.">
-        <button type="button" id="objetivo" data-i18n-aria="objetivoAria" aria-label="Objetivo. Tócalo.">⚽</button>
+      <div id="gameArea" data-i18n-aria="areaJuegoAria" aria-label="Zona de juego. Toca el dibujo.">
+        <button type="button" id="target" data-i18n-aria="objetivoAria" aria-label="Objetivo. Tócalo.">⚽</button>
       </div>
     </section>
 
     <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="rondaCompletadaTitulo">¡Ronda completada!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transfer" class="transferencia" data-i18n="transfer"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <p id="summary"></p>
+      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

@@ -13,103 +13,103 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" id="btnVolver" data-i18n="core.back">← Volver</a>
+      <a href="../../site/index.html" class="back-link" id="btnBack" data-i18n="core.back">← Volver</a>
       <h1 data-i18n="title">📋 Mis Rutinas</h1>
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <div class="pestanas-rutinas" role="tablist" aria-label="Secciones de rutinas">
-      <button type="button" class="pestana-rutinas activa" id="tabPredefinidas" role="tab" aria-selected="true" aria-controls="pantallaMenu" data-i18n="tabPredefinidas">Rutinas predefinidas</button>
-      <button type="button" class="pestana-rutinas" id="tabPropias" role="tab" aria-selected="false" aria-controls="pantallaListaLibre" data-i18n="tabPropias">Mis listas</button>
+    <div class="routine-tabs" role="tablist" aria-label="Secciones de rutinas">
+      <button type="button" class="routine-tab activa" id="predefinedTab" role="tab" aria-selected="true" aria-controls="menuScreen" data-i18n="predefinedTab">Rutinas predefinidas</button>
+      <button type="button" class="routine-tab" id="ownTab" role="tab" aria-selected="false" aria-controls="freeListScreen" data-i18n="ownTab">Mis listas</button>
     </div>
 
     <!-- Routine menu -->
-    <section id="pantallaMenu" class="pila">
-      <div id="listaRutinas" class="lista-rutinas"></div>
+    <section id="menuScreen" class="pila">
+      <div id="routinesList" class="routines-list"></div>
     </section>
 
     <!-- Vista de una rutina -->
-    <section id="pantallaRutina" class="oculto pila">
-      <h2 id="tituloRutina" class="centrado"></h2>
+    <section id="routineScreen" class="hidden pila">
+      <h2 id="routineTitle" class="centered"></h2>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
-      <ol id="listaPasos" class="pila"></ol>
+      <ol id="stepsList" class="pila"></ol>
       <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
 
-    <!-- Ordenar pasos de una rutina -->
-    <section id="pantallaOrdenar" class="oculto pila">
-      <h2 id="tituloOrdenar" class="centrado"></h2>
-      <p class="instruccion centrado" id="instruccionOrdenar" data-i18n="instruccionOrdenar">Toca los pasos en el orden correcto, de primero a último.</p>
+    <!-- Ordenar steps de una rutina -->
+    <section id="orderScreen" class="hidden pila">
+      <h2 id="orderTitle" class="centered"></h2>
+      <p class="instruccion centered" id="orderInstruction" data-i18n="orderInstruction">Toca los steps en el orden correct, de primero a último.</p>
 
       <div class="orden-dos-columnas">
         <div class="orden-col orden-col-tu">
-          <p class="etiqueta centrado" data-i18n="etiquetaTuOrden">Tu orden</p>
-          <ol id="listaSlots" class="pila-slots"></ol>
-          <div class="barra-mover-slot" role="group" aria-label="Mover el slot seleccionado">
-            <button type="button" class="btn-flecha-slot btn-subir-slot" id="btnSubirPaso" aria-label="Subir el paso seleccionado" disabled>↑</button>
-            <button type="button" class="btn-flecha-slot btn-bajar-slot" id="btnBajarPaso" aria-label="Bajar el paso seleccionado" disabled>↓</button>
+          <p class="etiqueta centered" data-i18n="labelYourOrder">Tu orden</p>
+          <ol id="slotsList" class="slots-stack"></ol>
+          <div class="move-slot-bar" role="group" aria-label="Mover el slot selected">
+            <button type="button" class="btn-arrow-slot btn-move-slot-up" id="btnMoveStepUp" aria-label="Subir el paso selected" disabled>↑</button>
+            <button type="button" class="btn-arrow-slot btn-move-slot-down" id="btnMoveStepDown" aria-label="Bajar el paso selected" disabled>↓</button>
           </div>
         </div>
-        <div class="orden-col orden-col-pasos">
-          <p class="etiqueta centrado" data-i18n="etiquetaPasosDisponibles">Pasos</p>
-          <div id="listaPasosDisponibles" class="pila-disponibles"></div>
+        <div class="orden-col orden-col-steps">
+          <p class="etiqueta centered" data-i18n="labelAvailableSteps">Pasos</p>
+          <div id="availableStepsList" class="available-stack"></div>
         </div>
       </div>
 
-      <div class="fila centrado">
-        <button type="button" class="btn" id="btnComprobar" data-i18n="btnComprobar">Comprobar</button>
-        <button type="button" class="btn btn-secundario" id="btnPistaOrdenar" data-i18n="btnPista">💡 Pista</button>
-        <button type="button" class="btn btn-secundario" id="btnResolverOrdenar" data-i18n="btnResolver">Ver solución</button>
+      <div class="row centered">
+        <button type="button" class="btn" id="btnCheck" data-i18n="btnCheck">Comprobar</button>
+        <button type="button" class="btn btn-secondary" id="btnHintOrder" data-i18n="btnHint">💡 Pista</button>
+        <button type="button" class="btn btn-secondary" id="btnResolveOrder" data-i18n="btnResolve">Ver solución</button>
       </div>
-      <div class="feedback" id="feedbackOrdenar" aria-live="polite"></div>
+      <div class="feedback" id="orderFeedback" aria-live="polite"></div>
     </section>
 
     <!-- Crea tu lista libre -->
-    <section id="pantallaListaLibre" class="oculto pila" role="tabpanel" aria-labelledby="tabPropias">
-      <h2 data-i18n="listaLibreTitulo">📝 Crea tu lista</h2>
-      <p class="instruccion centrado" data-i18n="listaLibreInstruccion">Escribe las cosas de tu lista. Tú decides el orden.</p>
-      <p class="transferencia centrado" data-i18n="listaLibreTransferencia"></p>
+    <section id="freeListScreen" class="hidden pila" role="tabpanel" aria-labelledby="ownTab">
+      <h2 data-i18n="freeListTitle">📝 Crea tu lista</h2>
+      <p class="instruccion centered" data-i18n="freeListInstruction">Escribe las cosas de tu lista. Tú decides el orden.</p>
+      <p class="transferencia centered" data-i18n="freeListTransfer"></p>
 
-      <div id="editandoAviso" class="aviso-editando oculto">
-        <span id="editandoAvisoTexto"></span>
-        <button type="button" class="btn-cancelar-edicion" id="btnCancelarEdicion" data-i18n="btnCancelarEdicion">Cancelar edición</button>
+      <div id="editingNotice" class="editing-notice hidden">
+        <span id="editingNoticeText"></span>
+        <button type="button" class="btn-cancel-edit" id="btnCancelEdit" data-i18n="btnCancelEdit">Cancelar edición</button>
       </div>
 
-      <ul id="itemsListaActual" class="lista-items-actual"></ul>
+      <ul id="currentListItems" class="lista-items-current"></ul>
 
-      <div class="fila-anadir-item">
-        <input type="text" id="inputNuevoItem" class="input-lista" maxlength="60" autocomplete="off">
-        <button type="button" class="btn" id="btnAnadirItem" data-i18n="btnAnadirItem">➕ Añadir</button>
+      <div class="add-item-row">
+        <input type="text" id="inputNewItem" class="input-list" maxlength="60" autocomplete="off">
+        <button type="button" class="btn" id="btnAddItem" data-i18n="btnAddItem">➕ Añadir</button>
       </div>
 
-      <div class="fila centrado">
-        <button type="button" class="btn" id="btnGuardarLista" data-i18n="btnGuardarLista" disabled>💾 Guardar lista</button>
-        <button type="button" class="btn btn-secundario" id="btnVaciarLista" data-i18n="btnVaciarLista" data-i18n-aria="ariaVaciarLista">🗑️ Vaciar</button>
+      <div class="row centered">
+        <button type="button" class="btn" id="btnSaveList" data-i18n="btnSaveList" disabled>💾 Guardar lista</button>
+        <button type="button" class="btn btn-secondary" id="btnClearList" data-i18n="btnClearList" data-i18n-aria="ariaVaciarLista">🗑️ Vaciar</button>
       </div>
 
-      <div id="nombrarLista" class="nombrar-lista oculto pila">
-        <label for="inputNombreLista" class="instruccion centrado" data-i18n="promptNombreLista">¿Cómo quieres llamar a tu lista?</label>
-        <input id="inputNombreLista" class="input-nombre-lista" type="text" maxlength="30" autocomplete="off" data-i18n-aria="ariaNombreLista">
-        <div class="fila centrado">
-          <button type="button" class="btn" id="btnConfirmarGuardarLista" data-i18n="btnConfirmarGuardarLista">✅ Guardar</button>
+      <div id="nameList" class="name-list hidden pila">
+        <label for="inputListName" class="instruccion centered" data-i18n="promptListName">¿Cómo quieres llamar a tu lista?</label>
+        <input id="inputListName" class="input-list-name" type="text" maxlength="30" autocomplete="off" data-i18n-aria="ariaNombreLista">
+        <div class="row centered">
+          <button type="button" class="btn" id="btnConfirmSaveList" data-i18n="btnConfirmSaveList">✅ Guardar</button>
         </div>
       </div>
 
-      <div class="feedback" id="feedbackListaLibre" aria-live="polite"></div>
+      <div class="feedback" id="freeListFeedback" aria-live="polite"></div>
 
-      <div id="listasGuardadas" class="listas-guardadas"></div>
+      <div id="savedLists" class="saved-lists"></div>
     </section>
 
     <!-- Rutina completada -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="rutinaCompletadaTitulo">¡Rutina completada!</h2>
+      <h2 data-i18n="routineCompletedTitle">¡Rutina completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnOtraRutina" data-i18n="btnOtraRutina">Ver mis rutinas</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnAnotherRoutine" data-i18n="btnAnotherRoutine">Ver mis rutinas</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

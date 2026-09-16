@@ -1,6 +1,6 @@
 /* ============================================================
-   Datos: Categorías (lenguaje — clasificar palabras), es/en.
-   Formato: DATA[locale] = { porRonda, niveles: [{ id, nombre,
+   Datos: Categorías (lenguaje — clasificar words), es/en.
+   Formato: DATA[locale] = { porRonda, niveles: [{ id, name,
      descripcion, estrellas, categorias: string[] (las cajas de
      ese nivel), items: [{ picto, palabra, categoria }] }] }
    'categoria' de cada item debe coincidir con uno de los valores
@@ -19,7 +19,7 @@ const DATA = {
   niveles: [
     {
       id: 1,
-      nombre: 'Nivel 1',
+      name: 'Nivel 1',
       descripcion: 'Animales o ropa',
       estrellas: 1,
       categorias: ['Animales', 'Ropa'],
@@ -48,7 +48,7 @@ const DATA = {
     },
     {
       id: 2,
-      nombre: 'Nivel 2',
+      name: 'Nivel 2',
       descripcion: 'Comida, animales o ropa',
       estrellas: 2,
       categorias: ['Comida', 'Animales', 'Ropa'],
@@ -81,7 +81,7 @@ const DATA = {
     },
     {
       id: 3,
-      nombre: 'Nivel 3',
+      name: 'Nivel 3',
       descripcion: 'Frutas, verduras o frutos secos',
       estrellas: 3,
       categorias: ['Frutas', 'Verduras', 'Frutos secos'],
@@ -118,7 +118,7 @@ const DATA = {
   niveles: [
     {
       id: 1,
-      nombre: 'Level 1',
+      name: 'Level 1',
       descripcion: 'Animals or clothes',
       estrellas: 1,
       categorias: ['Animals', 'Clothes'],
@@ -147,7 +147,7 @@ const DATA = {
     },
     {
       id: 2,
-      nombre: 'Level 2',
+      name: 'Level 2',
       descripcion: 'Food, animals or clothes',
       estrellas: 2,
       categorias: ['Food', 'Animals', 'Clothes'],
@@ -180,7 +180,7 @@ const DATA = {
     },
     {
       id: 3,
-      nombre: 'Level 3',
+      name: 'Level 3',
       descripcion: 'Fruit, vegetables or nuts',
       estrellas: 3,
       categorias: ['Fruit', 'Vegetables', 'Nuts'],

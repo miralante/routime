@@ -19,39 +19,39 @@
     </header>
 
     <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
+    <section id="startScreen" class="pila centered">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Elige un dibujo. Después, elige un color y toca una zona para pintarla.</p>
       </div>
       <h2 data-i18n="tituloElegirDibujo">Elige un dibujo</h2>
-      <div class="grid-tarjetas" id="dibujos"></div>
+      <div class="cards-grid" id="drawings"></div>
     </section>
 
     <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila">
-      <p class="dibujo-titulo centrado" id="dibujoTitulo"></p>
+    <section id="gameScreen" class="hidden pila">
+      <p class="dibujo-titulo centered" id="drawingTitle"></p>
 
-      <div id="lienzoContenedor">
-        <svg id="lienzo" viewBox="0 0 100 100" data-i18n-aria="lienzoAria" aria-label="Dibujo para colorear"></svg>
+      <div id="canvasContainer">
+        <svg id="canvas" viewBox="0 0 100 100" data-i18n-aria="lienzoAria" aria-label="Dibujo para colorear"></svg>
       </div>
 
-      <div class="pila-colores" id="colores"></div>
+      <div class="pila-colores" id="colors"></div>
 
-      <div class="fila centrado-fila acciones">
-        <button type="button" class="btn" id="btnTerminado" data-i18n="btnTerminado">✔ He terminado</button>
+      <div class="row centered-row acciones">
+        <button type="button" class="btn" id="btnDone" data-i18n="btnTerminado">✔ He terminado</button>
       </div>
 
       <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
 
     <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="finalTitulo">¡Qué bonito!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transfer" class="transferencia" data-i18n="transfer"></p>
-      <button type="button" class="btn" id="btnOtroDibujo" data-i18n="otroDibujo">Pintar otro dibujo</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <p id="summary"></p>
+      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
+      <button type="button" class="btn" id="btnAnotherDrawing" data-i18n="otroDibujo">Pintar otro dibujo</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

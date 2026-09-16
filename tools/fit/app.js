@@ -20,40 +20,40 @@
   var TOOL_ID = 'encajar';
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var tableroEl = $('#tablero');
-  var estadoEl = $('#estado');
+  var estadoEl = $('#status');
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var dificultadEl = $('#dificultad');
+  var levelEl = $('#dificultad');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Estado de la partida */
-  var nivelActual = null;
+  var currentLevel = null;
   var idxPieza = 0;
-  var aciertosRonda = 0;
+  var roundHits = 0;
   var llenas = [];          /* filled row*columns+col indexes */
   var hueco = [];           /* indexes the piece must occupy */
   var clavePieza = '';
   var orientacion = 0;
   var piezaX = 0;
-  var intentos = 0;
+  var attempts = 0;
   var enJuego = false;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
   function cols() { return banco().columnas; }
   function fils() { return banco().filas; }
@@ -72,33 +72,33 @@
     return max + 1;
   }
 
-  /* Determina el nivel según el progreso: cada ronda completada,
+  /* Determina el nivel según el progress: cada ronda completada,
      sube un nivel (regla 13: un solo cambio por nivel). */
-  function nivelSegunProgreso() {
-    var idx = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+  function levelBasedOnProgress() {
+    var idx = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idx];
   }
 
-  /* Muestra la dificultad actual (número de piezas en el nivel). */
-  function pintarDificultad() {
-    if (dificultadEl) {
-      var n = nivelActual.piezas.length;
-      dificultadEl.textContent = n + ' ' + App.i18n.t(n === 1 ? 'pieza' : 'piezas');
+  /* Muestra la dificultad current (número de piezas en el nivel). */
+  function renderLevel() {
+    if (levelEl) {
+      var n = currentLevel.piezas.length;
+      levelEl.textContent = n + ' ' + App.i18n.t(n === 1 ? 'pieza' : 'piezas');
     }
   }
 
-  function iniciarJuego() {
-    nivelActual = nivelSegunProgreso();
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
     idxPieza = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    pintarDificultad();
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
     nuevaPieza();
   }
 
-  function pintarProgreso() {
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idxPieza / porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -106,7 +106,7 @@
 
   /* ---- Generation: hueco = footprint of the piece resting on the floor ---- */
   function nuevaPieza() {
-    clavePieza = App.utils.shuffle(nivelActual.piezas)[0];
+    clavePieza = App.utils.shuffle(currentLevel.piezas)[0];
     var ors = banco().piezas[clavePieza];
     var orFinal = Math.floor(Math.random() * ors.length);
     var celdas = ors[orFinal];
@@ -132,17 +132,17 @@
        need rotating) and a centered starting column */
     orientacion = Math.floor(Math.random() * ors.length);
     piezaX = Math.min(2, cols() - anchura(celdasPieza()));
-    intentos = 0;
+    attempts = 0;
     enJuego = true;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
+    explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
+    btnNext.classList.add('hidden');
     estadoEl.textContent = App.i18n.t('enJuego');
-    pintarTablero();
-    pintarProgreso();
-    pintarEstrellas();
+    renderBoard();
+    renderProgress();
+    renderStars();
   }
 
   function indicesPiezaArriba() {
@@ -151,7 +151,7 @@
     });
   }
 
-  function pintarTablero(extra) {
+  function renderBoard(extra) {
     extra = extra || {};
     tableroEl.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
     tableroEl.innerHTML = '';
@@ -174,7 +174,7 @@
     var nueva = piezaX + dx;
     if (nueva < 0 || nueva + anchura(celdasPieza()) > cols()) return;
     piezaX = nueva;
-    pintarTablero(intentos >= 2 ? { marcarHueco: true } : {});
+    renderBoard(attempts >= 2 ? { marcarHueco: true } : {});
   }
 
   function girar() {
@@ -183,7 +183,7 @@
     if (piezaX + anchura(celdasPieza()) > cols()) {
       piezaX = cols() - anchura(celdasPieza());
     }
-    pintarTablero(intentos >= 2 ? { marcarHueco: true } : {});
+    renderBoard(attempts >= 2 ? { marcarHueco: true } : {});
   }
 
   /* Deja caer la pieza: baja hasta chocar con relleno o suelo */
@@ -217,21 +217,21 @@
     if (mismoConjunto(aterrizaje, hueco)) {
       encajar(false);
     } else {
-      intentos += 1;
+      attempts += 1;
       App.feedback.encourage(feedbackEl);
-      if (intentos === 1) {
+      if (attempts === 1) {
         /* Rule 12: first mistake → hint, never the solution */
         explicacionEl.textContent = App.i18n.t('pistaForma');
-        explicacionWrap.classList.remove('oculto');
-        pintarTablero();
-      } else if (intentos === 2) {
+        explicacionWrap.classList.remove('hidden');
+        renderBoard();
+      } else if (attempts === 2) {
         explicacionEl.textContent = App.i18n.t('huecoMarcado');
-        explicacionWrap.classList.remove('oculto');
-        pintarTablero({ marcarHueco: true });
+        explicacionWrap.classList.remove('hidden');
+        renderBoard({ marcarHueco: true });
       } else {
         /* Tercer fallo → se encaja sola (nadie se queda atascado) */
         explicacionEl.textContent = App.i18n.t('autoEncaje');
-        explicacionWrap.classList.remove('oculto');
+        explicacionWrap.classList.remove('hidden');
         encajar(true);
       }
     }
@@ -240,44 +240,44 @@
   function encajar(automatico) {
     enJuego = false;
     hueco.forEach(function (i) { llenas.push(i); });
-    pintarTablero({ encajada: true });
+    renderBoard({ encajada: true });
     idxPieza += 1;
-    aciertosRonda += 1;
-    progreso.estrellas += 1;
+    roundHits += 1;
+    progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-    guardar();
-    pintarEstrellas();
-    pintarProgreso();
+    save();
+    renderStars();
+    renderProgress();
     estadoEl.textContent = App.i18n.t('encajada');
     if (!automatico) {
       feedbackEl.textContent = '';
       feedbackEl.className = 'feedback';
-      explicacionWrap.classList.add('oculto');
+      explicacionWrap.classList.add('hidden');
       App.feedback.success(feedbackEl);
     }
     App.feedback.celebrate(App.i18n.t('encajada'));
-    btnSiguiente.classList.remove('oculto');
-    btnSiguiente.focus();
+    btnNext.classList.remove('hidden');
+    btnNext.focus();
   }
 
   function siguiente() {
     if (idxPieza >= banco().porRonda) {
-      terminarRonda();
+      endRound();
     } else {
       nuevaPieza();
     }
   }
 
-  function terminarRonda() {
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    progreso.rondasCompletadas += 1;
-    guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+  function endRound() {
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.roundsCompleted += 1;
+    save();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
-$('#transferencia').textContent.textContent = '';
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -285,24 +285,24 @@ $('#transferencia').textContent.textContent = '';
   $('#btnIzquierda').addEventListener('click', function () { mover(-1); });
   $('#btnDerecha').addEventListener('click', function () { mover(1); });
   $('#btnGirar').addEventListener('click', girar);
-  $('#btnBajar').addEventListener('click', bajar);
+  $('#btnMoveDown').addEventListener('click', bajar);
   document.addEventListener('keydown', function (ev) {
-    if (!enJuego || pantallaJuego.classList.contains('oculto')) return;
+    if (!enJuego || gameScreen.classList.contains('hidden')) return;
     if (ev.key === 'ArrowLeft') { ev.preventDefault(); mover(-1); }
     else if (ev.key === 'ArrowRight') { ev.preventDefault(); mover(1); }
     else if (ev.key === 'ArrowUp') { ev.preventDefault(); girar(); }
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); bajar(); }
   });
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnJugar').addEventListener('click', function () { iniciarJuego(); });
-  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  btnNext.addEventListener('click', siguiente);
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.add('oculto');
-    pantallaInicio.classList.remove('oculto');
-    pintarEstrellas();
+    endScreen.classList.add('hidden');
+    gameScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    renderStars();
   });
 
-  pintarEstrellas();
+  renderStars();
 })();
 

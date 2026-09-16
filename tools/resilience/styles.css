@@ -7,17 +7,17 @@
 }
 
 .contexto {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-suave);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-suave);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -26,23 +26,23 @@
 
 .situacion-picto { font-size: 64px; }
 
-.texto-principal {
-  font-size: var(--texto-grande);
+.text-principal {
+  font-size: var(--text-grande);
   font-weight: 700;
   margin: 0 auto;
 }
 
-.pregunta { color: var(--color-texto-suave); }
+.pregunta { color: var(--color-text-suave); }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   max-width: 480px;
 }

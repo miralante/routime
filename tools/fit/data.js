@@ -7,9 +7,9 @@
      piezas: { clave: [orientaciones] } (compartidas entre idiomas;
        cada orientación es una lista de celdas [x, y], y hacia abajo,
        normalizadas a origen 0,0),
-     niveles: [{ id, nombre, descripcion, piezas: [claves] }] }
+     niveles: [{ id, name, descripcion, piezas: [claves] }] }
    El tablero se GENERA en app.js: se elige pieza, orientación final
-   y columna al azar; el hueco es la huella exacta de la pieza
+   y column al azar; el hueco es la huella exacta de la pieza
    apoyada en el suelo, y el resto de esas filas se rellena. Así la
    pieza correcta siempre cae limpia hasta su sitio.
    Progresión (regla 13, un solo cambio por nivel): la única variable
@@ -68,9 +68,9 @@
       filas: 5,
       piezas: PIEZAS,
       niveles: [
-        { id: 1, nombre: 'Nivel 1', descripcion: 'Piezas de 2', piezas: ['duo'] },
-        { id: 2, nombre: 'Nivel 2', descripcion: 'Piezas de 3', piezas: ['triI', 'triL'] },
-        { id: 3, nombre: 'Nivel 3', descripcion: 'Piezas de 4', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
+        { id: 1, name: 'Nivel 1', descripcion: 'Piezas de 2', piezas: ['duo'] },
+        { id: 2, name: 'Nivel 2', descripcion: 'Piezas de 3', piezas: ['triI', 'triL'] },
+        { id: 3, name: 'Nivel 3', descripcion: 'Piezas de 4', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
       ]
     },
     en: {
@@ -79,9 +79,9 @@
       filas: 5,
       piezas: PIEZAS,
       niveles: [
-        { id: 1, nombre: 'Level 1', descripcion: '2-cell pieces', piezas: ['duo'] },
-        { id: 2, nombre: 'Level 2', descripcion: '3-cell pieces', piezas: ['triI', 'triL'] },
-        { id: 3, nombre: 'Level 3', descripcion: '4-cell pieces', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
+        { id: 1, name: 'Level 1', descripcion: '2-cell pieces', piezas: ['duo'] },
+        { id: 2, name: 'Level 2', descripcion: '3-cell pieces', piezas: ['triI', 'triL'] },
+        { id: 3, name: 'Level 3', descripcion: '4-cell pieces', piezas: ['cuadrado', 'barra', 'te', 'ele'] }
       ]
     }
   };

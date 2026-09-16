@@ -16,7 +16,7 @@
 
   /* Keys under 'routime:*' that are NOT an activity's progress:
      'locale' (language) and 'prefs' (font size, sounds — see
-     /config/). Excluded from estrellasTotales() and listaToolIds(). */
+     /config/). Excluded from totalStars() and listaToolIds(). */
   var CLAVES_NO_HERRAMIENTA = ['locale', 'prefs'];
 
   /* Lazy one-shot migration: copies 'apptonomia:<id>' to 'routime:<id>'
@@ -68,7 +68,32 @@
   function get(toolId) {
     try {
       var raw = migrar(toolId);
-      return raw ? JSON.parse(raw) : {};
+      var data = raw ? JSON.parse(raw) : {};
+      /* Migrate 'estrellas' → 'stars' (Apr 2025 rename). Read both keys so
+         existing users keep their progress; prefer 'stars' if both are present. */
+      if ('estrellas' in data && !('stars' in data)) {
+        data.stars = data.estrellas;
+        delete data.estrellas;
+        try { localStorage.setItem(PREFIJO + toolId, JSON.stringify(data)); } catch (e2) { /* tolerated */ }
+      }
+      /* Migrate 'rondasCompletadas' → 'completedRounds' and 'completados' → 'completed'
+         (Sep 2026 rename). Read old keys so existing users keep their progress;
+         prefer English keys if both are present. */
+      var migrated = false;
+      if ('rondasCompletadas' in data && !('completedRounds' in data)) {
+        data.completedRounds = data.rondasCompletadas;
+        delete data.rondasCompletadas;
+        migrated = true;
+      }
+      if ('completados' in data && !('completed' in data)) {
+        data.completed = data.completados;
+        delete data.completados;
+        migrated = true;
+      }
+      if (migrated) {
+        try { localStorage.setItem(PREFIJO + toolId, JSON.stringify(data)); } catch (e2) { /* tolerated */ }
+      }
+      return data;
     } catch (e) {
       return {};
     }
@@ -107,15 +132,19 @@
       of the tools that came later in localStorage's iteration order
       (not insertion order). Each key is now processed in its own
       try/catch. */
-  function estrellasTotales() {
+  function totalStars() {
     var total = 0;
     for (var i = 0; i < localStorage.length; i++) {
       try {
-        var clave = localStorage.key(i);
-        if (!clave || clave.indexOf(PREFIJO) !== 0) continue;
-        if (CLAVES_NO_HERRAMIENTA.indexOf(clave.slice(PREFIJO.length)) !== -1) continue;
-        var datos = JSON.parse(localStorage.getItem(clave) || '{}');
-        if (datos && typeof datos.estrellas === 'number') {
+        var key = localStorage.key(i);
+        if (!key || key.indexOf(PREFIJO) !== 0) continue;
+        if (CLAVES_NO_HERRAMIENTA.indexOf(key.slice(PREFIJO.length)) !== -1) continue;
+        var datos = JSON.parse(localStorage.getItem(key) || '{}');
+        /* Accept both 'stars' (new, Apr 2025) and 'estrellas' (legacy) so the
+           menu total is correct during the migration window. */
+        if (datos && typeof datos.stars === 'number') {
+          total += datos.stars;
+        } else if (datos && typeof datos.estrellas === 'number') {
           total += datos.estrellas;
         }
       } catch (e) { /* individual key corrupt or non-JSON: keep going with the rest */ }
@@ -137,11 +166,11 @@
          migrar() helper called by get() will then copy the value into
          the new prefix on the next per-id read. */
       for (var i = 0; i < localStorage.length; i++) {
-        var clave = localStorage.key(i);
-        if (!clave) continue;
+        var key = localStorage.key(i);
+        if (!key) continue;
         var suf;
-        if (clave.indexOf(PREFIJO) === 0) suf = clave.slice(PREFIJO.length);
-        else if (clave.indexOf(PREFIJO_LEGACY) === 0) suf = clave.slice(PREFIJO_LEGACY.length);
+        if (key.indexOf(PREFIJO) === 0) suf = key.slice(PREFIJO.length);
+        else if (key.indexOf(PREFIJO_LEGACY) === 0) suf = key.slice(PREFIJO_LEGACY.length);
         else continue;
         if (suf && CLAVES_NO_HERRAMIENTA.indexOf(suf) === -1 && out.indexOf(suf) === -1) out.push(suf);
       }
@@ -153,7 +182,7 @@
     get: get,
     set: set,
     remove: remove,
-    estrellasTotales: estrellasTotales,
+    totalStars: totalStars,
     listaToolIds: listaToolIds
   };
 })();

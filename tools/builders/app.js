@@ -9,10 +9,10 @@
      cada casilla del modelo muestra un "fantasma" del bloque que
      va ahí (color real atenuado + borde de puntos), así la persona
      sabe QUÉ bloque poner y DÓNDE. Cuando todas las casillas del
-     modelo tienen su bloque correcto, se celebra sola (no hace
+     modelo tienen su bloque correct, se celebra sola (no hace
      falta pulsar nada). Poner un bloque "equivocado" nunca castiga:
      se queda puesto como decoración y se puede borrar. Si pulsa
-     "¡Listo!" antes de terminar: 1º una pista hablada/escrita, 2º
+     "¡Listo!" antes de finish: 1º una pista hablada/escrita, 2º
      además se marcan en amarillo las casillas que faltan (regla 12
      adaptada: el fantasma ya enseña la respuesta, aquí no hay
      "atascarse").
@@ -25,9 +25,9 @@
   var TOOL_ID = 'constructores';
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var cuadricula = $('#cuadricula');
   var bloquesEl = $('#bloques');
   var feedbackEl = $('#feedback');
@@ -40,9 +40,9 @@
   var btnLimpiarTodo = $('#btnLimpiarTodo');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (typeof progreso.construcciones !== 'number') progreso.construcciones = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.construcciones !== 'number') progress.construcciones = 0;
 
   /* Estado del juego */
   var modoActual = 'libre';        /* 'libre' o 'plantilla' */
@@ -50,15 +50,15 @@
   var tamanoActual = DATA.tamanos[0];
   var bloqueSeleccionado = null;
   var modoBorrar = false;
-  var celdas = [];                 /* elementos .celda en orden fila*cols+col */
+  var celdas = [];                 /* elementos .celda en orden row*cols+col */
   var gridState = [];              /* matriz de null | id de bloque */
   var enPartida = false;
   var pistasListo = 0;             /* pulsaciones de ¡Listo! con modelo incompleto */
   var timeoutLimpiar = null;
   var confirmandoLimpiar = false;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
   function nombreBloque(id) { return App.i18n.t('bloque' + capitalize(id)); }
 
@@ -69,8 +69,8 @@
      PANTALLA DE INICIO: modo → tamaño (libre) o modelo (plantilla)
      ------------------------------------------------------------ */
   function mostrarSelectorTamano() {
-    selectorPlantilla.classList.add('oculto');
-    selectorTamano.classList.remove('oculto');
+    selectorPlantilla.classList.add('hidden');
+    selectorTamano.classList.remove('hidden');
     var cont = $('#tamanos');
     cont.innerHTML = '';
     DATA.tamanos.forEach(function (t) {
@@ -87,8 +87,8 @@
   }
 
   function mostrarSelectorPlantilla() {
-    selectorTamano.classList.add('oculto');
-    selectorPlantilla.classList.remove('oculto');
+    selectorTamano.classList.add('hidden');
+    selectorPlantilla.classList.remove('hidden');
     var cont = $('#plantillas');
     cont.innerHTML = '';
 
@@ -96,7 +96,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'tarjeta-plantilla';
-      btn.setAttribute('aria-label', App.i18n.t(p.nombre));
+      btn.setAttribute('aria-label', App.i18n.t(p.name));
 
       /* Vista previa: SIEMPRE la matriz completa (antes se truncaba a
          6×4 y las plantillas grandes salían descolocadas) */
@@ -114,12 +114,12 @@
         }
       }
 
-      var nombre = document.createElement('span');
-      nombre.className = 'nombre-plantilla';
-      nombre.textContent = App.i18n.t(p.nombre);
+      var name = document.createElement('span');
+      name.className = 'name-plantilla';
+      name.textContent = App.i18n.t(p.name);
 
       btn.appendChild(preview);
-      btn.appendChild(nombre);
+      btn.appendChild(name);
       btn.addEventListener('click', function () { empezarJuegoConPlantilla(p); });
       cont.appendChild(btn);
     });
@@ -267,31 +267,31 @@
   function seleccionarBloque(bloque, btn) {
     bloqueSeleccionado = bloque;
     modoBorrar = false;
-    $('#btnBorrar').classList.remove('modo-borrar-activo');
+    $('#btnErase').classList.remove('modo-borrar-activo');
     var botones = bloquesEl.querySelectorAll('.bloque-btn');
     botones.forEach(function (b) {
-      b.classList.remove('seleccionado');
+      b.classList.remove('selected');
       b.setAttribute('aria-checked', 'false');
     });
-    btn.classList.add('seleccionado');
+    btn.classList.add('selected');
     btn.setAttribute('aria-checked', 'true');
   }
 
   /* ------------------------------------------------------------
      HERRAMIENTAS
      ------------------------------------------------------------ */
-  $('#btnBorrar').addEventListener('click', function () {
+  $('#btnErase').addEventListener('click', function () {
     modoBorrar = !modoBorrar;
     if (modoBorrar) {
       bloqueSeleccionado = null;
-      $('#btnBorrar').classList.add('modo-borrar-activo');
+      $('#btnErase').classList.add('modo-borrar-activo');
       var botones = bloquesEl.querySelectorAll('.bloque-btn');
       botones.forEach(function (b) {
-        b.classList.remove('seleccionado');
+        b.classList.remove('selected');
         b.setAttribute('aria-checked', 'false');
       });
     } else {
-      $('#btnBorrar').classList.remove('modo-borrar-activo');
+      $('#btnErase').classList.remove('modo-borrar-activo');
     }
   });
 
@@ -331,27 +331,27 @@
     modoActual = 'libre';
     plantillaActual = null;
     construccionTitulo.textContent = App.i18n.t('construccionLibre');
-    iniciarJuego();
+    startGame();
   }
 
   function empezarJuegoConPlantilla(plantilla) {
     modoActual = 'plantilla';
     plantillaActual = plantilla;
     construccionTitulo.textContent =
-      App.i18n.t('plantillaActiva').replace('{nombre}', App.i18n.t(plantilla.nombre));
-    iniciarJuego();
+      App.i18n.t('plantillaActiva').replace('{name}', App.i18n.t(plantilla.name));
+    startGame();
   }
 
-  function iniciarJuego() {
+  function startGame() {
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     pistasListo = 0;
     enPartida = true;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    selectorPlantilla.classList.add('oculto');
-    selectorTamano.classList.add('oculto');
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    selectorPlantilla.classList.add('hidden');
+    selectorTamano.classList.add('hidden');
 
     crearCuadricula();
     crearPaletaBloques();
@@ -375,7 +375,7 @@
     if (modoActual === 'plantilla') {
       var faltan = casillasQueFaltan();
       if (faltan.length > 0) {
-        /* Modelo sin terminar: pista, nunca reproche. 1ª vez texto;
+        /* Modelo sin finish: pista, nunca reproche. 1ª vez text;
            2ª además se marcan las casillas que faltan. */
         pistasListo += 1;
         App.feedback.encourage(feedbackEl);
@@ -398,22 +398,22 @@
   function terminarConstruccion() {
     var numBloques = parseInt(contadorBloques.textContent, 10);
 
-    progreso.estrellas += 1;
+    progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-    progreso.construcciones += 1;
-    guardar();
-    pintarEstrellas();
+    progress.construcciones += 1;
+    save();
+    renderStars();
 
     crearVistaMinatura();
 
     var resumen = modoActual === 'plantilla'
       ? App.i18n.t('resumenPlantilla').replace('{n}', numBloques)
       : App.i18n.t('resumenLibre').replace('{n}', numBloques);
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+    $('#resumenFinal').textContent = '';
+$('#transferencia').textContent = '';
 
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
 
     App.feedback.success(feedbackEl);
     App.feedback.celebrate(App.i18n.t('finalTitulo'));
@@ -450,8 +450,8 @@ $('#transferencia').textContent.textContent = '';
   });
 
   $('#btnCambiarPlantilla').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaInicio.classList.remove('oculto');
+    endScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
     mostrarSelectorPlantilla();
   });
 
@@ -462,7 +462,7 @@ $('#transferencia').textContent.textContent = '';
   /* ------------------------------------------------------------
      INICIALIZACIÓN
      ------------------------------------------------------------ */
-  pintarEstrellas();
+  renderStars();
   App.i18n.apply();
 })();
 

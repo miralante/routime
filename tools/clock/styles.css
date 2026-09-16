@@ -8,9 +8,9 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .btn-nivel { min-width: 300px; align-self: center; }
 
@@ -27,7 +27,7 @@
 }
 .btn-modo .modo-desc {
   font-weight: 400;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   opacity: 0.85;
 }
 
@@ -52,7 +52,7 @@
 .btn-opcion .dig-pair   { font-size: 1.6rem; }
 
 /* ---- Modo "poner": steppers accesibles ---- */
-.opciones-steppers {
+.options-steppers {
   align-items: center;
   gap: 12px;
 }
@@ -65,7 +65,7 @@
   border-radius: 999px;
   background: #FFFFFF;
 }
-.stepper-etiqueta { font-weight: 700; color: var(--color-texto); }
+.stepper-etiqueta { font-weight: 700; color: var(--color-text); }
 .stepper-valor {
   min-width: 3ch;
   text-align: center;
@@ -105,7 +105,7 @@
 }
 .objetivo-poner .objetivo-etiqueta {
   font-size: 1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
 }
 .objetivo-poner .objetivo-hora {
   font-size: 1.6rem;
@@ -113,7 +113,7 @@
 }
 
 /* ---- Relojes de respuesta (asociar / convertir digital→analógico) ---- */
-.opciones-reloj {
+.options-reloj {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -126,27 +126,27 @@
   justify-content: center;
 }
 
-/* ---- Pictograma del momento del día ---- */
-.momento-picto { font-size: 72px; }
+/* ---- Pictograma del timeOfDay del día ---- */
+.timeOfDay-picto { font-size: 72px; }
 
 .barra-progreso { margin-top: var(--espacio); }
 
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
 
-.pregunta { color: var(--color-texto-suave); }
+.pregunta { color: var(--color-text-suave); }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn {
+#endScreen .btn {
   align-self: center;
   min-width: 280px;
 }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }

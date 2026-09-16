@@ -19,19 +19,19 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
 
-.estado {
-  font-size: var(--texto-base);
+.status {
+  font-size: var(--text-base);
   font-weight: 700;
   min-height: 1.4em;
 }
@@ -103,7 +103,7 @@
 .celda.t-ele { background: var(--pz-ele); color: var(--pz-ele); }
 
 /* Pieza ya encajada: mismo color + aro verde de acierto, no se pierde
-   la señal de "esto es correcto" solo por dar más protagonismo al color. */
+   la señal de "esto es correct" solo por dar más protagonismo al color. */
 .celda.encajada {
   box-shadow:
     inset 2px 2px 0 rgba(255, 255, 255, 0.45),
@@ -161,18 +161,18 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 480px) {
   .celda { width: 44px; height: 44px; }
   .btn-control { min-width: 64px; min-height: 64px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

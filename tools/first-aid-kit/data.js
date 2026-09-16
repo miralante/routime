@@ -3,7 +3,7 @@
    con lo que ya hay y saber cuándo pedir ayuda a una persona de confianza o
    derivar al médico).
    Formato: DATA.es / DATA.en, cada uno con:
-   { porRonda, niveles: [{ id, nombre, descripcion, estrellas,
+   { porRonda, niveles: [{ id, name, descripcion, estrellas,
      items: [{ text, options: string[3], correct: indice }] }] }
    'text' describe una escena cotidiana; la opción correcta es
    siempre el autocuidado seguro (lavar, frío/calor, tirita,
@@ -12,7 +12,7 @@
    Progresión (regla 13, un solo cambio por nivel): nivel 1 usa
    cuidados cotidianos donde la respuesta correcta es hacerlo uno
    mismo siguiendo lo aprendido; nivel 2 mantiene el mismo formato
-   de 3 opciones y sube la variable "la situación es urgente" — la
+   de 3 options y sube la variable "la situación es urgente" — la
    opción correcta pasa a ser pedir ayuda a una persona de confianza o al 112.
    Para ampliar: añadir items al array del nivel correspondiente.
    app.js usa DATA[App.i18n.locale()] || DATA.es.
@@ -23,11 +23,11 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Nivel 1',
+        name: 'Nivel 1',
         descripcion: 'Cuidarme en casa',
         estrellas: 1,
         items: [
-          { text: 'Te has hecho un arañazo pequeño en la rodilla y no sangra mucho.', options: ['Lavar la herida con agua y poner una tirita', 'Tocarla con las manos sucias', 'No hacer nada'], correct: 0 },
+          { text: 'Te has done un arañazo pequeño en la rodilla y no sangra mucho.', options: ['Lavar la herida con agua y poner una tirita', 'Tocarla con las manos sucias', 'No hacer nada'], correct: 0 },
           { text: 'Te has dado un golpe leve y te duele un poco el brazo.', options: ['Ponerte un poco de frío en la zona un rato', 'Frotarte muy fuerte para "que se pase"', 'No decir nada aunque duela'], correct: 0 },
           { text: 'Tienes la tripa un poco revuelta después de comer mucho.', options: ['Beber agua despacio y descansar sentado', 'Salir a correr para que se pase', 'Tomarte una medicina tú solo'], correct: 0 },
           { text: 'Tienes tos seca y te pica la garganta.', options: ['Beber agua templada y descansar la voz', 'Gritar muy fuerte para "desatascar"', 'Comer mucho pan'], correct: 0 },
@@ -43,7 +43,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Nivel 2',
+        name: 'Nivel 2',
         descripcion: 'Cuándo pedir ayuda',
         estrellas: 2,
         items: [
@@ -68,7 +68,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Level 1',
+        name: 'Level 1',
         descripcion: 'Looking after myself at home',
         estrellas: 1,
         items: [
@@ -88,7 +88,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Level 2',
+        name: 'Level 2',
         descripcion: 'When to ask for help',
         estrellas: 2,
         items: [

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calma | Routime</title>
+  <title>Calm | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,37 +13,39 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">â† Volver</a>
-      <h1>ðŸ§˜ <span data-i18n="title">Calma</span></h1>
-      <span class="stars" id="stars">â­ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>Routime</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Respira despacio siguiendo el cÃ­rculo. Coge aire cuando crece, suelta el aire cuando encoge.</p>
+    <section id="startScreen" class="hidden pila centered">
+      <div class="row centered-row">
+        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
       </div>
-      <h2 data-i18n="elegirSesion">Elige una sesiÃ³n</h2>
-      <div class="pila" id="niveles"></div>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">Jugar!</span>
+      </button>
     </section>
 
-    <!-- Session screen -->
-    <section id="pantallaSesion" class="oculto centrado pila">
-      <div id="circuloRespiracion" aria-hidden="true"></div>
-      <h2 id="textoRespiracion" aria-live="polite" data-i18n="cogeAire">Coge aireâ€¦</h2>
-      <p id="ciclosRespiracion"></p>
-      <button type="button" class="btn btn-secundario" id="btnTerminarSesion" data-i18n="terminar">Terminar</button>
+    <section id="gameScreen" class="hidden pila centered">
+
+      <div class="breathing-circle" id="breathingCircle">
+        <p class="breathing-text" id="breathingText"></p>
+      </div>
+      <div class="breathing-controls">
+        <button type="button" class="btn btn-secondary" id="btnModoLibre">Modo libre</button>
+      </div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
 
-    <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">ðŸ˜Œ</div>
-      <h2 data-i18n="finalTitulo">Â¡Muy bien! Â¿EstÃ¡s mÃ¡s tranquilo?</h2>
-      <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="repetirSesion">Repetir sesiÃ³n</button>
-      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menÃº</a>
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
+      <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+      <h2>Ronda completada!</h2>
+      <p id="endSummary"></p>
+      <p class="transferencia">Sigue praticando para aprender mas.</p>
+      <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+      <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
@@ -58,9 +60,8 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-

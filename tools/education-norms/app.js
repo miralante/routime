@@ -13,36 +13,36 @@
   var TOOL_ID = 'education-norms';
 
   var state = {
-    nivelActual: 0,
-    rondasCompletas: 0,
-    estrellasAcumuladas: 0,
-    intentos: 0,
-    situacionActual: null,
-    mostrandoFeedback: false
+    currentLevel: 0,
+    completedRounds: 0,
+    accumulatedStars: 0,
+    attempts: 0,
+    currentSituation: null,
+    showingFeedback: false
   };
 
   function init() {
-    cargarProgreso();
-    mostrarSelectorNiveles();
+    loadProgress();
+    showLevelSelector();
   }
 
-  function cargarProgreso() {
+  function loadProgress() {
     var datos = App.storage.get(TOOL_ID);
     if (datos) {
-      state.estrellasAcumuladas = datos.estrellas || 0;
-      state.rondasCompletas = datos.completados || {};
+      state.accumulatedStars = datos.stars || 0;
+      state.completedRounds = datos.completed || {};
     }
   }
 
-  function guardarProgreso() {
+  function saveProgress() {
     var datos = {
-      estrellas: state.estrellasAcumuladas,
-      completados: state.rondasCompletas
+      estrellas: state.accumulatedStars,
+      completados: state.completedRounds
     };
     App.storage.set(TOOL_ID, datos);
   }
 
-  function mostrarSelectorNiveles() {
+  function showLevelSelector() {
     var app = App.utils.$('#app');
     app.innerHTML = '';
 
@@ -57,42 +57,42 @@
     contexto.textContent = App.i18n.t('contexto');
     app.appendChild(contexto);
 
-    var containerNiveles = document.createElement('div');
-    containerNiveles.className = 'pila centrado';
+    var levelsContainer = document.createElement('div');
+    levelsContainer.className = 'pila centered';
 
     DATA.niveles.forEach(function (nivel, idx) {
       var boton = document.createElement('button');
       boton.className = 'btn btn-nivel';
-      boton.setAttribute('data-i18n', nivel.nombre);
-      boton.textContent = App.i18n.t(nivel.nombre);
+      boton.setAttribute('data-i18n', nivel.name);
+      boton.textContent = App.i18n.t(nivel.name);
       boton.onclick = function () {
-        state.nivelActual = idx;
-        state.rondasCompletas = 0;
-        empezarRonda();
+        state.currentLevel = idx;
+        state.completedRounds = 0;
+        startRound();
       };
-      containerNiveles.appendChild(boton);
+      levelsContainer.appendChild(boton);
     });
 
-    app.appendChild(containerNiveles);
+    app.appendChild(levelsContainer);
 
-    if (state.estrellasAcumuladas > 0) {
+    if (state.accumulatedStars > 0) {
       var estrellas = document.createElement('div');
-      estrellas.className = 'estrellas centrado';
-      estrellas.setAttribute('aria-label', state.estrellasAcumuladas + ' estrellas');
-      estrellas.textContent = '\u2B50 ' + state.estrellasAcumuladas;
+      estrellas.className = 'estrellas centered';
+      estrellas.setAttribute('aria-label', state.accumulatedStars + ' estrellas');
+      estrellas.textContent = '\u2B50 ' + state.accumulatedStars;
       app.appendChild(estrellas);
     }
 
     App.i18n.apply(app);
   }
 
-  function empezarRonda() {
-    state.intentos = 0;
-    state.mostrandoFeedback = false;
+  function startRound() {
+    state.attempts = 0;
+    state.showingFeedback = false;
 
-    var nivel = DATA.niveles[state.nivelActual];
+    var nivel = DATA.niveles[state.currentLevel];
     var situacionesDelNivel = DATA.situaciones.filter(function (s) {
-      return s.nivel === (state.nivelActual + 1);
+      return s.nivel === (state.currentLevel + 1);
     });
 
     if (situacionesDelNivel.length === 0) {
@@ -102,7 +102,7 @@
     }
 
     situacionesDelNivel = App.utils.shuffle(situacionesDelNivel);
-    state.situacionActual = situacionesDelNivel[0];
+    state.currentSituation = situacionesDelNivel[0];
 
     mostrarSituacion();
   }
@@ -125,15 +125,15 @@
     app.appendChild(titulo);
 
     // Progress bar (rule 13: gradual progression)
-    var nivel = DATA.niveles[state.nivelActual];
+    var nivel = DATA.niveles[state.currentLevel];
     var total = nivel.maxSituaciones;
-    var progreso = document.createElement('div');
-    progreso.className = 'progress-bar';
+    var progress = document.createElement('div');
+    progress.className = 'progress-bar';
     var fill = document.createElement('div');
     fill.className = 'progress-fill';
-    fill.style.width = (state.rondasCompletas / total * 100) + '%';
-    progreso.appendChild(fill);
-    app.appendChild(progreso);
+    fill.style.width = (state.completedRounds / total * 100) + '%';
+    progress.appendChild(fill);
+    app.appendChild(progress);
 
     // Scenario card (contexto -> decision, SPEC §3.6)
     var escenario = document.createElement('div');
@@ -141,22 +141,22 @@
 
     var tituloContexto = document.createElement('h3');
     tituloContexto.className = 'contexto-titulo';
-    tituloContexto.setAttribute('data-i18n', state.situacionActual.contexto);
-    tituloContexto.textContent = App.i18n.t(state.situacionActual.contexto);
+    tituloContexto.setAttribute('data-i18n', state.currentSituation.contexto);
+    tituloContexto.textContent = App.i18n.t(state.currentSituation.contexto);
     escenario.appendChild(tituloContexto);
 
     var mensaje = document.createElement('div');
     mensaje.className = 'mensaje-dialogos';
 
-    var personajeLabel = App.i18n.t('personaje.' + state.situacionActual.personaje) || state.situacionActual.personaje;
+    var personajeLabel = App.i18n.t('personaje.' + state.currentSituation.personaje) || state.currentSituation.personaje;
     var pPersonaje = document.createElement('p');
     pPersonaje.className = 'personaje';
     pPersonaje.textContent = personajeLabel + ':';
     mensaje.appendChild(pPersonaje);
 
     var pMensaje = document.createElement('p');
-    pMensaje.setAttribute('data-i18n', state.situacionActual.mensaje);
-    pMensaje.textContent = App.i18n.t(state.situacionActual.mensaje);
+    pMensaje.setAttribute('data-i18n', state.currentSituation.mensaje);
+    pMensaje.textContent = App.i18n.t(state.currentSituation.mensaje);
     mensaje.appendChild(pMensaje);
 
     // Audio button (rule 4: only where the design requires it; here the
@@ -166,7 +166,7 @@
     botonAudio.setAttribute('aria-label', App.i18n.t('core.listen'));
     botonAudio.textContent = '\uD83D\uDD0A ' + App.i18n.t('core.listen');
     botonAudio.onclick = function () {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.situacionActual.mensaje));
+      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.mensaje));
     };
     mensaje.appendChild(botonAudio);
 
@@ -181,21 +181,21 @@
     app.appendChild(pregunta);
 
     // Options (rule 10: max 4-6 options; rule 11: 3 for quiz)
-    var opciones = document.createElement('div');
-    opciones.className = 'pila opciones-contenedor';
+    var options = document.createElement('div');
+    options.className = 'pila options-contenedor';
 
-    state.situacionActual.opciones.forEach(function (opcionKey) {
+    state.currentSituation.options.forEach(function (opcionKey) {
       var boton = document.createElement('button');
       boton.className = 'btn btn-opcion';
       boton.setAttribute('data-i18n', opcionKey);
       boton.textContent = App.i18n.t(opcionKey);
       boton.onclick = function () {
-        seleccionarOpcion(opcionKey, boton);
+        selectOption(opcionKey, boton);
       };
-      opciones.appendChild(boton);
+      options.appendChild(boton);
     });
 
-    app.appendChild(opciones);
+    app.appendChild(options);
 
     // Feedback zone (ARIA live for screen readers)
     var feedback = document.createElement('div');
@@ -208,70 +208,70 @@
     App.i18n.apply(app);
   }
 
-  function seleccionarOpcion(opcionKey, boton) {
-    if (state.mostrandoFeedback) return;
+  function selectOption(opcionKey, boton) {
+    if (state.showingFeedback) return;
 
-    state.intentos++;
-    state.mostrandoFeedback = true;
+    state.attempts++;
+    state.showingFeedback = true;
 
     var feedbackZone = App.utils.$('#feedback');
     var opcionesBtns = App.utils.$$('.btn-opcion', App.utils.$('#app'));
-    var esCorrecta = opcionKey === state.situacionActual.correcta;
+    var isCorrect = opcionKey === state.currentSituation.correcta;
 
-    if (esCorrecta) {
+    if (isCorrect) {
       // Correct answer -> celebrate, no punishment
       boton.classList.add('correcta');
       App.feedback.acierto(feedbackZone);
-      feedbackZone.textContent = App.i18n.t('feedback.correcto');
+      feedbackZone.textContent = App.i18n.t('feedback.correct');
       opcionesBtns.forEach(function (b) { b.disabled = true; });
 
       setTimeout(function () {
-        state.rondasCompletas++;
-        guardarProgreso();
+        state.completedRounds++;
+        saveProgress();
 
-        var nivel = DATA.niveles[state.nivelActual];
-        if (state.rondasCompletas >= nivel.maxSituaciones) {
+        var nivel = DATA.niveles[state.currentLevel];
+        if (state.completedRounds >= nivel.maxSituaciones) {
           mostrarComplecion();
         } else {
-          state.intentos = 0;
-          state.mostrandoFeedback = false;
-          empezarRonda();
+          state.attempts = 0;
+          state.showingFeedback = false;
+          startRound();
         }
       }, 2000);
       return;
     }
 
-    if (state.intentos === 1) {
+    if (state.attempts === 1) {
       // First mistake: Socratic hint (rule 12)
       boton.classList.add('error');
       boton.disabled = true;
       App.feedback.animo(feedbackZone);
-      var pista = state.situacionActual.pista
-        ? App.i18n.t(state.situacionActual.pista)
+      var pista = state.currentSituation.pista
+        ? App.i18n.t(state.currentSituation.pista)
         : App.i18n.t('pista');
       feedbackZone.textContent = pista;
       App.feedback.lockUntilAck(opcionesBtns, feedbackZone, function () {
-        state.mostrandoFeedback = false;
+        state.showingFeedback = false;
       });
     } else {
       // Second mistake: show explanation and the correct answer
       boton.classList.add('error');
       App.feedback.animo(feedbackZone);
       var explicacion = App.i18n.t('feedback.explicacion') + ' ' +
-        App.i18n.t(state.situacionActual.correcta) + '.';
+        App.i18n.t(state.currentSituation.correcta) + '.';
       feedbackZone.textContent = explicacion;
       opcionesBtns.forEach(function (b) { b.disabled = true; });
       App.feedback.lockUntilAck(opcionesBtns, feedbackZone, function () {
-        state.rondasCompletas++;
-        guardarProgreso();
+        state.completedRounds++;
+        saveProgress();
 
-        var nivel = DATA.niveles[state.nivelActual];
-        if (state.rondasCompletas >= nivel.maxSituaciones) {
+        var nivel = DATA.niveles[state.currentLevel];
+        if (state.completedRounds >= nivel.maxSituaciones) {
           mostrarComplecion();
         } else {
-          state.intentos = 0;
-          state.mostrandoFeedback = false;
-          empezarRonda();
+          state.attempts = 0;
+          state.showingFeedback = false;
+          startRound();
         }
       });
     }
@@ -288,9 +288,9 @@
     app.appendChild(titulo);
 
     // Progressive stars: 1 / 2 / 3 by level (rule 5.3, never subtracted)
-    var nivel = DATA.niveles[state.nivelActual];
-    var estrellasGanadas = 1 + state.nivelActual;
-    state.estrellasAcumuladas += estrellasGanadas;
+    var nivel = DATA.niveles[state.currentLevel];
+    var estrellasGanadas = 1 + state.currentLevel;
+    state.accumulatedStars += estrellasGanadas;
 
     var estrellas = document.createElement('div');
     estrellas.className = 'estrellas-celebracion';
@@ -302,7 +302,7 @@
 
     var totalEstrellas = document.createElement('p');
     totalEstrellas.className = 'total-estrellas';
-    totalEstrellas.textContent = '\u2B50 ' + state.estrellasAcumuladas;
+    totalEstrellas.textContent = '\u2B50 ' + state.accumulatedStars;
     app.appendChild(totalEstrellas);
 
     // Transfer line (SPEC §3.6, mandatory in simulation rounds)
@@ -313,15 +313,15 @@
     app.appendChild(transferencia);
 
     var botones = document.createElement('div');
-    botones.className = 'pila centrado';
+    botones.className = 'pila centered';
 
     var botonRepetir = document.createElement('button');
     botonRepetir.className = 'btn';
     botonRepetir.setAttribute('data-i18n', 'core.playAgain');
     botonRepetir.textContent = App.i18n.t('core.playAgain');
     botonRepetir.onclick = function () {
-      state.rondasCompletas = 0;
-      mostrarSelectorNiveles();
+      state.completedRounds = 0;
+      showLevelSelector();
     };
     botones.appendChild(botonRepetir);
 
@@ -336,8 +336,8 @@
 
     app.appendChild(botones);
 
-    guardarProgreso();
-    App.feedback.celebrar(App.i18n.t('feedback.correcto'));
+    saveProgress();
+    App.feedback.celebrar(App.i18n.t('feedback.correct'));
     App.i18n.apply(app);
   }
 

@@ -10,6 +10,7 @@
 [![PWA](https://img.shields.io/badge/PWA-installable-5A0FC8.svg)](manifest.json)
 [![i18n](https://img.shields.io/badge/i18n-es%20%7C%20en-yellow.svg)](#-documentation)
 [![CI](https://img.shields.io/badge/CI-node%20scripts%2Fcheck.js-blue.svg)](.github/workflows/validate.yml)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 Multi-language web application for occupational therapy activities designed
 for our typical user profile. Designed to be used autonomously, in the
@@ -90,6 +91,7 @@ By role and profile, the most relevant docs are:
 | Document | Audience |
 |---|---|
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Anyone who wants to contribute (family, therapists, devs) |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Contributor covenant (Contributor Covenant 2.1) |
 | `CLAUDE.md` | AI agents: operational workflow, coordination and approvals |
 | [`CLOUDFLARE.md`](CLOUDFLARE.md) | Canonical Cloudflare Workers deploy guide for the suite (Routime + Apptonomia landing + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
 | Project history | Lives in `git log`; no external roadmap is maintained |
@@ -197,23 +199,6 @@ Node.js + vanilla JS.
 The `content/` directory holds author-time artefacts (courseware,
 curated word lists, etc.) that are never shipped to the user-facing
 app. Adding or editing files there does not need a `VERSION` bump.
-
----
-
-## 🙏 Credits
-
-Routime is the PWA shell that wraps several apps of the suite
-(Apptonomia's catalogue, plus the apps of the suite Apptonomia,
-Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) on the same
-accessibility-first / no-backend philosophy. The site you land on
-(`site/index.html`) is the Apptonomia landing, kept here for
-historical reasons — Apptonomia was the original product this group
-grew out of.
-
-Activity design follows the patterns documented in
-[`doc/en/creating-elements-guide.md`](doc/en/creating-elements-guide.md)
-(didactic, gamification, persuasion, neuromarketing), with
-`technical.md` as the source of truth when the two guides conflict.
 
 ---
 

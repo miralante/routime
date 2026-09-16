@@ -11,98 +11,98 @@
   var TOOL_ID = 'atrapa';
   var $ = App.utils.$;
 
-  var areaEl = $('#areaJuego');
-  var objetivoEl = $('#objetivo');
+  var areaEl = $('#gameArea');
+  var targetEl = $('#target');
   var feedbackEl = $('#feedback');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var pantallaFinal = $('#pantallaFinal');
-  var resumenFinal = $('#resumenFinal');
+  var endScreen = $('#endScreen');
+  var summaryEl = $('#summary');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (typeof progreso.rondas !== 'number') progreso.rondas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
   /* State */
-  var toques = 0;
-  var posAnterior = { x: 0.5, y: 0.5 };
+  var taps = 0;
+  var prevPos = { x: 0.5, y: 0.5 };
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function pintarProgreso() {
-    progressFill.style.width = ((toques / DATA.toquesPorRonda) * 100) + '%';
+  function renderProgress() {
+    progressFill.style.width = ((taps / DATA.tapsPerRound) * 100) + '%';
     progressText.textContent = '';
   }
 
-  function empezar() {
-    toques = 0;
-    pantallaFinal.classList.add('oculto');
+  function start() {
+    taps = 0;
+    endScreen.classList.add('hidden');
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    objetivoEl.style.width = DATA.tamano + 'px';
-    objetivoEl.style.height = DATA.tamano + 'px';
-    objetivoEl.style.fontSize = Math.round(DATA.tamano * 0.55) + 'px';
-    pintarProgreso();
-    moverObjetivo();
+    targetEl.style.width = DATA.size + 'px';
+    targetEl.style.height = DATA.size + 'px';
+    targetEl.style.fontSize = Math.round(DATA.size * 0.55) + 'px';
+    renderProgress();
+    moveTarget();
   }
 
   /* New random position, at least 30% away from the previous one */
-  function moverObjetivo() {
-    var x, y, dist, intentos = 0;
+  function moveTarget() {
+    var x, y, dist, attempts = 0;
     do {
       x = 0.05 + Math.random() * 0.9;
       y = 0.05 + Math.random() * 0.9;
-      dist = Math.hypot(x - posAnterior.x, y - posAnterior.y);
-      intentos++;
-    } while (dist < 0.3 && intentos < 20);
-    posAnterior = { x: x, y: y };
+      dist = Math.hypot(x - prevPos.x, y - prevPos.y);
+      attempts++;
+    } while (dist < 0.3 && attempts < 20);
+    prevPos = { x: x, y: y };
 
-    var maxX = areaEl.clientWidth - DATA.tamano;
-    var maxY = areaEl.clientHeight - DATA.tamano;
-    objetivoEl.style.left = Math.round(x * maxX) + 'px';
-    objetivoEl.style.top = Math.round(y * maxY) + 'px';
-    objetivoEl.textContent =
-      DATA.objetivos[Math.floor(Math.random() * DATA.objetivos.length)];
+    var maxX = areaEl.clientWidth - DATA.size;
+    var maxY = areaEl.clientHeight - DATA.size;
+    targetEl.style.left = Math.round(x * maxX) + 'px';
+    targetEl.style.top = Math.round(y * maxY) + 'px';
+    targetEl.textContent =
+      DATA.targets[Math.floor(Math.random() * DATA.targets.length)];
   }
 
-  function acierto() {
-    toques += 1;
-    progreso.estrellas += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-    guardar();
-    pintarEstrellas();
-    pintarProgreso();
+  function hit() {
+    taps += 1;
+    progress.stars += 1;
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    save();
+    renderStars();
+    renderProgress();
     App.feedback.success(feedbackEl);
-    if (toques >= DATA.toquesPorRonda) {
-      terminarRonda();
+    if (taps >= DATA.tapsPerRound) {
+      endRound();
     } else {
-      moverObjetivo();
+      moveTarget();
     }
   }
 
-  function terminarRonda() {
-    progreso.rondas += 1;
-    guardar();
-    pantallaFinal.classList.remove('oculto');
-    resumenFinal.textContent = '';
-    $('#transfer').textContent.textContent = '';
+  function endRound() {
+    progress.rounds += 1;
+    save();
+    endScreen.classList.remove('hidden');
+    summaryEl.textContent = '';
+    App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 
   /* Events */
-  objetivoEl.addEventListener('click', acierto);
-  $('#btnRepetir').addEventListener('click', empezar);
+  targetEl.addEventListener('click', hit);
+  $('#btnRepeat').addEventListener('click', start);
 
   /* Reposition the target if the window size changes */
   window.addEventListener('resize', function () {
-    if (!pantallaFinal.classList.contains('oculto')) return;
-    moverObjetivo();
+    if (!endScreen.classList.contains('hidden')) return;
+    moveTarget();
   });
 
-  pintarEstrellas();
-  empezar();
+  renderStars();
+  start();
 })();

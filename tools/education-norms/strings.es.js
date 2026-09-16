@@ -65,7 +65,7 @@
     'mensaje.comedor_espera': 'Hay que esperar el turno para entrar.',
     'mensaje.papel_caido': 'Se ha caído un papel al suelo.',
     'mensaje.prestar_material': '¿Me dejas el lápiz?',
-    'mensaje.bano_ocupado': 'Está ocupado un momento.',
+    'mensaje.bano_ocupado': 'Está ocupado un timeOfDay.',
     'mensaje.biblioteca_normas': 'Aquí se habla en voz baja.',
     'mensaje.autobus_subir': 'Suban en orden, por favor.',
     'mensaje.parque_espera_turno': '¡Es mi turno en el tobogán!',
@@ -192,7 +192,7 @@
     'pista.dejar_pasar': 'En la acera, ¿cómo puede moverse mejor la gente con carritos, sillas o bastón?',
     'pista.respeto_otros': 'En el cine, ¿qué quiere la gente que ha pagado por la película?',
     'pista.inclusion_amistad': 'Si nadie te dejara jugar, ¿cómo te sentirías? ¿Qué te gustaría que alguien hiciera?',
-    'pista.honestidad_confianza': 'Si has encontrado algo que no es tuyo, ¿qué es lo correcto?',
+    'pista.honestidad_confianza': 'Si has encontrado algo que no es tuyo, ¿qué es lo correct?',
     'pista.responsabilidad': 'Cuando te equivocas, ¿qué te hace sentir mejor a ti y a los demás?',
     'pista.dialogo_paz': 'Cuando dos personas discuten, ¿qué puede ayudar más: gritar o escuchar?',
     'pista.cuidado_comun': 'Si alguien rompe algo en un sitio público, ¿qué se debe hacer?',
@@ -204,7 +204,7 @@
     'pista.atencion_clase': '¿Qué ayuda más a aprender: el móvil o prestar atención?',
 
     // Generic feedback
-    'feedback.correcto': '¡Muy bien! Has elegido lo que cuida a las personas y al sitio.',
+    'feedback.correct': '¡Muy bien! Has elegido lo que cuida a las personas y al sitio.',
     'feedback.explicacion': 'Esa es la buena educación: cuida de los demás y del lugar para que todos estemos bien.',
 
     // Completion

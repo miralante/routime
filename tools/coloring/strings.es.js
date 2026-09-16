@@ -18,7 +18,7 @@
     "dibujosPintadosVarios": "Has pintado {n} dibujos en total. ",
     "estrellasUna": "Ahora tienes 1 estrella.",
     "estrellasVarias": "Ahora tienes {n} estrellas.",
-    "zonaAria": "Zona: {nombre}",
+    "zonaAria": "Zona: {name}",
     "transfer": "Pintar con precisión entrena el agarre de tus dedos. Te ayudará a coger el lápiz, abotonarte la ropa y usar cosas pequeñas.",
     "color": {"rojo":"Rojo","azul":"Azul","verde":"Verde","amarillo":"Amarillo","morado":"Morado","naranja":"Naranja"},
     "dibujo": {"casa":"La casa","flor":"La flor","pez":"El pez","coche":"El coche","taza":"La taza","camiseta":"La camiseta","reloj":"El reloj","cepillo":"El cepillo de dientes","paraguas":"El paraguas","zapato":"El zapato"},

@@ -1,19 +1,19 @@
 ﻿/* ============================================================
    Datos: Se lo Cuento al MÃ©dico (Mi dÃ­a a dÃ­a â€” comunicar un
-   sÃ­ntoma corporal con palabras sencillas para poder contÃ¡rselo
+   sÃ­ntoma corporal con words sencillas para poder contÃ¡rselo
    a un mÃ©dico).
    Formato: DATA.es / DATA.en, cada uno con:
-   { porRonda, niveles: [{ id, nombre, descripcion, estrellas,
+   { porRonda, niveles: [{ id, name, descripcion, estrellas,
      items: [{ text, options: string[3], correct: indice }] }] }
    'text' describe una escena en 2Âª persona (quÃ© le pasa a la
    persona); la opciÃ³n correcta es siempre la frase que mejor
    describe ese sÃ­ntoma en primera persona para decÃ­rsela al
    mÃ©dico. Complementa a tools/my-body (que practica notar la
    seÃ±al y elegir la acciÃ³n de autocuidado): aquÃ­ se practica
-   ponerla en palabras para otra persona.
+   ponerla en words para otra persona.
    ProgresiÃ³n (regla 13, un solo cambio por nivel): nivel 1 usa
    dolor con localizaciÃ³n clara (tripa, cabeza, garganta...);
-   nivel 2 mantiene el mismo formato de 3 opciones y amplÃ­a el
+   nivel 2 mantiene el mismo formato de 3 options y amplÃ­a el
    tipo de sÃ­ntoma (picor, mareo, fiebre, tos...) aÃ±adiendo el
    matiz temporal ("desde ayer", "desde hace una semana").
    Para ampliar: aÃ±adir items al array del nivel correspondiente.
@@ -25,7 +25,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Nivel 1',
+        name: 'Nivel 1',
         descripcion: 'DÃ³nde me duele',
         estrellas: 1,
         items: [
@@ -46,7 +46,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Nivel 2',
+        name: 'Nivel 2',
         descripcion: 'QuÃ© siento y desde cuÃ¡ndo',
         estrellas: 2,
         items: [
@@ -67,27 +67,27 @@ const DATA = {
       },
       {
         id: 3,
-        nombre: 'Nivel 3',
+        name: 'Nivel 3',
         descripcion: 'Antes de entrar y en la sala de espera',
         estrellas: 3,
         items: [
-          { text: 'EstÃ¡s en la sala de espera y te llaman por tu nombre.', options: ['Levantar la mano, decir "soy yo" y seguir al profesional', 'Quedarte sentado en silencio sin moverte', 'Ir detrÃ¡s de otra persona que se levante'], correct: 0 },
-          { text: 'La persona de recepciÃ³n te pregunta tu nombre.', options: ['Decir tu nombre despacio', 'Inventarte un nombre distinto', 'No contestar y mirar al suelo'], correct: 0 },
+          { text: 'EstÃ¡s en la sala de espera y te llaman por tu name.', options: ['Levantar la mano, decir "soy yo" y seguir al profesional', 'Quedarte sentado en silencio sin moverte', 'Ir detrÃ¡s de otra persona que se levante'], correct: 0 },
+          { text: 'La persona de recepciÃ³n te pregunta tu name.', options: ['Decir tu name despacio', 'Inventarte un name distinto', 'No contestar y mirar al suelo'], correct: 0 },
           { text: 'La persona de recepciÃ³n te pregunta cuÃ¡ndo naciste.', options: ['Decir tu fecha de nacimiento despacio', 'Inventar otra fecha', 'No contestar'], correct: 0 },
           { text: 'La persona de recepciÃ³n te pregunta por quÃ© vienes.', options: ['Decirle en una frase lo que te pasa', 'Contarle toda tu vida', 'Decir "no sÃ©" y marcharte'], correct: 0 },
           { text: 'Antes de salir de casa, tu madre te pregunta si llevas la tarjeta sanitaria.', options: ['Buscar la tarjeta sanitaria y meterla en el bolsillo', 'Decir que no hace falta', 'Meter un caramelo en su lugar'], correct: 0 },
           { text: 'El mÃ©dico te ha dicho que vayas "en ayunas" para un anÃ¡lisis.', options: ['No desayunar nada hasta que te hagan el anÃ¡lisis', 'Desayunar mucho para tener fuerza', 'Solo beber mucho cafÃ©'], correct: 0 },
           { text: 'Vas a la consulta y la enfermera te dice que te sientes y te relajes.', options: ['Sentarte y respirar despacio, como en Calma', 'Quedarte de pie sin saber dÃ³nde ponerte', 'Tumbarte en la camilla sin que te lo pidan'], correct: 0 },
-          { text: 'Tu acompaÃ±ante tiene que irse un momento y te quedas solo con el mÃ©dico.', options: ['Decir lo que te pasa y preguntar lo que no entiendas', 'No hablar hasta que vuelva tu acompaÃ±ante', 'Levantarte y salir sin decir nada'], correct: 0 },
-          { text: 'El mÃ©dico te pregunta si estÃ¡s tomando alguna medicina.', options: ['Decir el nombre de las medicinas que tomas', 'Decir "no sÃ©" siempre', 'Inventarte el nombre de una medicina'], correct: 0 },
-          { text: 'Tienes dudas de lo que te ha dicho el mÃ©dico.', options: ['Pedir que te lo explique otra vez con palabras mÃ¡s sencillas', 'Quedarte con la duda y no decir nada', 'Inventar una respuesta para parecer que lo has entendido'], correct: 0 },
+          { text: 'Tu acompaÃ±ante tiene que irse un timeOfDay y te quedas solo con el mÃ©dico.', options: ['Decir lo que te pasa y preguntar lo que no entiendas', 'No hablar hasta que vuelva tu acompaÃ±ante', 'Levantarte y salir sin decir nada'], correct: 0 },
+          { text: 'El mÃ©dico te pregunta si estÃ¡s tomando alguna medicina.', options: ['Decir el name de las medicinas que tomas', 'Decir "no sÃ©" siempre', 'Inventarte el name de una medicina'], correct: 0 },
+          { text: 'Tienes dudas de lo que te ha dicho el mÃ©dico.', options: ['Pedir que te lo explique otra vez con words mÃ¡s sencillas', 'Quedarte con la duda y no decir nada', 'Inventar una respuesta para parecer que lo has entendido'], correct: 0 },
           { text: 'El mÃ©dico te da un papel con una receta.', options: ['Coger la receta, darle las gracias y preguntar si tienes dudas', 'Tirar el papel a la papelera', 'Meter el papel en el bolsillo sin mirarlo'], correct: 0 },
           { text: 'Tienes que volver a la consulta en una semana.', options: ['Pedir que te lo apunten y poner una alarma con tu acompaÃ±ante', 'Decir que sÃ­ sin saber cuÃ¡ndo es', 'No volver aunque te encuentres mal'], correct: 0 }
         ]
       },
       {
         id: 4,
-        nombre: 'Nivel 4',
+        name: 'Nivel 4',
         descripcion: 'Entiendo lo que me dicen',
         estrellas: 3,
         items: [
@@ -112,7 +112,7 @@ const DATA = {
     niveles: [
       {
         id: 3,
-        nombre: 'Level 3',
+        name: 'Level 3',
         descripcion: 'Before the visit and in the waiting room',
         estrellas: 3,
         items: [
@@ -132,7 +132,7 @@ const DATA = {
       },
       {
         id: 4,
-        nombre: 'Level 4',
+        name: 'Level 4',
         descripcion: 'Understanding what they tell me',
         estrellas: 3,
         items: [
@@ -152,7 +152,7 @@ const DATA = {
       },
       {
         id: 1,
-        nombre: 'Level 1',
+        name: 'Level 1',
         descripcion: 'Where it hurts',
         estrellas: 1,
         items: [
@@ -173,7 +173,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Level 2',
+        name: 'Level 2',
         descripcion: 'What you feel and since when',
         estrellas: 2,
         items: [

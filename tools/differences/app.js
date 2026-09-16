@@ -3,7 +3,7 @@
    Datos en data.js (DATA.escenas). Módulos compartidos en assets/js/.
    Mecánica: dos rejillas iguales salvo unas pocas celdas.
    Tocar en la rejilla derecha lo que es distinto. Sin límite de
-   tiempo ni de intentos. Tras 3 toques fallidos, ayuda visual.
+   tiempo ni de attempts. Tras 3 toques fallidos, help visual.
    ============================================================ */
 (function () {
   'use strict';
@@ -13,23 +13,23 @@
   var FALLOS_PARA_AYUDA = 3;
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var escenaTituloEl = $('#escenaTitulo');
   var rejillaIzqEl = $('#rejillaIzquierda');
   var rejillaDerEl = $('#rejillaDerecha');
-  var contadorEl = $('#contador');
+  var counterEl = $('#contador');
   var feedbackEl = $('#feedback');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (typeof progreso.rondas !== 'number') progreso.rondas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
   /* Round state */
   var escenas = [];
@@ -40,21 +40,21 @@
   var totalDiferencias = 0;
   var fallosSeguidos = 0;
   var ayudaTimeout = null;
-  var aciertosRonda = 0;
+  var roundHits = 0;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function empezarRonda() {
+  function startRound() {
     var banco = DATA[App.i18n.locale()] || DATA.es;
     escenas = App.utils.shuffle(banco.escenas).slice(0, banco.porRonda);
     porRonda = banco.porRonda;
     escenaIdx = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
     pintarEscena();
   }
 
@@ -81,7 +81,7 @@
     escenaTituloEl.textContent = App.i18n.t(escena.nombreKey);
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    btnSiguiente.classList.add('oculto');
+    btnNext.classList.add('hidden');
     fallosSeguidos = 0;
     encontradas = {};
     diferenciasMapa = {};
@@ -108,12 +108,12 @@
 
     pintarProgresoGlobal();
     pintarContadorDiferencias();
-    pintarEstrellas();
+    renderStars();
   }
 
   function pintarContadorDiferencias() {
     var n = Object.keys(encontradas).length;
-    contadorEl.textContent = '';
+    counterEl.textContent = '';
   }
 
   function tocar(celda, btn) {
@@ -125,11 +125,11 @@
       btn.disabled = true;
       fallosSeguidos = 0;
       App.feedback.success(feedbackEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosRonda += 1;
-      guardar();
-      pintarEstrellas();
+      roundHits += 1;
+      save();
+      renderStars();
       pintarContadorDiferencias();
       if (Object.keys(encontradas).length >= totalDiferencias) {
         terminarEscena();
@@ -138,14 +138,14 @@
       fallosSeguidos += 1;
       App.feedback.encourage(feedbackEl);
       if (fallosSeguidos >= FALLOS_PARA_AYUDA) {
-        mostrarAyuda();
+        showHelp();
         fallosSeguidos = 0;
       }
     }
   }
 
   /* Ayuda sin castigo: parpadeo suave en una diferencia sin encontrar */
-  function mostrarAyuda() {
+  function showHelp() {
     var pendientes = Object.keys(diferenciasMapa).filter(function (celda) {
       return !encontradas[celda];
     });
@@ -153,45 +153,45 @@
     var celda = pendientes[Math.floor(Math.random() * pendientes.length)];
     var btn = rejillaDerEl.querySelector('[data-celda="' + celda + '"]');
     if (!btn) return;
-    btn.classList.add('ayuda');
+    btn.classList.add('help');
     if (ayudaTimeout) clearTimeout(ayudaTimeout);
-    ayudaTimeout = setTimeout(function () { btn.classList.remove('ayuda'); }, 2500);
+    ayudaTimeout = setTimeout(function () { btn.classList.remove('help'); }, 2500);
   }
 
   function terminarEscena() {
-    btnSiguiente.classList.remove('oculto');
+    btnNext.classList.remove('hidden');
     if (escenaIdx >= porRonda - 1) {
-      btnSiguiente.textContent = App.i18n.t('verResultado');
+      btnNext.textContent = App.i18n.t('verResultado');
     } else {
-      btnSiguiente.textContent = App.i18n.t('siguienteEscena');
+      btnNext.textContent = App.i18n.t('siguienteEscena');
     }
-    btnSiguiente.focus();
+    btnNext.focus();
   }
 
   function siguienteEscena() {
     escenaIdx += 1;
     if (escenaIdx >= porRonda) {
-      terminarRonda();
+      endRound();
     } else {
       pintarEscena();
     }
   }
 
-  function terminarRonda() {
-    progreso.rondas += 1;
-    guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+  function endRound() {
+    progress.rounds += 1;
+    save();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#summary').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
+    App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 
   /* Events */
-  btnSiguiente.addEventListener('click', siguienteEscena);
-  $('#btnEmpezar').addEventListener('click', empezarRonda);
-  $('#btnRepetir').addEventListener('click', empezarRonda);
+  btnNext.addEventListener('click', siguienteEscena);
+  $('#btnStart').addEventListener('click', startRound);
+  $('#btnRepeat').addEventListener('click', startRound);
 
-  pintarEstrellas();
+  renderStars();
 })();
 

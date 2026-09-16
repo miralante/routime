@@ -19,53 +19,53 @@
     </header>
 
     <!-- Screen: menu of the 2 activities -->
-    <section id="pantallaMenu" class="pila">
-      <div class="fila centrado-fila">
+    <section id="menuScreen" class="pila">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">La mejor emergencia es la que no pasa. Aquí se trabaja lo que se puede preparar en casa con la familia, antes de que algo ocurra.</p>
       </div>
-      <div class="grid-tarjetas">
+      <div class="cards-grid">
         <button type="button" class="tarjeta-actividad" id="tarjetaSaber">
           <span class="picto" aria-hidden="true">📍</span>
-          <span class="nombre" data-i18n="menuSaber">¿Lo tengo ya?</span>
+          <span class="name" data-i18n="menuSaber">¿Lo tengo ya?</span>
           <span class="detalle" data-i18n="menuSaberDetalle">Mira qué cosas importantes están en su sitio.</span>
           <span class="marca" id="marcaSaber"></span>
         </button>
         <button type="button" class="tarjeta-actividad" id="tarjetaChecklist">
           <span class="picto" aria-hidden="true">✅</span>
-          <span class="nombre" data-i18n="menuChecklist">Mi lista en casa</span>
+          <span class="name" data-i18n="menuChecklist">Mi lista en casa</span>
           <span class="detalle" data-i18n="menuChecklistDetalle">Comprueba con tu familia lo que ya está listo.</span>
           <span class="marca" id="marcaChecklist"></span>
         </button>
       </div>
     </section>
 
-    <!-- Pantalla: ¿Lo tengo ya? (quiz de 3 opciones) -->
-    <section id="pantallaSaber" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnVolverSaber" data-i18n="volverMenu">← Volver</button>
+    <!-- Pantalla: ¿Lo tengo ya? (quiz de 3 options) -->
+    <section id="pantallaSaber" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverSaber" data-i18n="volverMenu">← Volver</button>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressSaberFill"></div>
         <span class="progress-text" id="progressSaberText">0 / 8</span>
       </div>
 
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="situacion-picto" id="saberPicto"></div>
-        <p class="texto-principal" id="saberTexto" data-i18n="core.loading">Cargando…</p>      </div>
-      <h2 class="pregunta centrado" data-i18n="preguntaSaber">¿Dónde tiene que estar?</h2>
+        <p class="text-principal" id="saberTexto" data-i18n="core.loading">Cargando…</p>      </div>
+      <h2 class="pregunta centered" data-i18n="preguntaSaber">¿Dónde tiene que estar?</h2>
       <div class="pila" id="opcionesSaber"></div>
       <div class="feedback" id="feedbackSaber" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionSaberWrap">
+      <div class="row explicacion hidden" id="explicacionSaberWrap">
         <p id="explicacionSaber" aria-live="polite"></p>      </div>
-      <button type="button" class="btn oculto" id="btnSiguienteSaber" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="btnSiguienteSaber" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- Pantalla: mi lista en casa (checklist con motor de task-list) -->
-    <section id="pantallaChecklist" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnVolverChecklist" data-i18n="volverMenu">← Volver</button>
+    <section id="pantallaChecklist" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverChecklist" data-i18n="volverMenu">← Volver</button>
       </div>
-      <div class="fila centrado-fila">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccionChecklist" data-i18n="instruccionChecklist">Marca lo que ya está en tu casa. Lo que no, lo apuntas para hacerlo con tu familia esta semana.</p>
       </div>
       <div class="progress-bar">
@@ -73,7 +73,7 @@
         <span class="progress-text" id="progressChecklistText">0 / 8</span>
       </div>
 
-      <p class="lista-titulo centrado" id="checklistTitulo"></p>
+      <p class="lista-titulo centered" id="checklistTitulo"></p>
 
       <div class="pila-checklist" id="checklist"></div>
 
@@ -81,13 +81,13 @@
     </section>
 
     <!-- Pantalla final (compartida por las 2 actividades) -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverMenuFinal" data-i18n="volverMenu">← Volver</button>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnVolverMenuFinal" data-i18n="volverMenu">← Volver</button>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

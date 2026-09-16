@@ -1,7 +1,7 @@
 /* ============================================================
    Datos: escenas para el juego de las diferencias.
    Formato: ESCENAS = [{ id, nombreKey, objetos, diferencias }]
-   - nombreKey apunta a un texto registrado en strings.js (App.i18n.t).
+   - nombreKey apunta a un text registrado en strings.js (App.i18n.t).
    - objetos: [{ celda: 0-15, picto }] — posición en una rejilla 4x4.
      La escena izquierda se dibuja siempre igual a "objetos".
    - diferencias: [{ celda, pictoDerecha }] — en esas celdas, la

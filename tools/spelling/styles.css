@@ -7,7 +7,7 @@
   background: var(--mod-lenguaje);
 }
 
-.instruction { font-size: var(--texto-base); }
+.instruction { font-size: var(--text-base); }
 
 .center-row { justify-content: center; }
 
@@ -16,7 +16,7 @@
 .level-info {
   display: block;
   font-weight: 400;
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   opacity: 0.9;
 }
 
@@ -44,7 +44,7 @@
   background: var(--mod-lenguaje-suave);
   font-size: 28px;
   font-weight: 800;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .tile.blank {
@@ -57,11 +57,11 @@
   border-style: solid;
   border-color: var(--color-acierto);
   background: var(--color-acierto-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 /* ---- Letter options: smaller and in a row, not a column ---- */
-.fila-opciones { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+.row-options { flex-direction: row; flex-wrap: wrap; justify-content: center; }
 
 .letter-opcion {
   width: auto;
@@ -79,7 +79,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

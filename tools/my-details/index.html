@@ -19,15 +19,15 @@
     </header>
 
     <!-- Pantalla: sin datos configurados -->
-    <section id="emptyScreen" class="oculto pila centrado">
+    <section id="emptyScreen" class="hidden pila centered">
       <div class="big-emoji" aria-hidden="true">🏠</div>
       <h2 data-i18n="emptyTitle">Todavía no hay datos</h2>
-      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
 
     <!-- Pantalla 1: fichas -->
-    <section id="cardsScreen" class="oculto pila centrado">
-      <div class="fila center-row">
+    <section id="cardsScreen" class="hidden pila centered">
+      <div class="row center-row">
         <p class="instruction" data-i18n="instruction">Repasa tu dirección y tu teléfono, y los de tu familia.</p>
       </div>
       <p class="privacy-note" id="privacyNote" data-i18n="privacyNote">🔒 Estos datos solo se guardan en este dispositivo. No se envían a internet.</p>
@@ -35,41 +35,41 @@
         <div class="progress-fill" id="cardsProgressFill"></div>
         <span class="progress-text" id="cardsProgressText">1 / 3</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="card-picto" id="cardPicto" aria-hidden="true"></div>
         <h2 id="cardLabel"></h2>
         <p class="card-value" id="cardValue"></p>      </div>
       <button type="button" class="btn" id="nextCardBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
-    <!-- Pantalla 2: test de opciones (con señuelos) -->
-    <section id="choiceScreen" class="oculto pila">
+    <!-- Pantalla 2: test de options (con señuelos) -->
+    <section id="choiceScreen" class="hidden pila">
       <p class="instruction" data-i18n="choiceInstruction">Elige la respuesta correcta.</p>
       <div class="progress-bar">
         <div class="progress-fill" id="choiceProgressFill"></div>
         <span class="progress-text" id="choiceProgressText">0 / 3</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="situation-picto" id="choicePicto" aria-hidden="true"></div>
         <p class="quiz-text" id="choiceQuestion" data-i18n="core.loading">Cargando…</p>      </div>
       <div class="pila" id="choiceOptions"></div>
       <div class="feedback" id="choiceFeedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="choiceExplanationWrap">
+      <div class="row explicacion hidden" id="choiceExplanationWrap">
         <p id="choiceExplanation" aria-live="polite"></p>      </div>
-      <button type="button" class="btn oculto" id="choiceNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="choiceNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- Pantalla 3: test escrito con teclado -->
-    <section id="typedScreen" class="oculto pila">
+    <section id="typedScreen" class="hidden pila">
       <p class="instruction" data-i18n="typedInstruction">Ahora escríbelo tú, sin pistas en la pantalla.</p>
       <div class="progress-bar">
         <div class="progress-fill" id="typedProgressFill"></div>
         <span class="progress-text" id="typedProgressText">0 / 3</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="situation-picto" id="typedPicto" aria-hidden="true"></div>
         <p class="quiz-text" id="typedQuestion" data-i18n="core.loading">Cargando…</p>      </div>
-      <label class="oculto" for="typedInput" data-i18n="typedInputLabel">Escribe tu respuesta</label>
+      <label class="hidden" for="typedInput" data-i18n="typedInputLabel">Escribe tu respuesta</label>
       <input
         id="typedInput"
         class="text-input"
@@ -80,19 +80,19 @@
       />
       <button type="button" class="btn" id="typedCheckBtn" data-i18n="typedCheck">Comprobar</button>
       <div class="feedback" id="typedFeedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="typedExplanationWrap">
+      <div class="row explicacion hidden" id="typedExplanationWrap">
         <p id="typedExplanation" aria-live="polite"></p>      </div>
-      <button type="button" class="btn oculto" id="typedNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="typedNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- End screen -->
-    <section id="endScreen" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="big-emoji" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="finalSummary"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="replayBtn" data-i18n="core.playAgain">Jugar otra vez</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

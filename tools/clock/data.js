@@ -4,7 +4,7 @@
      porRonda,             number of questions per round
      modos:    [{ id }]    four mechanics (leer, poner, convertir,
                            situaciones); app.js dispatcha por id.
-     niveles:  [{ id, nombre, descripcion, estrellas,
+     niveles:  [{ id, name, descripcion, estrellas,
                  minutos: number[] }]   minute values the round
                                         can show at that level.
      momentos: [{ id, picto, hora (0-23) }]   base 24h hour per
@@ -12,15 +12,15 @@
    }
 
    Los textos viven en strings.<locale>.js:
-     App.i18n.t('modo.' + id + '.nombre' | '.descripcion' | '.pregunta')
-     App.i18n.t('nivel.' + id + '.nombre')
-     App.i18n.t('momento.' + id + '.nombre' | '.pregunta')
+     App.i18n.t('modo.' + id + '.name' | '.descripcion' | '.pregunta')
+     App.i18n.t('nivel.' + id + '.name')
+     App.i18n.t('timeOfDay.' + id + '.name' | '.pregunta')
 
    Para ampliar:
      - nuevo modo → añadir id aquí y su cuerpo en app.js bajo el
        mismo `runModo(modoId, ...)`.
-     - nuevo nivel → añadir aquí + texto en strings.<locale>.js.
-     - nuevo momento → añadir aquí + texto en ambos strings.
+     - nuevo nivel → añadir aquí + text en strings.<locale>.js.
+     - nuevo timeOfDay → añadir aquí + text en ambos strings.
 
    app.js usa DATA[App.i18n.locale()] || DATA.es (ver banco()).
    ============================================================ */
@@ -34,9 +34,9 @@ var DATA = {
       { id: 'situaciones' }
     ],
     niveles: [
-      { id: 1, nombre: 'Nivel 1', descripcion: 'Horas en punto', estrellas: 1, minutos: [0] },
-      { id: 2, nombre: 'Nivel 2', descripcion: 'Y media',        estrellas: 2, minutos: [0, 30] },
-      { id: 3, nombre: 'Nivel 3', descripcion: 'Y cuarto, menos cuarto', estrellas: 3, minutos: [0, 15, 30, 45] }
+      { id: 1, name: 'Nivel 1', descripcion: 'Horas en punto', estrellas: 1, minutos: [0] },
+      { id: 2, name: 'Nivel 2', descripcion: 'Y media',        estrellas: 2, minutos: [0, 30] },
+      { id: 3, name: 'Nivel 3', descripcion: 'Y cuarto, menos cuarto', estrellas: 3, minutos: [0, 15, 30, 45] }
     ],
     momentos: [
       { id: 'desayuno', picto: '🥐', hora: 8 },
@@ -56,9 +56,9 @@ var DATA = {
       { id: 'situaciones' }
     ],
     niveles: [
-      { id: 1, nombre: 'Level 1', descripcion: "O'clock",       estrellas: 1, minutos: [0] },
-      { id: 2, nombre: 'Level 2', descripcion: 'Half past',     estrellas: 2, minutos: [0, 30] },
-      { id: 3, nombre: 'Level 3', descripcion: 'Quarters past / to', estrellas: 3, minutos: [0, 15, 30, 45] }
+      { id: 1, name: 'Level 1', descripcion: "O'clock",       estrellas: 1, minutos: [0] },
+      { id: 2, name: 'Level 2', descripcion: 'Half past',     estrellas: 2, minutos: [0, 30] },
+      { id: 3, name: 'Level 3', descripcion: 'Quarters past / to', estrellas: 3, minutos: [0, 15, 30, 45] }
     ],
     momentos: [
       { id: 'desayuno', picto: '🥐', hora: 8 },

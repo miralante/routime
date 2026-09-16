@@ -19,114 +19,114 @@
   var $ = App.utils.$;
   var GIROS = ['t-rot90', 't-rot180', 't-rot270'];
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var modeloEl = $('#modeloFigura');
-  var preguntaEl = $('#pregunta');
-  var opcionesEl = $('#opciones');
+  var questionEl = $('#pregunta');
+  var optionsEl = $('#opciones');
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var dificultadEl = $('#dificultad');
+  var levelEl = $('#dificultad');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Round state */
-  var nivelActual = null;
+  var currentLevel = null;
   var items = [];
   var idx = 0;
-  var aciertosRonda = 0;
-  var resuelto = false;
-  var intentos = 0;
+  var roundHits = 0;
+  var solved = false;
+  var attempts = 0;
   var botonCorrecto = null;
   var itemActual = null;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function guardar() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* Determina el nivel según el progreso: cada ronda completada, sube un nivel. */
-  function nivelSegunProgreso() {
-    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+  /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
+  function levelBasedOnProgress() {
+    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
   }
 
   /* Muestra la dificultad actual (etiqueta del nivel). */
-  function pintarDificultad() {
-    if (dificultadEl) {
-      dificultadEl.textContent = nivelActual.nombre;
+  function renderLevel() {
+    if (levelEl) {
+      levelEl.textContent = currentLevel.nombre;
     }
   }
 
-  function iniciarJuego() {
-    nivelActual = nivelSegunProgreso();
-    items = App.utils.shuffle(nivelActual.items).slice(0, banco().porRonda);
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
     idx = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    pintarDificultad();
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
     render();
   }
 
-  function pintarProgreso() {
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
     progressText.textContent = '';
   }
 
   /* Builds the item's 3 options based on the level's type.
-     Each option: { contenido, clase, esCorrecta, esLetra } */
+     Each option: { contenido, clase, isCorrect, esLetra } */
   function construirOpciones(item) {
-    if (nivelActual.tipo === 'giro') {
+    if (currentLevel.tipo === 'giro') {
       return App.utils.shuffle([
-        { contenido: item.picto, clase: App.utils.shuffle(GIROS)[0], esCorrecta: true },
-        { contenido: item.distractores[0], clase: App.utils.shuffle(GIROS)[0], esCorrecta: false },
-        { contenido: item.distractores[1], clase: App.utils.shuffle(GIROS)[0], esCorrecta: false }
+        { contenido: item.picto, clase: App.utils.shuffle(GIROS)[0], isCorrect: true },
+        { contenido: item.distractores[0], clase: App.utils.shuffle(GIROS)[0], isCorrect: false },
+        { contenido: item.distractores[1], clase: App.utils.shuffle(GIROS)[0], isCorrect: false }
       ]);
     }
-    if (nivelActual.tipo === 'espejo') {
+    if (currentLevel.tipo === 'espejo') {
       return App.utils.shuffle([
-        { contenido: item.picto, clase: 't-espejoH', esCorrecta: true },
-        { contenido: item.picto, clase: '', esCorrecta: false },
-        { contenido: item.picto, clase: 't-espejoV', esCorrecta: false }
+        { contenido: item.picto, clase: 't-espejoH', isCorrect: true },
+        { contenido: item.picto, clase: '', isCorrect: false },
+        { contenido: item.picto, clase: 't-espejoV', isCorrect: false }
       ]);
     }
     /* letras */
     return App.utils.shuffle(item.opciones.map(function (letra, i) {
-      return { contenido: letra, clase: '', esCorrecta: i === item.correcta, esLetra: true };
+      return { contenido: letra, clase: '', isCorrect: i === item.correcta, esLetra: true };
     }));
   }
 
   function render() {
     var item = items[idx];
     itemActual = item;
-    resuelto = false;
-    intentos = 0;
+    solved = false;
+    attempts = 0;
     botonCorrecto = null;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
+    explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
+    btnNext.classList.add('hidden');
 
-    var esLetras = nivelActual.tipo === 'letras';
+    var esLetras = currentLevel.tipo === 'letras';
     modeloEl.textContent = esLetras ? item.modelo : item.picto;
     modeloEl.classList.toggle('letra', esLetras);
-    var tipoCap = nivelActual.tipo.charAt(0).toUpperCase() + nivelActual.tipo.slice(1);
-    preguntaEl.textContent = App.i18n.t('pregunta' + tipoCap);
+    var tipoCap = currentLevel.tipo.charAt(0).toUpperCase() + currentLevel.tipo.slice(1);
+    questionEl.textContent = App.i18n.t('pregunta' + tipoCap);
 
-    opcionesEl.innerHTML = '';
+    optionsEl.innerHTML = '';
     construirOpciones(item).forEach(function (op, i) {
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -136,92 +136,92 @@
       span.className = 'figura ' + op.clase + (op.esLetra ? ' letra' : '');
       span.textContent = op.contenido;
       btn.appendChild(span);
-      if (op.esCorrecta) botonCorrecto = btn;
-      btn.addEventListener('click', function () { responder(btn, op.esCorrecta); });
-      opcionesEl.appendChild(btn);
+      if (op.isCorrect) botonCorrecto = btn;
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect); });
+      optionsEl.appendChild(btn);
     });
 
-    pintarProgreso();
-    pintarEstrellas();
+    renderProgress();
+    renderStars();
   }
 
   function claveTipo(prefijo) {
-    var tipoCap = nivelActual.tipo.charAt(0).toUpperCase() + nivelActual.tipo.slice(1);
+    var tipoCap = currentLevel.tipo.charAt(0).toUpperCase() + currentLevel.tipo.slice(1);
     return prefijo + tipoCap;
   }
 
-  function responder(btn, esCorrecta) {
-    if (resuelto) return;
-    if (esCorrecta) {
-      resuelto = true;
+  function answer(btn, isCorrect) {
+    if (solved) return;
+    if (isCorrect) {
+      solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opciones .opcion-figura').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#opciones .opcion-figura').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       explicacionEl.textContent = App.i18n.t(claveTipo('ok'));
-      explicacionWrap.classList.remove('oculto');
-      progreso.estrellas += 1;
+      explicacionWrap.classList.remove('hidden');
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosRonda += 1;
+      roundHits += 1;
       guardar();
-      pintarEstrellas();
-      btnSiguiente.classList.remove('oculto');
-      btnSiguiente.focus();
+      renderStars();
+      btnNext.classList.remove('hidden');
+      btnNext.focus();
     } else {
-      intentos += 1;
+      attempts += 1;
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      if (intentos === 1) {
+      if (attempts === 1) {
         /* Regla 12: primer fallo → pista, nunca la respuesta */
         explicacionEl.textContent = App.i18n.t(claveTipo('pista'));
       } else {
         /* Segundo fallo → se marca la correcta y se explica */
         var texto = App.i18n.t(claveTipo('mal'));
-        if (nivelActual.tipo === 'letras') texto = texto.replace('{letra}', itemActual.opciones[itemActual.correcta]);
+        if (currentLevel.tipo === 'letras') texto = texto.replace('{letra}', itemActual.opciones[itemActual.correcta]);
         explicacionEl.textContent = texto;
         if (botonCorrecto) botonCorrecto.classList.add('sugerida');
       }
-      explicacionWrap.classList.remove('oculto');
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .opcion-figura'), explicacionWrap);
+      explicacionWrap.classList.remove('hidden');
+      App.feedback.lockUntilAck(App.utils.$('#opciones .opcion-figura'), explicacionWrap);
     }
   }
 
   function siguiente() {
     idx += 1;
     if (idx >= banco().porRonda) {
-      terminarRonda();
+      endRound();
     } else {
       render();
     }
   }
 
-  function terminarRonda() {
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    progreso.rondasCompletadas += 1;
+  function endRound() {
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.roundsCompleted += 1;
     guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
-$('#transferencia').textContent.textContent = '';
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnJugar').addEventListener('click', function () { iniciarJuego(); });
-  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  btnNext.addEventListener('click', siguiente);
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.add('oculto');
-    pantallaInicio.classList.remove('oculto');
-    pintarEstrellas();
+    endScreen.classList.add('hidden');
+    gameScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    renderStars();
   });
   $('#btnPregunta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(preguntaEl.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(questionEl.textContent);
   });
 
-  pintarEstrellas();
+  renderStars();
 })();
 

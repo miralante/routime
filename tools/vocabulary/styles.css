@@ -161,7 +161,7 @@
   font-size: var(--fs-2);
 }
 
-.oculto {
+.hidden {
   display: none !important;
 }
 

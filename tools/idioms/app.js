@@ -15,161 +15,161 @@
   var $ = App.utils.$;
 
   /* Elementos */
-  var textoEl = $('#textoPregunta');
-  var opcionesEl = $('#opciones');
+  var textEl = $('#textoPregunta');
+  var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnEscuchar = $('#btnEscuchar');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnListen = $('#btnListen');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var resumenFinal = $('#resumenFinal');
 
   /* Progreso persistente (se conserva al cerrar el navegador) */
-  var progreso = App.storage.get(CONFIG.toolId);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (typeof progreso.rondas !== 'number') progreso.rondas = 0;
+  var progress = App.storage.get(CONFIG.toolId);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
   /* Current round state */
   var items = [];
   var idx = 0;
-  var aciertosRonda = 0;
-  var resuelto = false;
-  var intentos = 0;
+  var roundHits = 0;
+  var solved = false;
+  var attempts = 0;
 
-  function guardar() {
-    App.storage.set(CONFIG.toolId, progreso);
+  function save() {
+    App.storage.set(CONFIG.toolId, progress);
   }
 
-  function pintarEstrellas() {
-    starsEl.textContent = '⭐ ' + progreso.estrellas;
+  function renderStars() {
+    starsEl.textContent = '⭐ ' + progress.stars;
   }
 
-  function pintarProgreso() {
+  function renderProgress() {
     progressFill.style.width = ((idx / CONFIG.porRonda) * 100) + '%';
     progressText.textContent = '';
   }
 
-  function iniciarRonda() {
+  function startRound() {
     var banco = DATA[App.i18n.locale()] || DATA.es;
     items = App.utils.shuffle(banco).slice(0, CONFIG.porRonda);
     idx = 0;
-    aciertosRonda = 0;
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
+    roundHits = 0;
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
     render();
   }
 
   function render() {
     var item = items[idx];
-    resuelto = false;
-    intentos = 0;
-    textoEl.textContent = item.text;
+    solved = false;
+    attempts = 0;
+    textEl.textContent = item.textContent;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
+    explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
-    opcionesEl.innerHTML = '';
+    btnNext.classList.add('hidden');
+    optionsEl.innerHTML = '';
 
-    var opciones = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correct };
+    var options = App.utils.shuffle(item.options.map(function (opt, i) {
+      return { text: opt, isCorrect: i === item.correct };
     }));
 
-    opciones.forEach(function (op) {
+    options.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
+      btn.textContent = op.textContent;
       btn.addEventListener('click', function () {
-        responder(btn, op.esCorrecta, item);
+        answer(btn, op.isCorrect, item);
       });
-      opcionesEl.appendChild(btn);
+      optionsEl.appendChild(btn);
     });
 
-    pintarProgreso();
-    pintarEstrellas();
+    renderProgress();
+    renderStars();
   }
 
-  function mostrarExplicacion(esCorrecta, item) {
-    var texto = esCorrecta
+  function showExplanation(isCorrect, item) {
+    var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.options[item.correct] +
         App.i18n.t('explicacionIncorrectaB') + '.';
-    explicacionEl.textContent = texto;
-    explicacionWrap.classList.remove('oculto');
+    explicacionEl.textContent = text;
+    explicacionWrap.classList.remove('hidden');
   }
 
   /* Socratic method: on the first mistake the answer isn't given,
      the person is pointed back to the hint already on screen. Only
      on the second mistake is the correct answer explained
-     (mostrarExplicacion). */
-  function mostrarPista(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.text + '"';
-    explicacionWrap.classList.remove('oculto');
+     (showExplanation). */
+  function showHint(item) {
+    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.textContent + '"';
+    explicacionWrap.classList.remove('hidden');
   }
 
-  function responder(btn, esCorrecta, item) {
-    if (resuelto) return;
-    if (esCorrecta) {
-      mostrarExplicacion(esCorrecta, item);
-      resuelto = true;
+  function answer(btn, isCorrect, item) {
+    if (solved) return;
+    if (isCorrect) {
+      showExplanation(isCorrect, item);
+      solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opciones .btn-opcion').forEach(function (b) {
+      App.utils.$('#options .btn-opcion').forEach(function (b) {
         b.disabled = true;
       });
       App.feedback.success(feedbackEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosRonda += 1;
-      guardar();
-      pintarEstrellas();
-      btnSiguiente.classList.remove('oculto');
-      btnSiguiente.focus();
+      roundHits += 1;
+      save();
+      renderStars();
+      btnNext.classList.remove('hidden');
+      btnNext.focus();
     } else {
       /* Encouragement, never punishment: can try again */
-      intentos += 1;
-      if (intentos === 1) {
-        mostrarPista(item);
+      attempts += 1;
+      if (attempts === 1) {
+        showHint(item);
       } else {
-        mostrarExplicacion(esCorrecta, item);
+        showExplanation(isCorrect, item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
   function siguiente() {
     idx += 1;
     if (idx >= CONFIG.porRonda) {
-      terminarRonda();
+      endRound();
     } else {
       render();
     }
   }
 
-  function terminarRonda() {
-    progreso.rondas += 1;
-    guardar();
-    pintarProgreso();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
+  function endRound() {
+    progress.rounds += 1;
+    save();
+    renderProgress();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
     resumenFinal.textContent = '';
-$('#transferencia').textContent.textContent = '';
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 
   /* Events */
-  btnEscuchar.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].text);
+  btnListen.addEventListener('click', function () {
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', iniciarRonda);
+  btnNext.addEventListener('click', siguiente);
+  $('#btnRepeat').addEventListener('click', startRound);
 })();
 

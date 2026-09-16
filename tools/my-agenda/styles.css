@@ -16,7 +16,7 @@
 
 .instruction {
   max-width: 620px;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
 }
 
 .level-button {
@@ -36,11 +36,11 @@
 .case-text {
   max-width: 680px;
   margin: 0 auto;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
 }
 
-.question { color: var(--color-texto-suave); }
+.question { color: var(--color-text-suave); }
 
 .next-button {
   align-self: center;
@@ -57,18 +57,18 @@
 #endText {
   max-width: 620px;
   margin: 0;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
 }
 
 @media (max-width: 420px) {
   .case-card { padding: var(--espacio); }
-  .case-text { font-size: var(--texto-base); }
+  .case-text { font-size: var(--text-base); }
   .centered-row { align-items: stretch; }
 
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

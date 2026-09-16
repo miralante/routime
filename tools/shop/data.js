@@ -3,7 +3,7 @@
    Tres actividades desde un menú (regla 10):
 
    - 'Una compra' (tienda): simulación guiada de una compra completa
-     en 3 pasos (¿te llega? → paga → ¿está bien el cambio?). Los
+     en 3 steps (¿te llega? → paga → ¿está bien el cambio?). Los
      casos se GENERAN al vuelo con el banco PRODUCTOS y la escalera
      NIVELES_IMPORTE. Regla 13: única variable = la finura de los
      importes (enteros → con ,50 → con décimos).
@@ -22,7 +22,7 @@
 
    ▶ PARA AÑADIR UN PRODUCTO: una línea en PRODUCTOS con
      { picto, clave, precio (euros, múltiplo de 0.05, REALISTA:
-     es el precio de referencia) } + el nombre en NOMBRES.es/en.
+     es el precio de referencia) } + el name en NOMBRES.es/en.
      El nivel se deduce solo del precio (nivelDePrecio) y el
      producto alimenta las tres actividades a la vez.
 
@@ -92,7 +92,7 @@ const PRODUCTOS = [
   { picto: '🧣', clave: 'bufanda', precio: 6.90 }
 ];
 
-/* Nombre de cada producto, por idioma (clave -> nombre). */
+/* Nombre de cada producto, por idioma (clave -> name). */
 const NOMBRES = {
   es: {
     leche: 'La leche', cuaderno: 'El cuaderno', gorra: 'La gorra', balon: 'El balón',
@@ -135,19 +135,19 @@ function construirTienda(loc) {
 
   var productos = PRODUCTOS.map(function (p) {
     var cent = Math.round(p.precio * 100);
-    return { picto: p.picto, nombre: nombres[p.clave] || p.clave, precioCent: cent, bucket: nivelDePrecio(cent) };
+    return { picto: p.picto, name: nombres[p.clave] || p.clave, precioCent: cent, bucket: nivelDePrecio(cent) };
   });
 
   var importe = NIVELES_IMPORTE.map(function (n) {
-    return { id: n.id, nombre: prefijo + n.id, descripcion: txt.importe[n.id], paso: n.paso };
+    return { id: n.id, name: prefijo + n.id, descripcion: txt.importe[n.id], paso: n.paso };
   });
 
   var mucho = MUCHO_BASE.map(function (n) {
-    return { id: n.id, nombre: prefijo + n.id, descripcion: txt.mucho[n.id], mult: n.mult };
+    return { id: n.id, name: prefijo + n.id, descripcion: txt.mucho[n.id], mult: n.mult };
   });
 
   var fiar = FIAR_BASE.map(function (n) {
-    return { id: n.id, nombre: prefijo + n.id, descripcion: txt.fiar[n.id], div: n.div };
+    return { id: n.id, name: prefijo + n.id, descripcion: txt.fiar[n.id], div: n.div };
   });
 
   return {

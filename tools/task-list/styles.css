@@ -7,30 +7,30 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
 
 .lista-titulo {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
 }
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   margin-top: var(--espacio);
 }
 
-.pila-secuencia, .pila-disponibles {
+.sequence-stack, .available-stack {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -46,20 +46,20 @@
   justify-content: center;
   gap: 4px;
   padding: 8px;
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   font-weight: 700;
   text-align: center;
   border: 3px dashed var(--color-borde);
   border-radius: var(--radio);
   background: var(--color-superficie);
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
-.slot.lleno {
+.slot.filled {
   border-style: solid;
   border-color: var(--color-acierto);
   background: var(--color-acierto-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .tarea-btn {
@@ -72,14 +72,14 @@
   gap: 4px;
   padding: 8px;
   background: var(--mod-secuencia-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
   border: 3px solid var(--mod-secuencia);
 }
 
-.tarea-picto { font-size: 32px; }
+.task-picto { font-size: 32px; }
 
-.tarea-texto {
-  font-size: var(--texto-pequeno);
+.tarea-text {
+  font-size: var(--text-pequeno);
   font-weight: 700;
   text-align: center;
   line-height: 1.2;
@@ -91,23 +91,23 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 
 /* ============================================================
    Pantalla "Crea tu lista" (Nivel 3).
    SimulaciÃ³n y entrenamiento del flujo real de una lista:
-   nombre, aÃ±adir, reordenar, marcar, borrar, guardar, recuperar.
+   name, aÃ±adir, reordenar, marcar, borrar, save, recuperar.
    ============================================================ */
-.panel-nombre {
+.panel-name {
   display: flex;
   flex-direction: column;
   gap: var(--espacio);
@@ -128,39 +128,39 @@
   color: var(--mod-secuencia);
 }
 
-.consejo-lista-pasos {
+.consejo-lista-steps {
   margin: 0;
   padding-left: 1.4em;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .btn-mis-listas { align-self: center; }
 
-.input-nombre-lista,
-.input-lista {
+.input-list-name,
+.input-list {
   display: block;
   width: 100%;
   min-height: var(--boton-min);
   padding: 8px 16px;
   font-family: inherit;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 600;
-  color: var(--color-texto);
+  color: var(--color-text);
   background: var(--color-superficie);
   border: 3px solid var(--color-borde);
   border-radius: var(--radio);
 }
 
-.input-nombre-lista {
-  font-size: var(--texto-grande);
+.input-list-name {
+  font-size: var(--text-grande);
   text-align: center;
 }
 
-.input-nombre-lista:focus-visible,
-.input-lista:focus-visible {
+.input-list-name:focus-visible,
+.input-list:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 2px;
   border-color: var(--mod-secuencia);
@@ -179,7 +179,7 @@
   margin: 0;
   font-weight: 700;
   color: var(--mod-secuencia);
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
 }
 
 .lista-items-crear {
@@ -196,7 +196,7 @@
 
 .lista-items-crear .item-vacio {
   margin: 0;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   font-style: italic;
   text-align: center;
   padding: var(--espacio);
@@ -217,25 +217,25 @@
 
 .item-crear:hover { border-color: var(--mod-secuencia); }
 
-.item-crear.seleccionado {
+.item-crear.selected {
   border-color: var(--mod-secuencia);
   background: var(--mod-secuencia-suave);
   box-shadow: 0 0 0 3px var(--mod-secuencia);
 }
 
-.item-crear.hecho {
+.item-crear.done {
   background: var(--color-acierto-suave);
   border-color: var(--color-acierto);
   opacity: 0.85;
 }
 
-.item-crear.hecho .item-texto {
+.item-crear.done .item-text {
   text-decoration: line-through;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
 .item-pos {
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 800;
   color: var(--mod-secuencia);
   text-align: center;
@@ -253,15 +253,15 @@
   cursor: pointer;
 }
 .item-check:hover { border-color: var(--mod-secuencia); }
-.item-crear.hecho .item-check {
+.item-crear.done .item-check {
   background: var(--color-acierto);
   border-color: var(--color-acierto);
   color: #FFFFFF;
 }
 
-.item-texto {
+.item-text {
   font-weight: 600;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   text-align: left;
   overflow-wrap: anywhere;
 }
@@ -273,28 +273,28 @@
   border-radius: 8px;
   border: 2px solid var(--color-borde);
   background: var(--color-superficie);
-  color: var(--color-texto);
+  color: var(--color-text);
   font-size: 20px;
   font-weight: 800;
   cursor: pointer;
 }
 .item-seleccionar:hover { border-color: var(--mod-secuencia); }
 .item-quitar:hover { background: var(--color-borde); }
-.item-crear.seleccionado .item-seleccionar {
+.item-crear.selected .item-seleccionar {
   background: var(--mod-secuencia);
   color: #FFFFFF;
   border-color: var(--mod-secuencia);
 }
 
-/* Barra de flechas â†‘/â†“ para reordenar el elemento seleccionado. */
-.barra-mover-slot {
+/* Barra de flechas â†‘/â†“ para reordenar el elemento selected. */
+.move-slot-bar {
   display: flex;
   justify-content: center;
   gap: var(--espacio);
   margin: var(--espacio) 0;
 }
 
-.btn-flecha-slot {
+.btn-arrow-slot {
   min-width: 64px;
   min-height: 64px;
   border-radius: var(--radio);
@@ -305,31 +305,31 @@
   font-weight: 800;
   cursor: pointer;
 }
-.btn-flecha-slot:hover:not(:disabled) {
+.btn-arrow-slot:hover:not(:disabled) {
   background: var(--mod-secuencia-suave);
   color: var(--mod-secuencia);
 }
-.btn-flecha-slot:disabled {
+.btn-arrow-slot:disabled {
   opacity: 0.35;
   cursor: not-allowed;
   background: var(--color-superficie);
   color: var(--mod-secuencia);
   border-color: var(--color-borde);
 }
-.btn-flecha-slot:focus-visible {
+.btn-arrow-slot:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 2px;
 }
 
 /* Input + botÃ³n AÃ±adir, debajo del editor. */
-.fila-anadir-item {
+.add-item-row {
   display: flex;
   gap: var(--espacio);
   margin: var(--espacio) 0;
   flex-wrap: wrap;
 }
 
-.fila-anadir-item .input-lista {
+.add-item-row .input-list {
   flex: 1;
   min-width: 200px;
 }
@@ -340,26 +340,26 @@
 }
 
 /* Listas guardadas (estilo coherente con routines). */
-.listas-guardadas {
+.saved-lists {
   margin-top: var(--espacio-grande);
   display: flex;
   flex-direction: column;
   gap: var(--espacio);
 }
 
-.listas-guardadas h3 {
+.saved-lists h3 {
   margin: 0;
-  font-size: var(--texto-base);
-  color: var(--color-texto);
+  font-size: var(--text-base);
+  color: var(--color-text);
 }
 
-.lista-guardada {
+.saved-list {
   background: var(--mod-secuencia-suave);
   border-radius: 10px;
   overflow: hidden;
 }
 
-.lista-guardada-fila {
+.saved-list-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -368,7 +368,7 @@
   flex-wrap: wrap;
 }
 
-.lista-guardada-info {
+.saved-list-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -380,21 +380,21 @@
   font-family: inherit;
   cursor: pointer;
   padding: 4px;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
-.lista-guardada-info .nombre { font-weight: 700; }
-.lista-guardada-info .cantidad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-suave);
+.saved-list-info .name { font-weight: 700; }
+.saved-list-info .count {
+  font-size: var(--text-pequeno);
+  color: var(--color-text-suave);
 }
 
-.lista-guardada-acciones {
+.saved-list-acciones {
   display: flex;
   gap: 8px;
   flex-shrink: 0;
 }
 
-.lista-guardada-acciones button {
+.saved-list-acciones button {
   min-width: var(--boton-min);
   min-height: var(--boton-min);
   font-size: 22px;
@@ -403,30 +403,30 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.lista-guardada-acciones button:hover {
+.saved-list-acciones button:hover {
   background: var(--color-superficie-2, #f7f4ef);
 }
 
-.lista-guardada-items {
+.saved-list-items {
   list-style: none;
   margin: 0;
   padding: 0 var(--espacio) var(--espacio) var(--espacio);
 }
-.lista-guardada-items li {
+.saved-list-items li {
   padding: 4px 0;
-  color: var(--color-texto);
+  color: var(--color-text);
   border-top: 1px solid var(--color-borde);
 }
-.lista-guardada-items li:first-child { border-top: none; }
-.lista-guardada-items li.hecho {
+.saved-list-items li:first-child { border-top: none; }
+.saved-list-items li.done {
   text-decoration: line-through;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
 .transferencia {
   margin: 8px auto 24px;
-  font-size: var(--texto-base);
-  color: var(--color-texto-secundario, #555);
+  font-size: var(--text-base);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
   text-align: center;
 }

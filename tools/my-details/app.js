@@ -6,13 +6,13 @@
    App.storage('my-details'); esta pantalla nunca los pide ni los
    modifica, solo los repasa. Si no hay nada configurado se
    muestra un aviso en vez de un test roto (#emptyScreen).
-   Flujo lineal en 3 pasos:
+   Flujo lineal en 3 steps:
    1) Fichas: una tarjeta por dato configurado (dirección propia,
       dirección familiar si es distinta, teléfono propio, cada
       familiar con teléfono).
-   2) Test de opciones: 3 botones (motor Socrático estándar:
+   2) Test de options: 3 botones (motor Socrático estándar:
       pista en el primer fallo, respuesta en el segundo). Los
-      señuelos se generan en el momento (nunca se guardan ni se
+      señuelos se generan en el timeOfDay (nunca se guardan ni se
       envían a ningún sitio) desplazando un número de la dirección
       o cambiando dígitos del teléfono real — ver
       buildAddressDecoys/buildPhoneDecoys. Para "teléfono de
@@ -77,7 +77,7 @@
      familyContacts are written only by config/app.js; this
      tool only reads them and writes estrellas/completedRounds. */
   var state = App.storage.get(TOOL_ID);
-  if (typeof state.estrellas !== 'number') state.estrellas = 0;
+  if (typeof state.stars !== 'number') state.stars = 0;
   if (typeof state.completedRounds !== 'number') state.completedRounds = 0;
   if (typeof state.ownAddress !== 'string') state.ownAddress = '';
   if (typeof state.familyAddress !== 'string') state.familyAddress = '';
@@ -85,12 +85,12 @@
   if (!Array.isArray(state.familyContacts)) state.familyContacts = [];
 
   function save() { App.storage.set(TOOL_ID, state); }
-  function paintStars() { starsEl.textContent = '⭐ ' + state.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + state.stars; }
   function t(key) { return App.i18n.t(key); }
 
   function show(screen) {
     [emptyScreen, cardsScreen, choiceScreen, typedScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -101,7 +101,7 @@
     return '❓';
   }
 
-  /* ---------- Normalización para comparar texto/teléfono ---------- */
+  /* ---------- Normalización para comparar text/teléfono ---------- */
   function normalize(str) {
     var s = String(str).toUpperCase();
     s = s.replace(/[ÁÀÂÄ]/g, 'A')
@@ -123,7 +123,7 @@
   }
 
   /* Desplaza el primer número que encuentra en la cadena por
-     'delta', manteniendo la misma cantidad de dígitos (para que
+     'delta', manteniendo la misma count de dígitos (para que
      el señuelo tenga la misma pinta que el dato real). Devuelve
      null si no hay ningún número que desplazar. */
   function numberOffsetVariant(str, delta) {
@@ -137,7 +137,7 @@
     return matched ? result : null;
   }
 
-  /* ---------- Señuelos generados en el momento (nunca guardados) ---------- */
+  /* ---------- Señuelos generados en el timeOfDay (nunca guardados) ---------- */
   function buildAddressDecoys(real, count, locale) {
     var deltas = [3, -2, 5, -4, 7, -6];
     var decoys = [];
@@ -210,7 +210,7 @@
     return items;
   }
 
-  /* 3 opciones en total; para 'multi' se muestran hasta 2 teléfonos
+  /* 3 options en total; para 'multi' se muestran hasta 2 teléfonos
      reales a la vez (varias respuestas válidas a la misma
      pregunta, p. ej. el de mamá o el de papá), con el resto de
      señuelos hasta completar 3. */
@@ -225,8 +225,8 @@
     var decoys = item.isPhone
       ? buildPhoneDecoys(reals[0], reals, decoyCount)
       : buildAddressDecoys(reals[0], decoyCount, locale);
-    var options = reals.map(function (v) { return { texto: v, esCorrecta: true }; })
-      .concat(decoys.map(function (v) { return { texto: v, esCorrecta: false }; }));
+    var options = reals.map(function (v) { return { text: v, isCorrect: true }; })
+      .concat(decoys.map(function (v) { return { text: v, isCorrect: false }; }));
     return App.utils.shuffle(options);
   }
 
@@ -256,7 +256,7 @@
     renderCard();
   }
 
-  /* ---------- Pantalla 2: test de opciones ---------- */
+  /* ---------- Pantalla 2: test de options ---------- */
   var choiceItems = [];
   var choiceIdx = 0;
   var choiceCorrectCount = 0;
@@ -287,17 +287,17 @@
     choiceQuestion.textContent = t(item.questionKey);
     choiceFeedback.textContent = '';
     choiceFeedback.className = 'feedback';
-    choiceExplanationWrap.classList.add('oculto');
+    choiceExplanationWrap.classList.add('hidden');
     choiceExplanation.textContent = '';
-    choiceNextBtn.classList.add('oculto');
+    choiceNextBtn.classList.add('hidden');
     choiceOptions.innerHTML = '';
 
     currentChoiceOptions.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { answerChoice(btn, op.esCorrecta); });
+      btn.textContent = op.textContent;
+      btn.addEventListener('click', function () { answerChoice(btn, op.isCorrect); });
       choiceOptions.appendChild(btn);
     });
 
@@ -305,37 +305,37 @@
     paintStars();
   }
 
-  function answerChoice(btn, esCorrecta) {
+  function answerChoice(btn, isCorrect) {
     if (choiceResolved) return;
-    if (esCorrecta) {
+    if (isCorrect) {
       choiceExplanation.textContent = t('correctExplanation');
-      choiceExplanationWrap.classList.remove('oculto');
+      choiceExplanationWrap.classList.remove('hidden');
       choiceResolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#choiceOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#choiceOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(choiceFeedback);
-      state.estrellas += 1;
+      state.stars += 1;
       choiceCorrectCount += 1;
       save();
       paintStars();
-      choiceNextBtn.classList.remove('oculto');
+      choiceNextBtn.classList.remove('hidden');
       choiceNextBtn.focus();
     } else {
       choiceAttempts += 1;
       var item = choiceItems[choiceIdx];
       if (choiceAttempts === 1) {
         choiceExplanation.textContent = t(item.hintKey);
-        choiceExplanationWrap.classList.remove('oculto');
+        choiceExplanationWrap.classList.remove('hidden');
       } else {
-        var correctTexts = currentChoiceOptions.filter(function (o) { return o.esCorrecta; }).map(function (o) { return o.texto; });
+        var correctTexts = currentChoiceOptions.filter(function (o) { return o.isCorrect; }).map(function (o) { return o.textContent; });
         var prefixKey = correctTexts.length > 1 ? 'wrongExplanationPrefixMulti' : 'wrongExplanationPrefix';
         choiceExplanation.textContent = t(prefixKey) + correctTexts.join(t('multiJoin'));
-        choiceExplanationWrap.classList.remove('oculto');
+        choiceExplanationWrap.classList.remove('hidden');
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(choiceFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#choiceOptions .btn-opcion'), choiceExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$('#choiceOptions .btn-opcion'), choiceExplanationWrap);
     }
   }
 
@@ -379,10 +379,10 @@
     typedInput.disabled = false;
     typedFeedback.textContent = '';
     typedFeedback.className = 'feedback';
-    typedExplanationWrap.classList.add('oculto');
+    typedExplanationWrap.classList.add('hidden');
     typedExplanation.textContent = '';
-    typedNextBtn.classList.add('oculto');
-    typedCheckBtn.classList.remove('oculto');
+    typedNextBtn.classList.add('hidden');
+    typedCheckBtn.classList.remove('hidden');
 
     if (false && App.tts && App.tts.speak) App.tts.speak(t(item.questionKey));
     paintStars();
@@ -409,22 +409,22 @@
     var item = typedItems[typedIdx];
     if (matchesItem(item, value)) {
       typedExplanation.textContent = t('correctExplanation');
-      typedExplanationWrap.classList.remove('oculto');
+      typedExplanationWrap.classList.remove('hidden');
       typedResolved = true;
       typedInput.disabled = true;
-      typedCheckBtn.classList.add('oculto');
+      typedCheckBtn.classList.add('hidden');
       App.feedback.success(typedFeedback);
-      state.estrellas += 1;
+      state.stars += 1;
       typedCorrectCount += 1;
       save();
       paintStars();
-      typedNextBtn.classList.remove('oculto');
+      typedNextBtn.classList.remove('hidden');
       typedNextBtn.focus();
     } else {
       typedAttempts += 1;
       if (typedAttempts === 1) {
         typedExplanation.textContent = t(item.hintKey);
-        typedExplanationWrap.classList.remove('oculto');
+        typedExplanationWrap.classList.remove('hidden');
         App.feedback.encourage(typedFeedback);
         typedInput.value = '';
         typedInput.focus();
@@ -436,12 +436,12 @@
         var answers = item.kind === 'multi' ? item.answers : [item.answer];
         var prefixKey = answers.length > 1 ? 'wrongExplanationPrefixMulti' : 'wrongExplanationPrefix';
         typedExplanation.textContent = t(prefixKey) + answers.join(t('multiJoin'));
-        typedExplanationWrap.classList.remove('oculto');
+        typedExplanationWrap.classList.remove('hidden');
         App.feedback.encourage(typedFeedback);
         typedResolved = true;
         typedInput.disabled = true;
-        typedCheckBtn.classList.add('oculto');
-        typedNextBtn.classList.remove('oculto');
+        typedCheckBtn.classList.add('hidden');
+        typedNextBtn.classList.remove('hidden');
         typedNextBtn.focus();
       }
     }
@@ -461,8 +461,8 @@
     state.completedRounds += 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent.textContent = '';
-    $('#transferencia').textContent.textContent = '';
+    $('#finalSummary').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(t('core.roundComplete'));
   }
 

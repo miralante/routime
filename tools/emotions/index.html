@@ -18,39 +18,39 @@
     </header>
 
     <!-- Emotion selection -->
-    <section id="pantallaSeleccion" class="pila centrado">
-      <div class="fila centrado-fila">
+    <section id="pantallaSeleccion" class="pila centered">
+      <div class="row centered-row">
         <h2 id="pregunta" data-i18n="pregunta">¿Cómo te sientes hoy?</h2>
         <button type="button" class="btn btn-audio" id="btnPregunta" data-i18n-aria="ariaPregunta" aria-label="Escuchar la pregunta">🔊</button>
       </div>
       <div id="emociones" class="rejilla-emociones"></div>
-      <button type="button" class="btn btn-secundario" id="btnSemana" data-i18n="verSemana">📅 Ver mi semana</button>
+      <button type="button" class="btn btn-secondary" id="btnSemana" data-i18n="verSemana">📅 Ver mi semana</button>
     </section>
 
     <!-- Respuesta adaptada -->
-    <section id="pantallaRespuesta" class="oculto centrado pila" aria-live="polite">
+    <section id="pantallaRespuesta" class="hidden centered pila" aria-live="polite">
       <div class="picto-grande" id="respuestaPicto" aria-hidden="true"></div>
       <h2 id="respuestaMensaje"></h2>
       <p id="respuestaSugerencia"></p>
       <button type="button" class="btn btn-audio" id="btnOirRespuesta" data-i18n-aria="ariaOirRespuesta" aria-label="Escuchar el mensaje"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-      <button type="button" class="btn oculto" id="btnRespirar" data-i18n="respirarDespacio">🫁 Respirar despacio</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverSeleccion" data-i18n="volver">Volver</button>
+      <button type="button" class="btn hidden" id="btnRespirar" data-i18n="respirarDespacio">🫁 Respirar despacio</button>
+      <button type="button" class="btn btn-secondary" id="btnVolverSeleccion" data-i18n="volver">Volver</button>
     </section>
 
     <!-- Breathing exercise -->
-    <section id="pantallaRespiracion" class="oculto centrado pila">
+    <section id="pantallaRespiracion" class="hidden centered pila">
       <div id="circuloRespiracion" aria-hidden="true"></div>
       <h2 id="textoRespiracion" aria-live="polite" data-i18n="cogeAire">Coge aire…</h2>
       <p id="ciclosRespiracion"></p>
-      <button type="button" class="btn btn-secundario" id="btnSalirRespiracion" data-i18n="terminar">Terminar</button>
+      <button type="button" class="btn btn-secondary" id="btnSalirRespiracion" data-i18n="terminar">Terminar</button>
     </section>
 
     <!-- Mi semana -->
-    <section id="pantallaSemana" class="oculto centrado pila">
+    <section id="pantallaSemana" class="hidden centered pila">
       <h2 data-i18n="miSemana">Mi semana</h2>
       <p data-i18n="semanaIntro">Así te has sentido estos días.</p>
       <div id="listaSemana" class="pila"></div>
-      <button type="button" class="btn btn-secundario" id="btnVolverDeSemana" data-i18n="volver">Volver</button>
+      <button type="button" class="btn btn-secondary" id="btnVolverDeSemana" data-i18n="volver">Volver</button>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

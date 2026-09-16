@@ -1,5 +1,5 @@
 /* ============================================================
-   Datos: Diccionario (lenguaje — palabras difíciles con
+   Datos: Diccionario (lenguaje — words difíciles con
    significado sencillo, aprendizaje significativo).
    Cada palabra se enseña con una ficha que une tres cosas, para
    anclar la palabra nueva a algo que la persona ya conoce
@@ -13,17 +13,17 @@
    contenido propio de cada idioma (no traducción literal, para
    que el registro y la dificultad sean equivalentes — I18N.md §3).
    DATA.porRonda = tamaño del test de cada grupo (coincide con las
-   8 palabras del grupo: se preguntan todas).
-   app.js usa DATA[App.i18n.locale()] || DATA.es. Las opciones
+   8 words del grupo: se preguntan todas).
+   app.js usa DATA[App.i18n.locale()] || DATA.es. Las options
    incorrectas del test se generan tomando el significado de otras
-   palabras del mismo grupo (nunca inventadas).
+   words del mismo grupo (nunca inventadas).
    Niveles 4-15 son una copia estática e histórica del banco
    `content/dictionary/{es,en}.json` (eliminado en 2026-08-30; el
    contenido de este archivo es la versión conservada para la
-   actividad). 100 palabras/idioma: 3 grupos de 8 por cada uno de
+   actividad). 100 words/idioma: 3 grupos de 8 por cada uno de
    los 4 temas del banco original (día a día, emociones y
    personalidad, trabajo y sociedad, ciencia y el mundo). Quedan 4
-   palabras sin usar por idioma para una futura ampliación.
+   words sin usar por idioma para una futura ampliación.
    ============================================================ */
 var DATA = {
   porRonda: 8,
@@ -39,7 +39,7 @@ var DATA = {
         { word: 'ocasional', definition: 'Que pasa de vez en cuando, no siempre.', example: 'Tiene dolores de cabeza ocasionales, no todos los días.' },
         { word: 'imprescindible', definition: 'Que hace mucha falta, no se puede vivir sin ello.', example: 'El agua es imprescindible para vivir.' },
         { word: 'cotidiano', definition: 'Que pasa todos los días, normal.', example: 'Lavarse los dientes es una tarea cotidiana.' },
-        { word: 'considerable', definition: 'Que es bastante grande o importante.', example: 'Ganó una cantidad considerable de dinero en el sorteo.' }
+        { word: 'considerable', definition: 'Que es bastante grande o importante.', example: 'Ganó una count considerable de dinero en el sorteo.' }
       ]
     },
     {
@@ -53,7 +53,7 @@ var DATA = {
         { word: 'tenaz', definition: 'Que no se rinde, sigue intentándolo.', example: 'Fue tenaz y aprobó el examen después de tres intentos.' },
         { word: 'locuaz', definition: 'Que habla mucho y con facilidad.', example: 'Mi tío es muy locuaz: puede hablar horas sin parar.' },
         { word: 'sereno', definition: 'Que está tranquilo, sin nervios.', example: 'Se quedó sereno aunque hubo un problema grande.' },
-        { word: 'indeciso', definition: 'Que le cuesta elegir entre varias opciones.', example: 'Es indeciso: tardó media hora en elegir el postre.' }
+        { word: 'indeciso', definition: 'Que le cuesta elegir entre varias options.', example: 'Es indeciso: tardó media hora en elegir el postre.' }
       ]
     },
     {
@@ -80,7 +80,7 @@ var DATA = {
         { word: 'accesible', definition: 'Que es fácil de usar o de llegar hasta él.', example: 'La rampa hace que la entrada sea accesible en silla de ruedas.' },
         { word: 'puntual', definition: 'Que llega a la hora exacta, ni antes ni después.', example: 'Fue puntual: llegó justo a las nueve.' },
         { word: 'razonable', definition: 'Que tiene sentido y no es exagerado.', example: 'El precio del billete me pareció razonable.' },
-        { word: 'suficiente', definition: 'Que hay la cantidad justa que hace falta.', example: 'Tenemos comida suficiente para toda la semana.' },
+        { word: 'suficiente', definition: 'Que hay la count justa que hace falta.', example: 'Tenemos comida suficiente para toda la semana.' },
         { word: 'previsible', definition: 'Que se puede saber antes de que pase.', example: 'La lluvia era previsible: lo dijo el tiempo esta mañana.' }
       ]
     },
@@ -89,7 +89,7 @@ var DATA = {
       name: 'Nivel 5 · Día a día (3)',
       words: [
         { word: 'duradero', definition: 'Que dura mucho tiempo sin romperse.', example: 'Estos zapatos son duraderos: los uso desde hace tres años.' },
-        { word: 'sencillo', definition: 'Que no tiene complicaciones, es fácil de entender.', example: 'La receta es sencilla: solo tiene tres pasos.' },
+        { word: 'sencillo', definition: 'Que no tiene complicaciones, es fácil de entender.', example: 'La receta es sencilla: solo tiene tres steps.' },
         { word: 'habitual', definition: 'Que pasa casi siempre, es lo normal.', example: 'Tomar café por la mañana es habitual en mi casa.' },
         { word: 'urgente', definition: 'Que hay que hacerlo ya, no puede esperar.', example: 'La llamada era urgente: había un problema en el trabajo.' },
         { word: 'provisional', definition: 'Que dura poco tiempo, hasta que llegue algo definitivo.', example: 'Vivimos en un piso provisional mientras arreglan el nuestro.' },
@@ -119,7 +119,7 @@ var DATA = {
         { word: 'optimista', definition: 'Que ve el lado bueno de las cosas.', example: 'Es optimista: cree que todo saldrá bien.' },
         { word: 'pesimista', definition: 'Que ve el lado malo de las cosas.', example: 'Es pesimista: piensa que algo saldrá mal.' },
         { word: 'generoso', definition: 'Que le gusta compartir lo que tiene con los demás.', example: 'Fue generoso: dio la mitad de su comida.' },
-        { word: 'orgulloso', definition: 'Que se siente muy contento por algo que ha hecho.', example: 'Está orgulloso de haber aprobado el examen.' },
+        { word: 'orgulloso', definition: 'Que se siente muy contento por algo que ha done.', example: 'Está orgulloso de haber aprobado el examen.' },
         { word: 'humilde', definition: 'Que no presume de lo que tiene o hace.', example: 'Es humilde: nunca habla de sus premios.' },
         { word: 'impulsivo', definition: 'Que actúa rápido, sin pensar antes.', example: 'Fue impulsivo: compró el coche sin mirar el precio.' },
         { word: 'prudente', definition: 'Que piensa bien antes de actuar, para evitar problemas.', example: 'Fue prudente: miró a los dos lados antes de cruzar.' },
@@ -193,7 +193,7 @@ var DATA = {
         { word: 'infraestructura', definition: 'Las cosas construidas que hacen falta para vivir, como carreteras o el agua.', example: 'El pueblo mejoró su infraestructura con una carretera nueva.' },
         { word: 'sostenible', definition: 'Que se puede mantener en el tiempo sin dañar las cosas.', example: 'Usar la bici es un transporte sostenible.' },
         { word: 'colaborar', definition: 'Ayudar entre varias personas para conseguir algo juntos.', example: 'Todos colaboraron para organizar la fiesta.' },
-        { word: 'representante', definition: 'La persona que habla en nombre de un grupo.', example: 'El representante de los vecinos habló en la reunión.' }
+        { word: 'representante', definition: 'La persona que habla en name de un grupo.', example: 'El representante de los vecinos habló en la reunión.' }
       ]
     },
     {
@@ -214,14 +214,14 @@ var DATA = {
       id: 'level14',
       name: 'Nivel 14 · Ciencia y el mundo (3)',
       words: [
-        { word: 'innovador', definition: 'Que trae algo nuevo que no existía antes.', example: 'Ese invento es innovador: nadie lo había hecho antes.' },
+        { word: 'innovador', definition: 'Que trae algo nuevo que no existía antes.', example: 'Ese invento es innovador: nadie lo había done antes.' },
         { word: 'globalización', definition: 'Cuando países de todo el mundo están conectados y se parecen más.', example: 'La globalización hace que se pueda comprar de otros países fácilmente.' },
         { word: 'patrimonio', definition: 'Todo lo importante de un lugar que viene del pasado, como monumentos o costumbres.', example: 'La catedral es parte del patrimonio de la ciudad.' },
         { word: 'civilización', definition: 'Un grupo grande de personas que vive de forma organizada, con normas y cultura.', example: 'Los romanos fueron una gran civilización.' },
         { word: 'filosofía', definition: 'La forma de pensar sobre la vida y sus grandes preguntas.', example: 'La filosofía intenta responder qué es la felicidad.' },
         { word: 'ética', definition: 'Lo que se considera bueno o malo hacer.', example: 'Por ética, un médico debe decir la verdad sobre tu salud.' },
         { word: 'empírico', definition: 'Que se sabe porque se ha comprobado, no porque se imagina.', example: 'El resultado es empírico: se comprobó varias veces en el laboratorio.' },
-        { word: 'objetivo', definition: 'Que se basa en hechos reales, no en lo que uno siente.', example: 'El árbitro debe ser objetivo y no favorecer a ningún equipo.' }
+        { word: 'objetivo', definition: 'Que se basa en done reales, no en lo que uno siente.', example: 'El árbitro debe ser objetivo y no favorecer a ningún equipo.' }
       ]
     },
     {
@@ -234,7 +234,7 @@ var DATA = {
         { word: 'paradoja', definition: 'Algo que parece imposible o contradictorio, pero puede ser cierto.', example: 'Es una paradoja: cuanto más rápido corres en la cinta, menos avanzas.' },
         { word: 'analogía', definition: 'Comparar dos cosas distintas porque se parecen en algo.', example: 'Explicó el corazón con una analogía: es como una bomba de agua.' },
         { word: 'hermético', definition: 'Que está cerrado del todo, no deja pasar nada.', example: 'El bote es hermético: no entra ni sale aire.' },
-        { word: 'sofisticado', definition: 'Que es complicado y avanzado, hecho con mucho cuidado.', example: 'Ese aparato es sofisticado: tiene muchas funciones.' },
+        { word: 'sofisticado', definition: 'Que es complicado y avanzado, done con mucho cuidado.', example: 'Ese aparato es sofisticado: tiene muchas funciones.' },
         { word: 'autóctono', definition: 'Que es originario del lugar donde vive, no viene de fuera.', example: 'El lince es un animal autóctono de España.' }
       ]
     }

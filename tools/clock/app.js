@@ -1,15 +1,15 @@
 /* ============================================================
    Routime — El Reloj (autonomía: leer la hora).
    Cuatro mecánicas elegidas en la pantalla de inicio:
-     - leer        Ver el reloj analógico → elegir la hora escrita.
+     - leer        Ver el reloj analógico → select la hora escrita.
      - poner       Leer la hora escrita → ajustar las agujas.
      - convertir   Emparejar reloj analógico con su hora digital
                    (y la inversa en la misma ronda).
-     - situaciones Ver un momento del día → elegir el reloj.
+     - situaciones Ver un timeOfDay del día → select el reloj.
 
    Datos en data.js (DATA.modos, DATA.niveles, DATA.momentos).
    Módulos compartidos en assets/js/. Textos en strings.<locale>.js.
-   El error nunca se castiga: 2 intentos, pista socrática,
+   El error nunca se castiga: 2 attempts, pista socrática,
    respuesta correcta al segundo fallo, y la pregunta se repite
    al final (App.reinforce). Las estrellas solo suman.
    ============================================================ */
@@ -19,48 +19,48 @@
   var TOOL_ID = 'clock';
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
+  var startScreen = $('#startScreen');
   var pantallaNiveles = $('#pantallaNiveles');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var zonaPreguntaEl = $('#zonaPregunta');
   var textoPreguntaEl = $('#textoPregunta');
-  var opcionesEl = $('#opciones');
+  var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnEscuchar = $('#btnEscuchar');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnListen = $('#btnListen');
+  var btnNext = $('#btnNext');
   var progresoRelleno = $('#progresoRelleno');
   var progresoTexto = $('#progresoTexto');
   var estrellasEl = $('#estrellas');
 
   /* Progreso persistente */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
 
   /* Estado de la ronda */
   var modo = null;
   var nivel = null;
   var preguntas = [];
   var idx = 0;
-  var aciertosRonda = 0;
+  var roundHits = 0;
   var enRefuerzo = false;
   var refuerzoIdx = 0;
   var refuerzoLista = [];
   var refuerzoTotal = 0;
-  var preguntaActual = null;
-  var resuelto = false;
-  var intentos = 0;
+  var currentQuestion = null;
+  var solved = false;
+  var attempts = 0;
   /* Estado de borrador (modo "poner"). */
   var borradorHora = null;
   var borradorMinuto = null;
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  function pintarEstrellas() { estrellasEl.textContent = '⭐ ' + progreso.estrellas; }
+  function renderStars() { estrellasEl.textContent = '⭐ ' + progress.stars; }
 
   /* ---- Helpers de hora ---- */
   function hora12(h24) {
@@ -90,17 +90,17 @@
       { n: 9,  x: 20, y: 52 }
     ].map(function (p) {
       return '<text x="' + p.x + '" y="' + p.y + '" text-anchor="middle" ' +
-        'font-size="12" font-weight="700" fill="var(--color-texto)" ' +
+        'font-size="12" font-weight="700" fill="var(--color-text)" ' +
         'style="font-family:var(--fuente)">' + p.n + '</text>';
     }).join('');
     return '<svg viewBox="0 0 100 100" width="120" height="120" role="img" aria-hidden="true">' +
-      '<circle cx="50" cy="50" r="45" fill="#FFFFFF" stroke="var(--color-texto)" stroke-width="4"/>' +
+      '<circle cx="50" cy="50" r="45" fill="#FFFFFF" stroke="var(--color-text)" stroke-width="4"/>' +
       numeros +
-      '<line x1="50" y1="50" x2="50" y2="28" stroke="var(--color-texto)" stroke-width="5" ' +
+      '<line x1="50" y1="50" x2="50" y2="28" stroke="var(--color-text)" stroke-width="5" ' +
       'stroke-linecap="round" transform="rotate(' + anguloHora + ' 50 50)"/>' +
-      '<line x1="50" y1="50" x2="50" y2="18" stroke="var(--color-texto)" stroke-width="3.5" ' +
+      '<line x1="50" y1="50" x2="50" y2="18" stroke="var(--color-text)" stroke-width="3.5" ' +
       'stroke-linecap="round" transform="rotate(' + anguloMinuto + ' 50 50)"/>' +
-      '<circle cx="50" cy="50" r="3" fill="var(--color-texto)"/>' +
+      '<circle cx="50" cy="50" r="3" fill="var(--color-text)"/>' +
       '</svg>';
   }
 
@@ -112,12 +112,12 @@
   }
 
   function combinacionDistinta(excluir) {
-    var h, m, intentos = 0;
+    var h, m, attempts = 0;
     do {
       h = horaAleatoria();
       m = minutoAleatorio();
-      intentos++;
-    } while (excluir.some(function (e) { return e.h === h && e.m === m; }) && intentos < 30);
+      attempts++;
+    } while (excluir.some(function (e) { return e.h === h && e.m === m; }) && attempts < 30);
     return { h: h, m: m };
   }
 
@@ -126,15 +126,15 @@
     var h = horaAleatoria();
     var m = minutoAleatorio();
     var usados = [{ h: h, m: m }];
-    var opciones = [{ texto: textoHora(h, m), esCorrecta: true }];
-    while (opciones.length < 3) {
+    var options = [{ text: textoHora(h, m), isCorrect: true }];
+    while (options.length < 3) {
       var d = combinacionDistinta(usados);
       usados.push(d);
-      var texto = textoHora(d.h, d.m);
-      if (opciones.some(function (o) { return o.texto === texto; })) continue;
-      opciones.push({ texto: texto, esCorrecta: false });
+      var text = textoHora(d.h, d.m);
+      if (options.some(function (o) { return o.text === text; })) continue;
+      options.push({ text: text, isCorrect: false });
     }
-    return { tipo: 'leer', hora: h, minuto: m, opciones: opciones };
+    return { tipo: 'leer', hora: h, minuto: m, options: options };
   }
 
   function preguntaPoner() {
@@ -149,28 +149,28 @@
     var h = horaAleatoria();
     var m = minutoAleatorio();
     var usados = [{ h: h, m: m }];
-    var opciones = [{ h: h, m: m, esCorrecta: true }];
-    while (opciones.length < 3) {
+    var options = [{ h: h, m: m, isCorrect: true }];
+    while (options.length < 3) {
       var d = combinacionDistinta(usados);
       usados.push(d);
-      opciones.push({ h: d.h, m: d.m, esCorrecta: false });
+      options.push({ h: d.h, m: d.m, isCorrect: false });
     }
-    return { tipo: 'convertir', hora: h, minuto: m, opciones: opciones };
+    return { tipo: 'convertir', hora: h, minuto: m, options: options };
   }
 
   function preguntaSituacion() {
     var momentos = banco().momentos;
-    var momento = momentos[Math.floor(Math.random() * momentos.length)];
-    var h = hora12(momento.hora);
+    var timeOfDay = momentos[Math.floor(Math.random() * momentos.length)];
+    var h = hora12(timeOfDay.hora);
     var m = minutoAleatorio();
     var usados = [{ h: h, m: m }];
-    var opciones = [{ h: h, m: m, esCorrecta: true }];
-    while (opciones.length < 3) {
+    var options = [{ h: h, m: m, isCorrect: true }];
+    while (options.length < 3) {
       var d = combinacionDistinta(usados);
       usados.push(d);
-      opciones.push({ h: d.h, m: d.m, esCorrecta: false });
+      options.push({ h: d.h, m: d.m, isCorrect: false });
     }
-    return { tipo: 'situaciones', momento: momento, opciones: opciones };
+    return { tipo: 'situaciones', timeOfDay: timeOfDay, options: options };
   }
 
   /* ---- Pantallas de inicio (modo → nivel → juego) ---- */
@@ -182,8 +182,8 @@
       btn.type = 'button';
       btn.className = 'btn btn-modo';
       btn.innerHTML =
-        '<strong data-i18n="modo.' + m.id + '.nombre">' +
-          App.i18n.t('modo.' + m.id + '.nombre') +
+        '<strong data-i18n="modo.' + m.id + '.name">' +
+          App.i18n.t('modo.' + m.id + '.name') +
         '</strong>' +
         '<span class="modo-desc" data-i18n="modo.' + m.id + '.descripcion">' +
           App.i18n.t('modo.' + m.id + '.descripcion') +
@@ -195,25 +195,25 @@
 
   function elegirModo(m) {
     modo = m;
-    pantallaInicio.classList.add('oculto');
-    pantallaNiveles.classList.remove('oculto');
-    pintarNiveles();
+    startScreen.classList.add('hidden');
+    pantallaNiveles.classList.remove('hidden');
+    renderLevels();
   }
 
-  function pintarNiveles() {
+  function renderLevels() {
     var cont = $('#niveles');
     cont.innerHTML = '';
     banco().niveles.forEach(function (n) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion;
-      btn.addEventListener('click', function () { iniciarRonda(n); });
+      btn.innerHTML = n.name + ' — ' + n.descripcion;
+      btn.addEventListener('click', function () { startRound(n); });
       cont.appendChild(btn);
     });
   }
 
-  function iniciarRonda(n) {
+  function startRound(n) {
     nivel = n;
     var constructores = {
       leer: preguntaLeer,
@@ -230,16 +230,16 @@
       preguntas.push(q);
     }
     idx = 0;
-    aciertosRonda = 0;
+    roundHits = 0;
     enRefuerzo = false;
     refuerzoIdx = 0;
-    preguntaActual = null;
+    currentQuestion = null;
     App.reinforce.banner.hide();
     App.reinforce.start(function (fallos) { iniciarRefuerzo(fallos); });
-    pantallaInicio.classList.add('oculto');
-    pantallaNiveles.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
+    startScreen.classList.add('hidden');
+    pantallaNiveles.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
     render();
   }
 
@@ -252,7 +252,7 @@
       App.i18n.t('refuerzoTitulo') + ' — ' +
       App.i18n.t('refuerzoIntro').replace('{n}', refuerzoTotal)
     );
-    preguntaActual = refuerzoLista[0];
+    currentQuestion = refuerzoLista[0];
     pintarProgresoRefuerzo();
     render();
   }
@@ -262,7 +262,7 @@
     progresoTexto.textContent = '';
   }
 
-  function pintarProgreso() {
+  function renderProgress() {
     var total = banco().porRonda;
     progresoRelleno.style.width = ((idx / total) * 100) + '%';
     progresoTexto.textContent = '';
@@ -271,22 +271,22 @@
   /* ---- Render ---- */
   function render() {
     var p = preguntas[idx];
-    resuelto = false;
-    intentos = 0;
+    solved = false;
+    attempts = 0;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
+    explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
-    opcionesEl.innerHTML = '';
-    opcionesEl.className = 'pila';
+    btnNext.classList.add('hidden');
+    optionsEl.innerHTML = '';
+    optionsEl.className = 'pila';
     var live = zonaPreguntaEl.querySelector('.digital-live');
     if (live) detenerDigital(live);
     zonaPreguntaEl.innerHTML = '';
     borradorHora = null;
     borradorMinuto = null;
     textoPreguntaEl.textContent = '';
-    if (btnEscuchar) btnEscuchar.classList.add('oculto');
+    if (btnListen) btnListen.classList.add('hidden');
 
     if (!p) return;
     if (p.tipo === 'leer')            renderLeer(p);
@@ -294,20 +294,20 @@
     else if (p.tipo === 'convertir')  renderConvertir(p);
     else if (p.tipo === 'situaciones') renderSituacion(p);
 
-    pintarProgreso();
-    pintarEstrellas();
+    renderProgress();
+    renderStars();
   }
 
   function renderLeer(p) {
     zonaPreguntaEl.innerHTML = svgReloj(p.hora, p.minuto);
     textoPreguntaEl.textContent = App.i18n.t('queHora');
-    App.utils.shuffle(p.opciones).forEach(function (op) {
+    App.utils.shuffle(p.options).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { responder(btn, op.esCorrecta, p); });
-      opcionesEl.appendChild(btn);
+      btn.textContent = op.textContent;
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, p); });
+      optionsEl.appendChild(btn);
     });
   }
 
@@ -327,8 +327,8 @@
 
     textoPreguntaEl.textContent = App.i18n.t('modo.poner.pregunta');
 
-    opcionesEl.className = 'pila opciones-steppers';
-    opcionesEl.innerHTML =
+    optionsEl.className = 'pila options-steppers';
+    optionsEl.innerHTML =
       htmlStepper('hora', App.i18n.t('ponerHora'), inicioH, 1, 12) +
       htmlStepper('minuto', App.i18n.t('ponerMinuto'), inicioM, 0, 59) +
       '<button type="button" class="btn btn-confirmar" id="btnConfirmarPoner">' +
@@ -338,7 +338,7 @@
     enlazarStepper('minuto', 0, 59);
 
     $('#btnConfirmarPoner').addEventListener('click', function () {
-      responder($('#btnConfirmarPoner'),
+      answer($('#btnConfirmarPoner'),
         borradorHora === p.hora && borradorMinuto === p.minuto,
         p);
     });
@@ -356,7 +356,7 @@
   }
 
   function enlazarStepper(tipo, min, max) {
-    var root = opcionesEl.querySelector('.stepper[data-tipo="' + tipo + '"]');
+    var root = optionsEl.querySelector('.stepper[data-tipo="' + tipo + '"]');
     if (!root) return;
     var valEl = root.querySelector('.stepper-valor');
     function setVal(v) {
@@ -391,117 +391,117 @@
     if (p.direccion === 'a2d') {
       zonaPreguntaEl.innerHTML = svgReloj(p.hora, p.minuto);
       textoPreguntaEl.textContent = App.i18n.t('convertirAnalogicoDigital');
-      App.utils.shuffle(p.opciones).forEach(function (op) {
+      App.utils.shuffle(p.options).forEach(function (op) {
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn-opcion';
         btn.innerHTML = '<span class="dig-pair">' + horaDigital(op.h, op.m) + '</span>';
-        btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{texto}', horaDigital(op.h, op.m)));
-        btn.addEventListener('click', function () { responder(btn, op.esCorrecta, p); });
-        opcionesEl.appendChild(btn);
+        btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{text}', horaDigital(op.h, op.m)));
+        btn.addEventListener('click', function () { answer(btn, op.isCorrect, p); });
+        optionsEl.appendChild(btn);
       });
     } else {
       zonaPreguntaEl.innerHTML = '<div class="digital-face">' +
         '<span class="dig-pair">' + horaDigital(p.hora, p.minuto) + '</span></div>';
       textoPreguntaEl.textContent = App.i18n.t('convertirDigitalAnalogico');
-      opcionesEl.className = 'pila opciones-reloj';
-      App.utils.shuffle(p.opciones).forEach(function (op) {
+      optionsEl.className = 'pila options-reloj';
+      App.utils.shuffle(p.options).forEach(function (op) {
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn-opcion opcion-reloj';
         btn.innerHTML = svgReloj(op.h, op.m);
-        btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{texto}', textoHora(op.h, op.m)));
-        btn.addEventListener('click', function () { responder(btn, op.esCorrecta, p); });
-        opcionesEl.appendChild(btn);
+        btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{text}', textoHora(op.h, op.m)));
+        btn.addEventListener('click', function () { answer(btn, op.isCorrect, p); });
+        optionsEl.appendChild(btn);
       });
     }
   }
 
   function renderSituacion(p) {
-    zonaPreguntaEl.innerHTML = '<div class="momento-picto" aria-hidden="true">' +
-      p.momento.picto + '</div>';
-    textoPreguntaEl.textContent = App.i18n.t('momento.' + p.momento.id + '.pregunta');
-    opcionesEl.className = 'pila opciones-reloj';
-    App.utils.shuffle(p.opciones).forEach(function (op) {
+    zonaPreguntaEl.innerHTML = '<div class="timeOfDay-picto" aria-hidden="true">' +
+      p.timeOfDay.picto + '</div>';
+    textoPreguntaEl.textContent = App.i18n.t('timeOfDay.' + p.timeOfDay.id + '.pregunta');
+    optionsEl.className = 'pila options-reloj';
+    App.utils.shuffle(p.options).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion opcion-reloj';
       btn.innerHTML = svgReloj(op.h, op.m);
-      btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{texto}', textoHora(op.h, op.m)));
-      btn.addEventListener('click', function () { responder(btn, op.esCorrecta, p); });
-      opcionesEl.appendChild(btn);
+      btn.setAttribute('aria-label', App.i18n.t('ariaReloj').replace('{text}', textoHora(op.h, op.m)));
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, p); });
+      optionsEl.appendChild(btn);
     });
   }
 
   /* ---- Evaluación (compartida por las 4 mecánicas) ---- */
-  function textoCorrecto(p) {
+  function correctText(p) {
     if (p.tipo === 'leer') {
-      var c0 = p.opciones.filter(function (o) { return o.esCorrecta; })[0];
-      return c0 ? c0.texto : '';
+      var c0 = p.options.filter(function (o) { return o.isCorrect; })[0];
+      return c0 ? c0.textContent : '';
     }
     if (p.tipo === 'poner') return textoHora(p.hora, p.minuto);
     if (p.tipo === 'convertir') {
-      var c1 = p.opciones.filter(function (o) { return o.esCorrecta; })[0];
+      var c1 = p.options.filter(function (o) { return o.isCorrect; })[0];
       return p.direccion === 'a2d'
         ? horaDigital(c1.h, c1.m)
         : textoHora(c1.h, c1.m);
     }
     if (p.tipo === 'situaciones') {
-      var c2 = p.opciones.filter(function (o) { return o.esCorrecta; })[0];
+      var c2 = p.options.filter(function (o) { return o.isCorrect; })[0];
       return textoHora(c2.h, c2.m);
     }
     return '';
   }
 
-  function mostrarExplicacion(esCorrecta, p) {
-    var prefijo = esCorrecta ? App.i18n.t('explicacionCorrecta')
+  function showExplanation(isCorrect, p) {
+    var prefijo = isCorrect ? App.i18n.t('explicacionCorrecta')
                              : App.i18n.t('explicacionIncorrectaA');
-    explicacionEl.textContent = prefijo + textoCorrecto(p) + '.';
-    explicacionWrap.classList.remove('oculto');
+    explicacionEl.textContent = prefijo + correctText(p) + '.';
+    explicacionWrap.classList.remove('hidden');
   }
 
   /* Método socrático: en el primer fallo no se da la respuesta —
      se anima a mirar de nuevo. Solo en el segundo fallo se explica
-     la hora correcta (mostrarExplicacion). */
-  function mostrarPista(p) {
+     la hora correcta (showExplanation). */
+  function showHint(p) {
     var clave;
     if (p.tipo === 'leer') clave = 'pistaLeer';
     else if (p.tipo === 'situaciones') clave = 'pistaAsociar';
     else if (p.tipo === 'poner') clave = 'pistaPoner';
     else clave = 'pistaConvertir';
     explicacionEl.textContent = App.i18n.t(clave);
-    explicacionWrap.classList.remove('oculto');
+    explicacionWrap.classList.remove('hidden');
   }
 
-  function responder(btn, esCorrecta, p) {
-    if (resuelto) return;
-    if (esCorrecta) {
-      mostrarExplicacion(esCorrecta, p);
-      resuelto = true;
+  function answer(btn, isCorrect, p) {
+    if (solved) return;
+    if (isCorrect) {
+      showExplanation(isCorrect, p);
+      solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opciones .btn-opcion, #opciones .btn-step, #btnConfirmarPoner')
+      App.utils.$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
         .forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosRonda += 1;
-      guardar();
-      pintarEstrellas();
-      btnSiguiente.classList.remove('oculto');
-      btnSiguiente.focus();
+      roundHits += 1;
+      save();
+      renderStars();
+      btnNext.classList.remove('hidden');
+      btnNext.focus();
     } else {
-      intentos += 1;
-      if (intentos === 1) App.reinforce.add(nivel.id + ':' + idx, p);
-      if (intentos === 1) {
-        mostrarPista(p);
+      attempts += 1;
+      if (attempts === 1) App.reinforce.add(nivel.id + ':' + idx, p);
+      if (attempts === 1) {
+        showHint(p);
       } else {
-        mostrarExplicacion(esCorrecta, p);
+        showExplanation(isCorrect, p);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
       App.feedback.lockUntilAck(
-        App.utils.$$('#opciones .btn-opcion, #opciones .btn-step, #btnConfirmarPoner'),
+        App.utils.$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner'),
         explicacionWrap);
     }
   }
@@ -511,57 +511,57 @@
       refuerzoIdx += 1;
       if (refuerzoIdx >= refuerzoTotal) {
         enRefuerzo = false;
-        preguntaActual = null;
+        currentQuestion = null;
         App.reinforce.clear();
         App.reinforce.banner.hide();
-        terminarRonda();
+        endRound();
         return;
       }
-      preguntaActual = refuerzoLista[refuerzoIdx];
+      currentQuestion = refuerzoLista[refuerzoIdx];
       pintarProgresoRefuerzo();
-      opcionesEl.className = 'pila';
+      optionsEl.className = 'pila';
       render();
       return;
     }
     idx += 1;
-    opcionesEl.className = 'pila';
+    optionsEl.className = 'pila';
     if (idx >= banco().porRonda) {
       var consume = App.reinforce.consume();
-      if (consume.length === 0) terminarRonda();
+      if (consume.length === 0) endRound();
       return;
     }
-    preguntaActual = null;
+    currentQuestion = null;
     render();
   }
 
-  function terminarRonda() {
-    guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-    $('#transferencia').textContent.textContent = '';
+  function endRound() {
+    save();
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---- Eventos ---- */
-  $('#btnSiguiente').addEventListener('click', siguiente);
-  $('#btnRepetir').addEventListener('click', function () { iniciarRonda(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaNiveles.classList.remove('oculto');
+  $('#btnNext').addEventListener('click', siguiente);
+  $('#btnRepeat').addEventListener('click', function () { startRound(nivel); });
+  $('#btnOtherLevel').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    pantallaNiveles.classList.remove('hidden');
   });
   $('#btnOtroModo').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaNiveles.classList.add('oculto');
-    pantallaInicio.classList.remove('oculto');
+    endScreen.classList.add('hidden');
+    pantallaNiveles.classList.add('hidden');
+    startScreen.classList.remove('hidden');
   });
-  if (btnEscuchar) {
-    btnEscuchar.addEventListener('click', function () {
+  if (btnListen) {
+    btnListen.addEventListener('click', function () {
       var t = textoPreguntaEl.textContent || '';
       if (t) if (false && App.tts && App.tts.speak) App.tts.speak(t);
     });
   }
 
   pintarModos();
-  pintarEstrellas();
+  renderStars();
 })();

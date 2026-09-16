@@ -1,7 +1,7 @@
 /* ==========================================================================
    Routime — Positive reinforcement and encouragement messages
    Exposes window.App.feedback.success(zona) / .encourage(zona) / .celebrate(msg) /
-   .lockUntilAck(botones, zona, alConfirmar)
+   .lockUntilAck(buttons, zona, alConfirmar)
    Rules 5 and 6 of CLAUDE.md: mistakes are never punished; feedback <= 2 s.
    Messages follow the active language (App.i18n.pick). Requires utils.js and i18n.js.
    ========================================================================== */
@@ -10,8 +10,8 @@
 
   window.App = window.App || {};
 
-  function alAzar(clave) {
-    if (window.App.i18n) return window.App.i18n.pick(clave);
+  function alAzar(key) {
+    if (window.App.i18n) return window.App.i18n.pick(key);
     return '';
   }
 
@@ -143,12 +143,12 @@
    * earlier wrong try in this round are left as-is. Shows/reuses an
    * "Entendido" button inside `zona`, focuses it; clicking it re-enables
    * the buttons this call locked. Retries stay unlimited.
-   * @param {Element[]|NodeList} botones - option buttons of the current round
-   * @param {Element} zona - wrap holding the pista/explicacion (or consejo) text
+   * @param {Element[]|NodeList} buttons - option buttons of the current round
+   * @param {Element} zona - wrap holding the pista/explanation (or consejo) text
    * @param {function} [alConfirmar] - called after the person taps Entendido
    */
-  function lockUntilAck(botones, zona, alConfirmar) {
-    var pendientes = Array.prototype.filter.call(botones || [], function (b) { return !b.disabled; });
+  function lockUntilAck(buttons, zona, alConfirmar) {
+    var pendientes = Array.prototype.filter.call(buttons || [], function (b) { return !b.disabled; });
     pendientes.forEach(function (b) {
       b.disabled = true;
       b.classList.add('bloqueada');

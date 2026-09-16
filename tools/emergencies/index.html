@@ -19,20 +19,20 @@
     </header>
 
     <!-- Screen: menu of the 2 activities -->
-    <section id="pantallaMenu" class="pila">
-      <div class="fila centrado-fila">
+    <section id="menuScreen" class="pila">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Aquí practicas dos cosas: saber si algo es una emergencia de verdad, y practicar cómo pedir ayuda. El 112 solo es para emergencias de verdad.</p>
       </div>
-      <div class="grid-tarjetas">
+      <div class="cards-grid">
         <button type="button" class="tarjeta-actividad" id="tarjetaReconocer">
           <span class="picto" aria-hidden="true">🚨</span>
-          <span class="nombre" data-i18n="menuReconocer">¿Es una emergencia?</span>
+          <span class="name" data-i18n="menuReconocer">¿Es una emergencia?</span>
           <span class="detalle" data-i18n="menuReconocerDetalle">Distingue lo que sí lo es de lo que no.</span>
           <span class="marca" id="marcaReconocer"></span>
         </button>
         <button type="button" class="tarjeta-actividad" id="tarjetaLlamada">
           <span class="picto" aria-hidden="true">📞</span>
-          <span class="nombre" data-i18n="menuLlamada">Practica la llamada</span>
+          <span class="name" data-i18n="menuLlamada">Practica la llamada</span>
           <span class="detalle" data-i18n="menuLlamadaDetalle">Ordena qué decir si pides ayuda.</span>
           <span class="marca" id="marcaLlamada"></span>
         </button>
@@ -40,59 +40,59 @@
     </section>
 
     <!-- Pantalla: ¿Es una emergencia? -->
-    <section id="pantallaReconocer" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnVolverReconocer" data-i18n="volverMenu">← Volver</button>
+    <section id="pantallaReconocer" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverReconocer" data-i18n="volverMenu">← Volver</button>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressReconocerFill"></div>
         <span class="progress-text" id="progressReconocerText">0 / 8</span>
       </div>
 
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="situacion-picto" id="situacionPicto"></div>
-        <p class="texto-principal" id="situacionTexto" data-i18n="core.loading">Cargando…</p>      </div>
-      <h2 class="pregunta centrado" data-i18n="pregunta">¿Qué haces?</h2>
+        <p class="text-principal" id="situacionTexto" data-i18n="core.loading">Cargando…</p>      </div>
+      <h2 class="pregunta centered" data-i18n="pregunta">¿Qué haces?</h2>
       <div class="pila" id="opcionesReconocer"></div>
       <div class="feedback" id="feedbackReconocer" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionReconocerWrap">
+      <div class="row explicacion hidden" id="explicacionReconocerWrap">
         <p id="explicacionReconocer" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn oculto" id="btnSiguienteReconocer" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="btnSiguienteReconocer" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- Pantalla: practica la llamada -->
-    <section id="pantallaLlamada" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnVolverLlamada" data-i18n="volverMenu">← Volver</button>
+    <section id="pantallaLlamada" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverLlamada" data-i18n="volverMenu">← Volver</button>
       </div>
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccionLlamada" data-i18n="instruccionLlamada">Toca los pasos en el orden correcto para pedir ayuda: primero quién eres, luego qué pasa, luego dónde estás.</p>
+      <div class="row centered-row">
+        <p class="instruccion" id="instruccionLlamada" data-i18n="instruccionLlamada">Toca los steps en el orden correct para pedir ayuda: primero quién eres, luego qué pasa, luego dónde estás.</p>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressLlamadaFill"></div>
         <span class="progress-text" id="progressLlamadaText">0 / 4</span>
       </div>
 
-      <p class="lista-titulo centrado" id="listaTitulo"></p>
+      <p class="lista-titulo centered" id="listaTitulo"></p>
 
-      <p class="etiqueta centrado" data-i18n="etiquetaOrden">Tu llamada</p>
-      <div class="pila-secuencia" id="secuencia"></div>
+      <p class="etiqueta centered" data-i18n="etiquetaOrden">Tu llamada</p>
+      <div class="sequence-stack" id="secuencia"></div>
 
-      <p class="etiqueta centrado" data-i18n="etiquetaPasos">Pasos</p>
-      <div class="pila-disponibles" id="disponibles"></div>
+      <p class="etiqueta centered" data-i18n="etiquetaPasos">Pasos</p>
+      <div class="available-stack" id="disponibles"></div>
 
       <div class="feedback" id="feedbackLlamada" aria-live="polite"></div>
     </section>
 
     <!-- Pantalla final (compartida por las 2 actividades) -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverMenuFinal" data-i18n="volverMenu">← Volver</button>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnVolverMenuFinal" data-i18n="volverMenu">← Volver</button>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

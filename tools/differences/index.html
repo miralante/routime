@@ -19,16 +19,16 @@
     </header>
 
     <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
+    <section id="startScreen" class="pila centered">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Mira los dos dibujos. Toca en el de la derecha lo que es distinto.</p>
       </div>
       <button type="button" class="btn" id="btnEmpezar" data-i18n="empezar">Empezar</button>
     </section>
 
     <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila">
-      <p class="escena-titulo centrado" id="escenaTitulo"></p>
+    <section id="gameScreen" class="hidden pila">
+      <p class="escena-titulo centered" id="escenaTitulo"></p>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText"></span>
@@ -45,19 +45,19 @@
         </div>
       </div>
 
-      <p class="contador centrado" id="contador" aria-live="polite"></p>
+      <p class="contador centered" id="contador" aria-live="polite"></p>
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="siguienteEscena" data-i18n-aria="siguienteEscenaAria">→</button>
+      <button type="button" class="btn hidden" id="btnNext" data-i18n="siguienteEscena" data-i18n-aria="siguienteEscenaAria">→</button>
     </section>
 
     <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="rondaCompletadaTitulo">¡Ronda completada!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

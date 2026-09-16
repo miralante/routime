@@ -126,8 +126,8 @@ slugs.forEach(function (slug) {
     app: {
       feedback_success: app.indexOf('feedback.success') >= 0 || app.indexOf('feedback.acierto') >= 0,
       feedback_encourage: app.indexOf('feedback.encourage') >= 0 || app.indexOf('feedback.animo') >= 0,
-      mostrarPista: app.indexOf('mostrarPista') >= 0,
-      mostrarExplicacion: app.indexOf('mostrarExplicacion') >= 0,
+      mostrarPista: app.indexOf('mostrarPista') >= 0 || app.indexOf('showHint') >= 0,
+      mostrarExplicacion: app.indexOf('mostrarExplicacion') >= 0 || app.indexOf('showExplanation') >= 0,
       tts_speak: app.indexOf('tts.speak') >= 0,
       prefers_reduced_motion: idx.indexOf('prefers-reduced-motion') >= 0 || css.indexOf('prefers-reduced-motion') >= 0
     },

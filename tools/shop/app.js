@@ -2,7 +2,7 @@
    Routime — La Tienda (autonomía: usar el dinero en la vida
    real). Datos en data.js. Dinero visual compartido en
    assets/js/dinero.js (App.dinero). Tres actividades:
-   - Una compra: simulación guiada completa en 3 pasos —
+   - Una compra: simulación guiada completa en 3 steps —
      ¿te llega? → paga (tu monedero es FINITO: cada ficha se usa
      una vez) → ¿está bien el cambio? Si no te llega y lo ves,
      eliges algo más barato; si el cambio está mal y lo ves, el
@@ -29,34 +29,34 @@
   var descomponer = App.dinero.descomponer;
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
   ['completadosTienda', 'completadosQuedame', 'completadosMucho', 'completadosPaga', 'completadosFiar']
-    .forEach(function (clave) { if (!progreso[clave]) progreso[clave] = {}; });
+    .forEach(function (clave) { if (!progress[clave]) progress[clave] = {}; });
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function datos() { return DATA[App.i18n.locale()] || DATA.es; }
   function azar(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
-  function minuscula(nombre) { return nombre.charAt(0).toLowerCase() + nombre.slice(1); }
+  function minuscula(name) { return name.charAt(0).toLowerCase() + name.slice(1); }
 
   /* ---- Pantallas ---- */
-  var PANTALLAS = ['pantallaMenu', 'pantallaNiveles', 'pantallaJuegoQuiz',
-    'pantallaJuegoTienda', 'pantallaFinal'];
+  var PANTALLAS = ['menuScreen', 'pantallaNiveles', 'pantallaJuegoQuiz',
+    'pantallaJuegoTienda', 'endScreen'];
   function mostrar(id) {
-    PANTALLAS.forEach(function (p) { $('#' + p).classList.add('oculto'); });
-    $('#' + id).classList.remove('oculto');
+    PANTALLAS.forEach(function (p) { $('#' + p).classList.add('hidden'); });
+    $('#' + id).classList.remove('hidden');
   }
 
   /* Distractores de importe: cercanos, distintos y positivos. */
-  function distractoresDe(correcto, paso) {
+  function distractoresDe(correct, paso) {
     var lista = [];
     App.utils.shuffle([paso, 100, paso * 2]).forEach(function (d) {
-      [correcto + d, correcto - d].forEach(function (x) {
-        if (x > 0 && x !== correcto && lista.indexOf(x) === -1 && lista.length < 2) lista.push(x);
+      [correct + d, correct - d].forEach(function (x) {
+        if (x > 0 && x !== correct && lista.indexOf(x) === -1 && lista.length < 2) lista.push(x);
       });
     });
-    while (lista.length < 2) lista.push(correcto + (lista.length + 1) * paso);
+    while (lista.length < 2) lista.push(correct + (lista.length + 1) * paso);
     return lista;
   }
 
@@ -81,21 +81,21 @@
 
   function cfgActual() { return ACTIVIDADES[actividadActual]; }
 
-  function mostrarTextoQuiz(texto) {
-    explicacionQuizEl.textContent = texto;
-    explicacionQuizWrap.classList.remove('oculto');
+  function mostrarTextoQuiz(text) {
+    explicacionQuizEl.textContent = text;
+    explicacionQuizWrap.classList.remove('hidden');
   }
 
   function pintarMesaQuiz(piezas) {
     var mesaEl = $('#mesaDinero');
     App.dinero.pintarFichas(mesaEl, piezas);
-    mesaEl.classList.toggle('oculto', !piezas || !piezas.length);
+    mesaEl.classList.toggle('hidden', !piezas || !piezas.length);
   }
 
   function pintarProgresoQuiz() {
     var total = datos().porRonda;
     $('#progressQuizFill').style.width = (idxQ / total * 100) + '%';
-    $('#progressQuizText').textContent.textContent = '';
+    $('#progressQuizText').textContent = '';
   }
 
   function iniciarRondaQuiz(nivel) {
@@ -114,27 +114,27 @@
     resueltoQ = false;
     feedbackQuizEl.textContent = '';
     feedbackQuizEl.className = 'feedback';
-    explicacionQuizWrap.classList.add('oculto');
+    explicacionQuizWrap.classList.add('hidden');
     explicacionQuizEl.textContent = '';
-    btnSiguienteQuiz.classList.add('oculto');
+    btnSiguienteQuiz.classList.add('hidden');
 
     enunciadoQuizEl.textContent = cfg.enunciado(casoQ);
     pintarMesaQuiz(cfg.mesa ? cfg.mesa(casoQ) : null);
 
     opcionesQuizEl.innerHTML = '';
     opcionBotones = [];
-    cfg.opciones(casoQ).forEach(function (op) {
+    cfg.options(casoQ).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
+      btn.textContent = op.textContent;
       btn.addEventListener('click', function () { responderQuiz(btn, op); });
       opcionesQuizEl.appendChild(btn);
       opcionBotones.push({ btn: btn, op: op });
     });
 
     pintarProgresoQuiz();
-    pintarEstrellas();
+    renderStars();
   }
 
   function resolverQuiz(bien) {
@@ -145,7 +145,7 @@
       if (par.op.correcta) par.btn.classList.add('correcta');
     });
     mostrarTextoQuiz(cfg.explicacion(casoQ, bien));
-    btnSiguienteQuiz.classList.remove('oculto');
+    btnSiguienteQuiz.classList.remove('hidden');
     btnSiguienteQuiz.focus();
   }
 
@@ -154,10 +154,10 @@
     if (op.correcta) {
       if (intentosQ === 0) {
         aciertosQ += 1;
-        progreso.estrellas += 1;
+        progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-        guardar();
-        pintarEstrellas();
+        save();
+        renderStars();
       }
       App.feedback.success(feedbackQuizEl);
       resolverQuiz(true);
@@ -177,7 +177,7 @@
 
   function siguienteQuiz() {
     idxQ += 1;
-    if (idxQ >= datos().porRonda) terminarRonda(aciertosQ, nivelQ);
+    if (idxQ >= datos().porRonda) endRound(aciertosQ, nivelQ);
     else renderQuiz();
   }
 
@@ -219,7 +219,7 @@
         var caso = {
           saldo: saldoQ,
           picto: producto.picto,
-          nombre: producto.nombre,
+          name: producto.name,
           gasto: producto.precioCent,
           queda: queda,
           importes: App.utils.shuffle([queda].concat(distractoresDe(queda, nivel.paso)))
@@ -230,20 +230,20 @@
       enunciado: function (caso) {
         return caso.picto + ' ' + App.i18n.t('enunciadoQuedame')
           .replace('{saldo}', formatear(caso.saldo))
-          .replace('{nombre}', minuscula(caso.nombre))
+          .replace('{name}', minuscula(caso.name))
           .replace('{gasto}', formatear(caso.gasto));
       },
       mesa: function (caso) { return descomponer(caso.saldo); },
-      opciones: function (caso) {
+      options: function (caso) {
         return caso.importes.map(function (cent) {
-          return { texto: formatear(cent), correcta: cent === caso.queda };
+          return { text: formatear(cent), correcta: cent === caso.queda };
         });
       },
       pista: function () { return App.i18n.t('pistaQuedame'); },
       explicacion: function (caso, bien) {
         return App.i18n.t(bien ? 'explicacionQuedameBien' : 'explicacionQuedameCasi')
           .replace('{saldo}', formatear(caso.saldo))
-          .replace('{nombre}', caso.nombre)
+          .replace('{name}', caso.name)
           .replace('{gasto}', formatear(caso.gasto))
           .replace('{queda}', formatear(caso.queda));
       }
@@ -262,7 +262,7 @@
         var mostrado = esBien ? producto.precioCent : producto.precioCent * nivel.mult;
         return {
           picto: producto.picto,
-          nombre: producto.nombre,
+          name: producto.name,
           ref: producto.precioCent,
           mostrado: mostrado,
           esBien: esBien
@@ -270,23 +270,23 @@
       },
       enunciado: function (caso) {
         return caso.picto + ' ' + App.i18n.t('enunciadoMucho')
-          .replace('{nombre}', caso.nombre)
+          .replace('{name}', caso.name)
           .replace('{mostrado}', formatear(caso.mostrado));
       },
       mesa: function () { return null; },
       /* Two options in fixed order (rule 11: max 3). */
-      opciones: function (caso) {
+      options: function (caso) {
         return [
-          { texto: App.i18n.t('estaBien'), correcta: caso.esBien },
-          { texto: App.i18n.t('esDemasiado'), correcta: !caso.esBien }
+          { text: App.i18n.t('estaBien'), correcta: caso.esBien },
+          { text: App.i18n.t('esDemasiado'), correcta: !caso.esBien }
         ];
       },
       pista: function (caso) {
-        return App.i18n.t('pistaMucho').replace('{nombre}', minuscula(caso.nombre));
+        return App.i18n.t('pistaMucho').replace('{name}', minuscula(caso.name));
       },
       explicacion: function (caso) {
         return App.i18n.t(caso.esBien ? 'explicacionMuchoBien' : 'explicacionMuchoMal')
-          .replace('{nombre}', minuscula(caso.nombre))
+          .replace('{name}', minuscula(caso.name))
           .replace('{ref}', formatear(caso.ref))
           .replace('{mostrado}', formatear(caso.mostrado));
       }
@@ -318,7 +318,7 @@
             dia: semana.dia,
             saldo: semana.saldo,
             picto: semana.objetivo.picto,
-            nombre: semana.objetivo.nombre,
+            name: semana.objetivo.name,
             precio: semana.objetivo.precioCent,
             objetivo: semana.objetivo,
             esSabado: true,
@@ -335,7 +335,7 @@
             dia: semana.dia,
             saldo: semana.saldo,
             picto: producto.picto,
-            nombre: producto.nombre,
+            name: producto.name,
             precio: producto.precioCent,
             objetivo: semana.objetivo,
             esSabado: false,
@@ -353,33 +353,33 @@
         return caso.picto + ' ' + App.i18n.t(clave)
           .replace('{dia}', App.i18n.t('dia' + caso.dia))
           .replace('{saldo}', formatear(caso.saldo))
-          .replace('{nombre}', minuscula(caso.nombre))
+          .replace('{name}', minuscula(caso.name))
           .replace('{precio}', formatear(caso.precio));
       },
       mesa: function (caso) { return descomponer(caso.saldo); },
-      opciones: function (caso) {
+      options: function (caso) {
         return [
-          { texto: App.i18n.t('si'), correcta: caso.sePuede },
-          { texto: App.i18n.t('no'), correcta: !caso.sePuede }
+          { text: App.i18n.t('si'), correcta: caso.sePuede },
+          { text: App.i18n.t('no'), correcta: !caso.sePuede }
         ];
       },
       pista: function (caso) {
-        return App.i18n.t('pistaPaga').replace('{objetivo}', minuscula(caso.objetivo.nombre));
+        return App.i18n.t('pistaPaga').replace('{objetivo}', minuscula(caso.objetivo.name));
       },
       explicacion: function (caso) {
         if (caso.esSabado) {
           return App.i18n.t('explicacionPagaSabado')
             .replace('{saldo}', formatear(caso.saldo))
-            .replace('{nombre}', minuscula(caso.nombre))
+            .replace('{name}', minuscula(caso.name))
             .replace('{precio}', formatear(caso.precio))
             .replace('{queda}', formatear(caso.quedaria));
         }
         return App.i18n.t(caso.sePuede ? 'explicacionPagaSi' : 'explicacionPagaNo')
           .replace('{saldo}', formatear(caso.saldo))
-          .replace('{nombre}', minuscula(caso.nombre))
+          .replace('{name}', minuscula(caso.name))
           .replace('{precio}', formatear(caso.precio))
           .replace('{queda}', formatear(caso.quedaria))
-          .replace('{objetivo}', minuscula(caso.objetivo.nombre))
+          .replace('{objetivo}', minuscula(caso.objetivo.name))
           .replace('{precioObjetivo}', formatear(caso.objetivo.precioCent));
       }
     },
@@ -403,7 +403,7 @@
         }
         return {
           picto: producto.picto,
-          nombre: producto.nombre,
+          name: producto.name,
           ref: producto.precioCent,
           mostrado: mostrado,
           esFiable: esFiable,
@@ -413,28 +413,28 @@
       enunciado: function (caso) {
         return caso.picto + ' ' + App.i18n.t('enunciadoFiar')
           .replace('{contexto}', App.i18n.t('contextoFiar' + caso.contexto))
-          .replace('{nombre}', minuscula(caso.nombre))
+          .replace('{name}', minuscula(caso.name))
           .replace('{precio}', formatear(caso.mostrado));
       },
       mesa: function () { return null; },
-      opciones: function (caso) {
+      options: function (caso) {
         return [
-          { texto: App.i18n.t('pareceFiar'), correcta: caso.esFiable },
-          { texto: App.i18n.t('sospechoso'), correcta: !caso.esFiable }
+          { text: App.i18n.t('pareceFiar'), correcta: caso.esFiable },
+          { text: App.i18n.t('sospechoso'), correcta: !caso.esFiable }
         ];
       },
       pista: function (caso) {
-        return App.i18n.t('pistaFiar').replace('{nombre}', minuscula(caso.nombre));
+        return App.i18n.t('pistaFiar').replace('{name}', minuscula(caso.name));
       },
       explicacion: function (caso) {
         return App.i18n.t(caso.esFiable ? 'explicacionFiarBien' : 'explicacionFiarMal')
-          .replace('{nombre}', caso.nombre)
+          .replace('{name}', caso.name)
           .replace('{ref}', formatear(caso.ref))
           .replace('{mostrado}', formatear(caso.mostrado));
       }
     },
 
-    /* --- Una compra — motor propio de 3 pasos --- */
+    /* --- Una compra — motor propio de 3 steps --- */
     tienda: {
       esQuiz: false,
       instruccion: 'instruccionTienda',
@@ -450,12 +450,12 @@
   function abrirActividad(id) {
     actividadActual = id;
     var cfg = cfgActual();
-    $('#instruccionActividad').textContent.textContent = '';
-    pintarNiveles();
+    $('#instruccionActividad').textContent = '';
+    renderLevels();
     mostrar('pantallaNiveles');
   }
 
-  function pintarNiveles() {
+  function renderLevels() {
     var cfg = cfgActual();
     var cont = $('#niveles');
     cont.innerHTML = '';
@@ -463,8 +463,8 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
-      var veces = progreso[cfg.progresoClave][n.id] || 0;
-      btn.innerHTML = n.nombre + ' — ' + n.descripcion ;
+      var veces = progress[cfg.progresoClave][n.id] || 0;
+      btn.innerHTML = n.name + ' — ' + n.descripcion ;
 
       btn.addEventListener('click', function () {
         if (cfg.esQuiz) iniciarRondaQuiz(n);
@@ -474,19 +474,19 @@
     });
   }
 
-  function terminarRonda(aciertos, nivel) {
+  function endRound(aciertos, nivel) {
     var cfg = cfgActual();
-    progreso[cfg.progresoClave][nivel.id] = (progreso[cfg.progresoClave][nivel.id] || 0) + 1;
-    guardar();
+    progress[cfg.progresoClave][nivel.id] = (progress[cfg.progresoClave][nivel.id] || 0) + 1;
+    save();
     var total = cfg.esQuiz ? datos().porRonda : datos().porRondaTienda;
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
-    mostrar('pantallaFinal');
+    $('#resumenFinal').textContent = '';
+$('#transferencia').textContent = '';
+    mostrar('endScreen');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ============================================================
-     Una compra — motor de 3 pasos
+     Una compra — motor de 3 steps
      ============================================================ */
   var enunciadoTiendaEl = $('#enunciadoTienda');
   var mesaTiendaEl = $('#mesaTienda');
@@ -550,34 +550,34 @@ $('#transferencia').textContent.textContent = '';
   function pintarProgresoTienda() {
     var total = datos().porRondaTienda;
     $('#progressTiendaFill').style.width = (compraIdx / total * 100) + '%';
-    $('#progressTiendaText').textContent.textContent = '';
+    $('#progressTiendaText').textContent = '';
   }
 
   function pintarCartel() {
-    $('#productoTienda').textContent.textContent = '';
-    $('#precioTienda').textContent.textContent = '';
-    $('#cartelProducto').classList.remove('oculto');
+    $('#productoTienda').textContent = '';
+    $('#precioTienda').textContent = '';
+    $('#cartelProducto').classList.remove('hidden');
   }
 
   function limpiarPasoTienda() {
     feedbackTiendaEl.textContent = '';
     feedbackTiendaEl.className = 'feedback';
-    explicacionTiendaWrap.classList.add('oculto');
+    explicacionTiendaWrap.classList.add('hidden');
     explicacionTiendaEl.textContent = '';
-    btnContinuarTienda.classList.add('oculto');
+    btnContinuarTienda.classList.add('hidden');
     accionesTiendaEl.innerHTML = '';
     intentosPaso = 0;
   }
 
-  function mostrarTextoTienda(texto) {
-    explicacionTiendaEl.textContent = texto;
-    explicacionTiendaWrap.classList.remove('oculto');
+  function mostrarTextoTienda(text) {
+    explicacionTiendaEl.textContent = text;
+    explicacionTiendaWrap.classList.remove('hidden');
   }
 
   function ofrecerContinuar(fn) {
     alContinuar = fn;
     accionesTiendaEl.innerHTML = '';
-    btnContinuarTienda.classList.remove('oculto');
+    btnContinuarTienda.classList.remove('hidden');
     btnContinuarTienda.focus();
   }
 
@@ -604,7 +604,7 @@ $('#transferencia').textContent.textContent = '';
   function nuevaCompra() {
     compra = generarCompra(nivelT);
     pintarProgresoTienda();
-    pintarEstrellas();
+    renderStars();
     montarPaso1();
   }
 
@@ -612,27 +612,27 @@ $('#transferencia').textContent.textContent = '';
   function montarPaso1() {
     limpiarPasoTienda();
     pintarCartel();
-    zonaPagoEl.classList.add('oculto');
+    zonaPagoEl.classList.add('hidden');
     App.dinero.pintarFichas(mesaTiendaEl, compra.monedero);
-    mesaTiendaEl.classList.remove('oculto');
-    var texto = App.i18n.t('paso1Enunciado')
-      .replace('{nombre}', compra.producto.nombre)
+    mesaTiendaEl.classList.remove('hidden');
+    var text = App.i18n.t('paso1Enunciado')
+      .replace('{name}', compra.producto.name)
       .replace('{precio}', formatear(compra.producto.precioCent));
-    enunciadoTiendaEl.textContent = texto;
+    enunciadoTiendaEl.textContent = text;
     botonesSiNo(responderPaso1);
   }
 
   function resolverPaso1() {
     var clave = compra.llega ? 'explicaLlega' : 'explicaNoLlega';
-    var texto = App.i18n.t(clave)
+    var text = App.i18n.t(clave)
       .replace('{total}', formatear(totalMonedero()))
       .replace('{precio}', formatear(compra.producto.precioCent));
     if (!compra.llega) {
-      texto += ' ' + App.i18n.t('resolucionNoLlega')
-        .replace('{nombre}', minuscula(compra.alternativo.nombre))
+      text += ' ' + App.i18n.t('resolucionNoLlega')
+        .replace('{name}', minuscula(compra.alternativo.name))
         .replace('{precio}', formatear(compra.alternativo.precioCent));
     }
-    mostrarTextoTienda(texto);
+    mostrarTextoTienda(text);
     ofrecerContinuar(function () {
       if (!compra.llega) {
         compra.producto = compra.alternativo;   /* eliges lo barato */
@@ -666,7 +666,7 @@ $('#transferencia').textContent.textContent = '';
     pintarCartel();
     enunciadoTiendaEl.textContent = App.i18n.t('paso2Enunciado')
       .replace('{precio}', formatear(compra.producto.precioCent));
-    zonaPagoEl.classList.remove('oculto');
+    zonaPagoEl.classList.remove('hidden');
     pintarPago();
     var btnPagar = document.createElement('button');
     btnPagar.type = 'button';
@@ -702,7 +702,7 @@ $('#transferencia').textContent.textContent = '';
       });
       mostradorEl.appendChild(btn);
     });
-    $('#totalMostrador').textContent.textContent = '';
+    $('#totalMostrador').textContent = '';
   }
 
   function pagar() {
@@ -712,9 +712,9 @@ $('#transferencia').textContent.textContent = '';
       intentosPaso += 1;
       compra.fallo = true;
       App.feedback.encourage(feedbackTiendaEl);
-      var texto = intentosPaso === 1 ? App.i18n.t('faltaDinero1') :
+      var text = intentosPaso === 1 ? App.i18n.t('faltaDinero1') :
         App.i18n.t('faltaDinero2').replace('{dif}', hablado(precio - puesto));
-      mostrarTextoTienda(texto);
+      mostrarTextoTienda(text);
       return;
     }
     compra.pagado = puesto;
@@ -732,8 +732,8 @@ $('#transferencia').textContent.textContent = '';
   /* ---- Step 3: is the change correct? ---- */
   function montarPaso3() {
     limpiarPasoTienda();
-    $('#cartelProducto').classList.add('oculto');
-    zonaPagoEl.classList.add('oculto');
+    $('#cartelProducto').classList.add('hidden');
+    zonaPagoEl.classList.add('hidden');
 
     compra.cambioEsBien = Math.random() < 0.5;
     var mostrado = compra.cambioBueno;
@@ -748,7 +748,7 @@ $('#transferencia').textContent.textContent = '';
     compra.cambioMostrado = descomponer(mostrado);
 
     App.dinero.pintarFichas(mesaTiendaEl, compra.cambioMostrado);
-    mesaTiendaEl.classList.remove('oculto');
+    mesaTiendaEl.classList.remove('hidden');
     enunciadoTiendaEl.textContent = App.i18n.t('paso3Enunciado')
       .replace('{pagado}', formatear(compra.pagado))
       .replace('{precio}', formatear(compra.producto.precioCent));
@@ -757,15 +757,15 @@ $('#transferencia').textContent.textContent = '';
 
   function resolverPaso3() {
     var mostrado = compra.cambioMostrado.reduce(function (s, c) { return s + c; }, 0);
-    var texto = App.i18n.t(compra.cambioEsBien ? 'explicaCambioBien' : 'explicaCambioMal')
+    var text = App.i18n.t(compra.cambioEsBien ? 'explicaCambioBien' : 'explicaCambioMal')
       .replace('{bueno}', formatear(compra.cambioBueno))
       .replace('{mostrado}', formatear(mostrado));
-    texto += ' ' + App.i18n.t(compra.cambioEsBien ? 'resolucionCambioBien' : 'resolucionCambioMal');
+    text += ' ' + App.i18n.t(compra.cambioEsBien ? 'resolucionCambioBien' : 'resolucionCambioMal');
     if (!compra.cambioEsBien) {
       /* El dependiente lo corrige a la vista. */
       App.dinero.pintarFichas(mesaTiendaEl, descomponer(compra.cambioBueno));
     }
-    mostrarTextoTienda(texto);
+    mostrarTextoTienda(text);
     ofrecerContinuar(terminarCompra);
   }
 
@@ -791,13 +791,13 @@ $('#transferencia').textContent.textContent = '';
   function terminarCompra() {
     if (!compra.fallo) {
       aciertosT += 1;
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      guardar();
-      pintarEstrellas();
+      save();
+      renderStars();
     }
     compraIdx += 1;
-    if (compraIdx >= datos().porRondaTienda) terminarRonda(aciertosT, nivelT);
+    if (compraIdx >= datos().porRondaTienda) endRound(aciertosT, nivelT);
     else nuevaCompra();
   }
 
@@ -805,8 +805,8 @@ $('#transferencia').textContent.textContent = '';
   App.utils.$$('.tarjeta-actividad').forEach(function (btn) {
     btn.addEventListener('click', function () { abrirActividad(btn.getAttribute('data-actividad')); });
   });
-  $('#btnVolverMenuNiveles').addEventListener('click', function () { mostrar('pantallaMenu'); });
-  $('#btnVolverMenuFinal').addEventListener('click', function () { mostrar('pantallaMenu'); });
+  $('#btnVolverMenuNiveles').addEventListener('click', function () { mostrar('menuScreen'); });
+  $('#btnVolverMenuFinal').addEventListener('click', function () { mostrar('menuScreen'); });
 
   btnSiguienteQuiz.addEventListener('click', siguienteQuiz);
   $('#btnEnunciadoQuiz').addEventListener('click', function () {
@@ -822,12 +822,12 @@ $('#transferencia').textContent.textContent = '';
     if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoTiendaEl.textContent);
   });
 
-  $('#btnRepetir').addEventListener('click', function () {
+  $('#btnRepeat').addEventListener('click', function () {
     if (cfgActual().esQuiz) iniciarRondaQuiz(nivelQ);
     else iniciarRondaTienda(nivelT);
   });
   $('#btnOtroNivelFinal').addEventListener('click', function () { abrirActividad(actividadActual); });
 
-  pintarEstrellas();
+  renderStars();
 })();
 

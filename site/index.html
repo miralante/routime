@@ -199,7 +199,7 @@
 </head>
 <body>
   <div class="container suite-home">
-    <header class="cabecera centrado suite-header">
+    <header class="cabecera centered suite-header">
       <div class="suite-brand">
         <img src="../assets/img/icono.svg" alt="" width="44" height="44" class="logo">
         <div class="suite-brand-copy">
@@ -208,11 +208,11 @@
         </div>
       </div>
       <div class="suite-controls"><div class="idioma-selector" role="group" aria-label="Elegir idioma">
-        <button type="button" class="btn-idioma" id="btnIdiomaEs" data-locale="es" aria-pressed="false" aria-label="Español"><span class="locale-full" aria-hidden="true">🇪🇸 Español</span><span class="locale-short" aria-hidden="true">ES</span></button>
-        <button type="button" class="btn-idioma" id="btnIdiomaEn" data-locale="en" aria-pressed="false" aria-label="English"><span class="locale-full" aria-hidden="true">🇬🇧 English</span><span class="locale-short" aria-hidden="true">EN</span></button>
+        <button type="button" class="btn-lang" id="btnLangEs" data-locale="es" aria-pressed="false" aria-label="Español"><span class="locale-full" aria-hidden="true">🇪🇸 Español</span><span class="locale-short" aria-hidden="true">ES</span></button>
+        <button type="button" class="btn-lang" id="btnLangEn" data-locale="en" aria-pressed="false" aria-label="English"><span class="locale-full" aria-hidden="true">🇬🇧 English</span><span class="locale-short" aria-hidden="true">EN</span></button>
       </div></div>
       <div class="suite-details">
-        <div class="fila centrado-fila">
+        <div class="fila centered-fila">
         <p class="saludo" id="saludo" data-i18n="saludo">Hola. ¿Qué quieres hacer hoy?</p>
       </div>
         <p class="stars" id="estrellasTotales">⭐ 0</p>
@@ -602,18 +602,18 @@
 
       function pintarSelectorIdioma() {
         var activo = App.i18n.locale();
-        document.getElementById('btnIdiomaEs').setAttribute('aria-pressed', String(activo === 'es'));
-        document.getElementById('btnIdiomaEn').setAttribute('aria-pressed', String(activo === 'en'));
+        document.getElementById('btnLangEs').setAttribute('aria-pressed', String(activo === 'es'));
+        document.getElementById('btnLangEn').setAttribute('aria-pressed', String(activo === 'en'));
       }
 
       document.getElementById('estrellasTotales').textContent =
         '⭐ ' + App.storage.estrellasTotales();
       document.getElementById('estrellasTotales').title = App.i18n.t('yourStars');
 
-      document.getElementById('btnIdiomaEs').addEventListener('click', function () {
+      document.getElementById('btnLangEs').addEventListener('click', function () {
         App.i18n.setLocale('es');
       });
-      document.getElementById('btnIdiomaEn').addEventListener('click', function () {
+      document.getElementById('btnLangEn').addEventListener('click', function () {
         App.i18n.setLocale('en');
       });
       pintarSelectorIdioma();

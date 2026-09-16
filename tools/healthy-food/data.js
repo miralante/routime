@@ -1,6 +1,6 @@
 /* ============================================================
    Datos: Comida Sana (autonomía/hogar — alimentación saludable).
-   Formato: DATA[locale] = { porRonda, niveles: [{ id, nombre,
+   Formato: DATA[locale] = { porRonda, niveles: [{ id, name,
      descripcion, estrellas, categorias: string[2] (las cajas de
      ese nivel), items: [{ picto, palabra, categoria, consecuencia }] }] }
    'categoria' de cada item debe coincidir con uno de los valores de
@@ -20,7 +20,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Nivel 1',
+        name: 'Nivel 1',
         descripcion: 'Alimentos muy claros',
         estrellas: 1,
         categorias: ['Cada día', 'De vez en cuando'],
@@ -53,7 +53,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Nivel 2',
+        name: 'Nivel 2',
         descripcion: 'Alimentos menos evidentes',
         estrellas: 2,
         categorias: ['Cada día', 'De vez en cuando'],
@@ -91,7 +91,7 @@ const DATA = {
     niveles: [
       {
         id: 1,
-        nombre: 'Level 1',
+        name: 'Level 1',
         descripcion: 'Very clear foods',
         estrellas: 1,
         categorias: ['Every day', 'Now and then'],
@@ -124,7 +124,7 @@ const DATA = {
       },
       {
         id: 2,
-        nombre: 'Level 2',
+        name: 'Level 2',
         descripcion: 'Less obvious foods',
         estrellas: 2,
         categorias: ['Every day', 'Now and then'],

@@ -329,7 +329,7 @@ each one migrates it.
 | `get` | `(toolId) → object` | Saved progress, or `{}` if nothing or error. Migrates `apptonomia:<toolId>` → `routime:<toolId>` on first read |
 | `set` | `(toolId, data) → boolean` | Saves JSON. `false` if failed |
 | `remove` | `(toolId) → boolean` | Deletes the tool's progress under both prefixes |
-| `estrellasTotales` | `() → number` | Sums `datos.estrellas` of all `routime:*` keys (used by landing) |
+| `totalStars` | `() → number` | Sums `datos.stars` (or legacy `datos.estrellas`) of all `routime:*` keys (used by landing) |
 | `listaToolIds` | `() → string[]` | Ids of tools with something saved under either prefix (without `'locale'`/`'prefs'`); used by `settings/` |
 
 **Progress contract**: the saved object should include `estrellas` (number) if the

@@ -6,9 +6,9 @@
   background: var(--mod-coordinacion);
 }
 
-.instruccion { font-size: var(--texto-grande); }
+.instruccion { font-size: var(--text-grande); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .progress-bar { margin-bottom: var(--espacio); }
 
@@ -42,13 +42,13 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }

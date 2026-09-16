@@ -73,8 +73,8 @@
         ? navigator.languages
         : [navigator.language || ''];
       for (var i = 0; i < idiomas.length; i++) {
-        var prefijo = (idiomas[i] || '').slice(0, 2).toLowerCase();
-        if (SOPORTADOS.indexOf(prefijo) !== -1) return prefijo;
+        var prefix = (idiomas[i] || '').slice(0, 2).toLowerCase();
+        if (SOPORTADOS.indexOf(prefix) !== -1) return prefix;
       }
     } catch (e) { /* ignore */ }
     return POR_DEFECTO;
@@ -116,9 +116,9 @@
       if (SOPORTADOS.indexOf(locale) === -1) return;
       if (!dict || typeof dict !== 'object') return;
       DICT[locale] = DICT[locale] || {};
-      for (var clave in dict) {
-        if (Object.prototype.hasOwnProperty.call(dict, clave)) {
-          DICT[locale][clave] = dict[clave];
+      for (var key in dict) {
+        if (Object.prototype.hasOwnProperty.call(dict, key)) {
+          DICT[locale][key] = dict[key];
         }
       }
       return;
@@ -127,9 +127,9 @@
     SOPORTADOS.forEach(function (loc) {
       if (!dict[loc]) return;
       DICT[loc] = DICT[loc] || {};
-      for (var clave in dict[loc]) {
-        if (Object.prototype.hasOwnProperty.call(dict[loc], clave)) {
-          DICT[loc][clave] = dict[loc][clave];
+      for (var key in dict[loc]) {
+        if (Object.prototype.hasOwnProperty.call(dict[loc], key)) {
+          DICT[loc][key] = dict[loc][key];
         }
       }
     });
@@ -153,9 +153,9 @@
     }
     if (SOPORTADOS.indexOf(loc) === -1) loc = POR_DEFECTO;
     DICT[loc] = DICT[loc] || {};
-    for (var clave in dict) {
-      if (Object.prototype.hasOwnProperty.call(dict, clave)) {
-        DICT[loc][clave] = dict[clave];
+    for (var key in dict) {
+      if (Object.prototype.hasOwnProperty.call(dict, key)) {
+        DICT[loc][key] = dict[key];
       }
     }
   }

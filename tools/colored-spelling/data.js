@@ -1,8 +1,8 @@
 /* ============================================================
    Datos: Ortografía en Colores (lenguaje — ortografía visual).
    La persona usuaria ve una oración completa y la escribe
-   letra a letra. Al comparar su texto con el correcto, las
-   letras que difieren se colorean para que pueda ver y
+   letra a letra. Al comparar su text con el correct, las
+   letters que difieren se colorean para que pueda ver y
    corregir sus propios errores sin presión.
    Formato:
    DATA.es / DATA.en = [{ id, name, sentences: [ { picto,
@@ -15,7 +15,7 @@
      validan por App.tts al pulsar Escuchar). No se usan
      caracteres especiales como la 'ñ': la ñ castellana sí se
      mantiene tal cual (MAYÚSCULA: Ñ).
-   - El texto es corto (Lectura Fácil, §5 regla 1) y trabaja
+   - El text es corto (Lectura Fácil, §5 regla 1) y trabaja
      los errores de ortografía reales del idioma (ES: b/v,
      c/z/s, g/j, h muda, mayúsculas tras punto; EN: their/
      there/they're, silent letters, -ed/-ing, dobles).

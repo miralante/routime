@@ -8,13 +8,13 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -30,7 +30,7 @@
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
 .grid-modelo, .grid-tuyo {
@@ -94,25 +94,25 @@
 }
 
 .btn-color[aria-pressed="true"] {
-  border-color: var(--color-texto);
+  border-color: var(--color-text);
   box-shadow: 0 0 0 4px var(--mod-memoria-suave);
 }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 640px) {
   .zona-grids { gap: var(--espacio); }
   .celda-modelo { width: 26px; height: 26px; }
   .celda-tuya { width: 64px; height: 64px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

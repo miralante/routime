@@ -19,32 +19,32 @@
     </header>
 
     <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
+    <section id="startScreen" class="pila centered">
+      <div class="row centered-row">
         <p class="instruccion" id="instruccion" data-i18n="instruccion">Busca las dos cartas iguales. Toca una carta para verla.</p>
       </div>
-      <button type="button" class="btn btn-principal" id="btnJugar">
+      <button type="button" class="btn btn-principal" id="btnPlay">
         <span data-i18n="btnJugar">¡Jugar!</span>
       </button>
     </section>
 
     <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila">
-      <p class="contador centrado" id="contador" aria-live="polite"></p>
-      <p class="dificultad centrado" id="dificultad" aria-live="polite"></p>
+    <section id="gameScreen" class="hidden pila">
+      <p class="contador centered" id="contador" aria-live="polite"></p>
+      <p class="dificultad centered" id="dificultad" aria-live="polite"></p>
       <div id="tablero" data-i18n-aria="tableroAria" aria-label="Tablero de cartas"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
 
     <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="finalTitulo">¡Lo has conseguido!</h2>
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

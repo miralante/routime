@@ -10,6 +10,7 @@
 [![PWA](https://img.shields.io/badge/PWA-instalable-5A0FC8.svg)](manifest.json)
 [![i18n](https://img.shields.io/badge/i18n-es%20%7C%20en-yellow.svg)](#-documentaci%C3%B3n)
 [![CI](https://img.shields.io/badge/CI-node%20scripts%2Fcheck.js-blue.svg)](.github/workflows/validate.yml)
+[![Pacto del colaborador](https://img.shields.io/badge/Pacto%20del%20colaborador-2.1-4baaaa.svg)](CODE_OF_CONDUCT.es.md)
 
 Aplicación web multi-idioma de actividades de terapia ocupacional diseñada
 para nuestras personas tipo. Pensada para usarse de forma autónoma,
@@ -96,6 +97,7 @@ Según tu rol y perfil, te interesa una u otra documentación:
 | Documento | Para quién |
 |---|---|
 | [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) | Familias, terapeutas y desarrolladores que quieran contribuir |
+| [`CODE_OF_CONDUCT.es.md`](CODE_OF_CONDUCT.es.md) | Pacto del colaborador (Contributor Covenant 2.1) |
 | `CLAUDE.md` | Agentes IA: reglas obligatorias y estado del proyecto |
 | [`CLOUDFLARE.md`](CLOUDFLARE.md) | Guía canónica de despliegue en Cloudflare Workers para la suite (Routime + landing Apptonomia + Calculia, Memofun, Okeymoney, Sinonimia, Teclatlon) |
 | Historial del proyecto | En `git log`; no se mantiene una hoja de ruta externa |
@@ -157,10 +159,8 @@ Para añadir una actividad nueva:
    con `tecnico.md`, gana `tecnico.md`.
 
 Para ampliar el **contenido** de una actividad existente, edita su
-`data.js` (más `data.js` dividido por idioma si lo hay) —
-
-ode scripts/check.js` impone paridad de claves entre
-`strings.es.js` y `strings.en.js`.
+`data.js` (más `data.js` dividido por idioma si lo hay) — `node scripts/check.js`
+impone paridad de claves entre `strings.es.js` y `strings.en.js`.
 
 ---
 
@@ -197,7 +197,7 @@ de un workflow extra.
 
 ---
 
-## 🙌 Contribuir
+## 🤝 Contribuir
 
 Las contribuciones son bienvenidas. Consulta [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md)
 para el flujo (o [`CONTRIBUTING.md`](CONTRIBUTING.md) para la versión en
@@ -237,23 +237,5 @@ listas de palabras curadas, etc.) que nunca llegan a la app. Añadir
 o editar ficheros allí no necesita `VERSION` bump.
 
 ---
-
-## 🙏 Créditos
-
-Routime es la PWA que envuelve varias experiencias de la suite (el
-catálogo de Apptonomia como portal, más las apps de la suite
-Calculia, Memofun, Okeymoney, Sinonimia y Teclatlon) sobre la misma
-filosofía de accesibilidad sin backend. La portada que ves al
-instalar (`site/index.html`) es el landing de Apptonomia, que se
-mantiene aquí por motivos históricos — Apptonomia fue el producto
-original del que nació el grupo.
-
-El diseño de actividades sigue los patrones documentados en
-[`doc/es/guia-crear-elementos.md`](doc/es/guia-crear-elementos.md)
-(didáctica, gamificación, persuasión, neuromarketing), con
-`tecnico.md` como fuente de verdad cuando ambas guías entran en
-conflicto.
-
-
 
 

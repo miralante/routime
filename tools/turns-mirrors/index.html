@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giros y Espejos | Routime</title>
+  <title>Giros y simetrias | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,58 +13,49 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🔄 Giros y Espejos</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>Routime</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Mira el modelo. Toca la opción correcta.</p>
+    <section id="startScreen" class="hidden pila centered">
+      <div class="fila centered-fila">
+        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
       </div>
-      <button type="button" class="btn btn-principal" id="btnJugar">
-        <span data-i18n="btnJugar">¡Jugar!</span>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">Jugar!</span>
       </button>
     </section>
 
-    <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila centrado">
+    <section id="gameScreen" class="hidden pila centered">
+
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-        <span class="progress-text" id="progressText">0 / 8</span>
-        <span class="dificultad" id="dificultad"></span>
+        <span class="progress-text" id="progressText"></span>
+        <span class="dificultad" id="level"></span>
       </div>
-
-      <p class="etiqueta-modelo" data-i18n="modelo">Modelo</p>
-      <div class="modelo-marco">
-        <span class="figura" id="modeloFigura"></span>
+      <div class="card centered stack">
+        <div id="modeloFigura" class="figura-modelo"></div>
+        <p id="question" class="pregunta"></p>
       </div>
-
-      <div class="fila centrado-fila">
-        <h2 class="pregunta" id="pregunta"></h2>
-        <button type="button" class="btn btn-audio" id="btnPregunta" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
-
-      <div class="opciones-figuras" id="opciones"></div>
-
+      <div class="options stack" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionWrap">
-        <p id="explicacion" aria-live="polite"></p>
+      <div class="row explanation hidden" id="explanationWrap">
+        <p id="explanation" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
+      <button type="button" class="btn btn-secondary hidden" id="btnPregunta">Nueva pregunta</button>
     </section>
 
-    <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
-    </section>
+      <section id="endScreen" class="hidden centered pila" aria-live="polite">
+        <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+        <h2>Ronda completada!</h2>
+        <p id="endSummary"></p>
+        <p class="transferencia">Sigue praticando para aprender mas.</p>
+        <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+        <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
+      </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
@@ -78,9 +69,8 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-

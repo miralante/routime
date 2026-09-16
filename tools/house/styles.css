@@ -2,7 +2,7 @@
 
 .tool-header h1 { color: var(--mod-secuencia); }
 
-.btn:not(.btn-secundario):not(.btn-audio) {
+.btn:not(.btn-secondary):not(.btn-audio) {
   background: var(--mod-secuencia);
 }
 
@@ -10,7 +10,7 @@
    LIST SCREEN — two columns, task rows
    ================================================================= */
 
-.lista-dos-columnas {
+.two-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--espacio);
@@ -19,13 +19,13 @@
 }
 
 @media (max-width: 640px) {
-  /* On phones, stack the columns vertically: origin above destino. */
-  .lista-dos-columnas {
+  /* On phones, stack the columns vertically: source above destination. */
+  .two-columns {
     grid-template-columns: 1fr;
   }
 }
 
-.columna {
+.column {
   background: var(--color-superficie);
   border: 2px solid var(--color-borde);
   border-radius: var(--radio);
@@ -35,17 +35,17 @@
   flex-direction: column;
 }
 
-.columna-destino { border-color: var(--mod-secuencia); }
+.column-destination { border-color: var(--mod-secuencia); }
 
-.columna-titulo {
-  font-size: var(--texto-grande);
+.column-title {
+  font-size: var(--text-grande);
   font-weight: 700;
   margin: 0 0 var(--espacio) 0;
   color: var(--mod-secuencia);
   text-align: center;
 }
 
-.lista-tareas {
+.task-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -54,17 +54,17 @@
   gap: 8px;
 }
 
-.lista-ordenada { gap: 6px; }
+.ordered-list { gap: 6px; }
 
-.mensaje-vacio {
+.empty-message {
   text-align: center;
-  color: var(--color-texto-suave);
-  font-size: var(--texto-base);
+  color: var(--color-text-suave);
+  font-size: var(--text-base);
   margin-top: var(--espacio);
 }
 
 /* A single task row inside either list */
-.fila-tarea {
+.task-row {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -75,12 +75,12 @@
   min-height: 56px;
 }
 
-.fila-ordenada {
+.ordered-row {
   background: var(--mod-secuencia-suave);
   border-color: var(--mod-secuencia);
 }
 
-.fila-picto {
+.row-picto {
   font-size: 28px;
   line-height: 1;
   flex-shrink: 0;
@@ -88,43 +88,43 @@
   text-align: center;
 }
 
-.fila-numero {
+.row-number {
   font-weight: 700;
   color: var(--mod-secuencia);
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   min-width: 24px;
   text-align: right;
 }
 
-.fila-nombre {
+.row-name {
   flex: 1 1 auto;
   min-width: 0;
   text-align: left;
   background: transparent;
   border: none;
   padding: 4px 6px;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 600;
-  color: var(--color-texto);
+  color: var(--color-text);
   cursor: pointer;
   border-radius: 6px;
   font-family: inherit;
 }
 
-.fila-nombre:hover { background: rgba(0,0,0,0.04); }
-.fila-nombre:focus-visible {
+.row-name:hover { background: rgba(0,0,0,0.04); }
+.row-name:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 1px;
 }
 
-.fila-controles {
+.row-controls {
   display: flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
 }
 
-.btn-fila {
+.row-btn {
   width: 40px;
   height: 40px;
   min-width: 40px;
@@ -142,23 +142,23 @@
   padding: 0;
 }
 
-.btn-fila:hover:not(:disabled) { background: var(--color-fondo); }
-.btn-fila:disabled { opacity: 0.3; cursor: not-allowed; }
-.btn-fila:focus-visible {
+.row-btn:hover:not(:disabled) { background: var(--color-fondo); }
+.row-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.row-btn:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 1px;
 }
 
-.mover-derecha {
+.move-right {
   border-color: var(--mod-secuencia);
   color: var(--mod-secuencia);
 }
-.mover-izquierda {
+.move-left {
   border-color: var(--color-error);
   color: var(--color-error);
 }
 
-.btn-anadir {
+.btn-add {
   margin-top: var(--espacio);
   width: 100%;
   background: var(--mod-secuencia);
@@ -168,35 +168,35 @@
    ADD-NEW-TASK FORM
    ================================================================= */
 
-#pantallaAnadir {
+#addScreen {
   max-width: 640px;
   margin: 0 auto;
 }
 
-.campo {
+.field {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: var(--espacio);
 }
 
-.campo input {
-  font-size: var(--texto-base);
+.field input {
+  font-size: var(--text-base);
   padding: 12px 14px;
   border: 2px solid var(--color-borde);
   border-radius: var(--radio);
   font-family: inherit;
   background: var(--color-superficie);
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
-.campo input:focus-visible {
+.field input:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 1px;
   border-color: var(--mod-secuencia);
 }
 
-.iconos-grid {
+.icons-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
   gap: 6px;
@@ -206,7 +206,7 @@
   border: 2px solid var(--color-borde);
 }
 
-.icono-opcion {
+.icon-option {
   width: 48px;
   height: 48px;
   min-width: 48px;
@@ -223,17 +223,17 @@
   font-family: inherit;
 }
 
-.icono-opcion.seleccionado {
+.icon-option.selected {
   border-color: var(--mod-secuencia);
   background: var(--mod-secuencia-suave);
 }
 
-.icono-opcion:focus-visible {
+.icon-option:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 1px;
 }
 
-.lista-pasos-anadir {
+.add-steps-list {
   list-style: none;
   margin: 0 0 var(--espacio) 0;
   padding: 0;
@@ -242,7 +242,7 @@
   gap: 6px;
 }
 
-.paso-anadir {
+.add-step {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -251,14 +251,14 @@
   border-radius: var(--radio);
 }
 
-.paso-numero {
+.step-number {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   min-width: 24px;
   text-align: right;
 }
 
-.paso-picto {
+.step-picto {
   width: 56px;
   height: 56px;
   min-width: 56px;
@@ -272,12 +272,12 @@
   font-family: inherit;
 }
 
-.paso-picto:focus-visible {
+.step-picto:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 1px;
 }
 
-.acciones-formulario {
+.form-actions {
   display: flex;
   gap: var(--espacio);
   justify-content: center;
@@ -288,40 +288,40 @@
    STEP-ORDERING SCREEN (kept from the original house activity)
    ================================================================= */
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
 .progress-bar { margin-top: var(--espacio); }
 
-.btn-volver-lista {
+.btn-back-to-list {
   align-self: flex-start;
 }
 
-.tarea-cabecera {
+.task-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.tarea-picto {
+.task-picto {
   font-size: 64px;
   line-height: 1;
 }
 
-.tarea-titulo {
-  font-size: var(--texto-grande);
+.task-title {
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
   margin: 0;
 }
 
-.etiqueta {
+.label {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   margin-top: var(--espacio);
 }
 
-.pila-secuencia, .pila-disponibles {
+.sequence-stack, .available-stack {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -340,37 +340,35 @@
   background: var(--color-superficie);
 }
 
-.slot.lleno {
+.slot.filled {
   border-style: solid;
   border-color: var(--color-acierto);
   background: var(--color-acierto-suave);
 }
 
-.paso {
+.step {
   min-width: 64px;
   min-height: 64px;
   font-size: 32px;
   background: var(--mod-secuencia-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
   border: 3px solid var(--mod-secuencia);
 }
 
-.paso.colocada {
+.step.placed {
   opacity: 0.35;
 }
 
-.emoji-grande { font-size: 96px; }
+.big-emoji { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
-
-#pantallaFinal .btn {
+#endScreen .btn {
   align-self: center;
   min-width: 280px;
 }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
-  font-size: var(--texto-base);
-  color: var(--color-texto-suave);
+  font-size: var(--text-base);
+  color: var(--color-text-suave);
   max-width: 480px;
 }

@@ -26,15 +26,15 @@
 
   /* ---------- State and persistence ---------- */
   var state = App.storage.get(SLUG);
-  state.nombre = typeof state.nombre === 'string' ? state.nombre : '';
-  state.estrellas = state.estrellas || 0;
-  state.completado = state.completado || {};
+  state.name = typeof state.name === 'string' ? state.name : '';
+  state.stars = state.stars || 0;
+  state.completed = state.completed || {};
   state.canciones = state.canciones || [];
   state.grabacion = state.grabacion || [];
   state.grabando = false;
   state.octava = typeof state.octava === 'number' ? state.octava : 0; /* -1..1 */
 
-  function guardar() { App.storage.set(SLUG, state); }
+  function save() { App.storage.set(SLUG, state); }
 
   /* ---------- Audio: Web Audio API ---------- */
   var audioCtx = null;
@@ -123,9 +123,9 @@
      it was called (recording, Simon, follow melody, songs, composer
      never showed their feedback message). Found by testing the
      real tool with Playwright, not by reading the code. */
-  function mostrarFeedback(id, texto, tipo) {
+  function showFeedback(id, text, tipo) {
     var el = $('#' + id);
-    el.textContent = texto;
+    el.textContent = text;
     el.className = 'feedback ' + (tipo || '');
   }
 
@@ -144,61 +144,61 @@
   }
 
   /* ---------- Pantallas ---------- */
-  var PANTALLAS = ['pantallaNombre', 'pantallaMenu', 'pantallaLibre',
+  var PANTALLAS = ['pantallaNombre', 'menuScreen', 'pantallaLibre',
                    'pantallaSeguir', 'pantallaSimon', 'pantallaCanciones',
                    'pantallaCompositor'];
 
-  function mostrarPantalla(id) {
+  function showScreen(id) {
     PANTALLAS.forEach(function (p) {
-      document.getElementById(p).classList.toggle('oculto', p !== id);
+      document.getElementById(p).classList.toggle('hidden', p !== id);
     });
   }
 
   function irMenu() {
-    pintarMenu();
-    mostrarPantalla('pantallaMenu');
+    renderMenu();
+    showScreen('menuScreen');
   }
 
   function irNombre() {
-    $('#inputNombre').value = state.nombre;
-    $('#avisoNombre').textContent.textContent = '';
-    mostrarPantalla('pantallaNombre');
+    $('#inputNombre').value = state.name;
+    $('#avisoNombre').textContent = '';
+    showScreen('pantallaNombre');
     $('#inputNombre').focus();
   }
 
-  function bonito(nombre) {
-    return nombre ? nombre.charAt(0).toUpperCase() + nombre.slice(1) : '';
+  function bonito(name) {
+    return name ? name.charAt(0).toUpperCase() + name.slice(1) : '';
   }
 
-  function pintarMenu() {
-    $('#saludo').textContent.textContent = '';
+  function renderMenu() {
+    $('#saludo').textContent = '';
     $$('.tarjeta-modo').forEach(function (t) {
       var m = t.dataset.modo;
-      var badge = t.querySelector('.hecho');
-      badge.textContent = state.completado[m] ? '⭐' : '';
+      var badge = t.querySelector('.done');
+      badge.textContent = state.completed[m] ? '⭐' : '';
     });
-    actualizarEstrellas();
+    updateStars();
   }
 
   function premiar(clave) {
-    if (!state.completado[clave]) {
-      state.completado[clave] = true;
-      state.estrellas += 1;
-      guardar();
-      actualizarEstrellas();
+    if (!state.completed[clave]) {
+      state.completed[clave] = true;
+      state.stars += 1;
+      save();
+      updateStars();
       crearParticulas();
     }
   }
 
-  function actualizarEstrellas() {
-    $('#stars').textContent.textContent = '';
+  function updateStars() {
+    $('#stars').textContent = '';
   }
 
   /* ---------- Modo libre ---------- */
   function irLibre() {
-    mostrarPantalla('pantallaLibre');
+    showScreen('pantallaLibre');
     $('#btnSalirLibre').onclick = irMenu;
-    $('#instruccionLibre').textContent.textContent = '';
+    $('#instruccionLibre').textContent = '';
     state.secuenciaActual = [];
     actualizarSecuenciaLibre();
     actualizarBotonGrabacion();
@@ -225,7 +225,7 @@
       }
 
       // Solo en modo libre mostramos la nota
-      if (!document.getElementById('pantallaLibre').classList.contains('oculto')) {
+      if (!document.getElementById('pantallaLibre').classList.contains('hidden')) {
         state.secuenciaActual = state.secuenciaActual || [];
         state.secuenciaActual.push({ nota: nota });
         actualizarSecuenciaLibre();
@@ -240,7 +240,7 @@
       return;
     }
     state.octava += 1;
-    guardar();
+    save();
     if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMasTTS'));
   });
 
@@ -250,14 +250,14 @@
       return;
     }
     state.octava -= 1;
-    guardar();
+    save();
     if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMenosTTS'));
   });
 
   /* ---------- Recording ---------- */
   function actualizarBotonGrabacion() {
     var btnReproducirGrabacion = $('#btnReproducirGrabacion');
-    btnReproducirGrabacion.classList.toggle('oculto', state.grabacion.length === 0 || state.grabando);
+    btnReproducirGrabacion.classList.toggle('hidden', state.grabacion.length === 0 || state.grabando);
   }
 
   $('#btnGrabando').addEventListener('click', function () {
@@ -266,10 +266,10 @@
     this.textContent = App.i18n.t(state.grabando ? 'parar' : 'grabando');
     if (state.grabando) {
       state.grabacion = [];
-      $('#btnReproducirGrabacion').classList.add('oculto');
-      mostrarFeedback('feedbackLibre', App.i18n.t('grabandoAviso'), 'acierto');
+      $('#btnReproducirGrabacion').classList.add('hidden');
+      showFeedback('feedbackLibre', App.i18n.t('grabandoAviso'), 'acierto');
     } else {
-      mostrarFeedback('feedbackLibre',
+      showFeedback('feedbackLibre',
         state.grabacion.length > 0
           ? App.i18n.t('grabadoAviso').replace('{n}', state.grabacion.length)
           : App.i18n.t('noTocado'), '');
@@ -290,7 +290,7 @@
   var simon = { secuencia: [], nivel: 1, puntos: 0, turnoJugador: false, idxJugador: 0 };
 
   function irSimon() {
-    mostrarPantalla('pantallaSimon');
+    showScreen('pantallaSimon');
     simon.secuencia = [];
     simon.nivel = 1;
     simon.puntos = 0;
@@ -299,14 +299,14 @@
   }
 
   function actualizarSimonUI() {
-    $('#nivelSimon').textContent.textContent = '';
-    $('#puntosSimon').textContent.textContent = '';
+    $('#nivelSimon').textContent = '';
+    $('#puntosSimon').textContent = '';
   }
 
   function iniciarSimon() {
     var notas = ['C', 'E', 'G', 'B'];
     simon.secuencia.push(notas[Math.floor(Math.random() * notas.length)]);
-    mostrarFeedback('feedbackSimon', App.i18n.t('observaSecuencia'), '');
+    showFeedback('feedbackSimon', App.i18n.t('observaSecuencia'), '');
     reproducirSimon();
   }
 
@@ -316,7 +316,7 @@
       if (i >= simon.secuencia.length) {
         simon.turnoJugador = false;
         simon.idxJugador = 0;
-        mostrarFeedback('feedbackSimon', App.i18n.t('tuTurno'), '');
+        showFeedback('feedbackSimon', App.i18n.t('tuTurno'), '');
         simon.turnoJugador = true;
         return;
       }
@@ -351,19 +351,19 @@
       if (simon.idxJugador >= simon.secuencia.length) {
         simon.turnoJugador = false;
         simon.nivel++;
-        mostrarFeedback('feedbackSimon', App.i18n.t('correcto'), 'acierto');
+        showFeedback('feedbackSimon', App.i18n.t('correct'), 'acierto');
         crearParticulas();
 
         setTimeout(function () {
           simon.secuencia.push(['C', 'E', 'G', 'B'][Math.floor(Math.random() * 4)]);
-          mostrarFeedback('feedbackSimon', App.i18n.t('observaSiguiente'), '');
+          showFeedback('feedbackSimon', App.i18n.t('observaSiguiente'), '');
           reproducirSimon();
           actualizarSimonUI();
         }, 1500);
       }
     } else {
       simon.turnoJugador = false;
-      mostrarFeedback('feedbackSimon', App.i18n.t('finJuego').replace('{n}', simon.puntos), 'animo');
+      showFeedback('feedbackSimon', App.i18n.t('finJuego').replace('{n}', simon.puntos), 'animo');
       if (window.App && App.feedback && App.feedback.encourage) {
         App.feedback.encourage(document.getElementById('feedbackSimon'));
       }
@@ -387,14 +387,14 @@
   var seguir = { melodia: null, idx: 0, esperando: true };
 
   function irSeguir() {
-    mostrarPantalla('pantallaSeguir');
+    showScreen('pantallaSeguir');
     var lista = DATA.melodiasSeguir;
     seguir.melodia = lista[Math.floor(Math.random() * lista.length)];
     seguir.idx = 0;
     seguir.esperando = true;
     var nombreMelodia = App.i18n.t(MELODIA_KEYS[seguir.melodia.id]);
-    $('#instruccionSeguir').textContent.textContent = '';
-    mostrarFeedback('feedbackSeguir', '', '');
+    $('#instruccionSeguir').textContent = '';
+    showFeedback('feedbackSeguir', '', '');
     renderProgresoSeguir();
   }
 
@@ -403,7 +403,7 @@
     el.innerHTML = '';
     seguir.melodia.secuencia.forEach(function (_, i) {
       var dot = document.createElement('div');
-      dot.className = 'progreso-dot' + (i < seguir.idx ? ' hecho' : (i === seguir.idx && seguir.esperando ? ' actual' : ''));
+      dot.className = 'progress-dot' + (i < seguir.idx ? ' done' : (i === seguir.idx && seguir.esperando ? ' current' : ''));
       el.appendChild(dot);
     });
   }
@@ -411,7 +411,7 @@
   $('#btnReproducir').addEventListener('click', function () {
     var seq = seguir.melodia.secuencia.map(function (n) { return { nota: n, duracion: 0.4 }; });
     reproducirMelodia(seq, function () {
-      mostrarFeedback('feedbackSeguir', App.i18n.t('ahoraRepitela'), '');
+      showFeedback('feedbackSeguir', App.i18n.t('ahoraRepitela'), '');
       seguir.esperando = true;
     });
   });
@@ -420,7 +420,7 @@
 
   /* ---------- Canciones ---------- */
   function irCanciones() {
-    mostrarPantalla('pantallaCanciones');
+    showScreen('pantallaCanciones');
     var cont = $('#listaCanciones');
     cont.innerHTML = '';
     DATA.canciones.forEach(function (c) {
@@ -430,7 +430,7 @@
       var icono = document.createElement('span');
       icono.className = 'icono';
       icono.setAttribute('aria-hidden', 'true');
-      icono.textContent = state.completado[c.id] ? '✅' : '🎹';
+      icono.textContent = state.completed[c.id] ? '✅' : '🎹';
       var titulo = document.createElement('span');
       titulo.className = 'titulo';
       titulo.textContent = App.i18n.t(CANCION_KEYS[c.id]);
@@ -446,16 +446,16 @@
   }
 
   function jugarCancion(cancion) {
-    mostrarPantalla('pantallaLibre');
+    showScreen('pantallaLibre');
     $('#btnSalirLibre').onclick = irCanciones;
     var nombreCancion = App.i18n.t(CANCION_KEYS[cancion.id]);
-    $('#instruccionLibre').textContent.textContent = '';
+    $('#instruccionLibre').textContent = '';
 
     // Play the song
     var seq = cancion.secuencia.map(function (n) { return { nota: n, duracion: 0.35 }; });
-    mostrarFeedback('feedbackLibre', App.i18n.t('escuchando'), '');
+    showFeedback('feedbackLibre', App.i18n.t('escuchando'), '');
     reproducirMelodia(seq, function () {
-      mostrarFeedback('feedbackLibre', App.i18n.t('ahoraTuRepite'), 'acierto');
+      showFeedback('feedbackLibre', App.i18n.t('ahoraTuRepite'), 'acierto');
       premiar(cancion.id);
     });
   }
@@ -466,9 +466,9 @@
   var compositor = { secuencia: [] };
 
   function irCompositor() {
-    mostrarPantalla('pantallaCompositor');
+    showScreen('pantallaCompositor');
     compositor.secuencia = [];
-    $('#nombrarCancion').classList.add('oculto');
+    $('#nombrarCancion').classList.add('hidden');
     renderCompositor();
     renderCancionesGuardadas();
   }
@@ -478,20 +478,20 @@
     el.innerHTML = '';
     if (compositor.secuencia.length === 0) {
       var p = document.createElement('p');
-      p.className = 'placeholder';
+      p.className = 'placeholder-text';
       p.textContent = App.i18n.t('placeholderVacio');
       el.appendChild(p);
     } else {
       compositor.secuencia.forEach(function (item) {
         var div = document.createElement('div');
         div.className = 'nota-sec';
-        var nombre = document.createElement('span');
-        nombre.className = 'nombre';
-        nombre.textContent = item.nota;
+        var name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = item.nota;
         var tecla = document.createElement('span');
         tecla.className = 'tecla';
         tecla.textContent = item.tecla;
-        div.appendChild(nombre);
+        div.appendChild(name);
         div.appendChild(tecla);
         el.appendChild(div);
       });
@@ -511,16 +511,16 @@
       var div = document.createElement('div');
       div.className = 'cancion-guardada';
 
-      var nombre = document.createElement('span');
-      nombre.className = 'nombre';
-      nombre.textContent = c.nombre + ' ' + App.i18n.t('notasCount').replace('{n}', c.notas.length);
+      var name = document.createElement('span');
+      name.className = 'name';
+      name.textContent = c.name + ' ' + App.i18n.t('notasCount').replace('{n}', c.notas.length);
 
       var acciones = document.createElement('div');
       acciones.className = 'acciones';
       var btnPlay = document.createElement('button');
       btnPlay.type = 'button';
       btnPlay.textContent = '▶️';
-      btnPlay.dataset.accion = 'reproducir';
+      btnPlay.dataset.accion = 'play';
       btnPlay.dataset.idx = String(i);
       btnPlay.setAttribute('aria-label', App.i18n.t('reproducirCompBtn'));
       var btnDel = document.createElement('button');
@@ -532,7 +532,7 @@
 
       acciones.appendChild(btnPlay);
       acciones.appendChild(btnDel);
-      div.appendChild(nombre);
+      div.appendChild(name);
       div.appendChild(acciones);
       el.appendChild(div);
     });
@@ -544,65 +544,65 @@
     var idx = Number(btn.dataset.idx);
     var c = state.canciones[idx];
     if (!c) return;
-    if (btn.dataset.accion === 'reproducir') {
+    if (btn.dataset.accion === 'play') {
       var seq = c.notas.map(function (n) { return { nota: n, duracion: 0.35 }; });
       reproducirMelodia(seq);
     } else if (btn.dataset.accion === 'borrar') {
       state.canciones.splice(idx, 1);
-      guardar();
+      save();
       renderCancionesGuardadas();
-      mostrarFeedback('feedbackComp', App.i18n.t('cancionBorrada'), '');
+      showFeedback('feedbackComp', App.i18n.t('cancionBorrada'), '');
     }
   });
 
   $('#btnReproducirComp').addEventListener('click', function () {
     if (compositor.secuencia.length === 0) {
-      mostrarFeedback('feedbackComp', App.i18n.t('tocaNotasPrimero'), 'animo');
+      showFeedback('feedbackComp', App.i18n.t('tocaNotasPrimero'), 'animo');
       return;
     }
     var seq = compositor.secuencia.map(function (n) { return { nota: n.nota, duracion: 0.35 }; });
     reproducirMelodia(seq, function () {
-      mostrarFeedback('feedbackComp', App.i18n.t('bonitaMelodia'), 'acierto');
+      showFeedback('feedbackComp', App.i18n.t('bonitaMelodia'), 'acierto');
     });
   });
 
   $('#btnBorrarComp').addEventListener('click', function () {
     compositor.secuencia = [];
     renderCompositor();
-    mostrarFeedback('feedbackComp', App.i18n.t('borrado'), '');
+    showFeedback('feedbackComp', App.i18n.t('borrado'), '');
   });
 
   /* Save song: own on-screen input instead of native prompt()
      (no audio, no Easy Read, breaks the app's whole style). */
   $('#btnGuardarComp').addEventListener('click', function () {
     if (compositor.secuencia.length === 0) {
-      mostrarFeedback('feedbackComp', App.i18n.t('tocaNotasPrimero'), 'animo');
+      showFeedback('feedbackComp', App.i18n.t('tocaNotasPrimero'), 'animo');
       return;
     }
     var input = $('#inputNombreCancion');
     input.value = App.i18n.t('promptNombreDefault');
-    $('#nombrarCancion').classList.remove('oculto');
+    $('#nombrarCancion').classList.remove('hidden');
     input.focus();
     input.select();
   });
 
   $('#btnConfirmarGuardar').addEventListener('click', function () {
-    var nombre = $('#inputNombreCancion').value.trim().slice(0, 30) || App.i18n.t('promptNombreDefault');
+    var name = $('#inputNombreCancion').value.trim().slice(0, 30) || App.i18n.t('promptNombreDefault');
     state.canciones.push({
-      nombre: nombre,
+      name: name,
       notas: compositor.secuencia.map(function (n) { return n.nota; })
     });
-    guardar();
+    save();
     compositor.secuencia = [];
-    $('#nombrarCancion').classList.add('oculto');
+    $('#nombrarCancion').classList.add('hidden');
     renderCompositor();
     renderCancionesGuardadas();
-    mostrarFeedback('feedbackComp', App.i18n.t('cancionGuardada'), 'acierto');
+    showFeedback('feedbackComp', App.i18n.t('cancionGuardada'), 'acierto');
     crearParticulas();
   });
 
   $('#btnCancelarGuardar').addEventListener('click', function () {
-    $('#nombrarCancion').classList.add('oculto');
+    $('#nombrarCancion').classList.add('hidden');
   });
 
   $('#inputNombreCancion').addEventListener('keydown', function (e) {
@@ -622,7 +622,7 @@
     var key = e.key.toLowerCase();
 
     // If we're in the composer, add a note
-    if (!document.getElementById('pantallaCompositor').classList.contains('oculto')) {
+    if (!document.getElementById('pantallaCompositor').classList.contains('hidden')) {
       var nota = TECLAS_NOTAS[key];
       if (nota) {
         tocarNota(nota, 0.5);
@@ -633,7 +633,7 @@
     }
 
     // Simon - using the ASDF keys
-    if (!document.getElementById('pantallaSimon').classList.contains('oculto')) {
+    if (!document.getElementById('pantallaSimon').classList.contains('hidden')) {
       var mapaSimon = { 'a': 'C', 's': 'E', 'd': 'G', 'f': 'B' };
       if (mapaSimon[key]) {
         clickSimon(mapaSimon[key]);
@@ -642,7 +642,7 @@
     }
 
     // Follow the melody
-    if (!document.getElementById('pantallaSeguir').classList.contains('oculto') && !seguir.esperando) {
+    if (!document.getElementById('pantallaSeguir').classList.contains('hidden') && !seguir.esperando) {
       var notaSeguir = TECLAS_NOTAS[key];
       if (notaSeguir) {
         if (notaSeguir === seguir.melodia.secuencia[seguir.idx]) {
@@ -650,12 +650,12 @@
           renderProgresoSeguir();
           if (seguir.idx >= seguir.melodia.secuencia.length) {
             seguir.esperando = true;
-            mostrarFeedback('feedbackSeguir', App.i18n.t('perfecto'), 'acierto');
+            showFeedback('feedbackSeguir', App.i18n.t('perfecto'), 'acierto');
             premiar('seguir');
             crearParticulas();
           }
         } else {
-          mostrarFeedback('feedbackSeguir', App.i18n.t('casiIntentalo'), 'animo');
+          showFeedback('feedbackSeguir', App.i18n.t('casiIntentalo'), 'animo');
           seguir.idx = 0;
           renderProgresoSeguir();
         }
@@ -682,10 +682,10 @@
     }
 
     // Compositor
-    if (!document.getElementById('pantallaCompositor').classList.contains('oculto')) {
+    if (!document.getElementById('pantallaCompositor').classList.contains('hidden')) {
       compositor.secuencia.push({ nota: nota, tecla: key.dataset.key.toUpperCase() });
       renderCompositor();
-    } else if (!document.getElementById('pantallaLibre').classList.contains('oculto')) {
+    } else if (!document.getElementById('pantallaLibre').classList.contains('hidden')) {
       state.secuenciaActual = state.secuenciaActual || [];
       state.secuenciaActual.push({ nota: nota });
       actualizarSecuenciaLibre();
@@ -695,8 +695,8 @@
   /* ---------- Nombre ---------- */
   function guardarNombre() {
     var v = $('#inputNombre').value.trim().slice(0, 15);
-    state.nombre = v;
-    guardar();
+    state.name = v;
+    save();
     /* Audio only plays if the user taps the "Listen" button (btnLeerNombre) */
     irMenu();
   }
@@ -732,8 +732,8 @@
   $('#btnCambiarNombre').addEventListener('click', irNombre);
 
   /* ---------- Arranque ---------- */
-  if (state.nombre) irMenu();
+  if (state.name) irMenu();
   else irNombre();
-  actualizarEstrellas();
+  updateStars();
 
 })();

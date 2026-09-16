@@ -7,9 +7,9 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .progress-bar { margin-top: var(--espacio); }
 
@@ -20,12 +20,12 @@
   gap: 8px; min-height: 160px; padding: var(--espacio-grande);
   background: var(--color-superficie); border: 3px solid var(--color-borde);
   border-radius: var(--radio); box-shadow: var(--sombra);
-  font-family: inherit; color: var(--color-texto); cursor: pointer;
+  font-family: inherit; color: var(--color-text); cursor: pointer;
 }
 .tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
 .tarjeta-actividad .picto { font-size: 48px; }
-.tarjeta-actividad .nombre { font-weight: 800; font-size: var(--texto-base); }
-.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--text-base); }
+.tarjeta-actividad .detalle { font-size: var(--text-pequeno); color: var(--color-text-suave); text-align: center; }
 .tarjeta-actividad .marca { position: absolute; top: 10px; right: 14px; color: var(--color-estrella); font-weight: 700; }
 
 /* ---- Actividad 1: ¿Es una emergencia? (motor de quiz) ---- */
@@ -33,28 +33,28 @@
 
 .situacion-picto { font-size: 64px; }
 
-.texto-principal {
-  font-size: var(--texto-grande);
+.text-principal {
+  font-size: var(--text-grande);
   font-weight: 700;
   margin: 0 auto;
 }
 
-.pregunta { color: var(--color-texto-suave); }
+.pregunta { color: var(--color-text-suave); }
 
 /* ---- Actividad 2: practica la llamada (motor de ordenar) ---- */
 .lista-titulo {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
 }
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   margin-top: var(--espacio);
 }
 
-.pila-secuencia, .pila-disponibles {
+.sequence-stack, .available-stack {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -70,20 +70,20 @@
   justify-content: center;
   gap: 4px;
   padding: 8px;
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   font-weight: 700;
   text-align: center;
   border: 3px dashed var(--color-borde);
   border-radius: var(--radio);
   background: var(--color-superficie);
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
-.slot.lleno {
+.slot.filled {
   border-style: solid;
   border-color: var(--color-acierto);
   background: var(--color-acierto-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .tarea-btn {
@@ -96,14 +96,14 @@
   gap: 4px;
   padding: 8px;
   background: var(--mod-secuencia-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
   border: 3px solid var(--mod-secuencia);
 }
 
-.tarea-picto { font-size: 32px; }
+.task-picto { font-size: 32px; }
 
-.tarea-texto {
-  font-size: var(--texto-pequeno);
+.tarea-text {
+  font-size: var(--text-pequeno);
   font-weight: 700;
   text-align: center;
   line-height: 1.2;
@@ -113,13 +113,13 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; 
-#pantallaFinal .transferencia {
+#endScreen .btn { align-self: center; min-width: 280px; 
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

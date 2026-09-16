@@ -33,11 +33,11 @@
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (typeof progress.rondas !== 'number') progress.rondas = 0;
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
 
   function fill(key, values) {
@@ -50,7 +50,7 @@
 
   function show(screen) {
     [playScreen, finishScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -146,7 +146,7 @@
     dot.el.classList.add('dot-done');
     if (nextNumber > 1) drawSegment(dots[nextNumber - 2], dot);
     App.feedback.success(feedbackEl);
-    progress.estrellas += 1;
+    progress.stars += 1;
     save();
     paintStars();
     nextNumber += 1;
@@ -172,12 +172,12 @@
   }
 
   function finish() {
-    progress.rondas += 1;
+    progress.rounds += 1;
     save();
     show(finishScreen);
     finishEmoji.textContent = currentShape.emoji;
     finishText.textContent = fill('finishText', { shape: t('shape_' + currentShape.id) });
-    $('#transfer').textContent.textContent = '';
+    $('#transfer').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 

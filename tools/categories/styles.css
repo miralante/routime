@@ -6,13 +6,13 @@
   background: var(--mod-lenguaje);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -22,11 +22,11 @@
 .item-picto { font-size: 72px; }
 
 .item-palabra {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
 }
 
-.fila-caja {
+.row-caja {
   display: flex;
   align-items: center;
   gap: var(--espacio);
@@ -35,7 +35,7 @@
 .caja {
   flex: 1;
   min-height: 88px;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
 }
 
 .caja.correcta {
@@ -48,13 +48,13 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; 
-#pantallaFinal .transferencia {
+#endScreen .btn { align-self: center; min-width: 280px; 
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

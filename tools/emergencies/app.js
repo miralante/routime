@@ -1,15 +1,15 @@
 /* ============================================================
    Routime — Emergencias (autonomía: reconocer una emergencia
-   de verdad y practicar cómo pedir ayuda)
+   de verdad y practicar cómo pedir help)
    Datos en data.js (DATA.reconocer, DATA.llamadas). Dos actividades
    elegibles desde un menú (regla 10: una acción principal por
    pantalla):
-   - "¿Es una emergencia?": quiz de 3 opciones (motor de Situaciones)
+   - "¿Es una emergencia?": quiz de 3 options (motor de Situaciones)
      que mezcla emergencias reales con cosas que no lo son, para que
      el contraste enseñe a distinguir. Sin niveles: la mezcla de
      dificultad es a propósito (contraste didáctico), no progresión.
-   - "Practica la llamada": ordenar 3 pasos (motor de Lista de
-     Tareas) siempre en el mismo orden — nombre, qué pasa, dónde
+   - "Practica la llamada": ordenar 3 steps (motor de Lista de
+     Tareas) siempre en el mismo orden — name, qué pasa, dónde
      estás — cambiando solo la emergencia descrita, para aprender la
      estructura y no un guion fijo.
    El error nunca se castiga (regla 5); pista socrática en el primer
@@ -21,40 +21,40 @@
   var TOOL_ID = 'emergencias';
   var $ = App.utils.$;
 
-  var pantallaMenu = $('#pantallaMenu');
+  var menuScreen = $('#menuScreen');
   var pantallaReconocer = $('#pantallaReconocer');
   var pantallaLlamada = $('#pantallaLlamada');
-  var pantallaFinal = $('#pantallaFinal');
+  var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completadoReconocer) progreso.completadoReconocer = 0;
-  if (!progreso.completadoLlamada) progreso.completadoLlamada = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completadoReconocer) progress.completadoReconocer = 0;
+  if (!progress.completadoLlamada) progress.completadoLlamada = 0;
 
   var actividadActual = null; /* 'reconocer' | 'llamada' */
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function ocultarTodas() {
-    [pantallaMenu, pantallaReconocer, pantallaLlamada, pantallaFinal].forEach(function (p) {
-      p.classList.add('oculto');
+    [menuScreen, pantallaReconocer, pantallaLlamada, endScreen].forEach(function (p) {
+      p.classList.add('hidden');
     });
   }
 
   function irMenu() {
     ocultarTodas();
-    pintarMenu();
-    pantallaMenu.classList.remove('oculto');
+    renderMenu();
+    menuScreen.classList.remove('hidden');
   }
 
-  function pintarMenu() {
-    $('#marcaReconocer').textContent.textContent = '';
-    $('#marcaLlamada').textContent.textContent = '';
-    pintarEstrellas();
+  function renderMenu() {
+    $('#marcaReconocer').textContent = '';
+    $('#marcaLlamada').textContent = '';
+    renderStars();
   }
 
   /* ================= Actividad 1: ¿Es una emergencia? ================= */
@@ -80,7 +80,7 @@
     idxR = 0;
     aciertosR = 0;
     ocultarTodas();
-    pantallaReconocer.classList.remove('oculto');
+    pantallaReconocer.classList.remove('hidden');
     renderReconocer();
   }
 
@@ -98,62 +98,62 @@
     situacionTextoEl.textContent = item.situacion;
     feedbackREl.textContent = '';
     feedbackREl.className = 'feedback';
-    explicacionRWrap.classList.add('oculto');
+    explicacionRWrap.classList.add('hidden');
     explicacionREl.textContent = '';
-    btnSiguienteR.classList.add('oculto');
+    btnSiguienteR.classList.add('hidden');
     opcionesREl.innerHTML = '';
 
-    var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correcta };
+    var options = App.utils.shuffle(item.options.map(function (opt, i) {
+      return { text: opt, isCorrect: i === item.correcta };
     }));
-    opciones.forEach(function (op) {
+    options.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { responderReconocer(btn, op.esCorrecta, item); });
+      btn.textContent = op.textContent;
+      btn.addEventListener('click', function () { responderReconocer(btn, op.isCorrect, item); });
       opcionesREl.appendChild(btn);
     });
 
     pintarProgresoR();
-    pintarEstrellas();
+    renderStars();
   }
 
-  function mostrarExplicacionR(esCorrecta, item) {
-    var texto = esCorrecta
+  function mostrarExplicacionR(isCorrect, item) {
+    var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
-      : App.i18n.t('explicacionIncorrectaA') + item.opciones[item.correcta] + '.';
-    explicacionREl.textContent = texto;
-    explicacionRWrap.classList.remove('oculto');
+      : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
+    explicacionREl.textContent = text;
+    explicacionRWrap.classList.remove('hidden');
   }
 
-  function responderReconocer(btn, esCorrecta, item) {
+  function responderReconocer(btn, isCorrect, item) {
     if (resueltoR) return;
-    if (esCorrecta) {
-      mostrarExplicacionR(esCorrecta, item);
+    if (isCorrect) {
+      mostrarExplicacionR(isCorrect, item);
       resueltoR = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackREl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosR += 1;
-      guardar();
-      pintarEstrellas();
-      btnSiguienteR.classList.remove('oculto');
+      save();
+      renderStars();
+      btnSiguienteR.classList.remove('hidden');
       btnSiguienteR.focus();
     } else {
       intentosR += 1;
       if (intentosR === 1) {
         explicacionREl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
-        explicacionRWrap.classList.remove('oculto');
+        explicacionRWrap.classList.remove('hidden');
       } else {
-        mostrarExplicacionR(esCorrecta, item);
+        mostrarExplicacionR(isCorrect, item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackREl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesReconocer .btn-opcion'), explicacionRWrap);
+      App.feedback.lockUntilAck(App.utils.$('#opcionesReconocer .btn-opcion'), explicacionRWrap);
     }
   }
 
@@ -167,12 +167,12 @@
   }
 
   function terminarReconocer() {
-    progreso.completadoReconocer += 1;
-    guardar();
+    progress.completadoReconocer += 1;
+    save();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -196,7 +196,7 @@ $('#transferencia').textContent.textContent = '';
     idxL = 0;
     aciertosL = 0;
     ocultarTodas();
-    pantallaLlamada.classList.remove('oculto');
+    pantallaLlamada.classList.remove('hidden');
     renderLlamada();
   }
 
@@ -212,7 +212,7 @@ $('#transferencia').textContent.textContent = '';
     slotsL = new Array(lista.items.length).fill(null);
     feedbackLEl.textContent = '';
     feedbackLEl.className = 'feedback';
-    listaTituloEl.textContent = lista.nombre;
+    listaTituloEl.textContent = lista.name;
 
     pintarSlotsL();
 
@@ -223,25 +223,25 @@ $('#transferencia').textContent.textContent = '';
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn tarea-btn';
-      btn.innerHTML = '<span class="tarea-picto" aria-hidden="true">' + p.item.picto + '</span>' +
-        '<span class="tarea-texto">' + p.item.texto + '</span>';
-      btn.setAttribute('aria-label', App.i18n.t('ariaPaso') + ': ' + p.item.texto);
+      btn.innerHTML = '<span class="task-picto" aria-hidden="true">' + p.item.picto + '</span>' +
+        '<span class="tarea-text">' + p.item.textContent + '</span>';
+      btn.setAttribute('aria-label', App.i18n.t('ariaPaso') + ': ' + p.item.textContent);
       btn.addEventListener('click', function () { tocarL(p.orden, btn); });
       disponiblesEl.appendChild(btn);
     });
 
     pintarProgresoL();
-    pintarEstrellas();
+    renderStars();
   }
 
   function pintarSlotsL() {
     secuenciaEl.innerHTML = '';
     slotsL.forEach(function (item, i) {
       var div = document.createElement('div');
-      div.className = 'slot' + (item ? ' lleno' : '');
+      div.className = 'slot' + (item ? ' filled' : '');
       if (item) {
-        div.innerHTML = '<span class="tarea-picto" aria-hidden="true">' + item.picto + '</span>' +
-          '<span class="tarea-texto">' + item.texto + '</span>';
+        div.innerHTML = '<span class="task-picto" aria-hidden="true">' + item.picto + '</span>' +
+          '<span class="tarea-text">' + item.textContent + '</span>';
       } else {
         div.textContent = String(i + 1);
       }
@@ -267,11 +267,11 @@ $('#transferencia').textContent.textContent = '';
   }
 
   function terminarTareaL() {
-    progreso.estrellas += 1;
+    progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
     aciertosL += 1;
-    guardar();
-    pintarEstrellas();
+    save();
+    renderStars();
     idxL += 1;
     if (idxL >= listasLlamada.length) {
       setTimeout(terminarLlamada, 900);
@@ -281,11 +281,11 @@ $('#transferencia').textContent.textContent = '';
   }
 
   function terminarLlamada() {
-    progreso.completadoLlamada += 1;
-    guardar();
+    progress.completadoLlamada += 1;
+    save();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -298,7 +298,7 @@ $('#transferencia').textContent.textContent = '';
   $('#btnEscucharReconocer').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsReconocer[idxR].situacion);
   });
-  $('#btnRepetir').addEventListener('click', function () {
+  $('#btnRepeat').addEventListener('click', function () {
     if (actividadActual === 'reconocer') iniciarReconocer();
     else iniciarLlamada();
   });

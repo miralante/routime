@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Tienda | Routime</title>
+  <title>Tienda | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,118 +13,59 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🏪 La Tienda</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>Routime</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Screen: 3-activity menu -->
-    <section id="pantallaMenu" class="pila">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Aquí usas el dinero como en la vida real: haces una compra entera, controlas lo que te queda y piensas si un precio está bien.</p>
+    <section id="startScreen" class="hidden pila centered">
+      <div class="row centered-row">
+        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
       </div>
-      <div class="grid-tarjetas">
-        <button type="button" class="tarjeta-actividad" data-actividad="tienda">
-          <span class="picto" aria-hidden="true">🏪</span>
-          <span class="nombre" data-i18n="menuTienda">Una compra</span>
-          <span class="detalle" data-i18n="menuTiendaDetalle">De principio a fin: mira, paga y revisa.</span>
-        </button>
-        <button type="button" class="tarjeta-actividad" data-actividad="quedame">
-          <span class="picto" aria-hidden="true">📅</span>
-          <span class="nombre" data-i18n="menuQuedame">¿Qué me queda?</span>
-          <span class="detalle" data-i18n="menuQuedameDetalle">Vas comprando. Calcula lo que te queda.</span>
-        </button>
-        <button type="button" class="tarjeta-actividad" data-actividad="mucho">
-          <span class="picto" aria-hidden="true">🤔</span>
-          <span class="nombre" data-i18n="menuMucho">¿Mucho o poco?</span>
-          <span class="detalle" data-i18n="menuMuchoDetalle">¿Ese precio está bien o es demasiado?</span>
-        </button>
-        <button type="button" class="tarjeta-actividad" data-actividad="fiar">
-          <span class="picto" aria-hidden="true">🔍</span>
-          <span class="nombre" data-i18n="menuFiar">¿Es de fiar?</span>
-          <span class="detalle" data-i18n="menuFiarDetalle">Un precio muy bajo puede ser una trampa.</span>
-        </button>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">Jugar!</span>
+      </button>
+    </section>
+
+    <section id="gameScreen" class="hidden pila centered">
+
+      <!-- Quiz mode -->
+      <div class="quiz-screen">
+        <div class="card centered stack">
+          <p id="enunciadoQuiz" class="prompt"></p>
+        </div>
+        <div class="options stack" id="optionsQuiz"></div>
+        <div class="feedback" id="feedbackQuiz" aria-live="polite"></div>
+        <div class="row explanation hidden" id="explanationQuizWrap">
+          <p id="explanationQuiz"></p>
+        </div>
+        <button type="button" class="btn hidden" id="btnNextQuiz">Siguiente</button>
+      </div>
+      <!-- Shop mode -->
+      <div class="shop-screen">
+        <div class="mesa-dinero" id="mesaDinero"></div>
+        <p id="enunciadoTienda" class="prompt"></p>
+        <div class="mesa-tienda" id="mesaTienda"></div>
+        <div class="mostrador" id="mostrador"></div>
+        <div class="zona-pago" id="zonaPago"></div>
+        <div class="acciones-tienda" id="accionesTienda"></div>
+        <div class="feedback" id="feedbackTienda" aria-live="polite"></div>
+        <div class="row explanation hidden" id="explanationTiendaWrap">
+          <p id="explanationTienda"></p>
+        </div>
+        <button type="button" class="btn hidden" id="btnContinuarTienda">Continuar</button>
       </div>
     </section>
 
-    <!-- Pantalla de niveles (compartida) -->
-    <section id="pantallaNiveles" class="oculto pila centrado">
-      <div class="fila"><button type="button" class="btn btn-secundario" id="btnVolverMenuNiveles" data-i18n="volverMenu">← Menú</button></div>
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccionActividad"></p>
-      </div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="niveles"></div>
-    </section>
-
-    <!-- Quiz game screen ("What's left?", "Too much or too little?") -->
-    <section id="pantallaJuegoQuiz" class="oculto pila">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressQuizFill"></div>
-        <span class="progress-text" id="progressQuizText">0 / 6</span>
-      </div>
-
-      <div class="fila centrado-fila">
-        <p class="pregunta" id="enunciadoQuiz"></p>
-        <button type="button" class="btn btn-audio" id="btnEnunciadoQuiz" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
-
-      <div class="mesa-dinero oculto" id="mesaDinero" role="group" data-i18n-aria="ariaMesa" aria-label="Dinero sobre la mesa"></div>
-
-      <div class="opciones pila" id="opcionesQuiz"></div>
-
-      <div class="feedback" id="feedbackQuiz" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionQuizWrap">
-        <p id="explicacionQuiz" aria-live="polite"></p>
-      </div>
-      <button type="button" class="btn oculto" id="btnSiguienteQuiz" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
-    </section>
-
-    <!-- Pantalla de juego de Una compra (motor propio de 3 pasos) -->
-    <section id="pantallaJuegoTienda" class="oculto pila">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressTiendaFill"></div>
-        <span class="progress-text" id="progressTiendaText">0 / 3</span>
-      </div>
-
-      <div class="fila centrado-fila">
-        <p class="pregunta" id="enunciadoTienda" aria-live="polite"></p>
-        <button type="button" class="btn btn-audio" id="btnEnunciadoTienda" data-i18n-aria="core.listenText" aria-label="Escuchar el texto">🔊</button>
-      </div>
-
-      <div class="card centrado pila oculto" id="cartelProducto">
-        <div class="producto" id="productoTienda"></div>
-        <p class="precio" id="precioTienda"></p>
-      </div>
-
-      <!-- Tu monedero (decorativo en el paso 1, tocable en el paso 2) -->
-      <div class="mesa-dinero oculto" id="mesaTienda" role="group" data-i18n-aria="ariaMesa" aria-label="Dinero sobre la mesa"></div>
-
-      <!-- El mostrador donde pones el dinero (paso 2) -->
-      <div class="pila oculto" id="zonaPago">
-        <p class="total centrado" id="totalMostrador" aria-live="polite"></p>
-        <div class="mesa-dinero mostrador" id="mostrador" role="group" aria-label="Mostrador"></div>
-      </div>
-
-      <div class="fila centrado-fila" id="accionesTienda"></div>
-
-      <div class="feedback" id="feedbackTienda" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionTiendaWrap">
-        <p id="explicacionTienda" aria-live="polite"></p>
-      </div>
-      <button type="button" class="btn oculto" id="btnContinuarTienda" data-i18n="btnContinuar">Continuar →</button>
-    </section>
-
-    <!-- Pantalla final (compartida) -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivelFinal" data-i18n="btnOtroNivel">Elegir otro nivel</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverMenuFinal" data-i18n="volverMenu">← Menú</button>
-    </section>
+      <section id="endScreen" class="hidden centered pila" aria-live="polite">
+        <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+        <h2>Ronda completada!</h2>
+        <p id="endSummary"></p>
+        <p class="transferencia">Sigue praticando para aprender mas.</p>
+        <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+        <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
+      </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
@@ -132,16 +73,14 @@
   <script src="../../assets/js/i18n.js"></script>
   <script src="../../assets/js/storage.js"></script>
   <script src="../../assets/js/feedback.js"></script>
-  <script src="../../assets/js/dinero.js"></script>
   <script src="strings.es.js"></script>
   <script src="strings.en.js"></script>
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-

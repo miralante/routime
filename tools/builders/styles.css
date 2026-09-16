@@ -27,7 +27,7 @@
 .btn-modo {
   min-width: 200px;
   min-height: var(--boton-min);
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   padding: var(--espacio) calc(var(--espacio) * 2);
 }
 
@@ -88,15 +88,15 @@
   box-shadow: none;
 }
 
-.nombre-plantilla {
+.name-plantilla {
   font-weight: bold;
   text-align: center;
-  font-size: var(--texto-base);
-  color: var(--color-texto);
+  font-size: var(--text-base);
+  color: var(--color-text);
 }
 
 /* --- Pantalla de juego --- */
-#pantallaJuego {
+#gameScreen {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,14 +109,14 @@
 }
 
 .construccion-titulo {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: bold;
   margin: 0;
 }
 
 .contador-bloques {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-suave);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-suave);
 }
 
 /* --- El mundo: cielo azul con marco de tierra --- */
@@ -260,7 +260,7 @@
 }
 
 .etiqueta-paleta {
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   margin-bottom: calc(var(--espacio) / 2);
 }
 
@@ -284,8 +284,8 @@
   transform: scale(1.1);
 }
 
-.bloque-btn.seleccionado {
-  border-color: var(--color-texto);
+.bloque-btn.selected {
+  border-color: var(--color-text);
   box-shadow: 0 0 0 4px var(--color-foco),
     inset 3px 3px 0 rgba(255, 255, 255, 0.28),
     inset -3px -3px 0 rgba(0, 0, 0, 0.28);
@@ -360,7 +360,7 @@
 
   .btn-modo {
     min-width: 160px;
-    font-size: var(--texto-base);
+    font-size: var(--text-base);
   }
 }
 
@@ -372,10 +372,10 @@
     transition: none;
   }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

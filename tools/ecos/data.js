@@ -2,7 +2,7 @@
    Datos: Ecos (memoria auditiva y ritmo — repetir secuencias).
    Formato: colores = [{ id, nombreKey, frecuencia }] (los 4
    paneles fijos del juego) y niveles = [{ id, nombreKey,
-   descripcionKey, estrellas, longitud (pasos por secuencia) }].
+   descripcionKey, estrellas, longitud (steps por secuencia) }].
    nombreKey/descripcionKey apuntan a textos registrados en
    strings.js (App.i18n.t). Las frecuencias no dependen del idioma.
    Para ampliar: añadir niveles con otra longitud.

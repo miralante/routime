@@ -4,15 +4,15 @@
    ========================================================================== */
 
 /* ---- Text fields (player name, song name) ----
-   .input-nombre had no styling of its own in this file: it was
+   .input-name had no styling of its own in this file: it was
    shown with the browser's default input, not meeting the rest
    of the app's minimum text/touch size. */
-.input-nombre,
-.input-nombre-cancion {
+.input-name,
+.input-name-cancion {
   display: block; width: 100%; max-width: 420px; margin: 0 auto;
   min-height: var(--boton-min); padding: 8px 16px;
   font-family: inherit; font-size: 28px; font-weight: 700; text-align: center;
-  color: var(--color-texto); background: var(--color-superficie);
+  color: var(--color-text); background: var(--color-superficie);
   border: 3px solid var(--color-borde); border-radius: var(--radio);
 }
 
@@ -57,7 +57,7 @@
   font-family: inherit;
   font-weight: 700;
   font-size: 18px;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   cursor: pointer;
   transition: all 0.08s ease;
   position: relative;
@@ -105,10 +105,10 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
-/* ---- Nota actual ---- */
-.nota-actual {
+/* ---- Nota current ---- */
+.nota-current {
   text-align: center;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 800;
   color: var(--mod-coordinacion);
   min-height: 60px;
@@ -192,7 +192,7 @@
   display: flex;
   justify-content: center;
   gap: var(--espacio-grande);
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-coordinacion);
   margin: var(--espacio) 0;
@@ -222,7 +222,7 @@
   border: 3px solid var(--color-borde);
   border-radius: var(--radio);
   font-family: inherit;
-  color: var(--color-texto);
+  color: var(--color-text);
   transition: all 0.2s ease;
 }
 
@@ -236,13 +236,13 @@
 }
 
 .btn-cancion .titulo {
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   font-weight: 700;
 }
 
 .btn-cancion .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-suave);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-suave);
 }
 
 /* ---- Compositor ---- */
@@ -261,7 +261,7 @@
   width: 30px;
 }
 
-.secuencia-actual {
+.secuencia-current {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -274,8 +274,8 @@
   max-width: 500px;
 }
 
-.secuencia-actual .placeholder {
-  color: var(--color-texto-suave);
+.secuencia-current .placeholder-text {
+  color: var(--color-text-suave);
   font-style: italic;
 }
 
@@ -289,15 +289,15 @@
   animation: notaPop 0.2s ease;
 }
 
-.nota-sec .nombre {
-  font-size: var(--texto-pequeno);
+.nota-sec .name {
+  font-size: var(--text-pequeno);
   font-weight: 700;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .nota-sec .tecla {
   font-size: 12px;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
 }
 
 .controles-compositor {
@@ -318,7 +318,7 @@
 .canciones-guardadas h3 {
   margin-bottom: var(--espacio);
   text-align: center;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .cancion-guardada {
@@ -331,9 +331,9 @@
   margin-bottom: 8px;
 }
 
-.cancion-guardada .nombre {
+.cancion-guardada .name {
   font-weight: 600;
-  color: var(--color-texto);
+  color: var(--color-text);
 }
 
 .cancion-guardada .acciones {
@@ -372,12 +372,12 @@
   transition: all 0.2s ease;
 }
 
-.progreso-dot.actual {
+.progreso-dot.current {
   background: var(--mod-coordinacion);
   animation: dotPulse 1s ease-in-out infinite;
 }
 
-.progreso-dot.hecho {
+.progreso-dot.done {
   background: var(--color-acierto);
 }
 
@@ -420,7 +420,7 @@
 /* ---- Feedback ---- */
 .feedback {
   text-align: center;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   min-height: 50px;
   display: flex;
@@ -478,14 +478,15 @@
   }
 }
 
-/* ---- Ocultar ---- */
-.oculto {
+/* ---- Hidden ---- */
+.hidden {
   display: none !important;
+}
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

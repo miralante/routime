@@ -1,7 +1,7 @@
 /* ============================================================
    Routime — ¿Qué necesito? (autonomía: planificación)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
-   Mecánica: leer una tarea u objetivo y elegir qué hace falta
+   Mecánica: leer una tarea u objetivo y select qué hace falta
    preparar antes, entre 3 opciones. Ronda de 8. El error nunca se
    castiga.
    ============================================================ */
@@ -11,68 +11,68 @@
   var TOOL_ID = 'que-necesito';
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaJuego = $('#pantallaJuego');
-  var pantallaFinal = $('#pantallaFinal');
+  var startScreen = $('#startScreen');
+  var gameScreen = $('#gameScreen');
+  var endScreen = $('#endScreen');
   var textoPreguntaEl = $('#textoPregunta');
-  var opcionesEl = $('#opciones');
+  var optionsEl = $('#opciones');
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnEscuchar = $('#btnEscuchar');
-  var btnSiguiente = $('#btnSiguiente');
+  var btnListen = $('#btnListen');
+  var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var dificultadEl = $('#dificultad');
+  var levelEl = $('#dificultad');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Round state */
-  var nivelActual = null;
+  var currentLevel = null;
   var items = [];
   var idx = 0;
-  var aciertosRonda = 0;
-  var resuelto = false;
-  var intentos = 0;
+  var roundHits = 0;
+  var solved = false;
+  var attempts = 0;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function guardar() { App.storage.set(TOOL_ID, progress); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* Determina el nivel según el progreso: cada ronda completada,
+  /* Determina el nivel según el progress: cada ronda completada,
      sube un nivel. */
-  function nivelSegunProgreso() {
-    var idxN = Math.min(progreso.rondasCompletadas, banco().niveles.length - 1);
+  function levelBasedOnProgress() {
+    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
   }
 
   /* Muestra la dificultad actual (etiqueta del nivel). */
-  function pintarDificultad() {
-    if (dificultadEl) {
-      dificultadEl.textContent = nivelActual.nombre;
+  function renderLevel() {
+    if (levelEl) {
+      levelEl.textContent = currentLevel.nombre;
     }
   }
 
-  function iniciarJuego() {
-    nivelActual = nivelSegunProgreso();
-    items = App.utils.shuffle(nivelActual.items).slice(0, banco().porRonda);
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
     idx = 0;
-    aciertosRonda = 0;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.remove('oculto');
-    pintarDificultad();
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
     render();
   }
 
-  function pintarProgreso() {
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -80,18 +80,18 @@
 
   function render() {
     var item = items[idx];
-    resuelto = false;
-    intentos = 0;
-    textoPreguntaEl.textContent = item.text;
+    solved = false;
+    attempts = 0;
+    textoPreguntaEl.textContent = item.textContent;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('oculto');
+    explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
-    btnSiguiente.classList.add('oculto');
-    opcionesEl.innerHTML = '';
+    btnNext.classList.add('hidden');
+    optionsEl.innerHTML = '';
 
     var opciones = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correct };
+      return { texto: opt, isCorrect: i === item.correct };
     }));
 
     opciones.forEach(function (op) {
@@ -99,96 +99,96 @@
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.texto;
-      btn.addEventListener('click', function () { responder(btn, op.esCorrecta, item); });
-      opcionesEl.appendChild(btn);
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
+      optionsEl.appendChild(btn);
     });
 
-    pintarProgreso();
-    pintarEstrellas();
+    renderProgress();
+    renderStars();
   }
 
-  function mostrarExplicacion(esCorrecta, item) {
-    var texto = esCorrecta
+  function showExplanation(isCorrect, item) {
+    var texto = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.options[item.correct] + '.';
     explicacionEl.textContent = texto;
-    explicacionWrap.classList.remove('oculto');
+    explicacionWrap.classList.remove('hidden');
   }
 
   /* Socratic method: on the first mistake the answer isn't given,
      the person is pointed back to the task already on screen. Only
      on the second mistake is what was needed explained
-     (mostrarExplicacion). */
-  function mostrarPista(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.text + '"';
-    explicacionWrap.classList.remove('oculto');
+     (showExplanation). */
+  function showHint(item) {
+    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.textContent + '"';
+    explicacionWrap.classList.remove('hidden');
   }
 
-  function responder(btn, esCorrecta, item) {
-    if (resuelto) return;
-    if (esCorrecta) {
-      mostrarExplicacion(esCorrecta, item);
-      resuelto = true;
+  function answer(btn, isCorrect, item) {
+    if (solved) return;
+    if (isCorrect) {
+      showExplanation(isCorrect, item);
+      solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosRonda += 1;
+      roundHits += 1;
       guardar();
-      pintarEstrellas();
-      btnSiguiente.classList.remove('oculto');
-      btnSiguiente.focus();
+      renderStars();
+      btnNext.classList.remove('hidden');
+      btnNext.focus();
     } else {
-      intentos += 1;
-      if (intentos === 1) {
-        mostrarPista(item);
+      attempts += 1;
+      if (attempts === 1) {
+        showHint(item);
       } else {
-        mostrarExplicacion(esCorrecta, item);
+        showExplanation(isCorrect, item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$('#opciones .btn-opcion'), explicacionWrap);
     }
   }
 
   function siguiente() {
     idx += 1;
     if (idx >= banco().porRonda) {
-      terminarRonda();
+      endRound();
     } else {
       render();
     }
   }
 
-  function terminarRonda() {
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    progreso.rondasCompletadas += 1;
+  function endRound() {
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.roundsCompleted += 1;
     guardar();
-    pantallaJuego.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+    gameScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progreso.rondasCompletadas + 1, banco().niveles.length));
-$('#transferencia').textContent.textContent = '';
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
-  btnEscuchar.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].text);
+  btnListen.addEventListener('click', function () {
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
-  btnSiguiente.addEventListener('click', siguiente);
-  $('#btnJugar').addEventListener('click', function () { iniciarJuego(); });
-  $('#btnRepetir').addEventListener('click', function () { iniciarJuego(); });
+  btnNext.addEventListener('click', siguiente);
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pantallaJuego.classList.add('oculto');
-    pantallaInicio.classList.remove('oculto');
-    pintarEstrellas();
+    endScreen.classList.add('hidden');
+    gameScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    renderStars();
   });
 
-  pintarEstrellas();
+  renderStars();
 })();
 

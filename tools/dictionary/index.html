@@ -18,25 +18,24 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <!-- Pantalla inicial: elegir grupo de palabras -->
-    <section id="startScreen" class="pila centrado">
-      <div class="fila center-row">
-        <p class="instruction" id="instructionText" data-i18n="instruction">Aprende palabras difíciles con su significado sencillo y un ejemplo. Después, haz un test para comprobar qué recuerdas.</p>
+    <!-- Pantalla inicial -->
+    <section id="startScreen" class="pila centered">
+      <div class="row center-row">
+        <p class="instruction" id="instructionText" data-i18n="instruction">Aprende words difíciles con su significado sencillo y un ejemplo. Después, haz un test para comprobar qué recuerdas.</p>
       </div>
-      <h2 data-i18n="chooseLevel">Elige un grupo de palabras</h2>
-      <div class="pila" id="levels"></div>
+      <span class="dificultad" id="dificultad" aria-live="polite"></span>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">¡Jugar!</span>
+      </button>
     </section>
 
     <!-- Pantalla 1: fichas de la palabra -->
-    <section id="cardsScreen" class="oculto pila centrado">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="backLevelsBtnCards" data-i18n="core.back">← Volver</button>
-      </div>
+    <section id="cardsScreen" class="hidden pila centered">
       <div class="progress-bar">
         <div class="progress-fill" id="cardsProgressFill"></div>
         <span class="progress-text" id="cardsProgressText">1 / 8</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="word-display" id="wordDisplay"></div>
         <p class="definition-text"><span data-i18n="definitionLabel">Significa:</span> <span id="definitionText"></span></p>
         <p class="example-text"><span data-i18n="exampleLabel">Por ejemplo:</span> <span id="exampleText"></span></p>      </div>
@@ -44,33 +43,30 @@
     </section>
 
     <!-- Pantalla 2: test -->
-    <section id="quizScreen" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="backLevelsBtnQuiz" data-i18n="core.back">← Volver</button>
-      </div>
+    <section id="quizScreen" class="hidden pila">
       <div class="progress-bar">
         <div class="progress-fill" id="quizProgressFill"></div>
         <span class="progress-text" id="quizProgressText">0 / 8</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="word-display" id="quizWordDisplay"></div>      </div>
-      <h2 class="question centrado" data-i18n="quizQuestion">¿Qué significa esta palabra?</h2>
+      <h2 class="question centered" data-i18n="quizQuestion">¿Qué significa esta palabra?</h2>
       <div class="pila" id="quizOptions"></div>
       <div class="feedback" id="quizFeedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="quizExplanationWrap">
+      <div class="row explicacion hidden" id="quizExplanationWrap">
         <p id="quizExplanation" aria-live="polite"></p>      </div>
-      <button type="button" class="btn oculto" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- End screen -->
-    <section id="endScreen" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="big-emoji" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="finalSummary"></p>
+      <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="replayBtn" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="otherLevelBtn" data-i18n="chooseAnotherLevel">Elegir otro grupo</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

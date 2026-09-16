@@ -14,7 +14,7 @@
     elegirOtroModo: 'Choose another mechanic',
     elegirOtroNivel: 'Choose another level',
     queHora: 'What time is it?',
-    ariaReloj: 'Clock: {texto}',
+    ariaReloj: 'Clock: {text}',
     resumenFinal: 'You won {n} stars. You now have {total} stars.',
     explicacionCorrecta: "✅ Correct! It's ",
     explicacionIncorrectaA: "❌ That is not the time. It's ",
@@ -39,33 +39,33 @@
     menosCuarto: 'quarter to {h}',
     modo: {
       leer: {
-        nombre: 'Read the clock',
+        name: 'Read the clock',
         descripcion: 'Look at the clock and pick the right time.',
         pregunta: 'What time is it?'
       },
       poner: {
-        nombre: 'Set the clock',
+        name: 'Set the clock',
         descripcion: 'Read the time and move the hands with the buttons.',
         pregunta: 'Move the hands to the right time.'
       },
       convertir: {
-        nombre: 'Analog ↔ Digital',
+        name: 'Analog ↔ Digital',
         descripcion: 'Match the analog clock with its digital twin.',
         pregunta: 'Match the clock with its digital time.'
       },
       situaciones: {
-        nombre: 'Moments of the day',
+        name: 'Moments of the day',
         descripcion: 'Pick the clock that matches each moment of the day.',
         pregunta: 'What time is this?'
       }
     },
-    momento: {
-      desayuno: { nombre: 'breakfast',   pregunta: 'What time is breakfast?' },
-      colegio:  { nombre: 'going to school', pregunta: 'What time do you go to school?' },
-      comida:   { nombre: 'lunch',       pregunta: 'What time is lunch?' },
-      merienda: { nombre: 'snack time',  pregunta: 'What time is snack time?' },
-      cena:     { nombre: 'dinner',      pregunta: 'What time is dinner?' },
-      dormir:   { nombre: 'bedtime',     pregunta: 'What time do you go to bed?' }
+    timeOfDay: {
+      desayuno: { name: 'breakfast',   pregunta: 'What time is breakfast?' },
+      colegio:  { name: 'going to school', pregunta: 'What time do you go to school?' },
+      comida:   { name: 'lunch',       pregunta: 'What time is lunch?' },
+      merienda: { name: 'snack time',  pregunta: 'What time is snack time?' },
+      cena:     { name: 'dinner',      pregunta: 'What time is dinner?' },
+      dormir:   { name: 'bedtime',     pregunta: 'What time do you go to bed?' }
     }
   }, 'en');
 })();

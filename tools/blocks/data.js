@@ -3,7 +3,7 @@
    tetris/blocks style: copy a model onto a grid).
    Format: DATA.es / DATA.en, each with:
    { porRonda, colores: { R, B, Y } (spoken name of each color),
-     niveles: [{ id, nombre, descripcion, modelos: string[] }] }
+     niveles: [{ id, name, descripcion, modelos: string[] }] }
    Each model is a 16-character string (4×4 grid, row by row):
    '.' = empty cell, 'R' = red, 'B' = blue, 'Y' = yellow.
    Progression (rule 13, one change per level): the only variable is
@@ -52,18 +52,18 @@
       porRonda: 3,
       colores: { R: 'rojo', B: 'azul', Y: 'amarillo' },
       niveles: [
-        { id: 1, nombre: 'Nivel 1', descripcion: '4 bloques', modelos: MODELOS_1 },
-        { id: 2, nombre: 'Nivel 2', descripcion: '6 bloques', modelos: MODELOS_2 },
-        { id: 3, nombre: 'Nivel 3', descripcion: '8 bloques', modelos: MODELOS_3 }
+        { id: 1, name: 'Nivel 1', descripcion: '4 bloques', modelos: MODELOS_1 },
+        { id: 2, name: 'Nivel 2', descripcion: '6 bloques', modelos: MODELOS_2 },
+        { id: 3, name: 'Nivel 3', descripcion: '8 bloques', modelos: MODELOS_3 }
       ]
     },
     en: {
       porRonda: 3,
       colores: { R: 'red', B: 'blue', Y: 'yellow' },
       niveles: [
-        { id: 1, nombre: 'Level 1', descripcion: '4 blocks', modelos: MODELOS_1 },
-        { id: 2, nombre: 'Level 2', descripcion: '6 blocks', modelos: MODELOS_2 },
-        { id: 3, nombre: 'Level 3', descripcion: '8 blocks', modelos: MODELOS_3 }
+        { id: 1, name: 'Level 1', descripcion: '4 blocks', modelos: MODELOS_1 },
+        { id: 2, name: 'Level 2', descripcion: '6 blocks', modelos: MODELOS_2 },
+        { id: 3, name: 'Level 3', descripcion: '8 blocks', modelos: MODELOS_3 }
       ]
     }
   };

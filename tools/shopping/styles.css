@@ -11,15 +11,15 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .btn-nivel { min-width: 300px; align-self: center; }
 
 .nivel-info {
   font-weight: 400;
-  font-size: var(--texto-pequeno);
+  font-size: var(--text-pequeno);
   opacity: 0.9;
 }
 
@@ -31,24 +31,24 @@
   gap: 8px; min-height: 160px; padding: var(--espacio-grande);
   background: var(--color-superficie); border: 3px solid var(--color-borde);
   border-radius: var(--radio); box-shadow: var(--sombra);
-  font-family: inherit; color: var(--color-texto); cursor: pointer;
+  font-family: inherit; color: var(--color-text); cursor: pointer;
 }
 .tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
 .tarjeta-actividad .picto { font-size: 48px; }
-.tarjeta-actividad .nombre { font-weight: 800; font-size: var(--texto-base); }
-.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--text-base); }
+.tarjeta-actividad .detalle { font-size: var(--text-pequeno); color: var(--color-text-suave); text-align: center; }
 
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
 
 .item-picto { font-size: 72px; }
 
 .item-palabra {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
 }
 
 /* ---- Activity 1: Which section? (large boxes in a column) ---- */
-#cajasSecciones .fila-caja {
+#cajasSecciones .row-caja {
   display: flex;
   align-items: center;
   gap: var(--espacio);
@@ -57,7 +57,7 @@
 #cajasSecciones .caja {
   flex: 1;
   min-height: 88px;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
 }
 
 /* ---- Actividad 2: mi lista de la compra (columnas con lista) ---- */
@@ -68,7 +68,7 @@
   margin-top: var(--espacio-grande);
 }
 
-.columna-dia {
+.column-dia {
   flex: 1 1 220px;
   min-width: 220px;
   padding: var(--espacio);
@@ -77,20 +77,20 @@
   border-radius: var(--radio);
 }
 
-.columna-dia .fila-caja {
+.column-dia .row-caja {
   display: flex;
   align-items: center;
   gap: var(--espacio);
   margin-bottom: var(--espacio);
 }
 
-.columna-dia .caja {
+.column-dia .caja {
   flex: 1;
   min-height: 64px;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
 }
 
-.lista-tareas {
+.tasks-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -100,8 +100,8 @@
   min-height: 32px;
 }
 
-.lista-tareas li {
-  font-size: var(--texto-base);
+.tasks-list li {
+  font-size: var(--text-base);
   font-weight: 700;
   padding: 6px 10px;
   background: var(--mod-secuencia-suave);
@@ -114,16 +114,16 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen { padding-top: 48px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 640px) {
-  .columna-dia { flex: 1 1 100%; }
+  .column-dia { flex: 1 1 100%; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

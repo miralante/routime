@@ -1,7 +1,7 @@
 /* ============================================================
    Datos: Completa la Palabra (lenguaje — ortografía).
    Cada palabra se ve con una letra tapada; hay que elegir la
-   letra correcta entre 3 opciones para completarla bien escrita.
+   letra correcta entre 3 options para completarla bien escrita.
    Formato:
    DATA.es / DATA.en = [{ id, name, words: [{ picto, word, blank,
      options: string[3] }] }]
@@ -10,18 +10,18 @@
    - 'blank' es el índice (0 = primera letra) de la letra que se
      tapa. app.js la sustituye por un hueco y reconstruye la
      palabra completa al acertar.
-   - 'options' son las 3 letras que se ofrecen; options[0] es
+   - 'options' son las 3 letters que se ofrecen; options[0] es
      siempre la correcta (app.js las baraja al pintar).
-   - '—' en las opciones representa "ninguna letra" (para enseñar
+   - '—' en las options representa "ninguna letra" (para enseñar
      que una letra muda, como la H, no se puede omitir aunque no
      suene).
    'id' de cada grupo se mantiene igual en es/en para conservar el
    progreso al cambiar de idioma. Los grupos no son una traducción
    entre sí: cada idioma tiene sus propias dificultades reales de
-   ortografía (I18N.md §3) — en español, letras que se confunden
+   ortografía (I18N.md §3) — en español, letters que se confunden
    por sonar igual (b/v, c/z, g/j, ll/y) y la h muda; en inglés,
-   pares de letras que suenan igual (c/k, soft c/s, soft g/j, la
-   grafía "ph") y letras mudas o dobles.
+   pares de letters que suenan igual (c/k, soft c/s, soft g/j, la
+   grafía "ph") y letters mudas o dobles.
    app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 var DATA = {
@@ -56,7 +56,7 @@ var DATA = {
     },
     {
       id: 'level3',
-      name: 'Nivel 3 · H y letras dobles',
+      name: 'Nivel 3 · H y letters dobles',
       words: [
         { picto: '🏨', word: 'HOTEL', blank: 0, options: ['H', '—', 'J'] },
         { picto: '🥚', word: 'HUEVO', blank: 0, options: ['H', '—', 'G'] },

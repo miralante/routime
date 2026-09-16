@@ -4,12 +4,12 @@
    Datos en data.js (DATA.saber, DATA.checklist). Dos actividades
    elegibles desde un menú (regla 10: una acción principal por
    pantalla):
-   - "¿Lo tengo ya?": quiz de 3 opciones (motor de Situations) que
+   - "¿Lo tengo ya?": quiz de 3 options (motor de Situations) que
      trabaja cosas de prevención (112 escrito, dirección visible,
      detector de humo, llaves de luz/gas, pastillas fuera de
      alcance, puerta que se abre desde dentro). La opción
      correcta es la que se enseña en prevención; las otras son
-     opciones reales pero menos seguras.
+     options reales pero menos seguras.
    - "Mi lista en casa": checklist tipo task-list con 8 cosas;
      no hay aciertos/fallos — la actividad es de REVISIÓN
      familiar, no de examen. Al final se listan las marcadas y
@@ -25,41 +25,41 @@
   var TOOL_ID = 'be-prepared';
   var $ = App.utils.$;
 
-  var pantallaMenu = $('#pantallaMenu');
+  var menuScreen = $('#menuScreen');
   var pantallaSaber = $('#pantallaSaber');
   var pantallaChecklist = $('#pantallaChecklist');
-  var pantallaFinal = $('#pantallaFinal');
+  var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completadoSaber) progreso.completadoSaber = 0;
-  if (!progreso.completadoChecklist) progreso.completadoChecklist = 0;
-  if (!progreso.checklistMarcado) progreso.checklistMarcado = {};
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completadoSaber) progress.completadoSaber = 0;
+  if (!progress.completadoChecklist) progress.completadoChecklist = 0;
+  if (!progress.checklistMarcado) progress.checklistMarcado = {};
 
   var actividadActual = null; /* 'saber' | 'checklist' */
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function ocultarTodas() {
-    [pantallaMenu, pantallaSaber, pantallaChecklist, pantallaFinal].forEach(function (p) {
-      p.classList.add('oculto');
+    [menuScreen, pantallaSaber, pantallaChecklist, endScreen].forEach(function (p) {
+      p.classList.add('hidden');
     });
   }
 
   function irMenu() {
     ocultarTodas();
-    pintarMenu();
-    pantallaMenu.classList.remove('oculto');
+    renderMenu();
+    menuScreen.classList.remove('hidden');
   }
 
-  function pintarMenu() {
-    $('#marcaSaber').textContent.textContent = '';
-    $('#marcaChecklist').textContent.textContent = '';
-    pintarEstrellas();
+  function renderMenu() {
+    $('#marcaSaber').textContent = '';
+    $('#marcaChecklist').textContent = '';
+    renderStars();
   }
 
   /* ================= Actividad 1: ¿Lo tengo ya? ================= */
@@ -85,7 +85,7 @@
     idxS = 0;
     aciertosS = 0;
     ocultarTodas();
-    pantallaSaber.classList.remove('oculto');
+    pantallaSaber.classList.remove('hidden');
     renderSaber();
   }
 
@@ -103,62 +103,62 @@
     saberTextoEl.textContent = item.pregunta;
     feedbackSEl.textContent = '';
     feedbackSEl.className = 'feedback';
-    explicacionSWrap.classList.add('oculto');
+    explicacionSWrap.classList.add('hidden');
     explicacionSEl.textContent = '';
-    btnSiguienteS.classList.add('oculto');
+    btnSiguienteS.classList.add('hidden');
     opcionesSEl.innerHTML = '';
 
-    var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correcta };
+    var options = App.utils.shuffle(item.options.map(function (opt, i) {
+      return { text: opt, isCorrect: i === item.correcta };
     }));
-    opciones.forEach(function (op) {
+    options.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { responderSaber(btn, op.esCorrecta, item); });
+      btn.textContent = op.textContent;
+      btn.addEventListener('click', function () { responderSaber(btn, op.isCorrect, item); });
       opcionesSEl.appendChild(btn);
     });
 
     pintarProgresoS();
-    pintarEstrellas();
+    renderStars();
   }
 
-  function mostrarExplicacionS(esCorrecta, item) {
-    var texto = esCorrecta
+  function mostrarExplicacionS(isCorrect, item) {
+    var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
-      : App.i18n.t('explicacionIncorrectaA') + item.opciones[item.correcta] + '.';
-    explicacionSEl.textContent = texto;
-    explicacionSWrap.classList.remove('oculto');
+      : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
+    explicacionSEl.textContent = text;
+    explicacionSWrap.classList.remove('hidden');
   }
 
-  function responderSaber(btn, esCorrecta, item) {
+  function responderSaber(btn, isCorrect, item) {
     if (resueltoS) return;
-    if (esCorrecta) {
-      mostrarExplicacionS(esCorrecta, item);
+    if (isCorrect) {
+      mostrarExplicacionS(isCorrect, item);
       resueltoS = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosS += 1;
-      guardar();
-      pintarEstrellas();
-      btnSiguienteS.classList.remove('oculto');
+      save();
+      renderStars();
+      btnSiguienteS.classList.remove('hidden');
       btnSiguienteS.focus();
     } else {
       intentosS += 1;
       if (intentosS === 1) {
         explicacionSEl.textContent = App.i18n.t('pista') + '"' + item.pregunta + '"';
-        explicacionSWrap.classList.remove('oculto');
+        explicacionSWrap.classList.remove('hidden');
       } else {
-        mostrarExplicacionS(esCorrecta, item);
+        mostrarExplicacionS(isCorrect, item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explicacionSWrap);
+      App.feedback.lockUntilAck(App.utils.$('#opcionesSaber .btn-opcion'), explicacionSWrap);
     }
   }
 
@@ -172,12 +172,12 @@
   }
 
   function terminarSaber() {
-    progreso.completadoSaber += 1;
-    guardar();
+    progress.completadoSaber += 1;
+    save();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-    $('#transferencia').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -195,12 +195,12 @@
     actividadActual = 'checklist';
     /* Deep-clone so we don't mutate the catalogue */
     itemsChecklist = banco().checklist.map(function (it) {
-      return { id: it.id, picto: it.picto, nombre: it.nombre, marcado: !!progreso.checklistMarcado[it.id] };
+      return { id: it.id, picto: it.picto, name: it.name, marcado: !!progress.checklistMarcado[it.id] };
     });
     idxC = 0;
     aciertosC = 0;
     ocultarTodas();
-    pantallaChecklist.classList.remove('oculto');
+    pantallaChecklist.classList.remove('hidden');
     renderChecklist();
   }
 
@@ -222,50 +222,50 @@
       btn.className = 'checklist-item' + (it.marcado ? ' marcado' : '');
       btn.innerHTML = '<span class="check-picto" aria-hidden="true">' +
         (it.marcado ? '✅' : '⬜') + '</span>' +
-        '<span class="check-nombre">' + it.nombre + '</span>';
+        '<span class="check-name">' + it.name + '</span>';
       btn.setAttribute('aria-pressed', it.marcado ? 'true' : 'false');
       btn.addEventListener('click', function () { toggleChecklist(it, btn); });
       checklistEl.appendChild(btn);
     });
 
     pintarProgresoC();
-    pintarEstrellas();
+    renderStars();
   }
 
   function toggleChecklist(item, btn) {
     item.marcado = !item.marcado;
-    progreso.checklistMarcado[item.id] = item.marcado;
+    progress.checklistMarcado[item.id] = item.marcado;
     if (item.marcado) {
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosC += 1;
       App.feedback.success(feedbackCEl);
     } else {
-      /* No se resta, pero sí se actualiza el contador de progreso */
+      /* No se resta, pero sí se actualiza el contador de progress */
     }
-    guardar();
+    save();
     /* Re-paint the single item without resetting scroll */
     btn.classList.toggle('marcado', item.marcado);
     btn.innerHTML = '<span class="check-picto" aria-hidden="true">' +
       (item.marcado ? '✅' : '⬜') + '</span>' +
-      '<span class="check-nombre">' + item.nombre + '</span>';
+      '<span class="check-name">' + item.name + '</span>';
     btn.setAttribute('aria-pressed', item.marcado ? 'true' : 'false');
     /* Count "checked" items as completed rounds */
     var marcados = itemsChecklist.filter(function (x) { return x.marcado; }).length;
     idxC = Math.min(marcados, itemsChecklist.length);
     pintarProgresoC();
-    pintarEstrellas();
+    renderStars();
     if (marcados >= itemsChecklist.length) {
       setTimeout(terminarChecklist, 700);
     }
   }
 
   function terminarChecklist() {
-    progreso.completadoChecklist += 1;
-    guardar();
+    progress.completadoChecklist += 1;
+    save();
     ocultarTodas();
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -281,7 +281,7 @@
   $('#btnEscucharSaber').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsSaber[idxS].pregunta);
   });
-  $('#btnRepetir').addEventListener('click', function () {
+  $('#btnRepeat').addEventListener('click', function () {
     if (actividadActual === 'saber') iniciarSaber();
     else iniciarChecklist();
   });

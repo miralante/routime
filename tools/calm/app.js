@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   Routime â€” Calm (guided breathing and relaxation)
+   Routime — Calm (guided breathing and relaxation)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: a circle grows and shrinks marking the breathing
    rhythm, with text and voice. No visible timer and no way to
@@ -11,99 +11,113 @@
   var TOOL_ID = 'calma';
   var $ = App.utils.$;
 
-  var pantallaInicio = $('#pantallaInicio');
-  var pantallaSesion = $('#pantallaSesion');
-  var pantallaFinal = $('#pantallaFinal');
-  var circulo = $('#circuloRespiracion');
-  var texto = $('#textoRespiracion');
-  var ciclosEl = $('#ciclosRespiracion');
+  var startScreen = $('#startScreen');
+  var sessionScreen = $('#sessionScreen');
+  var endScreen = $('#endScreen');
+  var circle = $('#breathingCircle');
+  var textEl = $('#breathingText');
+  var cyclesEl = $('#breathingCycles');
   var starsEl = $('#stars');
+  var levelsEl = $('#levels');
 
   /* Persistent progress */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (!progreso.completados) progreso.completados = {};
-  if (typeof progreso.rondasCompletadas !== 'number') progreso.rondasCompletadas = 0;
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (!progress.completed) progress.completed = {};
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  var nivelActual = null;
+  var currentLevel = null;
   var timer = null;
-  var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function pintarEstrellas() { starsEl.textContent = 'â­ ' + progreso.estrellas; }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  );
-      cont.appendChild(btn);
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+
+  /* Renders the level selection buttons. */
+  function renderLevels() {
+    levelsEl.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-nivel';
+      btn.innerHTML = '<strong>' + level.name + '</strong><br><small>' + level.descripcion + '</small>';
+      btn.addEventListener('click', function () { startSession(level); });
+      levelsEl.appendChild(btn);
     });
   }
 
-  function iniciarSesion(n) {
-    nivel = n;
-    pantallaInicio.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaSesion.classList.remove('oculto');
-    var ciclo = 0;
+  function startSession(level) {
+    currentLevel = level;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    sessionScreen.classList.remove('hidden');
+    var cycle = 0;
+    renderStars();
 
-    function paso(inhalar) {
-      if (ciclo >= nivel.ciclos) {
-        terminarSesion();
+    function step(inhale) {
+      if (cycle >= level.ciclos) {
+        endSession();
         return;
       }
-      ciclosEl.textContent = '';
-      if (inhalar) {
-        texto.textContent = App.i18n.t('cogeAire');
+      cyclesEl.textContent = '';
+      if (inhale) {
+        textEl.textContent = App.i18n.t('cogeAire');
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('cogeAire'));
-        circulo.className = 'crecer';
+        circle.className = 'crecer';
       } else {
-        texto.textContent = App.i18n.t('sueltaAire');
+        textEl.textContent = App.i18n.t('sueltaAire');
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('sueltaAire'));
-        circulo.className = 'encoger';
-        ciclo += 1;
+        circle.className = 'encoger';
+        cycle += 1;
       }
-      timer = setTimeout(function () { paso(!inhalar); }, 4000);
+      timer = setTimeout(function () { step(!inhale); }, 4000);
     }
 
-    /* Start small so the first "coge aire" truly animates from nothing */
-    circulo.className = 'encoger';
-    paso(true);
+    /* Start small so the first "breathe in" truly animates from nothing */
+    circle.className = 'encoger';
+    step(true);
   }
 
-  function detener() {
+  function stop() {
     if (timer) clearTimeout(timer);
-    }
+  }
 
-  function terminarSesion() {
-    detener();
-    progreso.estrellas += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-    progreso.completados[nivelActual.id] = (progreso.completados[nivelActual.id] || 0) + 1;
-    guardar();
-    pintarEstrellas();
-    pantallaSesion.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    var palabra = progreso.estrellas === 1 ? App.i18n.t('estrellaSingular') : App.i18n.t('estrellaPlural');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+  function endSession() {
+    stop();
+    progress.stars += 1;
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    save();
+    renderStars();
+    sessionScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = App.i18n.t('resumenFinal', {
+      n: progress.stars,
+      palabra: progress.stars === 1 ? App.i18n.t('estrellaSingular') : App.i18n.t('estrellaPlural')
+    });
+    App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('celebrarMsg'));
   }
 
-  function terminarAntes() {
-    detener();
-    pantallaSesion.classList.add('oculto');
-    pintarNiveles();
-    pantallaInicio.classList.remove('oculto');
+  function stopEarly() {
+    stop();
+    sessionScreen.classList.add('hidden');
+    renderLevels();
+    startScreen.classList.remove('hidden');
   }
 
   /* Events */
-  $('#btnTerminarSesion').addEventListener('click', terminarAntes);
-  $('#btnRepetir').addEventListener('click', function () { iniciarSesion(nivel); });
-  $('#btnOtroNivel').addEventListener('click', function () {
-    pantallaFinal.classList.add('oculto');
-    pintarNiveles();
-    pantallaInicio.classList.remove('oculto');
+  $('#btnEndSession').addEventListener('click', stopEarly);
+  $('#btnRepeat').addEventListener('click', function () { startSession(currentLevel); });
+  $('#btnOtherLevel').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    renderLevels();
+    startScreen.classList.remove('hidden');
   });
 
-  pintarEstrellas();
+  /* Init */
+  renderStars();
+  renderLevels();
 })();
-

@@ -8,75 +8,75 @@
 
 .instruccion { flex: 1; min-width: 200px; }
 
-.pestanas-rutinas {
+.routine-tabs {
   display: flex;
   gap: var(--espacio);
   margin: var(--espacio-grande) 0;
   border-bottom: 2px solid var(--color-borde);
 }
 
-.pestana-rutinas {
+.routine-tab {
   flex: 1;
   min-height: 64px;
   border: 0;
   border-bottom: 4px solid transparent;
   background: transparent;
-  color: var(--color-texto);
+  color: var(--color-text);
   font: inherit;
   font-weight: 800;
   cursor: pointer;
 }
 
-.pestana-rutinas:hover,
-.pestana-rutinas:focus-visible,
-.pestana-rutinas.activa {
+.routine-tab:hover,
+.routine-tab:focus-visible,
+.routine-tab.activa {
   color: var(--mod-secuencia);
   border-bottom-color: var(--mod-secuencia);
 }
 
 /* Routine menu sections */
-.lista-rutinas {
+.routines-list {
   display: flex;
   flex-direction: column;
   gap: var(--espacio-grande);
 }
 
-.seccion-rutinas { display: flex; flex-direction: column; gap: var(--espacio); }
-.seccion-rutinas-titulo {
+.routines-section { display: flex; flex-direction: column; gap: var(--espacio); }
+.routines-section-titulo {
   margin: 0;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 800;
   color: var(--mod-secuencia);
 }
 
-/* Subsecciones dentro de cada momento (Pasos / Ordenar).
+/* Subsecciones dentro de cada timeOfDay (Pasos / Ordenar).
    La segunda (Ordenar) se diferencia con un borde lateral y un
    espaciado para que se lea como un nivel subordinado, no como un
-   grupo nuevo equivalente al momento del día. */
-.subseccion-rutinas {
+   grupo nuevo equivalente al timeOfDay del día. */
+.routines-subsection {
   display: flex;
   flex-direction: column;
   gap: var(--espacio);
   padding-left: var(--espacio);
   border-left: 3px solid var(--color-borde);
 }
-.subseccion-rutinas + .subseccion-rutinas { margin-top: var(--espacio); }
-.subseccion-rutinas-titulo {
+.routines-subsection + .routines-subsection { margin-top: var(--espacio); }
+.routines-subsection-titulo {
   margin: 0;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 700;
-  color: var(--color-texto);
+  color: var(--color-text);
   text-transform: none;
 }
 
-.tarjeta-rutina-ordenar { background: var(--color-superficie-2, #f7f4ef); }
-.tarjeta-rutina-ordenar .tarjeta-rutina-media {
+.routine-card-ordenar { background: var(--color-superficie-2, #f7f4ef); }
+.routine-card-ordenar .routine-card-media {
   background: var(--mod-secuencia-suave);
   opacity: 0.85;
 }
 
 /* Routine menu cards */
-.tarjeta-rutina {
+.routine-card {
   display: grid;
   grid-template-columns: 96px 1fr;
   gap: var(--espacio);
@@ -88,20 +88,20 @@
   overflow: hidden;
 }
 
-.tarjeta-rutina:hover { border-color: var(--mod-secuencia); }
+.routine-card:hover { border-color: var(--mod-secuencia); }
 
-.tarjeta-completada { border-color: var(--color-acierto); background: #f0faf2; }
+.card-completed { border-color: var(--color-acierto); background: #f0faf2; }
 
-.tarjeta-rutina-media {
+.routine-card-media {
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--mod-secuencia-suave);
   font-size: 56px;
 }
-.tarjeta-completada .tarjeta-rutina-media { background: #e0f4e6; }
+.card-completed .routine-card-media { background: #e0f4e6; }
 
-.tarjeta-rutina-cuerpo {
+.routine-card-cuerpo {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -109,59 +109,59 @@
   min-width: 0;
 }
 
-.tarjeta-rutina .nombre {
-  font-size: var(--texto-base);
+.routine-card .name {
+  font-size: var(--text-base);
   font-weight: 700;
   line-height: 1.2;
 }
 
-.tarjeta-rutina-progreso {
+.routine-card-progreso {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.tarjeta-rutina-barra {
+.routine-card-barra {
   width: 100%;
   height: 8px;
   background: var(--color-borde);
   border-radius: 999px;
   overflow: hidden;
 }
-.tarjeta-rutina-barra-fill {
+.routine-card-barra-fill {
   display: block;
   height: 100%;
   background: var(--mod-secuencia);
   transition: width 0.25s ease-out;
 }
-.tarjeta-completada .tarjeta-rutina-barra-fill { background: var(--color-acierto); }
-.tarjeta-rutina .estado { font-size: var(--texto-pequeno); color: var(--color-texto-suave); }
+.card-completed .routine-card-barra-fill { background: var(--color-acierto); }
+.routine-card .status { font-size: var(--text-pequeno); color: var(--color-text-suave); }
 
-.tarjeta-rutina-acciones {
+.routine-card-acciones {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
   align-items: center;
 }
-.tarjeta-rutina-acciones .btn-empezar,
-.tarjeta-rutina-acciones .btn-ordenar-rutina {
+.routine-card-acciones .btn-empezar,
+.routine-card-acciones .btn-ordenar-rutina {
   min-height: 48px;
   padding: 8px 20px;
 }
 
 @media (max-width: 480px) {
-  .tarjeta-rutina { grid-template-columns: 72px 1fr; }
-  .tarjeta-rutina-media { font-size: 40px; }
-  .tarjeta-rutina-acciones .btn-empezar,
-  .tarjeta-rutina-acciones .btn-ordenar-rutina { flex: 1 1 auto; }
+  .routine-card { grid-template-columns: 72px 1fr; }
+  .routine-card-media { font-size: 40px; }
+  .routine-card-acciones .btn-empezar,
+  .routine-card-acciones .btn-ordenar-rutina { flex: 1 1 auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tarjeta-rutina-barra-fill { transition: none; }
+  .routine-card-barra-fill { transition: none; }
 }
 
-/* Lista de pasos */
-#listaPasos { list-style: none; }
+/* Lista de steps */
+#stepsList { list-style: none; }
 
 .paso {
   display: flex;
@@ -174,17 +174,17 @@
   opacity: 0.55;
 }
 
-.paso.actual {
+.paso.current {
   opacity: 1;
   border-color: var(--mod-secuencia);
   background: var(--mod-secuencia-suave);
 }
 
-.paso.hecho { opacity: 0.8; }
+.paso.done { opacity: 0.8; }
 
 .paso .picto { font-size: 44px; }
 .paso .picto { width: 44px; height: 44px; object-fit: contain; }
-.paso .texto { flex: 1; font-weight: 600; }
+.paso .text { flex: 1; font-weight: 600; }
 
 .paso .check {
   font-size: 32px;
@@ -194,18 +194,18 @@
   text-align: center;
 }
 
-.btn-hecho { white-space: nowrap; }
+.btn-done { white-space: nowrap; }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 /* Botón "Ordena la rutina" — estilo unificado (definido arriba, en la tarjeta). */
 
 /* Pantalla "Ordena la rutina" — patrón La Casa.
-   Dos columnas: izquierda = tu orden (slots), derecha = pasos disponibles. */
+   Dos columnas: izquierda = tu orden (slots), derecha = steps disponibles. */
 .orden-dos-columnas {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -224,12 +224,12 @@
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   margin: 0;
 }
 
-/* Slots de la columna izquierda */
-.pila-slots {
+/* Slots de la column izquierda */
+.slots-stack {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -255,20 +255,20 @@
   width: 100%;
 }
 
-.slot-orden.lleno {
+.slot-orden.filled {
   border-style: solid;
   border-color: var(--mod-secuencia);
   background: var(--mod-secuencia-suave);
 }
 
-.slot-orden.lleno.seleccionado {
+.slot-orden.filled.selected {
   background: var(--mod-secuencia);
   color: #FFFFFF;
   box-shadow: 0 0 0 4px var(--mod-secuencia-suave);
 }
 
-.slot-orden.seleccionado .slot-texto,
-.slot-orden.seleccionado .slot-picto { color: #FFFFFF; }
+.slot-orden.selected .slot-text,
+.slot-orden.selected .slot-picto { color: #FFFFFF; }
 
 .slot-orden.pista {
   border-color: var(--mod-secuencia);
@@ -288,23 +288,23 @@
 }
 
 .slot-orden,
-.paso-disponible { touch-action: none; }
+.paso-available { touch-action: none; }
 
-.slot-orden.arrastrando,
-.paso-disponible.arrastrando {
+.slot-orden.dragging,
+.paso-available.dragging {
   opacity: 0.55;
   outline: 4px solid var(--mod-secuencia);
 }
 
 .slot-posicion {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 800;
   color: var(--mod-secuencia);
   text-align: center;
 }
 
 .slot-picto { font-size: 36px; text-align: center; }
-.slot-texto { font-weight: 600; font-size: var(--texto-base); }
+.slot-text { font-weight: 600; font-size: var(--text-base); }
 
 .slot-vacio-hint {
   font-size: 32px;
@@ -314,15 +314,15 @@
   grid-column: 2 / 4;
 }
 
-/* Pasos disponibles de la columna derecha */
-.pila-disponibles {
+/* Pasos disponibles de la column derecha */
+.available-stack {
   display: flex;
   flex-direction: column;
   gap: var(--espacio);
   align-items: stretch;
 }
 
-.paso-disponible {
+.paso-available {
   display: grid;
   grid-template-columns: 56px 1fr;
   align-items: center;
@@ -334,34 +334,34 @@
   border-radius: var(--radio);
   cursor: pointer;
   font-family: inherit;
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 600;
   text-align: left;
-  color: var(--color-texto);
+  color: var(--color-text);
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
-.paso-disponible:hover {
+.paso-available:hover {
   background: var(--mod-secuencia-suave);
   transform: translateY(-1px);
 }
 
-.paso-disponible:focus-visible {
+.paso-available:focus-visible {
   outline: 3px solid var(--mod-secuencia);
   outline-offset: 2px;
 }
 
-.paso-disponible-picto { font-size: 36px; text-align: center; }
+.paso-available-picto { font-size: 36px; text-align: center; }
 
-/* Barra de flechas ↑/↓ para mover el slot seleccionado */
-.barra-mover-slot {
+/* Barra de flechas ↑/↓ para mover el slot selected */
+.move-slot-bar {
   display: flex;
   justify-content: center;
   gap: var(--espacio);
   margin-top: var(--espacio);
 }
 
-.btn-flecha-slot {
+.btn-arrow-slot {
   min-width: 64px;
   min-height: 64px;
   border-radius: var(--radio);
@@ -372,17 +372,17 @@
   font-weight: 800;
   cursor: pointer;
 }
-.btn-flecha-slot:hover:not(:disabled) { background: var(--mod-secuencia-suave); color: var(--mod-secuencia); }
-.btn-flecha-slot:disabled { opacity: 0.35; cursor: not-allowed; background: var(--color-superficie); color: var(--mod-secuencia); border-color: var(--color-borde); }
-.btn-flecha-slot:focus-visible { outline: 3px solid var(--mod-secuencia); outline-offset: 2px; }
+.btn-arrow-slot:hover:not(:disabled) { background: var(--mod-secuencia-suave); color: var(--mod-secuencia); }
+.btn-arrow-slot:disabled { opacity: 0.35; cursor: not-allowed; background: var(--color-superficie); color: var(--mod-secuencia); border-color: var(--color-borde); }
+.btn-arrow-slot:focus-visible { outline: 3px solid var(--mod-secuencia); outline-offset: 2px; }
 
-#btnPistaOrdenar:disabled,
-#btnResolverOrdenar:disabled,
-#btnComprobar:disabled { opacity: 0.45; cursor: not-allowed; }
+#btnHintOrder:disabled,
+#btnResolveOrder:disabled,
+#btnCheck:disabled { opacity: 0.45; cursor: not-allowed; }
 
 @media (prefers-reduced-motion: reduce) {
   .slot-orden,
-  .paso-disponible { transition: none; }
+  .paso-available { transition: none; }
   .slot-orden.pista { animation: none; }
 }
 
@@ -394,52 +394,52 @@
 /* Ordenar rutina: en teléfonos cada acción debe ser fácil de localizar,
    tocar y leer sin obligar a hacer zoom ni desplazar horizontalmente. */
 @media (max-width: 640px) {
-  #pantallaOrdenar .instruccion { min-width: 0; }
+  #orderScreen .instruccion { min-width: 0; }
 
-  #pantallaOrdenar .orden-dos-columnas {
+  #orderScreen .orden-dos-columnas {
     gap: var(--espacio);
   }
 
-  #pantallaOrdenar .slot-orden {
+  #orderScreen .slot-orden {
     grid-template-columns: 36px 44px minmax(0, 1fr);
     gap: 8px;
     min-height: 60px;
     padding: 8px;
   }
 
-  #pantallaOrdenar .slot-picto,
-  #pantallaOrdenar .paso-disponible-picto { font-size: 32px; }
+  #orderScreen .slot-picto,
+  #orderScreen .paso-available-picto { font-size: 32px; }
 
-  #pantallaOrdenar .paso-disponible {
+  #orderScreen .paso-available {
     grid-template-columns: 44px minmax(0, 1fr);
     gap: 8px;
     min-height: 64px;
     padding: 8px;
   }
 
-  #pantallaOrdenar .slot-texto,
-  #pantallaOrdenar .paso-disponible-texto {
+  #orderScreen .slot-text,
+  #orderScreen .paso-available-text {
     overflow-wrap: anywhere;
     line-height: 1.15;
   }
 
-  #pantallaOrdenar .barra-mover-slot {
+  #orderScreen .move-slot-bar {
     margin-top: 8px;
   }
 
-  #pantallaOrdenar > .fila {
+  #orderScreen > .row {
     align-items: stretch;
     flex-direction: column;
     width: 100%;
   }
 
-  #pantallaOrdenar > .fila .btn {
+  #orderScreen > .row .btn {
     width: 100%;
   }
 }
 
 /* ---- Crea tu lista libre ---- */
-.lista-items-actual {
+.lista-items-current {
   list-style: none;
   margin: 0;
   padding: var(--espacio);
@@ -451,14 +451,14 @@
   border-radius: var(--radio);
 }
 
-.lista-items-actual .placeholder {
+.lista-items-current .placeholder-text {
   margin: 0;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   font-style: italic;
   text-align: center;
 }
 
-.item-lista-actual {
+.current-list-item {
   display: flex;
   align-items: center;
   gap: var(--espacio);
@@ -467,41 +467,41 @@
   border-radius: 10px;
 }
 
-.item-lista-actual .texto { flex: 1; font-weight: 600; }
+.current-list-item .text { flex: 1; font-weight: 600; }
 
-.item-lista-flechas {
+.list-item-arrows {
   display: flex;
   gap: 4px;
   flex-shrink: 0;
 }
 
-.btn-flecha-item {
+.btn-arrow-item {
   min-width: 44px;
   min-height: 44px;
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   font-size: 18px;
   cursor: pointer;
 }
-.btn-flecha-item:hover:not(:disabled) { background: var(--color-borde); }
-.btn-flecha-item:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-arrow-item:hover:not(:disabled) { background: var(--color-borde); }
+.btn-arrow-item:disabled { opacity: 0.3; cursor: not-allowed; }
 
-.item-lista-actual .btn-quitar-item {
+.current-list-item .btn-remove-item {
   min-width: 44px;
   min-height: 44px;
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   font-size: 20px;
   cursor: pointer;
   flex-shrink: 0;
 }
-.item-lista-actual .btn-quitar-item:hover { background: var(--color-borde); }
+.current-list-item .btn-remove-item:hover { background: var(--color-borde); }
 
-.aviso-editando {
+.editing-notice {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -515,44 +515,44 @@
   text-align: center;
 }
 
-.btn-cancelar-edicion {
+.btn-cancel-edit {
   min-height: 44px;
   padding: 4px 12px;
   border: 2px solid var(--color-borde);
   border-radius: 8px;
   background: var(--color-superficie);
-  color: var(--color-texto);
+  color: var(--color-text);
   cursor: pointer;
 }
-.btn-cancelar-edicion:hover { background: var(--color-superficie-2, #f7f4ef); }
+.btn-cancel-edit:hover { background: var(--color-superficie-2, #f7f4ef); }
 
-.lista-guardada-editando { outline: 3px solid var(--mod-secuencia); outline-offset: 2px; }
+.saved-list-editando { outline: 3px solid var(--mod-secuencia); outline-offset: 2px; }
 
-.fila-anadir-item {
+.add-item-row {
   display: flex;
   gap: var(--espacio);
   margin: var(--espacio) 0;
   flex-wrap: wrap;
 }
 
-.input-lista {
+.input-list {
   flex: 1;
   min-width: 200px;
   min-height: var(--boton-min);
   padding: 8px 16px;
   font-family: inherit;
-  font-size: var(--texto-base);
-  color: var(--color-texto);
+  font-size: var(--text-base);
+  color: var(--color-text);
   background: var(--color-superficie);
   border: 3px solid var(--color-borde);
   border-radius: var(--radio);
 }
 
-#btnGuardarLista:disabled { opacity: 0.45; cursor: not-allowed; }
+#btnSaveList:disabled { opacity: 0.45; cursor: not-allowed; }
 
-.nombrar-lista { gap: var(--espacio); margin: var(--espacio) 0; }
+.name-list { gap: var(--espacio); margin: var(--espacio) 0; }
 
-.input-nombre-lista {
+.input-list-name {
   display: block;
   width: 100%;
   max-width: 420px;
@@ -563,28 +563,28 @@
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  color: var(--color-texto);
+  color: var(--color-text);
   background: var(--color-superficie);
   border: 3px solid var(--color-borde);
   border-radius: var(--radio);
 }
 
-.listas-guardadas { margin-top: var(--espacio-grande); }
+.saved-lists { margin-top: var(--espacio-grande); }
 
-.listas-guardadas h3 {
+.saved-lists h3 {
   margin: 0 0 var(--espacio) 0;
-  font-size: var(--texto-base);
-  color: var(--color-texto);
+  font-size: var(--text-base);
+  color: var(--color-text);
 }
 
-.lista-guardada {
+.saved-list {
   background: var(--mod-secuencia-suave);
   border-radius: 10px;
   margin-bottom: 8px;
   overflow: hidden;
 }
 
-.lista-guardada-fila {
+.saved-list-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -592,7 +592,7 @@
   padding: 10px;
 }
 
-.lista-guardada-info {
+.saved-list-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -605,12 +605,12 @@
   padding: 4px;
 }
 
-.lista-guardada-info .nombre { font-weight: 700; color: var(--color-texto); }
-.lista-guardada-info .cantidad { font-size: var(--texto-pequeno); color: var(--color-texto-suave); }
+.saved-list-info .name { font-weight: 700; color: var(--color-text); }
+.saved-list-info .count { font-size: var(--text-pequeno); color: var(--color-text-suave); }
 
-.lista-guardada-acciones { display: flex; gap: 8px; flex-shrink: 0; }
+.saved-list-acciones { display: flex; gap: 8px; flex-shrink: 0; }
 
-.lista-guardada-acciones button {
+.saved-list-acciones button {
   min-width: var(--boton-min);
   min-height: var(--boton-min);
   font-size: 22px;
@@ -619,16 +619,16 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.lista-guardada-acciones button:hover { background: var(--color-superficie-2, #f7f4ef); }
+.saved-list-acciones button:hover { background: var(--color-superficie-2, #f7f4ef); }
 
-.lista-guardada-items {
+.saved-list-items {
   list-style: none;
   margin: 0;
   padding: 0 var(--espacio) var(--espacio) var(--espacio);
 }
-.lista-guardada-items li {
+.saved-list-items li {
   padding: 4px 0;
-  color: var(--color-texto);
+  color: var(--color-text);
   border-top: 1px solid var(--color-borde);
 }
-.lista-guardada-items li:first-child { border-top: none; }
+.saved-list-items li:first-child { border-top: none; }

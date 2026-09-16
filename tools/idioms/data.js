@@ -1,8 +1,8 @@
 /* ============================================================
    Datos: dichos populares (es) e idioms en inglés (en).
    Formato: { text: string, options: string[3], correct: indice }
-   options[correct] es el significado correcto del dicho; se reutiliza
-   como texto de la explicación al responder.
+   options[correct] es el significado correct del dicho; se reutiliza
+   como text de la explicación al responder.
    Para ampliar: añadir objetos al array del idioma correspondiente.
    'correct' apunta a options. app.js usa DATA[App.i18n.locale()].
    ============================================================ */
@@ -112,7 +112,7 @@ const DATA = {
         options: [
             "Es mejor quedarse callado que decir algo malo",
             "El silencio es oro",
-            "Las palabras pueden causar problemas"
+            "Las words pueden causar problemas"
         ],
         correct: 0
     },
@@ -218,7 +218,7 @@ const DATA = {
     {
         text: "A falta de pan, buenas son las tortas",
         options: [
-            "Cuando no tienes lo ideal, acepta lo disponible",
+            "Cuando no tienes lo ideal, acepta lo available",
             "Hay que saber adaptarse",
             "Las alternativas son válidas"
         ],
@@ -234,7 +234,7 @@ const DATA = {
         correct: 0
     },
     {
-        text: "A buen entendedor, pocas palabras bastan",
+        text: "A buen entendedor, pocas words bastan",
         options: [
             "Las personas inteligentes comprenden rápido",
             "El entendimiento no requiere explicaciones",
@@ -247,7 +247,7 @@ const DATA = {
         options: [
             "Hablar demasiado aumenta los errores",
             "La verbosidad causa problemas",
-            "Hay que moderar las palabras"
+            "Hay que moderar las words"
         ],
         correct: 0
     },
@@ -336,7 +336,7 @@ const DATA = {
         text: "A la ocasión la pintan calva",
         options: [
             "Las oportunidades hay que aprovecharlas rápido",
-            "El momento perfecto no existe",
+            "El timeOfDay perfecto no existe",
             "Hay que estar preparado"
         ],
         correct: 0
@@ -346,7 +346,7 @@ const DATA = {
         options: [
             "El que persiste al final tiene la victoria",
             "La paciencia es virtud",
-            "Hay que esperar el momento oportuno"
+            "Hay que esperar el timeOfDay oportuno"
         ],
         correct: 0
     },
@@ -405,7 +405,7 @@ const DATA = {
         correct: 0
     },
     {
-        text: "A palabras necias, oídos sordos",
+        text: "A words necias, oídos sordos",
         options: [
             "Ignora los comentarios tontos",
             "No hagas caso a críticas vacías",
@@ -434,7 +434,7 @@ const DATA = {
     {
         text: "Quien te quiere te hace llorar",
         options: [
-            "A veces el cariño se expresa con duras palabras",
+            "A veces el cariño se expresa con duras words",
             "El amor puede doler",
             "La verdad a veces hiere"
         ],
@@ -506,7 +506,7 @@ const DATA = {
     {
         text: "Quien bien tiene y mal escoge, por mal que le venga no se enoje",
         options: [
-            "Si tienes opciones buenas y eliges mal, no te quejes",
+            "Si tienes options buenas y eliges mal, no te quejes",
             "La culpa de los males propios es propia",
             "Hay que asumir las consecuencias"
         ],
@@ -605,7 +605,7 @@ const DATA = {
     {
         text: "A cada cosa, su tiempo",
         options: [
-            "Hay que hacer las cosas a su debido momento",
+            "Hay que hacer las cosas a su debido timeOfDay",
             "La paciencia es importante",
             "No todo es inmediato"
         ],
@@ -657,7 +657,7 @@ const DATA = {
         correct: 0
     },
     {
-        text: "Quien es bonito, tiene la mitad del trabajo hecho",
+        text: "Quien es bonito, tiene la mitad del trabajo done",
         options: [
             "La apariencia facilita muchas cosas",
             "La imagen es importante",
@@ -729,10 +729,10 @@ const DATA = {
         correct: 0
     },
     {
-        text: "A lo hecho, pecho",
+        text: "A lo done, pecho",
         options: [
             "Hay que asumir las consecuencias de tus actos",
-            "Lo hecho está hecho, hay que aceptarlo",
+            "Lo done está done, hay que aceptarlo",
             "Asume tu responsabilidad"
         ],
         correct: 0
@@ -741,7 +741,7 @@ const DATA = {
         text: "Quien está en buena luna, está de buena luna",
         options: [
             "Estar de buen humor es como estar bajo la luna buena",
-            "El estado de ánimo afecta todo",
+            "El status de ánimo afecta todo",
             "La suerte viene por temporadas"
         ],
         correct: 0
@@ -756,9 +756,9 @@ const DATA = {
         correct: 0
     },
     {
-        text: "Quien hace deprisa y mal hecho, dos veces lo ha de hacer",
+        text: "Quien hace deprisa y mal done, dos veces lo ha de hacer",
         options: [
-            "Lo mal hecho hay que repetirlo",
+            "Lo mal done hay que repetirlo",
             "La prisa causa errores",
             "Es mejor hacerlo bien a la primera"
         ],

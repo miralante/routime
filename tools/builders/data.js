@@ -44,7 +44,7 @@ DATA.plantillas = [
   {
     id: 'casita',
     gridSize: { cols: 6, rows: 4 },
-    nombre: 'plantillaCasita',
+    name: 'plantillaCasita',
     matriz: [
       [null, null, 'techo', 'techo', null, null],
       [null, 'madera', 'madera', 'madera', 'madera', null],
@@ -55,7 +55,7 @@ DATA.plantillas = [
   {
     id: 'castillo',
     gridSize: { cols: 6, rows: 4 },
-    nombre: 'plantillaCastillo',
+    name: 'plantillaCastillo',
     matriz: [
       ['piedra', 'piedra', 'piedra', 'piedra', 'piedra', 'piedra'],
       ['piedra', null, null, null, null, 'piedra'],
@@ -66,7 +66,7 @@ DATA.plantillas = [
   {
     id: 'piscina',
     gridSize: { cols: 8, rows: 5 },
-    nombre: 'plantillaPiscina',
+    name: 'plantillaPiscina',
     matriz: [
       ['cesped', 'cesped', 'cesped', 'cesped', 'cesped', 'cesped', 'cesped', 'cesped'],
       ['cesped', 'piedra', 'piedra', 'piedra', 'piedra', 'piedra', 'piedra', 'cesped'],
@@ -78,7 +78,7 @@ DATA.plantillas = [
   {
     id: 'puente',
     gridSize: { cols: 8, rows: 5 },
-    nombre: 'plantillaPuente',
+    name: 'plantillaPuente',
     matriz: [
       [null, null, null, null, null, null, null, null],
       [null, null, 'madera', 'madera', 'madera', 'madera', null, null],
@@ -90,7 +90,7 @@ DATA.plantillas = [
   {
     id: 'ciudad',
     gridSize: { cols: 10, rows: 6 },
-    nombre: 'plantillaCiudad',
+    name: 'plantillaCiudad',
     matriz: [
       [null, null, null, null, null, null, null, null, null, null],
       ['piedra', 'techo', 'piedra', null, 'ladrillo', 'techo', 'ladrillo', null, 'madera', 'techo'],
@@ -103,7 +103,7 @@ DATA.plantillas = [
   {
     id: 'rio',
     gridSize: { cols: 10, rows: 6 },
-    nombre: 'plantillaRio',
+    name: 'plantillaRio',
     matriz: [
       ['cesped', 'cesped', 'cesped', 'agua', 'agua', 'agua', 'agua', 'cesped', 'cesped', 'cesped'],
       ['cesped', 'madera', 'madera', 'agua', 'agua', 'agua', 'agua', 'piedra', 'piedra', 'piedra'],

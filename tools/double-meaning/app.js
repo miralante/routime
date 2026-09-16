@@ -7,6 +7,8 @@
    error nunca se castiga; pista en el primer fallo, y al acertar
    siempre se explican los significados reales, aunque la persona
    haya fallado antes.
+   Progresión automática: empieza con el grupo fácil y sube según
+   el progress guardado, sin mostrar selección de nivel.
    ============================================================ */
 (function () {
   'use strict';
@@ -17,8 +19,8 @@
   var startScreen = $('#startScreen');
   var quizScreen = $('#quizScreen');
   var endScreen = $('#endScreen');
-  var levelsEl = $('#levels');
   var starsEl = $('#stars');
+  var levelEl = $('#dificultad');
 
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -32,17 +34,17 @@
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (!progress.completed) progress.completed = {};
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function show(screen) {
     [startScreen, quizScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -53,25 +55,28 @@
     return t('singleExplanation').replace('{m1}', item.meanings[0]);
   }
 
-  /* ---------- Pantalla inicial: elegir grupo ---------- */
-
-  function paintLevels() {
-    levelsEl.innerHTML = '';
-    bank().forEach(function (level) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-level';
-      var done = progress.completed[level.id] ? ' ' + t('done') : '';
-      btn.innerHTML = level.name + done +
-        '<span class="level-info">' + t('itemsCount') + '</span>';
-      btn.addEventListener('click', function () { startLevel(level); });
-      levelsEl.appendChild(btn);
-    });
+  /* ---------- Nivel según progress ---------- */
+  function levelBasedOnProgress() {
+    var idx = Math.min(progress.roundsCompleted, bank().length - 1);
+    return bank()[idx];
   }
 
-  function goStart() {
-    paintLevels();
-    show(startScreen);
+  function renderLevel() {
+    if (levelEl) {
+      var count = currentLevel.items.length;
+      levelEl.textContent = count + ' ' + (count === 1 ? t('frase') : t('frases'));
+    }
+  }
+
+  /* ---------- Pantalla inicial ---------- */
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items);
+    idx = 0;
+    correctCount = 0;
+    show(quizScreen);
+    renderLevel();
+    render();
   }
 
   /* ---------- Ronda de quiz ---------- */
@@ -81,15 +86,6 @@
   var correctCount = 0;
   var resolved = false;
   var attempts = 0;   /* Socratic counter per item (rule 12) */
-
-  function startLevel(level) {
-    currentLevel = level;
-    items = App.utils.shuffle(level.items);
-    idx = 0;
-    correctCount = 0;
-    show(quizScreen);
-    render();
-  }
 
   function paintProgress() {
     var total = items.length;
@@ -104,9 +100,9 @@
     sentenceText.textContent = item.sentence;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explanationWrap.classList.add('oculto');
+    explanationWrap.classList.add('hidden');
     explanationEl.textContent = '';
-    nextBtn.classList.add('oculto');
+    nextBtn.classList.add('hidden');
     optionsEl.innerHTML = '';
 
     [
@@ -125,20 +121,20 @@
     paintStars();
   }
 
-  function answer(btn, esCorrecta, item) {
+  function answer(btn, isCorrect, item) {
     if (resolved) return;
-    if (esCorrecta) {
+    if (isCorrect) {
       explanationEl.textContent = explanationFor(item);
-      explanationWrap.classList.remove('oculto');
+      explanationWrap.classList.remove('hidden');
       resolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
-      progress.estrellas += 1;
+      progress.stars += 1;
       correctCount += 1;
       save();
       paintStars();
-      nextBtn.classList.remove('oculto');
+      nextBtn.classList.remove('hidden');
       nextBtn.focus();
     } else {
       attempts += 1;
@@ -147,12 +143,12 @@
       } else {
         explanationEl.textContent = explanationFor(item);
       }
-      explanationWrap.classList.remove('oculto');
+      explanationWrap.classList.remove('hidden');
       if (false && App.tts && App.tts.speak) App.tts.speak(item.sentence);
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explanationWrap);
     }
   }
 
@@ -166,17 +162,19 @@
   }
 
   function finish() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.roundsCompleted += 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+    $('#finalSummary').textContent = '';
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
 
-  $('#backLevelsBtn').addEventListener('click', goStart);
+  $('#btnPlay').addEventListener('click', startGame);
   listenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].sentence);
   });
@@ -184,13 +182,17 @@ $('#transferencia').textContent.textContent = '';
     if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
   });
   nextBtn.addEventListener('click', next);
-  $('#replayBtn').addEventListener('click', function () { startLevel(currentLevel); });
-  $('#otherLevelBtn').addEventListener('click', goStart);
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#btnMenu').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    quizScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    paintStars();
+  });
 
   function init() {
     App.i18n.apply();
     paintStars();
-    paintLevels();
   }
 
   document.addEventListener('DOMContentLoaded', init);

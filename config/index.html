@@ -17,8 +17,8 @@
   <div class="container settings">
     <header class="cabecera-settings">
       <div class="idioma-selector" role="group" aria-label="Elegir idioma">
-        <button type="button" class="btn-idioma" id="btnIdiomaEs" data-locale="es" aria-pressed="false">🇪🇸 Español</button>
-        <button type="button" class="btn-idioma" id="btnIdiomaEn" data-locale="en" aria-pressed="false">🇬🇧 English</button>
+        <button type="button" class="btn-lang" id="btnLangEs" data-locale="es" aria-pressed="false">🇪🇸 Español</button>
+        <button type="button" class="btn-lang" id="btnLangEn" data-locale="en" aria-pressed="false">🇬🇧 English</button>
       </div>
       <p class="aviso-ruta" data-i18n="routeNotice">Página de ajustes. No aparece en el menú de la aplicación:
         solo se llega escribiendo esta dirección.</p>
@@ -173,12 +173,12 @@
         <p data-i18n="backupIntro">El progreso solo se guarda en este navegador. Si se borra por error (limpieza del
           navegador, cambio de dispositivo…) se pierde para siempre. Aquí se puede guardar una
           copia en un archivo y recuperarla más tarde.</p>
-        <button type="button" class="btn btn-secundario" id="btnExportar" data-i18n="btnExport">💾 Guardar copia</button>
+        <button type="button" class="btn btn-secondary" id="btnExportar" data-i18n="btnExport">💾 Guardar copia</button>
         <p class="feedback" id="feedbackExportar" aria-live="polite"></p>
         <hr>
         <label class="etiqueta-archivo" for="inputImportar" data-i18n="retrieveLabel">Recuperar copia desde un archivo:</label>
         <input type="file" accept=".json,application/json" id="inputImportar">
-        <button type="button" class="btn btn-secundario" id="btnImportar" disabled data-i18n="btnImport">📂 Recuperar copia</button>
+        <button type="button" class="btn btn-secondary" id="btnImportar" disabled data-i18n="btnImport">📂 Recuperar copia</button>
         <p class="nota-reset"><span data-i18n="importWarning1">Recuperar una copia </span><strong data-i18n="importWarningStrong">sustituye</strong><span data-i18n="importWarning2"> el progreso actual de
           las actividades que aparezcan en el archivo.</span></p>
         <p class="feedback" id="feedbackImportar" aria-live="polite"></p>
@@ -245,7 +245,7 @@
           <input type="tel" id="inputContact4Phone" class="campo-texto campo-contacto-telefono">
         </div>
 
-        <button type="button" class="btn btn-secundario" id="btnSaveMyDetails" data-i18n="btnSaveMyDetails">💾 Guardar datos</button>
+        <button type="button" class="btn btn-secondary" id="btnSaveMyDetails" data-i18n="btnSaveMyDetails">💾 Guardar datos</button>
         <p class="feedback" id="feedbackMyDetails" aria-live="polite"></p>
       </section>
 
@@ -253,7 +253,7 @@
         <h2 data-i18n="resetPersonTitle">Restablecer los datos de la persona</h2>
         <p><span data-i18n="resetPersonIntro1">Borra el </span><strong data-i18n="resetPersonIntroStrong1">idioma elegido</strong><span data-i18n="resetPersonIntro2"> (la próxima vez se detecta de nuevo o se vuelve a español) y el </span><strong data-i18n="resetPersonIntroStrong2">nombre</strong><span data-i18n="resetPersonIntro3"> escrito en Teclado y en Piano, y </span><strong data-i18n="resetPersonIntroStrong3">la dirección y los teléfonos</strong><span data-i18n="resetPersonIntro4"> de Mis Datos.</span></p>
         <p class="nota-reset"><span data-i18n="resetPersonNote1">El progreso (estrellas, niveles y canciones guardadas) de todas las actividades </span><strong data-i18n="resetPersonNoteStrong">NO se borra</strong><span data-i18n="resetPersonNote2">.</span></p>
-        <button type="button" class="btn btn-secundario" id="btnResetPersona" data-i18n="btnResetPerson">🧑 Restablecer datos de la persona</button>
+        <button type="button" class="btn btn-secondary" id="btnResetPersona" data-i18n="btnResetPerson">🧑 Restablecer datos de la persona</button>
         <p class="feedback" id="feedbackPersona" aria-live="polite"></p>
       </section>
 
@@ -261,14 +261,14 @@
         <h2 data-i18n="resetAppTitle">Restablecer toda la aplicación</h2>
         <p><span data-i18n="resetAppIntro1">Borra </span><strong data-i18n="resetAppIntroStrong">todo</strong><span data-i18n="resetAppIntro2"> lo guardado en este navegador: idioma, nombres, estrellas, niveles completados y canciones guardadas de todas las actividades.</span></p>
         <p class="nota-reset"><strong data-i18n="resetAppNoteStrong">No se puede deshacer.</strong><span data-i18n="resetAppNote2"> Es como si la aplicación se abriera por primera vez.</span></p>
-        <button type="button" class="btn btn-secundario" id="btnResetApp" data-i18n="btnResetApp">🗑️ Restablecer toda la aplicación</button>
+        <button type="button" class="btn btn-secondary" id="btnResetApp" data-i18n="btnResetApp">🗑️ Restablecer toda la aplicación</button>
         <p class="feedback" id="feedbackApp" aria-live="polite"></p>
       </section>
 
       <footer class="pie-settings">
-        <a class="btn btn-secundario" href="../site/index.html" data-i18n="footerActivities">Ir a las actividades</a>
-        <a class="btn btn-secundario" href="../team/index.html" data-i18n="footerTeamGuide">Guía para el equipo de apoyo</a>
-        <a class="btn btn-secundario" href="../legal/index.html" data-i18n="core.dataProtection">Protección de datos</a>
+        <a class="btn btn-secondary" href="../site/index.html" data-i18n="footerActivities">Ir a las actividades</a>
+        <a class="btn btn-secondary" href="../team/index.html" data-i18n="footerTeamGuide">Guía para el equipo de apoyo</a>
+        <a class="btn btn-secondary" href="../legal/index.html" data-i18n="core.dataProtection">Protección de datos</a>
       </footer>
 
     </main>
@@ -285,11 +285,11 @@
       'use strict';
       function paintLanguageSelector() {
         var active = App.i18n.locale();
-        document.getElementById('btnIdiomaEs').setAttribute('aria-pressed', String(active === 'es'));
-        document.getElementById('btnIdiomaEn').setAttribute('aria-pressed', String(active === 'en'));
+        document.getElementById('btnLangEs').setAttribute('aria-pressed', String(active === 'es'));
+        document.getElementById('btnLangEn').setAttribute('aria-pressed', String(active === 'en'));
       }
-      document.getElementById('btnIdiomaEs').addEventListener('click', function () { App.i18n.setLocale('es'); });
-      document.getElementById('btnIdiomaEn').addEventListener('click', function () { App.i18n.setLocale('en'); });
+      document.getElementById('btnLangEs').addEventListener('click', function () { App.i18n.setLocale('es'); });
+      document.getElementById('btnLangEn').addEventListener('click', function () { App.i18n.setLocale('en'); });
       paintLanguageSelector();
     })();
   </script>

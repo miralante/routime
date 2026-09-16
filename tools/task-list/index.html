@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Tareas | Routime</title>
+  <title>Lista de tareas | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,110 +13,62 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" id="btnVolver" data-i18n="core.back">â† Volver</a>
-      <h1 data-i18n="title">ðŸ—’ï¸ Lista de Tareas</h1>
-      <span class="stars" id="stars">â­ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>Routime</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Start screen -->
-    <section id="pantallaInicio" class="pila centrado">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Toca las tareas en el orden correcto, de primero a Ãºltimo.</p>
+    <section id="startScreen" class="hidden pila centered">
+      <div class="row centered-row">
+        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
       </div>
-      <button type="button" class="btn btn-principal" id="btnJugar"><span data-i18n="btnJugar">¡Jugar!</span></button>
+      <button type="button" class="btn btn-principal" id="btnPlay">
+        <span data-i18n="btnJugar">Jugar!</span>
+      </button>
     </section>
 
-    <!-- Game screen -->
-    <section id="pantallaJuego" class="oculto pila">
+    <section id="gameScreen" class="hidden pila centered">
+
+      <div class="create-screen hidden" id="createScreen">
+        <h3>Crear tu lista</h3>
+        <input type="text" id="inputNombreListaCrear" placeholder-text="Nombre de la lista" />
+        <button type="button" class="btn btn-secondary" id="btnAnadirItemCrear">Anadir</button>
+        <input type="text" id="inputNuevoItemCrear" placeholder-text="Nuevo item" />
+        <div id="itemsListaCrear" class="items-crear"></div>
+        <p id="progresoListaCrear"></p>
+        <button type="button" class="btn" id="btnGuardarListaCrear">Guardar</button>
+        <button type="button" class="btn btn-secondary" id="btnVaciarListaCrear">Vaciar</button>
+        <button type="button" class="btn btn-secondary" id="btnMisListas">Mis listas</button>
+        <div id="savedLists" class="saved-lists"></div>
+      </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
-        <span class="progress-text" id="progressText">0 / 5</span>
-        <span class="dificultad" id="dificultad"></span>
+        <span class="progress-text" id="progressText"></span>
+        <span class="dificultad" id="level"></span>
       </div>
-
-      <p class="lista-titulo centrado" id="listaTitulo"></p>
-
-      <p class="etiqueta centrado" data-i18n="etiquetaOrden">Tu orden</p>
-      <div class="pila-secuencia" id="secuencia"></div>
-
-      <p class="etiqueta centrado" data-i18n="etiquetaTareas">Tareas</p>
-      <div class="pila-disponibles" id="disponibles"></div>
-
+      <div class="card centered stack">
+        <h3 id="listaTitulo" class="lista-titulo"></h3>
+        <div id="secuencia" class="secuencia-row"></div>
+        <div id="disponibles" class="disponibles-row"></div>
+        <div class="crear-controles">
+          <button type="button" class="btn btn-secondary" id="btnSubirItemCrear">Subir</button>
+          <button type="button" class="btn btn-secondary" id="btnBajarItemCrear">Bajar</button>
+        </div>
+        <p id="feedbackCrear" class="feedback"></p>
+      </div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
-      <button type="button" class="btn oculto" id="btnSiguiente" data-i18n="core.next" data-i18n-aria="core.nextAria">â†’</button>
+      <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
     </section>
 
-    <!-- Pantalla "Crea tu lista" (Nivel 3):
-         simulaciÃ³n y entrenamiento del flujo real de una lista.
-         La persona:
-           1. Crea una lista de prÃ¡ctica con un nombre y elementos.
-           2. Reordena los elementos con flechas â†‘/â†“.
-           3. Marca cada elemento como "Hecho".
-           4. Puede borrar un elemento o vaciar la lista.
-           5. Guarda la lista y la recupera mÃ¡s tarde desde el menÃº.
-         Las listas se guardan en localStorage del dispositivo
-         (no son datos personales: son listas de entrenamiento). -->
-    <section id="pantallaCrear" class="oculto pila">
-      <h2 class="centrado" data-i18n="crearTitulo">ðŸ“ Crea tu lista</h2>
-      <p class="instruccion centrado" data-i18n="crearInstruccion">Practica creando una lista: aÃ±ade cosas, cÃ¡mbialas de orden, mÃ¡rcalas como hechas y bÃ³rralas.</p>
-      <p class="transferencia centrado" data-i18n="transferenciaCrear"></p>
-
-      <div id="panelNombre" class="panel-nombre pila">
-        <div class="consejo-lista">
-          <p class="consejo-lista-titulo" data-i18n="consejoListaTitulo">ðŸ’¡ CÃ³mo hacer una buena lista</p>
-          <ol class="consejo-lista-pasos">
-            <li data-i18n="consejoListaPaso1">Piensa quÃ© tienes que hacer.</li>
-            <li data-i18n="consejoListaPaso2">Apunta cada cosa en la lista.</li>
-            <li data-i18n="consejoListaPaso3">Ponlas en el orden en que las vas a hacer.</li>
-            <li data-i18n="consejoListaPaso4">MÃ¡rcalas como hechas cuando termines.</li>
-          </ol>
-        </div>
-        <label for="inputNombreListaCrear" class="instruccion centrado" data-i18n="labelNombreLista">Nombre de la lista</label>
-        <input id="inputNombreListaCrear" class="input-nombre-lista" type="text" maxlength="30" autocomplete="off" data-i18n-aria="ariaNombreLista">
-        <div class="fila centrado">
-          <button type="button" class="btn" id="btnEmpezarCrear" data-i18n="btnEmpezarCrear">Empezar</button>
-        </div>
-        <div id="listasGuardadas" class="listas-guardadas"></div>
-      </div>
-
-      <div id="panelEditor" class="panel-editor oculto pila">
-        <div class="fila centrado">
-          <button type="button" class="btn btn-secundario btn-mis-listas" id="btnMisListas" data-i18n="btnMisListas" data-i18n-aria="ariaMisListas">ðŸ“‹ Mis listas</button>
-        </div>
-        <p class="lista-titulo centrado" id="tituloListaCrear"></p>
-        <p class="lista-progreso centrado" id="progresoListaCrear"></p>
-
-        <ol id="itemsListaCrear" class="lista-items-crear"></ol>
-
-        <div class="barra-mover-slot" role="group" aria-label="Mover el elemento seleccionado">
-          <button type="button" class="btn-flecha-slot btn-subir-slot" id="btnSubirItemCrear" aria-label="Subir el elemento seleccionado" disabled>â†‘</button>
-          <button type="button" class="btn-flecha-slot btn-bajar-slot" id="btnBajarItemCrear" aria-label="Bajar el elemento seleccionado" disabled>â†“</button>
-        </div>
-
-        <div class="fila-anadir-item">
-          <input type="text" id="inputNuevoItemCrear" class="input-lista" maxlength="60" autocomplete="off">
-          <button type="button" class="btn" id="btnAnadirItemCrear" data-i18n="btnAnadirItem">âž• AÃ±adir</button>
-        </div>
-
-        <div class="fila centrado">
-          <button type="button" class="btn" id="btnGuardarListaCrear" data-i18n="btnGuardarLista" disabled>ðŸ’¾ Guardar lista</button>
-          <button type="button" class="btn btn-secundario" id="btnVaciarListaCrear" data-i18n="btnVaciarLista" data-i18n-aria="ariaVaciarLista">ðŸ—‘ï¸ Vaciar</button>
-        </div>
-      </div>
-
-      <div class="feedback" id="feedbackCrear" aria-live="polite"></div>
-    </section>
-
-    <!-- End screen -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">ðŸŽ‰</div>
-      <h2 data-i18n="core.roundComplete">Â¡Ronda completada!</h2>
-      <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnMenu" data-i18n="btnMenu">Volver al inicio</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menÃº</a>
-    </section>
+      <section id="endScreen" class="hidden centered pila" aria-live="polite">
+        <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+        <h2>Ronda completada!</h2>
+        <p id="endSummary"></p>
+        <p class="transferencia">Sigue praticando para aprender mas.</p>
+        <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+        <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
+      </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
 
@@ -130,9 +82,8 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-

@@ -6,13 +6,13 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -34,20 +34,20 @@
   margin: 0 auto var(--espacio);
 }
 
-.senal-nombre {
-  font-size: var(--texto-grande);
+.senal-name {
+  font-size: var(--text-grande);
   font-weight: 700;
   margin: 0 auto;
   text-align: center;
 }
 
-.pregunta { color: var(--color-texto-suave); }
+.pregunta { color: var(--color-text-suave); }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 /* Sign colors */
 .senal-peligro { background: #FFEBEE; }
@@ -62,9 +62,9 @@
 .senal-salida-picto { background: #388E3C; color: white; }
 .senal-siglas-picto { background: #5E35B1; color: white; font-size: 32px; font-weight: 800; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }

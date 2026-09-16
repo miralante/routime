@@ -6,7 +6,7 @@
   background: var(--mod-emocional);
 }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 body { transition: background 0.5s ease; }
 
@@ -38,7 +38,7 @@ body { transition: background 0.5s ease; }
 .btn-emocion:hover { transform: scale(1.05); }
 
 .btn-emocion .picto { font-size: 64px; }
-.btn-emocion .nombre { font-size: var(--texto-base); font-weight: 700; }
+.btn-emocion .name { font-size: var(--text-base); font-weight: 700; }
 
 #btnSemana { align-self: center; margin-top: var(--espacio-grande); }
 
@@ -94,13 +94,13 @@ body { transition: background 0.5s ease; }
 
 .dia-semana .dia { min-width: 120px; font-weight: 700; text-align: left; }
 .dia-semana .picto { font-size: 40px; }
-.dia-semana .nombre { color: var(--color-texto-suave); }
+.dia-semana .name { color: var(--color-text-suave); }
 
 #pantallaSemana .btn { align-self: center; min-width: 280px; 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

@@ -27,7 +27,7 @@
     "btnSeguirCreando": "Seguir creando",
     "btnCambiarPlantilla": "Cambiar modelo",
     "construccionLibre": "Construcción libre",
-    "plantillaActiva": "Modelo: {nombre}",
+    "plantillaActiva": "Modelo: {name}",
     "pistaPlantilla1": "Todavía faltan bloques. Fíjate en las casillas con borde de puntos: enseñan el bloque que va en cada una.",
     "pistaPlantilla2": "Las casillas que faltan están marcadas en amarillo. Pon en cada una el bloque de su color.",
     "bloqueTierra": "Bloque de tierra marrón",

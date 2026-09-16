@@ -19,21 +19,21 @@
     </header>
 
     <!-- Screen: chat menu -->
-    <section id="pantallaMenu" class="pila">
-      <div class="fila centrado-fila">
-        <p class="instruccion centrado" id="instruccion" data-i18n="instruccion">Estos chats son de mentira. Sirven para practicar.
+    <section id="menuScreen" class="pila">
+      <div class="row centered-row">
+        <p class="instruccion centered" id="instruccion" data-i18n="instruccion">Estos chats son de mentira. Sirven para practicar.
           Elige un chat y responde con cuidado.</p>
       </div>
-      <div class="grid-tarjetas" id="listaChats"></div>
-      <div class="fila centrado-fila">
-        <button type="button" class="btn btn-secundario" id="btnNormas" data-i18n="btnNormas">📜 Mis normas</button>
+      <div class="cards-grid" id="listaChats"></div>
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnNormas" data-i18n="btnNormas">📜 Mis normas</button>
       </div>
     </section>
 
     <!-- Pantalla: mis normas -->
-    <section id="pantallaNormas" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnVolverDeNormas" data-i18n="volverChats">← Chats</button>
+    <section id="pantallaNormas" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverDeNormas" data-i18n="volverChats">← Chats</button>
         <h2 class="titulo-seccion" data-i18n="normasTitulo">Mis normas</h2>
       </div>
       <p class="instruccion" data-i18n="instruccionNormas">Estas normas te protegen en internet.</p>
@@ -41,9 +41,9 @@
     </section>
 
     <!-- Pantalla: chat -->
-    <section id="pantallaChat" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirChat" data-i18n="volverChats">← Chats</button>
+    <section id="pantallaChat" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirChat" data-i18n="volverChats">← Chats</button>
         <div class="chat-contacto">
           <span class="chat-avatar" aria-hidden="true">👤</span>
           <span class="pila-mini">
@@ -59,23 +59,23 @@
 
       <div class="feedback" id="feedback" aria-live="polite"></div>
 
-      <div class="consejo oculto" id="consejo">
+      <div class="consejo hidden" id="consejo">
         <p id="consejoTexto"></p>
       </div>
 
-      <div class="consejo consejo-seguro oculto" id="consejoSeguro">
+      <div class="consejo consejo-seguro hidden" id="consejoSeguro">
         <p id="consejoSeguroTexto"></p>
       </div>
 
-      <p class="pregunta centrado oculto" id="chatPregunta" data-i18n="chatPregunta">¿Qué respondes?</p>
+      <p class="pregunta centered hidden" id="chatPregunta" data-i18n="chatPregunta">¿Qué respondes?</p>
       <div class="pila" id="chatOpciones"></div>
 
-      <div class="regla-final oculto" id="reglaFinal">
+      <div class="regla-final hidden" id="reglaFinal">
         <h3 data-i18n="reglaFinalTitulo">⭐ Para recordar</h3>
         <p id="reglaTexto"></p>
-        <div class="fila centrado-fila">
+        <div class="row centered-row">
           <button type="button" class="btn btn-audio" id="btnRegla" data-i18n-aria="ariaEscucharNorma" aria-label="Escuchar la norma"><span data-i18n="core.listen">🔊 Escuchar</span></button>
-          <button type="button" class="btn" id="btnVolverMenu" data-i18n="volverAChats">Volver a los chats</button>
+          <button type="button" class="btn" id="btnBackToMenu" data-i18n="volverAChats">Volver a los chats</button>
         </div>
       </div>
     </section>

@@ -12,17 +12,8 @@
   background: var(--mod-lenguaje);
 }
 
-.instruction { font-size: var(--texto-base); }
+.instruction { font-size: var(--text-base); }
 .center-row { justify-content: center; }
-
-.btn-level { min-width: 300px; align-self: center; }
-
-.level-info {
-  display: block;
-  font-weight: 400;
-  font-size: var(--texto-pequeno);
-  opacity: 0.9;
-}
 
 .card { border-color: var(--mod-lenguaje-suave); margin-top: var(--espacio); }
 
@@ -49,7 +40,7 @@
   font-family: 'Atkinson Hyperlegible', monospace;
   border-radius: 6px;
   background: transparent;
-  color: var(--color-texto);
+  color: var(--color-text);
   letter-spacing: 1px;
 }
 
@@ -68,37 +59,37 @@
 
 .diff-ok {
   background: var(--color-acierto-suave);
-  color: var(--color-texto);
+  color: var(--color-text);
   border: 2px solid var(--color-acierto);
 }
 
 .diff-bad {
   /* rosa suave, no rojo agresivo */
   background: #FCE4EC;
-  color: var(--color-texto);
+  color: var(--color-text);
   border: 2px solid #E57399;
 }
 
 .diff-missing {
   background: var(--color-superficie);
-  color: var(--color-texto-suave);
-  border: 2px dashed var(--color-texto-suave);
-  text-decoration: underline wavy var(--color-texto-suave);
+  color: var(--color-text-suave);
+  border: 2px dashed var(--color-text-suave);
+  text-decoration: underline wavy var(--color-text-suave);
 }
 
-/* Caja de entrada de texto (≥64px para accesibilidad §5 regla 2) */
+/* Caja de entrada de text (≥64px para accesibilidad §5 regla 2) */
 .text-input {
   width: 100%;
   min-height: var(--boton-min);
   padding: 12px 16px;
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-family: 'Atkinson Hyperlegible', monospace;
   letter-spacing: 1px;
   text-align: center;
   border: 3px solid var(--mod-lenguaje);
   border-radius: var(--radio);
   background: var(--color-superficie);
-  color: var(--color-texto);
+  color: var(--color-text);
   margin-top: var(--espacio);
   box-sizing: border-box;
 }
@@ -126,7 +117,7 @@
 }
 
 #legendText {
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   margin: 0;
 }
 
@@ -137,19 +128,12 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
-  max-width: 480px;
-}
-
-#endScreen .transferencia {
-  margin: 8px auto 24px;
-  font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 
 @media (max-width: 520px) {
   .diff-tile,
   .hint-char { font-size: 18px; min-width: 18px; padding: 4px 2px; }
-  .text-input { font-size: var(--texto-base); }
+  .text-input { font-size: var(--text-base); }
 }

@@ -18,71 +18,71 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <!-- Pantalla: nombre -->
-    <section id="pantallaNombre" class="oculto pila">
-      <div class="fila centrado-fila">
+    <!-- Pantalla: name -->
+    <section id="nameScreen" class="hidden pila">
+      <div class="row centered-row">
         <p class="instruccion" id="textoNombre" data-i18n="saludoInicial">¡Hola, futuro músico! 🎵 ¿Cómo te llamas?</p>
         <button type="button" class="btn btn-audio" id="btnLeerNombre" data-i18n-aria="escucharAria" aria-label="Escuchar">🔊</button>
       </div>
-      <input id="inputNombre" class="input-nombre" type="text" maxlength="15" autocomplete="off" spellcheck="false" data-i18n-aria="tuNombreAria" aria-label="Tu nombre">
-      <div class="fila centrado-fila">
+      <input id="inputNombre" class="input-name" type="text" maxlength="15" autocomplete="off" spellcheck="false" data-i18n-aria="tuNombreAria" aria-label="Tu name">
+      <div class="row centered-row">
         <button type="button" class="btn btn-piano" id="btnGuardarNombre" data-i18n="vamos">✅ ¡Vamos!</button>
       </div>
       <p class="feedback" id="avisoNombre" aria-live="polite"></p>
     </section>
 
     <!-- Screen: main menu -->
-    <section id="pantallaMenu" class="oculto pila">
-      <div class="fila centrado-fila">
+    <section id="menuScreen" class="hidden pila">
+      <div class="row centered-row">
         <h2 id="saludo" data-i18n="saludoMusico">¡Hola, músico!</h2>
         <button type="button" class="btn btn-audio" id="btnLeerSaludo" data-i18n-aria="escucharAria" aria-label="Escuchar">🔊</button>
       </div>
-      <p class="instruccion centrado" data-i18n="elegirModo">Elige cómo quieres tocar 🎶</p>
-      <div class="grid-tarjetas" id="menuJuegos">
+      <p class="instruccion centered" data-i18n="elegirModo">Elige cómo quieres tocar 🎶</p>
+      <div class="cards-grid" id="menuJuegos">
         <button type="button" class="tarjeta-modo piano-card" data-modo="libre">
           <span class="picto" aria-hidden="true">🎶</span>
-          <span class="nombre" data-i18n="modoLibreNombre">Toca libre</span>
+          <span class="name" data-i18n="modoLibreNombre">Toca libre</span>
           <span class="detalle" data-i18n="modoLibreDetalle">Explora las notas y crea melodías.</span>
-          <span class="hecho"></span>
+          <span class="done"></span>
         </button>
         <button type="button" class="tarjeta-modo piano-card" data-modo="seguir">
           <span class="picto" aria-hidden="true">🎯</span>
-          <span class="nombre" data-i18n="modoSeguirNombre">Sigue la melodía</span>
+          <span class="name" data-i18n="modoSeguirNombre">Sigue la melodía</span>
           <span class="detalle" data-i18n="modoSeguirDetalle">Repite la canción que oyes.</span>
-          <span class="hecho"></span>
+          <span class="done"></span>
         </button>
         <button type="button" class="tarjeta-modo piano-card" data-modo="simon">
           <span class="picto" aria-hidden="true">🔮</span>
-          <span class="nombre" data-i18n="modoSimonNombre">Simón dice</span>
+          <span class="name" data-i18n="modoSimonNombre">Simón dice</span>
           <span class="detalle" data-i18n="modoSimonDetalle">Memoriza y repite la secuencia.</span>
-          <span class="hecho"></span>
+          <span class="done"></span>
         </button>
         <button type="button" class="tarjeta-modo piano-card" data-modo="canciones">
           <span class="picto" aria-hidden="true">🎤</span>
-          <span class="nombre" data-i18n="modoCancionesNombre">Canciones</span>
+          <span class="name" data-i18n="modoCancionesNombre">Canciones</span>
           <span class="detalle" data-i18n="modoCancionesDetalle">Aprende canciones famosas.</span>
-          <span class="hecho"></span>
+          <span class="done"></span>
         </button>
         <button type="button" class="tarjeta-modo piano-card" data-modo="compositor">
           <span class="picto" aria-hidden="true">✍️</span>
-          <span class="nombre" data-i18n="modoCompositorNombre">Compositor</span>
+          <span class="name" data-i18n="modoCompositorNombre">Compositor</span>
           <span class="detalle" data-i18n="modoCompositorDetalle">Crea tu propia canción.</span>
-          <span class="hecho"></span>
+          <span class="done"></span>
         </button>
       </div>
-      <div class="fila centrado-fila">
-        <button type="button" class="btn btn-secundario" id="btnCambiarNombre" data-i18n="miNombre">✏️ Mi nombre</button>
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnCambiarNombre" data-i18n="miNombre">✏️ Mi name</button>
       </div>
     </section>
 
     <!-- Pantalla: piano libre -->
-    <section id="pantallaLibre" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirLibre" data-i18n="menu">← Menú</button>
+    <section id="freeScreen" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirLibre" data-i18n="menu">← Menú</button>
         <h2 class="titulo-juego" data-i18n="modoLibreNombre">Toca libre</h2>
         <button type="button" class="btn btn-audio" id="btnExplicarLibre" data-i18n-aria="explicacionAria" aria-label="Explicación">❓</button>
       </div>
-      <p class="instruccion centrado" id="instruccionLibre" data-i18n="instruccionLibre">¡Toca las teclas de tu teclado como si fuera un piano! 🎹</p>
+      <p class="instruccion centered" id="instruccionLibre" data-i18n="instruccionLibre">¡Toca las teclas de tu teclado como si fuera un piano! 🎹</p>
 
       <!-- Piano visual: teclas reales (button), no decorativas -->
       <div class="piano-visual" id="pianoVisual">
@@ -104,25 +104,25 @@
         </div>
       </div>
 
-      <div class="nota-actual" id="notaActual" aria-hidden="true"></div>
+      <div class="nota-current" id="notaActual" aria-hidden="true"></div>
 
       <div class="controles-piano">
         <button type="button" class="btn btn-piano" id="btnOctavaMenos" data-i18n="octavaMenosBtn">◀️ Octava</button>
         <button type="button" class="btn btn-piano" id="btnOctavaMas" data-i18n="octavaMasBtn">Octava ▶️</button>
         <button type="button" class="btn btn-piano" id="btnGrabando" data-i18n="grabando">🔴 Grabando</button>
-        <button type="button" class="btn btn-piano oculto" id="btnReproducirGrabacion" data-i18n="reproducirGrabacionBtn">▶️ Escuchar grabación</button>
+        <button type="button" class="btn btn-piano hidden" id="btnReproducirGrabacion" data-i18n="reproducirGrabacionBtn">▶️ Escuchar grabación</button>
       </div>
 
       <div class="feedback" id="feedbackLibre" aria-live="polite"></div>
     </section>
 
     <!-- Screen: follow the melody -->
-    <section id="pantallaSeguir" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirSeguir" data-i18n="menu">← Menú</button>
+    <section id="followScreen" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirSeguir" data-i18n="menu">← Menú</button>
         <h2 class="titulo-juego" data-i18n="seguirHeaderTitulo">Sigue la melodía</h2>
       </div>
-      <p class="instruccion centrado" id="instruccionSeguir" data-i18n="instruccionSeguirDefault">Escucha la melodía y repítela.</p>
+      <p class="instruccion centered" id="instruccionSeguir" data-i18n="instruccionSeguirDefault">Escucha la melodía y repítela.</p>
 
       <div class="piano-visual piano-juego" id="pianoSeguir">
         <div class="octave">
@@ -147,18 +147,18 @@
       <div class="progreso-juego" id="progresoJuego"></div>
       <div class="feedback" id="feedbackSeguir" aria-live="polite"></div>
 
-      <div class="fila centrado-fila">
+      <div class="row centered-row">
         <button type="button" class="btn btn-piano btn-grande" id="btnReproducir" data-i18n="reproducirMelodiaBtn">▶️ Reproducir melodía</button>
       </div>
     </section>
 
     <!-- Screen: Simon says -->
-    <section id="pantallaSimon" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirSimon" data-i18n="menu">← Menú</button>
+    <section id="simonScreen" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirSimon" data-i18n="menu">← Menú</button>
         <h2 class="titulo-juego" data-i18n="simonHeaderTitulo">🔮 Simón dice</h2>
       </div>
-      <p class="instruccion centrado" id="instruccionSimon" data-i18n="instruccionSimon">Observa la secuencia y repítela.</p>
+      <p class="instruccion centered" id="instruccionSimon" data-i18n="instruccionSimon">Observa la secuencia y repítela.</p>
 
       <div class="simon-board" id="simonBoard">
         <button type="button" class="simon-key verde" data-note="C" data-key="a" data-i18n-aria="notaDo" aria-label="Nota Do"></button>
@@ -176,9 +176,9 @@
     </section>
 
     <!-- Pantalla: canciones -->
-    <section id="pantallaCanciones" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirCanciones" data-i18n="menu">← Menú</button>
+    <section id="songsScreen" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirCanciones" data-i18n="menu">← Menú</button>
         <h2 class="titulo-juego" data-i18n="cancionesHeaderTitulo">Canciones</h2>
       </div>
       <p class="instruccion" data-i18n="elegirCancion">Elige una canción para aprender 🎤</p>
@@ -186,12 +186,12 @@
     </section>
 
     <!-- Pantalla: compositor -->
-    <section id="pantallaCompositor" class="oculto pila">
-      <div class="fila">
-        <button type="button" class="btn btn-secundario" id="btnSalirCompositor" data-i18n="menu">← Menú</button>
+    <section id="composerScreen" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirCompositor" data-i18n="menu">← Menú</button>
         <h2 class="titulo-juego" data-i18n="compositorHeaderTitulo">✍️ Compositor</h2>
       </div>
-      <p class="instruccion centrado" data-i18n="crearMelodia">Crea tu propia melodía. ¡Sé creativo!</p>
+      <p class="instruccion centered" data-i18n="crearMelodia">Crea tu propia melodía. ¡Sé creativo!</p>
 
       <div class="piano-visual piano-mini" id="pianoCompositor">
         <div class="octave">
@@ -212,8 +212,8 @@
         </div>
       </div>
 
-      <div class="secuencia-actual" id="secuenciaCompositor">
-        <p class="placeholder" data-i18n="placeholderInicial">Toca notas para añadir...</p>
+      <div class="secuencia-current" id="secuenciaCompositor">
+        <p class="placeholder-text" data-i18n="placeholderInicial">Toca notas para añadir...</p>
       </div>
 
       <div class="controles-compositor">
@@ -223,12 +223,12 @@
       </div>
 
       <!-- Name the song: replaces the native prompt(), hidden until Save is tapped -->
-      <div class="nombrar-cancion oculto pila" id="nombrarCancion">
+      <div class="nombrar-cancion hidden pila" id="nombrarCancion">
         <label for="inputNombreCancion" class="instruccion" data-i18n="promptNombreCancion">¿Cómo quieres llamar a tu canción?</label>
-        <input id="inputNombreCancion" class="input-nombre-cancion" type="text" maxlength="30" autocomplete="off" data-i18n-aria="nombreCancionAria" aria-label="Nombre de la canción">
-        <div class="fila centrado-fila">
+        <input id="inputNombreCancion" class="input-name-cancion" type="text" maxlength="30" autocomplete="off" data-i18n-aria="nombreCancionAria" aria-label="Nombre de la canción">
+        <div class="row centered-row">
           <button type="button" class="btn btn-piano" id="btnConfirmarGuardar" data-i18n="confirmarGuardarBtn">✅ Guardar</button>
-          <button type="button" class="btn btn-secundario" id="btnCancelarGuardar" data-i18n="cancelarBtn">❌ Cancelar</button>
+          <button type="button" class="btn btn-secondary" id="btnCancelarGuardar" data-i18n="cancelarBtn">❌ Cancelar</button>
         </div>
       </div>
 

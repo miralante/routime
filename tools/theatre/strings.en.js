@@ -25,7 +25,7 @@
     "btnMenu": "Back to start",
     "ariaSitioFondo": "Background spot, column {c}",
     "ariaSitioDelante": "Front spot, column {c}",
-    "ariaOcupado": "{nombre}, column {c}",
+    "ariaOcupado": "{name}, column {c}",
   "contexto": "You are building a scene: place each character where it belongs so the sentence makes sense.",
   "pista": "🤔 Read the sentence. Who is in front and who is behind?",
   "explicacion": "✅ That is how to make sense of the scene. Knowing where to put things is useful in everyday life.",

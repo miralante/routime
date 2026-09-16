@@ -2,12 +2,12 @@
    Routime — Teléfonos Importantes (memoria: recordar que el
    112 sirve para policía, bomberos y emergencia médica)
    Datos en data.js (DATA.cards, DATA.number, DATA.quiz). Flujo
-   lineal en 3 pasos, tal y como se pidió la actividad:
+   lineal en 3 steps, tal y como se pidió la actividad:
    1) Fichas: una tarjeta por servicio (policía, bomberos,
       emergencia médica), siempre con el mismo número, 112.
    2) Resumen: una sola tarjeta que repasa las 3 fichas juntas,
       para remarcar que el número no cambia.
-   3) Test: quiz de 3 opciones (motor de Señales/Emergencias)
+   3) Test: quiz de 3 options (motor de Señales/Emergencias)
       sobre situaciones variadas; la respuesta correcta es
       siempre 112. El error nunca se castiga (pista en el primer
       fallo, explicación en el segundo).
@@ -51,17 +51,17 @@
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
+  if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completedRounds) progress.completedRounds = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
   function quizBank() { return DATA.quiz[App.i18n.locale()] || DATA.quiz.es; }
 
   function show(screen) {
     [cardsScreen, summaryScreen, quizScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -155,20 +155,20 @@
     quizSituation.textContent = item.situacion;
     quizFeedback.textContent = '';
     quizFeedback.className = 'feedback';
-    quizExplanationWrap.classList.add('oculto');
+    quizExplanationWrap.classList.add('hidden');
     quizExplanation.textContent = '';
-    quizNextBtn.classList.add('oculto');
+    quizNextBtn.classList.add('hidden');
     quizOptions.innerHTML = '';
 
-    var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, esCorrecta: i === item.correcta };
+    var options = App.utils.shuffle(item.options.map(function (opt, i) {
+      return { text: opt, isCorrect: i === item.correcta };
     }));
-    opciones.forEach(function (op) {
+    options.forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { answerQuiz(btn, op.esCorrecta, item); });
+      btn.textContent = op.textContent;
+      btn.addEventListener('click', function () { answerQuiz(btn, op.isCorrect, item); });
       quizOptions.appendChild(btn);
     });
 
@@ -178,35 +178,35 @@
 
   function showQuizExplanation(item) {
     quizExplanation.textContent = t('correctExplanation');
-    quizExplanationWrap.classList.remove('oculto');
+    quizExplanationWrap.classList.remove('hidden');
   }
 
-  function answerQuiz(btn, esCorrecta, item) {
+  function answerQuiz(btn, isCorrect, item) {
     if (quizResolved) return;
-    if (esCorrecta) {
+    if (isCorrect) {
       showQuizExplanation(item);
       quizResolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(quizFeedback);
-      progress.estrellas += 1;
+      progress.stars += 1;
       quizCorrectCount += 1;
       save();
       paintStars();
-      quizNextBtn.classList.remove('oculto');
+      quizNextBtn.classList.remove('hidden');
       quizNextBtn.focus();
     } else {
       quizAttempts += 1;
       if (quizAttempts === 1) {
         quizExplanation.textContent = t('hint') + '"' + item.situacion + '"';
-        quizExplanationWrap.classList.remove('oculto');
+        quizExplanationWrap.classList.remove('hidden');
       } else {
         showQuizExplanation(item);
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }
   }
 
@@ -223,8 +223,8 @@
     progress.completedRounds += 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+    $('#finalSummary').textContent = '';
+$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 

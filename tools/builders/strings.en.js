@@ -27,7 +27,7 @@
     "btnSeguirCreando": "Keep creating",
     "btnCambiarPlantilla": "Change model",
     "construccionLibre": "Free building",
-    "plantillaActiva": "Model: {nombre}",
+    "plantillaActiva": "Model: {name}",
     "pistaPlantilla1": "Some blocks are still missing. Look at the squares with a dotted border: they show which block goes in each one.",
     "pistaPlantilla2": "The missing squares are marked in yellow. Put the matching block in each one.",
     "bloqueTierra": "Brown dirt block",

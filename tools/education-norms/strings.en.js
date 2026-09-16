@@ -204,7 +204,7 @@
     'pista.atencion_clase': 'What helps you learn more: the phone or paying attention?',
 
     // Generic feedback
-    'feedback.correcto': 'Very good! You picked what cares for people and the place.',
+    'feedback.correct': 'Very good! You picked what cares for people and the place.',
     'feedback.explicacion': 'That is good manners: it cares for others and the place so everyone can be well.',
 
     // Completion

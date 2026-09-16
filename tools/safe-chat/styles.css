@@ -4,10 +4,10 @@
    Acento del módulo Autonomía y hogar (verde --mod-secuencia).
    ========================================================================== */
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 .instruccion { font-weight: 700; }
 .titulo-seccion { flex: 1; }
-.pregunta { font-size: var(--texto-grande); font-weight: 800; }
+.pregunta { font-size: var(--text-grande); font-weight: 800; }
 
 /* ---- Chat menu ---- */
 .tarjeta-chat {
@@ -15,12 +15,12 @@
   gap: 8px; min-height: 140px; padding: var(--espacio);
   background: var(--color-superficie); border: 3px solid var(--color-borde);
   border-radius: var(--radio); box-shadow: var(--sombra);
-  font-family: inherit; color: var(--color-texto);
+  font-family: inherit; color: var(--color-text);
 }
 .tarjeta-chat:hover { border-color: var(--mod-secuencia); }
 .tarjeta-chat .picto { font-size: 44px; }
-.tarjeta-chat .nombre { font-weight: 800; font-size: var(--texto-base); }
-.tarjeta-chat .hecho { min-height: 24px; color: var(--color-estrella); font-weight: 700; }
+.tarjeta-chat .name { font-weight: 800; font-size: var(--text-base); }
+.tarjeta-chat .done { min-height: 24px; color: var(--color-estrella); font-weight: 700; }
 
 /* ---- Cabecera del chat ---- */
 .chat-contacto { display: flex; align-items: center; gap: 12px; flex: 1; }
@@ -30,12 +30,12 @@
   border: 2px solid var(--color-borde); border-radius: 50%;
 }
 .pila-mini { display: flex; flex-direction: column; gap: 2px; }
-.chat-alias { font-weight: 800; font-size: var(--texto-base); }
+.chat-alias { font-weight: 800; font-size: var(--text-base); }
 .chat-badge {
   align-self: flex-start; padding: 2px 10px;
   background: var(--color-animo-suave); color: var(--color-animo);
   border: 2px solid var(--color-animo); border-radius: 12px;
-  font-size: var(--texto-pequeno); font-weight: 700;
+  font-size: var(--text-pequeno); font-weight: 700;
 }
 
 /* ---- Marco y burbujas ---- */
@@ -44,14 +44,14 @@
   background: var(--color-superficie); border: 3px solid var(--color-borde);
   border-radius: var(--radio);
 }
-.burbuja-fila { display: flex; align-items: flex-end; gap: 8px; animation: aparecer 0.3s ease; }
-.burbuja-fila.yo { justify-content: flex-end; }
-.burbuja-fila.sistema { justify-content: center; }
+.burbuja-row { display: flex; align-items: flex-end; gap: 8px; animation: aparecer 0.3s ease; }
+.burbuja-row.yo { justify-content: flex-end; }
+.burbuja-row.sistema { justify-content: center; }
 @keyframes aparecer { from { opacity: 0; transform: translateY(8px); } }
 
 .burbuja {
   max-width: 75%; padding: 12px 18px; border-radius: 18px;
-  font-size: var(--texto-base); line-height: 1.4;
+  font-size: var(--text-base); line-height: 1.4;
 }
 .burbuja.ellos {
   background: var(--color-fondo); border: 2px solid var(--color-borde);
@@ -74,7 +74,7 @@
   background: var(--color-animo-suave); border: 3px solid var(--color-animo);
   border-radius: var(--radio);
 }
-.consejo p { flex: 1; font-weight: 700; color: var(--color-texto); }
+.consejo p { flex: 1; font-weight: 700; color: var(--color-text); }
 
 /* ---- Aviso tras una respuesta segura (mismo hueco, color de acierto) ---- */
 .consejo-seguro {
@@ -93,7 +93,7 @@
   border-radius: var(--radio);
 }
 .regla-final h3 { color: var(--color-acierto); }
-.regla-final p { font-size: var(--texto-grande); font-weight: 700; }
+.regla-final p { font-size: var(--text-grande); font-weight: 700; }
 
 /* ---- Lista de normas ---- */
 .norma {
@@ -109,10 +109,10 @@
   .burbuja { max-width: 90%; }
   .chat-marco { min-height: 160px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

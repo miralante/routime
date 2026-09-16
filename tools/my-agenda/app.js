@@ -1,85 +1,90 @@
-/* My Schedule — everyday planning without reminders or personal data. */
+/* My Schedule — everyday planning without reminders or personal data.
+   Progresión automática: empieza con el nivel fácil y sube según
+   el progress guardado, sin mostrar selección de nivel. */
 (function () {
   'use strict';
 
   var TOOL_ID = 'my-agenda';
   var $ = App.utils.$;
   var bank = DATA[App.i18n.locale()] || DATA.es;
-  var progress = App.storage.get(TOOL_ID);
   var level = null;
   var cases = [];
   var caseIndex = 0;
   var solved = false;
   var attempts = 0;
 
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (!progress.completado || typeof progress.completado !== 'object') progress.completado = {};
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
+  if (!progress.completed || typeof progress.completed !== 'object') progress.completed = {};
 
   function save() {
     App.storage.set(TOOL_ID, {
-      estrellas: progress.estrellas,
-      completado: progress.completado
+      stars: progress.stars,
+      roundsCompleted: progress.roundsCompleted,
+      completed: progress.completed
     });
   }
 
   function paintStars() {
-    $('#stars').textContent.textContent = '';
+    $('##stars').textContent = '';
   }
 
   function showScreen(screenId) {
     ['startScreen', 'caseScreen', 'endScreen'].forEach(function (id) {
-      $('#' + id).classList.toggle('oculto', id !== screenId);
+      $('#' + id).classList.toggle('hidden', id !== screenId);
     });
   }
 
-  function paintLevels() {
-    var container = $('#levels');
-    container.innerHTML = '';
-    bank.levels.forEach(function (item) {
-      var button = document.createElement('button');
-      var label = item.name + ' — ' + item.description;
-      button.type = 'button';
-      button.className = 'btn level-button';
-      if (progress.completado[item.id]) label += ' · ' + App.i18n.t('completed');
-      button.textContent = label;
-      button.addEventListener('click', function () { startLevel(item); });
-      container.appendChild(button);
-    });
+  /* ---------- Nivel según progress ---------- */
+  function levelBasedOnProgress() {
+    var idx = Math.min(progress.roundsCompleted, bank.levels.length - 1);
+    return bank.levels[idx];
   }
 
-  function startLevel(selectedLevel) {
-    level = selectedLevel;
+  function renderLevel() {
+    var el = $('#dificultad');
+    if (el) {
+      var count = bank.roundSize;
+      el.textContent = count + ' ' + (count === 1 ? App.i18n.t('caso') : App.i18n.t('casos'));
+    }
+  }
+
+  /* ---------- Pantalla inicial ---------- */
+  function startGame() {
+    level = levelBasedOnProgress();
     cases = App.utils.shuffle(level.cases).slice(0, bank.roundSize);
     caseIndex = 0;
     showScreen('caseScreen');
+    renderLevel();
     renderCase();
   }
 
   function showExplanation(labelKey, text) {
-    $('#explanation').textContent.textContent = '';
-    $('#explanationWrap').classList.remove('oculto');
+    $('##explanation').textContent = '';
+    $('#explanationWrap').classList.remove('hidden');
   }
 
   function renderCase() {
     var currentCase = cases[caseIndex];
     solved = false;
     attempts = 0;
-    $('#caseIcon').textContent.textContent = '';
-    $('#caseText').textContent.textContent = '';
-    $('#feedback').textContent.textContent = '';
+    $('##caseIcon').textContent = '';
+    $('##caseText').textContent = '';
+    $('##feedback').textContent = '';
     $('#feedback').className = 'feedback';
-    $('#explanation').textContent.textContent = '';
-    $('#explanationWrap').classList.add('oculto');
-    $('#nextButton').classList.add('oculto');
+    $('##explanation').textContent = '';
+    $('#explanationWrap').classList.add('hidden');
+    $('#nextButton').classList.add('hidden');
     $('#options').innerHTML = '';
     $('#progressFill').style.width = ((caseIndex / cases.length) * 100) + '%';
-    $('#progressText').textContent.textContent = '';
+    $('##progressText').textContent = '';
 
     App.utils.shuffle(currentCase.choices.slice()).forEach(function (choice) {
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'btn-opcion';
-      button.textContent = choice.text;
+      button.textContent = choice.textContent;
       button.addEventListener('click', function () {
         answer(button, choice, currentCase);
       });
@@ -112,23 +117,28 @@
     });
     App.feedback.success($('#feedback'));
     showExplanation('explanationLabel', choice.explanation);
-    $('#nextButton').classList.remove('oculto');
+    $('#nextButton').classList.remove('hidden');
     $('#nextButton').focus();
   }
 
   function finishRound() {
-    var firstCompletion = !progress.completado[level.id];
+    var firstCompletion = !progress.completed[level.id];
     if (firstCompletion) {
-      progress.completado[level.id] = true;
-      progress.estrellas += level.stars;
+      progress.completed[level.id] = true;
+      progress.stars += level.stars;
       save();
     }
+    progress.roundsCompleted += 1;
+    save();
     paintStars();
-    $('#endText').textContent.textContent = '';
+    $('##endText').textContent = '';
+    $('##resumenFinal').textContent = '';
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank.levels.length));
+    $('##transferencia').textContent = '';
     showScreen('endScreen');
     $('#endHeading').focus();
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-$('#transferencia').textContent.textContent = '';
   }
 
   function nextCase() {
@@ -141,13 +151,14 @@ $('#transferencia').textContent.textContent = '';
   }
 
   $('#nextButton').addEventListener('click', nextCase);
-  $('#repeatButton').addEventListener('click', function () { startLevel(level); });
-  $('#levelsButton').addEventListener('click', function () {
-    paintLevels();
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#btnPlay').addEventListener('click', function () {
+    startGame();
+  });
+  $('#btnMenu').addEventListener('click', function () {
     showScreen('startScreen');
-    $('#levelHeading').focus();
+    paintStars();
   });
 
-  paintLevels();
   paintStars();
 })();

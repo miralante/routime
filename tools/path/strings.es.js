@@ -1,7 +1,7 @@
-﻿/* ============================================================
-   Routime â€” Textos de el-camino (ES)
-   Archivo especÃ­fico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
-   Se carga condicionalmente desde index.html segÃºn App.i18n.locale().
+/* ============================================================
+   Routime ” Textos de el-camino (ES)
+   Archivo específico del idioma. Generado/actualizado por scripts/refactor-i18n.js.
+   Se carga condicionalmente desde index.html según App.i18n.locale().
    ============================================================ */
 (function () {
   'use strict';
@@ -14,8 +14,8 @@
     "veces": "veces",
     "btnJugar": "Â¡Jugar!",
     "enMarcha": "Lleva a la tortuga hasta la estrella.",
-    "choqueArbol": "ðŸŒ³ AhÃ­ hay un Ã¡rbol. Busca otro camino.",
-    "choqueBorde": "ðŸ¤” Por ahÃ­ no se puede salir. Prueba otra flecha.",
+    "choqueArbol": "ðŸŒ³ Ahí hay un árbol. Busca otro camino.",
+    "choqueBorde": "ðŸ¤” Por ahí no se puede salir. Prueba otra flecha.",
     "llegada": "ðŸŽ‰ Â¡Has llegado a la estrella!",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
     "btnOtroNivel": "Elegir otro nivel",

@@ -1,16 +1,16 @@
 /* Social Safety — tool-specific styles. */
 .tool-header h1 { color: var(--mod-secuencia); }
 .btn:not(.btn-secundario):not(.btn-audio) { background: var(--mod-secuencia); }
-.centrado-fila { justify-content: center; }
-.instruccion { font-size: var(--texto-base); }
+.centered-row { justify-content: center; }
+.instruccion { font-size: var(--text-base); }
 .safety-note { display: flex; align-items: center; gap: var(--espacio); padding: var(--espacio); background: var(--color-animo-suave); border: 3px solid var(--color-animo); border-radius: var(--radio); }
 .safety-note span { font-size: 40px; }
 .safety-note p { flex: 1; font-weight: 700; }
 .btn-nivel { min-width: min(100%, 420px); align-self: center; }
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
 .case-icon { font-size: 64px; }
-.texto-principal { font-size: var(--texto-grande); font-weight: 700; margin: 0 auto; }
-.pregunta { color: var(--color-texto-suave); }
+.text-principal { font-size: var(--text-grande); font-weight: 700; margin: 0 auto; }
+.pregunta { color: var(--color-text-suave); }
 .explicacion { padding: var(--espacio); background: var(--color-acierto-suave); border: 3px solid var(--color-acierto); border-radius: var(--radio); }
 .explicacion p { flex: 1; font-weight: 700; }
 .emoji-grande { font-size: 96px; }
@@ -19,7 +19,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 @media (max-width: 640px) { .btn-nivel, #endScreen .btn { min-width: 100%; } }

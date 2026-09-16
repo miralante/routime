@@ -1,10 +1,9 @@
 /* ============================================================
    Routime — Word Search (language: word recognition)
    Data in data.js (DATA.levels + DATA[loc].topics). Shared modules in assets/js/.
-   Mechanic: choose a topic and a level; a board is generated with
-   hidden words. A word is marked by tapping its first and last letter.
-   Socratic hints: each tap paints one more letter of the word that
-   is still pending. No timer; a mistake never punishes.
+   Mechanic: user picks a topic; level is auto-selected based on
+   progress, without showing level buttons to the user.
+   Progression: cycles through levels 0→1→2 as rounds are completed.
    ============================================================ */
 (function () {
   'use strict';
@@ -17,7 +16,7 @@
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var topicsEl = $('#topics');
-  var levelsEl = $('#levels');
+  var levelEl = $('#dificultad');
   var topicTitleEl = $('#topicTitle');
   var boardEl = $('#board');
   var wordListEl = $('#wordList');
@@ -28,20 +27,20 @@
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (!progress.completed) progress.completed = {};
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Game state */
   var topic = null;
   var level = null;
-  var words = [];        // [{ text, norm, found, cells: [idx] }]
-  var letters = [];      // board letters, indexed by row*size+col
-  var firstSel = -1;     // index of the first letter tapped
-  var hintWord = -1;     // target word of the current hint
-  var hintLetters = 0;   // letters already painted for that word
+  var words = [];
+  var letters = [];
+  var firstSel = -1;
+  var hintWord = -1;
+  var hintLetters = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function t(key) { return App.i18n.t(key); }
 
@@ -55,7 +54,7 @@
 
   function show(screen) {
     [startScreen, levelsScreen, gameScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      if (s) s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -71,28 +70,22 @@
       btn.addEventListener('click', function () {
         topic = tp;
         if (false && App.tts && App.tts.speak) App.tts.speak(tp.name);
-        paintLevels();
-        show(levelsScreen);
+        /* Auto-select level based on progress */
+        var lvlIdx = progress.roundsCompleted % DATA.levels.length;
+        level = DATA.levels[lvlIdx];
+        start();
       });
       topicsEl.appendChild(btn);
     });
   }
 
-  /* ---------- Level screen ---------- */
+  /* ---------- Level selection (auto only) ---------- */
 
-  function paintLevels() {
-    topicTitleEl.textContent = topic.picto + ' ' + topic.name;
-    levelsEl.innerHTML = '';
-    DATA.levels.forEach(function (lv) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-level';
-      var done = progress.completed[topic.id + ':' + lv.id] ? ' ' + t('done') : '';
-      btn.innerHTML = t(lv.id) + done +
-        '<span class="level-info">' + t(lv.id + 'Info') + '</span>';
-      btn.addEventListener('click', function () { start(lv); });
-      levelsEl.appendChild(btn);
-    });
+  function renderLevel() {
+    if (levelEl) {
+      var info = t(level.id + 'Info');
+      levelEl.textContent = info || (level.size + '×' + level.size);
+    }
   }
 
   /* ---------- Board generation ---------- */
@@ -137,7 +130,6 @@
       var size = level.size;
       var grid = new Array(size * size).fill('');
       var chosen = pickWords();
-      /* Longest words first: they are harder to fit. */
       chosen.sort(function (a, b) { return b.length - a.length; });
       var list = [];
       var ok = true;
@@ -148,7 +140,6 @@
         list.push({ text: chosen[i], norm: norm, found: false, cells: cells });
       }
       if (!ok) continue;
-      /* Fill with letters from the words themselves: coherent look. */
       var pool = list.map(function (w) { return w.norm; }).join('');
       for (var j = 0; j < grid.length; j++) {
         if (!grid[j]) grid[j] = pool[Math.floor(Math.random() * pool.length)];
@@ -162,9 +153,8 @@
 
   /* ---------- Game screen ---------- */
 
-  function start(lv) {
-    level = lv;
-    if (!generateBoard()) return; /* should not happen with the current data */
+  function start() {
+    if (!generateBoard()) return;
     firstSel = -1;
     hintWord = -1;
     hintLetters = 0;
@@ -173,6 +163,7 @@
     paintWords();
     paintBoard();
     show(gameScreen);
+    renderLevel();
   }
 
   function paintWords() {
@@ -181,9 +172,9 @@
       var chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'chip' + (w.found ? ' found' : '');
-      chip.textContent = w.text;
-      chip.setAttribute('aria-label', t('listenWord').replace('{word}', w.text));
-      chip.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(w.text); });
+      chip.textContent = w.textContent;
+      chip.setAttribute('aria-label', t('listenWord').replace('{word}', w.textContent));
+      chip.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(w.textContent); });
       wordListEl.appendChild(chip);
     });
   }
@@ -227,7 +218,7 @@
       e.currentTarget.classList.add('sel');
       return;
     }
-    if (firstSel === idx) { /* tapping the same letter releases it */
+    if (firstSel === idx) {
       e.currentTarget.classList.remove('sel');
       firstSel = -1;
       return;
@@ -241,7 +232,6 @@
     firstSel = -1;
   }
 
-  /* Cells between two indexes if aligned (H or V); null otherwise. */
   function line(a, b) {
     var size = level.size;
     var ra = Math.floor(a / size), ca = a % size;
@@ -292,8 +282,6 @@
     if (!pending) finish();
   }
 
-  /* ---------- Hints: paint letters of the pending word ---------- */
-
   function giveHint() {
     var target = -1;
     if (hintWord !== -1 && !words[hintWord].found) {
@@ -312,12 +300,10 @@
       cellEl(w.cells[hintLetters]).classList.add('hint');
       hintLetters += 1;
     }
-    var msg = t(isFirst ? 'hintMessage' : 'hintAnotherLetter').replace('{word}', w.text);
+    var msg = t(isFirst ? 'hintMessage' : 'hintAnotherLetter').replace('{word}', w.textContent);
     feedbackEl.textContent = msg;
     feedbackEl.className = 'feedback';
   }
-
-  /* ---------- Keyboard navigation on the board ---------- */
 
   function onBoardKeydown(e) {
     var cell = e.target.closest('.cell');
@@ -340,41 +326,33 @@
   /* ---------- End of the game ---------- */
 
   function finish() {
-    var key = topic.id + ':' + level.id;
-    var earned = 0;
-    if (!progress.completed[key]) {
-      progress.completed[key] = true;
-      earned = level.stars;
-      progress.estrellas += earned;
-      save();
-      paintStars();
-    }
-    var summary = earned
-      ? t('finalSummary').replace('{n}', earned).replace('{total}', progress.estrellas)
-      : t('repeatedSummary');
+    progress.roundsCompleted += 1;
+    var earned = level.stars || 1;
+    progress.stars += earned;
+    save();
+    paintStars();
+    var summary = t('finalSummary').replace('{n}', earned).replace('{total}', progress.stars);
     finalSummaryEl.textContent = summary;
-$('#transferencia').textContent.textContent = '';
+    $('##transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.pick('feedback.success'), function () {
       show(endScreen);
     });
   }
 
-  /* ---------- Startup ---------- */
+  /* ---------- Events ---------- */
+
+  hintBtn.addEventListener('click', giveHint);
+  boardEl.addEventListener('keydown', onBoardKeydown);
+  $('#btnRepeat').addEventListener('click', function () { start(); });
+  $('#btnMenu').addEventListener('click', function () {
+    show(startScreen);
+    paintStars();
+  });
 
   function init() {
     App.i18n.apply();
     paintStars();
     paintTopics();
-
-
-    hintBtn.addEventListener('click', giveHint);
-    boardEl.addEventListener('keydown', onBoardKeydown);
-    $('#backTopicsBtn').addEventListener('click', function () { show(startScreen); });
-    $('#replayBtn').addEventListener('click', function () { start(level); });
-    $('#otherLevelBtn').addEventListener('click', function () {
-      paintLevels();
-      show(levelsScreen);
-    });
   }
 
   document.addEventListener('DOMContentLoaded', init);

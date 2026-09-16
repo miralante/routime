@@ -1,7 +1,7 @@
 /* ============================================================
    Routime — Mis Rutinas (secuenciación y autonomía)
    Rutinas diarias paso a paso. Cada paso se marca como "Hecho".
-   El estado se reinicia automáticamente cada día.
+   El status se reinicia automáticamente cada día.
    ============================================================ */
 (function () {
   'use strict';
@@ -10,56 +10,56 @@
   var $ = App.utils.$;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
-  var pantallaMenu = $('#pantallaMenu');
-  var pantallaRutina = $('#pantallaRutina');
-  var pantallaFinal = $('#pantallaFinal');
-  var pantallaOrdenar = $('#pantallaOrdenar');
-  var pantallaListaLibre = $('#pantallaListaLibre');
-  var listaRutinas = $('#listaRutinas');
-  var listaPasos = $('#listaPasos');
-  var listaOrdenar = $('#listaOrdenar');
-  var tituloRutina = $('#tituloRutina');
-  var tituloOrdenar = $('#tituloOrdenar');
+  var menuScreen = $('#menuScreen');
+  var routineScreen = $('#routineScreen');
+  var endScreen = $('#endScreen');
+  var orderScreen = $('#orderScreen');
+  var freeListScreen = $('#freeListScreen');
+  var routinesList = $('#routinesList');
+  var stepsList = $('#stepsList');
+  var orderList = $('#orderList');
+  var routineTitle = $('#routineTitle');
+  var orderTitle = $('#orderTitle');
   var progressFill = $('#progressFill');
   var feedbackEl = $('#feedback');
-  var feedbackOrdenar = $('#feedbackOrdenar');
+  var orderFeedback = $('#orderFeedback');
   var starsEl = $('#stars');
-  var tabPredefinidas = $('#tabPredefinidas');
-  var tabPropias = $('#tabPropias');
-  var arrastreOrden = null;
-  var suprimirClickArrastre = false;
+  var predefinedTab = $('#predefinedTab');
+  var ownTab = $('#ownTab');
+  var orderDrag = null;
+  var suppressDragClick = false;
 
   /* Progreso persistente. Si la fecha guardada no es hoy, se reinicia. */
-  var progreso = App.storage.get(TOOL_ID);
-  if (typeof progreso.estrellas !== 'number') progreso.estrellas = 0;
-  if (progreso.fecha !== App.utils.hoy() || !progreso.hechos) {
-    progreso.fecha = App.utils.hoy();
-    progreso.hechos = {}; /* { idRutina: [true, false, ...] } */
+  var progress = App.storage.get(TOOL_ID);
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (progress.fecha !== App.utils.hoy() || !progress.done) {
+    progress.fecha = App.utils.hoy();
+    progress.done = {}; /* { idRutina: [true, false, ...] } */
   }
   /* Estado de la pantalla "Ordena la rutina". No se reinicia cada día:
-     el progreso de ordenación es aprendizaje a largo plazo. */
-  if (!progreso.orden || typeof progreso.orden !== 'object') progreso.orden = {};
-  /* intentos: { idRutina: number } - contador Socrático (1ª pista, 2ª solución). */
+     el progress de ordenación es aprendizaje a largo plazo. */
+  if (!progress.orden || typeof progress.orden !== 'object') progress.orden = {};
+  /* attempts: { idRutina: number } - contador Socrático (1ª pista, 2ª solución). */
 
   /* Listas libres creadas por la persona. Contenido propio, no del
      catálogo: tampoco se reinicia cada día (igual que "orden"). */
-  if (!Array.isArray(progreso.misListas)) progreso.misListas = [];
+  if (!Array.isArray(progress.myLists)) progress.myLists = [];
 
-  var rutinaActual = null;
+  var currentRoutine = null;
 
-  function guardar() { App.storage.set(TOOL_ID, progreso); }
+  function save() { App.storage.set(TOOL_ID, progress); }
 
-  function pintarEstrellas() { starsEl.textContent = '⭐ ' + progreso.estrellas; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function hechosDe(rutina) {
-    if (!progreso.hechos[rutina.id]) {
-      progreso.hechos[rutina.id] = rutina.pasos.map(function () { return false; });
+  function doneOf(rutina) {
+    if (!progress.done[rutina.id]) {
+      progress.done[rutina.id] = rutina.steps.map(function () { return false; });
     }
-    return progreso.hechos[rutina.id];
+    return progress.done[rutina.id];
   }
 
-  function contarHechos(rutina) {
-    return hechosDe(rutina).filter(Boolean).length;
+  function countDone(rutina) {
+    return doneOf(rutina).filter(Boolean).length;
   }
 
   /* ---- Routine menu ----
@@ -67,45 +67,45 @@
      Each routine is a single card with one primary action and a small
      "Order the routine" link underneath. Cards collapse into sections
      so the user sees the day at a glance instead of a flat list. */
-  var SECCIONES = [
-    { id: 'manana',   key: 'seccionManana' },
-    { id: 'comida',   key: 'seccionComida' },
-    { id: 'limpieza', key: 'seccionLimpieza' },
-    { id: 'personal', key: 'seccionPersonal' },
-    { id: 'mascotas', key: 'seccionMascotas' },
-    { id: 'tarde',    key: 'seccionTarde' },
-    { id: 'salida',   key: 'seccionSalida' },
-    { id: 'noche',    key: 'seccionNoche' }
+  var SECTIONS = [
+    { id: 'manana',   key: 'sectionMorning' },
+    { id: 'comida',   key: 'sectionLunch' },
+    { id: 'limpieza', key: 'sectionCleaning' },
+    { id: 'personal', key: 'sectionPersonal' },
+    { id: 'mascotas', key: 'sectionPets' },
+    { id: 'tarde',    key: 'sectionAfternoon' },
+    { id: 'salida',   key: 'sectionOuting' },
+    { id: 'noche',    key: 'sectionNight' }
   ];
 
-  function rutinasDe(momentoId) {
-    return DATOS.filter(function (r) { return r.momento === momentoId; });
+  function routinesOf(timeOfDayId) {
+    return DATOS.filter(function (r) { return r.timeOfDay === timeOfDayId; });
   }
 
-  function pintarMenu() {
-    pantallaRutina.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaOrdenar.classList.add('oculto');
-    pantallaListaLibre.classList.add('oculto');
-    pantallaMenu.classList.remove('oculto');
-    listaRutinas.innerHTML = '';
+  function renderMenu() {
+    routineScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    orderScreen.classList.add('hidden');
+    freeListScreen.classList.add('hidden');
+    menuScreen.classList.remove('hidden');
+    routinesList.innerHTML = '';
 
-    /* Subsecciones por momento: "Pasos" (marcar paso a paso) y "Ordenar"
-       (secuenciar la rutina). Cada momento tiene su propia lista de
+    /* Subsecciones por timeOfDay: "Pasos" (marcar paso a paso) y "Ordenar"
+       (secuenciar la rutina). Cada timeOfDay tiene su propia lista de
        rutinas en cada subsección; así separamos "hacer la tarea" de
        "ordenar la tarea" sin mezclarlas en la misma tarjeta. */
-    function crearTarjeta(rutina, modo) {
-      var hechos = contarHechos(rutina);
-      var total = rutina.pasos.length;
-      var completada = hechos === total;
+    function createCard(rutina, modo) {
+      var done = countDone(rutina);
+      var total = rutina.steps.length;
+      var completada = done === total;
 
       var card = document.createElement('article');
-      card.className = 'card tarjeta-rutina' +
-        (completada ? ' tarjeta-completada' : '') +
-        (modo === 'ordenar' ? ' tarjeta-rutina-ordenar' : '');
+      card.className = 'card routine-card' +
+        (completada ? ' card-completed' : '') +
+        (modo === 'ordenar' ? ' routine-card-ordenar' : '');
 
       var media = document.createElement('div');
-      media.className = 'tarjeta-rutina-media';
+      media.className = 'routine-card-media';
       var picto = document.createElement('span');
       picto.className = 'picto';
       picto.setAttribute('aria-hidden', 'true');
@@ -113,51 +113,51 @@
       media.appendChild(picto);
 
       var cuerpo = document.createElement('div');
-      cuerpo.className = 'tarjeta-rutina-cuerpo';
+      cuerpo.className = 'routine-card-cuerpo';
 
-      var nombre = document.createElement('span');
-      nombre.className = 'nombre';
-      nombre.textContent = rutina.nombre;
-      cuerpo.appendChild(nombre);
+      var name = document.createElement('span');
+      name.className = 'name';
+      name.textContent = rutina.name;
+      cuerpo.appendChild(name);
 
-      /* En la subsección "Pasos" mostramos barra + estado de avance.
-         En "Ordenar" no aplica el contador de pasos hechos; dejamos
+      /* En la subsección "Pasos" mostramos barra + status de avance.
+         En "Ordenar" no aplica el contador de steps done; dejamos
          solo el botón para entrar al puzzle de secuenciación. */
-      if (modo === 'pasos') {
-        var progreso = document.createElement('div');
-        progreso.className = 'tarjeta-rutina-progreso';
+      if (modo === 'steps') {
+        var progress = document.createElement('div');
+        progress.className = 'routine-card-progress';
         var barra = document.createElement('div');
-        barra.className = 'tarjeta-rutina-barra';
+        barra.className = 'routine-card-barra';
         var barraFill = document.createElement('span');
-        barraFill.className = 'tarjeta-rutina-barra-fill';
-        barraFill.style.width = ((hechos / total) * 100) + '%';
+        barraFill.className = 'routine-card-barra-fill';
+        barraFill.style.width = ((done / total) * 100) + '%';
         barra.appendChild(barraFill);
-        var estado = document.createElement('span');
-        estado.className = 'estado';
-        /* Sin contador numérico "X de Y pasos" en las tarjetas del menú:
+        var status = document.createElement('span');
+        status.className = 'status';
+        /* Sin contador numérico "X de Y steps" en las tarjetas del menú:
            la barra visual ya muestra el avance y se evita la presión. */
-        estado.textContent = completada ? App.i18n.t('completadaHoy') : '';
-        if (estado.textContent) progreso.appendChild(estado);
-        cuerpo.appendChild(progreso);
+        status.textContent = completada ? App.i18n.t('completedToday') : '';
+        if (status.textContent) progress.appendChild(status);
+        cuerpo.appendChild(progress);
       }
 
       var acciones = document.createElement('div');
-      acciones.className = 'tarjeta-rutina-acciones';
+      acciones.className = 'routine-card-acciones';
 
       var btnAccion = document.createElement('button');
       btnAccion.type = 'button';
-      if (modo === 'pasos') {
-        btnAccion.className = 'btn btn-empezar';
-        btnAccion.textContent = App.i18n.t(completada ? 'btnRepetir' : 'btnEmpezar');
+      if (modo === 'steps') {
+        btnAccion.className = 'btn btn-start';
+        btnAccion.textContent = App.i18n.t(completada ? 'btnRepeat' : 'btnStart');
         btnAccion.setAttribute('aria-label',
-          (completada ? App.i18n.t('btnRepetir') : App.i18n.t('btnEmpezar'))
-          + ': ' + rutina.nombre);
-        btnAccion.addEventListener('click', function () { abrirRutina(rutina); });
+          (completada ? App.i18n.t('btnRepeat') : App.i18n.t('btnStart'))
+          + ': ' + rutina.name);
+        btnAccion.addEventListener('click', function () { openRoutine(rutina); });
       } else {
         btnAccion.className = 'btn-ordenar-rutina';
-        btnAccion.textContent = App.i18n.t('btnOrdenar');
-        btnAccion.setAttribute('aria-label', App.i18n.t('btnOrdenar') + ': ' + rutina.nombre);
-        btnAccion.addEventListener('click', function () { abrirOrdenar(rutina); });
+        btnAccion.textContent = App.i18n.t('btnOrder');
+        btnAccion.setAttribute('aria-label', App.i18n.t('btnOrder') + ': ' + rutina.name);
+        btnAccion.addEventListener('click', function () { openOrder(rutina); });
       }
       acciones.appendChild(btnAccion);
 
@@ -169,64 +169,64 @@
 
     function crearSubseccion(tituloKey, nivel) {
       var sub = document.createElement('div');
-      sub.className = 'subseccion-rutinas';
+      sub.className = 'routines-subsection';
       var h = document.createElement('h3');
-      h.className = 'subseccion-rutinas-titulo';
+      h.className = 'routines-subsection-titulo';
       h.textContent = App.i18n.t(tituloKey);
       sub.appendChild(h);
       if (nivel === 1) {
         var grid = document.createElement('div');
-        grid.className = 'grid-tarjetas';
+        grid.className = 'cards-grid';
         sub.appendChild(grid);
         return { sub: sub, grid: grid };
       }
       return { sub: sub, grid: null };
     }
 
-    SECCIONES.forEach(function (sec) {
-      var rutinas = rutinasDe(sec.id);
+    SECTIONS.forEach(function (sec) {
+      var rutinas = routinesOf(sec.id);
       if (rutinas.length === 0) return;
 
       var section = document.createElement('section');
-      section.className = 'seccion-rutinas';
+      section.className = 'routines-section';
       section.setAttribute('aria-labelledby', 'sec-' + sec.id);
 
       var titulo = document.createElement('h2');
       titulo.id = 'sec-' + sec.id;
-      titulo.className = 'seccion-rutinas-titulo';
+      titulo.className = 'routines-section-titulo';
       titulo.textContent = App.i18n.t(sec.key);
       section.appendChild(titulo);
 
-      var subPasos = crearSubseccion('subseccionPasos', 1);
-      var subOrdenar = crearSubseccion('subseccionOrdenar', 1);
+      var subPasos = crearSubseccion('subsectionSteps', 1);
+      var subOrdenar = crearSubseccion('subsectionOrder', 1);
 
       rutinas.forEach(function (rutina) {
-        subPasos.grid.appendChild(crearTarjeta(rutina, 'pasos'));
-        subOrdenar.grid.appendChild(crearTarjeta(rutina, 'ordenar'));
+        subPasos.grid.appendChild(createCard(rutina, 'steps'));
+        subOrdenar.grid.appendChild(createCard(rutina, 'ordenar'));
       });
 
       section.appendChild(subPasos.sub);
       section.appendChild(subOrdenar.sub);
-      listaRutinas.appendChild(section);
+      routinesList.appendChild(section);
     });
 
-    pintarEstrellas();
+    renderStars();
   }
 
-  function mostrarTab(tab) {
+  function showTab(tab) {
     var propias = tab === 'propias';
-    pantallaRutina.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaOrdenar.classList.add('oculto');
-    pantallaMenu.classList.toggle('oculto', propias);
-    pantallaListaLibre.classList.toggle('oculto', !propias);
-    tabPredefinidas.classList.toggle('activa', !propias);
-    tabPropias.classList.toggle('activa', propias);
-    tabPredefinidas.setAttribute('aria-selected', String(!propias));
-    tabPropias.setAttribute('aria-selected', String(propias));
+    routineScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    orderScreen.classList.add('hidden');
+    menuScreen.classList.toggle('hidden', propias);
+    freeListScreen.classList.toggle('hidden', !propias);
+    predefinedTab.classList.toggle('activa', !propias);
+    ownTab.classList.toggle('activa', propias);
+    predefinedTab.setAttribute('aria-selected', String(!propias));
+    ownTab.setAttribute('aria-selected', String(propias));
     if (propias) {
-      pintarListaActual();
-      pintarListasGuardadas();
+      renderCurrentList();
+      renderSavedLists();
     }
   }
 
@@ -234,28 +234,28 @@
      así que se construye aparte, con el mismo estilo visual de tarjeta. */
   function crearSeccionListasLibres() {
     var section = document.createElement('section');
-    section.className = 'seccion-rutinas';
+    section.className = 'routines-section';
     section.setAttribute('aria-labelledby', 'sec-listas-libres');
 
     var titulo = document.createElement('h2');
     titulo.id = 'sec-listas-libres';
-    titulo.className = 'seccion-rutinas-titulo';
-    titulo.textContent = App.i18n.t('seccionListasLibres');
+    titulo.className = 'routines-section-titulo';
+    titulo.textContent = App.i18n.t('freeListsSection');
     section.appendChild(titulo);
 
     var descripcion = document.createElement('p');
     descripcion.className = 'instruccion';
-    descripcion.textContent = App.i18n.t('listasLibresDescripcion');
+    descripcion.textContent = App.i18n.t('freeListsDescription');
     section.appendChild(descripcion);
 
     var grid = document.createElement('div');
-    grid.className = 'grid-tarjetas';
+    grid.className = 'cards-grid';
 
     var card = document.createElement('article');
-    card.className = 'card tarjeta-rutina';
+    card.className = 'card routine-card';
 
     var media = document.createElement('div');
-    media.className = 'tarjeta-rutina-media';
+    media.className = 'routine-card-media';
     var picto = document.createElement('span');
     picto.className = 'picto';
     picto.setAttribute('aria-hidden', 'true');
@@ -263,24 +263,24 @@
     media.appendChild(picto);
 
     var cuerpo = document.createElement('div');
-    cuerpo.className = 'tarjeta-rutina-cuerpo';
-    var nombre = document.createElement('span');
-    nombre.className = 'nombre';
-    nombre.textContent = App.i18n.t('tarjetaListasLibresNombre');
+    cuerpo.className = 'routine-card-cuerpo';
+    var name = document.createElement('span');
+    name.className = 'name';
+    name.textContent = App.i18n.t('freeListCardName');
     var descripcionTarjeta = document.createElement('span');
-    descripcionTarjeta.className = 'estado';
-    descripcionTarjeta.textContent = App.i18n.t('tarjetaListasLibresDescripcion');
-    cuerpo.appendChild(nombre);
+    descripcionTarjeta.className = 'status';
+    descripcionTarjeta.textContent = App.i18n.t('freeListCardDescription');
+    cuerpo.appendChild(name);
     cuerpo.appendChild(descripcionTarjeta);
 
     var acciones = document.createElement('div');
-    acciones.className = 'tarjeta-rutina-acciones';
+    acciones.className = 'routine-card-acciones';
     var btnAccion = document.createElement('button');
     btnAccion.type = 'button';
-    btnAccion.className = 'btn btn-empezar';
-    btnAccion.textContent = App.i18n.t('btnEmpezar');
-    btnAccion.setAttribute('aria-label', App.i18n.t('btnEmpezar') + ': ' + App.i18n.t('tarjetaListasLibresNombre'));
-    btnAccion.addEventListener('click', abrirListaLibre);
+    btnAccion.className = 'btn btn-start';
+    btnAccion.textContent = App.i18n.t('btnStart');
+    btnAccion.setAttribute('aria-label', App.i18n.t('btnStart') + ': ' + App.i18n.t('freeListCardName'));
+    btnAccion.addEventListener('click', openFreeList);
     acciones.appendChild(btnAccion);
     cuerpo.appendChild(acciones);
 
@@ -292,89 +292,89 @@
   }
 
   /* ---- Vista de una rutina ---- */
-  function abrirRutina(rutina) {
-    rutinaActual = rutina;
-    pantallaMenu.classList.add('oculto');
-    pantallaRutina.classList.remove('oculto');
-    tituloRutina.textContent = rutina.picto + ' ' + rutina.nombre;
+  function openRoutine(rutina) {
+    currentRoutine = rutina;
+    menuScreen.classList.add('hidden');
+    routineScreen.classList.remove('hidden');
+    routineTitle.textContent = rutina.picto + ' ' + rutina.name;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    pintarPasos();
+    renderSteps();
   }
 
-  function pintarPasos() {
-    var hechos = hechosDe(rutinaActual);
-    var actual = hechos.indexOf(false); /* primer paso pendiente */
-    listaPasos.innerHTML = '';
+  function renderSteps() {
+    var done = doneOf(currentRoutine);
+    var current = done.indexOf(false); /* primer paso pendiente */
+    stepsList.innerHTML = '';
 
-    rutinaActual.pasos.forEach(function (paso, i) {
+    currentRoutine.steps.forEach(function (paso, i) {
       var li = document.createElement('li');
       li.className = 'paso' +
-        (hechos[i] ? ' hecho' : '') +
-        (i === actual ? ' actual' : '');
+        (done[i] ? ' done' : '') +
+        (i === current ? ' current' : '');
 
       var picto = (typeof paso.picto === 'string' && /^\.{1,2}\//.test(paso.picto))
         ? '<img class="picto" src="' + paso.picto + '" alt="" aria-hidden="true" loading="lazy" decoding="async">'
         : '<span class="picto" aria-hidden="true">' + paso.picto + '</span>';
-      var texto = '<span class="texto">' + paso.texto + '</span>';
-      var hechoBtn = '<button type="button" class="btn btn-hecho"' +
-        (i === actual ? '' : ' disabled') + '>' +
-        App.i18n.t('btnHecho') + '</button>';
+      var text = '<span class="text">' + paso.textContent + '</span>';
+      var hechoBtn = '<button type="button" class="btn btn-done"' +
+        (i === current ? '' : ' disabled') + '>' +
+        App.i18n.t('btnDone') + '</button>';
 
-      li.innerHTML = picto + texto + (hechos[i] ? '<span class="check" aria-label="' + App.i18n.t('ariaPasoHecho') + '">✔</span>' : hechoBtn);
+      li.innerHTML = picto + text + (done[i] ? '<span class="check" aria-label="' + App.i18n.t('ariaStepDone') + '">✔</span>' : hechoBtn);
 
-      var btnHecho = li.querySelector('.btn-hecho');
-      if (btnHecho) {
-        btnHecho.addEventListener('click', function () { marcarHecho(i); });
+      var btnDone = li.querySelector('.btn-done');
+      if (btnDone) {
+        btnDone.addEventListener('click', function () { markDone(i); });
       }
-      listaPasos.appendChild(li);
+      stepsList.appendChild(li);
     });
 
-    var n = contarHechos(rutinaActual);
-    var total = rutinaActual.pasos.length;
+    var n = countDone(currentRoutine);
+    var total = currentRoutine.steps.length;
     progressFill.style.width = ((n / total) * 100) + '%';
   }
 
-  function marcarHecho(i) {
-    var hechos = hechosDe(rutinaActual);
-    hechos[i] = true;
-    guardar();
+  function markDone(i) {
+    var done = doneOf(currentRoutine);
+    done[i] = true;
+    save();
     App.feedback.success(feedbackEl);
 
-    if (contarHechos(rutinaActual) === rutinaActual.pasos.length) {
-      progreso.estrellas += 1;
+    if (countDone(currentRoutine) === currentRoutine.steps.length) {
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      guardar();
-      terminarRutina();
+      save();
+      endRoutine();
     } else {
-      pintarPasos();
+      renderSteps();
     }
   }
 
-  function terminarRutina() {
-    pintarPasos();
-    pantallaRutina.classList.add('oculto');
-    pantallaFinal.classList.remove('oculto');
-    $('#resumenFinal').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
-    App.feedback.celebrate(App.i18n.t('rutinaCompletadaTitulo'));
-    pintarEstrellas();
+  function endRoutine() {
+    renderSteps();
+    routineScreen.classList.add('hidden');
+    endScreen.classList.remove('hidden');
+    $('#resumenFinal').textContent = '';
+$('#transferencia').textContent = '';
+    App.feedback.celebrate(App.i18n.t('routineCompletedTitle'));
+    renderStars();
   }
 
   /* ---- Pantalla "Ordena la rutina" ----
      Patrón "La Casa": dos columnas. Izquierda = "Tu orden" (slots
      numerados 1..N que la persona va rellenando). Derecha = "Pasos"
      disponibles (los pictogramas mezclados que toca para colocar).
-     Tocar un slot ocupado devuelve su paso a la columna derecha.
-     Una pareja de flechas ↑/↓ permite mover el slot seleccionado
+     Tocar un slot ocupado devuelve su paso a la column derecha.
+     Una pareja de flechas ↑/↓ permite mover el slot selected
      a una posición contigua sin tener que devolver y recolocar.
-     Patrón Socrático: 1.er error → pista (primer paso correcto);
+     Patrón Socrático: 1.er error → pista (primer paso correct);
                         2.º error → "Ver solución".
      Reglas: nunca castigo (App.feedback.encourage), +1⭐ al acertar,
-     progreso persistente de orden (no se reinicia cada día). */
-  var ordenActual = null;
+     progress persistente de orden (no se reinicia cada día). */
+  var currentOrder = null;
   /* {
-       rutina, intentos,
+       rutina, attempts,
        slots: (number|null)[]   — índice de paso o null si está vacío
        disponibles: number[]    — índices aún sin colocar
        seleccionadoSlot: number|null
@@ -390,41 +390,41 @@ $('#transferencia').textContent.textContent = '';
     return copia;
   }
 
-  function abrirOrdenar(rutina) {
-    var ids = rutina.pasos.map(function (_, i) { return i; });
-    ordenActual = {
+  function openOrder(rutina) {
+    var ids = rutina.steps.map(function (_, i) { return i; });
+    currentOrder = {
       rutina: rutina,
-      intentos: 0,
-      pistaUsada: false,
-      resuelto: false,
-      pistaSlot: -1,
-      slots: new Array(rutina.pasos.length).fill(null),
+      attempts: 0,
+      hintUsed: false,
+      solved: false,
+      hintSlot: -1,
+      slots: new Array(rutina.steps.length).fill(null),
       disponibles: barajar(ids),
       seleccionadoSlot: null
     };
-    pantallaMenu.classList.add('oculto');
-    pantallaRutina.classList.add('oculto');
-    pantallaFinal.classList.add('oculto');
-    pantallaOrdenar.classList.remove('oculto');
-    tituloOrdenar.textContent = '';
-    feedbackOrdenar.textContent = '';
-    feedbackOrdenar.className = 'feedback';
-    pintarOrdenar();
+    menuScreen.classList.add('hidden');
+    routineScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    orderScreen.classList.remove('hidden');
+    orderTitle.textContent = '';
+    orderFeedback.textContent = '';
+    orderFeedback.className = 'feedback';
+    renderOrder();
   }
 
-  function pintarOrdenar() {
-    var rutina = ordenActual.rutina;
-    var sel = ordenActual.seleccionadoSlot;
-    var slotsEl = $('#listaSlots');
-    var dispEl = $('#listaPasosDisponibles');
+  function renderOrder() {
+    var rutina = currentOrder.rutina;
+    var sel = currentOrder.seleccionadoSlot;
+    var slotsEl = $('#slotsList');
+    var dispEl = $('#availableStepsList');
     slotsEl.innerHTML = '';
     dispEl.innerHTML = '';
 
-    ordenActual.slots.forEach(function (idPaso, i) {
+    currentOrder.slots.forEach(function (idPaso, i) {
       var li = document.createElement('li');
-      var lleno = idPaso !== null;
-      li.className = 'slot-orden' + (lleno ? ' lleno' : '') + (i === sel ? ' seleccionado' : '') +
-        (ordenActual.pistaSlot === i ? ' pista' : '');
+      var filled = idPaso !== null;
+      li.className = 'slot-orden' + (filled ? ' filled' : '') + (i === sel ? ' selected' : '') +
+        (currentOrder.hintSlot === i ? ' pista' : '');
       li.dataset.slotIndex = i;
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', '0');
@@ -435,24 +435,24 @@ $('#transferencia').textContent.textContent = '';
       pos.textContent = (i + 1);
       li.appendChild(pos);
 
-      if (lleno) {
-        var paso = rutina.pasos[idPaso];
+      if (filled) {
+        var paso = rutina.steps[idPaso];
         li.setAttribute(
           'aria-label',
-          App.i18n.t('ariaSlotLleno').replace('{n}', i + 1).replace('{texto}', paso.texto)
+          App.i18n.t('ariaSlotFilled').replace('{n}', i + 1).replace('{text}', paso.textContent)
         );
         var picto = document.createElement('span');
         picto.className = 'slot-picto';
         picto.setAttribute('aria-hidden', 'true');
         picto.textContent = paso.picto;
         li.appendChild(picto);
-        var texto = document.createElement('span');
-        texto.className = 'slot-texto';
-        texto.textContent = paso.texto;
-        li.appendChild(texto);
+        var text = document.createElement('span');
+        text.className = 'slot-text';
+        text.textContent = paso.textContent;
+        li.appendChild(text);
       } else {
         li.setAttribute(
-          'aria-label', App.i18n.t('ariaSlotVacio').replace('{n}', i + 1)
+          'aria-label', App.i18n.t('ariaSlotEmpty').replace('{n}', i + 1)
         );
         var hint = document.createElement('span');
         hint.className = 'slot-vacio-hint';
@@ -462,48 +462,48 @@ $('#transferencia').textContent.textContent = '';
       }
 
       li.addEventListener('click', function () {
-        if (suprimirClickArrastre) return;
-        tocarSlot(i);
+        if (suppressDragClick) return;
+        tapSlot(i);
       });
       hacerArrastrableOrden(li, { tipo: 'slot', indice: i });
       li.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          tocarSlot(i);
+          tapSlot(i);
         }
       });
       slotsEl.appendChild(li);
     });
 
-    ordenActual.disponibles.forEach(function (idPaso) {
-      var paso = rutina.pasos[idPaso];
+    currentOrder.disponibles.forEach(function (idPaso) {
+      var paso = rutina.steps[idPaso];
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'paso-disponible';
+      btn.className = 'paso-available';
       btn.dataset.pasoId = idPaso;
       btn.setAttribute(
         'aria-label',
-        App.i18n.t('ariaPasoDisponible').replace('{texto}', paso.texto)
+        App.i18n.t('ariaStepAvailable').replace('{text}', paso.textContent)
       );
       var p = document.createElement('span');
-      p.className = 'paso-disponible-picto';
+      p.className = 'paso-available-picto';
       p.setAttribute('aria-hidden', 'true');
       p.textContent = paso.picto;
       btn.appendChild(p);
       var t = document.createElement('span');
-      t.className = 'paso-disponible-texto';
-      t.textContent = paso.texto;
+      t.className = 'paso-available-text';
+      t.textContent = paso.textContent;
       btn.appendChild(t);
       btn.addEventListener('click', function () {
-        if (suprimirClickArrastre) return;
-        colocarDesdeDisponible(idPaso);
+        if (suppressDragClick) return;
+        placeFromAvailable(idPaso);
       });
-      hacerArrastrableOrden(btn, { tipo: 'disponible', pasoId: idPaso });
+      hacerArrastrableOrden(btn, { tipo: 'available', pasoId: idPaso });
       dispEl.appendChild(btn);
     });
 
-    actualizarBarraMover();
-    actualizarBotonesSocraticos();
+    updateMoveBar();
+    updateSocraticButtons();
   }
 
   /* Arrastre unificado para ratón, dedo y lápiz. El clic sigue siendo la
@@ -513,466 +513,466 @@ $('#transferencia').textContent.textContent = '';
     if (!window.PointerEvent) return;
     el.addEventListener('pointerdown', function (e) {
       if (e.button !== undefined && e.button !== 0) return;
-      arrastreOrden = { origen: origen, inicioX: e.clientX, inicioY: e.clientY,
+      orderDrag = { origen: origen, inicioX: e.clientX, inicioY: e.clientY,
         activo: false, elemento: el, pointerId: e.pointerId };
       el.setPointerCapture(e.pointerId);
     });
     el.addEventListener('pointermove', function (e) {
-      if (!arrastreOrden || arrastreOrden.pointerId !== e.pointerId) return;
-      var dx = e.clientX - arrastreOrden.inicioX;
-      var dy = e.clientY - arrastreOrden.inicioY;
-      if (!arrastreOrden.activo && Math.sqrt(dx * dx + dy * dy) < 8) return;
-      arrastreOrden.activo = true;
-      el.classList.add('arrastrando');
+      if (!orderDrag || orderDrag.pointerId !== e.pointerId) return;
+      var dx = e.clientX - orderDrag.inicioX;
+      var dy = e.clientY - orderDrag.inicioY;
+      if (!orderDrag.activo && Math.sqrt(dx * dx + dy * dy) < 8) return;
+      orderDrag.activo = true;
+      el.classList.add('dragging');
       e.preventDefault();
     });
     el.addEventListener('pointerup', function (e) {
-      if (!arrastreOrden || arrastreOrden.pointerId !== e.pointerId) return;
-      var datos = arrastreOrden;
-      arrastreOrden = null;
-      el.classList.remove('arrastrando');
+      if (!orderDrag || orderDrag.pointerId !== e.pointerId) return;
+      var datos = orderDrag;
+      orderDrag = null;
+      el.classList.remove('dragging');
       if (!datos.activo) return;
-      suprimirClickArrastre = true;
+      suppressDragClick = true;
       var destino = document.elementFromPoint(e.clientX, e.clientY);
       var slot = destino && destino.closest ? destino.closest('.slot-orden') : null;
-      if (slot) soltarPasoEnSlot(datos.origen, Number(slot.dataset.slotIndex));
-      setTimeout(function () { suprimirClickArrastre = false; }, 0);
+      if (slot) dropStepInSlot(datos.origen, Number(slot.dataset.slotIndex));
+      setTimeout(function () { suppressDragClick = false; }, 0);
     });
     el.addEventListener('pointercancel', function () {
-      arrastreOrden = null;
-      el.classList.remove('arrastrando');
+      orderDrag = null;
+      el.classList.remove('dragging');
     });
   }
 
-  function soltarPasoEnSlot(origen, destino) {
-    if (!ordenActual || destino < 0 || destino >= ordenActual.slots.length) return;
-    if (origen.tipo === 'disponible') {
-      var anterior = ordenActual.slots[destino];
-      ordenActual.slots[destino] = origen.pasoId;
-      ordenActual.disponibles = ordenActual.disponibles.filter(function (x) { return x !== origen.pasoId; });
-      if (anterior !== null) ordenActual.disponibles.push(anterior);
+  function dropStepInSlot(origen, destino) {
+    if (!currentOrder || destino < 0 || destino >= currentOrder.slots.length) return;
+    if (origen.tipo === 'available') {
+      var anterior = currentOrder.slots[destino];
+      currentOrder.slots[destino] = origen.pasoId;
+      currentOrder.disponibles = currentOrder.disponibles.filter(function (x) { return x !== origen.pasoId; });
+      if (anterior !== null) currentOrder.disponibles.push(anterior);
     } else if (origen.indice !== destino) {
-      var paso = ordenActual.slots[origen.indice];
-      ordenActual.slots[origen.indice] = ordenActual.slots[destino];
-      ordenActual.slots[destino] = paso;
+      var paso = currentOrder.slots[origen.indice];
+      currentOrder.slots[origen.indice] = currentOrder.slots[destino];
+      currentOrder.slots[destino] = paso;
     }
-    ordenActual.seleccionadoSlot = destino;
-    ordenActual.pistaSlot = -1;
-    pintarOrdenar();
+    currentOrder.seleccionadoSlot = destino;
+    currentOrder.hintSlot = -1;
+    renderOrder();
   }
 
-  function actualizarBotonesSocraticos() {
-    var btnPista = $('#btnPistaOrdenar');
-    var btnResolver = $('#btnResolverOrdenar');
-    var btnComprobar = $('#btnComprobar');
-    if (!btnPista || !btnResolver || !btnComprobar) return;
+  function updateSocraticButtons() {
+    var btnHint = $('#btnHintOrder');
+    var btnResolve = $('#btnResolveOrder');
+    var btnCheck = $('#btnCheck');
+    if (!btnHint || !btnResolve || !btnCheck) return;
     /* Progresión Socrática:
          0 errores → pista y resolver deshabilitados.
          1 error  → pista habilitada (un solo uso), resolver deshabilitado.
          2+ error → pista agotada, resolver habilitado. */
-    btnPista.disabled = !(ordenActual.intentos >= 1 && !ordenActual.pistaUsada);
-    btnResolver.disabled = !(ordenActual.intentos >= 2);
+    btnHint.disabled = !(currentOrder.attempts >= 1 && !currentOrder.hintUsed);
+    btnResolve.disabled = !(currentOrder.attempts >= 2);
     /* Si se ha usado "Ver solución", el comprobar no concede estrella. */
-    btnComprobar.disabled = ordenActual.resuelto;
+    btnCheck.disabled = currentOrder.solved;
   }
 
-  function colocarDesdeDisponible(idPaso) {
+  function placeFromAvailable(idPaso) {
     /* Busca el primer slot vacío y coloca ahí el paso. */
-    var idx = ordenActual.slots.indexOf(null);
+    var idx = currentOrder.slots.indexOf(null);
     if (idx === -1) return; /* No debería pasar: si no hay slots libres el paso está colocado. */
-    ordenActual.slots[idx] = idPaso;
-    ordenActual.disponibles = ordenActual.disponibles.filter(function (x) { return x !== idPaso; });
-    ordenActual.seleccionadoSlot = idx;
-    ordenActual.pistaSlot = -1;
-    pintarOrdenar();
+    currentOrder.slots[idx] = idPaso;
+    currentOrder.disponibles = currentOrder.disponibles.filter(function (x) { return x !== idPaso; });
+    currentOrder.seleccionadoSlot = idx;
+    currentOrder.hintSlot = -1;
+    renderOrder();
   }
 
-  function tocarSlot(i) {
-    var idPaso = ordenActual.slots[i];
-    if (idPaso === null) return; /* Slot vacío: no hace nada (los pasos van por la columna derecha). */
-    /* Slot ocupado: devuelve el paso a la columna de disponibles. */
-    ordenActual.slots[i] = null;
-    ordenActual.disponibles.push(idPaso);
-    ordenActual.seleccionadoSlot = null;
-    ordenActual.pistaSlot = -1;
-    pintarOrdenar();
+  function tapSlot(i) {
+    var idPaso = currentOrder.slots[i];
+    if (idPaso === null) return; /* Slot vacío: no hace nada (los steps van por la column derecha). */
+    /* Slot ocupado: devuelve el paso a la column de disponibles. */
+    currentOrder.slots[i] = null;
+    currentOrder.disponibles.push(idPaso);
+    currentOrder.seleccionadoSlot = null;
+    currentOrder.hintSlot = -1;
+    renderOrder();
   }
 
-  function actualizarBarraMover() {
-    var sel = ordenActual.seleccionadoSlot;
-    var total = ordenActual.slots.length;
-    var btnSubir = $('#btnSubirPaso');
-    var btnBajar = $('#btnBajarPaso');
-    btnSubir.disabled = !(sel !== null && sel > 0 && ordenActual.slots[sel] !== null);
-    btnBajar.disabled = !(sel !== null && sel < total - 1 && ordenActual.slots[sel] !== null);
+  function updateMoveBar() {
+    var sel = currentOrder.seleccionadoSlot;
+    var total = currentOrder.slots.length;
+    var btnMoveUp = $('#btnMoveStepUp');
+    var btnMoveDown = $('#btnMoveStepDown');
+    btnMoveUp.disabled = !(sel !== null && sel > 0 && currentOrder.slots[sel] !== null);
+    btnMoveDown.disabled = !(sel !== null && sel < total - 1 && currentOrder.slots[sel] !== null);
   }
 
   function moverSlot(dir) {
-    var sel = ordenActual.seleccionadoSlot;
+    var sel = currentOrder.seleccionadoSlot;
     if (sel === null) return;
     var j = sel + dir;
-    if (j < 0 || j >= ordenActual.slots.length) return;
-    var a = ordenActual.slots[sel];
-    var b = ordenActual.slots[j];
-    ordenActual.slots[sel] = b;
-    ordenActual.slots[j] = a;
-    ordenActual.seleccionadoSlot = j;
-    ordenActual.pistaSlot = -1;
-    pintarOrdenar();
+    if (j < 0 || j >= currentOrder.slots.length) return;
+    var a = currentOrder.slots[sel];
+    var b = currentOrder.slots[j];
+    currentOrder.slots[sel] = b;
+    currentOrder.slots[j] = a;
+    currentOrder.seleccionadoSlot = j;
+    currentOrder.hintSlot = -1;
+    renderOrder();
   }
 
-  function contarBienColocados() {
+  function countCorrectlyPlaced() {
     var n = 0;
-    ordenActual.slots.forEach(function (idPaso, i) {
+    currentOrder.slots.forEach(function (idPaso, i) {
       if (idPaso === i) n++;
     });
     return n;
   }
 
-  function comprobarOrden() {
+  function checkOrder() {
     /* Si el usuario ha pedido ver la solución, comprobar no concede
        estrella (es solo una revisión, no un logro propio). */
-    if (ordenActual.resuelto) {
-      feedbackOrdenar.textContent = App.i18n.t('resolverOrdenar');
+    if (currentOrder.solved) {
+      orderFeedback.textContent = App.i18n.t('resolveOrder');
       return;
     }
     /* Solo se puede comprobar cuando todos los slots están llenos. */
-    var vacios = ordenActual.slots.filter(function (s) { return s === null; }).length;
+    var vacios = currentOrder.slots.filter(function (s) { return s === null; }).length;
     if (vacios > 0) {
-      App.feedback.encourage(feedbackOrdenar);
-      feedbackOrdenar.textContent = App.i18n.t('ordenIncompleto');
+      App.feedback.encourage(orderFeedback);
+      orderFeedback.textContent = App.i18n.t('ordenIncompleto');
       return;
     }
-    var total = ordenActual.slots.length;
-    var bien = contarBienColocados();
+    var total = currentOrder.slots.length;
+    var bien = countCorrectlyPlaced();
     var todoBien = bien === total;
     if (todoBien) {
-      progreso.estrellas += 1;
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      guardar();
-      App.feedback.success(feedbackOrdenar);
-      feedbackOrdenar.textContent = App.i18n.t('ordenCorrecto');
+      save();
+      App.feedback.success(orderFeedback);
+      orderFeedback.textContent = App.i18n.t('ordenCorrecto');
       App.feedback.celebrate(App.i18n.t('ordenCorrecto'));
-      pintarEstrellas();
+      renderStars();
     } else {
-      ordenActual.intentos++;
-      /* Si ya consumió la pista, se resetea para el próximo ciclo de ayuda. */
-      ordenActual.pistaUsada = false;
-      guardar();
-      App.feedback.encourage(feedbackOrdenar);
-      /* Sin contador "X de Y pasos en su sitio": feedback cualitativo. */
-      feedbackOrdenar.textContent = App.i18n.t('ordenIncorrecto');
-      actualizarBotonesSocraticos();
+      currentOrder.attempts++;
+      /* Si ya consumió la pista, se resetea para el próximo ciclo de help. */
+      currentOrder.hintUsed = false;
+      save();
+      App.feedback.encourage(orderFeedback);
+      /* Sin contador "X de Y steps en su sitio": feedback cualitativo. */
+      orderFeedback.textContent = App.i18n.t('ordenIncorrecto');
+      updateSocraticButtons();
     }
   }
 
-  function pistaOrdenar() {
+  function hintOrder() {
     /* Busca el primer slot mal colocado y lo marca visualmente.
        Si el slot 0 ya está bien, busca el primer índice cuyo paso
-       correcto NO esté ya en su sitio. Eso da una pista útil y
+       correct NO esté ya en su sitio. Eso da una pista útil y
        evita decir "pon primero X" cuando X ya está bien colocado. */
-    var pasos = ordenActual.rutina.pasos;
-    var slotAMarcar = -1;
-    for (var i = 0; i < ordenActual.slots.length; i++) {
-      if (ordenActual.slots[i] !== i) { slotAMarcar = i; break; }
+    var steps = currentOrder.rutina.steps;
+    var slotToMark = -1;
+    for (var i = 0; i < currentOrder.slots.length; i++) {
+      if (currentOrder.slots[i] !== i) { slotToMark = i; break; }
     }
-    if (slotAMarcar === -1) {
+    if (slotToMark === -1) {
       /* Todo está bien colocado: pista trivial, no se muestra. */
-      feedbackOrdenar.textContent = '';
+      orderFeedback.textContent = '';
       return;
     }
-    ordenActual.pistaSlot = slotAMarcar;
-    ordenActual.pistaUsada = true;
-    feedbackOrdenar.textContent = '';
-    pintarOrdenar();
+    currentOrder.hintSlot = slotToMark;
+    currentOrder.hintUsed = true;
+    orderFeedback.textContent = '';
+    renderOrder();
     /* Quita el resaltado tras unos segundos para no condicionar el siguiente intento. */
     setTimeout(function () {
-      if (ordenActual && ordenActual.pistaSlot === slotAMarcar) {
-        ordenActual.pistaSlot = -1;
-        pintarOrdenar();
+      if (currentOrder && currentOrder.hintSlot === slotToMark) {
+        currentOrder.hintSlot = -1;
+        renderOrder();
       }
     }, 3500);
   }
 
-  function resolverOrdenar() {
-    ordenActual.slots = ordenActual.rutina.pasos.map(function (_, i) { return i; });
-    ordenActual.disponibles = [];
-    ordenActual.seleccionadoSlot = null;
-    ordenActual.resuelto = true;
-    pintarOrdenar();
-    feedbackOrdenar.textContent = App.i18n.t('resolverOrdenar');
+  function resolveOrder() {
+    currentOrder.slots = currentOrder.rutina.steps.map(function (_, i) { return i; });
+    currentOrder.disponibles = [];
+    currentOrder.seleccionadoSlot = null;
+    currentOrder.solved = true;
+    renderOrder();
+    orderFeedback.textContent = App.i18n.t('resolveOrder');
   }
 
   /* ---- Pantalla "Crea tu lista" ----
      Patrón "Compositor" de piano-keys: la persona escribe elementos
-     libres, forma un borrador, le pone nombre en un panel propio
+     libres, forma un borrador, le pone name en un panel propio
      (nunca window.prompt: rompe Lectura Fácil/TTS) y lo guarda.
      Sin Socrático (pista/explicación): no hay "respuesta correcta"
      que explicar, igual que el modo libre de piano-keys o builders.
      Gana 1⭐ cada lista guardada (regla: solo se suma, nunca se resta). */
-  /* editando: referencia directa al objeto dentro de progreso.misListas
+  /* editando: referencia directa al objeto dentro de progress.myLists
      que se está modificando (null = creando una lista nueva). Guardar la
      referencia, no el índice, evita desincronizarse si otra lista se
      borra mientras se edita esta. */
-  var listaLibre = { items: [], editando: null, nombreOriginal: null };
+  var freeList = { items: [], editando: null, originalName: null };
 
-  function abrirListaLibre() {
-    listaLibre.items = [];
-    listaLibre.editando = null;
-    listaLibre.nombreOriginal = null;
-    pantallaMenu.classList.add('oculto');
-    pantallaListaLibre.classList.remove('oculto');
-    $('#nombrarLista').classList.add('oculto');
-    $('#feedbackListaLibre').textContent.textContent = '';
-    $('#inputNuevoItem').placeholder = App.i18n.t('placeholderInputItem');
-    $('#inputNuevoItem').setAttribute('aria-label', App.i18n.t('ariaInputItem'));
-    $('#inputNuevoItem').value = '';
-    pintarListaActual();
-    pintarListasGuardadas();
+  function openFreeList() {
+    freeList.items = [];
+    freeList.editando = null;
+    freeList.originalName = null;
+    menuScreen.classList.add('hidden');
+    freeListScreen.classList.remove('hidden');
+    $('#nameList').classList.add('hidden');
+    $('#freeListFeedback').textContent = '';
+    $('#inputNewItem').placeholder = App.i18n.t('placeholderInputItem');
+    $('#inputNewItem').setAttribute('aria-label', App.i18n.t('ariaInputItem'));
+    $('#inputNewItem').value = '';
+    renderCurrentList();
+    renderSavedLists();
   }
 
-  function pintarListaActual() {
-    var el = $('#itemsListaActual');
+  function renderCurrentList() {
+    var el = $('#currentListItems');
     el.innerHTML = '';
-    if (listaLibre.items.length === 0) {
+    if (freeList.items.length === 0) {
       var p = document.createElement('p');
-      p.className = 'placeholder';
-      p.textContent = App.i18n.t('listaActualVacia');
+      p.className = 'placeholder-text';
+      p.textContent = App.i18n.t('currentListEmpty');
       el.appendChild(p);
     } else {
-      listaLibre.items.forEach(function (texto, i) {
+      freeList.items.forEach(function (text, i) {
         var li = document.createElement('li');
-        li.className = 'item-lista-actual';
+        li.className = 'current-list-item';
 
         var flechas = document.createElement('div');
-        flechas.className = 'item-lista-flechas';
-        var btnSubir = document.createElement('button');
-        btnSubir.type = 'button';
-        btnSubir.className = 'btn-flecha-item';
-        btnSubir.textContent = '↑';
-        btnSubir.disabled = i === 0;
-        btnSubir.setAttribute('aria-label', App.i18n.t('ariaSubirItem').replace('{texto}', texto));
-        btnSubir.addEventListener('click', function () { moverItem(i, -1); });
-        var btnBajar = document.createElement('button');
-        btnBajar.type = 'button';
-        btnBajar.className = 'btn-flecha-item';
-        btnBajar.textContent = '↓';
-        btnBajar.disabled = i === listaLibre.items.length - 1;
-        btnBajar.setAttribute('aria-label', App.i18n.t('ariaBajarItem').replace('{texto}', texto));
-        btnBajar.addEventListener('click', function () { moverItem(i, 1); });
-        flechas.appendChild(btnSubir);
-        flechas.appendChild(btnBajar);
+        flechas.className = 'list-item-arrows';
+        var btnMoveUp = document.createElement('button');
+        btnMoveUp.type = 'button';
+        btnMoveUp.className = 'btn-arrow-item';
+        btnMoveUp.textContent = '↑';
+        btnMoveUp.disabled = i === 0;
+        btnMoveUp.setAttribute('aria-label', App.i18n.t('ariaMoveUpItem').replace('{text}', text));
+        btnMoveUp.addEventListener('click', function () { moveItem(i, -1); });
+        var btnMoveDown = document.createElement('button');
+        btnMoveDown.type = 'button';
+        btnMoveDown.className = 'btn-arrow-item';
+        btnMoveDown.textContent = '↓';
+        btnMoveDown.disabled = i === freeList.items.length - 1;
+        btnMoveDown.setAttribute('aria-label', App.i18n.t('ariaMoveDownItem').replace('{text}', text));
+        btnMoveDown.addEventListener('click', function () { moveItem(i, 1); });
+        flechas.appendChild(btnMoveUp);
+        flechas.appendChild(btnMoveDown);
 
         var span = document.createElement('span');
-        span.className = 'texto';
-        span.textContent = texto;
+        span.className = 'text';
+        span.textContent = text;
         var btnQuitar = document.createElement('button');
         btnQuitar.type = 'button';
-        btnQuitar.className = 'btn-quitar-item';
+        btnQuitar.className = 'btn-remove-item';
         btnQuitar.textContent = '✕';
-        btnQuitar.setAttribute('aria-label', App.i18n.t('ariaQuitarItem').replace('{texto}', texto));
-        btnQuitar.addEventListener('click', function () { quitarItem(i); });
+        btnQuitar.setAttribute('aria-label', App.i18n.t('ariaRemoveItem').replace('{text}', text));
+        btnQuitar.addEventListener('click', function () { removeItem(i); });
         li.appendChild(span);
         li.appendChild(flechas);
         li.appendChild(btnQuitar);
         el.appendChild(li);
       });
     }
-    $('#btnGuardarLista').disabled = listaLibre.items.length === 0;
-    actualizarAvisoEdicion();
+    $('#btnSaveList').disabled = freeList.items.length === 0;
+    updateEditNotice();
   }
 
-  function anadirItem() {
-    var input = $('#inputNuevoItem');
-    var texto = input.value.trim();
-    if (!texto) return;
-    listaLibre.items.push(texto);
+  function addItem() {
+    var input = $('#inputNewItem');
+    var text = input.value.trim();
+    if (!text) return;
+    freeList.items.push(text);
     input.value = '';
     input.focus();
-    pintarListaActual();
+    renderCurrentList();
   }
 
-  function quitarItem(i) {
-    listaLibre.items.splice(i, 1);
-    pintarListaActual();
+  function removeItem(i) {
+    freeList.items.splice(i, 1);
+    renderCurrentList();
   }
 
-  function moverItem(i, dir) {
+  function moveItem(i, dir) {
     var j = i + dir;
-    if (j < 0 || j >= listaLibre.items.length) return;
-    var tmp = listaLibre.items[i];
-    listaLibre.items[i] = listaLibre.items[j];
-    listaLibre.items[j] = tmp;
-    pintarListaActual();
+    if (j < 0 || j >= freeList.items.length) return;
+    var tmp = freeList.items[i];
+    freeList.items[i] = freeList.items[j];
+    freeList.items[j] = tmp;
+    renderCurrentList();
   }
 
-  function vaciarListaActual() {
-    listaLibre.items = [];
-    pintarListaActual();
+  function clearCurrentList() {
+    freeList.items = [];
+    renderCurrentList();
   }
 
   /* ---- Editar una lista guardada ----
      Carga sus elementos en el mismo editor que "Crea tu lista": añadir,
-     quitar y reordenar funcionan igual. Al guardar se actualiza la lista
+     quitar y reordenar funcionan igual. Al save se actualiza la lista
      en lugar de crear una nueva y no se concede estrella extra (evita
      "cultivar" estrellas editando una y otra vez). */
-  function editarLista(lista) {
-    listaLibre.items = lista.items.slice();
-    listaLibre.editando = lista;
-    listaLibre.nombreOriginal = lista.nombre;
-    $('#nombrarLista').classList.add('oculto');
-    pintarListaActual();
-    pintarListasGuardadas();
-    $('#inputNuevoItem').focus();
+  function editList(lista) {
+    freeList.items = lista.items.slice();
+    freeList.editando = lista;
+    freeList.originalName = lista.name;
+    $('#nameList').classList.add('hidden');
+    renderCurrentList();
+    renderSavedLists();
+    $('#inputNewItem').focus();
   }
 
-  function cancelarEdicion() {
-    listaLibre.items = [];
-    listaLibre.editando = null;
-    listaLibre.nombreOriginal = null;
-    $('#nombrarLista').classList.add('oculto');
-    pintarListaActual();
-    pintarListasGuardadas();
+  function cancelEdit() {
+    freeList.items = [];
+    freeList.editando = null;
+    freeList.originalName = null;
+    $('#nameList').classList.add('hidden');
+    renderCurrentList();
+    renderSavedLists();
   }
 
-  function actualizarAvisoEdicion() {
-    var editando = listaLibre.editando !== null;
-    $('#editandoAviso').classList.toggle('oculto', !editando);
+  function updateEditNotice() {
+    var editando = freeList.editando !== null;
+    $('#editingNotice').classList.toggle('hidden', !editando);
     if (editando) {
-      $('#editandoAvisoTexto').textContent.textContent = '';
+      $('#editingNoticeText').textContent = '';
     }
-    $('#btnGuardarLista').textContent.textContent = '';
+    $('#btnSaveList').textContent = '';
   }
 
-  function mostrarNombrarLista() {
-    if (listaLibre.items.length === 0) return;
-    var input = $('#inputNombreLista');
-    input.value = listaLibre.editando !== null ? listaLibre.nombreOriginal : App.i18n.t('promptNombreListaDefault');
-    $('#nombrarLista').classList.remove('oculto');
+  function showNameList() {
+    if (freeList.items.length === 0) return;
+    var input = $('#inputListName');
+    input.value = freeList.editando !== null ? freeList.originalName : App.i18n.t('promptListNameDefault');
+    $('#nameList').classList.remove('hidden');
     input.focus();
     input.select();
   }
 
-  function confirmarGuardarLista() {
-    var nombre = $('#inputNombreLista').value.trim().slice(0, 30) || App.i18n.t('promptNombreListaDefault');
-    var editando = listaLibre.editando;
+  function confirmSaveList() {
+    var name = $('#inputListName').value.trim().slice(0, 30) || App.i18n.t('promptListNameDefault');
+    var editando = freeList.editando;
     if (editando) {
-      editando.nombre = nombre;
-      editando.items = listaLibre.items.slice();
+      editando.name = name;
+      editando.items = freeList.items.slice();
     } else {
-      progreso.misListas.push({ nombre: nombre, items: listaLibre.items.slice() });
-      progreso.estrellas += 1;
+      progress.myLists.push({ name: name, items: freeList.items.slice() });
+      progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
     }
-    guardar();
-    listaLibre.items = [];
-    listaLibre.editando = null;
-    listaLibre.nombreOriginal = null;
-    $('#nombrarLista').classList.add('oculto');
-    pintarListaActual();
-    pintarListasGuardadas();
-    pintarEstrellas();
-    var feedbackEl = $('#feedbackListaLibre');
+    save();
+    freeList.items = [];
+    freeList.editando = null;
+    freeList.originalName = null;
+    $('#nameList').classList.add('hidden');
+    renderCurrentList();
+    renderSavedLists();
+    renderStars();
+    var feedbackEl = $('#freeListFeedback');
     App.feedback.success(feedbackEl);
-    feedbackEl.textContent = App.i18n.t(editando ? 'listaActualizadaFeedback' : 'listaGuardadaFeedback');
+    feedbackEl.textContent = App.i18n.t(editando ? 'listUpdatedFeedback' : 'listSavedFeedback');
   }
 
-  function pintarListasGuardadas() {
-    var el = $('#listasGuardadas');
+  function renderSavedLists() {
+    var el = $('#savedLists');
     el.innerHTML = '';
-    if (progreso.misListas.length === 0) return;
+    if (progress.myLists.length === 0) return;
 
     var h3 = document.createElement('h3');
-    h3.textContent = App.i18n.t('tusListas');
+    h3.textContent = App.i18n.t('yourLists');
     el.appendChild(h3);
 
-    progreso.misListas.forEach(function (lista, i) {
-      var editandoEsta = listaLibre.editando === lista;
+    progress.myLists.forEach(function (lista, i) {
+      var editandoEsta = freeList.editando === lista;
 
       var wrap = document.createElement('div');
-      wrap.className = 'lista-guardada' + (editandoEsta ? ' lista-guardada-editando' : '');
+      wrap.className = 'saved-list' + (editandoEsta ? ' saved-list-editando' : '');
 
-      var fila = document.createElement('div');
-      fila.className = 'lista-guardada-fila';
+      var row = document.createElement('div');
+      row.className = 'saved-list-row';
 
       var info = document.createElement('button');
       info.type = 'button';
-      info.className = 'lista-guardada-info';
+      info.className = 'saved-list-info';
       info.setAttribute('aria-expanded', 'false');
-      info.setAttribute('aria-label', App.i18n.t('ariaVerLista').replace('{nombre}', lista.nombre));
-      var nombre = document.createElement('span');
-      nombre.className = 'nombre';
-      nombre.textContent = lista.nombre;
-      var cantidad = document.createElement('span');
-      cantidad.className = 'cantidad';
-      cantidad.textContent = '';
-      info.appendChild(nombre);
-      info.appendChild(cantidad);
+      info.setAttribute('aria-label', App.i18n.t('ariaViewList').replace('{name}', lista.name));
+      var name = document.createElement('span');
+      name.className = 'name';
+      name.textContent = lista.name;
+      var count = document.createElement('span');
+      count.className = 'count';
+      count.textContent = '';
+      info.appendChild(name);
+      info.appendChild(count);
 
       var acciones = document.createElement('div');
-      acciones.className = 'lista-guardada-acciones';
-      var btnPracticar = document.createElement('button');
-      btnPracticar.type = 'button';
-      btnPracticar.className = 'btn btn-empezar';
-      btnPracticar.textContent = App.i18n.t('btnPracticarLista');
-      btnPracticar.setAttribute('aria-label', App.i18n.t('btnPracticarLista') + ': ' + lista.nombre);
-      btnPracticar.addEventListener('click', function () {
-        abrirRutina({
+      acciones.className = 'saved-list-acciones';
+      var btnPractice = document.createElement('button');
+      btnPractice.type = 'button';
+      btnPractice.className = 'btn btn-start';
+      btnPractice.textContent = App.i18n.t('btnPracticarLista');
+      btnPractice.setAttribute('aria-label', App.i18n.t('btnPracticarLista') + ': ' + lista.name);
+      btnPractice.addEventListener('click', function () {
+        openRoutine({
           id: 'lista-' + i,
-          nombre: lista.nombre,
+          name: lista.name,
           picto: '📝',
-          pasos: lista.items.map(function (texto) {
-            return { picto: '✅', texto: texto };
+          steps: lista.items.map(function (text) {
+            return { picto: '✅', text: text };
           })
         });
       });
-      var btnEditar = document.createElement('button');
-      btnEditar.type = 'button';
-      btnEditar.textContent = '✏️';
-      btnEditar.disabled = editandoEsta;
-      btnEditar.setAttribute('aria-label', App.i18n.t('ariaEditarLista').replace('{nombre}', lista.nombre));
-      btnEditar.addEventListener('click', function () { editarLista(lista); });
-      var btnEscuchar = document.createElement('button');
-      btnEscuchar.type = 'button';
-      btnEscuchar.textContent = '🔊';
-      btnEscuchar.setAttribute('aria-label', App.i18n.t('ariaEscucharLista').replace('{nombre}', lista.nombre));
-      btnEscuchar.addEventListener('click', function () {
-        if (false && App.tts && App.tts.speak) App.tts.speak(lista.nombre + '. ' + lista.items.join(', '));
+      var btnEdit = document.createElement('button');
+      btnEdit.type = 'button';
+      btnEdit.textContent = '✏️';
+      btnEdit.disabled = editandoEsta;
+      btnEdit.setAttribute('aria-label', App.i18n.t('ariaEditList').replace('{name}', lista.name));
+      btnEdit.addEventListener('click', function () { editList(lista); });
+      var btnListen = document.createElement('button');
+      btnListen.type = 'button';
+      btnListen.textContent = '🔊';
+      btnListen.setAttribute('aria-label', App.i18n.t('ariaListenList').replace('{name}', lista.name));
+      btnListen.addEventListener('click', function () {
+        if (false && App.tts && App.tts.speak) App.tts.speak(lista.name + '. ' + lista.items.join(', '));
       });
-      var btnBorrar = document.createElement('button');
-      btnBorrar.type = 'button';
-      btnBorrar.textContent = '🗑️';
-      btnBorrar.disabled = editandoEsta;
-      btnBorrar.setAttribute('aria-label', App.i18n.t('ariaBorrarLista').replace('{nombre}', lista.nombre));
-      btnBorrar.addEventListener('click', function () {
-        progreso.misListas.splice(i, 1);
-        guardar();
-        pintarListasGuardadas();
-        var feedbackEl = $('#feedbackListaLibre');
+      var btnErase = document.createElement('button');
+      btnErase.type = 'button';
+      btnErase.textContent = '🗑️';
+      btnErase.disabled = editandoEsta;
+      btnErase.setAttribute('aria-label', App.i18n.t('ariaDeleteList').replace('{name}', lista.name));
+      btnErase.addEventListener('click', function () {
+        progress.myLists.splice(i, 1);
+        save();
+        renderSavedLists();
+        var feedbackEl = $('#freeListFeedback');
         feedbackEl.className = 'feedback';
-        feedbackEl.textContent = App.i18n.t('listaBorradaFeedback');
+        feedbackEl.textContent = App.i18n.t('listDeletedFeedback');
       });
-      acciones.appendChild(btnPracticar);
-      acciones.appendChild(btnEditar);
-      acciones.appendChild(btnEscuchar);
-      acciones.appendChild(btnBorrar);
+      acciones.appendChild(btnPractice);
+      acciones.appendChild(btnEdit);
+      acciones.appendChild(btnListen);
+      acciones.appendChild(btnErase);
 
-      fila.appendChild(info);
-      fila.appendChild(acciones);
-      wrap.appendChild(fila);
+      row.appendChild(info);
+      row.appendChild(acciones);
+      wrap.appendChild(row);
 
       var itemsEl = document.createElement('ul');
-      itemsEl.className = 'lista-guardada-items oculto';
-      lista.items.forEach(function (texto) {
+      itemsEl.className = 'saved-list-items hidden';
+      lista.items.forEach(function (text) {
         var li = document.createElement('li');
-        li.textContent = texto;
+        li.textContent = text;
         itemsEl.appendChild(li);
       });
       wrap.appendChild(itemsEl);
 
       info.addEventListener('click', function () {
-        var visible = !itemsEl.classList.contains('oculto');
-        itemsEl.classList.toggle('oculto', visible);
+        var visible = !itemsEl.classList.contains('hidden');
+        itemsEl.classList.toggle('hidden', visible);
         info.setAttribute('aria-expanded', String(!visible));
       });
 
@@ -981,36 +981,36 @@ $('#transferencia').textContent.textContent = '';
   }
 
   /* Events */
-  $('#btnOtraRutina').addEventListener('click', pintarMenu);
-  tabPredefinidas.addEventListener('click', function () { pintarMenu(); });
-  tabPropias.addEventListener('click', function () { mostrarTab('propias'); });
-  $('#btnComprobar').addEventListener('click', comprobarOrden);
-  $('#btnPistaOrdenar').addEventListener('click', pistaOrdenar);
-  $('#btnSubirPaso').addEventListener('click', function () { moverSlot(-1); });
-  $('#btnBajarPaso').addEventListener('click', function () { moverSlot(1); });
-  $('#btnResolverOrdenar').addEventListener('click', resolverOrdenar);
+  $('#btnAnotherRoutine').addEventListener('click', renderMenu);
+  predefinedTab.addEventListener('click', function () { renderMenu(); });
+  ownTab.addEventListener('click', function () { showTab('propias'); });
+  $('#btnCheck').addEventListener('click', checkOrder);
+  $('#btnHintOrder').addEventListener('click', hintOrder);
+  $('#btnMoveStepUp').addEventListener('click', function () { moverSlot(-1); });
+  $('#btnMoveStepDown').addEventListener('click', function () { moverSlot(1); });
+  $('#btnResolveOrder').addEventListener('click', resolveOrder);
 
-  $('#btnAnadirItem').addEventListener('click', anadirItem);
-  $('#inputNuevoItem').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') { e.preventDefault(); anadirItem(); }
+  $('#btnAddItem').addEventListener('click', addItem);
+  $('#inputNewItem').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); addItem(); }
   });
-  $('#btnVaciarLista').addEventListener('click', vaciarListaActual);
-  $('#btnCancelarEdicion').addEventListener('click', cancelarEdicion);
-  $('#btnGuardarLista').addEventListener('click', mostrarNombrarLista);
-  $('#btnConfirmarGuardarLista').addEventListener('click', confirmarGuardarLista);
-  $('#inputNombreLista').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') { e.preventDefault(); confirmarGuardarLista(); }
+  $('#btnClearList').addEventListener('click', clearCurrentList);
+  $('#btnCancelEdit').addEventListener('click', cancelEdit);
+  $('#btnSaveList').addEventListener('click', showNameList);
+  $('#btnConfirmSaveList').addEventListener('click', confirmSaveList);
+  $('#inputListName').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); confirmSaveList(); }
   });
 
-  $('#btnVolver').addEventListener('click', function (e) {
+  $('#btnBack').addEventListener('click', function (e) {
     /* If we're inside a routine, go back to the routine menu */
-    if (!pantallaRutina.classList.contains('oculto') ||
-        !pantallaOrdenar.classList.contains('oculto') ||
-        !pantallaListaLibre.classList.contains('oculto')) {
+    if (!routineScreen.classList.contains('hidden') ||
+        !orderScreen.classList.contains('hidden') ||
+        !freeListScreen.classList.contains('hidden')) {
       e.preventDefault();
-      pintarMenu();
+      renderMenu();
     }
   });
 
-  pintarMenu();
+  renderMenu();
 })();

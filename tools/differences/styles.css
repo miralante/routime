@@ -6,12 +6,12 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .escena-titulo {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-memoria);
 }
@@ -29,7 +29,7 @@
 
 .panel-etiqueta {
   font-weight: 700;
-  color: var(--color-texto-suave);
+  color: var(--color-text-suave);
   margin-bottom: 8px;
 }
 
@@ -80,25 +80,25 @@
 }
 
 .contador {
-  font-size: var(--texto-grande);
+  font-size: var(--text-grande);
   font-weight: 700;
   color: var(--mod-memoria);
 }
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 480px) {
   .rejilla { grid-template-columns: repeat(4, 64px); grid-template-rows: repeat(4, 64px); }
   .objeto-btn { font-size: 32px; }
 
-#pantallaFinal .transferencia {
+#endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-text-secundario, #555);
   max-width: 480px;
 }
 }

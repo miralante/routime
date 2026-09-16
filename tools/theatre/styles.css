@@ -10,9 +10,9 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--texto-base); }
+.instruccion { font-size: var(--text-base); }
 
-.centrado-fila { justify-content: center; }
+.centered-row { justify-content: center; }
 
 .progress-bar {
   margin-top: var(--espacio);
@@ -23,14 +23,14 @@
 }
 
 .dificultad {
-  font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  font-size: var(--text-pequeno);
+  color: var(--color-text-secundario, #666);
 }
 
-.personaje-actual { font-size: 48px; }
+.personaje-current { font-size: 48px; }
 
 .consigna {
-  font-size: var(--texto-base);
+  font-size: var(--text-base);
   font-weight: 700;
 }
 
@@ -79,7 +79,7 @@
   cursor: default;
 }
 
-/* Sitio correcto marcado tras el segundo fallo */
+/* Sitio correct marcado tras el segundo fallo */
 .sitio.sugerida {
   border-color: var(--mod-memoria);
   border-style: solid;
@@ -88,19 +88,19 @@
 
 .emoji-grande { font-size: 96px; }
 
-#pantallaFinal { padding-top: 48px; }
+#endScreen { padding-top: 48px; }
 
-#pantallaFinal .btn { align-self: center; min-width: 280px; }
+#endScreen .btn { align-self: center; min-width: 280px; }
 
 @media (max-width: 480px) {
   .sitio { width: 64px; height: 64px; }
   .banda.fondo .sitio { font-size: 28px; }
   .banda.delante .sitio { font-size: 40px; }
 
-  #pantallaFinal .transferencia {
+  #endScreen .transferencia {
     margin: 8px auto 24px;
     font-size: 1.1rem;
-    color: var(--color-texto-secundario, #555);
+    color: var(--color-text-secundario, #555);
     max-width: 480px;
   }
 }

@@ -25,6 +25,8 @@
         siguiente oración.
    Las MAYÚSCULAS y los espacios del input se normalizan al
    comparar para evitar frustración mecánica.
+   Progresión automática: empieza con el nivel fácil y sube
+   según el progress guardado, sin mostrar selección de nivel.
    ============================================================ */
 (function () {
   'use strict';
@@ -35,8 +37,8 @@
   var startScreen = $('#startScreen');
   var quizScreen = $('#quizScreen');
   var endScreen = $('#endScreen');
-  var levelsEl = $('#levels');
   var starsEl = $('#stars');
+  var levelEl = $('#dificultad');
 
   var sentencePicto = $('#sentencePicto');
   var hintLine = $('#hintLine');
@@ -49,19 +51,19 @@
   var nextBtn = $('#nextBtn');
   var finalSummaryEl = $('#finalSummary');
 
-  /* Progreso persistente */
+  /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (!progress.completed) progress.completed = {};
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function show(screen) {
     [startScreen, quizScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
@@ -84,7 +86,7 @@
 
   /* La oración que se muestra como pista: primera letra de cada
      palabra visible, manteniendo espacios. Da una guía sin
-     revelar la palabra completa. */
+     reveal la palabra completa. */
   function buildHint(correct) {
     return correct.split(' ').map(function (w) {
       if (!w) return '';
@@ -133,38 +135,33 @@
       .replace(/ /g, '&nbsp;');
   }
 
-  /* ---------- Pantalla inicial ---------- */
-  function paintLevels() {
-    levelsEl.innerHTML = '';
-    bank().forEach(function (level) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-level';
-      var done = progress.completed[level.id] ? ' ' + t('done') : '';
-      btn.innerHTML = level.name + done +
-        '<span class="level-info">' + t('wordsCount') + '</span>';
-      btn.addEventListener('click', function () { startLevel(level); });
-      levelsEl.appendChild(btn);
-    });
+  /* ---------- Nivel según progress ---------- */
+  function levelBasedOnProgress() {
+    var idx = Math.min(progress.roundsCompleted, bank().length - 1);
+    return bank()[idx];
   }
 
-  function goStart() {
-    paintLevels();
-    show(startScreen);
+  function renderLevel() {
+    if (levelEl) {
+      var count = currentLevel.sentences.length;
+      levelEl.textContent = count + ' ' + (count === 1 ? t('oracion') : t('oraciones'));
+    }
+  }
+
+  /* ---------- Pantalla inicial ---------- */
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.sentences);
+    idx = 0;
+    show(quizScreen);
+    renderLevel();
+    render();
   }
 
   /* ---------- Ronda ---------- */
   var currentLevel = null;
   var items = [];
   var idx = 0;
-
-  function startLevel(level) {
-    currentLevel = level;
-    items = App.utils.shuffle(level.sentences);
-    idx = 0;
-    show(quizScreen);
-    render();
-  }
 
   function render() {
     var item = items[idx];
@@ -182,11 +179,11 @@
     inputEl.value = '';
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    legendWrap.classList.add('oculto');
+    legendWrap.classList.add('hidden');
     legendText.textContent = '';
-    nextBtn.classList.add('oculto');
-    checkBtn.classList.remove('oculto');
-    clearBtn.classList.remove('oculto');
+    nextBtn.classList.add('hidden');
+    checkBtn.classList.remove('hidden');
+    clearBtn.classList.remove('hidden');
 
     paintStars();
     // reenfocar el input para teclado físico/móvil
@@ -211,20 +208,19 @@
       feedbackEl.textContent = t('correctFull');
       feedbackEl.className = 'feedback acierto';
       App.feedback.success(feedbackEl);
-      progress.estrellas += 1;
-      progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+      progress.stars += 1;
       save();
       paintStars();
-      legendWrap.classList.add('oculto');
-      checkBtn.classList.add('oculto');
-      nextBtn.classList.remove('oculto');
+      legendWrap.classList.add('hidden');
+      checkBtn.classList.add('hidden');
+      nextBtn.classList.remove('hidden');
       nextBtn.focus();
     } else {
       feedbackEl.textContent = t('wrongVisual');
       feedbackEl.className = 'feedback animo';
       App.feedback.encourage(feedbackEl);
       legendText.textContent = t('wrongLegendPrefix');
-      legendWrap.classList.remove('oculto');
+      legendWrap.classList.remove('hidden');
       // permite reintentar sin presión (SPEC §3.1)
       inputEl.value = '';
       inputEl.focus();
@@ -256,33 +252,42 @@
   }
 
   function finish() {
+    progress.roundsCompleted += 1;
+    save();
     show(endScreen);
     finalSummaryEl.textContent = t('finalSummary')
-      .replace('{total}', progress.estrellas);
-    $('#transferencia').textContent.textContent = '';
+      .replace('{total}', progress.stars);
+    $('#resumenFinal').textContent = '';
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
-  $('#backLevelsBtn').addEventListener('click', goStart);
+  $('#btnPlay').addEventListener('click', startGame);
   clearBtn.addEventListener('click', clearInput);
   checkBtn.addEventListener('click', check);
   // Enter en el input = Comprobar
   inputEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (!checkBtn.classList.contains('oculto')) check();
-      else if (!nextBtn.classList.contains('oculto')) next();
+      if (!checkBtn.classList.contains('hidden')) check();
+      else if (!nextBtn.classList.contains('hidden')) next();
     }
   });
   nextBtn.addEventListener('click', next);
-  $('#replayBtn').addEventListener('click', function () { startLevel(currentLevel); });
-  $('#otherLevelBtn').addEventListener('click', goStart);
+  $('#btnRepeat').addEventListener('click', startGame);
+  $('#btnMenu').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    quizScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    paintStars();
+  });
 
   function init() {
     App.i18n.apply();
     paintStars();
-    paintLevels();
   }
 
   document.addEventListener('DOMContentLoaded', init);

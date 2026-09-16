@@ -1,16 +1,18 @@
 /* ============================================================
-   Routime — Diccionario (lenguaje: palabras difíciles con
+   Routime — Diccionario (lenguaje: words difíciles con
    significado sencillo, aprendizaje significativo)
    Datos en data.js (DATA.es/DATA.en, cada uno una lista de grupos
-   de 8 palabras). Por cada grupo, flujo en 2 pasos:
+   de 8 words). Por cada grupo, flujo en 2 steps:
    1) Fichas: una tarjeta por palabra que une palabra + significado
       + ejemplo real, para anclar la palabra nueva a algo conocido
       (aprendizaje significativo, no memorización suelta).
-   2) Test: motor de quiz de 3 opciones (como Dichos/Señales):
-      se ve la palabra, se elige su significado entre el correcto
-      y el de otras dos palabras del mismo grupo. El error nunca
+   2) Test: motor de quiz de 3 options (como Dichos/Señales):
+      se ve la palabra, se elige su significado entre el correct
+      y el de otras dos words del mismo grupo. El error nunca
       se castiga: pista con el ejemplo en el primer fallo,
       explicación completa en el segundo.
+   Progresión automática: empieza con el grupo fácil y sube según
+   el progress guardado, sin mostrar selección de nivel.
    ============================================================ */
 (function () {
   'use strict';
@@ -22,8 +24,8 @@
   var cardsScreen = $('#cardsScreen');
   var quizScreen = $('#quizScreen');
   var endScreen = $('#endScreen');
-  var levelsEl = $('#levels');
   var starsEl = $('#stars');
+  var levelEl = $('#dificultad');
 
   var cardsProgressFill = $('#cardsProgressFill');
   var cardsProgressText = $('#cardsProgressText');
@@ -46,53 +48,51 @@
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.estrellas !== 'number') progress.estrellas = 0;
-  if (!progress.completed) progress.completed = {};
+  if (typeof progress.stars !== 'number') progress.stars = 0;
+  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.estrellas; }
+  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function show(screen) {
     [startScreen, cardsScreen, quizScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('oculto', s !== screen);
+      s.classList.toggle('hidden', s !== screen);
     });
   }
 
-  /* ---------- Pantalla inicial: elegir grupo ---------- */
-
-  function paintLevels() {
-    levelsEl.innerHTML = '';
-    bank().forEach(function (level) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-level';
-      var done = progress.completed[level.id] ? ' ' + t('done') : '';
-      btn.innerHTML = level.name + done +
-        '<span class="level-info">' + t('wordsCount') + '</span>';
-      btn.addEventListener('click', function () { startLevel(level); });
-      levelsEl.appendChild(btn);
-    });
+  /* ---------- Nivel según progress ---------- */
+  function levelBasedOnProgress() {
+    var idx = Math.min(progress.roundsCompleted, bank().length - 1);
+    return bank()[idx];
   }
 
-  function goStart() {
-    paintLevels();
-    show(startScreen);
+  function renderLevel() {
+    if (levelEl) {
+      var count = bank().porRonda;
+      levelEl.textContent = count + ' ' + (count === 1 ? t('palabra') : t('palabras'));
+    }
+  }
+
+  /* ---------- Pantalla inicial ---------- */
+  function startGame() {
+    currentLevel = levelBasedOnProgress();
+    cardIdx = 0;
+    show(cardsScreen);
+    renderLevel();
+    renderCard();
   }
 
   /* ---------- Paso 1: fichas ---------- */
   var currentLevel = null;
   var cardIdx = 0;
 
-  function startLevel(level) {
-    currentLevel = level;
-    cardIdx = 0;
-    show(cardsScreen);
-    renderCard();
-  }
-
-  function paintCardProgress() {
+  function renderCard() {
+    var item = currentLevel.words[cardIdx];
+    wordDisplay.textContent = item.word;
+    definitionText.textContent = item.definition;
+    exampleText.textContent = item.example;
     var total = currentLevel.words.length;
     cardsProgressFill.style.width = (((cardIdx + 1) / total) * 100) + '%';
     cardsProgressText.textContent = '';
@@ -101,14 +101,6 @@
   function cardSpeech(item) {
     return item.word + '. ' + t('definitionLabel') + ' ' + item.definition +
       ' ' + t('exampleLabel') + ' ' + item.example;
-  }
-
-  function renderCard() {
-    var item = currentLevel.words[cardIdx];
-    wordDisplay.textContent = item.word;
-    definitionText.textContent = item.definition;
-    exampleText.textContent = item.example;
-    paintCardProgress();
   }
 
   function nextCard() {
@@ -148,9 +140,9 @@
     quizWordDisplay.textContent = item.word;
     quizFeedback.textContent = '';
     quizFeedback.className = 'feedback';
-    quizExplanationWrap.classList.add('oculto');
+    quizExplanationWrap.classList.add('hidden');
     quizExplanation.textContent = '';
-    quizNextBtn.classList.add('oculto');
+    quizNextBtn.classList.add('hidden');
     quizOptions.innerHTML = '';
 
     var distractors = App.utils.shuffle(currentLevel.words.filter(function (w) {
@@ -171,34 +163,34 @@
     paintStars();
   }
 
-  function answerQuiz(btn, esCorrecta, item) {
+  function answerQuiz(btn, isCorrect, item) {
     if (quizResolved) return;
-    if (esCorrecta) {
+    if (isCorrect) {
       quizExplanation.textContent = t('correctExplanation');
-      quizExplanationWrap.classList.remove('oculto');
+      quizExplanationWrap.classList.remove('hidden');
       quizResolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(quizFeedback);
-      progress.estrellas += 1;
+      progress.stars += 1;
       quizCorrectCount += 1;
       save();
       paintStars();
-      quizNextBtn.classList.remove('oculto');
+      quizNextBtn.classList.remove('hidden');
       quizNextBtn.focus();
     } else {
       quizAttempts += 1;
       if (quizAttempts === 1) {
         quizExplanation.textContent = t('hint') + '"' + item.example + '"';
-        quizExplanationWrap.classList.remove('oculto');
+        quizExplanationWrap.classList.remove('hidden');
       } else {
         quizExplanation.textContent = t('wrongExplanationPrefix') + item.definition;
-        quizExplanationWrap.classList.remove('oculto');
+        quizExplanationWrap.classList.remove('hidden');
       }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }
   }
 
@@ -212,18 +204,19 @@
   }
 
   function finishQuiz() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.roundsCompleted += 1;
     save();
     show(endScreen);
-    $('#finalSummary').textContent.textContent = '';
-$('#transferencia').textContent.textContent = '';
+    $('#finalSummary').textContent = '';
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
 
-  $('#backLevelsBtnCards').addEventListener('click', goStart);
-  $('#backLevelsBtnQuiz').addEventListener('click', goStart);
+  $('#btnPlay').addEventListener('click', startGame);
   nextCardBtn.addEventListener('click', nextCard);
   cardListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(currentLevel.words[cardIdx]));
@@ -235,13 +228,18 @@ $('#transferencia').textContent.textContent = '';
     if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
-  $('#replayBtn').addEventListener('click', function () { startLevel(currentLevel); });
-  $('#otherLevelBtn').addEventListener('click', goStart);
+  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#btnMenu').addEventListener('click', function () {
+    endScreen.classList.add('hidden');
+    quizScreen.classList.add('hidden');
+    cardsScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
+    paintStars();
+  });
 
   function init() {
     App.i18n.apply();
     paintStars();
-    paintLevels();
   }
 
   document.addEventListener('DOMContentLoaded', init);

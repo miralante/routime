@@ -5,7 +5,7 @@
      tag ('path'|'circle'|'rect'|'polygon'|'ellipse'), attrs }] }]
    'attrs' son los atributos SVG del elemento (d, cx/cy/r, etc.).
    DATA.colores: paleta fija de la actividad.
-   Los nombres (color, dibujo, zona) NO están aquí: son texto y
+   Los nombres (color, dibujo, zona) NO están aquí: son text y
    viven en strings.js, indexados por 'id'. app.js los busca con
    App.i18n.t('color.'+id), App.i18n.t('dibujo.'+id), App.i18n.t('zona.'+id).
    Los dibujos van de zonas grandes a zonas pequeñas y precisas

@@ -2,16 +2,16 @@
    Datos: Piano (notas musicales, independientes del idioma).
    Formato:
    - DATA.melodiasSeguir = [{ id, secuencia: string[] }] — modo
-     "Sigue la melodía". El nombre NO está aquí: es texto y vive en
+     "Sigue la melodía". El name NO está aquí: es text y vive en
      strings.js. app.js lo busca con MELODIA_KEYS[id] (ver app.js).
    - DATA.canciones = [{ id, dificultad: 'facil'|'media', secuencia }]
-     — modo "Canciones". El nombre tampoco está aquí, mismo patrón
+     — modo "Canciones". El name tampoco está aquí, mismo patrón
      con CANCION_KEYS (ver app.js). 'dificultad' se traduce con
      App.i18n.t('dificultad' + Facil/Media).
    Las notas son do-re-mi-... en notación anglosajona (C D E F G A B,
    sostenidos con #): son un dato musical, no cambian con el idioma.
    Para ampliar: añadir una melodía o canción nueva con un id, su
-   secuencia, y su nombre en strings.js (es y en).
+   secuencia, y su name en strings.js (es y en).
    ============================================================ */
 const DATA = {
   melodiasSeguir: [

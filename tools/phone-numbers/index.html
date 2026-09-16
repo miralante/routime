@@ -19,15 +19,15 @@
     </header>
 
     <!-- Pantalla 1: fichas -->
-    <section id="cardsScreen" class="pila centrado">
-      <div class="fila center-row">
+    <section id="cardsScreen" class="pila centered">
+      <div class="row center-row">
         <p class="instruction" data-i18n="instruction">Aprende qué número marcar. Primero mira las fichas, luego el resumen y después haz el test.</p>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="cardsProgressFill"></div>
         <span class="progress-text" id="cardsProgressText">1 / 3</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="card-picto" id="cardPicto" aria-hidden="true"></div>
         <h2 id="cardName"></h2>
         <p class="card-situation" id="cardSituation"></p>
@@ -36,38 +36,38 @@
     </section>
 
     <!-- Pantalla 2: resumen -->
-    <section id="summaryScreen" class="oculto pila centrado">
+    <section id="summaryScreen" class="hidden pila centered">
       <h2 data-i18n="summaryTitle">Un solo número para todo</h2>
       <div class="card pila" id="summaryCard"></div>
-      <div class="fila center-row">      </div>
+      <div class="row center-row">      </div>
       <button type="button" class="btn" id="startQuizBtn" data-i18n="startQuiz">Hacer el test</button>
     </section>
 
     <!-- Pantalla 3: test -->
-    <section id="quizScreen" class="oculto pila">
+    <section id="quizScreen" class="hidden pila">
       <div class="progress-bar">
         <div class="progress-fill" id="quizProgressFill"></div>
         <span class="progress-text" id="quizProgressText">0 / 8</span>
       </div>
-      <div class="card centrado pila">
+      <div class="card centered pila">
         <div class="situation-picto" id="quizPicto" aria-hidden="true"></div>
         <p class="quiz-text" id="quizSituation" data-i18n="core.loading">Cargando…</p>      </div>
-      <h2 class="quiz-question centrado" data-i18n="quizQuestion">¿A qué número llamas?</h2>
+      <h2 class="quiz-question centered" data-i18n="quizQuestion">¿A qué número llamas?</h2>
       <div class="pila" id="quizOptions"></div>
       <div class="feedback" id="quizFeedback" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="quizExplanationWrap">
+      <div class="row explicacion hidden" id="quizExplanationWrap">
         <p id="quizExplanation" aria-live="polite"></p>      </div>
-      <button type="button" class="btn oculto" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn hidden" id="quizNextBtn" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
     </section>
 
     <!-- End screen -->
-    <section id="endScreen" class="oculto centrado pila" aria-live="polite">
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="big-emoji" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
       <p id="finalSummary"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="replayBtn" data-i18n="core.playAgain">Jugar otra vez</button>
-      <a href="../../site/index.html" class="btn btn-secundario" data-i18n="core.backToMenu">Volver al menú</a>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

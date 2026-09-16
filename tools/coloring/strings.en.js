@@ -18,7 +18,7 @@
     "dibujosPintadosVarios": "You have painted {n} pictures in total. ",
     "estrellasUna": "Now you have 1 star.",
     "estrellasVarias": "Now you have {n} stars.",
-    "zonaAria": "Part: {nombre}",
+    "zonaAria": "Part: {name}",
     "transfer": "Painting with precision trains your finger grip. It will help you hold a pencil, button your clothes and handle small things.",
     "color": {"rojo":"Red","azul":"Blue","verde":"Green","amarillo":"Yellow","morado":"Purple","naranja":"Orange"},
     "dibujo": {"casa":"The house","flor":"The flower","pez":"The fish","coche":"The car","taza":"The mug","camiseta":"The t-shirt","reloj":"The clock","cepillo":"The toothbrush","paraguas":"The umbrella","zapato":"The shoe"},

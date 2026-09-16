@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-i18n-title="title">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Compra | Routime</title>
+  <title>De compras | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,94 +13,77 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
-      <h1 data-i18n="title">🛒 La Compra</h1>
-      <span class="stars" id="stars">⭐ 0</span>
+      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
+      <h1>🛒 La Compra</h1>
+      <span class="stars" id="stars">&starf; 0</span>
     </header>
 
-    <!-- Screen: 2-activity menu -->
-    <section id="pantallaMenu" class="pila">
-      <div class="fila centrado-fila">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Aquí practicas dos cosas: en qué sección del súper está cada producto, y para qué comida del día lo necesitas.</p>
+    <!-- Pantalla inicial: elegir actividad -->
+    <section id="startScreen" class="pila centered">
+      <div class="row centered-row">
+        <p class="instruccion" data-i18n="instruccion">Practica dos cosas del supermercado.</p>
       </div>
-      <div class="grid-tarjetas">
-        <button type="button" class="tarjeta-actividad" id="tarjetaSecciones">
-          <span class="picto" aria-hidden="true">🏪</span>
-          <span class="nombre" data-i18n="menuSecciones">¿En qué sección?</span>
-          <span class="detalle" data-i18n="menuSeccionesDetalle">Cada producto a su sección del súper.</span>
-        </button>
-        <button type="button" class="tarjeta-actividad" id="tarjetaLista">
-          <span class="picto" aria-hidden="true">📝</span>
-          <span class="nombre" data-i18n="menuLista">Mi lista de la compra</span>
-          <span class="detalle" data-i18n="menuListaDetalle">Cada producto para su comida del día.</span>
-        </button>
+      <div class="fila" style="justify-content: center; gap: var(--espacio); flex-wrap: wrap;">
+        <div class="tarjeta-actividad" id="tarjetaSecciones" role="button" tabindex="0">
+          <span class="tarjeta-icono" aria-hidden="true">🏪</span>
+          <strong data-i18n="menuSecciones">¿En qué sección?</strong>
+          <span class="tarjeta-desc" data-i18n="menuSeccionesDetalle">Cada producto a su sección del súper.</span>
+        </div>
+        <div class="tarjeta-actividad" id="tarjetaLista" role="button" tabindex="0">
+          <span class="tarjeta-icono" aria-hidden="true">📝</span>
+          <strong data-i18n="menuLista">Mi lista de la compra</strong>
+          <span class="tarjeta-desc" data-i18n="menuListaDetalle">Cada producto para su comida del día.</span>
+        </div>
       </div>
     </section>
 
-    <!-- ===== Activity 1: Which section? ===== -->
+    <section id="gameScreen" class="hidden pila centered">
 
-    <section id="pantallaNivelesSecciones" class="oculto pila centrado">
-      <div class="fila"><button type="button" class="btn btn-secundario" id="btnVolverMenuSecciones" data-i18n="volverMenu">← Menú</button></div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="nivelesSecciones"></div>
+      <!-- Secciones mode -->
+      <div class="secciones-screen" id="pantallaJuegoSecciones">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressSeccionesFill"></div>
+          <span class="progress-text" id="progressSeccionesText"></span>
+        </div>
+        <div class="card centered stack">
+          <span id="itemPictoSecciones" class="picto-grande"></span>
+          <span id="itemPalabraSecciones" class="palabra-item"></span>
+        </div>
+        <div class="boxes-grid" id="cajasSecciones"></div>
+        <div class="feedback" id="feedbackSecciones" aria-live="polite"></div>
+        <div class="row explanation hidden" id="explanationSeccionesWrap">
+          <p id="explanationSecciones"></p>
+        </div>
+        <button type="button" class="btn hidden" id="btnSiguienteSecciones">Siguiente</button>
+      </div>
+
+      <!-- Lista mode -->
+      <div class="lista-screen" id="pantallaJuegoLista">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressListaFill"></div>
+          <span class="progress-text" id="progressListaText"></span>
+        </div>
+        <div class="card centered stack">
+          <span id="itemPictoLista" class="picto-grande"></span>
+          <span id="itemPalabraLista" class="palabra-item"></span>
+        </div>
+        <div class="listas-dia" id="listasDia"></div>
+        <div class="feedback" id="feedbackLista" aria-live="polite"></div>
+        <div class="row explanation hidden" id="explanationListaWrap">
+          <p id="explanationLista"></p>
+        </div>
+        <button type="button" class="btn hidden" id="btnSiguienteLista">Siguiente</button>
+      </div>
     </section>
 
-    <section id="pantallaJuegoSecciones" class="oculto pila">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressSeccionesFill"></div>
-        <span class="progress-text" id="progressSeccionesText">0 / 10</span>
-      </div>
-
-      <div class="card centrado pila">
-        <div class="item-picto" id="itemPictoSecciones"></div>
-        <p class="item-palabra" id="itemPalabraSecciones"></p>
-      </div>
-
-      <div class="pila" id="cajasSecciones"></div>
-      <div class="feedback" id="feedbackSecciones" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionSeccionesWrap">
-        <p id="explicacionSecciones" aria-live="polite"></p>
-      </div>
-      <button type="button" class="btn oculto" id="btnSiguienteSecciones" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
-    </section>
-
-    <!-- ===== Actividad 2: mi lista de la compra ===== -->
-
-    <section id="pantallaNivelesLista" class="oculto pila centrado">
-      <div class="fila"><button type="button" class="btn btn-secundario" id="btnVolverMenuLista" data-i18n="volverMenu">← Menú</button></div>
-      <h2 data-i18n="elegirNivel">Elige el nivel</h2>
-      <div class="pila" id="nivelesLista"></div>
-    </section>
-
-    <section id="pantallaJuegoLista" class="oculto pila">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressListaFill"></div>
-        <span class="progress-text" id="progressListaText">0 / 8</span>
-      </div>
-
-      <div class="card centrado pila">
-        <div class="item-picto" id="itemPictoLista"></div>
-        <p class="item-palabra" id="itemPalabraLista"></p>
-      </div>
-
-      <div class="feedback" id="feedbackLista" aria-live="polite"></div>
-      <div class="fila explicacion oculto" id="explicacionListaWrap">
-        <p id="explicacionLista" aria-live="polite"></p>
-      </div>
-      <button type="button" class="btn oculto" id="btnSiguienteLista" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
-
-      <div class="listas-dia" id="listasDia"></div>
-    </section>
-
-    <!-- Pantalla final (compartida por las 2 actividades) -->
-    <section id="pantallaFinal" class="oculto centrado pila" aria-live="polite">
-      <div class="emoji-grande" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
+      <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
+      <h2 data-i18n="core.roundComplete">Ronda completada!</h2>
       <p id="resumenFinal"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepetir" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secundario" id="btnOtroNivel" data-i18n="btnOtroNivel">Elegir otro nivel</button>
-      <button type="button" class="btn btn-secundario" id="btnVolverMenuFinal" data-i18n="volverMenu">← Menú</button>
+      <p id="transferencia" class="transferencia" data-i18n="transferencia">Sigue praticando para aprender mas.</p>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnMenu" data-i18n="volverMenu">← Menú</button>
+      <a href="../../site/index.html" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
@@ -115,9 +98,8 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+      navigator.serviceWorker.register("../../sw.js").catch(function () {});
     }
   </script>
 </body>
 </html>
-
