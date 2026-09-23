@@ -21,7 +21,7 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [master]
+    branches: [master, main]
   workflow_dispatch:
 
 concurrency:
@@ -58,7 +58,7 @@ jobs:
     # using the Cloudflare Git connector are unaffected.
     if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
     environment:
-      name: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+      name: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' && 'production' || 'preview' }}
       url: ${{ steps.deploy.outputs.deployment-url }}
     steps:
       - name: Checkout
