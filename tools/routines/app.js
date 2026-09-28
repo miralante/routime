@@ -167,12 +167,12 @@
       return card;
     }
 
-    function crearSubseccion(tituloKey, nivel) {
+    function crearSubseccion(headingKey, nivel) {
       var sub = document.createElement('div');
       sub.className = 'routines-subsection';
       var h = document.createElement('h3');
-      h.className = 'routines-subsection-titulo';
-      h.textContent = App.i18n.t(tituloKey);
+      h.className = 'routines-subsection-heading';
+      h.textContent = App.i18n.t(headingKey);
       sub.appendChild(h);
       if (nivel === 1) {
         var grid = document.createElement('div');
@@ -191,11 +191,11 @@
       section.className = 'routines-section';
       section.setAttribute('aria-labelledby', 'sec-' + sec.id);
 
-      var titulo = document.createElement('h2');
-      titulo.id = 'sec-' + sec.id;
-      titulo.className = 'routines-section-titulo';
-      titulo.textContent = App.i18n.t(sec.key);
-      section.appendChild(titulo);
+      var heading = document.createElement('h2');
+      heading.id = 'sec-' + sec.id;
+      heading.className = 'routines-section-heading';
+      heading.textContent = App.i18n.t(sec.key);
+      section.appendChild(heading);
 
       var subPasos = crearSubseccion('subsectionSteps', 1);
       var subOrdenar = crearSubseccion('subsectionOrder', 1);
@@ -237,11 +237,11 @@
     section.className = 'routines-section';
     section.setAttribute('aria-labelledby', 'sec-listas-libres');
 
-    var titulo = document.createElement('h2');
-    titulo.id = 'sec-listas-libres';
-    titulo.className = 'routines-section-titulo';
-    titulo.textContent = App.i18n.t('freeListsSection');
-    section.appendChild(titulo);
+    var heading = document.createElement('h2');
+    heading.id = 'sec-listas-libres';
+    heading.className = 'routines-section-heading';
+    heading.textContent = App.i18n.t('freeListsSection');
+    section.appendChild(heading);
 
     var descripcion = document.createElement('p');
     descripcion.className = 'instruccion';
@@ -316,7 +316,7 @@
       var picto = (typeof paso.picto === 'string' && /^\.{1,2}\//.test(paso.picto))
         ? '<img class="picto" src="' + paso.picto + '" alt="" aria-hidden="true" loading="lazy" decoding="async">'
         : '<span class="picto" aria-hidden="true">' + paso.picto + '</span>';
-      var text = '<span class="text">' + paso.textContent + '</span>';
+      var text = '<span class="text">' + paso.text + '</span>';
       var hechoBtn = '<button type="button" class="btn btn-done"' +
         (i === current ? '' : ' disabled') + '>' +
         App.i18n.t('btnDone') + '</button>';
@@ -355,8 +355,8 @@
     renderSteps();
     routineScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
+    $('#resumenFinal').textContent = App.i18n.t('routineCompletedTitle');
+    $('#transferencia').textContent = App.i18n.t('transferencia');
     App.feedback.celebrate(App.i18n.t('routineCompletedTitle'));
     renderStars();
   }
@@ -406,7 +406,7 @@ $('#transferencia').textContent = '';
     routineScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     orderScreen.classList.remove('hidden');
-    orderTitle.textContent = '';
+    orderTitle.textContent = rutina.picto + ' ' + rutina.name;
     orderFeedback.textContent = '';
     orderFeedback.className = 'feedback';
     renderOrder();
@@ -439,7 +439,7 @@ $('#transferencia').textContent = '';
         var paso = rutina.steps[idPaso];
         li.setAttribute(
           'aria-label',
-          App.i18n.t('ariaSlotFilled').replace('{n}', i + 1).replace('{text}', paso.textContent)
+          App.i18n.t('ariaSlotFilled').replace('{n}', i + 1).replace('{text}', paso.text)
         );
         var picto = document.createElement('span');
         picto.className = 'slot-picto';
@@ -448,7 +448,7 @@ $('#transferencia').textContent = '';
         li.appendChild(picto);
         var text = document.createElement('span');
         text.className = 'slot-text';
-        text.textContent = paso.textContent;
+        text.textContent = paso.text;
         li.appendChild(text);
       } else {
         li.setAttribute(
@@ -483,7 +483,7 @@ $('#transferencia').textContent = '';
       btn.dataset.pasoId = idPaso;
       btn.setAttribute(
         'aria-label',
-        App.i18n.t('ariaStepAvailable').replace('{text}', paso.textContent)
+        App.i18n.t('ariaStepAvailable').replace('{text}', paso.text)
       );
       var p = document.createElement('span');
       p.className = 'paso-available-picto';
@@ -492,7 +492,7 @@ $('#transferencia').textContent = '';
       btn.appendChild(p);
       var t = document.createElement('span');
       t.className = 'paso-available-text';
-      t.textContent = paso.textContent;
+      t.textContent = paso.text;
       btn.appendChild(t);
       btn.addEventListener('click', function () {
         if (suppressDragClick) return;
@@ -547,10 +547,10 @@ $('#transferencia').textContent = '';
   function dropStepInSlot(origen, destino) {
     if (!currentOrder || destino < 0 || destino >= currentOrder.slots.length) return;
     if (origen.tipo === 'available') {
-      var anterior = currentOrder.slots[destino];
+      var prev = currentOrder.slots[destino];
       currentOrder.slots[destino] = origen.pasoId;
       currentOrder.disponibles = currentOrder.disponibles.filter(function (x) { return x !== origen.pasoId; });
-      if (anterior !== null) currentOrder.disponibles.push(anterior);
+      if (prev !== null) currentOrder.disponibles.push(prev);
     } else if (origen.indice !== destino) {
       var paso = currentOrder.slots[origen.indice];
       currentOrder.slots[origen.indice] = currentOrder.slots[destino];
@@ -839,9 +839,9 @@ $('#transferencia').textContent = '';
     var editando = freeList.editando !== null;
     $('#editingNotice').classList.toggle('hidden', !editando);
     if (editando) {
-      $('#editingNoticeText').textContent = '';
+      $('#editingNoticeText').textContent = App.i18n.t('editandoListaAviso').replace('{name}', freeList.originalName);
     }
-    $('#btnSaveList').textContent = '';
+    $('#btnSaveList').textContent = App.i18n.t(editando ? 'btnGuardarCambios' : 'btnSaveList');
   }
 
   function showNameList() {
@@ -905,7 +905,7 @@ $('#transferencia').textContent = '';
       name.textContent = lista.name;
       var count = document.createElement('span');
       count.className = 'count';
-      count.textContent = '';
+      count.textContent = App.i18n.t('elementosCount').replace('{n}', lista.items.length);
       info.appendChild(name);
       info.appendChild(count);
 
@@ -932,13 +932,6 @@ $('#transferencia').textContent = '';
       btnEdit.disabled = editandoEsta;
       btnEdit.setAttribute('aria-label', App.i18n.t('ariaEditList').replace('{name}', lista.name));
       btnEdit.addEventListener('click', function () { editList(lista); });
-      var btnListen = document.createElement('button');
-      btnListen.type = 'button';
-      btnListen.textContent = '🔊';
-      btnListen.setAttribute('aria-label', App.i18n.t('ariaListenList').replace('{name}', lista.name));
-      btnListen.addEventListener('click', function () {
-        if (false && App.tts && App.tts.speak) App.tts.speak(lista.name + '. ' + lista.items.join(', '));
-      });
       var btnErase = document.createElement('button');
       btnErase.type = 'button';
       btnErase.textContent = '🗑️';
@@ -954,7 +947,6 @@ $('#transferencia').textContent = '';
       });
       acciones.appendChild(btnPractice);
       acciones.appendChild(btnEdit);
-      acciones.appendChild(btnListen);
       acciones.appendChild(btnErase);
 
       row.appendChild(info);

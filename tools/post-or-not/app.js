@@ -1,37 +1,29 @@
-/* ============================================================
-   Routime â€” Â¿Lo publico? (autonomÃ­a: peligros de las redes sociales)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: leer una situaciÃ³n de redes sociales y select la
-   opciÃ³n mÃ¡s segura entre 3. Ronda de 8. El error nunca se castiga.
-   ============================================================ */
+/* Routime — ¿Lo publico? */
 (function () {
   'use strict';
 
   var TOOL_ID = 'lo-publico';
   var $ = App.utils.$;
-
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var levelEl = $('#level');
   var situacionPictoEl = $('#situacionPicto');
   var situacionTextoEl = $('#situacionTexto');
   var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnListen = $('#btnListen');
+  var explanationWrap = $('#explanationWrap');
+  var explanationEl = $('#explanation');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
 
-  /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  /* Round state */
   var currentLevel = null;
   var items = [];
   var idx = 0;
@@ -40,63 +32,60 @@
   var attempts = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
-
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
-
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
+    var levelIndex = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
+    return banco().niveles[levelIndex];
   }
 
-  /* Muestra la dificultad current (etiqueta del nivel). */
   function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.name;
-    }
+    levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
+  }
+
+  function renderProgress() {
+    var total = items.length || banco().porRonda;
+    progressFill.style.width = ((idx / total) * 100) + '%';
+    progressText.textContent = (idx + 1) + ' / ' + total;
   }
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = '';
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    idx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
+    render();
   }
 
   function render() {
     var item = items[idx];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
     situacionPictoEl.textContent = item.picto;
     situacionTextoEl.textContent = item.situacion;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
     btnNext.classList.add('hidden');
     optionsEl.innerHTML = '';
 
-    var options = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { text: opt, isCorrect: i === item.correcta };
-    }));
-
-    options.forEach(function (op) {
+    App.utils.shuffle(item.options.map(function (text, i) {
+      return { text: text, isCorrect: i === item.correcta };
+    })).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
       optionsEl.appendChild(btn);
     });
-
     renderProgress();
     renderStars();
   }
@@ -105,79 +94,69 @@ function renderProgress() {
     var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
-    explicacionEl.textContent = text;
-    explicacionWrap.classList.remove('hidden');
+    explanationEl.textContent = text;
+    explanationWrap.classList.remove('hidden');
   }
 
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is pointed back to the situation already on screen.
-     Only on the second mistake is the correct answer explained
-     (showExplanation). */
   function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
-    explicacionWrap.classList.remove('hidden');
+    explanationEl.textContent = App.i18n.t('pista') + ' "' + item.situacion + '"';
+    explanationWrap.classList.remove('hidden');
   }
 
   function answer(btn, isCorrect, item) {
     if (solved) return;
     if (isCorrect) {
-      showExplanation(isCorrect, item);
+      showExplanation(true, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      Array.prototype.forEach.call(optionsEl.querySelectorAll('.btn-opcion'), function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
       roundHits += 1;
+      if (App.feedback && App.feedback.star) App.feedback.star();
       save();
       renderStars();
       btnNext.classList.remove('hidden');
       btnNext.focus();
-    } else {
-      attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(isCorrect, item);
-      }
-      btn.classList.add('animo');
-      btn.disabled = true;
-      App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      return;
     }
+
+    attempts += 1;
+    if (attempts === 1) showHint(item);
+    else showExplanation(false, item);
+    btn.classList.add('animo');
+    btn.disabled = true;
+    App.feedback.encourage(feedbackEl);
+    App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap);
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
-    if (idx >= banco().porRonda) {
-      endRound();
-    } else {
-      render();
-    }
+    if (idx >= items.length) endRound();
+    else render();
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
+    $('#endSummary').textContent = App.i18n.t('roundSummary')
+      .replace('{hits}', roundHits).replace('{total}', items.length);
+    App.feedback.celebrate(App.i18n.t('roundComplete'));
+    renderStars();
   }
 
-  /* Events */
-  btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
-  });
-  btnNext.addEventListener('click', siguiente);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  $('#btnPlay').addEventListener('click', startGame);
+  btnNext.addEventListener('click', next);
+  $('#repeatBtn').addEventListener('click', startGame);
+  $('#btnMenu').addEventListener('click', function () {
+    gameScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
-    renderLevels();
     startScreen.classList.remove('hidden');
   });
 
   renderStars();
+  startScreen.classList.remove('hidden');
 })();
-

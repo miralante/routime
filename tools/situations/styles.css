@@ -1,43 +1,18 @@
-﻿/* Situations â€” tool-specific styles. Shared styles live in assets/css/. */
-
+/* Situaciones — activity-specific layout. */
 .tool-header h1 { color: var(--mod-secuencia); }
-
-.btn:not(.btn-secundario) {
-  background: var(--mod-secuencia);
-}
-
-.instruccion { font-size: var(--text-base); }
-
-.centered-row { justify-content: center; }
-
-.dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
-}
-
+.btn:not(.btn-secundario):not(.btn-audio) { background: var(--mod-secuencia); }
+.row { display: flex; align-items: center; gap: var(--espacio); flex-wrap: wrap; }
+.centered, .centered-row { text-align: center; justify-content: center; }
+.instruccion { font-size: var(--texto-base); }
 .progress-bar { margin-top: var(--espacio); }
-
+.progress-bar .dificultad { display: block; margin-top: 10px; font-size: var(--texto-pequeno); color: var(--color-texto-suave); }
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
-
-.situacion-picto { font-size: 64px; }
-
-.text-principal {
-  font-size: var(--text-grande);
-  font-weight: 700;
-  margin: 0 auto;
-}
-
-.pregunta { color: var(--color-text-suave); }
-
+.stack, .options { display: flex; flex-direction: column; gap: var(--espacio); }
+.picto-situacion { font-size: 64px; line-height: 1; }
+.situacion-text { max-width: 640px; font-size: var(--texto-grande); font-weight: 700; margin: 0 auto; }
+.explanation { display: flex; align-items: center; max-width: 640px; margin: 0 auto; padding: var(--espacio); background: var(--color-superficie); border: 3px solid var(--color-borde); border-radius: var(--radio); }
+.explanation p { margin: 0; }
 .emoji-grande { font-size: 96px; }
-
 #endScreen { padding-top: 48px; }
-
-#endScreen .btn { align-self: center; min-width: 280px; 
-#endScreen .transferencia {
-  margin: 8px auto 24px;
-  font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
-  max-width: 480px;
-}
-}
+#endScreen .btn { align-self: center; min-width: 280px; }
+@media (max-width: 640px) { .situacion-text { font-size: var(--texto-base); } .picto-situacion { font-size: 52px; } #endScreen .btn { min-width: 240px; } }

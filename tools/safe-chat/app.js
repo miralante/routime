@@ -27,7 +27,7 @@
   var attempts = 0;   /* Socratic counter per option (rule 12) */
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { $('#stars').textContent = ''; }
+  function renderStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
     PANTALLAS.forEach(function (p) {
@@ -68,15 +68,8 @@
       var row = document.createElement('div');
       row.className = 'norma';
       var text = document.createElement('p');
-      text.textContent = n.picto + ' ' + n.textContent;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-audio';
-      btn.textContent = '🔊';
-      btn.setAttribute('aria-label', App.i18n.t('ariaEscucharNorma'));
-      btn.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(n.textContent); });
+      text.textContent = n.picto + ' ' + n.text;
       row.appendChild(text);
-      row.appendChild(btn);
       cont.appendChild(row);
     });
   }
@@ -89,15 +82,6 @@
     b.className = 'burbuja ' + quien;
     b.textContent = text;
     row.appendChild(b);
-    if (quien === 'ellos') {
-      var audio = document.createElement('button');
-      audio.type = 'button';
-      audio.className = 'btn btn-audio btn-burbuja';
-      audio.textContent = '🔊';
-      audio.setAttribute('aria-label', App.i18n.t('ariaEscucharMensaje'));
-      audio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(text); });
-      row.appendChild(audio);
-    }
     $('#chatMensajes').appendChild(row);
     row.scrollIntoView({ block: 'nearest' });
   }
@@ -120,7 +104,7 @@
     var v = esc.variantes[Math.floor(Math.random() * esc.variantes.length)];
     escenario = { id: esc.id, contacto: v.contacto, steps: v.steps, regla: v.regla };
     idx = 0;
-    $('#chatAlias').textContent = '';
+    $('#chatAlias').textContent = v.contacto;
     $('#chatMensajes').innerHTML = '';
     $('#reglaFinal').classList.add('hidden');
     limpiarZonaRespuesta();
@@ -139,7 +123,7 @@
     if (paso.tipo === 'msg') {
       setTimeout(function () {
         if (!escenario) return;
-        burbuja('ellos', paso.textContent);
+        burbuja('ellos', paso.text);
         nextStep();
       }, DELAY);
     } else if (paso.tipo === 'eleccion') {
@@ -158,7 +142,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answer(btn, op); });
       cont.appendChild(btn);
     });
@@ -166,12 +150,12 @@
 
   function answer(btn, op) {
     if (op.segura) {
-      $('#chatOpciones .btn-opcion').forEach(function (b) { b.disabled = true; });
+      $$('#chatOpciones .btn-opcion').forEach(function (b) { b.disabled = true; });
       btn.classList.add('correcta');
       App.feedback.success($('#feedback'));
-      burbuja('yo', op.textContent);
+      burbuja('yo', op.text);
       if (op.avisoSeguro) {
-        $('#consejoSeguroTexto').textContent = '';
+        $('#consejoSeguroTexto').textContent = op.avisoSeguro;
         $('#consejoSeguro').classList.remove('hidden');
       }
       setTimeout(function () {
@@ -183,7 +167,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage($('#feedback'));
-      $('#consejoTexto').textContent = '';
+      $('#consejoTexto').textContent = op.pista || op.aviso || App.i18n.t('pista');
       $('#consejo').classList.remove('hidden');
       App.feedback.lockUntilAck($('#chatOpciones .btn-opcion'), $('#consejo'));
     }
@@ -194,7 +178,7 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'btn btn-block';
-    btn.textContent = paso.textContent;
+    btn.textContent = paso.text;
     btn.addEventListener('click', function () {
       btn.disabled = true;
       burbuja('sistema', paso.confirmacion);
@@ -217,10 +201,9 @@
       save();
       renderStars();
     }
-    $('#reglaTexto').textContent = '';
+    $('#reglaTexto').textContent = esc.regla;
     $('#reglaFinal').classList.remove('hidden');
     App.feedback.celebrate(App.i18n.t('chatSuperado'));
-$('#transferencia').textContent = '';
   }
 
   /* ---------- Eventos ---------- */
@@ -231,10 +214,6 @@ $('#transferencia').textContent = '';
   $('#btnVolverDeNormas').addEventListener('click', irMenu);
   $('#btnSalirChat').addEventListener('click', irMenu);
   $('#btnBackToMenu').addEventListener('click', irMenu);
-  $('#btnRegla').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('paraRecordarHablado') + ' ' + $('#reglaTexto').textContent);
-  });
-
   /* ---------- Arranque ---------- */
   renderMenu();
 })();

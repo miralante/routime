@@ -19,7 +19,7 @@
   var attempts = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { $('##stars').textContent = ''; }
+  function paintStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
     ['startScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
@@ -54,15 +54,15 @@
     var item = cases[index];
     solved = false;
     attempts = 0;
-    $('##caseIcon').textContent = '';
-    $('##caseText').textContent = '';
-    $('##feedback').textContent = '';
+    $('#caseIcon').textContent = item.picto;
+    $('#caseText').textContent = item.situacion;
+    $('#feedback').textContent = '';
     $('#feedback').className = 'feedback';
     $('#explanationWrap').classList.add('hidden');
     $('#nextButton').classList.add('hidden');
     $('#options').innerHTML = '';
     $('#progressFill').style.width = ((index / bank.porRonda) * 100) + '%';
-    $('##progressText').textContent = '';
+    $('#progressText').textContent = (index + 1) + ' / ' + cases.length;
 
     App.utils.shuffle(item.options.map(function (text, optionIndex) {
       return { text: text, correct: optionIndex === item.correcta };
@@ -77,7 +77,7 @@
   }
 
   function showExplanation(text) {
-    $('##explanation').textContent = '';
+    $('#explanation').textContent = text;
     $('#explanationWrap').classList.remove('hidden');
   }
 
@@ -116,11 +116,11 @@
     progress.roundsCompleted += 1;
     save();
     paintStars();
-    $('##endText').textContent = '';
-    $('##resumenFinal').textContent = '';
+    $('#endText').textContent = App.i18n.t('endText');
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompleted + 1, bank.niveles.length));
-    $('##transferencia').textContent = '';
+    $('#transferencia').textContent = App.i18n.t('transferencia');
     showScreen('endScreen');
     App.feedback.celebrate(App.i18n.t('roundComplete'));
   }
@@ -128,10 +128,5 @@
   $('#nextButton').addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnPlay').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
-    showScreen('startScreen');
-    paintStars();
-  });
-
   paintStars();
 })();

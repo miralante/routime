@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-i18n-title="title">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publicar o no publicar | Routime</title>
+  <title>¿Lo publico? | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/base.css">
@@ -13,9 +13,9 @@
 <body>
   <div class="container">
     <header class="tool-header">
-      <a href="../../site/index.html" class="back-link">&larr; Volver</a>
-      <h1>Routime</h1>
-      <span class="stars" id="stars">&starf; 0</span>
+      <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
+      <h1 data-i18n="title">¿Lo publico?</h1>
+      <span class="stars" id="stars">⭐ 0</span>
     </header>
 
     <section id="startScreen" class="hidden pila centered">
@@ -37,7 +37,6 @@
       <div class="card centered stack">
         <span id="situacionPicto" class="picto-situacion"></span>
         <p id="situacionTexto" class="situacion-text"></p>
-        <button type="button" class="btn btn-audio" id="listenBtn">&#128266;</button>
       </div>
       <div class="options stack" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
@@ -51,10 +50,8 @@
         <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
         <h2>Ronda completada!</h2>
         <p id="endSummary"></p>
-        <p class="transferencia">Sigue praticando para aprender mas.</p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
         <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
-        <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
       </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>

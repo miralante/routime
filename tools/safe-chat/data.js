@@ -1703,21 +1703,3 @@ DATA.en.escenarios.forEach(function (group) {
     scenario.regla += ' This person was dangerous. They could have been a hacker or a criminal trying to trick you or steal your information.';
   });
 });
-
-[DATA.es, DATA.en].forEach(function (locale) {
-  locale.escenarios.forEach(function (grupo) {
-    grupo.variantes.forEach(function (caso) {
-      caso.steps.forEach(function (paso) {
-        if (paso.tipo !== 'eleccion') return;
-        paso.options.filter(function (opcion) { return opcion.segura; }).forEach(function (opcion) {
-          Object.defineProperty(opcion, 'segura', {
-            get: function () {
-              document.querySelectorAll('#chatOpciones .btn-opcion.animo').forEach(function (boton) { boton.remove(); });
-              return true;
-            }
-          });
-        });
-      });
-    });
-  });
-});

@@ -1,179 +1,153 @@
-/* ============================================================
-   Routime â€” Situaciones (autonomÃ­a: Â¿quÃ© haces si...?)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: leer una situaciÃ³n cotidiana y select la respuesta mÃ¡s
-   adecuada entre 3 options. Ronda de 8. El error nunca se castiga.
-   ============================================================ */
+/* Routime — Situaciones: elegir una respuesta segura. */
 (function () {
   'use strict';
 
   var TOOL_ID = 'situaciones';
   var $ = App.utils.$;
-
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var situacionPictoEl = $('#situacionPicto');
-  var situacionTextoEl = $('#situacionTexto');
+  var levelEl = $('#level');
+  var situationIcon = $('#situacionPicto');
+  var situationText = $('#situacionTexto');
   var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
+  var explanationWrap = $('#explanationWrap');
+  var explanationEl = $('#explanation');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
 
-  /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  /* Round state */
   var currentLevel = null;
   var items = [];
-  var idx = 0;
-  var roundHits = 0;
+  var index = 0;
+  var hits = 0;
   var solved = false;
   var attempts = 0;
 
   function save() { App.storage.set(TOOL_ID, progress); }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
-
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-
-  );
-      cont.appendChild(btn);
-    });
-  }
-
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
-  }
-
-  /* Muestra la dificultad current (etiqueta del nivel). */
-  function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.name;
-    }
+  function levelForProgress() {
+    return bank().niveles[Math.min(progress.roundsCompleted, bank().niveles.length - 1)];
   }
 
   function startGame() {
-    currentLevel = levelBasedOnProgress();
-function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = '';
+    currentLevel = levelForProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
+    index = 0;
+    hits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
+    render();
+  }
+
+  function renderProgress() {
+    var total = items.length || bank().porRonda;
+    progressFill.style.width = ((index / total) * 100) + '%';
+    progressText.textContent = (index + 1) + ' / ' + total;
   }
 
   function render() {
-    var item = items[idx];
+    var item = items[index];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
-    situacionPictoEl.textContent = item.picto;
-    situacionTextoEl.textContent = item.situacion;
+    situationIcon.textContent = item.picto;
+    situationText.textContent = item.situacion;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
     btnNext.classList.add('hidden');
     optionsEl.innerHTML = '';
 
-    var options = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { text: opt, isCorrect: i === item.correcta };
-    }));
-
-    options.forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
-      optionsEl.appendChild(btn);
+    App.utils.shuffle(item.options.map(function (text, i) {
+      return { text: text, correct: i === item.correcta };
+    })).forEach(function (option) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn-opcion';
+      button.textContent = option.text;
+      button.addEventListener('click', function () { answer(button, option.correct, item); });
+      optionsEl.appendChild(button);
     });
-
     renderProgress();
     renderStars();
   }
 
-  function showExplanation(isCorrect, item) {
-    var text = isCorrect
+  function showExplanation(correct, item) {
+    explanationEl.textContent = correct
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
-    explicacionEl.textContent = text;
-    explicacionWrap.classList.remove('hidden');
+    explanationWrap.classList.remove('hidden');
   }
 
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is pointed back to the situation already on screen.
-     Only on the second mistake is the correct answer explained
-     (showExplanation). */
-  function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
-    explicacionWrap.classList.remove('hidden');
-  }
-
-  function answer(btn, isCorrect, item) {
+  function answer(button, correct, item) {
     if (solved) return;
-    if (isCorrect) {
-      showExplanation(isCorrect, item);
-      solved = true;
-      btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      progress.stars += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-      roundHits += 1;
-      save();
-      renderStars();
-      btnNext.classList.remove('hidden');
-      btnNext.focus();
-    } else {
+    if (!correct) {
       attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(isCorrect, item);
-      }
-      btn.classList.add('animo');
-      btn.disabled = true;
+      button.classList.add('animo');
+      button.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      explanationEl.textContent = attempts === 1
+        ? App.i18n.t('pista') + ' "' + item.situacion + '"'
+        : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
+      explanationWrap.classList.remove('hidden');
+      App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap);
+      return;
     }
+
+    solved = true;
+    button.classList.add('correcta');
+    Array.prototype.forEach.call(optionsEl.querySelectorAll('.btn-opcion'), function (option) { option.disabled = true; });
+    App.feedback.success(feedbackEl);
+    showExplanation(true, item);
+    progress.stars += 1;
+    hits += 1;
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    save();
+    renderStars();
+    btnNext.classList.remove('hidden');
+    btnNext.focus();
   }
 
-  function siguiente() {
-    idx += 1;
-    if (idx >= banco().porRonda) {
-      endRound();
-    } else {
-      render();
-    }
+  function next() {
+    index += 1;
+    if (index >= items.length) endRound();
+    else render();
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
+    $('#endSummary').textContent = App.i18n.t('roundSummary')
+      .replace('{hits}', hits).replace('{total}', items.length);
+    App.feedback.celebrate(App.i18n.t('roundComplete'));
+    renderStars();
   }
 
-  /* Events */
-  btnNext.addEventListener('click', siguiente);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  $('#btnPlay').addEventListener('click', startGame);
+  btnNext.addEventListener('click', next);
+  $('#repeatBtn').addEventListener('click', startGame);
+  $('#btnMenu').addEventListener('click', function () {
+    gameScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
-    renderLevels();
     startScreen.classList.remove('hidden');
   });
 
   renderStars();
+  startScreen.classList.remove('hidden');
 })();
-

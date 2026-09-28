@@ -66,16 +66,14 @@
   /* ---- Persistent progress (only stars + done flag, per activity contract) ---- */
   var progress = App.storage.get(TOOL_ID);
   if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (!progress.done) {
-    /* Migrate from old 'done' key if it exists. */
-    progress.done = progress.done || {};
-    delete progress.done;
+  if (!progress.done || typeof progress.done !== 'object' || Array.isArray(progress.done)) {
+    progress.done = {};
   }
   function save() { App.storage.set(TOOL_ID, progress); }
 
   /* ---- Available-task bank: built-in + user-added (session only) ---- */
   /* Built-in tasks come from DATA.<locale>.tareas. They are immutable here. */
-  var catalogTasks = DATOS.tareas.slice();
+  var catalogTasks = DATOS.tasks.slice();
 
   /* Tasks the user adds during this session. Stored in memory only. */
   var userTasks = [];
@@ -272,7 +270,7 @@
      ADD-NEW-TASK FORM (session-only tasks)
      ============================================================ */
 
-  var AVAILABLE_ICONS = DATOS.iconos || [
+  var AVAILABLE_ICONS = DATOS.icons || [
     '\ud83c\udfe0', '\ud83d\udecf', '\ud83c\udf7d', '\ud83e\dede', '\ud83e\uddfa', '\ud83e\uded3', '\ud83e\uddf9', '\ud83e\ude7f', '\ud83d\udcee',
     '\ud83c\udf3f', '\ud83c\udf31', '\ud83d\udc36', '\ud83d\udc31', '\ud83d\udc26', '\ud83d\udc20', '\ud83d\udcda', '\ud83c\udf92', '\u270f',
     '\ud83d\uded2', '\ud83d\uded6', '\ud83d\udca1', '\ud83d\uddd1', '\ud83d\udeaa', '\ud83d\udce6', '\ud83e\uddf4', '\ud83e\uded1', '\ud83d\udcf9',
@@ -490,9 +488,9 @@
   function endRound() {
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
-    App.feedback.celebrar(App.i18n.t('core.roundComplete'));
+    $('#resumenFinal').textContent = App.i18n.t('core.roundComplete');
+    $('#transferencia').textContent = App.i18n.t('transferencia');
+    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ============================================================
