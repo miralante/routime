@@ -3,4 +3,5 @@
 # D:\apps\onedrive\<user>\OneDrive\dev\setups\README.md §"Estructura de
 # directorios" / §"Lo que NO se sincroniza". The default below matches
 # the "Proyectos actuales" section of that README for routime.
+packages: []
 storeDir: D:\apps\node_modules_root

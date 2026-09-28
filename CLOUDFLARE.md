@@ -1,62 +1,57 @@
 # Cloudflare Workers (static assets) — Routime
 
 > **Production branch & automatic deploy.** Routime deploys
-> **automatically on every push to `master`** via the **Cloudflare
+> **automatically on every push to `main`** via the **Cloudflare
 > Git connector**. The GitHub Actions workflow
 > [`.github/workflows/validate.yml`](.github/workflows/validate.yml)
 > runs `node scripts/check.js` on every push and PR but does **not**
-> deploy. An optional self-hosted fallback
-> [`.github/workflows/pages-deploy.yml`](.github/workflows/pages-deploy.yml)
-> only runs if `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
-> are set in GitHub secrets; otherwise it is a no-op. The Cloudflare
-> dashboard is the source of truth for project settings.
+> deploy. The Cloudflare dashboard is the source of truth for
+> project settings.
 >
 > **This project is deployed as a Cloudflare Worker (static assets),
 > not classic Cloudflare Pages.** Live at
-> <https://routime.miralante.workers.dev>; the historical
-> `routime.pages.dev` URL does not resolve. Same correction applies
-> to the `teclatlon` and `sinonimia` apps of the suite.
-> **`routime.apptonomia.uk`** is the canonical custom domain served
-> by this deployment (Firebase Hosting was decommissioned).
+> <https://routime.miralante.workers.dev>.
 >
-> **Part of the Miralante suite.** Routime is one of the six
-> runtime apps (Calculia, Memofun, Okeymoney, Routime, Sinonimia,
-> Teclatlon) that share the same author, the same accessibility-first
-> / no-backend philosophy, and the same Cloudflare deploy story.
-> The canonical group-wide guide lives in
-> [Apptonomia's `CLOUDFLARE.md`](https://github.com/miralante/apptonomia/blob/master/CLOUDFLARE.md);
-> this document is the Routime-specific runbook on top of it.
+> **Part of the Miralante suite.** Routime is **one of the seven
+> siblings** (Apptonomia, Calculia, Memofun, Okeymoney, Routime,
+> Sinonimia, Teclatlon) that share the same author, the same
+> accessibility-first / no-backend philosophy, and the same Cloudflare
+> deploy story. The canonical group-wide guide lives in
+> [Apptonomia's `CLOUDFLARE.md`](https://github.com/miralante/apptonomia/blob/master/CLOUDFLARE.md)
+> (the metaproject root, this very file); the per-sibling
+> `CLOUDFLARE.md` documents only the project-specific bits
+> (custom domain, build command, CI workflow name).
 
 ## How it works
 
 1. The repo is connected to a Cloudflare Workers project named
    `routime` (Workers & Pages → Connect to Git).
-2. Every push to `master` triggers a build in Cloudflare's
-   infrastructure via Workers Builds, which reads `wrangler.toml` to
-   deploy the repo root as a static-assets Worker (no `main`
-   script).
-3. The build is a no-op: no `build command`, no `output directory`
-   other than `.`, so the static files are served as-is.
+2. Every push to `main` triggers a build in Cloudflare's
+   infrastructure via Workers Builds, which reads
+   [`wrangler.toml`](wrangler.toml) to deploy the repo root as a
+   static-assets Worker (no `main` script).
+3. The build is otherwise a no-op: no `output directory` other than
+   `.`, so the static files are served as-is.
 4. The `validate.yml` GitHub Action still runs on every push and PR
    to gate content, but it does not deploy.
 
 [`wrangler.toml`](wrangler.toml) is the actual deploy configuration
 Workers Builds reads, not just a convenience for local CLI use: it
-pins the project name (`name = "routime"`), the `[assets] directory
-= "."` binding, and `not_found_handling = "404-page"` so Cloudflare
-serves this repo's own `404.html` for an unmatched path instead of a
-bare empty 404 (verified live). The file was re-added on 2026-08-21
-specifically to enable the 404 fallback — keep it.
+pins the project name (`name = "routime"`) and declares
+`[assets] directory = "."` (no `main` script), plus
+`not_found_handling = "404-page"` so Cloudflare serves this repo's
+own `404.html` for an unmatched path instead of a bare empty 404
+(verified live). The file was re-added on 2026-08-21 specifically
+to enable the 404 fallback — keep it.
 
-> **Do not "fix" by deleting `wrangler.toml`** or by switching to the
-> legacy `pages_build_output_dir` Pages shape. Routime's Cloudflare
-> dashboard project is already a Worker with "Workers Builds", and
-> Cloudflare's current guidance is to prefer Workers + static assets
-> over classic Pages for new static sites. The previous failure mode
-> documented in git history (a `wrangler.toml` with a capitalised
-> `name` and a `pages_build_output_dir` line, which made the Git
-> connector mis-detect the project type) no longer applies because
-> the current file uses only the `[assets]` table and no `main`.
+> **Do not "fix" by deleting `wrangler.toml`** or by switching to
+> the legacy `pages_build_output_dir` Pages shape. Routime's
+> Cloudflare dashboard project is already a Worker with "Workers
+> Builds", and Cloudflare's own current guidance is to prefer
+> Workers + static assets over classic Pages for new static sites.
+> `wrangler pages deploy` and the Pages shape do not apply here —
+> use `wrangler deploy` if you ever need to push from a dev
+> machine.
 
 ## Files in this repository
 
@@ -67,8 +62,7 @@ specifically to enable the 404 fallback — keep it.
 | `.github/workflows/validate.yml` | `node scripts/check.js`, i18n smoke and secrets scan on every push/PR (does **not** deploy) |
 | `.github/workflows/pages-deploy.yml` | Optional self-hosted fallback via Wrangler Action; no-op unless the two `CLOUDFLARE_*` secrets are set |
 
-No `_redirects`, no `functions/`, no Cloudflare service-account
-keys. Every section of the site (`site/`, `tools/<slug>/` for all
+Every section of the site (`site/`, `tools/<slug>/` for all
 activities, `team/`, `about/`, `config/`, `legal/`) ships its own
 real `index.html`, so Cloudflare's implicit per-directory
 `index.html` lookup handles deep links (`/tools/pairs/` →
@@ -80,21 +74,22 @@ The root `/index.html` keeps its `<meta http-equiv="refresh">` to
 `site/index.html` as a client-side entry pointer — that has nothing
 to do with server-side routing and does not cause a loop.
 
-## Configuration in Cloudflare
+No `_redirects`, no `functions/`, no `package.json`, no Cloudflare
+service-account keys.
 
-When the project is set up in the Cloudflare dashboard:
+## Configuration in Cloudflare
 
 | Setting | Value |
 |---|---|
 | Framework preset | None |
 | Build command | *(empty)* |
 | Build output directory | `.` |
-| Production branch | `master` |
+| Production branch | `main` |
 | Root directory | *(empty — repo root)* |
 
-No environment variables are required: the app makes no server-side
-calls, and all assets (fonts, icons, activity data) are bundled in
-the repo.
+No environment variables are required: the app makes no
+server-side calls, and all assets (fonts, icons, activity data)
+are bundled in the repo.
 
 ## Required Cloudflare headers
 
@@ -106,9 +101,82 @@ update; fingerprinted JS/CSS/images get a 1-year immutable cache.
 Cloudflare reads this file on every deploy and applies the rules
 automatically — no dashboard configuration needed.
 
+## `*.workers.dev` subdomain — Triggers
+
+For a static-assets Worker, Cloudflare only serves requests over a
+**route** (a `*.workers.dev` subdomain or a custom domain). Without
+one, the project deploys fine — the build succeeds, files are
+uploaded, "Deployments" lists the commit — but the dashboard shows
+**"No active routes"** and every URL returns empty.
+
+**Fix — one click in the dashboard:**
+
+1. Workers & Pages → `routime` → **Settings** → **Triggers** (or
+   **Routes**, depending on the dashboard version).
+2. Under **Workers.dev subdomain**, click **Enable** (or **Add**).
+   Cloudflare assigns the URL immediately; no rebuild needed.
+3. If the dashboard only shows a routes table, add a route
+   manually:
+   - **Route pattern**: `*/*`
+   - **Zone**: `workers.dev` (the account's free `*.workers.dev` zone)
+   - **Worker**: `routime`
+4. Once the route is active, if the latest commit isn't already
+   showing as the **Active** deployment, go to **Deployments** →
+   click the most recent successful build → **Retry deployment** (or
+   **Promote to deploy**).
+
+> **Cannot be set in `wrangler.toml`.** The `workers.dev` binding is
+> a per-project dashboard setting; it is not declared anywhere in
+> the repo. `wrangler deploy` from the CLI does not apply here
+> either — Workers Builds owns the deploy, and the dashboard owns
+> the routes.
+
+## Service worker cache
+
+`sw.js` is **cache-first** — the same strategy used by every PWA
+sibling of the suite (`calculia`, `memofun`, `okeymoney`,
+`sinonimia`; `teclatlon` uses network-first, and `apptonomia`
+ships no SW).
+
+- `sw.js` declares a `VERSION` string (e.g. `routime-vN`).
+- `sw.js` declares a `FILES` (or `ARCHIVOS`) array listing every file
+  the SW pre-caches on install.
+- A change to any file in `FILES` requires bumping `VERSION` in the
+  same commit.
+- `scripts/check-version-bump.js` is the CI gate that fails the
+  build when a cached file changed but `VERSION` didn't.
+
+The cost of bumping is one integer; the cost of not bumping is
+"the user thinks the fix didn't land". Bump liberally rather than
+conservatively. See `CLAUDE.md` §B.1 for the canonical rule.
+
+## CI — pre-deploy gate
+
+Every push to `main` and every PR against `main` runs
+[`.github/workflows/validate.yml`](.github/workflows/validate.yml) plus
+[`.github/workflows/pages-deploy.yml`](.github/workflows/pages-deploy.yml)
+(the latter is an optional self-hosted fallback; no-op unless the
+two `CLOUDFLARE_*` GitHub secrets are set),
+which gate content before the Cloudflare Git connector ever sees
+the commit. The CI workflow does **not** deploy — deploy is
+exclusively the Cloudflare dashboard reading `wrangler.toml` and
+`_headers`. No GitHub secret is required, no `wrangler login` is
+needed locally.
+
+## Custom domain
+
+Routime is served at **<https://routime.apptonomia.uk>** (a custom
+domain, the canonical URL for this project) and at
+<https://routime.miralante.workers.dev> (the default
+`*.workers.dev` route, kept as a fallback). The DNS zone for
+`routime.apptonomia.uk` is a CNAME from the Workers Custom
+Domains wizard — set in the Cloudflare dashboard, not in any file
+in this repo. The historical `routime.pages.dev` URL does not
+resolve (Firebase Hosting was decommissioned).
+
 ## How to redeploy
 
-Nothing to do. Push to `master` and Cloudflare rebuilds.
+Nothing to do. Push to `main` and Cloudflare rebuilds.
 
 For a manual rebuild (e.g. after Cloudflare itself had an
 incident), go to the Cloudflare dashboard → Workers & Pages →
@@ -135,7 +203,8 @@ to this deployment"**.
 Cloudflare dashboard → Workers & Pages → `routime` → **Custom
 domains** → **Set up a custom domain** → follow the wizard. DNS is
 configured automatically if the domain is already on Cloudflare, or
-by CNAME if it is on another provider.
+by CNAME if it is on another provider. The current custom domain
+is `routime.apptonomia.uk`.
 
 ## Rotating credentials
 
@@ -144,15 +213,14 @@ integration is a one-time OAuth authorisation; revoking it is a
 matter of removing the app's access on
 [github.com/settings/applications](https://github.com/settings/applications).
 
-## Compatibility notes
+## See also
 
-- `manifest.json` and `sw.js` use relative paths, so they work on
-  any host without changes.
-- Deep links such as
-  `https://routime.miralante.workers.dev/tools/pairs/` resolve to
-  the real `tools/pairs/index.html` automatically — no rewrite
-  rule needed.
-- Long-lived cache for fingerprinted JS/CSS/images is safe; the
-  HTML entry points, `404.html`, `manifest.json` and `sw.js` are
-  forced to `must-revalidate` so the PWA shell and the 404 page
-  can update on the next visit.
+- [`CLAUDE.md`](CLAUDE.md) — the per-sibling AI agent workflow; the
+  cache contract in §B.1 is the source of truth for the SW
+  `VERSION` rule.
+- `wrangler.toml` — the actual deploy configuration Workers Builds
+  reads.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — the human contribution
+  flow that produces the commits that Git connector picks up.
+- Apptonomia's `CLOUDFLARE.md` — the metaproject root, this very
+  template, but with `{{DISPLAY}} = Apptonomia`.
