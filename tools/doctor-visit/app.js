@@ -1,11 +1,11 @@
 /* ============================================================
-   Routime â€” Se lo Cuento al MÃ©dico (Mi dÃ­a a dÃ­a)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: leer una escena con un sÃ­ntoma corporal (dolor, picor,
-   mareo, fiebreâ€¦) y select, entre 3 options, la frase que mejor
-   se lo describe a un mÃ©dico. La opciÃ³n correcta siempre nombra
-   bien la parte del cuerpo y el sÃ­ntoma; las otras son un sÃ­ntoma
-   distinto o una frase que no dice nada Ãºtil. Ronda de 8. El error
+   Routime — Se lo Cuento al Médico (Mi día a día)
+   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
+   Mecánica: leer una escena con un síntoma corporal (dolor, picor,
+   mareo, fiebre…) y select, entre 3 options, la frase que mejor
+   se lo describe a un médico. La opción correcta siempre nombra
+   bien la parte del cuerpo y el síntoma; las otras son un síntoma
+   distinto o una frase que no dice nada útil. Ronda de 8. El error
    nunca se castiga.
    ============================================================ */
 (function () {
@@ -44,16 +44,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -68,6 +64,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
@@ -126,7 +123,7 @@ function renderProgress() {
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -145,11 +142,11 @@ function renderProgress() {
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -172,7 +169,7 @@ function renderProgress() {
   btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');

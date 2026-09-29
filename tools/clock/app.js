@@ -41,7 +41,7 @@
 
   /* Estado de la ronda */
   var modo = null;
-  var nivel = null;
+  var lvl = null;
   var preguntas = [];
   var idx = 0;
   var roundHits = 0;
@@ -74,8 +74,8 @@
     if (minuto === 0)  return App.i18n.t('enPunto').replace('{h}', h);
     if (minuto === 15) return App.i18n.t('yCuarto').replace('{h}', h);
     if (minuto === 30) return App.i18n.t('yMedia').replace('{h}', h);
-    var siguiente = h === 12 ? 1 : h + 1;
-    return App.i18n.t('menosCuarto').replace('{h}', siguiente);
+    var next = h === 12 ? 1 : h + 1;
+    return App.i18n.t('menosCuarto').replace('{h}', next);
   }
 
   function horaDigital(h, m) { return pad2(h) + ':' + pad2(m); }
@@ -107,7 +107,7 @@
   function horaAleatoria() { return 1 + Math.floor(Math.random() * 12); }
 
   function minutoAleatorio() {
-    var opts = nivel.minutos;
+    var opts = lvl.minutos;
     return opts[Math.floor(Math.random() * opts.length)];
   }
 
@@ -176,6 +176,7 @@
   /* ---- Pantallas de inicio (modo → nivel → juego) ---- */
   function pintarModos() {
     var cont = $('#modos');
+    if (!cont) return;
     cont.innerHTML = '';
     banco().modos.forEach(function (m) {
       var btn = document.createElement('button');
@@ -214,7 +215,7 @@
   }
 
   function startRound(n) {
-    nivel = n;
+    lvl = n;
     var constructores = {
       leer: preguntaLeer,
       poner: preguntaPoner,
@@ -314,7 +315,7 @@
   function renderPoner(p) {
     var inicioH = ((p.hora % 12) + 11) % 12 + 1;
     if (inicioH === p.hora) inicioH = ((p.hora % 12) + 6) % 12 + 1;
-    var inicioM = nivel.minutos[0];
+    var inicioM = lvl.minutos[0];
     borradorHora = inicioH;
     borradorMinuto = inicioM;
 
@@ -491,7 +492,7 @@
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) App.reinforce.add(nivel.id + ':' + idx, p);
+      if (attempts === 1) App.reinforce.add(lvl.id + ':' + idx, p);
       if (attempts === 1) {
         showHint(p);
       } else {
@@ -506,7 +507,7 @@
     }
   }
 
-  function siguiente() {
+  function next() {
     if (enRefuerzo) {
       refuerzoIdx += 1;
       if (refuerzoIdx >= refuerzoTotal) {
@@ -544,13 +545,21 @@
   }
 
   /* ---- Eventos ---- */
-  $('#btnNext').addEventListener('click', siguiente);
-  $('#btnRepeat').addEventListener('click', function () { startRound(nivel); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  var btnPlay = $('#btnPlay');
+  if (btnPlay) btnPlay.addEventListener('click', function () {
+    var modos = banco().modos || [];
+    var niveles = banco().niveles || [];
+    if (modos.length && niveles.length) startRound(modos[0], niveles[0]);
+  });
+  $('#btnNext').addEventListener('click', next);
+  $('#btnRepeat').addEventListener('click', function () { startRound(lvl); });
+  var btnOtherLevel = $('#btnOtherLevel');
+  if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     pantallaNiveles.classList.remove('hidden');
   });
-  $('#btnOtroModo').addEventListener('click', function () {
+  var btnOtroModo = $('#btnOtroModo');
+  if (btnOtroModo) btnOtroModo.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     pantallaNiveles.classList.add('hidden');
     startScreen.classList.remove('hidden');

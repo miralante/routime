@@ -1,5 +1,5 @@
 /* ============================================================
-   Routime â€” This Is Me (self-esteem and self-acceptance)
+   Routime — This Is Me (self-esteem and self-acceptance)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanic: read a situation about self-worth and choose the
    response that reflects healthy self-esteem, among 3 options.
@@ -43,16 +43,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -67,6 +63,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     progressFill.style.width = ((idx / banco().porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -125,7 +122,7 @@ function renderProgress() {
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -144,11 +141,11 @@ function renderProgress() {
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -168,11 +165,11 @@ function renderProgress() {
   }
 
   /* Events */
-  btnListen.addEventListener('click', function () {
+  if (btnListen) btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
   });
-  btnNext.addEventListener('click', siguiente);
-  btnEscucharExplicacion.addEventListener('click', function () {
+  btnNext.addEventListener('click', next);
+  if (btnEscucharExplicacion) btnEscucharExplicacion.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionEl.textContent);
   });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });

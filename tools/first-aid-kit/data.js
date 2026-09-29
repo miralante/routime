@@ -27,7 +27,7 @@ const DATA = {
         descripcion: 'Cuidarme en casa',
         estrellas: 1,
         items: [
-          { text: 'Te has done un arañazo pequeño en la rodilla y no sangra mucho.', options: ['Lavar la herida con agua y poner una tirita', 'Tocarla con las manos sucias', 'No hacer nada'], correct: 0 },
+          { text: 'Te has hecho un arañazo pequeño en la rodilla y no sangra mucho.', options: ['Lavar la herida con agua y poner una tirita', 'Tocarla con las manos sucias', 'No hacer nada'], correct: 0 },
           { text: 'Te has dado un golpe leve y te duele un poco el brazo.', options: ['Ponerte un poco de frío en la zona un rato', 'Frotarte muy fuerte para "que se pase"', 'No decir nada aunque duela'], correct: 0 },
           { text: 'Tienes la tripa un poco revuelta después de comer mucho.', options: ['Beber agua despacio y descansar sentado', 'Salir a correr para que se pase', 'Tomarte una medicina tú solo'], correct: 0 },
           { text: 'Tienes tos seca y te pica la garganta.', options: ['Beber agua templada y descansar la voz', 'Gritar muy fuerte para "desatascar"', 'Comer mucho pan'], correct: 0 },

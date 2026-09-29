@@ -128,7 +128,7 @@
       explanationWrap.classList.remove('hidden');
       resolved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       correctCount += 1;
@@ -148,7 +148,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap);
     }
   }
 
@@ -175,15 +175,16 @@
   /* ---------- Eventos ---------- */
 
   $('#btnPlay').addEventListener('click', startGame);
-  listenBtn.addEventListener('click', function () {
+  if (listenBtn) listenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].sentence);
   });
-  $('#explanationListenBtn').addEventListener('click', function () {
+  var explanationListenBtn = $('#explanationListenBtn');
+  if (explanationListenBtn) explanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
   });
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');

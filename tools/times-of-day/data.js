@@ -60,7 +60,7 @@ const DATA = {
           { picto: '📱', tarea: 'Dejar el móvil cargando', timeOfDay: 'Noche' },
           { picto: '🧸', tarea: 'Coger el peluche para dormir', timeOfDay: 'Noche' },
           { picto: '👖', tarea: 'Dejar la ropa preparada para mañana', timeOfDay: 'Noche' },
-          { picto: '🛒', tarea: 'Ayudar a save la compra de la tarde', timeOfDay: 'Tarde' },
+          { picto: '🛒', tarea: 'Ayudar a guardar la compra de la tarde', timeOfDay: 'Tarde' },
           { picto: '🦷', tarea: 'Lavarte los dientes antes de acostarte', timeOfDay: 'Noche' }
         ]
       }

@@ -194,8 +194,7 @@
 
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/base.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="/site/styles.css">
+  <link rel="stylesheet" href="../assets/css/components.css"><link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-v1">  <link rel="stylesheet" href="/site/styles.css">
 </head>
 <body>
   <div class="container suite-home">
@@ -207,10 +206,7 @@
           <p class="suite-attribution"><span data-i18n="suiteBy">Una app de</span> <a href="https://apptonomia.uk/">Apptonomia</a>.</p>
         </div>
       </div>
-      <div class="suite-controls"><div class="idioma-selector" role="group" aria-label="Elegir idioma">
-        <button type="button" class="btn-lang" id="btnLangEs" data-locale="es" aria-pressed="false" aria-label="Español"><span class="locale-full" aria-hidden="true">🇪🇸 Español</span><span class="locale-short" aria-hidden="true">ES</span></button>
-        <button type="button" class="btn-lang" id="btnLangEn" data-locale="en" aria-pressed="false" aria-label="English"><span class="locale-full" aria-hidden="true">🇬🇧 English</span><span class="locale-short" aria-hidden="true">EN</span></button>
-      </div></div>
+      <div class="suite-controls"><div id="locale-picker"></div></div>
       <div class="suite-details">
         <div class="fila centered-fila">
         <p class="saludo" id="saludo" data-i18n="saludo">Hola. ¿Qué quieres hacer hoy?</p>
@@ -600,28 +596,35 @@
     (function () {
       'use strict';
 
-      function pintarSelectorIdioma() {
-        var activo = App.i18n.locale();
-        document.getElementById('btnLangEs').setAttribute('aria-pressed', String(activo === 'es'));
-        document.getElementById('btnLangEn').setAttribute('aria-pressed', String(activo === 'en'));
-      }
+      /* Locale switcher: the dropdown lives in <div id="locale-picker">
+         and is built by assets/js/locale-picker.js (loaded below with
+         defer). It calls App.i18n.setLocale(loc) on change, so we no
+         longer wire per-button click handlers here — the locale
+         change + reload is handled by the picker. */
 
       document.getElementById('estrellasTotales').textContent =
         '⭐ ' + App.storage.estrellasTotales();
       document.getElementById('estrellasTotales').title = App.i18n.t('yourStars');
-
-      document.getElementById('btnLangEs').addEventListener('click', function () {
-        App.i18n.setLocale('es');
-      });
-      document.getElementById('btnLangEn').addEventListener('click', function () {
-        App.i18n.setLocale('en');
-      });
-      pintarSelectorIdioma();
 
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('../sw.js').catch(function () {});
       }
     })();
   </script>
+  <!-- Locale picker config (must run BEFORE assets/js/locale-picker.js).
+       Routime stores site strings under /site/strings.<locale>.js, so
+       path is disabled because Routime only ships Spanish and English.
+       storageKey must match the one assets/js/i18n.js writes
+       ('routime:locale'). -->
+  <script>
+  window.LocalePickerConfig = {
+    storageKey: 'routime:locale',
+    path: null,
+    requiredLocales: ['es', 'en'],
+    defaultLocale: 'en',
+    settingsHref: '../config/'
+  };
+  </script>
+  <script src="../assets/js/locale-picker.js?v=routime-v1" defer></script>
 </body>
 </html>

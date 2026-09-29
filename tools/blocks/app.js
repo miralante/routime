@@ -29,6 +29,7 @@
   var progressText = $('#progressText');
   var starsEl = $('#stars');
   var levelsEl = $('#levels');
+  var btnPlay = $('#btnPlay');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -57,6 +58,7 @@
 
   /* Renders the level selection buttons. */
   function renderLevels() {
+    if (!levelsEl) return;
     levelsEl.innerHTML = '';
     bank().niveles.forEach(function (level) {
       var btn = document.createElement('button');
@@ -268,8 +270,11 @@
 
   /* Events */
   btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  if (btnPlay) btnPlay.addEventListener('click', startGame);
+  var btnRepeat = $('#btnRepeat');
+  if (btnRepeat) btnRepeat.addEventListener('click', function () { startGame(); });
+  var btnOtherLevel = $('#btnOtherLevel');
+  if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');

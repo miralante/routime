@@ -3,7 +3,7 @@
    Cache-first strategy for the app shell (works offline).
    When adding new files: add them to ARCHIVOS and bump VERSION.
    ============================================================ */
-var VERSION = 'routime-v25';
+var VERSION = 'routime-v34';
 
 var ARCHIVOS = [
   './index.html',
@@ -30,6 +30,8 @@ var ARCHIVOS = [
   './legal/strings.es.js',
   './legal/strings.en.js',
   './assets/css/tokens.css',
+  './assets/css/locale-picker.css',
+  './assets/js/locale-picker.js',
   './assets/css/base.css',
   './assets/css/components.css',
   './assets/fonts/atkinson-hyperlegible-400.woff2',

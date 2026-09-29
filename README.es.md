@@ -59,18 +59,85 @@ portada en `site/`), más una página de ajustes para ver el progreso.
 
 ---
 
-## 👥 Roles en el proyecto
+## � Acerca de
 
-Routime tiene tres roles claramente diferenciados — persona usuaria, apoyo
-y construcción — cada uno con su propio espacio y su propio punto de
-entrada. Ver [`doc/es/roles.md`](doc/es/roles.md) para quién es cada uno,
-cómo participa, y dónde debe mirar primero.
+Routime es un **catálogo multi-actividad para practicar terapia
+ocupacional**: actividades del día a día que entrenan mente y
+habilidades para la vida cotidiana (rutinas, dinero, transporte
+público, lectura del reloj, el calendario, etc.), cada una
+autónoma, accesible desde una portada única, y pensada para
+usarse **de forma autónoma entre sesiones**, sin necesidad de
+que haya un profesional presente.
 
-Routime es la PWA que envuelve varias experiencias de la suite. La
-portada que ves al instalar (`site/index.html`) es en sí misma el
-**landing de Apptonomia** — la app que actúa como portal de la
+Routime es además la PWA que envuelve el **landing de Apptonomia**
+(el producto original del que nació el grupo) dentro de `site/`,
+para que una sola instalación cubra toda la suite. Es una de las
+**siete apps** de la suite **Miralante** — la lista completa está
+en [🌐 La suite Miralante](#-la-suite-miralante--proyectos-del-grupo)
+más abajo. La especificación real del producto vive en
+[`doc/es/spec.md`](doc/es/spec.md); este README rehúye
+reformular decisiones de producto para que la descripción
+pública y la especificación no se separen.
+
+---
+
+## 🎯 Objetivos
+
+Routime se construye para:
+
+- 🧠 **Ofrecer actividades de la vida diaria que se puedan
+  hacer solo** — entre sesiones, sin profesional al lado.
+- 📅 **Practicar rutinas, dinero, tiempo, calendario y vida
+  pública** mediante actividades cortas y visuales que caben en
+  una pantalla.
+- 🌐 **Mantener la paridad bilingüe** — español por defecto y
+  fuente de verdad; inglés con paridad en cada cadena y cada
+  actividad.
+- 🔒 **Guardar el progreso solo en el dispositivo** — las
+  estrellas de cada actividad viven en `localStorage` bajo el
+  prefijo `routime:`; nada se sube nunca.
+- 📦 **Funcionar sin conexión como PWA** — instalar en la
+  pantalla de inicio, usar en una tablet sin señal.
+- 🪶 **Mantenerse sin dependencias** — HTML/CSS/JS puros, sin
+  build.
+- 🏠 **Llevar de serie el landing de Apptonomia** — la persona
+  usuaria obtiene el portal de toda la suite con una sola
+  instalación (ver `site/index.html`).
+
+Cada objetivo referencia una sección de
+[`doc/es/spec.md`](doc/es/spec.md); si un objetivo no está allí,
+añádelo a la especificación o sácalo de la lista.
+
+---
+
+## 👥 Audiencia y roles
+
+Routime está pensada para una **persona tipo** — quien quiera
+ensayar habilidades de la vida diaria y mente en su propio
+dispositivo, entre sesiones o clases, sin cuenta ni presión. La
+especificación real del producto vive en [`doc/es/spec.md`](doc/es/spec.md);
+este README evita a propósito cualquier etiqueta clínica para que
+la descripción pública se mantenga genérica.
+
+---
+
+El proyecto reconoce tres roles alrededor de la app, cada uno
+con su propio punto de entrada:
+
+| Rol | Quién es | Cómo participa | Dónde mira primero |
+|---|---|---|---|
+| 👤 **Persona usuaria** (persona tipo) | Practica actividades en la app | Abre la app en un navegador; no lee ni escribe código | La aplicación |
+| ❤️ **Apoyo** (familia, terapeuta, docente, cuidador/a) | Persona cercana a la persona usuaria | Acompaña, supervisa, aporta contenido (qué actividades faltan, claridad del lenguaje, dificultad) | [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) |
+| 💻 **Construcción** (desarrollador/a) | Programa la aplicación | Implementa código, mantiene la arquitectura, revisa PRs, despliega | [`tecnico.md`](doc/es/tecnico.md) |
+
+Routime es la PWA que envuelve varias experiencias de la suite.
+La portada que ves al instalar (`site/index.html`) es en sí misma
+el **landing de Apptonomia** — la app que actúa como portal de la
 suite, presentado aquí porque Apptonomia fue el producto original
 del que surgió este repositorio.
+
+Ver [`doc/es/roles.md`](doc/es/roles.md) para la descripción completa
+de los roles y los patrones trio/par/único en el conjunto de la suite.
 
 ---
 
@@ -107,7 +174,7 @@ Según tu rol y perfil, te interesa una u otra documentación:
 
 ## 🌐 La suite Miralante — proyectos del grupo
 
-Routime es una de las **seis apps** de la suite **Miralante**, que
+Routime es una de las **siete apps** de la suite **Miralante**, que
 comparten autor, la misma filosofía de accesibilidad sin backend, y la
 misma historia de despliegue. Apptonomia, además de ser una app en sí
 misma, actúa como **portal de la suite** que la presenta al mundo.
@@ -121,6 +188,7 @@ lo quiera.
 |---|---|---|
 | **Apptonomia** *(portal — landing only, no es app)* | Landing que presenta la suite Miralante (no es una app en tiempo de ejecución) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Cálculo y razonamiento lógico | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
+| Ludia | Juegos adaptados con reglas, ejercicios y partidas | [github.com/miralante/ludia](https://github.com/miralante/ludia) |
 | Memofun | Tarjetas de memoria con aprendizaje significativo | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Finanzas personales y autonomía cotidiana | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
 | Routime | Actividades para rutinas y vida cotidiana | [github.com/miralante/routime](https://github.com/miralante/routime) |
@@ -213,7 +281,9 @@ backend, sin base de datos, sin telemetría, sin servicios de terceros en
 tiempo de ejecución. El modelo de amenaza es esencialmente "qué podría
 hacer una página maliciosa offline contra el mismo origen", algo que el
 navegador ya aísla. Ver [`SECURITY.es.md`](SECURITY.es.md) (o
-[`SECURITY.md`](SECURITY.md)) para reportar una sospecha de forma privada.
+[`SECURITY.md`](SECURITY.md)) para reportar una sospecha de forma
+privada (canal preferido:
+[`hello@apptonomia.uk`](mailto:hello@apptonomia.uk)).
 
 ---
 

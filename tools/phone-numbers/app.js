@@ -187,7 +187,7 @@
       showQuizExplanation(item);
       quizResolved = true;
       btn.classList.add('correcta');
-      App.utils.$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(quizFeedback);
       progress.stars += 1;
       quizCorrectCount += 1;
@@ -206,7 +206,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }
   }
 
@@ -230,17 +230,17 @@ $('#transferencia').textContent = '';
 
   /* ---------- Eventos ---------- */
   nextCardBtn.addEventListener('click', nextCard);
-  cardListenBtn.addEventListener('click', function () {
+  if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(DATA.cards[cardIdx]));
   });
-  summaryListenBtn.addEventListener('click', function () {
+  if (summaryListenBtn) summaryListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(summarySpeech());
   });
   startQuizBtn.addEventListener('click', startQuiz);
-  quizListenBtn.addEventListener('click', function () {
+  if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(quizItems[quizIdx].situacion);
   });
-  quizExplanationListenBtn.addEventListener('click', function () {
+  if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);

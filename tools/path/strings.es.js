@@ -7,16 +7,16 @@
   'use strict';
 
   App.i18n.register({
-    "title": "ðŸ¢ El Camino",
+    "title": "🐢 El Camino",
     "instruccion": "Lleva a la tortuga hasta la estrella. Usa las flechas.",
     "instruccionNivel": " Primero elige el nivel.",
     "elegirNivel": "Elige el nivel",
     "veces": "veces",
-    "btnJugar": "Â¡Jugar!",
+    "btnJugar": "¡Jugar!",
     "enMarcha": "Lleva a la tortuga hasta la estrella.",
-    "choqueArbol": "ðŸŒ³ Ahí hay un árbol. Busca otro camino.",
-    "choqueBorde": "ðŸ¤” Por ahí no se puede salir. Prueba otra flecha.",
-    "llegada": "ðŸŽ‰ Â¡Has llegado a la estrella!",
+    "choqueArbol": "🌳 Ahí hay un árbol. Busca otro camino.",
+    "choqueBorde": "🤔 Por ahí no se puede salir. Prueba otra flecha.",
+    "llegada": "🎉 ¡Has llegado a la estrella!",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
     "btnOtroNivel": "Elegir otro nivel",
     "btnMenu": "Volver al inicio",

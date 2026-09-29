@@ -1,230 +1,151 @@
 # Contributing to Routime
 
 > 🌐 **Other languages:** [Español](CONTRIBUTING.es.md)
+>
+> **Part of the [Miralante](https://apptonomia.uk) suite** —
+> Routime is one of seven sibling projects (Apptonomia, Calculia,
+> Memofun, Okeymoney, Routime, Sinonimia, Teclatlon) that share the
+> same workflow, the same accessibility rules and the same code of
+> conduct. This repo ships **Routime** itself.
 
-Routime has **three differentiated roles** in its community:
-
-1. 👤 **Typical user profile** (personas tipo) → are the **end users** of the app
-   (see [`doc/en/roles.md`](doc/en/roles.md) for the full internal context)
-2. ❤️ **Family and therapists** → are the **support people** who accompany them
-3. 💻 **Developers** → are the **people who build** the software
-
-This guide is for roles **2 and 3** (support and construction), who are the
-ones participating on GitHub. **End users don't read or write code**, and
-that's precisely the goal: the tool is for them.
-
----
-
-## 👥 The three project roles
-
-| # | Role | Who they are | Participate on GitHub |
-|---|---|---|---|
-| 1 | 👤 **End user** (typical user profile) | Practices activities in the app | No. Uses the app autonomously. Their experience is at the center of the product, but they don't read this documentation. |
-| 2 | ❤️ **Support person** (family, therapist, caregiver, teacher) | Person close to the end user | **Yes**, with content: proposes activities, reviews content PRs, reports from real use. |
-| 3 | 💻 **Construction person** (developer, UX designer, translator) | Programs or designs the software | **Yes**, with code: implements, reviews, deploys. |
-
-> ⚠️ Purely technical decisions (GitHub, code architecture, infrastructure)
-> are made by people in roles 2 and 3, **not because the end user is ignored,
-> but because that is each role's domain**. Product, content, language and
-> UI design decisions **are tested and validated with them** whenever
-> possible, and their feedback is the primary source for improvement.
-
-See [`doc/en/roles.md`](doc/en/roles.md) for where each role should look first
-(README, quick-guide, team.md, technical.md, …).
+Thanks for your interest in contributing. This guide covers the GitHub
+workflow we follow across the suite, the project roles, and the small
+set of recipes that keep every sibling consistent.
 
 ---
 
 ## 🔀 GitHub workflow
 
-This is the flow we use to integrate contributions in an orderly way.
-
-### For any participating profile
-
-```
+```text
 1. 🔍 Search or create an issue (in Spanish or English)
 2. 💬 Comment and agree on scope
 3. 🌿 Create a branch (fork if you don't have push access)
-4. ✏️  Make changes following our guides
+4. ✏️  Make changes following the recipes below
 5. 📤 Open a Pull Request (PR) referencing the issue
-6. 👀 Wait for review (at least 1 from the corresponding profile)
+6. 👀 Wait for review (at least 1 from a maintainer)
 7. ✅ Merge when approved
 ```
 
-**Issue labels** (we use them to classify):
+**Issue labels** (used to classify incoming work):
 
 | Label | Meaning |
 |---|---|
-| `therapeutic` | Proposal or change related to clinical content/activities |
 | `UX` | Usability or experience improvement |
-| `content` | Texts, translations, Easy Reading |
-| `bug` | Reproducible error in behavior |
-| `tech` | Technical implementation, refactor, technical debt |
+| `content` | Texts, translations, accessibility copy |
+| `bug` | Reproducible error in behaviour |
+| `tech` | Technical implementation, refactor |
 | `docs` | Documentation changes |
 | `good first issue` | Suitable for a first contribution |
-| `needs-therapist` | Awaits therapist review before merge |
-| `needs-dev` | Awaits developer review before merge |
 
 ### Branch conventions
 
 - `feat/<slug>` — new features
 - `fix/<slug>` — bug fixes
 - `docs/<slug>` — documentation-only changes
-- `therapy/<slug>` — therapeutic content changes (activity texts, sheets)
+- `content/<slug>` — content-only changes (cards, activities)
 - `i18n/<code>` — translation to a language (e.g. `i18n/ca`, `i18n/gl`)
-
-Examples:
-- `therapy/new-activity-signs`
-- `i18n/ca-catalan`
-- `fix/audio-not-playing-on-mobile`
 
 ### Commits
 
-- Message in **English** (repo convention), summary in imperative
-- One thing per commit — large commits can be asked to be split
-- If you close an issue, include `Closes #123` at the end
+- Message in **English** (repo convention), summary in imperative.
+- One thing per commit — large commits can be asked to be split.
+- If you close an issue, include `Closes #123` at the end.
 
 ---
 
-## ❤️ Guide for support people (family, therapist, caregiver, teacher)
+## 👥 Project roles
 
-### What you can contribute
+| # | Role | Reads what first |
+|---|---|---|
+| 1 | 👤 **End user** (typical user profile) | The app — never this file. |
+| 2 | 🤝 **Support** (family, therapist, caregiver, teacher) | `doc/en/roles.md` and `doc/en/quick-guide.md`. |
+| 3 | 💻 **Contributor** (content or code) | This file, plus `doc/en/SPEC.md`, `doc/en/technical.md`, and `CLAUDE.md`. |
 
-- **Propose a new activity** with its sheet (objective, levels, messages, data)
-- **Review the wording** of existing activities (style, Easy Reading, tone)
-- **Correct clinical or home autonomy content**
-- **Identify uncovered therapeutic areas**
-- **Suggest adaptations** for specific user profiles
-- **Report from real use** (what works, what frustrates, what's missing)
-
-### How to start
-
-1. Read [`doc/en/spec.md`](doc/en/spec.md) — you'll understand WHAT Routime is and WHY it exists
-2. Read [`doc/en/team.md`](doc/en/team.md) — clinical view of the activities
-3. Examine [`doc/en/activities.md`](doc/en/activities.md) — what's there and what's missing
-4. Read SPEC §3: the **non-negotiable constraints** are what your content must never break
-
-### How to propose content
-
-Open an **issue** with the `therapeutic` label and fill in:
-
-```markdown
-## Proposed activity: <Name>
-
-### Therapeutic objective
-- Area: (coordination / autonomy / memory / reasoning / language / emotions)
-- Specific skill: <what is worked on>
-- Target population: <age range or level>
-
-### Brief description
-<what the activity does in 2-3 sentences>
-
-### Planned levels
-- Level 1 (Easy): <how one single variable changes>
-- Level 2 (Medium): <how one single variable changes>
-- Level 3 (Hard): <how one single variable changes>
-
-### Success / encouragement messages (EN)
-- Success: "..."
-- Encouragement: "..."
-
-### On-screen text (EN)
-- Title: "..."
-- Instruction: "..."
-
-### On-screen text (ES) — optional but very welcome
-- Título: "..."
-- Instrucción: "..."
-
-### Reference or inspiration
-<book, article, website, common practice, etc.>
-```
-
-Afterwards, a developer will implement it in `tools/<slug>/` following the
-recipe in [`doc/en/technical.md`](doc/en/technical.md) §9.
-
-### How to review an activity
-
-When a PR adds an activity, your review as support person is what validates:
-
-- Texts are in Easy Reading
-- The therapeutic objective matches the mechanics
-- Options and hints are adequate
-- There's no clinical language in the UI
+> Technical decisions live with the contributor role, **not because
+> the end user is ignored, but because that is each role's domain.**
+> Product, content, language and UI design decisions **are tested and
+> validated with end users whenever possible**, and their feedback is
+> the primary source for improvement.
 
 ---
 
-## 💻 Guide for construction people (developers)
+## 📝 What you can contribute
 
-### What you can contribute
+- **Copy fixes** — typos, clearer wording, accessibility tweaks in
+  the per-activity `strings.<locale>.js` files.
+- **New activity / element** — see
+  [`doc/en/creating-elements-guide.md`](doc/en/creating-elements-guide.md)
+  for the full recipe (six canonical files, catalog parity, SW bump,
+  didactics + easy-read rules).
+- **New language** — see `doc/en/i18n.md` for the full recipe.
+- **Accessibility** — contrast, focus order, focus visibility, reduced
+  motion, ARIA labels, easy-read copy (UNE 153101).
+- **Bug fixes** — anything that breaks in any supported browser.
+- **Security headers / CSP** — tightening the policy in `_headers`.
 
-- Implement new activities from `therapeutic` issues
-- Fix bugs and improve performance
-- Refactor shared code (`assets/`)
-- Improve accessibility, PWA, responsive
-- Keep `technical.md` up to date
-
-### How to start
-
-1. Read [`doc/en/spec.md`](doc/en/spec.md) §3–§4 — product constraints and principles
-2. Read [`doc/en/technical.md`](doc/en/technical.md) entirely — you'll
-   understand the architecture, the core API and the recipes
-3. Run `node scripts/check.js` — verifies your environment is good
-
-### Quick recipes
-
-- **New activity** → [`doc/en/technical.md`](doc/en/technical.md) §9
-- **New module** → [`doc/en/technical.md`](doc/en/technical.md) §10
-- **New language** → [`doc/en/i18n.md`](doc/en/i18n.md) §5
-
-### Checklist before opening a PR
-
-- `node scripts/check.js` passes without errors
-- `node scripts/smoke.js` passes without errors (Chromium ES+EN, all activities)
-- `node scripts/cross-browser.js` passes without errors (Chrome + Firefox + Safari, desktop + iPhone + Pixel 5)
-- Tested on mobile (responsive 360 px)
-- No console errors
-- If you changed cached files, you bumped `VERSION` in `sw.js`
-- If you added an activity, it's in `team/index.html` and `site/index.html`
+Each of those is small enough that the recipes below should cover it
+without a separate architecture review.
 
 ---
 
-## 🌐 Guide for translators
+## 🌐 Recipes
 
-- All UI lives in `strings.<locale>.js` files inside each activity
-- To add a new language, see [`doc/en/i18n.md`](doc/en/i18n.md) §5
-- Maintain the **Easy Reading** style also in the translation
-- Be careful with numbers and money (separators and scale): see note in
-  [`doc/en/technical.md`](doc/en/technical.md) §3.3
+### Copy fix
+
+1. Edit the source-of-truth `strings.<locale>.js` (`es` by default).
+2. Mirror the change in every other locale file (`en` minimum).
+3. Run `node scripts/check.js` to verify key parity.
+4. Open a PR with a one-line description.
+
+### New language
+
+See `doc/en/i18n.md` for the full step-by-step. Adding a language
+requires **no changes** to the bootstrap or app code.
+
+### Accessibility fix
+
+Read `doc/en/SPEC.md` §3 first — non-negotiable product constraints
+live there (buttons ≥ 64×64 px, WCAG AA contrast with AAA as the
+design target, easy-read copy, no-pressure feedback). Anything that
+breaks them will be rejected.
+
+### Adding or tightening a security header
+
+Headers live in `_headers`. The CSP is intentionally tight
+(`script-src 'self'`, no inline scripts; JSON-LD is data and does not
+require `unsafe-inline`). Tightening is welcome; loosening almost
+never is — open an issue first.
+
+---
+
+## ✅ Checklist before opening a PR
+
+- [ ] `node scripts/check.js` passes locally.
+- [ ] If this PR touches a cached file, you bumped `VERSION` in
+      `sw.js`.
+- [ ] If you added UI strings, every supported locale is in sync.
+- [ ] You tested in at least one real desktop browser (Chrome /
+      Firefox / Safari) and on mobile (320/375/768 px).
+- [ ] You did not add any new runtime dependency — vanilla HTML / CSS /
+      JS only.
+- [ ] You did not loosen the CSP in `_headers` without an issue.
 
 ---
 
 ## 🚫 What this repo does NOT accept
 
-(They're here so they don't get suggested and we all save time)
-
-- **Changes that break autonomy, accessibility or privacy** — they are the
-  non-negotiable product constraints ([SPEC §3](doc/en/spec.md))
-- **New dependencies** (npm, CDNs) — vanilla JS only, see [`doc/en/technical.md`](doc/en/technical.md) §1
-- **Features that add pressure** to the end user (visible timers, rankings,
-  comparisons, "game over")
-- **Clinical language in the UI** — only allowed in `team/` and in
-  internal documentation
-- **Personal data** of any kind — the app runs on `localStorage` only
-- **Imposing technical decisions on the end user** — their experience is
-  always cared for from design; they aren't consulted about GitHub
+- **Loosening the CSP** (`script-src 'self'` stays strict).
+- **New runtime dependencies** — vanilla HTML / CSS / JS only.
+- **Analytics / telemetry / third-party calls of any kind.**
+- **Personal data** of any kind.
+- **A SPA, a router, or a build step.**
 
 ---
 
 ## 📞 Communication
 
-- **Issues** → main channel for proposals, bugs, questions
-- **Discussions** (if enabled) → for open debate, general questions, help
-- **Pull Request reviews** → for review of specific changes
-
-> 💡 **Tip**: if your contribution crosses boundaries (e.g. an activity that
-> needs a support person + a developer), open **two related issues** or one
-> issue with both labels (`needs-therapist`, `needs-dev`). That way both
-> know they need to step in.
+- **Issues** → main channel for proposals, bugs, questions.
+- **Pull Request reviews** → for review of specific changes.
 
 ---
 
@@ -237,5 +158,5 @@ Participating means accepting it.
 
 ## 🙏 Thanks
 
-Thanks for devoting time to a tool that helps our typical user profile
-be a little more autonomous every day.
+Thanks for devoting time to a tool that helps people train mind and
+daily-life skills between sessions.

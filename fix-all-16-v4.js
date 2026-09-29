@@ -63,14 +63,24 @@ function findAllStartGame(lines) {
   return found;
 }
 
-// Find the REAL closing brace of the first startGame() (not nested inner braces).
-// We first find the last actual statement of the function body, then search
-// forward from there for the closing }.
+// Find the REAL closing brace of the first startGame().
+// Two strategies:
+// 1. If there are ≥2 startGame() occurrences, use brace-counting from first to find
+//    where its body ends (depth returns to 1 after being >1), then look for
+//    the first } at depth 1 after the last real statement.
+// 2. If only 1 startGame(), look for the } just before the next function declaration
+//    (or before the end of the file).
 function findFirstStartGameClose(lines, startLine) {
-  // Find the last real statement in startGame's body
-  var maxLine = -1;
+  // First, find the next function declaration after startGame
+  var nextFuncLine = -1;
+  for (var f = startLine + 1; f < lines.length; f++) {
+    var tf = lines[f].trim();
+    if (/^function\s+\w+/.test(tf)) { nextFuncLine = f; break; }
+  }
+
+  // Find the last real statement of startGame
+  var lastStmt = startLine + 1;
   var depth = 0;
-  var inFn = false;
   for (var j = startLine; j < lines.length; j++) {
     var l = lines[j];
     for (var k = 0; k < l.length; k++) {
@@ -78,21 +88,19 @@ function findFirstStartGameClose(lines, startLine) {
       if (ch === '{') depth++;
       else if (ch === '}') depth--;
     }
-    // After the opening { of startGame, track depth
-    if (j === startLine) inFn = true;
-    if (inFn && depth >= 1) {
+    if (j === startLine) continue; // skip the opening {
+    if (depth >= 1) {
       var t = l.trim();
       if (t !== '' && !t.startsWith('//') && !(t.startsWith('/*') && t.endsWith('*/'))) {
-        maxLine = j;
+        lastStmt = j;
       }
     }
-    // We've exited startGame's top-level scope
-    if (inFn && depth === 1 && j > startLine) break;
+    // If we've closed startGame's own block (depth back to 1 after being >1), stop
+    if (depth === 1 && j > startLine) break;
   }
 
-  // Now search forward from maxLine for the closing }
-  if (maxLine === -1) maxLine = startLine + 1;
-  for (var m = maxLine; m < lines.length; m++) {
+  // Search from lastStmt+1 for the first standalone }
+  for (var m = lastStmt + 1; m < lines.length; m++) {
     if (lines[m].trim() === '}') return m;
   }
   return -1;
@@ -127,8 +135,6 @@ function removeOrphanedBlocks(lines, tool) {
     while (prevNonEmpty >= 0 && lines[prevNonEmpty].trim() === '') prevNonEmpty--;
     var prev = prevNonEmpty >= 0 ? lines[prevNonEmpty].trim() : '';
 
-    if (prev !== '}') continue;
-    // (function() { ... } has } on same line, so we need to also check prev ends with })
     if (!prev.endsWith('}')) continue;
 
     // Check if this line is the start of the orphaned block
@@ -136,7 +142,9 @@ function removeOrphanedBlocks(lines, tool) {
     var end = i;
 
     // Case: line is a block comment (start-screen header)
-    if (/^\/\*\s*-{2,4}\s*(Pantalla|[Pp]age? ?[Ii]nicial|[Ii]nicio)\s*-{2,4}\s*\*\//.test(l)) {
+    // Use [\s-] before the closing dashes so "Pantalla inicial ---- */" matches
+    var reComment = /^\/\*\s*-{2,4}\s*(Pantalla[\s-][Ii]nicial|Pantalla|Inicio)\s*-{2,4}\s*\*\//;
+    if (reComment.test(l)) {
       while (end < lines.length) {
         var t = lines[end].trim();
         if (t === '});' || t === '}') { end++; break; }
@@ -144,8 +152,8 @@ function removeOrphanedBlocks(lines, tool) {
       }
       isOrphanStart = true;
     }
-    // Case: line is a bare string delimiter at file scope
-    else if ((l === "'" || l === '"' || l === '`') && l.length <= 3) {
+    // Case: line starts with a string delimiter at file scope (orphaned string fragment)
+    else if (l.charAt(0) === "'" || l.charAt(0) === '"' || l.charAt(0) === '`') {
       while (end < lines.length) {
         var t2 = lines[end].trim();
         if (t2 === '});' || t2 === '}') { end++; break; }
@@ -163,7 +171,7 @@ function removeOrphanedBlocks(lines, tool) {
     }
   }
 
-  // Pattern 2: Orphaned "  );" at file scope (followed by "  }")
+  // Pattern 2: Orphaned "  );" at file scope (followed by indented junk, ending with }); or })
   for (var j = 1; j < lines.length - 1; j++) {
     var lj = lines[j].trim();
     if (lj === ');') {
@@ -172,10 +180,17 @@ function removeOrphanedBlocks(lines, tool) {
       while (prevNonEmpty >= 0 && lines[prevNonEmpty].trim() === '') prevNonEmpty--;
       var prev2 = prevNonEmpty >= 0 ? lines[prevNonEmpty].trim() : '';
       var next2 = lines[j + 1] ? lines[j + 1].trim() : '';
-      // Orphan if prev ends with } and next is }
-      if (prev2.endsWith('}') && next2 === '}') {
-        lines.splice(j, 2); // remove ); and }
-        log('  [' + tool + '] Removed orphaned ); + } at lines ' + (j + 1) + '–' + (j + 2));
+      // Orphan if prev ends with } and next is NOT a } (junk follows)
+      if (prev2.endsWith('}') && next2 !== '}') {
+        // Find the end of the orphan block (ends at }); or standalone })
+        var end = j + 1;
+        while (end < lines.length) {
+          var t = lines[end].trim();
+          if (t === '});' || t === '}') { end++; break; }
+          end++;
+        }
+        var removedLines = lines.splice(j, end - j);
+        log('  [' + tool + '] Removed orphaned ); block at lines ' + (j + 1) + '–' + (end) + ': ' + removedLines[0].trim());
         removed = true;
         j--;
       }
@@ -243,21 +258,121 @@ function fixFile(content, tool) {
   }
 
   if (allSG.length === 1) {
-    // Single occurrence: fix merged closing brace directly
-    var close = findFirstStartGameClose(lines, allSG[0]);
+    // Single occurrence but startGame might still be missing its closing }
+    // Check: is there a renderProgress() declaration INSIDE startGame's body?
+    var sg = allSG[0];
+    var close = findFirstStartGameClose(lines, sg);
     if (close === -1) {
       log('  [' + tool + '] ERROR: could not find closing brace!');
       return null;
     }
-    var after = close + 1 < lines.length ? lines[close + 1].trim() : '';
-    if (/^function\s+\w+/.test(after)) {
-      // Missing closing }, need to add one before the next function
-      log('  [' + tool + '] Missing closing } after line ' + (close + 1) + ', adding (after: "' + after + '")');
-      lines.splice(close + 1, 0, '');
-    } else if (fixMergedClosing(lines, close)) {
-      log('  [' + tool + '] Split merged closing brace');
+
+    // Check if there's a renderProgress INSIDE startGame (indent < indent of startGame body)
+    // This means startGame is missing its closing }
+    var sgIndent = (lines[sg].match(/^(\s*)/) || ['',''])[1];
+    var bodyIndent = sgIndent + '  '; // function body is 2 more spaces
+
+    // Find all function declarations between sg and close
+    var insideFuncs = [];
+    for (var fi = sg + 1; fi < close; fi++) {
+      var ft = lines[fi].trim();
+      if (/^function\s+\w+/.test(ft)) {
+        insideFuncs.push({ line: fi, name: ft.match(/^function\s+(\w+)/)[1] });
+      }
+    }
+
+    // Also find all function declarations at file scope (indent = 0 or sgIndent level) after close
+    var afterClose = [];
+    for (var af = close + 1; af < lines.length; af++) {
+      var aft = lines[af].trim();
+      if (/^function\s+\w+/.test(aft)) {
+        afterClose.push({ line: af, name: aft.match(/^function\s+(\w+)/)[1] });
+        break; // only need the first one
+      }
+    }
+
+    if (insideFuncs.length > 0) {
+      // startGame is missing its closing }
+      // Add closing } with proper indentation (same as startGame's indent)
+      var lastStmt = findLastStmtLine(lines, sg, close);
+      var sgIndent = (lines[sg].match(/^(\s*)/) || ['',''])[1];
+      var insertLine = lastStmt + 1;
+      var closingBrace = sgIndent + '}';
+      log('  [' + tool + '] Missing } for startGame, inserting after line ' + (insertLine) + ' (inside funcs: ' + insideFuncs.map(function(f){return f.name;}).join(',') + ')');
+      lines.splice(insertLine, 0, closingBrace);
+
+      // The CORRECT fix: MOVE the inside-startGame functions to file scope.
+      // Find all functions inside startGame (depth>=2 when declared).
+      // For each such function, if there's also a file-scope version (indent<=2), 
+      // REMOVE the file-scope version and KEEP the inside-startGame version 
+      // (we'll move it to file scope later by inserting a closing } for startGame
+      // and keeping the function bodies in place).
+      
+      // Find all file-scope functions (indent <= 2) after startGame closes
+      var fileScopeFuncs = {};
+      for (var fsf = close + 1; fsf < lines.length; fsf++) {
+        var fsft = lines[fsf].trim();
+        if (/^function\s+\w+/.test(fsft)) {
+          var fname = fsft.match(/^function\s+(\w+)/)[1];
+          fileScopeFuncs[fname] = fsf;
+          break; // only first file-scope func
+        }
+      }
+      
+      // insideFuncs has functions declared INSIDE startGame (depth>=2 when their { is found)
+      var insideNames = insideFuncs.map(function(f){ return f.name; });
+      log('  [' + tool + '] File-scope funcs: ' + JSON.stringify(fileScopeFuncs) + ', inside funcs: ' + insideNames.join(','));
+      
+      // Strategy: 
+      // 1. If there's a file-scope function that matches an inside func, 
+      //    REMOVE the file-scope version.
+      // 2. The inside-startGame functions will remain in place (they're currently
+      //    inside startGame), but by adding the closing } for startGame, they 
+      //    become file-scope.
+      var removedAny = false;
+      for (var rm = close + 1; rm < lines.length; ) {
+        var rmt = lines[rm].trim();
+        var rmMatch = rmt.match(/^function\s+(\w+)/);
+        if (rmMatch && insideNames.indexOf(rmMatch[1]) !== -1) {
+          // Check if this is a file-scope function (indent <= 2)
+          var rmIndent = (lines[rm].match(/^(\s*)/) || ['',''])[1].length;
+          if (rmIndent <= 2) {
+            // Remove this file-scope duplicate
+            var rmFuncStart = rm;
+            var rmDepth = 0;
+            var rmClose = -1;
+            for (var rc = rm; rc < lines.length; rc++) {
+              for (var rk = 0; rk < lines[rc].length; rk++) {
+                if (lines[rc][rk] === '{') rmDepth++;
+                else if (lines[rc][rk] === '}') { rmDepth--; if (rmDepth === 0) { rmClose = rc; break; } }
+              }
+              if (rmClose !== -1) break;
+            }
+            if (rmClose !== -1) {
+              lines.splice(rmFuncStart, rmClose - rmFuncStart + 1);
+              log('  [' + tool + '] Removed file-scope duplicate ' + rmMatch[1] + '() (lines ' + (rmFuncStart+1) + '–' + (rmClose+1) + ')');
+              removedAny = true;
+              continue; // don't increment rm
+            }
+          }
+        }
+        rm++;
+      }
+      
+      // After removing file-scope duplicates, the inside-startGame functions remain in place.
+      // By adding the closing } for startGame, they will "spill out" to file scope.
     } else {
-      log('  [' + tool + '] Single startGame, closing looks OK — no action needed');
+      // Check for merged closing brace
+      var after = close + 1 < lines.length ? lines[close + 1].trim() : '';
+      if (/^function\s+\w+/.test(after)) {
+        var sgIndent2 = (lines[sg].match(/^(\s*)/) || ['',''])[1];
+        log('  [' + tool + '] Missing closing } before next function "' + after + '", inserting');
+        lines.splice(close + 1, 0, sgIndent2 + '}');
+      } else if (fixMergedClosing(lines, close)) {
+        log('  [' + tool + '] Split merged closing brace');
+      } else {
+        log('  [' + tool + '] Single startGame, closing looks OK');
+      }
     }
   } else {
     // ≥2 occurrences: remove code between first close and second declaration

@@ -48,7 +48,7 @@
   var explicacionSEl = $('#explanationSecciones');
   var progressSFill = $('#progressSeccionesFill');
   var progressSText = $('#progressSeccionesText');
-  var btnSiguienteS = $('#btnSiguienteSecciones');
+  var btnNextSections = $('#btnSiguienteSecciones');
 
   function nivelSegunProgresoS() {
     var niveles = banco().secciones.niveles;
@@ -80,7 +80,7 @@
     feedbackSEl.className = 'feedback';
     explicacionSWrap.classList.add('hidden');
     explicacionSEl.textContent = '';
-    if (btnSiguienteS) btnSiguienteS.classList.add('hidden');
+    if (btnNextSections) btnNextSections.classList.add('hidden');
 
     itemPictoSEl.textContent = item.picto;
     itemPalabraSEl.textContent = item.palabra;
@@ -132,9 +132,9 @@
       if (App.feedback && App.feedback.star) App.feedback.star();
       save();
       renderStars();
-      if (btnSiguienteS) {
-        btnSiguienteS.classList.remove('hidden');
-        btnSiguienteS.focus();
+      if (btnNextSections) {
+        btnNextSections.classList.remove('hidden');
+        btnNextSections.focus();
       }
     } else {
       intentosS += 1;
@@ -151,7 +151,7 @@
     }
   }
 
-  function siguienteSecciones() {
+  function nextSections() {
     idxS += 1;
     if (idxS >= banco().secciones.porRonda) {
       terminarSecciones();
@@ -165,10 +165,10 @@
     save();
     ocultarTodas();
     endScreen.classList.remove('hidden');
-    $('##resumenFinal').textContent = '';
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompletedSecciones + 1, banco().secciones.niveles.length));
-    $('##transferencia').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -188,7 +188,7 @@
   var explicacionLEl = $('#explanationLista');
   var progressLFill = $('#progressListaFill');
   var progressLText = $('#progressListaText');
-  var btnSiguienteL = $('#btnSiguienteLista');
+  var btnNextList = $('#btnSiguienteLista');
 
   function nivelSegunProgresoL() {
     var niveles = banco().lista.niveles;
@@ -258,7 +258,7 @@
     feedbackLEl.className = 'feedback';
     explicacionLWrap.classList.add('hidden');
     explicacionLEl.textContent = '';
-    if (btnSiguienteL) btnSiguienteL.classList.add('hidden');
+    if (btnNextList) btnNextList.classList.add('hidden');
 
     itemPictoLEl.textContent = item.picto;
     itemPalabraLEl.textContent = item.palabra;
@@ -299,9 +299,9 @@
       if (App.feedback && App.feedback.star) App.feedback.star();
       save();
       renderStars();
-      if (btnSiguienteL) {
-        btnSiguienteL.classList.remove('hidden');
-        btnSiguienteL.focus();
+      if (btnNextList) {
+        btnNextList.classList.remove('hidden');
+        btnNextList.focus();
       }
     } else {
       intentosL += 1;
@@ -318,7 +318,7 @@
     }
   }
 
-  function siguienteLista() {
+  function nextList() {
     idxL += 1;
     if (idxL >= banco().lista.porRonda) {
       terminarLista();
@@ -332,7 +332,7 @@
     save();
     ocultarTodas();
     endScreen.classList.remove('hidden');
-    $('##resumenFinal').textContent = '';
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompletedLista + 1, banco().lista.niveles.length));
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
@@ -343,8 +343,8 @@
   $('#tarjetaSecciones').addEventListener('click', iniciarSecciones);
   $('#tarjetaLista').addEventListener('click', iniciarLista);
 
-  if (btnSiguienteS) btnSiguienteS.addEventListener('click', siguienteSecciones);
-  if (btnSiguienteL) btnSiguienteL.addEventListener('click', siguienteLista);
+  if (btnNextSections) btnNextSections.addEventListener('click', nextSections);
+  if (btnNextList) btnNextList.addEventListener('click', nextList);
 
   $('#btnRepeat').addEventListener('click', function () {
     // repeats the last activity

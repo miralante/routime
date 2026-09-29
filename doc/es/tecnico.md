@@ -157,7 +157,7 @@ Routime/
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (actividades de euros)
 │   └── img/               #   pictogramas SVG e iconos PWA; la interfaz usa primero iconos del sistema y emojis para gráficos simples; si hace falta algo más, usar imágenes libres descargadas localmente desde fuentes CC0 o de uso libre
-├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (69 actuales)
+├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (63 actuales)
 │   ├── index.html         #   estructura y carga de assets
 │   ├── app.js             #   solo lógica
 │   ├── data.js            #   solo datos

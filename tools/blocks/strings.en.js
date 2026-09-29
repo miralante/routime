@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    "title": "ðŸ§± The Blocks",
+    "title": "🧱 The Blocks",
     "instruccion": "Copy the model. Choose a colour and touch the squares to paint them the same.",
     "instruccionNivel": " First, choose the level.",
     "elegirNivel": "Choose the level",
@@ -16,12 +16,12 @@
     "etiquetaModelo": "Model",
     "etiquetaTuyo": "Your build",
     "eligeColor": "Chosen colour: {color}.",
-    "okBloque": "âœ… Correct! That square is that colour.",
-    "pistaColor": "ðŸ¤” Look carefully at the model. What colour is that square?",
-    "pistaVacia": "ðŸ¤” Look carefully at the model. Does that square have a colour?",
-    "malColor": "âŒ That square is {color}. It has been painted.",
-    "malVacia": "âŒ In the model that square is empty. It does not need painting.",
-    "construccionCompletada": "ðŸŽ‰ Build complete!",
+    "okBloque": "✅ Correct! That square is that colour.",
+    "pistaColor": "🤔 Look carefully at the model. What colour is that square?",
+    "pistaVacia": "🤔 Look carefully at the model. Does that square have a colour?",
+    "malColor": "❌ That square is {color}. It has been painted.",
+    "malVacia": "❌ In the model that square is empty. It does not need painting.",
+    "construccionCompletada": "🎉 Build complete!",
     "resumenFinal": "You won {n} stars. You now have {total} stars.",
     "btnOtroNivel": "Choose another level",
     "btnMenu": "Back to start",

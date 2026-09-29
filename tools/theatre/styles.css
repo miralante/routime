@@ -16,10 +16,6 @@
 
 .progress-bar {
   margin-top: var(--espacio);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
 }
 
 .dificultad {

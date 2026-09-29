@@ -312,7 +312,7 @@
       choiceExplanationWrap.classList.remove('hidden');
       choiceResolved = true;
       btn.classList.add('correcta');
-      App.utils.$('#choiceOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#choiceOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(choiceFeedback);
       state.stars += 1;
       choiceCorrectCount += 1;
@@ -335,7 +335,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(choiceFeedback);
-      App.feedback.lockUntilAck(App.utils.$('#choiceOptions .btn-opcion'), choiceExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#choiceOptions .btn-opcion'), choiceExplanationWrap);
     }
   }
 
@@ -475,23 +475,23 @@
       renderCard();
     }
   });
-  cardListenBtn.addEventListener('click', function () {
+  if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
     var card = cards[cardIdx];
     if (false && App.tts && App.tts.speak) App.tts.speak(card.label + '. ' + card.value);
   });
 
-  choiceListenBtn.addEventListener('click', function () {
+  if (choiceListenBtn) choiceListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(t(choiceItems[choiceIdx].questionKey));
   });
-  choiceExplanationListenBtn.addEventListener('click', function () {
+  if (choiceExplanationListenBtn) choiceExplanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(choiceExplanation.textContent);
   });
   choiceNextBtn.addEventListener('click', nextChoice);
 
-  typedListenBtn.addEventListener('click', function () {
+  if (typedListenBtn) typedListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(t(typedItems[typedIdx].questionKey));
   });
-  typedExplanationListenBtn.addEventListener('click', function () {
+  if (typedExplanationListenBtn) typedExplanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(typedExplanation.textContent);
   });
   typedCheckBtn.addEventListener('click', checkTyped);
@@ -505,7 +505,8 @@
 
   $('#replayBtn').addEventListener('click', startCards);
 
-  $('#emptyListenBtn').addEventListener('click', function () {
+  var emptyListenBtn = $('#emptyListenBtn');
+  if (emptyListenBtn) emptyListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
   });
 

@@ -17,7 +17,7 @@
     "rel_detras": "detrás",
     "pistaDelante": "🤔 Busca {ref}. Delante es la row de abajo, la más cerca de ti.",
     "pistaDetras": "🤔 Busca {ref}. Detrás es la row de arriba, al fondo.",
-    "malSitio": "❌ El sitio correct está marcado: {rel} {ref}. Toca ahí.",
+    "malSitio": "❌ El sitio correcto está marcado: {rel} {ref}. Toca ahí.",
     "okSitio": "✅ ¡Muy bien! {pers} está {rel} {ref}.",
     "escenaCompletada": "🎭 ¡Escena completada!",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",

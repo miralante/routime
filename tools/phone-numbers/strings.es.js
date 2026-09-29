@@ -20,7 +20,7 @@
     "startQuiz": "Hacer el test",
     "quizQuestion": "¿A qué número llamas?",
     "correctExplanation": "✅ ¡Correcto! El número es el 112.",
-    "wrongExplanationPrefix": "❌ Eso no es lo correct. Lo correct es: ",
+    "wrongExplanationPrefix": "❌ Eso no es lo correcto. Lo correcto es: ",
     "hint": "🤔 Prueba otra vez. Piensa en la situación: ",
     "finalSummary": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
   "contexto": "Estás en una situación en la que necesitas ayuda. Tienes que saber a qué número llamar y qué decir.",

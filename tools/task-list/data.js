@@ -89,7 +89,7 @@ const DATA = {
             { picto: '📋', text: 'Leer el encargo' },
             { picto: '📦', text: 'Preparar el material' },
             { picto: '🔧', text: 'Hacer el trabajo' },
-            { picto: '✅', text: 'Revisar que está bien done' }
+            { picto: '✅', text: 'Revisar que está bien hecho' }
           ] },
           { name: 'Tu descanso en el trabajo', items: [
             { picto: '🕐', text: 'Esperar a que sea la hora' },

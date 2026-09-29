@@ -28,7 +28,7 @@ const DATA = {
           { situacion: 'Tu habitación está desordenada.', picto: '🧸', options: ['La ordeno', 'La dejo así', 'Me enfado con mis cosas'], correcta: 0 },
           { situacion: 'Suena el despertador por la mañana.', picto: '⏰', options: ['Me levanto', 'Lo apago y sigo durmiendo todo el día', 'Lo tiro'], correcta: 0 },
           { situacion: 'Tienes que ir al baño.', picto: '🚽', options: ['Voy al baño', 'Aguanto mucho tiempo', 'Espero sin decir nada'], correcta: 0 },
-          { situacion: 'Se ha done de noche y estás en casa.', picto: '🌙', options: ['Enciendo la luz', 'Me quedo a oscuras', 'Salgo a la calle'], correcta: 0 },
+          { situacion: 'Se ha hecho de noche y estás en casa.', picto: '🌙', options: ['Enciendo la luz', 'Me quedo a oscuras', 'Salgo a la calle'], correcta: 0 },
           { situacion: 'Tienes los zapatos desatados.', picto: '👟', options: ['Me los ato', 'Sigo caminando así', 'Los tiro'], correcta: 0 },
           { situacion: 'Es la hora de cenar.', picto: '🍽️', options: ['Voy a cenar', 'Sigo jugando y no ceno', 'Me enfado'], correcta: 0 },
           { situacion: 'Se ha caído tu vaso y se ha roto.', picto: '🥃', options: ['Lo recojo con cuidado y aviso a un adulto', 'Dejo los cristales en el suelo', 'Lo piso descalzo'], correcta: 0 },
@@ -38,7 +38,7 @@ const DATA = {
           { situacion: 'Te has manchado la mesa al comer.', picto: '🍝', options: ['Limpio la mesa con una servilleta', 'Lo dejo manchado', 'Tapo la mancha con un plato'], correcta: 0 },
           { situacion: 'Suena el timbre de la puerta.', picto: '🔔', options: ['Miro con cuidado. No abro. Pido ayuda si hace falta.', 'Abro la puerta a quien sea sin mirar', 'No hago caso al timbre'], correcta: 0 },
           { situacion: 'Se ha apagado la televisión de repente.', picto: '📺', options: ['Aviso a un adulto de casa', 'Le doy golpes a la tele', 'Me enfado y grito'], correcta: 0 },
-          { situacion: 'Tienes que save la ropa limpia.', picto: '👚', options: ['Guardo la ropa en su sitio', 'La dejo tirada en el suelo', 'La escondo debajo de la cama'], correcta: 0 },
+          { situacion: 'Tienes que guardar la ropa limpia.', picto: '👚', options: ['Guardo la ropa en su sitio', 'La dejo tirada en el suelo', 'La escondo debajo de la cama'], correcta: 0 },
           { situacion: 'Te duele la tripa después de comer.', picto: '🤢', options: ['Se lo digo a un adulto', 'No digo nada y aguanto', 'Sigo comiendo más'], correcta: 0 },
           { situacion: 'Es hora de ducharte.', picto: '🚿', options: ['Me ducho', 'Sigo jugando y no me ducho', 'Me enfado porque toca ducha'], correcta: 0 }
         ]
@@ -54,12 +54,12 @@ const DATA = {
           { situacion: 'Quieres jugar con otros niños.', picto: '⚽', options: ['Les pregunto si puedo jugar', 'Les quito el balón', 'Me voy sin decir nada'], correcta: 0 },
           { situacion: 'Un compañero está triste.', picto: '😢', options: ['Le pregunto qué le pasa', 'Me río de él', 'Le ignoro'], correcta: 0 },
           { situacion: 'Llegas tarde a una cita.', picto: '⏰', options: ['Aviso de que llegaré tarde', 'No digo nada', 'Falto sin avisar'], correcta: 0 },
-          { situacion: 'Te han done un regalo.', picto: '🎁', options: ['Doy las gracias', 'No digo nada', 'Lo tiro'], correcta: 0 },
+          { situacion: 'Te han hecho un regalo.', picto: '🎁', options: ['Doy las gracias', 'No digo nada', 'Lo tiro'], correcta: 0 },
           { situacion: 'Alguien te interrumpe cuando hablas.', picto: '🗣️', options: ['Espero mi turno para hablar', 'Le grito', 'Me voy enfadado'], correcta: 0 },
           { situacion: 'Estás en la row del autobús.', picto: '🚌', options: ['Espero mi turno', 'Me cuelo el primero', 'Empujo a los demás'], correcta: 0 },
           { situacion: 'Un amigo te presta un juguete.', picto: '🧸', options: ['Lo cuido y se lo devuelvo', 'Lo rompo', 'Me lo quedo para siempre'], correcta: 0 },
           { situacion: 'Quieres hablar y otra persona está hablando.', picto: '💬', options: ['Espero a que termine', 'La interrumpo', 'Grito más fuerte'], correcta: 0 },
-          { situacion: 'Alguien te felicita por algo que has done.', picto: '👏', options: ['Sonrío y doy las gracias', 'No digo nada', 'Me pongo a llorar'], correcta: 0 },
+          { situacion: 'Alguien te felicita por algo que has hecho.', picto: '👏', options: ['Sonrío y doy las gracias', 'No digo nada', 'Me pongo a llorar'], correcta: 0 },
           { situacion: 'Ves a alguien que se ha caído.', picto: '🤕', options: ['Le pregunto si está bien', 'Me río', 'Sigo caminando sin mirar'], correcta: 0 },
           { situacion: 'Estás en una tienda y quieres algo.', picto: '🏪', options: ['Se lo pido a un adulto', 'Lo cojo sin pagar', 'Grito hasta que me lo den'], correcta: 0 },
           { situacion: 'Un amigo no quiere compartir su merienda.', picto: '🍎', options: ['Lo respeto y no insisto', 'Se la quito', 'Me enfado mucho'], correcta: 0 },
@@ -84,7 +84,7 @@ const DATA = {
         items: [
           { situacion: 'Te sientes muy enfadado.', picto: '😠', options: ['Respiro y me calmo', 'Grito y rompo cosas', 'Pego a alguien'], correcta: 0 },
           { situacion: 'Estás nervioso antes de un examen.', picto: '😰', options: ['Respiro despacio para calmarme', 'Dejo de estudiar del todo', 'Me enfado con todos'], correcta: 0 },
-          { situacion: 'Alguien se burla de ti.', picto: '😞', options: ['Se lo cuento a una persona de confianza', 'Le pego', 'Me lo callo y sufro solo'], correcta: 0 },
+          { situacion: 'Alguien se burla de ti.', picto: '😞', options: ['Se lo cuento a una persona de confianza y pido ayuda', 'Le pego', 'Me lo callo y sufro solo'], correcta: 0 },
           { situacion: 'Te sientes triste sin saber por qué.', picto: '😢', options: ['Hablo de cómo me siento', 'Me lo guardo todo', 'Grito a los demás'], correcta: 0 },
           { situacion: 'Has cometido un error.', picto: '😳', options: ['Pido perdón y lo arreglo', 'Echo la culpa a otro', 'Me enfado conmigo mismo'], correcta: 0 },
           { situacion: 'Tienes miedo de algo nuevo.', picto: '😨', options: ['Pido ayuda a alguien de confianza', 'Evito hacerlo siempre', 'Finjo que no tengo miedo'], correcta: 0 },
@@ -93,8 +93,8 @@ const DATA = {
           { situacion: 'Sientes envidia porque un amigo tiene algo que tú no.', picto: '😒', options: ['Me alegro por él y sigo a lo mío', 'Se lo quito', 'Le digo cosas feas'], correcta: 0 },
           { situacion: 'Te sientes solo.', picto: '🥺', options: ['Busco a alguien con quien hablar', 'Me escondo siempre', 'Me enfado con todos'], correcta: 0 },
           { situacion: 'Alguien te da una mala noticia.', picto: '😔', options: ['Hablo de lo que siento', 'Lo escondo todo dentro', 'Grito a quien me lo dice'], correcta: 0 },
-          { situacion: 'Te sientes muy orgulloso de algo que has done.', picto: '🥰', options: ['Lo comparto con alguien', 'No se lo cuento a nadie', 'Presumo delante de todos sin parar'], correcta: 0 },
-          { situacion: 'Estás frustrado porque algo no te sale bien.', picto: '😣', options: ['Descanso un timeOfDay y lo vuelvo a intentar', 'Lo rompo todo', 'Dejo de intentarlo para siempre'], correcta: 0 },
+          { situacion: 'Te sientes muy orgulloso de algo que has hecho.', picto: '🥰', options: ['Lo comparto con alguien', 'No se lo cuento a nadie', 'Presumo delante de todos sin parar'], correcta: 0 },
+          { situacion: 'Estás frustrado porque algo no te sale bien.', picto: '😣', options: ['Descanso un momento y lo vuelvo a intentar', 'Lo rompo todo', 'Dejo de intentarlo para siempre'], correcta: 0 },
           { situacion: 'Ves que un amigo está llorando.', picto: '😭', options: ['Le pregunto si necesita ayuda', 'Me río', 'Le dejo solo sin más'], correcta: 0 },
           { situacion: 'Te sientes muy contento por algo bueno que ha pasado.', picto: '😄', options: ['Lo disfruto y lo comparto', 'Lo escondo', 'Me pongo triste igualmente'], correcta: 0 },
           { situacion: 'Te sientes aburrido/a y no sabes qué hacer.', picto: '🥱', options: ['Busco algo tranquilo que me guste hacer', 'Molesto a los demás', 'Me quejo sin parar'], correcta: 0 },
@@ -105,8 +105,8 @@ const DATA = {
           { situacion: 'Sientes curiosidad por algo nuevo pero también un poco de miedo.', picto: '🧐', options: ['Pruebo poco a poco con calma', 'Lo evito siempre por miedo', 'Me obligo a hacerlo de golpe sin pensar'], correcta: 0 },
           { situacion: 'Te sientes agobiado/a porque tienes muchas cosas que hacer.', picto: '😵', options: ['Hago una cosa cada vez, con calma', 'Dejo todo sin terminar', 'Me enfado y lo tiro todo'], correcta: 0 },
           { situacion: 'Alguien no cumple lo que te había prometido.', picto: '🤨', options: ['Le digo cómo me siento con calma', 'Dejo de confiar en todo el mundo para siempre', 'Le grito delante de otros'], correcta: 0 },
-          { situacion: 'Te sientes agradecido/a por algo que alguien ha done por ti.', picto: '🥹', options: ['Le doy las gracias', 'No digo nada', 'Actúo como si no hubiera pasado nada'], correcta: 0 },
-          { situacion: 'Sientes que necesitas un timeOfDay a solas.', picto: '🧘', options: ['Pido un timeOfDay tranquilo para mí', 'Me quedo aunque lo estoy pasando mal', 'Me enfado con quien está cerca'], correcta: 0 }
+          { situacion: 'Te sientes agradecido/a por algo que alguien ha hecho por ti.', picto: '🥹', options: ['Le doy las gracias', 'No digo nada', 'Actúo como si no hubiera pasado nada'], correcta: 0 },
+          { situacion: 'Sientes que necesitas un momento a solas.', picto: '🧘', options: ['Pido un momento tranquilo para mí', 'Me quedo aunque lo estoy pasando mal', 'Me enfado con quien está cerca'], correcta: 0 }
         ]
       }
     ]

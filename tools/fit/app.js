@@ -260,7 +260,7 @@
     btnNext.focus();
   }
 
-  function siguiente() {
+  function next() {
     if (idxPieza >= banco().porRonda) {
       endRound();
     } else {
@@ -293,7 +293,7 @@ $('#transferencia').textContent = '';
     else if (ev.key === 'ArrowUp') { ev.preventDefault(); girar(); }
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); bajar(); }
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {

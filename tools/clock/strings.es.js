@@ -19,7 +19,7 @@
     explicacionCorrecta: '✅ ¡Correcto! Son las ',
     explicacionIncorrectaA: '❌ No es esa hora. Son las ',
     pistaLeer: '🤔 Prueba otra vez. Mira el reloj con calma.',
-    pistaAsociar: '🤔 Prueba otra vez. Piensa en ese timeOfDay del día.',
+    pistaAsociar: '🤔 Prueba otra vez. Piensa en ese momento del día.',
     pistaPoner: '🤔 Prueba otra vez. Ajusta la hora con los botones.',
     pistaConvertir: '🤔 Prueba otra vez. Compara el reloj con los números.',
     convertirAnalogicoDigital: '¿Qué hora marca este reloj?',
@@ -32,7 +32,7 @@
     ponerConfirmar: 'Comprobar',
     refuerzoTitulo: 'Refuerzo',
     refuerzoIntro: 'Vamos a repetir las {n} preguntas que has fallado hasta acertarlas todas.',
-    transferencia: 'Esto te servirá para leer la hora en el reloj de la cocina, en el del cole o en tu propia muñeca, sin tener que preguntar a cada timeOfDay.',
+    transferencia: 'Esto te servirá para leer la hora en el reloj de la cocina, en el del cole o en tu propia muñeca, sin tener que preguntar a cada momento.',
     enPunto: '{h} en punto',
     yCuarto: '{h} y cuarto',
     yMedia: '{h} y media',
@@ -55,7 +55,7 @@
       },
       situaciones: {
         name: 'Momentos del día',
-        descripcion: 'Elige el reloj que corresponde a cada timeOfDay del día.',
+        descripcion: 'Elige el reloj que corresponde a cada momento del día.',
         pregunta: '¿A qué hora pasa esto?'
       }
     },

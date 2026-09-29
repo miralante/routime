@@ -19,6 +19,7 @@
   var cyclesEl = $('#breathingCycles');
   var starsEl = $('#stars');
   var levelsEl = $('#levels');
+  var btnPlay = $('#btnPlay');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -37,6 +38,7 @@
 
   /* Renders the level selection buttons. */
   function renderLevels() {
+    if (!levelsEl) return;
     levelsEl.innerHTML = '';
     bank().niveles.forEach(function (level) {
       var btn = document.createElement('button');
@@ -61,7 +63,7 @@
         endSession();
         return;
       }
-      cyclesEl.textContent = '';
+      if (cyclesEl) cyclesEl.textContent = '';
       if (inhale) {
         textEl.textContent = App.i18n.t('cogeAire');
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('cogeAire'));
@@ -109,9 +111,13 @@
   }
 
   /* Events */
-  $('#btnEndSession').addEventListener('click', stopEarly);
-  $('#btnRepeat').addEventListener('click', function () { startSession(currentLevel); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  var btnEndSession = $('#btnEndSession');
+  if (btnEndSession) btnEndSession.addEventListener('click', stopEarly);
+  if (btnPlay) btnPlay.addEventListener('click', function () { startSession(bank().niveles[0]); });
+  var btnRepeat = $('#btnRepeat');
+  if (btnRepeat) btnRepeat.addEventListener('click', function () { startSession(currentLevel || bank().niveles[0]); });
+  var btnOtherLevel = $('#btnOtherLevel');
+  if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');

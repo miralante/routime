@@ -121,7 +121,8 @@
   function renderActivityProgress() {
     App.utils.$$('#progreso-actividades [data-tool]').forEach(function (cell) {
       var data = App.storage.get(cell.dataset.tool);
-      var stars = typeof data.estrellas === 'number' ? data.estrellas : 0;
+      var stars = typeof data.stars === 'number' ? data.stars :
+        (typeof data.estrellas === 'number' ? data.estrellas : 0);
       cell.textContent = stars > 0 ? '⭐ ' + stars : App.i18n.t('notStarted');
     });
   }

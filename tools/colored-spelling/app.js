@@ -278,7 +278,8 @@
   });
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', startGame);
-  $('#btnMenu').addEventListener('click', function () {
+  var btnMenu = $('#btnMenu');
+  if (btnMenu) btnMenu.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');

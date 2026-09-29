@@ -1,13 +1,13 @@
 /* ============================================================
-   Routime â€” Trazos (motricidad fina)
-   Datos en data.js (DATA.niveles + FORMAS_COMUNES). MÃ³dulos
-   compartidos en assets/js/. MecÃ¡nica: repasar con el dedo o el
-   ratÃ³n una guÃ­a de puntos. Se comprueba cuÃ¡nta guÃ­a se ha
-   cubierto (sin exigir perfecciÃ³n). Sin lÃ­mite de attempts:
+   Routime — Trazos (motricidad fina)
+   Datos en data.js (DATA.niveles + FORMAS_COMUNES). Módulos
+   compartidos en assets/js/. Mecánica: repasar con el dedo o el
+   ratón una guía de puntos. Se comprueba cuánta guía se ha
+   cubierto (sin exigir perfección). Sin límite de attempts:
    "Borrar" permite volver a start.
 
-   Cada forma se compone por referencia ('ref') al catÃ¡logo
-   FORMAS_COMUNES. Esto evita duplicar geometrÃ­a entre ES y EN y
+   Cada forma se compone por referencia ('ref') al catálogo
+   FORMAS_COMUNES. Esto evita duplicar geometría entre ES y EN y
    mantiene una sola fuente de verdad para cada letra.
    ============================================================ */
 (function () {
@@ -47,7 +47,7 @@
   var formas = [];
   var idx = 0;
   var roundHits = 0;
-  var totalRonda = 0;       /* dinÃ¡mico: porRonda o porRondaLibre */
+  var totalRonda = 0;       /* dinámico: porRonda o porRondaLibre */
   var solved = false;
   var trazos = [];       /* array de trazos; cada uno, array de [x,y] */
   var dibujando = false;
@@ -56,7 +56,7 @@
   /* Letras elegidas en modo libre. Cada entrada es { id, ref }. */
   var letrasSeleccionadas = [];
 
-  /* Resuelve la geometrÃ­a (puntos) de una forma: admite tanto
+  /* Resuelve la geometría (puntos) de una forma: admite tanto
      el nuevo formato { ref } como el antiguo { puntos } directo,
      para que scripts anteriores o ampliaciones no rompan. */
   function puntosDeForma(forma) {
@@ -69,19 +69,19 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  /* ---- Modo libre: selecciÃ³n de letters ---- */
+  /* ---- Modo libre: selección de letters ---- */
 
-  /* Pinta las dos rejillas (mayÃºsculas y minÃºsculas). Cada letra
-     es un botÃ³n con status presionado/no-presionado. La etiqueta
-     accesible anuncia el name de la letra y si estÃ¡ elegida. */
+  /* Pinta las dos rejillas (mayúsculas y minúsculas). Cada letra
+     es un botón con status presionado/no-presionado. La etiqueta
+     accesible anuncia el name de la letra y si está elegida. */
   function pintarRejillaLetras() {
     rejillaMayus.innerHTML = '';
     rejillaMinus.innerHTML = '';
-    pintarGrupoLetras(rejillaMayus, DATOS.alfabeto.mayusculas, 'MayÃºscula');
-    pintarGrupoLetras(rejillaMinus, DATOS.alfabeto.minusculas, 'MinÃºscula');
-    /* Restaura selecciÃ³n visual al volver a abrir la pantalla. */
+    pintarGrupoLetras(rejillaMayus, DATOS.alfabeto.mayusculas, 'Mayúscula');
+    pintarGrupoLetras(rejillaMinus, DATOS.alfabeto.minusculas, 'Minúscula');
+    /* Restaura selección visual al volver a abrir la pantalla. */
     marcarSeleccionActual();
   }
 
@@ -161,29 +161,35 @@
     seleccionResumen.textContent = plantilla.replace('{n}', n);
   }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
-
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+  /* Determina el nivel según el progreso y prepara una ronda guiada. */
   function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
+    var idxN = Math.min(progress.roundsCompleted, DATOS.niveles.length - 1);
+    return DATOS.niveles[idxN];
   }
 
-  /* Muestra la dificultad current (etiqueta del nivel). */
   function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.name;
-    }
+    var levelEl = $('#level');
+    if (levelEl && currentLevel) levelEl.textContent = currentLevel.nombre;
   }
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-function iniciarPracticaLibre(seleccion) {
+    modo = 'guiado';
+    formas = App.utils.shuffle(currentLevel.formas).slice(0, DATOS.porRonda);
+    totalRonda = formas.length;
+    idx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    selectionScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
+    render();
+  }
+
+  function iniciarPracticaLibre(seleccion) {
     if (!seleccion || !seleccion.length) return;
-    nivel = null;
+    currentLevel = null;
     modo = 'libre';
     /* Construimos formas a partir de las letters elegidas. Como
        pueden repetirse entre ronda y ronda, las barajamos y nos
@@ -319,7 +325,7 @@ function iniciarPracticaLibre(seleccion) {
     feedbackEl.className = 'feedback';
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= totalRonda) {
       endRound();
@@ -329,7 +335,7 @@ function iniciarPracticaLibre(seleccion) {
   }
 
   function endRound() {
-    if (nivel && currentLevel.id) {
+    if (currentLevel && currentLevel.id) {
       progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     }
     save();
@@ -348,15 +354,16 @@ function iniciarPracticaLibre(seleccion) {
   lienzo.addEventListener('pointercancel', terminarTrazo);
   btnErase.addEventListener('click', borrar);
   btnCheck.addEventListener('click', comprobar);
-  btnNext.addEventListener('click', siguiente);
+  if (btnNext) btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () {
     if (modo === 'libre') {
       iniciarPracticaLibre(letrasSeleccionadas);
-    } else if (nivel) {
+    } else if (currentLevel) {
       startGame();
     }
   });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
+  if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');
@@ -367,7 +374,7 @@ function iniciarPracticaLibre(seleccion) {
     pintarResumenSeleccion();
     selectionScreen.classList.remove('hidden');
   });
-  $('#btnVolverInicio').addEventListener('click', function () {
+  if ($('#btnVolverInicio')) $('#btnVolverInicio').addEventListener('click', function () {
     selectionScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');

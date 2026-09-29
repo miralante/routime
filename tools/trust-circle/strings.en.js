@@ -29,5 +29,4 @@
     "labelCompanero": "Classmate",
     "labelConocido": "Acquaintance"
   }, 'en');
-  }, 'en');
 })();

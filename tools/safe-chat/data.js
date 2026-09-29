@@ -46,11 +46,11 @@ const DATA = {
                   avisoSeguro: 'No conoces a esta persona de verdad. Decir que no protege tus fotos.' },
                 { text: 'Vale, ahora te la mando.',
 segura: false,
-pista: 'Si Cuidado., ¿sabes quién es esta persona de verdad?',
+pista: 'Cuidado. ¿Sabes quién es esta persona de verdad?',
 aviso: 'Cuidado. No sabes quién es esta persona de verdad. Tus fotos son tuyas. No las envíes.' },
                 { text: 'Bueno… solo una foto.',
 segura: false,
-pista: 'Si Aunque sea solo una, no. Una foto tuya dice mucho de ti y ya, ¿la puedes recuperar?',
+pista: 'Aunque sea solo una, no. Una foto tuya dice mucho de ti y, una vez enviada, ¿la puedes recuperar?',
 aviso: 'Aunque sea solo una, no. Una foto tuya dice mucho de ti y ya no la puedes recuperar.' }
               ] },
               { tipo: 'msg', text: 'Venga, porfa. Pensaba que éramos amigos. Los amigos se mandan fotos.' },
@@ -64,7 +64,7 @@ aviso: 'Esta persona quiere que te sientas mal para conseguir tu foto. Eso es un
               ] },
               { tipo: 'msg', text: 'Pues si no me la mandas, dejo de hablarte.' },
               { tipo: 'eleccion', options: [
-                { text: 'Adiós. Se lo voy a contar a una persona de confianza.', segura: true,
+                { text: 'Adiós. Se lo voy a contar a una persona de confianza y pedir ayuda.', segura: true,
                   avisoSeguro: 'Que alguien deje de hablarte por no mandar una foto no es un problema tuyo. Contarlo ayuda.' },
                 { text: 'Espera, no te vayas. Te la mando.',
 segura: false,
@@ -72,7 +72,7 @@ pista: '¿De verdad: no pasa nada si deja de hablarte. Enfadarse y meter prisa e
 aviso: 'No pasa nada si deja de hablarte. Enfadarse y meter prisa es otra trampa.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear a esta persona',
-                confirmacion: 'Has bloqueado a Leo_23. ¡Muy bien done!' }
+                confirmacion: 'Has bloqueado a Leo_23. ¡Muy bien hecho!' }
             ],
             regla: 'Tus fotos son tuyas. No las envíes a personas que no conoces. Si alguien insiste, cuéntaselo a una persona de confianza.'
           },
@@ -111,10 +111,10 @@ aviso: 'No tienes que demostrar nada mandando fotos. Quien te presiona así no e
               { tipo: 'eleccion', options: [
                 { text: 'No enciendo la cámara con gente que no conozco.', segura: true,
                   avisoSeguro: 'La cámara enseña tu cara y tu casa. Con desconocidos, siempre apagada.' },
-                { text: 'Vale, la enciendo un timeOfDay.',
+                { text: 'Vale, la enciendo un momento.',
 segura: false,
-pista: '¿De verdad: un timeOfDay basta para grabar tu imagen. Con desconocidos, la cámara siempre apagada?',
-aviso: 'Un timeOfDay basta para grabar tu imagen. Con desconocidos, la cámara siempre apagada.' }
+pista: '¿De verdad: un momento basta para grabar tu imagen. Con desconocidos, la cámara siempre apagada?',
+aviso: 'Un momento basta para grabar tu imagen. Con desconocidos, la cámara siempre apagada.' }
               ] },
               { tipo: 'msg', text: 'Solo será un segundo. Nadie se va a enterar.' },
               { tipo: 'eleccion', options: [
@@ -126,7 +126,7 @@ pista: '¿De verdad: cuando alguien dice "nadie se va a enterar", es señal de t
 aviso: 'Cuando alguien dice "nadie se va a enterar", es señal de trampa. Para y cuéntalo.' }
               ] },
               { tipo: 'accion', text: '🚫 Colgar y bloquear',
-                confirmacion: 'Has colgado y bloqueado a Vera_Directo. ¡Bien done!' }
+                confirmacion: 'Has colgado y bloqueado a Vera_Directo. ¡Bien hecho!' }
             ],
             regla: 'Con personas que no conoces, la cámara siempre apagada. Si insisten, cuelga y cuéntalo.'
           },
@@ -146,7 +146,7 @@ aviso: 'Si obedeces, pedirá más. Las amenazas se cortan contándolo a una pers
               { tipo: 'msg', text: 'Si se lo cuentas a alguien será peor para ti.' },
               { tipo: 'eleccion', options: [
                 { text: 'No es verdad. Contarlo es lo que me protege.', segura: true,
-                  avisoSeguro: 'Quien te amenaza no quiere que pidas ayuda, porque la ayuda funciona. Tú no has done nada malo.' },
+                  avisoSeguro: 'Quien te amenaza no quiere que pidas ayuda, porque la ayuda funciona. Tú no has hecho nada malo.' },
                 { text: 'Mejor no digo nada y ya está.',
 segura: false,
 pista: '¿De verdad: callar deja el problema en tus manos. Esto lo tiene que arreglar una persona de confianza?',
@@ -166,7 +166,7 @@ aviso: 'Callar deja el problema en tus manos. Esto lo tiene que arreglar una per
                   avisoSeguro: 'Una foto íntima es solo tuya. No se manda a nadie, aunque insista o diga cosas bonitas.' },
                 { text: 'Bueno, como me gusta, le mando una.',
 segura: false,
-pista: 'Si Que alguien te guste, ¿cambia nada: una foto íntima nunca se manda por chat?',
+pista: 'Que alguien te guste no cambia nada: una foto íntima nunca se manda por chat.',
 aviso: 'Que alguien te guste no cambia nada: una foto íntima nunca se manda por chat.' }
               ] },
               { tipo: 'msg', text: 'Si no me la mandas, tendrás que darme dinero para seguir hablando conmigo.' },
@@ -184,11 +184,11 @@ aviso: 'Dar dinero no arregla nada: seguirá pidiendo más. Nunca se paga a quie
                   avisoSeguro: 'Amenazar para que no lo cuentes es la señal más clara de peligro. Contarlo es lo que te protege.' },
                 { text: 'Mejor no digo nada, por si acaso.',
 segura: false,
-pista: 'Si Callar, ¿te protege, solo protege a quien chantajea?',
+pista: '¿Callar te protege o solo protege a quien chantajea?',
 aviso: 'Callar no te protege, solo protege a quien chantajea. Una persona de confianza sabe qué hacer.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y contarlo a una persona de confianza',
-                confirmacion: 'Has bloqueado a Chico_Guapo y lo has contado. Ni fotos ni dinero: has done lo correct.' }
+                confirmacion: 'Has bloqueado a Chico_Guapo y lo has contado. Ni fotos ni dinero: has hecho lo correcto.' }
             ],
             regla: 'Si alguien pide una foto íntima o dinero y amenaza si dices que no, es chantaje. No pagues, no mandes nada: bloquea y cuéntaselo a una persona de confianza, o denúncialo a la policía si no tienes a quién contárselo.'
           }
@@ -206,11 +206,11 @@ aviso: 'Callar no te protege, solo protege a quien chantajea. Una persona de con
               { tipo: 'msg', text: '¡Hola! Me encanta tu foto de perfil. ¿Cómo te llamas de verdad?' },
               { tipo: 'eleccion', options: [
                 { text: 'Prefiero no decirlo.', segura: true,
-                  avisoSeguro: 'No hace falta decir tu name complete a alguien que no conoces.' },
-                { text: 'Te digo mi name y mis apellidos.',
+                  avisoSeguro: 'No hace falta decir tu nombre completo a alguien que no conoces.' },
+                { text: 'Te digo mi nombre y mis apellidos.',
 segura: false,
-pista: 'Si Tu name complete es un dato personal. En internet, mejor, ¿darlo a desconocidos?',
-aviso: 'Tu name complete es un dato personal. En internet, mejor no darlo a desconocidos.' }
+pista: 'Tu nombre completo es un dato personal. En internet, ¿es buena idea darlo a desconocidos?',
+aviso: 'Tu nombre completo es un dato personal. En internet, mejor no darlo a desconocidos.' }
               ] },
               { tipo: 'msg', text: 'Yo vivo en Madrid. ¿Y tú? ¿En qué calle vives?' },
               { tipo: 'eleccion', options: [
@@ -237,25 +237,25 @@ aviso: 'Con tu teléfono te pueden llamar y escribir cuando quieran. No lo des.'
               { tipo: 'accion', text: '🚫 Bloquear a esta persona',
                 confirmacion: 'Has bloqueado a Marta_Fan. Tus datos están a salvo.' }
             ],
-            regla: 'Tus datos son tuyos: name complete, dirección, teléfono y colegio. No los des en internet.'
+            regla: 'Tus datos son tuyos: nombre completo, dirección, teléfono y colegio. No los des en internet.'
           },
           {
             contacto: 'Sorteo_Escolar',
             steps: [
               { tipo: 'msg', text: '¡Hola! Hacemos un sorteo entre estudiantes de tu zona. 🎓' },
-              { tipo: 'msg', text: 'Para participar, escribe tu name complete, tu colegio y tu clase.' },
+              { tipo: 'msg', text: 'Para participar, escribe tu nombre completo, tu colegio y tu clase.' },
               { tipo: 'eleccion', options: [
                 { text: 'No doy mis datos. Preguntaré en mi colegio si esto existe.', segura: true,
                   avisoSeguro: 'Los sorteos de verdad no llegan por chat pidiendo datos. Comprobarlo con tu colegio o familia es lo seguro.' },
                 { text: '¡Quiero participar! Apunta mis datos.',
 segura: false,
-pista: '¿De verdad: este "sorteo" solo quiere tus datos. Con tu name, colegio y clase pueden saber dónde estás…',
-aviso: 'Este "sorteo" solo quiere tus datos. Con tu name, colegio y clase pueden saber dónde estás cada día.' }
+pista: '¿De verdad: este "sorteo" solo quiere tus datos. Con tu nombre, colegio y clase pueden saber dónde estás…',
+aviso: 'Este "sorteo" solo quiere tus datos. Con tu nombre, colegio y clase pueden saber dónde estás cada día.' }
               ] },
               { tipo: 'msg', text: 'Sin tus datos no puedes ganar. ¡Solo quedan 2 plazas!' },
               { tipo: 'eleccion', options: [
                 { text: 'No me importa. No doy mis datos por chat.', segura: true,
-                  avisoSeguro: '"Solo quedan 2 plazas" es prisa falsa para que no pienses. Has done bien en parar.' },
+                  avisoSeguro: '"Solo quedan 2 plazas" es prisa falsa para que no pienses. Has hecho bien en parar.' },
                 { text: 'Vale, rápido: te los mando.',
 segura: false,
 pista: '¿De verdad: la prisa es la trampa. Nadie pierde nada por comprobar antes con su familia?',
@@ -282,7 +282,7 @@ aviso: 'Con tu hora y tu camino, un desconocido sabe dónde encontrarte. Los hor
               { tipo: 'msg', text: 'Es solo para el mapa… ¿me dices al menos tu parada de bus?' },
               { tipo: 'eleccion', options: [
                 { text: 'No. Y se lo voy a contar a mi familia.', segura: true,
-                  avisoSeguro: 'Insistir con preguntas cada vez más pequeñas es una técnica. Contarlo es lo correct.' },
+                  avisoSeguro: 'Insistir con preguntas cada vez más pequeñas es una técnica. Contarlo es lo correcto.' },
                 { text: 'Bueno, la parada sí te la digo.',
 segura: false,
 pista: '¿De verdad: la parada también dice dónde estás cada día?',
@@ -312,7 +312,7 @@ aviso: 'Con la foto de un DNI pueden hacerse pasar por ti o por tu familia. Nunc
                   avisoSeguro: 'Amenazar con borrar la cuenta es para asustarte. Ninguna cuenta vale un documento.' },
                 { text: '¡Mi cuenta no! Lo mando ya.',
 segura: false,
-pista: 'Si Te meten miedo para que, ¿pienses. Para, respira y pregunta a una persona de confianza?',
+pista: 'Si te meten miedo para que pienses deprisa, ¿qué puedes hacer? Para, respira y pregunta a una persona de confianza.',
 aviso: 'Te meten miedo para que no pienses. Para, respira y pregunta a una persona de confianza.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y avisar a una persona de confianza',
@@ -347,7 +347,7 @@ aviso: 'Nadie regala nada a cambio de los números de una tarjeta. Es un engaño
                   avisoSeguro: 'Meter prisa es una técnica para que no pienses. Parar y no darte prisa es lo seguro.' },
                 { text: '¡Rápido, que se acaba! Te doy los números.',
 segura: false,
-pista: 'Si Las prisas son una trampa. Quieren que, ¿pienses?',
+pista: 'Las prisas son una trampa. Quieren que pienses sin comprobar. ¿Qué puedes hacer?',
 aviso: 'Las prisas son una trampa. Quieren que no pienses. Tú puedes parar y pensar con calma.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y avisar a mi familia',
@@ -401,7 +401,7 @@ aviso: 'No es por el euro: al meter la tarjeta, copian todos sus números. Un pr
                   avisoSeguro: 'Muy bien. La prisa y "otros te lo quitan" son trucos para que no pienses.' },
                 { text: '¡Es mía! Pago rápido.',
 segura: false,
-pista: 'Si Nadie te está quitando nada, porque, ¿hay tablet?',
+pista: 'Nadie te está quitando nada. ¿Por qué habría una tablet?',
 aviso: 'Nadie te está quitando nada, porque no hay tablet. Es un truco para que corras sin pensar.' }
               ] },
               { tipo: 'accion', text: '🚫 Cerrar y contarlo en casa',
@@ -416,7 +416,7 @@ aviso: 'Nadie te está quitando nada, porque no hay tablet. Es un truco para que
               { tipo: 'msg', text: 'Reenvía este mensaje a 10 amigos y escribe tu correo para recibirlas.' },
               { tipo: 'eleccion', options: [
                 { text: 'No lo reenvío ni doy mi correo.', segura: true,
-                  avisoSeguro: 'Estos mensajes en cadena reparten el engaño y recogen correos. Cortarlos es lo correct.' },
+                  avisoSeguro: 'Estos mensajes en cadena reparten el engaño y recogen correos. Cortarlos es lo correcto.' },
                 { text: 'Se lo mando a mis amigos, ¡son gratis!',
 segura: false,
 pista: '¿De verdad: si lo reenvías, engañas sin querer a tus amigos?',
@@ -451,7 +451,7 @@ aviso: '"Tus amigos ya lo tienen" es mentira para presionarte. Compruébalo preg
               { tipo: 'msg', text: 'Esto es nuestro secreto, ¿vale? No le digas a nadie que hablamos.' },
               { tipo: 'eleccion', options: [
                 { text: '¿Por qué un secreto? Eso no me gusta.', segura: true,
-                  avisoSeguro: 'Dudar de un secreto raro es buena señal: las personas de confianza no piden save secretos así.' },
+                  avisoSeguro: 'Dudar de un secreto raro es buena señal: las personas de confianza no piden guardar secretos así.' },
                 { text: 'Vale, será nuestro secreto.',
 segura: false,
 pista: '¿De verdad: cuando alguien pide un secreto en internet, algo va mal?',
@@ -507,7 +507,7 @@ aviso: 'La "sorpresa" es el anzuelo. Nada bueno necesita una app escondida para 
                   avisoSeguro: 'Pedir que borres mensajes es esconder pruebas. Las conversaciones normales no se borran.' },
                 { text: 'Vale, los voy borrando.',
 segura: false,
-pista: 'Si borras, nadie podrá ayudarte después?',
+pista: 'Si lo borras, ¿cómo podrá ayudarte alguien después?',
 aviso: 'Si borras los mensajes, nadie podrá ayudarte después. Quien pide borrar, esconde algo malo.' }
               ] },
               { tipo: 'msg', text: 'Es por privacidad… los mayores no lo entenderían.' },
@@ -516,7 +516,7 @@ aviso: 'Si borras los mensajes, nadie podrá ayudarte después. Quien pide borra
                   avisoSeguro: 'Esa frase es la clave: lo que no puede ver una persona de confianza, no es bueno para ti.' },
                 { text: 'Tienes razón, mejor que no lo vean.',
 segura: false,
-pista: 'Si "Los mayores, ¿lo entenderían" significa "los mayores me pararían"?',
+pista: '"Los mayores, ¿lo entenderían?" significa "los mayores me pararían". ¿Te parece una buena señal?',
 aviso: '"Los mayores no lo entenderían" significa "los mayores me pararían". Cuéntaselo a uno.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear sin borrar nada',
@@ -568,11 +568,11 @@ aviso: 'No hay mentiras "pequeñas" sobre con quién hablas. Es la puerta a ment
                   avisoSeguro: 'No sabes quién es de verdad esa persona: no quedar es lo seguro.' },
                 { text: 'Vale, mañana voy.',
 segura: false,
-pista: '¿De verdad: no sabes quién es de verdad. Puede mentir sobre su name o su edad?',
-aviso: 'No sabes quién es de verdad. Puede mentir sobre su name o su edad. No vayas.' },
+pista: '¿De verdad: no sabes quién es de verdad. Puede mentir sobre su nombre o su edad?',
+aviso: 'No sabes quién es de verdad. Puede mentir sobre su nombre o su edad. No vayas.' },
                 { text: 'Voy, pero solo un ratito.',
 segura: false,
-pista: 'Si Aunque sea un ratito, es peligroso., ¿vayas a ningún sitio sin tu familia?',
+pista: 'Aunque sea un ratito, es peligroso. ¿Vas a ir a algún sitio sin tu familia?',
 aviso: 'Aunque sea un ratito, es peligroso. No vayas a ningún sitio sin tu familia.' }
               ] },
               { tipo: 'msg', text: '¿Por qué no? Tengo un regalo para ti.' },
@@ -599,20 +599,20 @@ aviso: 'El regalo es una trampa para que vayas. Cuéntaselo a tu familia.' }
                   avisoSeguro: 'Los cachorros son el anzuelo perfecto. La casa de un desconocido es el sitio menos seguro que hay.' },
                 { text: '¡Cachorros! Dime tu dirección.',
 segura: false,
-pista: 'Si Piénsalo: ¿por qué un desconocido invita a su casa a alguien que, ¿conoce? Los cachorros son el…',
+pista: 'Piénsalo: ¿por qué un desconocido invita a su casa a alguien que no conoce? Los cachorros son el…',
 aviso: 'Piénsalo: ¿por qué un desconocido invita a su casa a alguien que no conoce? Los cachorros son el truco.' }
               ] },
-              { tipo: 'msg', text: 'Solo será un timeOfDay, y te llevas uno gratis.' },
+              { tipo: 'msg', text: 'Solo será un momento, y te llevas uno gratis.' },
               { tipo: 'eleccion', options: [
                 { text: 'No. Y se lo voy a enseñar a mi familia.', segura: true,
                   avisoSeguro: 'Enseñar el chat a tu familia es lo mejor: ellos pueden comprobar si algo es de verdad.' },
                 { text: 'Gratis… vale, dime dónde vives.',
 segura: false,
-pista: '¿De verdad: "Gratis" y "solo un timeOfDay" son las words de las trampas?',
-aviso: '"Gratis" y "solo un timeOfDay" son las words de las trampas. Nunca vayas a casa de un desconocido.' }
+pista: '¿De verdad: "Gratis" y "solo un momento" son las palabras de las trampas?',
+aviso: '"Gratis" y "solo un momento" son las palabras de las trampas. Nunca vayas a casa de un desconocido.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y enseñar el chat en casa',
-                confirmacion: 'Has bloqueado a Cachorros_Adopta y has enseñado el chat. ¡Muy bien done!' }
+                confirmacion: 'Has bloqueado a Cachorros_Adopta y has enseñado el chat. ¡Muy bien hecho!' }
             ],
             regla: 'Nunca vayas a casa de alguien que conociste por internet, dé igual lo que ofrezca. Enséñale el chat a tu familia.'
           },
@@ -759,7 +759,7 @@ aviso: 'Los números de una tarjeta regalo son como dinero: si los mandas, desap
                   avisoSeguro: '"No preguntes a nadie" es la señal más clara de engaño. Las cosas de verdad aguantan una pregunta.' },
                 { text: 'Vale, vale, no pregunto. Ya voy.',
 segura: false,
-pista: 'Si Cuando alguien, ¿quiere que preguntes, es porque preguntando se descubre el engaño?',
+pista: 'Cuando alguien no quiere que preguntes, ¿será porque al preguntar se descubre el engaño?',
 aviso: 'Cuando alguien no quiere que preguntes, es porque preguntando se descubre el engaño.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y avisar a mi familia',
@@ -786,7 +786,7 @@ aviso: 'Cualquiera puede escribir "soy tu primo". Antes de nada, comprueba llama
                   avisoSeguro: 'Pedir silencio a la familia + prisa + dinero = engaño seguro. Lo has visto perfectamente.' },
                 { text: 'Ah, una sorpresa… entonces no digo nada.',
 segura: false,
-pista: 'Si La "sorpresa" es para que, ¿compruebes nada?',
+pista: 'La "sorpresa" es para que no compruebes nada. ¿Te parece seguro?',
 aviso: 'La "sorpresa" es para que no compruebes nada. Tu primo de verdad no te pediría eso.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y llamar a mi primo de verdad',
@@ -813,7 +813,7 @@ aviso: 'Usan fotos tristes para que actúes sin pensar. Las donaciones de verdad
                   avisoSeguro: 'Exacto: la culpa y la pena son sus herramientas. Detectarlas es protegerte.' },
                 { text: 'No puedo dejarlos así… dono ya.',
 segura: false,
-pista: 'Si El dinero, ¿iría a ningún gatito. Si quieres ayudar animales, tu familia conoce protectoras de verdad?',
+pista: 'El dinero no iría a ningún gatito. Si quieres ayudar a los animales, ¿tu familia conoce protectoras de verdad?',
 aviso: 'El dinero no iría a ningún gatito. Si quieres ayudar animales, tu familia conoce protectoras de verdad.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y hablarlo en casa',
@@ -831,7 +831,7 @@ aviso: 'El dinero no iría a ningún gatito. Si quieres ayudar animales, tu fami
                   avisoSeguro: 'Unos días de chat no son una amistad de verdad. La confianza y el dinero se ganan con tiempo, no se piden en la primera semana.' },
                 { text: 'Bueno… si lo conoce Marta, será de fiar. Te lo mando.',
 segura: false,
-pista: 'Si Que conozca a una amiga tuya, ¿significa que tú lo conozcas a él?',
+pista: 'Que conozca a una amiga tuya no significa que tú lo conozcas a él. ¿Verdad?',
 aviso: 'Que conozca a una amiga tuya no significa que tú lo conozcas a él. La confianza no se hereda tan rápido.' }
               ] },
               { tipo: 'msg', text: 'Venga, no seas así, pensaba que ya éramos amigos de verdad…' },
@@ -840,7 +840,7 @@ aviso: 'Que conozca a una amiga tuya no significa que tú lo conozcas a él. La 
                   avisoSeguro: 'Exacto: la amistad de verdad no se mide en préstamos. Insistir así es una señal de alarma.' },
                 { text: 'Vale, para que no se enfade, le presto un poco.',
 segura: false,
-pista: 'Si Ceder para que, ¿se enfade es justo lo que busca?',
+pista: 'Ceder para que no se enfade es justo lo que busca. ¿Te parece seguro?',
 aviso: 'Ceder para que no se enfade es justo lo que busca. Un conocido de unos días no necesita tu dinero.' }
               ] },
               { tipo: 'accion', text: '🚫 Bloquear y contarlo en casa',
@@ -854,7 +854,7 @@ aviso: 'Ceder para que no se enfade es justo lo que busca. Un conocido de unos d
 
     normas: [
       { picto: '📷', text: 'Tus fotos son tuyas. No las envíes a personas que no conoces.' },
-      { picto: '🏠', text: 'No des tus datos: name complete, dirección, teléfono, colegio ni horarios.' },
+      { picto: '🏠', text: 'No des tus datos: nombre completo, dirección, teléfono, colegio ni horarios.' },
       { picto: '🎁', text: 'Si te regalan algo a cambio de datos o dinero, es un engaño.' },
       { picto: '🤫', text: 'Los secretos de internet no se guardan. Cuéntalos a una persona de confianza.' },
       { picto: '📍', text: 'Nunca quedes con alguien que solo conoces por internet.' },
@@ -1229,7 +1229,7 @@ aviso: 'It is not about the euro: when you enter the card, they copy all its num
                   avisoSeguro: 'Well done. Urgency and "others will take it" are tricks so you do not think.' },
                 { text: "It's mine! Paying quickly.",
 segura: false,
-pista: 'Si Nobody is taking anything, because there is, ¿tablet?',
+pista: 'Nobody is taking anything. Why would there be a tablet?',
 aviso: 'Nobody is taking anything, because there is no tablet. It is a trick to make you rush.' }
               ] },
               { tipo: 'accion', text: '🚫 Close and tell someone at home',
@@ -1309,7 +1309,7 @@ aviso: 'Telling someone what is happening is never wrong. People you trust can h
                   avisoSeguro: 'Wanting to take you somewhere "where nobody sees you" is a very clear warning sign.' },
                 { text: "Okay, I'll download that app.",
 segura: false,
-pista: 'Si They want to take you where, ¿trusted person can see the conversation?',
+pista: 'They want to take you somewhere a trusted person cannot see the conversation. Is that safe?',
 aviso: 'They want to take you where no trusted person can see the conversation. That is where problems start.' }
               ] },
               { tipo: 'msg', text: "It's just that I can't tell you my surprise here…" },
@@ -1370,7 +1370,7 @@ aviso: 'If lying is needed just to talk to you, that person knows they are doing
                   avisoSeguro: "Exactly: your family's worry is protection. Telling them switches that protection on." },
                 { text: 'Well, if it is a tiny one…',
 segura: false,
-pista: 'Si There are, ¿"tiny" lies about who you talk to?',
+pista: 'There are "tiny" lies about who you talk to. Is that safe?',
 aviso: 'There are no "tiny" lies about who you talk to. It is the door to bigger lies.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell the truth at home',

@@ -1,5 +1,5 @@
-﻿/* The Path â€” tool-specific styles. Shared styles live in assets/css/.
-   Acento del mÃ³dulo Memoria y atenciÃ³n (naranja --mod-memoria). */
+﻿/* The Path — tool-specific styles. Shared styles live in assets/css/.
+   Acento del módulo Memoria y atención (naranja --mod-memoria). */
 
 .tool-header h1 { color: var(--mod-memoria); }
 

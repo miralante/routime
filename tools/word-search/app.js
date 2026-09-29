@@ -333,7 +333,7 @@
     paintStars();
     var summary = t('finalSummary').replace('{n}', earned).replace('{total}', progress.stars);
     finalSummaryEl.textContent = summary;
-    $('##transferencia').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.pick('feedback.success'), function () {
       show(endScreen);
     });
@@ -344,7 +344,8 @@
   hintBtn.addEventListener('click', giveHint);
   boardEl.addEventListener('keydown', onBoardKeydown);
   $('#btnRepeat').addEventListener('click', function () { start(); });
-  $('#btnMenu').addEventListener('click', function () {
+  var btnMenu = $('#btnMenu');
+  if (btnMenu) btnMenu.addEventListener('click', function () {
     show(startScreen);
     paintStars();
   });

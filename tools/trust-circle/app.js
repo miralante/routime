@@ -133,7 +133,7 @@
       showExplanation(item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -152,11 +152,11 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#opciones .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -179,11 +179,11 @@
   }
 
   /* Events */
-  btnListen.addEventListener('click', function () {
+  if (btnListen) btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
   });
-  btnNext.addEventListener('click', siguiente);
-  btnEscucharExplicacion.addEventListener('click', function () {
+  btnNext.addEventListener('click', next);
+  if (btnEscucharExplicacion) btnEscucharExplicacion.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionEl.textContent);
   });
   $('#btnPlay').addEventListener('click', function () {

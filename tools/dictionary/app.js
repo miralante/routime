@@ -170,7 +170,7 @@
       quizExplanationWrap.classList.remove('hidden');
       quizResolved = true;
       btn.classList.add('correcta');
-      App.utils.$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(quizFeedback);
       progress.stars += 1;
       quizCorrectCount += 1;
@@ -190,7 +190,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }
   }
 
@@ -218,18 +218,19 @@
 
   $('#btnPlay').addEventListener('click', startGame);
   nextCardBtn.addEventListener('click', nextCard);
-  cardListenBtn.addEventListener('click', function () {
+  if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(currentLevel.words[cardIdx]));
   });
-  quizListenBtn.addEventListener('click', function () {
+  if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(quizItems[quizIdx].word + '. ' + t('quizQuestion'));
   });
-  quizExplanationListenBtn.addEventListener('click', function () {
+  if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
+  var btnMenu = $('#btnMenu');
+  if (btnMenu) btnMenu.addEventListener('click', function () {
     endScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');
     cardsScreen.classList.add('hidden');

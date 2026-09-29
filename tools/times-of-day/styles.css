@@ -1,5 +1,5 @@
-﻿/* Times of Day â€” tool-specific styles. Shared styles live in assets/css/.
-   Acento del mÃ³dulo AutonomÃ­a y hogar (verde --mod-secuencia). */
+﻿/* Times of Day — tool-specific styles. Shared styles live in assets/css/.
+   Acento del módulo Autonomía y hogar (verde --mod-secuencia). */
 
 .tool-header h1 { color: var(--mod-secuencia); }
 

@@ -1,8 +1,8 @@
 /* ============================================================
-   Routime â€” Entre Amigos (emociones en otros y conflictos)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: leer una situaciÃ³n con amigos y select la respuesta
-   mÃ¡s adecuada entre 3 options. Ronda de 8. Sin castigo por fallo.
+   Routime — Entre Amigos (emociones en otros y conflictos)
+   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
+   Mecánica: leer una situación con amigos y select la respuesta
+   más adecuada entre 3 options. Ronda de 8. Sin castigo por fallo.
    ============================================================ */
 (function () {
   'use strict';
@@ -41,16 +41,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -65,6 +61,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     progressFill.style.width = ((idx / banco().porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -123,7 +120,7 @@ function renderProgress() {
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -142,11 +139,11 @@ function renderProgress() {
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -169,7 +166,7 @@ $('#transferencia').textContent = '';
   btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
@@ -179,4 +176,3 @@ $('#transferencia').textContent = '';
 
   renderStars();
 })();
-

@@ -6,7 +6,7 @@
 > ver [`CONTRIBUTING.es.md`](../../CONTRIBUTING.es.md) de la raíz.
 >
 > **Aplicación**: [routime.apptonomia.uk](https://routime.apptonomia.uk) ·
-> **Repositorio**: [github.com/thenkdframe/routime](https://github.com/thenkdframe/routime) ·
+> **Repositorio**: [github.com/miralante/routime](https://github.com/miralante/routime) ·
 > **Other language**: [English](../en/index.md)
 
 ---

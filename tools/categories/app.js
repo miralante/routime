@@ -1,7 +1,7 @@
 /* ============================================================
-   Routime â€” CategorÃ­as (lenguaje)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: aparece una palabra con picto y hay que tocar la caja
+   Routime — Categorías (lenguaje)
+   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
+   Mecánica: aparece una palabra con picto y hay que tocar la caja
    del grupo al que pertenece. Ronda de 10 words por nivel.
    ============================================================ */
 (function () {
@@ -41,18 +41,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* ---- Pantalla inicial ---- */
-  ', veces) + '</span>';
-      btn.addEventListener('click', function () { startRound(n); });
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -67,6 +61,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
@@ -100,7 +95,7 @@ function renderProgress() {
       var btnAudio = document.createElement('button');
       btnAudio.type = 'button';
       btnAudio.className = 'btn btn-audio';
-      btnAudio.textContent = 'ðŸ”Š';
+      btnAudio.textContent = '🔊';
       btnAudio.setAttribute('aria-label', App.i18n.t('escucharCategoria').replace('{categoria}', categoria));
       btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(categoria); });
 
@@ -158,7 +153,7 @@ function renderProgress() {
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -181,7 +176,7 @@ $('#transferencia').textContent = '';
   btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].palabra);
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
@@ -191,4 +186,3 @@ $('#transferencia').textContent = '';
 
   renderStars();
 })();
-

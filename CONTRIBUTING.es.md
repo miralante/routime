@@ -1,53 +1,30 @@
 # Contribuir a Routime
 
 > 🌐 **Otros idiomas:** [English](CONTRIBUTING.md)
+>
+> **Parte de la suite [Miralante](https://apptonomia.uk)** —
+> Routime es uno de los siete proyectos hermanos (Apptonomia,
+> Calculia, Memofun, Okeymoney, Routime, Sinonimia, Teclatlon) que
+> comparten el mismo flujo de trabajo, las mismas reglas de
+> accesibilidad y el mismo código de conducta. Este repo publica
+> **Routime** en sí.
 
-Routime tiene **tres roles diferenciados** en su comunidad:
-
-1. 👤 **Personas tipo** → son las **personas usuarias finales** de la app (ver
-   [`doc/es/roles.md`](doc/es/roles.md) para el contexto interno completo)
-2. ❤️ **Familiares y terapeutas** → son las **personas de apoyo** que las acompañan
-3. 💻 **Desarrolladores** → son las **personas que construyen** el software
-
-Esta guía es para los roles **2 y 3** (apoyo y construcción), que son quienes
-participan en GitHub. Las **personas usuarias finales no leen ni escriben
-código**, y ese es justamente el objetivo: que la herramienta sea para ellas.
-
----
-
-## 👥 Los tres roles del proyecto
-
-| # | Rol | Quién es | Participa en GitHub |
-|---|---|---|---|
-| 1 | 👤 **Persona usuaria** | Practica las actividades en la app | No. Usa la app de forma autónoma. Su experiencia es el centro del producto, pero no lee esta documentación. |
-| 2 | ❤️ **Persona de apoyo** (familia, terapeuta, cuidador/a, profesor/a) | Persona cercana a la persona usuaria | **Sí**, con contenido: propone actividades, revisa PRs de contenido, reporta desde el uso real. |
-| 3 | 💻 **Persona de construcción** (desarrollador/a, diseñador/a UX, traductor/a) | Programa o diseña el software | **Sí**, con código: implementa, revisa, despliega. |
-
-> ⚠️ Las decisiones puramente técnicas (GitHub, arquitectura del código,
-> infraestructura) las toman las personas de los roles 2 y 3, **no porque se
-> ignore a la persona usuaria, sino porque es el ámbito propio de cada rol**.
-> Las decisiones de producto, contenido, lenguaje y diseño de la interfaz **sí
-> se prueban y se validan con ella** siempre que es posible, y su feedback es
-> la fuente principal para mejorarlas.
-
-Consulta [`doc/es/roles.md`](doc/es/roles.md) para saber por dónde debe
-empezar cada rol (README, guía rápida, equipo.md, tecnico.md, …).
+Gracias por tu interés en contribuir. Esta guía cubre el flujo de
+trabajo en GitHub que seguimos en toda la suite, los roles del
+proyecto y el pequeño conjunto de recetas que mantienen a cada
+hermano coherente.
 
 ---
 
 ## 🔀 Flujo de trabajo en GitHub
 
-Este es el flujo que usamos para integrar contribuciones de forma ordenada.
-
-### Para cualquier perfil participante
-
-```
+```text
 1. 🔍 Buscar o crear un issue (en español o inglés)
 2. 💬 Comentar y consensuar el alcance
 3. 🌿 Crear una rama (fork si no tienes acceso de push)
-4. ✏️  Hacer los cambios siguiendo nuestras guías
+4. ✏️  Hacer los cambios siguiendo las recetas de abajo
 5. 📤 Abrir un Pull Request (PR) referenciando el issue
-6. 👀 Esperar revisión (al menos 1 del perfil correspondiente)
+6. 👀 Esperar revisión (al menos 1 de un maintainer)
 7. ✅ Merge cuando hay aprobación
 ```
 
@@ -55,180 +32,131 @@ Este es el flujo que usamos para integrar contribuciones de forma ordenada.
 
 | Etiqueta | Significado |
 |---|---|
-| `terapéutico` | Propuesta o cambio relativo a contenido clínico/actividades |
 | `UX` | Mejora de usabilidad o experiencia |
-| `contenido` | Textos, traducciones, Lectura Fácil |
+| `contenido` | Textos, traducciones, copy de accesibilidad |
 | `bug` | Error reproducible en el comportamiento |
-| `tech` | Implementación técnica, refactor, deuda técnica |
+| `tech` | Implementación técnica, refactor |
 | `docs` | Cambios en la documentación |
 | `good first issue` | Apto para una primera contribución |
-| `necesita-terapeuta` | Espera revisión de un terapeuta antes del merge |
-| `necesita-dev` | Espera revisión de un desarrollador antes del merge |
 
 ### Convenciones de ramas
 
 - `feat/<slug>` — nuevas funcionalidades
 - `fix/<slug>` — corrección de bugs
 - `docs/<slug>` — cambios solo en documentación
-- `terapia/<slug>` — cambios de contenido terapéutico (textos de actividades, fichas)
+- `content/<slug>` — cambios solo de contenido (tarjetas, actividades)
 - `i18n/<código>` — traducción a un idioma (ej. `i18n/ca`, `i18n/gl`)
-
-Ejemplos:
-- `terapia/nueva-actividad-señales`
-- `i18n/ca-catalan`
-- `fix/audio-no-suena-en-movil`
 
 ### Commits
 
-- Mensaje en **inglés** (convención del repo), resumen en imperativo
-- Una cosa por commit — commits grandes se pueden pedir trocear
-- Si cierran un issue, incluir `Closes #123` al final
+- Mensaje en **inglés** (convención del repo), resumen en imperativo.
+- Una cosa por commit — commits grandes se pueden pedir trocear.
+- Si cierran un issue, incluir `Closes #123` al final.
 
 ---
 
-## ❤️ Guía para personas de apoyo (familia, terapeuta, cuidador/a, profesor/a)
+## 👥 Roles del proyecto
 
-### Qué puedes aportar
+| # | Rol | Lee primero |
+|---|---|---|
+| 1 | 👤 **Persona usuaria** (persona tipo) | La app — nunca este fichero. |
+| 2 | 🤝 **Apoyo** (familia, terapeuta, cuidador/a, docente) | El `doc/es/roles.md` y la `doc/es/guia-rapida.md`. |
+| 3 | 💻 **Persona constructora** (contenido o código) | Este fichero, más el `doc/es/SPEC.md`, el `doc/es/tecnico.md` y el `CLAUDE.md`. |
 
-- **Proponer una actividad nueva** con su ficha (objetivo, niveles, mensajes, datos)
-- **Revisar el wording** de actividades existentes (estilo, Lectura Fácil, tono)
-- **Corregir contenido** clínico o de autonomía del hogar
-- **Identificar áreas terapéuticas** no cubiertas
-- **Sugerir adaptaciones** para perfiles concretos de usuario
-- **Reportar desde el uso real** (lo que funciona, lo que frustra, lo que echan en falta)
-
-### Cómo empezar
-
-1. Lee [`doc/es/spec.md`](doc/es/spec.md) — entenderás QUÉ es Routime y POR QUÉ existe
-2. Lee [`doc/es/equipo.md`](doc/es/equipo.md) — visión clínica de las actividades
-3. Examina [`doc/es/actividades.md`](doc/es/actividades.md) — qué hay y qué falta
-4. Lee el apartado §3 del SPEC: las **restricciones innegociables** son las que tu contenido nunca debe romper
-
-### Cómo proponer contenido
-
-Abre un **issue** con la etiqueta `terapéutico` y rellena:
-
-```markdown
-## Actividad propuesta: <Nombre>
-
-### Objetivo terapéutico
-- Área: (coordinación / autonomía / memoria / razonamiento / lenguaje / emociones)
-- Habilidad concreta: <qué se trabaja>
-- Población objetivo: <rango de edad o nivel>
-
-### Descripción breve
-<qué hace la actividad en 2-3 frases>
-
-### Niveles previstos
-- Nivel 1 (Fácil): <cómo cambia una sola variable>
-- Nivel 2 (Medio): <cómo cambia una sola variable>
-- Nivel 3 (Difícil): <cómo cambia una sola variable>
-
-### Mensajes de acierto / ánimo (ES)
-- Acierto: "..."
-- Ánimo: "..."
-
-### Texto en pantalla (ES)
-- Título: "..."
-- Instrucción: "..."
-
-### Texto en pantalla (EN) — opcional pero muy bienvenida
-- Title: "..."
-- Instruction: "..."
-
-### Referencia o inspiración
-<libro, artículo, página web, práctica habitual, etc.>
-```
-
-Después, una persona desarrolladora la implementará en `tools/<slug>/`
-siguiendo la receta de [`doc/es/tecnico.md`](doc/es/tecnico.md) §9.
-
-### Cómo revisar una actividad
-
-Cuando un PR añade una actividad, tu revisión como persona de apoyo es lo que
-valida que:
-
-- Los textos están en Lectura Fácil
-- El objetivo terapéutico coincide con la mecánica
-- Las opciones y pistas son adecuadas
-- No hay lenguaje clínico en la interfaz
+> Las decisiones puramente técnicas viven en el rol de persona
+> constructora, **no porque se ignore a la persona usuaria, sino
+> porque ese es el dominio de cada rol.** Las decisiones de
+> producto, contenido, idioma y diseño de UI **se prueban y validan
+> con la persona usuaria siempre que es posible**, y su feedback es
+> la fuente principal de mejora.
 
 ---
 
-## 💻 Guía para personas de construcción (desarrolladores)
+## 📝 Qué puedes aportar
 
-### Qué puedes aportar
+- **Correcciones de copy** — typos, redacción más clara, ajustes de
+  accesibilidad en los `strings.<locale>.js` por actividad.
+- **Nueva actividad / elemento** — consulta
+  [`doc/es/guia-crear-elementos.md`](doc/es/guia-crear-elementos.md)
+  para la receta completa (seis ficheros canónicos, paridad de
+  catálogo, bump de SW, reglas de didáctica y lectura fácil).
+- **Nuevo idioma** — consulta el `doc/es/I18N.md` del hermano para
+  la receta completa.
+- **Accesibilidad** — contraste, orden de foco, visibilidad de foco,
+  `prefers-reduced-motion`, etiquetas ARIA, copy en lectura fácil
+  (UNE 153101).
+- **Corrección de bugs** — cualquier cosa que se rompa en un
+  navegador soportado.
+- **Cabeceras de seguridad / CSP** — endurecer la política en
+  `_headers`.
 
-- Implementar actividades nuevas a partir de issues `terapéutico`
-- Corregir bugs y mejorar rendimiento
-- Refactorizar código compartido (`assets/`)
-- Mejorar accesibilidad, PWA, responsive
-- Mantener `tecnico.md` al día
-
-### Cómo empezar
-
-1. Lee [`doc/es/spec.md`](doc/es/spec.md) §3–§4 — restricciones y principios de producto
-2. Lee [`doc/es/tecnico.md`](doc/es/tecnico.md) o [`doc/en/technical.md`](doc/en/technical.md)
-   entero — entenderás la arquitectura, la API del núcleo y las recetas
-3. Ejecuta `node scripts/check.js` — verifica que tu entorno está bien
-
-### Recetas rápidas
-
-- **Actividad nueva** → [`doc/es/tecnico.md`](doc/es/tecnico.md) §9
-- **Módulo nuevo** → [`doc/es/tecnico.md`](doc/es/tecnico.md) §10
-- **Idioma nuevo** → [`doc/es/i18n.md`](doc/es/i18n.md) §5
-
-### Checklist antes de abrir PR
-
-- `node scripts/check.js` pasa sin errores
-- `node scripts/smoke.js` pasa sin errores (Chromium ES+EN, todas las actividades)
-- `node scripts/cross-browser.js` pasa sin errores (Chrome + Firefox + Safari, escritorio + iPhone + Pixel 5)
-- Probado en móvil (responsive 360 px)
-- Sin errores en consola
-- Si cambias archivos cacheados, has subido `VERSION` en `sw.js`
-- Si has añadido una actividad, está en `team/index.html` y `site/index.html`
+Cada una de estas es lo bastante pequeña como para que las recetas
+de abajo la cubran sin una revisión arquitectónica aparte.
 
 ---
 
-## 🌐 Guía para traductores
+## 🌐 Recetas
 
-- Toda la UI vive en archivos `strings.<locale>.js` dentro de cada actividad
-- Para añadir un idioma nuevo, ver [`doc/es/i18n.md`](doc/es/i18n.md) §5
-- Mantén el estilo **Lectura Fácil** también en la traducción
-- Cuidado con números y dinero (separadores y escala): ver nota en
-  [`doc/es/tecnico.md`](doc/es/tecnico.md) §3.3
+### Corrección de copy
+
+1. Edita el `strings.<locale>.js` fuente de verdad (`es` por defecto).
+2. Refleja el cambio en todos los demás ficheros de strings
+   (`en` como mínimo).
+3. Si el cambio toca estructura HTML visible, ejecuta
+   `node scripts/check.js` para verificar la paridad de claves.
+4. Abre un PR con una descripción de una línea.
+
+### Nuevo idioma
+
+Consulta el `doc/es/I18N.md` para el paso a paso completo. Añadir un
+idioma **no requiere cambios** en el bootstrap ni en el código de la
+app.
+
+### Mejora de accesibilidad
+
+Lee primero el `doc/es/SPEC.md` §3 — las restricciones innegociables
+viven ahí (botones ≥ 64×64 px, contraste WCAG AA con AAA como
+objetivo de diseño, copy en lectura fácil, feedback sin presión).
+Cualquier cosa que las rompa será rechazada.
+
+### Añadir o endurecer una cabecera de seguridad
+
+Las cabeceras viven en `_headers`. La CSP es deliberadamente
+estricta (`script-src 'self'`, sin scripts inline; JSON-LD es dato y
+no necesita `unsafe-inline`). Endurecerla es bienvenido; relajarla
+casi nunca lo es — abre un issue antes.
 
 ---
 
-## 🚫 Lo que este repo NO acepta
+## ✅ Checklist antes de abrir PR
 
-(Están aquí para que no se sugieran y nos ahorren tiempo a todos)
+- [ ] `node scripts/check.js` pasa en local.
+- [ ] Si este PR toca un fichero cacheado, bumpeaste `VERSION` en
+      `sw.js`.
+- [ ] Si añadiste cadenas de UI, todos los locales soportados están en
+      sincronía.
+- [ ] Probaste el flujo en al menos un navegador real de escritorio
+      (Chrome / Firefox / Safari) y en móvil (320/375/768 px).
+- [ ] No añadiste ninguna dependencia de runtime nueva — solo HTML /
+      CSS / JS vanilla.
+- [ ] No aflojaste la CSP en `_headers` sin abrir un issue.
 
-- **Cambios que rompan autonomía, accesibilidad o privacidad** — son las
-  restricciones innegociables del producto ([SPEC §3](doc/es/spec.md))
-- **Dependencias nuevas** (npm, CDNs) — solo JS vanilla, ver [`doc/es/tecnico.md`](doc/es/tecnico.md) §1
-- **Funcionalidades que añadan presión** al usuario final (cronómetros visibles,
-  rankings, comparativas, "game over")
-- **Lenguaje clínico en la UI** — solo se permite en `team/` y en la
-  documentación interna
-- **Datos personales** de ningún tipo — la app funciona en `localStorage`
-  únicamente
-- **Imponer decisiones técnicas a la persona usuaria** — su experiencia
-  siempre se cuida desde el diseño, no se le consulta sobre GitHub
+---
+
+## 🚫 Lo que este repositorio NO acepta
+
+- **Relajar la CSP** (`script-src 'self'` se queda estricto).
+- **Nuevas dependencias de runtime** — solo HTML / CSS / JS vanilla.
+- **Añadir analítica / telemetría / llamadas a terceros.**
+- **Datos personales** de cualquier tipo.
+- **Una SPA, un router o un paso de build.**
 
 ---
 
 ## 📞 Comunicación
 
-- **Issues** → principal vía para propuestas, bugs, preguntas
-- **Discussions** (si está habilitado) → para debate abierto, preguntas
-  generales, ayuda
-- **Pull Request reviews** → para revisión de cambios concretos
-
-> 💡 **Consejo**: si tu contribución cruza límites (ej. una actividad que
-> necesita una persona de apoyo + una persona desarrolladora), abre **dos
-> issues relacionados** o un issue con ambas etiquetas (`necesita-terapeuta`,
-> `necesita-dev`). Así ambas saben que tienen que intervenir.
+- **Issues** → canal principal para propuestas, bugs, preguntas.
+- **Revisiones de Pull Request** → para revisar cambios concretos.
 
 ---
 
@@ -239,7 +167,7 @@ Participar implica aceptarlo.
 
 ---
 
-## 🙏 Agradecimientos
+## 🙏 Gracias
 
-Gracias por dedicar tiempo a una herramienta que ayuda a nuestros/as
-personas tipo a ser un poco más autónomas cada día.
+Gracias por dedicar tiempo a una herramienta que ayuda a las personas
+a entrenar mente y habilidades de la vida diaria entre sesiones.

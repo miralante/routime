@@ -27,7 +27,7 @@
   }
 
   function paintStars() {
-    $('##stars').textContent = '';
+    $('#stars').textContent = '';
   }
 
   function showScreen(screenId) {
@@ -61,7 +61,7 @@
   }
 
   function showExplanation(labelKey, text) {
-    $('##explanation').textContent = '';
+    $('#explanation').textContent = '';
     $('#explanationWrap').classList.remove('hidden');
   }
 
@@ -69,16 +69,16 @@
     var currentCase = cases[caseIndex];
     solved = false;
     attempts = 0;
-    $('##caseIcon').textContent = '';
-    $('##caseText').textContent = '';
-    $('##feedback').textContent = '';
+    $('#caseIcon').textContent = '';
+    $('#caseText').textContent = '';
+    $('#feedback').textContent = '';
     $('#feedback').className = 'feedback';
-    $('##explanation').textContent = '';
+    $('#explanation').textContent = '';
     $('#explanationWrap').classList.add('hidden');
     $('#nextButton').classList.add('hidden');
     $('#options').innerHTML = '';
     $('#progressFill').style.width = ((caseIndex / cases.length) * 100) + '%';
-    $('##progressText').textContent = '';
+    $('#progressText').textContent = '';
 
     App.utils.shuffle(currentCase.choices.slice()).forEach(function (choice) {
       var button = document.createElement('button');
@@ -131,11 +131,11 @@
     progress.roundsCompleted += 1;
     save();
     paintStars();
-    $('##endText').textContent = '';
-    $('##resumenFinal').textContent = '';
+    $('#endText').textContent = '';
+    $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompleted + 1, bank.levels.length));
-    $('##transferencia').textContent = '';
+    $('#transferencia').textContent = '';
     showScreen('endScreen');
     $('#endHeading').focus();
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
@@ -155,7 +155,8 @@
   $('#btnPlay').addEventListener('click', function () {
     startGame();
   });
-  $('#btnMenu').addEventListener('click', function () {
+  var btnMenu = $('#btnMenu');
+  if (btnMenu) btnMenu.addEventListener('click', function () {
     showScreen('startScreen');
     paintStars();
   });

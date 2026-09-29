@@ -129,18 +129,7 @@
 }
 
 .progress-bar {
-  width: 100%;
-  height: 8px;
-  background: var(--color-borde);
-  border-radius: var(--radio);
-  overflow: hidden;
-  margin: calc(var(--espacio) * 2) 0;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--mod-emocional);
-  transition: width 0.3s ease;
+  margin: var(--espacio) 0;
 }
 
 .feedback {

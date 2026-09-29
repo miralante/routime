@@ -183,6 +183,9 @@
     set: set,
     remove: remove,
     totalStars: totalStars,
+    /* Compatibility alias for the settings and landing pages written
+       before the English API rename. */
+    estrellasTotales: totalStars,
     listaToolIds: listaToolIds
   };
 })();

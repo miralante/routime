@@ -25,10 +25,10 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function mostrar(pantalla) {
+  function showScreen(screen) {
     [selectionScreen, responseScreen, breathingScreen, weekScreen]
       .forEach(function (p) { p.classList.add('hidden'); });
-    pantalla.classList.remove('hidden');
+    screen.classList.remove('hidden');
   }
 
   /* ---- Emotion selection ---- */
@@ -78,13 +78,13 @@
       btnRespirar.classList.add('hidden');
     }
 
-    mostrar(responseScreen);
+    showScreen(responseScreen);
     /* Audio only plays if the user taps the "Listen" button (btnOirRespuesta) */
   }
 
   /* ---- Breathing exercise (3 cycles) ---- */
   function respirar() {
-    mostrar(breathingScreen);
+    showScreen(breathingScreen);
     var circulo = $('#circuloRespiracion');
     var text = $('#textoRespiracion');
     var ciclosEl = $('#ciclosRespiracion');
@@ -121,7 +121,7 @@
 
   function salirRespiracion() {
     clearTimeout(respiracionTimer);
-    mostrar(responseScreen);
+    showScreen(responseScreen);
   }
 
   /* ---- Mi semana ---- */
@@ -152,12 +152,12 @@
         '<span class="name">' + (emo ? emo.name : App.i18n.t('sinRegistro')) + '</span>';
       cont.appendChild(row);
     }
-    mostrar(weekScreen);
+    showScreen(weekScreen);
   }
 
   function volverSeleccion() {
     document.body.style.background = '';
-    mostrar(selectionScreen);
+    showScreen(selectionScreen);
   }
 
   /* Events */

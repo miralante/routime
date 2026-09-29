@@ -5,7 +5,7 @@
     instruction: 'Escucha la situación. Elige la frase de cortesía correcta.',
     
     // Levels
-    'nivel.nivel1': 'Fácil: words simples',
+    'nivel.nivel1': 'Fácil: palabras simples',
     'nivel.nivel2': 'Medio: en contexto',
     'nivel.nivel3': 'Difícil: situaciones complejas',
     
@@ -97,6 +97,6 @@
   "contexto": "Estás en una situación con otra persona. Tienes que elegir qué decir o hacer para que la otra se sienta bien.",
   "pista": "🤔 Piensa cómo te gustaría que te hablaran a ti. ¿Qué le dirías?",
   "explicacion": "✅ Así se dice con educación. Las personas se sienten a gusto cuando se las trata así.",
-  "transferencia": "Esto te servirá para llevarte bien con la familia, los amigos y en el cole: las words amables siempre ayudan.",
+  "transferencia": "Esto te servirá para llevarte bien con la familia, los amigos y en el cole: las palabras amables siempre ayudan.",
   }, 'es');
 })();

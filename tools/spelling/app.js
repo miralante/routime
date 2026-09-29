@@ -182,25 +182,26 @@
     progress.roundsCompleted += 1;
     save();
     show(endScreen);
-    $('##finalSummary').textContent = '';
+    $('#finalSummary').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
-    $('##transferencia').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---------- Eventos ---------- */
 
   $('#btnPlay').addEventListener('click', startGame);
-  listenBtn.addEventListener('click', function () {
+  if (listenBtn) listenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
   });
-  $('#explanationListenBtn').addEventListener('click', function () {
+  var explanationListenBtn = $('#explanationListenBtn');
+  if (explanationListenBtn) explanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
   });
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');

@@ -5,7 +5,7 @@
    conditional load of strings.<locale>.js -> data.js -> app.js.
 
    Active language: localStorage 'routime:locale' if supported; otherwise
-   detected from navigator.language ('en' prefix -> 'en', anything else -> 'es').
+   detected from navigator.language ('en' prefix -> 'en', anything else -> 'en').
 
    Multi-file system (recommended):
      - texts split by language: tools/<slug>/strings.es.js, tools/<slug>/strings.en.js
@@ -19,7 +19,7 @@
 
   var CLAVE_LOCALE = 'routime:locale';
   var SOPORTADOS = ['es', 'en'];
-  var POR_DEFECTO = 'es';
+  var POR_DEFECTO = 'en';
 
   var DICT = {
     es: {
@@ -388,6 +388,9 @@
     data: data,
     datos: datos,
     apply: apply,
+    applyTo: function (target) {
+      apply(typeof target === 'string' ? document.querySelector(target) : target);
+    },
     register: registerWrapped
   };
 })();

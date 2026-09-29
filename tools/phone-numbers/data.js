@@ -37,7 +37,7 @@ var DATA = {
       { picto: '🏢', situacion: 'Suena la alarma de incendios y hay humo de verdad.', options: ['112', 'Quedarte a ver qué pasa', 'Volver a por tus cosas'], correcta: 0 },
       { picto: '😮‍💨', situacion: 'Alguien no puede respirar bien y se pone de otro color.', options: ['112', 'Esperar a que se le pase', 'Darle algo de comer'], correcta: 0 },
       { picto: '😵', situacion: 'Una persona se ha desmayado y no responde cuando le hablas.', options: ['112', 'Dejarla dormir', 'Echarle agua en la cara'], correcta: 0 },
-      { picto: '🩸', situacion: 'Alguien se ha done una herida muy grande y sangra mucho.', options: ['112', 'Ponerle solo una tirita', 'Esperar a ver si para solo'], correcta: 0 },
+      { picto: '🩸', situacion: 'Alguien se ha hecho una herida muy grande y sangra mucho.', options: ['112', 'Ponerle solo una tirita', 'Esperar a ver si para solo'], correcta: 0 },
       { picto: '🤕', situacion: 'Alguien se ha caído desde muy alto y no puede moverse.', options: ['112', 'Moverlo tú para que se levante', 'Esperar a que se le pase solo'], correcta: 0 }
     ],
     en: [

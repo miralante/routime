@@ -20,7 +20,7 @@
     repeatCompletion: 'Has vuelto a completar el nivel. Tu progreso se conserva.',
     contexto: "Tienes una cita o tarea y necesitas prepararte: qué llevar, a qué hora salir y qué hacer primero.",
     pista: "🤔 Lee el plan entero. ¿Qué necesitas antes de salir?",
-    explicacion: "✅ Ese es el orden correct. Prepararse con tiempo siempre ayuda a no llegar tarde.",
+    explicacion: "✅ Ese es el orden correcto. Prepararse con tiempo siempre ayuda a no llegar tarde.",
     transferencia: "Esto te servirá para preparar planes de verdad: una cita con el médico, una salida o una tarea de casa.",
   }, 'es');
 })();

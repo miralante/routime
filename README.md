@@ -55,7 +55,67 @@ a settings page for progress visibility.
 
 ---
 
-## 👥 Roles in the project
+## � About
+
+Routime is a **multi-activity catalogue for occupational-therapy
+practice**: everyday activities that train mind and daily-life
+skills (routines, money handling, public-transport reading,
+telling time, the calendar, etc.), each self-contained, reachable
+from a single landing, and designed to be used **autonomously
+between sessions** without needing a professional present at all
+times.
+
+Routime is also the PWA that wraps the **Apptonomia landing**
+(the original product this group grew out of) inside `site/`, so
+a single install covers the whole suite for users who want it.
+It is one of the **Miralante** suite of seven sibling apps — see
+[🌐 The Miralante suite](#-the-miralante-suite--projects-in-the-suite)
+below for the full list. The real product specification lives in
+[`doc/en/spec.md`](doc/en/spec.md); this README deliberately
+avoids rephrasing product decisions to keep the public
+description and the spec in lock-step.
+
+---
+
+## 🎯 Goals
+
+Routime is built to:
+
+- 🧠 **Offer daily-life activities that can be done alone** —
+  between sessions, with no professional at the user's side.
+- 📅 **Practice routine, money, time, calendar and the public
+  world** through short, visual activities that fit one screen.
+- 🌐 **Stay bilingual end-to-end** — Spanish is the default
+  and source of truth; English keeps parity in every string
+  and every activity.
+- 🔒 **Keep progress on the user's device only** — every
+  activity's stars live in `localStorage` under the `routime:`
+  prefix; nothing is ever uploaded.
+- 📦 **Work offline as a PWA** — install to the home screen,
+  use on a tablet with no signal.
+- 🪶 **Stay dependency-free** — pure HTML/CSS/JS, no build.
+- 🏠 **Bundle the Apptonomia landing** — the user gets the
+  whole suite's portal from one install (see `site/index.html`).
+
+Each goal cross-references a spec section in
+[`doc/en/spec.md`](doc/en/spec.md); if a goal is not in the spec,
+either add it to the spec or drop it from this list.
+
+---
+
+## 👥 Audience & roles
+
+Routime is designed for a **typical user profile** — anyone who
+wants to rehearse daily-life and mind skills on their own device,
+between sessions or classes, with no account and no pressure.
+The real product specification lives in [`doc/en/spec.md`](doc/en/spec.md);
+this README deliberately avoids any clinical label so the public
+description stays generic.
+
+---
+
+The project recognises three roles around the app, each with its
+own entry point:
 
 | Role | Who they are | How they participate | Where they look first |
 |---|---|---|---|
@@ -168,7 +228,8 @@ no telemetry, no third-party runtime. The threat model is essentially
 "what a hostile offline page could do to the same origin", which the
 browser already sandboxes. See [`SECURITY.md`](SECURITY.md) (or
 [`SECURITY.es.md`](SECURITY.es.md)) for how to report a suspected
-issue privately.
+issue privately (preferred channel:
+[`hello@apptonomia.uk`](mailto:hello@apptonomia.uk)).
 
 ---
 
@@ -204,7 +265,7 @@ app. Adding or editing files there does not need a `VERSION` bump.
 
 ## 🌐 The Miralante suite — projects in the suite
 
-Routime is one of **six apps** in the **Miralante** suite, sharing
+Routime is one of **seven apps** in the **Miralante** suite, sharing
 the same author, the same accessibility-first / no-backend philosophy
 and the same deploy story. Apptonomia, on top of being an app itself,
 also acts as the **landing portal** that introduces the whole suite.
@@ -217,6 +278,7 @@ install covers the whole catalogue for users who want it.
 |---|---|---|
 | **Apptonomia** *(portal — landing only, no app)* | Landing page that introduces the Miralante suite (not a runtime app) | [github.com/miralante/apptonomia](https://github.com/miralante/apptonomia) |
 | Calculia | Math and logical reasoning | [github.com/miralante/calculia](https://github.com/miralante/calculia) |
+| Ludia | Adapted games with rules, exercises and matches | [github.com/miralante/ludia](https://github.com/miralante/ludia) |
 | Memofun | Flashcards built around meaningful learning | [github.com/miralante/memofun](https://github.com/miralante/memofun) |
 | Okeymoney | Personal finance and everyday autonomy | [github.com/miralante/okeymoney](https://github.com/miralante/okeymoney) |
 | Routime | Activities for routines and daily-life skills | [github.com/miralante/routime](https://github.com/miralante/routime) |

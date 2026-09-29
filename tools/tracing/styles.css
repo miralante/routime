@@ -1,4 +1,4 @@
-﻿/* Tracing â€” tool-specific styles. Shared styles live in assets/css/. */
+﻿/* Tracing — tool-specific styles. Shared styles live in assets/css/. */
 
 .tool-header h1 { color: var(--mod-coordinacion); }
 
@@ -69,7 +69,7 @@
   max-width: 480px;
 }
 
-/* ---- Modo libre: selecciÃ³n de letras ---- */
+/* ---- Modo libre: selección de letras ---- */
 
 .btn-modo-libre {
   align-self: center;

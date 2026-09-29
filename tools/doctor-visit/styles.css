@@ -1,5 +1,5 @@
-﻿/* Telling the Doctor â€” tool-specific styles. Shared styles live in assets/css/.
-   Acento del mÃ³dulo Mi dÃ­a a dÃ­a (verde --mod-secuencia). */
+﻿/* Telling the Doctor — tool-specific styles. Shared styles live in assets/css/.
+   Acento del módulo Mi día a día (verde --mod-secuencia). */
 
 .tool-header h1 { color: var(--mod-secuencia); }
 

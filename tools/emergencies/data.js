@@ -29,7 +29,7 @@ const DATA = {
       { picto: '📺', situacion: 'No encuentras el mando de la tele.', options: ['No es una emergencia: buscarlo con calma o esperar', 'Es una emergencia: llamar al 112', 'Gritar muy fuerte pidiendo ayuda'], correcta: 0 },
       { picto: '🤕', situacion: 'Alguien se ha caído y no puede levantarse ni hablar bien.', options: ['Es una emergencia: pedir ayuda ya', 'No es una emergencia: esperar a que se le pase', 'Moverlo tú para que se levante'], correcta: 0 },
       { picto: '🍝', situacion: 'Se te ha quemado un poco la comida.', options: ['No es una emergencia: apagar el fuego y ventilar con calma', 'Es una emergencia: llamar al 112', 'Salir corriendo de casa'], correcta: 0 },
-      { picto: '🩸', situacion: 'Alguien se ha done una herida muy grande y sangra mucho.', options: ['Es una emergencia: pedir ayuda ya', 'No es una emergencia: ponerle una tirita', 'Esperar a ver si se le pasa solo'], correcta: 0 },
+      { picto: '🩸', situacion: 'Alguien se ha hecho una herida muy grande y sangra mucho.', options: ['Es una emergencia: pedir ayuda ya', 'No es una emergencia: ponerle una tirita', 'Esperar a ver si se le pasa solo'], correcta: 0 },
       { picto: '🧦', situacion: 'No encuentras un calcetín.', options: ['No es una emergencia: seguir buscando con calma', 'Es una emergencia: llamar al 112', 'Ponerte a llorar sin buscar'], correcta: 0 },
       { picto: '😮‍💨', situacion: 'Alguien no puede respirar bien y se pone de otro color.', options: ['Es una emergencia: pedir ayuda ya', 'No es una emergencia: esperar un rato', 'Darle algo de comer'], correcta: 0 },
       { picto: '🎮', situacion: 'Se te ha quedado sin batería el videojuego.', options: ['No es una emergencia: cargarlo con calma', 'Es una emergencia: llamar al 112', 'Avisar a la policía'], correcta: 0 },
@@ -46,42 +46,42 @@ const DATA = {
     ],
     llamadas: [
       { name: 'Hay fuego en la cocina', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '🔥', text: 'Decir qué está pasando: hay un fuego' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Alguien se ha caído y no se levanta', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '🤕', text: 'Decir qué está pasando: alguien se ha caído' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Ves un accidente de coche', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '🚗', text: 'Decir qué está pasando: hay un accidente' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Un familiar no puede respirar bien', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '😮‍💨', text: 'Decir qué está pasando: no puede respirar bien' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Una persona se ha desmayado y no responde', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '😵', text: 'Decir qué está pasando: alguien no responde' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Huele muy fuerte a gas en casa', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '💨', text: 'Decir qué está pasando: huele a gas' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Alguien sangra mucho por una herida grande', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '🩸', text: 'Decir qué está pasando: una herida sangra mucho' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] },
       { name: 'Un niño se ha tragado unas pastillas', items: [
-        { picto: '📛', text: 'Decir tu name' },
+        { picto: '📛', text: 'Decir tu nombre' },
         { picto: '💊', text: 'Decir qué está pasando: se ha tragado unas pastillas' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] }

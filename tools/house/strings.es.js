@@ -9,8 +9,8 @@
 
   App.i18n.register({
     "title": "\ud83c\udfe0 La Casa",
-    "instruccion": "Toca los steps en el orden correct, de primero a último.",
-    "instruccionLista": "Elige las tareas que vas a hacer y ordénalas. Toca una tarea para ver sus steps.",
+    "instruccion": "Toca los pasos en el orden correcto, de primero a último.",
+    "instruccionLista": "Elige las tareas que vas a hacer y ordénalas. Toca una tarea para ver sus pasos.",
     "etiquetaOrden": "Tu orden",
     "etiquetaPasos": "Pasos",
     "tituloOrigen": "Tareas disponibles",
@@ -24,9 +24,9 @@
     "addStepTap": "Toca para cambiar el paso",
     "anadirCancelar": "\u2190 Volver",
     "anadirGuardar": "Guardar",
-    "addErrorName": "Escribe un name para la tarea (al menos 2 letters).",
+    "addErrorName": "Escribe un nombre para la tarea (al menos 2 letras).",
     "volverLista": "\u2190 Volver a la lista",
-    "ariaOpenSteps": "Ver los steps de {name}",
+    "ariaOpenSteps": "Ver los pasos de {nombre}",
     "ariaMoveRight": "Añadir {name} a mi orden",
     "ariaMoveLeft": "Quitar {name} de mi orden",
     "ariaMoveUp": "Subir",

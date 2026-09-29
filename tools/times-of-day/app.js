@@ -1,9 +1,9 @@
 /* ============================================================
-   Routime â€” Partes del DÃ­a (autonomÃ­a: organizar tareas diarias)
-   Datos en data.js (DATA.niveles, DATA.momentos). MÃ³dulos
-   compartidos en assets/js/. MecÃ¡nica: aparece una tarea con picto
-   y hay que tocar la caja del timeOfDay del dÃ­a al que pertenece
-   (MaÃ±ana, Tarde, Noche). Cada acierto se aÃ±ade a la lista visual
+   Routime — Partes del Día (autonomía: organizar tareas diarias)
+   Datos en data.js (DATA.niveles, DATA.momentos). Módulos
+   compartidos en assets/js/. Mecánica: aparece una tarea con picto
+   y hay que tocar la caja del timeOfDay del día al que pertenece
+   (Mañana, Tarde, Noche). Cada acierto se añade a la lista visual
    de esa caja, que se va construyendo durante toda la ronda.
    Ronda de 9 tareas por nivel. El error nunca se castiga.
    ============================================================ */
@@ -45,16 +45,10 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* ---- Pantalla inicial ---- */
-  ', veces) + '</span>';
-      btn.addEventListener('click', function () { startRound(n); });
-      cont.appendChild(btn);
-    });
-  }
 
   /* Builds the 3 empty columns (header + list) once per
      round; they fill in with each correct answer, without resetting
@@ -84,7 +78,7 @@
     });
   }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -99,6 +93,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
@@ -178,7 +173,7 @@ function renderProgress() {
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -201,7 +196,7 @@ $('#transferencia').textContent = '';
   btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].tarea);
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
@@ -211,4 +206,3 @@ $('#transferencia').textContent = '';
 
   renderStars();
 })();
-

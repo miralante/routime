@@ -119,7 +119,7 @@
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) {
+      App.utils.$$('#options .btn-opcion').forEach(function (b) {
         b.disabled = true;
       });
       App.feedback.success(feedbackEl);
@@ -141,11 +141,11 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= CONFIG.porRonda) {
       endRound();
@@ -166,10 +166,10 @@ $('#transferencia').textContent = '';
   }
 
   /* Events */
-  btnListen.addEventListener('click', function () {
+  if (btnListen) btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', startRound);
 })();
 

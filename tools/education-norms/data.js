@@ -1,300 +1,300 @@
-// Activity data: "Normas de Educación" (good manners and civic education).
+// Activity data: "Education and Good Manners".
 // Daily-life simulation: recognisable scene + decision + consequence + transfer.
 //
-// Structure: { niveles, situaciones }
-// - niveles: difficulty progression (changes one variable per level)
-// - situaciones: 30+ training scenarios across school, public spaces, civic life
+// Structure: { levels, situations }
+// - levels: difficulty progression (changes one variable per level)
+// - situations: 30+ training scenarios across school, public spaces, civic life
 //
 // NO UI logic or text here. Text goes in strings.es.js and strings.en.js.
 
 var DATA = {
-  niveles: [
-    { name: 'nivel.nivel1', maxSituaciones: 3 },  // Easy: 3 scenarios, 3 clear options
-    { name: 'nivel.nivel2', maxSituaciones: 4 },  // Medium: 4 scenarios, adds "do nothing" distractor
-    { name: 'nivel.nivel3', maxSituaciones: 5 }   // Hard: 5 scenarios, judgement calls
+  levels: [
+    { name: 'level.level1', maxSituations: 3 },  // Easy: 3 scenarios, 3 clear options
+    { name: 'level.level2', maxSituations: 4 },  // Medium: 4 scenarios, adds "do nothing" distractor
+    { name: 'level.level3', maxSituations: 5 }  // Hard: 5 scenarios, judgement calls
   ],
 
-  // Each scenario has: contexto, personaje, mensaje, options[], correcta, nivel, pista
-  // pista is a Socratic question shown on the FIRST mistake (rule 12)
+  // Each scenario has: context, character, message, options[], correct, level, hint
+  // hint is a Socratic question shown on the FIRST mistake (rule 12)
   // Progression: simple classroom rules -> public spaces -> civic judgement
 
-  situaciones: [
-    // ---------- NIVEL 1: Basic classroom rules and routines ----------
+  situations: [
+    // ---------- LEVEL 1: Basic classroom rules and routines ----------
     {
-      contexto: 'situacion.aula_hablar',
-      personaje: 'profesor',
-      mensaje: 'mensaje.profesor_hablando',
-      options: ['opcion.callar_y_escuchar', 'opcion.gritar_mas', 'opcion.correr_salir'],
-      correcta: 'opcion.callar_y_escuchar',
-      pista: 'pista.respeto_turno',
-      nivel: 1
+      context: 'situation.class_talk',
+      character: 'teacher',
+      message: 'message.teacher_speaking',
+      options: ['option.quiet_and_listen', 'option.keep_shouting', 'option.run_out'],
+      correct: 'option.quiet_and_listen',
+      hint: 'hint.respect_turn',
+      level: 1
     },
     {
-      contexto: 'situacion.pedir_palabra',
-      personaje: 'profesor',
-      mensaje: 'mensaje.pregunta_clase',
-      options: ['opcion.levantar_mano', 'opcion.gritar_respuesta', 'opcion.salir_aula'],
-      correcta: 'opcion.levantar_mano',
-      pista: 'pista.turno_clase',
-      nivel: 1
+      context: 'situation.ask_permission',
+      character: 'teacher',
+      message: 'message.question_class',
+      options: ['option.raise_hand', 'option.shout_answer', 'option.leave_class'],
+      correct: 'option.raise_hand',
+      hint: 'hint.turn_class',
+      level: 1
     },
     {
-      contexto: 'situacion.comedor_cola',
-      personaje: 'monitor',
-      mensaje: 'mensaje.comedor_espera',
-      options: ['opcion.hacer_cola', 'opcion.colarse', 'opcion.sentarse_suelo'],
-      correcta: 'opcion.hacer_cola',
-      pista: 'pista.cola_justa',
-      nivel: 1
+      context: 'situation.canteen_queue',
+      character: 'monitor',
+      message: 'message.canteen_wait',
+      options: ['option.queue', 'option.cut_in', 'option.sit_floor'],
+      correct: 'option.queue',
+      hint: 'hint.fair_queue',
+      level: 1
     },
     {
-      contexto: 'situacion.papel_suelo',
-      personaje: 'companero',
-      mensaje: 'mensaje.papel_caido',
-      options: ['opcion.recoger', 'opcion.pisar', 'opcion.ignorar'],
-      correcta: 'opcion.recoger',
-      pista: 'pista.lugar_limpio',
-      nivel: 1
+      context: 'situation.paper_floor',
+      character: 'classmate',
+      message: 'message.paper_dropped',
+      options: ['option.pick_up', 'option.step_on', 'option.ignore'],
+      correct: 'option.pick_up',
+      hint: 'hint.clean_place',
+      level: 1
     },
     {
-      contexto: 'situacion.material_prestado',
-      personaje: 'companero',
-      mensaje: 'mensaje.prestar_material',
-      options: ['opcion.prestar_y_gracias', 'opcion.negarse', 'opcion.romperlo'],
-      correcta: 'opcion.prestar_y_gracias',
-      pista: 'pista.compartir_ayuda',
-      nivel: 1
+      context: 'situation.lending_material',
+      character: 'classmate',
+      message: 'message.lend_pencil',
+      options: ['option.lend_and_thank', 'option.refuse', 'option.break_it'],
+      correct: 'option.lend_and_thank',
+      hint: 'hint.sharing_helps',
+      level: 1
     },
     {
-      contexto: 'situacion.bano_espera',
-      personaje: 'companero',
-      mensaje: 'mensaje.bano_ocupado',
-      options: ['opcion.espaciar_fuera', 'opcion.tocar_puerta_fuerte', 'opcion.forzar_puerta'],
-      correcta: 'opcion.espaciar_fuera',
-      pista: 'pista.intimidad_respeto',
-      nivel: 1
-    },
-
-    // ---------- NIVEL 2: Public spaces and shared rules ----------
-    {
-      contexto: 'situacion.biblioteca_silencio',
-      personaje: 'bibliotecaria',
-      mensaje: 'mensaje.biblioteca_normas',
-      options: ['opcion.hablar_bajo', 'opcion.hablar_alto', 'opcion.cantar'],
-      correcta: 'opcion.hablar_bajo',
-      pista: 'pista.silencio_espacio',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.autobus_sube',
-      personaje: 'conductor',
-      mensaje: 'mensaje.autobus_subir',
-      options: ['opcion.dejar_pasar', 'opcion.empujar', 'opcion.saltarse_cola'],
-      correcta: 'opcion.dejar_pasar',
-      pista: 'pista.primero_otros',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.parque_juego',
-      personaje: 'nino_otro',
-      mensaje: 'mensaje.parque_espera_turno',
-      options: ['opcion.esperar_turno', 'opcion.quitar_juguete', 'opcion.gritar_al_nino'],
-      correcta: 'opcion.esperar_turno',
-      pista: 'pista.turno_parque',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.reciclar_envase',
-      personaje: 'profesor',
-      mensaje: 'mensaje.envase_reciclar',
-      options: ['opcion.contenedor_amarillo', 'opcion.contenedor_gris', 'opcion.tirar_calle'],
-      correcta: 'opcion.contenedor_amarillo',
-      pista: 'pista.reciclar_color',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.reciclar_papel',
-      personaje: 'profesor',
-      mensaje: 'mensaje.papel_reciclar',
-      options: ['opcion.contenedor_azul', 'opcion.contenedor_amarillo', 'opcion.tirar_suelo'],
-      correcta: 'opcion.contenedor_azul',
-      pista: 'pista.reciclar_color',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.cruce_semaforo',
-      personaje: 'persona',
-      mensaje: 'mensaje.semaforo_rojo',
-      options: ['opcion.esperar_verde', 'opcion.cruzar_rojo', 'opcion.correr_calle'],
-      correcta: 'opcion.esperar_verde',
-      pista: 'pista.semaforo_seguridad',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.acera_andar',
-      personaje: 'mayor',
-      mensaje: 'mensaje.acera_ocupada',
-      options: ['opcion.apartarse', 'opcion.empujar', 'opcion.pararse_medio'],
-      correcta: 'opcion.apartarse',
-      pista: 'pista.dejar_pasar',
-      nivel: 2
-    },
-    {
-      contexto: 'situacion.cine_celular',
-      personaje: 'espectador',
-      mensaje: 'mensaje.cine_silencio',
-      options: ['opcion.silencio_celular', 'opcion.llamar_amigo', 'opcion.jugar_videojuego'],
-      correcta: 'opcion.silencio_celular',
-      pista: 'pista.respeto_otros',
-      nivel: 2
+      context: 'situation.bathroom_wait',
+      character: 'classmate',
+      message: 'message.bathroom_busy',
+      options: ['option.wait_outside', 'option.knock_loud', 'option.force_door'],
+      correct: 'option.wait_outside',
+      hint: 'hint.privacy_respect',
+      level: 1
     },
 
-    // ---------- NIVEL 3: Judgement calls — inclusion, honesty, helping ----------
+    // ---------- LEVEL 2: Public spaces and shared rules ----------
     {
-      contexto: 'situacion.recreo_excluir',
-      personaje: 'companero',
-      mensaje: 'mensaje.recreo_excluir',
-      options: ['opcion.invitar_jugar', 'opcion.reirse_con_ellos', 'opcion.no_hacer_nada'],
-      correcta: 'opcion.invitar_jugar',
-      pista: 'pista.inclusion_amistad',
-      nivel: 3
+      context: 'situation.library_silence',
+      character: 'librarian',
+      message: 'message.library_rules',
+      options: ['option.speak_low', 'option.speak_loud', 'option.sing'],
+      correct: 'option.speak_low',
+      hint: 'hint.quiet_space',
+      level: 2
     },
     {
-      contexto: 'situacion.perdido_objeto',
-      personaje: 'profesor',
-      mensaje: 'mensaje.objeto_perdido',
-      options: ['opcion.entregar_profesor', 'opcion.quedarse_objeto', 'opcion.esconder'],
-      correcta: 'opcion.entregar_profesor',
-      pista: 'pista.honestidad_confianza',
-      nivel: 3
+      context: 'situation.bus_get_on',
+      character: 'driver',
+      message: 'message.bus_get_on',
+      options: ['option.step_aside', 'option.push', 'option.skip_queue'],
+      correct: 'option.step_aside',
+      hint: 'hint.others_first',
+      level: 2
     },
     {
-      contexto: 'situacion.error_propio',
-      personaje: 'profesor',
-      mensaje: 'mensaje.error_reconocer',
-      options: ['opcion.pedir_perdon', 'opcion.echar_la culpa', 'opcion.no_decir_nada'],
-      correcta: 'opcion.pedir_perdon',
-      pista: 'pista.responsabilidad',
-      nivel: 3
+      context: 'situation.park_play',
+      character: 'other_child',
+      message: 'message.park_wait_turn',
+      options: ['option.wait_turn', 'option.take_toy', 'option.shout_child'],
+      correct: 'option.wait_turn',
+      hint: 'hint.turn_park',
+      level: 2
     },
     {
-      contexto: 'situacion.discusion_pareja',
-      personaje: 'companero',
-      mensaje: 'mensaje.companero_pelea',
-      options: ['opcion.mediar_palabra', 'opcion.ponerse_de_un_lado', 'opcion.gritar_tambien'],
-      correcta: 'opcion.mediar_palabra',
-      pista: 'pista.dialogo_paz',
-      nivel: 3
+      context: 'situation.recycling_container',
+      character: 'teacher',
+      message: 'message.recycling_container',
+      options: ['option.yellow_bin', 'option.grey_bin', 'option.throw_street'],
+      correct: 'option.yellow_bin',
+      hint: 'hint.recycling_colour',
+      level: 2
     },
     {
-      contexto: 'situacion.vandalismo_pared',
-      personaje: 'companero',
-      mensaje: 'mensaje.pintada_pared',
-      options: ['opcion.avisar_profesor', 'opcion.sumarme', 'opcion.no_hacer_nada'],
-      correcta: 'opcion.avisar_profesor',
-      pista: 'pista.cuidado_comun',
-      nivel: 3
+      context: 'situation.recycling_paper',
+      character: 'teacher',
+      message: 'message.recycling_paper',
+      options: ['option.blue_bin', 'option.yellow_bin', 'option.throw_floor'],
+      correct: 'option.blue_bin',
+      hint: 'hint.recycling_colour',
+      level: 2
     },
     {
-      contexto: 'situacion.mascota_rescate',
-      personaje: 'mayor',
-      mensaje: 'mensaje.perro_asustado',
-      options: ['opcion.ayudar_tranquilo', 'opcion.gritar', 'opcion.correr_detras'],
-      correcta: 'opcion.ayudar_tranquilo',
-      pista: 'pista.bienestar_animal',
-      nivel: 3
+      context: 'situation.crossing_light',
+      character: 'person',
+      message: 'message.light_red',
+      options: ['option.wait_green', 'option.cross_red', 'option.run_street'],
+      correct: 'option.wait_green',
+      hint: 'hint.light_safety',
+      level: 2
     },
     {
-      contexto: 'situacion.internet_bulo',
-      personaje: 'amigo',
-      mensaje: 'mensaje.noticia_internet',
-      options: ['opcion.comprobar_antes_compartir', 'opcion.compartir_rapido', 'opcion.reirme'],
-      correcta: 'opcion.comprobar_antes_compartir',
-      pista: 'pista.verificar_informacion',
-      nivel: 3
+      context: 'situation.sidewalk_walk',
+      character: 'elder',
+      message: 'message.sidewalk_blocked',
+      options: ['option.move_aside', 'option.push', 'option.stop_middle'],
+      correct: 'option.move_aside',
+      hint: 'hint.let_pass',
+      level: 2
     },
     {
-      contexto: 'situacion.coche_peaton',
-      personaje: 'conductor',
-      mensaje: 'mensaje.coche_esperando',
-      options: ['opcion.gracias_mano', 'opcion.seguir_andando', 'opcion.ignorar'],
-      correcta: 'opcion.gracias_mano',
-      pista: 'pista.agradecer_conductores',
-      nivel: 3
+      context: 'situation.cinema_phone',
+      character: 'viewer',
+      message: 'message.cinema_quiet',
+      options: ['option.silence_phone', 'option.call_friend', 'option.play_games'],
+      correct: 'option.silence_phone',
+      hint: 'hint.respect_others',
+      level: 2
+    },
+
+    // ---------- LEVEL 3: Judgement calls — inclusion, honesty, helping ----------
+    {
+      context: 'situation.playground_exclude',
+      character: 'classmate',
+      message: 'message.playground_exclude',
+      options: ['option.invite_play', 'option.laugh_with', 'option.do_nothing'],
+      correct: 'option.invite_play',
+      hint: 'hint.inclusion_friendship',
+      level: 3
+    },
+    {
+      context: 'situation.lost_object',
+      character: 'teacher',
+      message: 'message.object_lost',
+      options: ['option.give_teacher', 'option.keep_it', 'option.hide'],
+      correct: 'option.give_teacher',
+      hint: 'hint.honesty_trust',
+      level: 3
+    },
+    {
+      context: 'situation.own_mistake',
+      character: 'teacher',
+      message: 'message.mistake_recognise',
+      options: ['option.say_sorry', 'option.blame_other', 'option.say_nothing'],
+      correct: 'option.say_sorry',
+      hint: 'hint.responsibility',
+      level: 3
+    },
+    {
+      context: 'situation.argument_couple',
+      character: 'classmate',
+      message: 'message.classmate_fight',
+      options: ['option.mediate_calm', 'option.take_side', 'option.shout_too'],
+      correct: 'option.mediate_calm',
+      hint: 'hint.dialogue_peace',
+      level: 3
+    },
+    {
+      context: 'situation.vandalism_wall',
+      character: 'classmate',
+      message: 'message.wall_graffiti',
+      options: ['option.tell_teacher', 'option.join_in', 'option.do_nothing'],
+      correct: 'option.tell_teacher',
+      hint: 'hint.common_care',
+      level: 3
+    },
+    {
+      context: 'situation.pet_rescue',
+      character: 'elder',
+      message: 'message.dog_scared',
+      options: ['option.help_calm', 'option.shout', 'option.run_after'],
+      correct: 'option.help_calm',
+      hint: 'hint.animal_wellbeing',
+      level: 3
+    },
+    {
+      context: 'situation.internet_hoax',
+      character: 'friend',
+      message: 'message.news_internet',
+      options: ['option.check_before_share', 'option.share_fast', 'option.laugh_news'],
+      correct: 'option.check_before_share',
+      hint: 'hint.verify_information',
+      level: 3
+    },
+    {
+      context: 'situation.car_pedestrian',
+      character: 'driver',
+      message: 'message.car_waiting',
+      options: ['option.wave_thanks', 'option.keep_walking', 'option.ignore'],
+      correct: 'option.wave_thanks',
+      hint: 'hint.thank_drivers',
+      level: 3
     },
 
     // ---------- Additional scenarios for variety (total >= 25) ----------
     {
-      contexto: 'situacion.mesa_limpia',
-      personaje: 'monitor',
-      mensaje: 'mensaje.recoger_mesa',
-      options: ['opcion.recoger_bandeja', 'opcion.dejar_bandeja', 'opcion.empujar_a_otro'],
-      correcta: 'opcion.recoger_bandeja',
-      pista: 'pista.lugar_limpio',
-      nivel: 2
+      context: 'situation.table_clean',
+      character: 'monitor',
+      message: 'message.collect_table',
+      options: ['option.collect_tray', 'option.leave_tray', 'option.push_tray'],
+      correct: 'option.collect_tray',
+      hint: 'hint.clean_place',
+      level: 2
     },
     {
-      contexto: 'situacion.bano_papel',
-      personaje: 'companero',
-      mensaje: 'mensaje.bano_papel_suelo',
-      options: ['opcion.avisar_limpieza', 'opcion.dejarlo_suelo', 'opcion.pisarlo'],
-      correcta: 'opcion.avisar_limpieza',
-      pista: 'pista.cuidado_comun',
-      nivel: 2
+      context: 'situation.bathroom_paper',
+      character: 'classmate',
+      message: 'message.bathroom_paper_floor',
+      options: ['option.tell_cleaner', 'option.leave_floor', 'option.step_on_it'],
+      correct: 'option.tell_cleaner',
+      hint: 'hint.common_care',
+      level: 2
     },
     {
-      contexto: 'situacion.agua_grifo',
-      personaje: 'profesor',
-      mensaje: 'mensaje.grifo_cerrado',
-      options: ['opcion.cerrar_grifo', 'opcion.dejar_abierto', 'opcion.jugar_agua'],
-      correcta: 'opcion.cerrar_grifo',
-      pista: 'pista.ahorro_agua',
-      nivel: 1
+      context: 'situation.water_tap',
+      character: 'teacher',
+      message: 'message.tap_left_open',
+      options: ['option.close_tap', 'option.leave_open', 'option.play_water'],
+      correct: 'option.close_tap',
+      hint: 'hint.save_water',
+      level: 1
     },
     {
-      contexto: 'situacion.luz_aula',
-      personaje: 'companero',
-      mensaje: 'mensaje.luz_encendida',
-      options: ['opcion.apagar_luz', 'opcion.dejar_encendida', 'opcion.subir_brillo'],
-      correcta: 'opcion.apagar_luz',
-      pista: 'pista.ahorro_energia',
-      nivel: 2
+      context: 'situation.light_class',
+      character: 'classmate',
+      message: 'message.light_on',
+      options: ['option.turn_off_light', 'option.leave_on', 'option.turn_up_brightness'],
+      correct: 'option.turn_off_light',
+      hint: 'hint.save_energy',
+      level: 2
     },
     {
-      contexto: 'situacion.discurso_escucha',
-      personaje: 'companero',
-      mensaje: 'mensaje.companero_expone',
-      options: ['opcion.escuchar_atento', 'opcion.hablar_a_la_vez', 'opcion.jugar_telefono'],
-      correcta: 'opcion.escuchar_atento',
-      pista: 'pista.respeto_turno',
-      nivel: 2
+      context: 'situation.speech_listen',
+      character: 'classmate',
+      message: 'message.classmate_presents',
+      options: ['option.listen_carefully', 'option.talk_same_time', 'option.play_phone'],
+      correct: 'option.listen_carefully',
+      hint: 'hint.respect_turn',
+      level: 2
     },
     {
-      contexto: 'situacion.fila_cine',
-      personaje: 'persona',
-      mensaje: 'mensaje.cine_cola',
-      options: ['opcion.esperar_cola', 'opcion.colarse', 'opcion.salir'],
-      correcta: 'opcion.esperar_cola',
-      pista: 'pista.cola_justa',
-      nivel: 3
+      context: 'situation.cinema_queue',
+      character: 'person',
+      message: 'message.cinema_queue',
+      options: ['option.wait_queue', 'option.cut_in', 'option.leave_cinema'],
+      correct: 'option.wait_queue',
+      hint: 'hint.fair_queue',
+      level: 3
     },
     {
-      contexto: 'situacion.celular_clase',
-      personaje: 'profesor',
-      mensaje: 'mensaje.telefono_clase',
-      options: ['opcion.guardar_mochila', 'opcion.usar_oculto', 'opcion.llamar_amigo'],
-      correcta: 'opcion.guardar_mochila',
-      pista: 'pista.atencion_clase',
-      nivel: 1
+      context: 'situation.phone_class',
+      character: 'teacher',
+      message: 'message.phone_class',
+      options: ['option.put_away', 'option.use_hidden', 'option.call_friend'],
+      correct: 'option.put_away',
+      hint: 'hint.class_attention',
+      level: 1
     },
     {
-      contexto: 'situacion.cumpleanos_invitar',
-      personaje: 'amigo',
-      mensaje: 'mensaje.fiesta_no_invita',
-      options: ['opcion.hablar_con_el', 'opcion.hacer_bullying', 'opcion.ignorar_todo'],
-      correcta: 'opcion.hablar_con_el',
-      pista: 'pista.inclusion_amistad',
-      nivel: 3
+      context: 'situation.birthday_invite',
+      character: 'friend',
+      message: 'message.party_not_invited',
+      options: ['option.talk_to_them', 'option.bully_them', 'option.ignore_all'],
+      correct: 'option.talk_to_them',
+      hint: 'hint.inclusion_friendship',
+      level: 3
     }
   ]
 };

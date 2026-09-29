@@ -168,7 +168,7 @@
     btnNext.focus();
   }
 
-  function siguienteEscena() {
+  function nextScene() {
     escenaIdx += 1;
     if (escenaIdx >= porRonda) {
       endRound();
@@ -188,7 +188,7 @@
   }
 
   /* Events */
-  btnNext.addEventListener('click', siguienteEscena);
+  btnNext.addEventListener('click', nextScene);
   $('#btnStart').addEventListener('click', startRound);
   $('#btnRepeat').addEventListener('click', startRound);
 

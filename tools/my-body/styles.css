@@ -1,5 +1,5 @@
-﻿/* My Body Tells Me â€” tool-specific styles. Shared styles live in assets/css/.
-   Acento del mÃ³dulo Emociones (morado --mod-emocional). */
+﻿/* My Body Tells Me — tool-specific styles. Shared styles live in assets/css/.
+   Acento del módulo Emociones (morado --mod-emocional). */
 
 .tool-header h1 { color: var(--mod-emocional); }
 

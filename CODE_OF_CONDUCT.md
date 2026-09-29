@@ -11,9 +11,9 @@ ethnicity, sex characteristics, gender identity and expression, level of
 experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.
 
-Since Routime exists to help our typical user profile practice
-autonomy with dignity and without pressure, we expect that same spirit
-of patience, clarity, and respect in how we treat each other.
+Since the Miralante suite exists to help people learn at their own
+pace, with dignity and without pressure, we expect that same spirit of
+patience, clarity, and respect in how we treat each other.
 
 ## Our standards
 
@@ -54,13 +54,14 @@ representing the project in public spaces.
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the project maintainers at `[add contact email or form here]`.
-All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior
+may be reported to the project maintainers at the contact address
+listed in the repository's `SECURITY.md` file. All complaints will be
+reviewed and investigated promptly and fairly.
 
 ## Attribution
 
 This Code of Conduct is adapted from the
 [Contributor Covenant](https://www.contributor-covenant.org), version 2.1,
 available at
-https://www.contributor-covenant.org/version/2/1/code_of_conduct.html.
+[https://www.contributor-covenant.org/version/2/1/code_of_conduct.html](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).

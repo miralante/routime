@@ -8,7 +8,7 @@
 
   App.i18n.register({
     "title": "👀 Doble Sentido",
-    "instruction": "Algunas words pueden significar dos cosas distintas. Escucha la frase y decide si tiene un significado o dos.",
+    "instruction": "Algunas palabras pueden significar dos cosas distintas. Escucha la frase y decide si tiene un significado o dos.",
     "btnJugar": "¡Jugar!",
     "frase": "frase",
     "frases": "frases",
@@ -20,9 +20,9 @@
     "singleExplanation": "✅ ¡Correcto! Solo significa: {m1}.",
     "hint": "🤔 Prueba otra vez. Escucha bien la frase.",
     "finalSummary": "Has ganado estrellas. Ahora tienes {total} estrellas.",
-    "contexto": "Estás escuchando una frase. Algunas words tienen dos significados: tienes que fijarte en el resto de la frase para saber cuál es.",
+    "contexto": "Estás escuchando una frase. Algunas palabras tienen dos significados: tienes que fijarte en el resto de la frase para saber cuál es.",
     "pista": "🤔 Lee la frase entera. ¿Qué sentido tiene la palabra aquí?",
     "explicacion": "✅ Esa palabra tiene dos significados: ahora ya sabes los dos y cuándo usar cada uno.",
-    "transferencia": "Esto te servirá para entender mejor los chistes, las conversaciones y para no liarte con words que suenan igual.",
+    "transferencia": "Esto te servirá para entender mejor los chistes, las conversaciones y para no liarte con palabras que suenan igual.",
   }, 'es');
 })();

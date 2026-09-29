@@ -22,6 +22,7 @@
   var explanationWrap = $('#explanationWrap');
   var explanationEl = $('#explanation');
   var btnListen = $('#btnListen');
+  var btnPlay = $('#btnPlay');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -69,6 +70,7 @@
   }
 
   function renderLevels() {
+    if (!levelsEl) return;
     levelsEl.innerHTML = '';
     bank().niveles.forEach(function (level) {
       var btn = document.createElement('button');
@@ -104,7 +106,7 @@
     var item = items[idx];
     solved = false;
     attempts = 0;
-    questionTextEl.textContent = item.textContent;
+    questionTextEl.textContent = item.textContent || item.text;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     explanationWrap.classList.add('hidden');
@@ -120,7 +122,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
       optionsEl.appendChild(btn);
     });
@@ -143,7 +145,7 @@
      on the second mistake is what was needed explained
      (showExplanation). */
   function showHint(item) {
-    explanationEl.textContent = App.i18n.t('pista') + '"' + item.textContent + '"';
+    explanationEl.textContent = App.i18n.t('pista') + '"' + (item.textContent || item.text) + '"';
     explanationWrap.classList.remove('hidden');
   }
 
@@ -153,7 +155,7 @@
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -172,7 +174,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap);
     }
   }
 
@@ -200,7 +202,8 @@
   }
 
   /* Events */
-  btnListen.addEventListener('click', function () {
+  if (btnPlay) btnPlay.addEventListener('click', startGame);
+  if (btnListen) btnListen.addEventListener('click', function () {
     if (App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
   btnNext.addEventListener('click', next);

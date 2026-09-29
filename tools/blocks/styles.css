@@ -1,5 +1,5 @@
-﻿/* The Blocks â€” tool-specific styles. Shared styles live in assets/css/.
-   Acento del mÃ³dulo Memoria y atenciÃ³n (naranja --mod-memoria).
+﻿/* The Blocks — tool-specific styles. Shared styles live in assets/css/.
+   Acento del módulo Memoria y atención (naranja --mod-memoria).
    Colores de bloque (c-R/c-B/c-Y) con contraste alto sobre fondo claro. */
 
 .tool-header h1 { color: var(--mod-memoria); }

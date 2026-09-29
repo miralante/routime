@@ -25,9 +25,10 @@
   var endScreen = $('#endScreen');
   var bloquesEl = $('#bloques');
   var tiersEl = $('#tiers');
-  var rondasTitle = $('#rondasTitle');
-  var rondasEl = $('#rondas');
+  var roundsTitle = $('#roundsTitle');
+  var roundsEl = $('#rounds');
   var starsEl = $('#stars');
+  var finalSummary = $('#finalSummary');
 
   var cardsProgressFill = $('#cardsProgressFill');
   var cardsProgressText = $('#cardsProgressText');
@@ -60,6 +61,7 @@
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA; }
   function locale() { return App.i18n.locale() || 'es'; }
+  function roundsOf(block) { return block.rounds || block.rondas || []; }
 
   function show(screen) {
     [startScreen, cardsScreen, quizScreen, endScreen].forEach(function (s) {
@@ -98,7 +100,7 @@
   function paintBlocks() {
     bloquesEl.innerHTML = '';
     bank().bloques.forEach(function (bloque) {
-      var countRondas = bloque.rounds.length;
+      var countRondas = roundsOf(bloque).length;
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-block' + (selectedBlockId === bloque.id ? ' selected' : '');
@@ -112,7 +114,7 @@
         selectedTier = null;
         paintBlocks();
         paintTiers();
-        paintRondas();
+        paintRounds();
       });
       bloquesEl.appendChild(btn);
     });
@@ -122,7 +124,7 @@
     var bloque = bank().bloques.filter(function (b) { return b.id === bloqueId; })[0];
     if (!bloque) return [];
     var set = {};
-    bloque.rounds.forEach(function (r) { set[roundTier(r)] = true; });
+     roundsOf(bloque).forEach(function (r) { set[roundTier(r)] = true; });
     return Object.keys(set).map(Number).sort(function (a, b) { return a - b; });
   }
 
@@ -138,51 +140,51 @@
       btn.addEventListener('click', function () {
         selectedTier = tier;
         paintTiers();
-        paintRondas();
+        paintRounds();
       });
       tiersEl.appendChild(btn);
     });
   }
 
-  function rondasFiltered() {
+  function roundsFiltered() {
     if (!selectedBlockId) return [];
     var bloque = bank().bloques.filter(function (b) { return b.id === selectedBlockId; })[0];
     if (!bloque) return [];
-    if (selectedTier == null) return bloque.rounds;
-    return bloque.rounds.filter(function (r) { return roundTier(r) === selectedTier; });
+    if (selectedTier == null) return roundsOf(bloque);
+    return roundsOf(bloque).filter(function (r) { return roundTier(r) === selectedTier; });
   }
 
-  function paintRondas() {
-    rondasEl.innerHTML = '';
-    var rondas = rondasFiltered();
-    if (selectedBlockId && rondas.length === 0) {
+  function paintRounds() {
+    roundsEl.innerHTML = '';
+    var rounds = roundsFiltered();
+    if (selectedBlockId && rounds.length === 0) {
       var msg = document.createElement('p');
       msg.className = 'instruction';
       msg.textContent = t('noRondasForTier');
-      rondasEl.appendChild(msg);
-      rondasTitle.classList.add('hidden');
+      roundsEl.appendChild(msg);
+      roundsTitle.classList.add('hidden');
       return;
     }
     if (!selectedBlockId || selectedTier == null) {
-      rondasTitle.classList.add('hidden');
+      roundsTitle.classList.add('hidden');
       return;
     }
-    rondasTitle.classList.remove('hidden');
-    rondas.forEach(function (ronda) {
+    roundsTitle.classList.remove('hidden');
+    rounds.forEach(function (round) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-level';
-      var done = progress.completed[ronda.id] ? ' ' + t('done') : '';
+      var done = progress.completed[round.id] ? ' ' + t('done') : '';
       btn.innerHTML =
-        (ronda.chunkCount > 1
-          ? t('part') + ' ' + (ronda.chunkIndex + 1) + ' / ' + ronda.chunkCount + ' · '
+        (round.chunkCount > 1
+          ? t('part') + ' ' + (round.chunkIndex + 1) + ' / ' + round.chunkCount + ' · '
           : '') +
-        ronda.category +
-        ' (' + ronda.words.length + ' ' + t('wordsCount') + ')' +
+        round.category +
+        ' (' + round.words.length + ' ' + t('wordsCount') + ')' +
         done +
-        '<span class="level-info">' + tierLabel(roundTier(ronda)) + '</span>';
-      btn.addEventListener('click', function () { startRound(ronda); });
-      rondasEl.appendChild(btn);
+        '<span class="level-info">' + tierLabel(roundTier(round)) + '</span>';
+      btn.addEventListener('click', function () { startRound(round); });
+      roundsEl.appendChild(btn);
     });
   }
 
@@ -204,7 +206,7 @@
        tools/dictionary. */
     var bloque = bank().bloques.filter(function (b) { return b.id === selectedBlockId; })[0];
     var pool = [];
-    bloque.rounds.forEach(function (r) {
+    roundsOf(bloque).forEach(function (r) {
       r.words.forEach(function (w) { pool.push(w); });
     });
     poolRound = pool;
@@ -316,7 +318,7 @@
     if (op.correct) {
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(quizFeedback);
       showExplanation(item, true);
       progress.stars += 1;
@@ -335,7 +337,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }
   }
 
@@ -371,21 +373,21 @@
     selectedTier = null;
     paintBlocks();
     paintTiers();
-    paintRondas();
+    paintRounds();
     paintStars();
   }
 
   /* ---------- Wire events ---------- */
 
-  cardListenBtn.addEventListener('click', function () {
+  if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word + '. ' + items[idx].definition);
   });
   nextCardBtn.addEventListener('click', nextCard);
-  quizListenBtn.addEventListener('click', function () {
+  if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
-  quizExplanationListenBtn.addEventListener('click', function () {
+  if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   $('#replayBtn').addEventListener('click', function () {
@@ -400,5 +402,5 @@
   paintStars();
   paintBlocks();
   paintTiers();
-  paintRondas();
+  paintRounds();
 })();

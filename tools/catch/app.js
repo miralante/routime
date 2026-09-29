@@ -30,11 +30,14 @@
   var prevPos = { x: 0.5, y: 0.5 };
 
   function save() { App.storage.set(TOOL_ID, progress); }
+  var tapsPerRound = DATA.tapsPerRound || DATA.toquesPorRonda;
+  var targetSize = DATA.size || DATA.tamano;
+  var targets = DATA.targets || DATA.objetivos || [];
 
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function renderProgress() {
-    progressFill.style.width = ((taps / DATA.tapsPerRound) * 100) + '%';
+    progressFill.style.width = ((taps / tapsPerRound) * 100) + '%';
     progressText.textContent = '';
   }
 
@@ -43,9 +46,9 @@
     endScreen.classList.add('hidden');
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    targetEl.style.width = DATA.size + 'px';
-    targetEl.style.height = DATA.size + 'px';
-    targetEl.style.fontSize = Math.round(DATA.size * 0.55) + 'px';
+    targetEl.style.width = targetSize + 'px';
+    targetEl.style.height = targetSize + 'px';
+    targetEl.style.fontSize = Math.round(targetSize * 0.55) + 'px';
     renderProgress();
     moveTarget();
   }
@@ -61,12 +64,12 @@
     } while (dist < 0.3 && attempts < 20);
     prevPos = { x: x, y: y };
 
-    var maxX = areaEl.clientWidth - DATA.size;
-    var maxY = areaEl.clientHeight - DATA.size;
+    var maxX = areaEl.clientWidth - targetSize;
+    var maxY = areaEl.clientHeight - targetSize;
     targetEl.style.left = Math.round(x * maxX) + 'px';
     targetEl.style.top = Math.round(y * maxY) + 'px';
     targetEl.textContent =
-      DATA.targets[Math.floor(Math.random() * DATA.targets.length)];
+      targets[Math.floor(Math.random() * targets.length)];
   }
 
   function hit() {
@@ -77,7 +80,7 @@
     renderStars();
     renderProgress();
     App.feedback.success(feedbackEl);
-    if (taps >= DATA.tapsPerRound) {
+    if (taps >= tapsPerRound) {
       endRound();
     } else {
       moveTarget();

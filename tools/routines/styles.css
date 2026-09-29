@@ -42,7 +42,7 @@
 }
 
 .routines-section { display: flex; flex-direction: column; gap: var(--espacio); }
-.routines-section-titulo {
+.routines-section-heading {
   margin: 0;
   font-size: var(--text-grande);
   font-weight: 800;
@@ -61,7 +61,7 @@
   border-left: 3px solid var(--color-borde);
 }
 .routines-subsection + .routines-subsection { margin-top: var(--espacio); }
-.routines-subsection-titulo {
+.routines-subsection-heading {
   margin: 0;
   font-size: var(--text-base);
   font-weight: 700;
@@ -122,15 +122,15 @@
 }
 .routine-card-barra {
   width: 100%;
-  height: 8px;
-  background: var(--color-borde);
-  border-radius: 999px;
+  height: 6px;
+  background: #ddd9eb;
+  border-radius: 4px;
   overflow: hidden;
 }
 .routine-card-barra-fill {
   display: block;
   height: 100%;
-  background: var(--mod-secuencia);
+  background: #7462bb;
   transition: width 0.25s ease-out;
 }
 .card-completed .routine-card-barra-fill { background: var(--color-acierto); }

@@ -102,12 +102,15 @@ belongs to the in-flight work before adding new changes.
 #### A.2.3 Before finishing
 
 1. Always run `node scripts/check.js`.
-2. If this project ships a service worker (see §B.1): bump `VERSION`
+2. Before pushing, run `npm run test:ui`, `node scripts/smoke-sw.js`,
+   and `node scripts/check-version-bump.js`; do not push if any required
+   check fails.
+3. If this project ships a service worker (see §B.1): bump `VERSION`
    in `sw.js` whenever a cached file changes, and add any new file to
    `FILES`. Run `node scripts/check-version-bump.js` to verify the
    bump is consistent.
-3. Run the relevant tests described in `technical.md` §12.
-4. Check links if you modified documentation.
+4. Run the relevant tests described in `technical.md` §12.
+5. Check links if you modified documentation.
 5. Report only verifications you actually ran; clearly flag any
    remaining manual tests.
 

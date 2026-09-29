@@ -21,6 +21,8 @@
   var feedbackEl = $('#feedback');
   var btnDone = $('#btnDone');
   var starsEl = $('#stars');
+  var drawings = DATA.drawings || DATA.dibujos || [];
+  var colors = DATA.colors || DATA.colores || [];
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -28,7 +30,7 @@
   if (typeof progress.drawingsPainted !== 'number') progress.drawingsPainted = 0;
 
   var currentDrawing = null;
-  var currentColor = DATA.colors[0];
+  var currentColor = colors[0];
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
@@ -37,7 +39,7 @@
   function renderDrawingCards() {
     var container = $('#drawings');
     container.innerHTML = '';
-    DATA.drawings.forEach(function (d) {
+    drawings.forEach(function (d) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'tarjeta tarjeta-dibujo';
@@ -51,11 +53,11 @@
 
   function renderColors() {
     colorsEl.innerHTML = '';
-    DATA.colors.forEach(function (c) {
+    colors.forEach(function (c) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'color-btn' + (c.id === currentColor.id ? ' selected' : '');
-      btn.style.background = c.value;
+      btn.style.background = c.value || c.valor;
       btn.setAttribute('aria-label', App.i18n.t('color.' + c.id));
       btn.setAttribute('aria-pressed', c.id === currentColor.id ? 'true' : 'false');
       btn.addEventListener('click', function () {
@@ -76,7 +78,7 @@
     gameScreen.classList.remove('hidden');
 
     canvas.innerHTML = '';
-    drawing.zones.forEach(function (zone) {
+    (drawing.zones || drawing.zonas || []).forEach(function (zone) {
       var el = document.createElementNS(SVG_NS, zone.tag);
       Object.keys(zone.attrs).forEach(function (attr) {
         el.setAttribute(attr, zone.attrs[attr]);
@@ -98,7 +100,7 @@
   }
 
   function paintZone(el) {
-    el.setAttribute('fill', currentColor.value);
+    el.setAttribute('fill', currentColor.value || currentColor.valor);
   }
 
   function finish() {

@@ -1,15 +1,15 @@
 /* ============================================================
-   Routime â€” Mi BotiquÃ­n (Mi dÃ­a a dÃ­a: autonomÃ­a en salud)
-   Datos en data.js (DATA.niveles). MÃ³dulos compartidos en assets/js/.
-   MecÃ¡nica: leer una escena cotidiana (raspadura, quemadura,
-   fiebre, dolor fuerteâ€¦) y select, entre 3 options, quÃ© hacer.
+   Routime — Mi Botiquín (Mi día a día: autonomía en salud)
+   Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
+   Mecánica: leer una escena cotidiana (raspadura, quemadura,
+   fiebre, dolor fuerte…) y select, entre 3 options, qué hacer.
    Nivel 1: cuidados que la persona puede aplicar ella misma
-   siguiendo lo aprendido (lavar, frÃ­o, tirita, descansar).
-   Nivel 2: la situaciÃ³n es urgente â€” la opciÃ³n correcta es
+   siguiendo lo aprendido (lavar, frío, tirita, descansar).
+   Nivel 2: la situación es urgente — la opción correcta es
    siempre pedir help a una persona de confianza o llamar al 112,
    nunca automedicar ni aguantar. Ronda de 8. El error nunca se
-   castiga; primer fallo = pista, segundo = explicaciÃ³n
-   (mÃ©todo socrÃ¡tico).
+   castiga; primer fallo = pista, segundo = explicación
+   (método socrático).
    ============================================================ */
 (function () {
   'use strict';
@@ -48,16 +48,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  );
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -72,6 +68,7 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+  }
 function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
@@ -130,7 +127,7 @@ function renderProgress() {
       showExplanation(isCorrect, item);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -149,11 +146,11 @@ function renderProgress() {
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -176,8 +173,8 @@ function renderProgress() {
   btnListen.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
-  btnNext.addEventListener('click', siguiente);
-  btnEscucharExplicacion.addEventListener('click', function () {
+  btnNext.addEventListener('click', next);
+  if (btnEscucharExplicacion) btnEscucharExplicacion.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionEl.textContent);
   });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });

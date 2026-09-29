@@ -77,7 +77,7 @@
   var explicacionSEl = $('#explicacionSaber');
   var progressSFill = $('#progressSaberFill');
   var progressSText = $('#progressSaberText');
-  var btnSiguienteS = $('#btnSiguienteSaber');
+  var btnNextKnow = $('#btnSiguienteSaber');
 
   function iniciarSaber() {
     actividadActual = 'saber';
@@ -105,7 +105,7 @@
     feedbackSEl.className = 'feedback';
     explicacionSWrap.classList.add('hidden');
     explicacionSEl.textContent = '';
-    btnSiguienteS.classList.add('hidden');
+    btnNextKnow.classList.add('hidden');
     opcionesSEl.innerHTML = '';
 
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
@@ -138,15 +138,15 @@
       mostrarExplicacionS(isCorrect, item);
       resueltoS = true;
       btn.classList.add('correcta');
-      App.utils.$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosS += 1;
       save();
       renderStars();
-      btnSiguienteS.classList.remove('hidden');
-      btnSiguienteS.focus();
+      btnNextKnow.classList.remove('hidden');
+      btnNextKnow.focus();
     } else {
       intentosS += 1;
       if (intentosS === 1) {
@@ -158,11 +158,11 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$('#opcionesSaber .btn-opcion'), explicacionSWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explicacionSWrap);
     }
   }
 
-  function siguienteSaber() {
+  function nextKnow() {
     idxS += 1;
     if (idxS >= banco().porRonda) {
       terminarSaber();
@@ -274,11 +274,13 @@
   $('#tarjetaChecklist').addEventListener('click', iniciarChecklist);
   $('#btnVolverSaber').addEventListener('click', irMenu);
   $('#btnVolverChecklist').addEventListener('click', irMenu);
-  btnSiguienteS.addEventListener('click', siguienteSaber);
-  $('#btnEscucharExplicacionSaber').addEventListener('click', function () {
+  btnNextKnow.addEventListener('click', nextKnow);
+  var btnEscucharExplicacionSaber = $('#btnEscucharExplicacionSaber');
+  if (btnEscucharExplicacionSaber) btnEscucharExplicacionSaber.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionSEl.textContent);
   });
-  $('#btnEscucharSaber').addEventListener('click', function () {
+  var btnEscucharSaber = $('#btnEscucharSaber');
+  if (btnEscucharSaber) btnEscucharSaber.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsSaber[idxS].pregunta);
   });
   $('#btnRepeat').addEventListener('click', function () {

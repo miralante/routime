@@ -1,7 +1,7 @@
 /* ============================================================
-   Routime â€” Ecos (memoria auditiva y ritmo)
-   Datos en data.js (DATA.colores, DATA.niveles). MÃ³dulos
-   compartidos en assets/js/. MecÃ¡nica tipo "Simon": se reproduce
+   Routime — Ecos (memoria auditiva y ritmo)
+   Datos en data.js (DATA.colores, DATA.niveles). Módulos
+   compartidos en assets/js/. Mecánica tipo "Simon": se reproduce
    una secuencia de colores con sonido y hay que repetirla tocando
    los paneles en el mismo orden. Un fallo no penaliza: se repite
    la secuencia desde el principio y se puede volver a intentar.
@@ -11,7 +11,7 @@
 
   var TOOL_ID = 'ecos';
   var $ = App.utils.$;
-  var banco = DATA[App.i18n.locale()] || DATA.es;
+  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
@@ -24,6 +24,7 @@
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var levelEl = $('#level');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -63,17 +64,10 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
-  function renderStars() { starsEl.textContent = 'â­ ' + progress.stars; }
+  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  ', veces);
-      btn.innerHTML = name + ' â€” ' + descripcion +
-        ' <span class="nivel-info">(' + vecesTxt + ')</span>';
-      btn.addEventListener('click', function () { startRound(n); });
-      cont.appendChild(btn);
-    });
-  }
 
-    /* Determina el nivel segÃºn el progress: cada ronda completada, sube un nivel. */
+    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
   function levelBasedOnProgress() {
     var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
     return banco().niveles[idxN];
@@ -88,14 +82,24 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-function renderProgress() {
-    progressFill.style.width = ((idx / banco.porRonda) * 100) + '%';
+    idx = 0;
+    roundHits = 0;
+    startScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    pintarPads();
+    renderLevel();
+    render();
+  }
+
+  function renderProgress() {
+    progressFill.style.width = ((idx / banco().porRonda) * 100) + '%';
     progressText.textContent = '';
   }
 
   function pintarPads() {
     padsEl.innerHTML = '';
-    banco.colores.forEach(function (c) {
+    banco().colores.forEach(function (c) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'pad pad-' + c.id;
@@ -108,8 +112,8 @@ function renderProgress() {
 
   function nuevaSecuencia() {
     secuencia = [];
-    for (var i = 0; i < nivel.longitud; i++) {
-      secuencia.push(banco.colores[Math.floor(Math.random() * banco.colores.length)].id);
+    for (var i = 0; i < currentLevel.longitud; i++) {
+      secuencia.push(banco().colores[Math.floor(Math.random() * banco().colores.length)].id);
     }
   }
 
@@ -124,37 +128,37 @@ function renderProgress() {
     reproducirSecuencia();
   }
 
-  function reproducirSecuencia() {
-    if (reproduciendo) return;
-    reproduciendo = true;
-    etapaTextoEl.textContent = App.i18n.t('etapaMiraEscucha');
-    App.utils.$$('.pad').forEach(function (p) { p.disabled = true; });
+    function reproducirSecuencia() {
+      if (reproduciendo) return;
+      reproduciendo = true;
+      etapaTextoEl.textContent = App.i18n.t('etapaMiraEscucha');
+      App.utils.$$('.pad').forEach(function (p) { p.disabled = true; });
 
-    var i = 0;
-    function paso() {
-      if (i >= secuencia.length) {
-        reproduciendo = false;
-        etapaTextoEl.textContent = App.i18n.t('etapaTuTurno');
-        App.utils.$$('.pad').forEach(function (p) { p.disabled = false; });
-        return;
+      var i = 0;
+      function paso() {
+        if (i >= secuencia.length) {
+          reproduciendo = false;
+          etapaTextoEl.textContent = App.i18n.t('etapaTuTurno');
+          App.utils.$$('.pad').forEach(function (p) { p.disabled = false; });
+          return;
+        }
+        var color = secuencia[i];
+        var pad = padsEl.querySelector('[data-id="' + color + '"]');
+        var frecuencia = banco().colores.filter(function (c) { return c.id === color; })[0].frecuencia;
+        pad.classList.add('activo');
+        tono(frecuencia, 0.35);
+        setTimeout(function () {
+          pad.classList.remove('activo');
+          i += 1;
+          setTimeout(paso, 200);
+        }, 450);
       }
-      var color = secuencia[i];
-      var pad = padsEl.querySelector('[data-id="' + color + '"]');
-      var frecuencia = banco.colores.filter(function (c) { return c.id === color; })[0].frecuencia;
-      pad.classList.add('activo');
-      tono(frecuencia, 0.35);
-      setTimeout(function () {
-        pad.classList.remove('activo');
-        i += 1;
-        setTimeout(paso, 200);
-      }, 450);
+      paso();
     }
-    paso();
-  }
 
   function tocarPad(color, btn) {
     if (reproduciendo) return;
-    var frecuencia = banco.colores.filter(function (c) { return c.id === color; })[0].frecuencia;
+    var frecuencia = banco().colores.filter(function (c) { return c.id === color; })[0].frecuencia;
     tono(frecuencia, 0.2);
     btn.classList.add('activo');
     setTimeout(function () { btn.classList.remove('activo'); }, 200);
@@ -184,9 +188,9 @@ function renderProgress() {
     btnNext.focus();
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
-    if (idx >= banco.porRonda) {
+    if (idx >= banco().porRonda) {
       endRound();
     } else {
       render();
@@ -204,10 +208,11 @@ $('#transferencia').textContent = '';
   }
 
   /* Events */
-  btnRepetirSecuencia.addEventListener('click', reproducirSecuencia);
-  btnNext.addEventListener('click', siguiente);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  if (btnRepetirSecuencia) btnRepetirSecuencia.addEventListener('click', reproducirSecuencia);
+  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
+  if (btnNext) btnNext.addEventListener('click', next);
+  if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');
@@ -215,4 +220,3 @@ $('#transferencia').textContent = '';
 
   renderStars();
 })();
-

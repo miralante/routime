@@ -72,7 +72,7 @@
   var explicacionREl = $('#explicacionReconocer');
   var progressRFill = $('#progressReconocerFill');
   var progressRText = $('#progressReconocerText');
-  var btnSiguienteR = $('#btnSiguienteReconocer');
+  var btnNextRecognize = $('#btnSiguienteReconocer');
 
   function iniciarReconocer() {
     actividadActual = 'reconocer';
@@ -100,7 +100,7 @@
     feedbackREl.className = 'feedback';
     explicacionRWrap.classList.add('hidden');
     explicacionREl.textContent = '';
-    btnSiguienteR.classList.add('hidden');
+    btnNextRecognize.classList.add('hidden');
     opcionesREl.innerHTML = '';
 
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
@@ -133,15 +133,15 @@
       mostrarExplicacionR(isCorrect, item);
       resueltoR = true;
       btn.classList.add('correcta');
-      App.utils.$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackREl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosR += 1;
       save();
       renderStars();
-      btnSiguienteR.classList.remove('hidden');
-      btnSiguienteR.focus();
+      btnNextRecognize.classList.remove('hidden');
+      btnNextRecognize.focus();
     } else {
       intentosR += 1;
       if (intentosR === 1) {
@@ -153,11 +153,11 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackREl);
-      App.feedback.lockUntilAck(App.utils.$('#opcionesReconocer .btn-opcion'), explicacionRWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesReconocer .btn-opcion'), explicacionRWrap);
     }
   }
 
-  function siguienteReconocer() {
+  function nextRecognize() {
     idxR += 1;
     if (idxR >= banco().porRonda) {
       terminarReconocer();
@@ -180,7 +180,7 @@ $('#transferencia').textContent = '';
   var listasLlamada = [];
   var idxL = 0;
   var aciertosL = 0;
-  var siguienteEsperadoL = 0;
+  var nextExpectedL = 0;
   var slotsL = [];
 
   var listaTituloEl = $('#listaTitulo');
@@ -208,7 +208,7 @@ $('#transferencia').textContent = '';
 
   function renderLlamada() {
     var lista = listasLlamada[idxL];
-    siguienteEsperadoL = 0;
+    nextExpectedL = 0;
     slotsL = new Array(lista.items.length).fill(null);
     feedbackLEl.textContent = '';
     feedbackLEl.className = 'feedback';
@@ -251,14 +251,14 @@ $('#transferencia').textContent = '';
 
   function tocarL(orden, btn) {
     var lista = listasLlamada[idxL];
-    if (orden === siguienteEsperadoL) {
+    if (orden === nextExpectedL) {
       slotsL[orden] = lista.items[orden];
       pintarSlotsL();
       btn.disabled = true;
       btn.classList.add('colocada');
       App.feedback.success(feedbackLEl);
-      siguienteEsperadoL += 1;
-      if (siguienteEsperadoL >= lista.items.length) {
+      nextExpectedL += 1;
+      if (nextExpectedL >= lista.items.length) {
         terminarTareaL();
       }
     } else {
@@ -294,8 +294,9 @@ $('#transferencia').textContent = '';
   $('#tarjetaLlamada').addEventListener('click', iniciarLlamada);
   $('#btnVolverReconocer').addEventListener('click', irMenu);
   $('#btnVolverLlamada').addEventListener('click', irMenu);
-  btnSiguienteR.addEventListener('click', siguienteReconocer);
-  $('#btnEscucharReconocer').addEventListener('click', function () {
+  btnNextRecognize.addEventListener('click', nextRecognize);
+  var btnEscucharReconocer = $('#btnEscucharReconocer');
+  if (btnEscucharReconocer) btnEscucharReconocer.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsReconocer[idxR].situacion);
   });
   $('#btnRepeat').addEventListener('click', function () {

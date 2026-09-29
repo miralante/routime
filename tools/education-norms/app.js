@@ -1,5 +1,5 @@
 /* ============================================================
-   Routime — Normas de Educación (good manners and civic education)
+   Routime — Education Norms (good manners and civic education)
    Data in data.js (DATA.niveles + DATA.situaciones).
    Shared core in assets/js/.
    Mechanic: read / hear a daily-life or social situation, choose the
@@ -27,60 +27,61 @@
   }
 
   function loadProgress() {
-    var datos = App.storage.get(TOOL_ID);
-    if (datos) {
-      state.accumulatedStars = datos.stars || 0;
-      state.completedRounds = datos.completed || {};
+    var saved = App.storage.get(TOOL_ID);
+    if (saved) {
+      state.accumulatedStars = saved.stars || 0;
+      state.completedRounds = saved.completed || {};
     }
   }
 
   function saveProgress() {
-    var datos = {
-      estrellas: state.accumulatedStars,
-      completados: state.completedRounds
+    var saved = {
+      stars: state.accumulatedStars,
+      completed: state.completedRounds
     };
-    App.storage.set(TOOL_ID, datos);
+    App.storage.set(TOOL_ID, saved);
   }
 
   function showLevelSelector() {
     var app = App.utils.$('#app');
     app.innerHTML = '';
 
-    var titulo = document.createElement('h2');
-    titulo.setAttribute('data-i18n', 'title');
-    titulo.textContent = App.i18n.t('title');
-    app.appendChild(titulo);
+    var heading = document.createElement('h2');
+    heading.setAttribute('data-i18n', 'title');
+    heading.textContent = App.i18n.t('title');
+    app.appendChild(heading);
 
-    var contexto = document.createElement('p');
-    contexto.className = 'instruccion';
-    contexto.setAttribute('data-i18n', 'contexto');
-    contexto.textContent = App.i18n.t('contexto');
-    app.appendChild(contexto);
+    var ctx = document.createElement('p');
+    ctx.className = 'instruction';
+    ctx.setAttribute('data-i18n', 'context');
+    ctx.textContent = App.i18n.t('context');
+    app.appendChild(ctx);
 
     var levelsContainer = document.createElement('div');
-    levelsContainer.className = 'pila centered';
+    levelsContainer.className = 'stack centered';
 
-    DATA.niveles.forEach(function (nivel, idx) {
-      var boton = document.createElement('button');
-      boton.className = 'btn btn-nivel';
-      boton.setAttribute('data-i18n', nivel.name);
-      boton.textContent = App.i18n.t(nivel.name);
-      boton.onclick = function () {
+    var levels = DATA.niveles || DATA.levels || [];
+    levels.forEach(function (lvl, idx) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-level';
+      btn.setAttribute('data-i18n', lvl.name);
+      btn.textContent = App.i18n.t(lvl.name);
+      btn.onclick = function () {
         state.currentLevel = idx;
         state.completedRounds = 0;
         startRound();
       };
-      levelsContainer.appendChild(boton);
+      levelsContainer.appendChild(btn);
     });
 
     app.appendChild(levelsContainer);
 
     if (state.accumulatedStars > 0) {
-      var estrellas = document.createElement('div');
-      estrellas.className = 'estrellas centered';
-      estrellas.setAttribute('aria-label', state.accumulatedStars + ' estrellas');
-      estrellas.textContent = '\u2B50 ' + state.accumulatedStars;
-      app.appendChild(estrellas);
+      var starsEl = document.createElement('div');
+      starsEl.className = 'stars';
+      starsEl.setAttribute('aria-label', state.accumulatedStars + ' stars');
+      starsEl.textContent = '\u2B50 ' + state.accumulatedStars;
+      app.appendChild(starsEl);
     }
 
     App.i18n.apply(app);
@@ -90,24 +91,26 @@
     state.attempts = 0;
     state.showingFeedback = false;
 
-    var nivel = DATA.niveles[state.currentLevel];
-    var situacionesDelNivel = DATA.situaciones.filter(function (s) {
-      return s.nivel === (state.currentLevel + 1);
+    var levels = DATA.niveles || DATA.levels || [];
+    var lvl = levels[state.currentLevel];
+    var situations = DATA.situaciones || DATA.situations || [];
+    var situationsInLevel = situations.filter(function (s) {
+      return (s.nivel || s.level) === (state.currentLevel + 1);
     });
 
-    if (situacionesDelNivel.length === 0) {
+    if (situationsInLevel.length === 0) {
       // Defensive: no cases for this level, skip to completion
-      mostrarComplecion();
+      showCompletion();
       return;
     }
 
-    situacionesDelNivel = App.utils.shuffle(situacionesDelNivel);
-    state.currentSituation = situacionesDelNivel[0];
+    situationsInLevel = App.utils.shuffle(situationsInLevel);
+    state.currentSituation = situationsInLevel[0];
 
-    mostrarSituacion();
+    showSituation();
   }
 
-  function mostrarSituacion() {
+  function showSituation() {
     var app = App.utils.$('#app');
     app.innerHTML = '';
 
@@ -118,15 +121,16 @@
     backLink.textContent = '\u2190 ' + App.i18n.t('core.back');
     app.appendChild(backLink);
 
-    var titulo = document.createElement('h2');
-    titulo.className = 'tool-header';
-    titulo.setAttribute('data-i18n', 'title');
-    titulo.textContent = App.i18n.t('title');
-    app.appendChild(titulo);
+    var heading = document.createElement('h2');
+    heading.className = 'tool-header';
+    heading.setAttribute('data-i18n', 'title');
+    heading.textContent = App.i18n.t('title');
+    app.appendChild(heading);
 
     // Progress bar (rule 13: gradual progression)
-    var nivel = DATA.niveles[state.currentLevel];
-    var total = nivel.maxSituaciones;
+    var levels = DATA.niveles || DATA.levels || [];
+    var lvl = levels[state.currentLevel];
+    var total = lvl.maxSituaciones || lvl.maxSituations;
     var progress = document.createElement('div');
     progress.className = 'progress-bar';
     var fill = document.createElement('div');
@@ -135,64 +139,64 @@
     progress.appendChild(fill);
     app.appendChild(progress);
 
-    // Scenario card (contexto -> decision, SPEC §3.6)
-    var escenario = document.createElement('div');
-    escenario.className = 'escenario';
+    // Scenario card (context -> decision, SPEC §3.6)
+    var scene = document.createElement('div');
+    scene.className = 'scenario';
 
-    var tituloContexto = document.createElement('h3');
-    tituloContexto.className = 'contexto-titulo';
-    tituloContexto.setAttribute('data-i18n', state.currentSituation.contexto);
-    tituloContexto.textContent = App.i18n.t(state.currentSituation.contexto);
-    escenario.appendChild(tituloContexto);
+    var contextHeading = document.createElement('h3');
+    contextHeading.className = 'context-title';
+    contextHeading.setAttribute('data-i18n', state.currentSituation.context);
+    contextHeading.textContent = App.i18n.t(state.currentSituation.context);
+    scene.appendChild(contextHeading);
 
-    var mensaje = document.createElement('div');
-    mensaje.className = 'mensaje-dialogos';
+    var message = document.createElement('div');
+    message.className = 'dialog-message';
 
-    var personajeLabel = App.i18n.t('personaje.' + state.currentSituation.personaje) || state.currentSituation.personaje;
-    var pPersonaje = document.createElement('p');
-    pPersonaje.className = 'personaje';
-    pPersonaje.textContent = personajeLabel + ':';
-    mensaje.appendChild(pPersonaje);
+    var characterLabel = App.i18n.t('character.' + state.currentSituation.character) || state.currentSituation.character;
+    var pChar = document.createElement('p');
+    pChar.className = 'character';
+    pChar.textContent = characterLabel + ':';
+    message.appendChild(pChar);
 
-    var pMensaje = document.createElement('p');
-    pMensaje.setAttribute('data-i18n', state.currentSituation.mensaje);
-    pMensaje.textContent = App.i18n.t(state.currentSituation.mensaje);
-    mensaje.appendChild(pMensaje);
+    var pMsg = document.createElement('p');
+    pMsg.setAttribute('data-i18n', state.currentSituation.message);
+    pMsg.textContent = App.i18n.t(state.currentSituation.message);
+    message.appendChild(pMsg);
 
     // Audio button (rule 4: only where the design requires it; here the
     // user must hear what the other person is saying to choose well)
-    var botonAudio = document.createElement('button');
-    botonAudio.className = 'btn-audio';
-    botonAudio.setAttribute('aria-label', App.i18n.t('core.listen'));
-    botonAudio.textContent = '\uD83D\uDD0A ' + App.i18n.t('core.listen');
-    botonAudio.onclick = function () {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.mensaje));
+    var audioBtn = document.createElement('button');
+    audioBtn.className = 'btn-audio';
+    audioBtn.setAttribute('aria-label', App.i18n.t('core.listen'));
+    audioBtn.textContent = '\uD83D\uDD0A ' + App.i18n.t('core.listen');
+    audioBtn.onclick = function () {
+      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.message));
     };
-    mensaje.appendChild(botonAudio);
+    message.appendChild(audioBtn);
 
-    escenario.appendChild(mensaje);
-    app.appendChild(escenario);
+    scene.appendChild(message);
+    app.appendChild(scene);
 
     // Decision prompt
-    var pregunta = document.createElement('p');
-    pregunta.className = 'pregunta';
-    pregunta.setAttribute('data-i18n', 'instruction');
-    pregunta.textContent = App.i18n.t('instruction');
-    app.appendChild(pregunta);
+    var questionEl = document.createElement('p');
+    questionEl.className = 'question';
+    questionEl.setAttribute('data-i18n', 'instruction');
+    questionEl.textContent = App.i18n.t('instruction');
+    app.appendChild(questionEl);
 
     // Options (rule 10: max 4-6 options; rule 11: 3 for quiz)
     var options = document.createElement('div');
-    options.className = 'pila options-contenedor';
+    options.className = 'stack options-container';
 
-    state.currentSituation.options.forEach(function (opcionKey) {
-      var boton = document.createElement('button');
-      boton.className = 'btn btn-opcion';
-      boton.setAttribute('data-i18n', opcionKey);
-      boton.textContent = App.i18n.t(opcionKey);
-      boton.onclick = function () {
-        selectOption(opcionKey, boton);
+    state.currentSituation.options.forEach(function (optionKey) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-option';
+      btn.setAttribute('data-i18n', optionKey);
+      btn.textContent = App.i18n.t(optionKey);
+      btn.onclick = function () {
+        selectOption(optionKey, btn);
       };
-      options.appendChild(boton);
+      options.appendChild(btn);
     });
 
     app.appendChild(options);
@@ -208,30 +212,31 @@
     App.i18n.apply(app);
   }
 
-  function selectOption(opcionKey, boton) {
+  function selectOption(optionKey, btn) {
     if (state.showingFeedback) return;
 
     state.attempts++;
     state.showingFeedback = true;
 
     var feedbackZone = App.utils.$('#feedback');
-    var opcionesBtns = App.utils.$$('.btn-opcion', App.utils.$('#app'));
-    var isCorrect = opcionKey === state.currentSituation.correcta;
+    var optionBtns = App.utils.$$('.btn-option', App.utils.$('#app'));
+    var isCorrect = optionKey === (state.currentSituation.correcta || state.currentSituation.correct);
 
     if (isCorrect) {
       // Correct answer -> celebrate, no punishment
-      boton.classList.add('correcta');
-      App.feedback.acierto(feedbackZone);
+      btn.classList.add('correct');
+      App.feedback.success(feedbackZone);
       feedbackZone.textContent = App.i18n.t('feedback.correct');
-      opcionesBtns.forEach(function (b) { b.disabled = true; });
+      optionBtns.forEach(function (b) { b.disabled = true; });
 
       setTimeout(function () {
         state.completedRounds++;
         saveProgress();
 
-        var nivel = DATA.niveles[state.currentLevel];
-        if (state.completedRounds >= nivel.maxSituaciones) {
-          mostrarComplecion();
+        var levels = DATA.niveles || DATA.levels || [];
+        var lvl = levels[state.currentLevel];
+        if (state.completedRounds >= (lvl.maxSituaciones || lvl.maxSituations)) {
+          showCompletion();
         } else {
           state.attempts = 0;
           state.showingFeedback = false;
@@ -243,31 +248,31 @@
 
     if (state.attempts === 1) {
       // First mistake: Socratic hint (rule 12)
-      boton.classList.add('error');
-      boton.disabled = true;
-      App.feedback.animo(feedbackZone);
-      var pista = state.currentSituation.pista
+      btn.classList.add('error');
+      btn.disabled = true;
+      App.feedback.encourage(feedbackZone);
+      var hint = state.currentSituation.pista
         ? App.i18n.t(state.currentSituation.pista)
-        : App.i18n.t('pista');
-      feedbackZone.textContent = pista;
-      App.feedback.lockUntilAck(opcionesBtns, feedbackZone, function () {
+        : App.i18n.t('hint');
+      feedbackZone.textContent = hint;
+      App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
         state.showingFeedback = false;
       });
     } else {
       // Second mistake: show explanation and the correct answer
-      boton.classList.add('error');
-      App.feedback.animo(feedbackZone);
-      var explicacion = App.i18n.t('feedback.explicacion') + ' ' +
+      btn.classList.add('error');
+      App.feedback.encourage(feedbackZone);
+      var explanation = App.i18n.t('feedback.explanation') + ' ' +
         App.i18n.t(state.currentSituation.correcta) + '.';
-      feedbackZone.textContent = explicacion;
-      opcionesBtns.forEach(function (b) { b.disabled = true; });
-      App.feedback.lockUntilAck(opcionesBtns, feedbackZone, function () {
+      feedbackZone.textContent = explanation;
+      optionBtns.forEach(function (b) { b.disabled = true; });
+      App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
         state.completedRounds++;
         saveProgress();
 
-        var nivel = DATA.niveles[state.currentLevel];
-        if (state.completedRounds >= nivel.maxSituaciones) {
-          mostrarComplecion();
+        var lvl = DATA.niveles[state.currentLevel];
+        if (state.completedRounds >= lvl.maxSituaciones) {
+          showCompletion();
         } else {
           state.attempts = 0;
           state.showingFeedback = false;
@@ -277,67 +282,67 @@
     }
   }
 
-  function mostrarComplecion() {
+  function showCompletion() {
     var app = App.utils.$('#app');
     app.innerHTML = '';
 
-    var titulo = document.createElement('h1');
-    titulo.className = 'titulo-celebracion';
-    titulo.setAttribute('data-i18n', 'fin_ronda');
-    titulo.textContent = App.i18n.t('fin_ronda');
-    app.appendChild(titulo);
+    var heading = document.createElement('h1');
+    heading.className = 'celebration-title';
+    heading.setAttribute('data-i18n', 'roundEnd');
+    heading.textContent = App.i18n.t('roundEnd');
+    app.appendChild(heading);
 
     // Progressive stars: 1 / 2 / 3 by level (rule 5.3, never subtracted)
-    var nivel = DATA.niveles[state.currentLevel];
-    var estrellasGanadas = 1 + state.currentLevel;
-    state.accumulatedStars += estrellasGanadas;
+    var lvl = DATA.niveles[state.currentLevel];
+    var starsEarned = 1 + state.currentLevel;
+    state.accumulatedStars += starsEarned;
 
-    var estrellas = document.createElement('div');
-    estrellas.className = 'estrellas-celebracion';
-    estrellas.setAttribute('aria-label', estrellasGanadas + ' estrellas');
-    var estrellasTxt = '';
-    for (var i = 0; i < estrellasGanadas; i++) estrellasTxt += '\u2B50 ';
-    estrellas.textContent = estrellasTxt;
-    app.appendChild(estrellas);
+    var starsEl = document.createElement('div');
+    starsEl.className = 'celebration-stars';
+    starsEl.setAttribute('aria-label', starsEarned + ' stars');
+    var starsTxt = '';
+    for (var i = 0; i < starsEarned; i++) starsTxt += '\u2B50 ';
+    starsEl.textContent = starsTxt;
+    app.appendChild(starsEl);
 
-    var totalEstrellas = document.createElement('p');
-    totalEstrellas.className = 'total-estrellas';
-    totalEstrellas.textContent = '\u2B50 ' + state.accumulatedStars;
-    app.appendChild(totalEstrellas);
+    var totalStars = document.createElement('p');
+    totalStars.className = 'total-stars';
+    totalStars.textContent = '\u2B50 ' + state.accumulatedStars;
+    app.appendChild(totalStars);
 
     // Transfer line (SPEC §3.6, mandatory in simulation rounds)
-    var transferencia = document.createElement('p');
-    transferencia.className = 'transferencia';
-    transferencia.setAttribute('data-i18n', 'transferencia');
-    transferencia.textContent = App.i18n.t('transferencia');
-    app.appendChild(transferencia);
+    var transfer = document.createElement('p');
+    transfer.className = 'transfer';
+    transfer.setAttribute('data-i18n', 'transfer');
+    transfer.textContent = App.i18n.t('transfer');
+    app.appendChild(transfer);
 
-    var botones = document.createElement('div');
-    botones.className = 'pila centered';
+    var btns = document.createElement('div');
+    btns.className = 'stack centered';
 
-    var botonRepetir = document.createElement('button');
-    botonRepetir.className = 'btn';
-    botonRepetir.setAttribute('data-i18n', 'core.playAgain');
-    botonRepetir.textContent = App.i18n.t('core.playAgain');
-    botonRepetir.onclick = function () {
+    var btnRepeat = document.createElement('button');
+    btnRepeat.className = 'btn';
+    btnRepeat.setAttribute('data-i18n', 'core.playAgain');
+    btnRepeat.textContent = App.i18n.t('core.playAgain');
+    btnRepeat.onclick = function () {
       state.completedRounds = 0;
       showLevelSelector();
     };
-    botones.appendChild(botonRepetir);
+    btns.appendChild(btnRepeat);
 
-    var botonMenu = document.createElement('button');
-    botonMenu.className = 'btn btn-secundario';
-    botonMenu.setAttribute('data-i18n', 'core.backToMenu');
-    botonMenu.textContent = App.i18n.t('core.backToMenu');
-    botonMenu.onclick = function () {
+    var btnMenu = document.createElement('button');
+    btnMenu.className = 'btn btn-secondary';
+    btnMenu.setAttribute('data-i18n', 'core.backToMenu');
+    btnMenu.textContent = App.i18n.t('core.backToMenu');
+    btnMenu.onclick = function () {
       window.location.href = '../../site/index.html';
     };
-    botones.appendChild(botonMenu);
+    btns.appendChild(btnMenu);
 
-    app.appendChild(botones);
+    app.appendChild(btns);
 
     saveProgress();
-    App.feedback.celebrar(App.i18n.t('feedback.correct'));
+    App.feedback.celebrate(App.i18n.t('feedback.correct'));
     App.i18n.apply(app);
   }
 

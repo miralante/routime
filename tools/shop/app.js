@@ -43,7 +43,7 @@
   /* ---- Pantallas ---- */
   var PANTALLAS = ['menuScreen', 'pantallaNiveles', 'pantallaJuegoQuiz',
     'pantallaJuegoTienda', 'endScreen'];
-  function mostrar(id) {
+  function show(id) {
     PANTALLAS.forEach(function (p) { $('#' + p).classList.add('hidden'); });
     $('#' + id).classList.remove('hidden');
   }
@@ -68,7 +68,7 @@
   var feedbackQuizEl = $('#feedbackQuiz');
   var explicacionQuizWrap = $('#explicacionQuizWrap');
   var explicacionQuizEl = $('#explicacionQuiz');
-  var btnSiguienteQuiz = $('#btnSiguienteQuiz');
+  var btnNextQuiz = $('#btnSiguienteQuiz');
 
   var actividadActual = 'tienda';
   var nivelQ = null;
@@ -103,7 +103,7 @@
     idxQ = 0;
     aciertosQ = 0;
     if (cfgActual().alIniciar) cfgActual().alIniciar();
-    mostrar('pantallaJuegoQuiz');
+    show('pantallaJuegoQuiz');
     renderQuiz();
   }
 
@@ -116,7 +116,7 @@
     feedbackQuizEl.className = 'feedback';
     explicacionQuizWrap.classList.add('hidden');
     explicacionQuizEl.textContent = '';
-    btnSiguienteQuiz.classList.add('hidden');
+    btnNextQuiz.classList.add('hidden');
 
     enunciadoQuizEl.textContent = cfg.enunciado(casoQ);
     pintarMesaQuiz(cfg.mesa ? cfg.mesa(casoQ) : null);
@@ -145,8 +145,8 @@
       if (par.op.correcta) par.btn.classList.add('correcta');
     });
     mostrarTextoQuiz(cfg.explicacion(casoQ, bien));
-    btnSiguienteQuiz.classList.remove('hidden');
-    btnSiguienteQuiz.focus();
+    btnNextQuiz.classList.remove('hidden');
+    btnNextQuiz.focus();
   }
 
   function responderQuiz(btn, op) {
@@ -175,7 +175,7 @@
     }
   }
 
-  function siguienteQuiz() {
+  function nextQuiz() {
     idxQ += 1;
     if (idxQ >= datos().porRonda) endRound(aciertosQ, nivelQ);
     else renderQuiz();
@@ -452,7 +452,7 @@
     var cfg = cfgActual();
     $('#instruccionActividad').textContent = '';
     renderLevels();
-    mostrar('pantallaNiveles');
+    show('pantallaNiveles');
   }
 
   function renderLevels() {
@@ -481,7 +481,7 @@
     var total = cfg.esQuiz ? datos().porRonda : datos().porRondaTienda;
     $('#resumenFinal').textContent = '';
 $('#transferencia').textContent = '';
-    mostrar('endScreen');
+    show('endScreen');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -597,7 +597,7 @@ $('#transferencia').textContent = '';
     nivelT = nivel;
     compraIdx = 0;
     aciertosT = 0;
-    mostrar('pantallaJuegoTienda');
+    show('pantallaJuegoTienda');
     nuevaCompra();
   }
 
@@ -805,11 +805,14 @@ $('#transferencia').textContent = '';
   App.utils.$$('.tarjeta-actividad').forEach(function (btn) {
     btn.addEventListener('click', function () { abrirActividad(btn.getAttribute('data-actividad')); });
   });
-  $('#btnVolverMenuNiveles').addEventListener('click', function () { mostrar('menuScreen'); });
-  $('#btnVolverMenuFinal').addEventListener('click', function () { mostrar('menuScreen'); });
+  var btnVolverMenuNiveles = $('#btnVolverMenuNiveles');
+  if (btnVolverMenuNiveles) btnVolverMenuNiveles.addEventListener('click', function () { show('menuScreen'); });
+  var btnVolverMenuFinal = $('#btnVolverMenuFinal');
+  if (btnVolverMenuFinal) btnVolverMenuFinal.addEventListener('click', function () { show('menuScreen'); });
 
-  btnSiguienteQuiz.addEventListener('click', siguienteQuiz);
-  $('#btnEnunciadoQuiz').addEventListener('click', function () {
+  btnNextQuiz.addEventListener('click', nextQuiz);
+  var btnEnunciadoQuiz = $('#btnEnunciadoQuiz');
+  if (btnEnunciadoQuiz) btnEnunciadoQuiz.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoQuizEl.textContent);
   });
 
@@ -818,7 +821,8 @@ $('#transferencia').textContent = '';
     alContinuar = null;
     if (fn) fn();
   });
-  $('#btnEnunciadoTienda').addEventListener('click', function () {
+  var btnEnunciadoTienda = $('#btnEnunciadoTienda');
+  if (btnEnunciadoTienda) btnEnunciadoTienda.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoTiendaEl.textContent);
   });
 
@@ -826,7 +830,8 @@ $('#transferencia').textContent = '';
     if (cfgActual().esQuiz) iniciarRondaQuiz(nivelQ);
     else iniciarRondaTienda(nivelT);
   });
-  $('#btnOtroNivelFinal').addEventListener('click', function () { abrirActividad(actividadActual); });
+  var btnOtroNivelFinal = $('#btnOtroNivelFinal');
+  if (btnOtroNivelFinal) btnOtroNivelFinal.addEventListener('click', function () { abrirActividad(actividadActual); });
 
   renderStars();
 })();

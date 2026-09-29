@@ -17,7 +17,7 @@
     "check": "Comprobar",
     "clear": "Borrar",
     "space": "espacio",
-    "correctFull": "✅ ¡Perfecto! Todas las letters están en su sitio.",
+    "correctFull": "✅ ¡Perfecto! Todas las letras están en su sitio.",
     "transferencia": "Ahora escribirás con más atención a cada letra. Te servirá para deletrear, escribir mensajes y no equivocarte.",
     "wrongVisual": "👀 Mira los colores. Cada letra tiene un color.",
     "colorOk": "verde",

@@ -23,7 +23,7 @@ var DATA = {
             choices: [
               { text: 'Reviso la hora, preparo la tarjeta de la cita y salgo a las 9:30.', explanation: 'Preparar primero y salir con margen ayuda a llegar con calma.', correct: true },
               { text: 'Salgo a las 10:00 y busco la tarjeta después.', explanation: 'A las 10:00 ya empieza la cita. La tarjeta se prepara antes de salir.', correct: false },
-              { text: 'Voy sin mirar la hora y preparo la tarjeta al volver.', explanation: 'Mirar la hora y preparar lo necesario son steps anteriores a salir.', correct: false }
+              { text: 'Voy sin mirar la hora y preparo la tarjeta al volver.', explanation: 'Mirar la hora y preparar lo necesario son pasos anteriores a salir.', correct: false }
             ]
           },
           {
@@ -33,7 +33,7 @@ var DATA = {
             choices: [
               { text: 'Guardo el libro en la mochila, miro cómo llegar y salgo con tiempo.', explanation: 'Primero preparas el libro. Después compruebas el camino y sales.', correct: true },
               { text: 'Miro el camino, salgo y dejo el libro en casa.', explanation: 'Sin el libro no puedes hacer la devolución.', correct: false },
-              { text: 'Salgo, vuelvo a por el libro y después miro el camino.', explanation: 'Volver a casa añade steps. Es mejor preparar el libro antes.', correct: false }
+              { text: 'Salgo, vuelvo a por el libro y después miro el camino.', explanation: 'Volver a casa añade pasos. Es mejor preparar el libro antes.', correct: false }
             ]
           },
           {
@@ -81,7 +81,7 @@ var DATA = {
             scenario: 'Videollamada. La llamada empieza a las 19:00.',
             hint: '¿Qué necesita el dispositivo antes de la llamada?',
             choices: [
-              { text: 'Cargo el dispositivo, busco un lugar tranquilo y entro a las 19:00.', explanation: 'Cargar y preparar el lugar son steps anteriores a entrar.', correct: true },
+              { text: 'Cargo el dispositivo, busco un lugar tranquilo y entro a las 19:00.', explanation: 'Cargar y preparar el lugar son pasos anteriores a entrar.', correct: true },
               { text: 'Entro sin batería, busco el cargador y después elijo un lugar.', explanation: 'La llamada puede cortarse si no preparas el dispositivo.', correct: false },
               { text: 'Busco un lugar después de terminar la llamada y cargo el dispositivo mañana.', explanation: 'Esos preparativos sirven antes de la llamada.', correct: false }
             ]
@@ -177,7 +177,7 @@ var DATA = {
           {
             icon: '🤝',
             scenario: 'Entrevista de trabajo. Te esperan en una dirección nueva.',
-            hint: '¿Qué debes saber para llegar al lugar correct?',
+            hint: '¿Qué debes saber para llegar al lugar correcto?',
             choices: [
               { text: 'Compruebo la dirección y llevo el documento que me pidieron.', explanation: 'Saber dónde ir y llevar lo solicitado permite acudir preparado.', correct: true },
               { text: 'Llevo material de piscina y no miro la dirección.', explanation: 'Ese material no sirve para la entrevista.', correct: false },
@@ -215,7 +215,7 @@ var DATA = {
           {
             icon: '🚆',
             scenario: 'Tren del sábado. Sale a las 11:30.',
-            hint: '¿Qué timeOfDay es anterior, pero cercano, a las 11:30 del sábado?',
+            hint: '¿Qué momento es anterior, pero cercano, a las 11:30 del sábado?',
             choices: [
               { text: 'Hago la bolsa el viernes y llego a la estación a las 11:10.', explanation: 'La bolsa queda lista y llegas antes de la salida.', correct: true },
               { text: 'Hago la bolsa el sábado a las 11:30 y llego después.', explanation: 'El tren puede haberse ido.', correct: false },

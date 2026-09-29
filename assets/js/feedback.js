@@ -20,13 +20,24 @@
      only muted if someone has explicitly turned it off). */
   var audioCtx = null;
 
-  function sonidosActivados() {
-    if (!window.App.storage) return true;
-    return App.storage.get('prefs').sonidos !== false;
+  function sonidoCompartidoActivado(tipo) {
+    try {
+      var guardado = JSON.parse(localStorage.getItem('miralante:sounds') || 'null');
+      if (guardado && typeof guardado[tipo] === 'boolean') return guardado[tipo];
+    } catch (e) { /* ignore */ }
+    return null;
   }
 
-  function tono(frecuencia, duracion, tipo) {
-    if (!sonidosActivados()) return;
+  function sonidosActivados(tipo) {
+    var compartido = sonidoCompartidoActivado(tipo);
+    if (compartido !== null) return compartido;
+    if (!window.App.storage) return tipo !== 'error';
+    var prefs = App.storage.get('prefs');
+    return tipo === 'error' ? prefs.sonidos === true : prefs.sonidos !== false;
+  }
+
+  function tono(frecuencia, duracion, tipo, clase) {
+    if (!sonidosActivados(clase || 'success')) return;
     try {
       if (!audioCtx) {
         var AC = window.AudioContext || window.webkitAudioContext;
@@ -47,20 +58,20 @@
   }
 
   function sonidoAcierto() {
-    tono(523.25, 0.15);          /* C */
-    setTimeout(function () { tono(659.25, 0.2); }, 120); /* E */
+    tono(523.25, 0.15, 'sine', 'success');          /* C */
+    setTimeout(function () { tono(659.25, 0.2, 'sine', 'success'); }, 120); /* E */
   }
 
   function sonidoAnimo() {
     /* Soft and neutral, never harsh (rule 5) */
-    tono(392, 0.2, 'sine');
+    tono(180, 0.12, 'triangle', 'error');
   }
 
   /** Celebratory arpeggio for earning a star */
   function sonidoEstrella() {
-    tono(523.25, 0.12);           /* C5 */
-    setTimeout(function () { tono(659.25, 0.12); }, 100);  /* E5 */
-    setTimeout(function () { tono(783.99, 0.25); }, 200);  /* G5 */
+    tono(523.25, 0.12, 'sine', 'success');           /* C5 */
+    setTimeout(function () { tono(659.25, 0.12, 'sine', 'success'); }, 100);  /* E5 */
+    setTimeout(function () { tono(783.99, 0.25, 'sine', 'success'); }, 200);  /* G5 */
   }
 
   /**
@@ -137,6 +148,22 @@
     return window.App.i18n ? App.i18n.t('core.understood') : 'Entendido';
   }
 
+  /* Keep the reading pause in a stable place, before the option group.
+     Activities use different wrappers around their options, so find the
+     nearest ancestor that shares a parent with the help zone. */
+  function colocarZonaAntesDeOpciones(buttons, zona) {
+    var primero = buttons && buttons.length ? buttons[0] : null;
+    if (!primero || !zona || !zona.parentNode) return;
+
+    var grupoOpciones = primero;
+    while (grupoOpciones.parentNode && grupoOpciones.parentNode !== zona.parentNode) {
+      grupoOpciones = grupoOpciones.parentNode;
+    }
+    if (grupoOpciones.parentNode === zona.parentNode) {
+      zona.parentNode.insertBefore(zona, grupoOpciones);
+    }
+  }
+
   /**
    * Locks every not-yet-tried option button after a wrong answer (rule 12:
    * a reading pause, never a punishment). Buttons already disabled from an
@@ -148,12 +175,26 @@
    * @param {function} [alConfirmar] - called after the person taps Entendido
    */
   function lockUntilAck(buttons, zona, alConfirmar) {
-    var pendientes = Array.prototype.filter.call(buttons || [], function (b) { return !b.disabled; });
+    var pendientes = Array.prototype.filter.call(buttons || [], function (b) {
+      return b && !b.disabled && b.getAttribute('aria-disabled') !== 'true';
+    });
+    /* `disabled` is enough for native buttons, but some activities use
+       custom interactive elements and their click handlers can still run.
+       Capture the events as well so no option can be answered while the
+       reading pause is waiting for acknowledgement. */
+    function bloquearEvento(event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
     pendientes.forEach(function (b) {
       b.disabled = true;
+      b.setAttribute('aria-disabled', 'true');
       b.classList.add('bloqueada');
+      b.addEventListener('click', bloquearEvento, true);
+      b.addEventListener('keydown', bloquearEvento, true);
     });
     if (!zona) return;
+    colocarZonaAntesDeOpciones(buttons, zona);
     var boton = zona.querySelector('.btn-entendido');
     if (!boton) {
       boton = document.createElement('button');
@@ -162,13 +203,17 @@
       zona.appendChild(boton);
     }
     boton.textContent = textoEntendido();
-    boton.classList.remove('oculto');
+    boton.classList.remove('hidden');
     boton.onclick = function () {
       pendientes.forEach(function (b) {
+        b.removeEventListener('click', bloquearEvento, true);
+        b.removeEventListener('keydown', bloquearEvento, true);
         b.disabled = false;
+        b.removeAttribute('aria-disabled');
         b.classList.remove('bloqueada');
       });
-      boton.classList.add('oculto');
+      boton.classList.add('hidden');
+      zona.classList.add('hidden');
       if (alConfirmar) alConfirmar();
     };
     boton.focus();

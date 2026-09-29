@@ -229,7 +229,7 @@
     btnNext.focus();
   }
 
-  function siguiente() {
+  function next() {
     if (idxEscena >= banco().porRonda) {
       endRound();
     } else {
@@ -250,7 +250,7 @@
   }
 
   /* Events */
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {

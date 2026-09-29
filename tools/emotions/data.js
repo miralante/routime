@@ -20,7 +20,7 @@ const DATA = {
         mensaje: 'Estás contento. ¡Qué bien!',
         sugerencia: {
           tipo: 'text',
-          text: 'Disfruta este timeOfDay. Puedes contárselo a alguien que quieres.'
+          text: 'Disfruta este momento. Puedes contárselo a alguien que quieres.'
         }
       },
       {

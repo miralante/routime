@@ -75,7 +75,7 @@
   var explicacionQEl = $('#explicacionQueHago');
   var progressQFill = $('#progressQueHagoFill');
   var progressQText = $('#progressQueHagoText');
-  var btnSiguienteQ = $('#btnSiguienteQueHago');
+  var btnNextWhatToDo = $('#btnSiguienteQueHago');
 
   function iniciarQueHago() {
     actividadActual = 'queHago';
@@ -103,7 +103,7 @@
     feedbackQEl.className = 'feedback';
     explicacionQWrap.classList.add('hidden');
     explicacionQEl.textContent = '';
-    btnSiguienteQ.classList.add('hidden');
+    btnNextWhatToDo.classList.add('hidden');
     opcionesQEl.innerHTML = '';
 
     var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
@@ -136,15 +136,15 @@
       mostrarExplicacionQ(isCorrect, item);
       resueltoQ = true;
       btn.classList.add('correcta');
-      App.utils.$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.utils.$$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackQEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
       aciertosQ += 1;
       guardar();
       renderStars();
-      btnSiguienteQ.classList.remove('hidden');
-      btnSiguienteQ.focus();
+      btnNextWhatToDo.classList.remove('hidden');
+      btnNextWhatToDo.focus();
     } else {
       intentosQ += 1;
       if (intentosQ === 1) {
@@ -156,11 +156,11 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackQEl);
-      App.feedback.lockUntilAck(App.utils.$('#opcionesQueHago .btn-opcion'), explicacionQWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesQueHago .btn-opcion'), explicacionQWrap);
     }
   }
 
-  function siguienteQueHago() {
+  function nextWhatToDo() {
     idxQ += 1;
     if (idxQ >= banco().porRonda) {
       terminarQueHago();
@@ -183,7 +183,7 @@
   var listasOrdenar = [];
   var idxO = 0;
   var aciertosO = 0;
-  var siguienteEsperadoO = 0;
+  var nextExpectedO = 0;
   var slotsO = [];
 
   var listaTituloEl = $('#listaTitulo');
@@ -211,7 +211,7 @@
 
   function renderOrdenar() {
     var lista = listasOrdenar[idxO];
-    siguienteEsperadoO = 0;
+    nextExpectedO = 0;
     slotsO = new Array(lista.items.length).fill(null);
     feedbackOEl.textContent = '';
     feedbackOEl.className = 'feedback';
@@ -254,14 +254,14 @@
 
   function tocarO(orden, btn) {
     var lista = listasOrdenar[idxO];
-    if (orden === siguienteEsperadoO) {
+    if (orden === nextExpectedO) {
       slotsO[orden] = lista.items[orden];
       pintarSlotsO();
       btn.disabled = true;
       btn.classList.add('colocada');
       App.feedback.success(feedbackOEl);
-      siguienteEsperadoO += 1;
-      if (siguienteEsperadoO >= lista.items.length) {
+      nextExpectedO += 1;
+      if (nextExpectedO >= lista.items.length) {
         terminarTareaO();
       }
     } else {
@@ -297,11 +297,11 @@
   $('#tarjetaOrdenar').addEventListener('click', iniciarOrdenar);
   $('#btnVolverQueHago').addEventListener('click', irMenu);
   $('#btnVolverOrdenar').addEventListener('click', irMenu);
-  btnSiguienteQ.addEventListener('click', siguienteQueHago);
-  $('#btnEscucharExplicacionQueHago').addEventListener('click', function () {
+  btnNextWhatToDo.addEventListener('click', nextWhatToDo);
+  if ($('#btnEscucharExplicacionQueHago')) $('#btnEscucharExplicacionQueHago').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionQEl.textContent);
   });
-  $('#btnEscucharQueHago').addEventListener('click', function () {
+  if ($('#btnEscucharQueHago')) $('#btnEscucharQueHago').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsQueHago[idxQ].situacion);
   });
   $('#btnRepeat').addEventListener('click', function () {

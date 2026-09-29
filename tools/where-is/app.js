@@ -175,7 +175,7 @@
     }
   }
 
-  function siguiente() {
+  function next() {
     idx += 1;
     if (idx >= banco().porRonda) {
       endRound();
@@ -198,7 +198,7 @@ $('#transferencia').textContent = '';
   }
 
   /* Events */
-  btnNext.addEventListener('click', siguiente);
+  btnNext.addEventListener('click', next);
   $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {

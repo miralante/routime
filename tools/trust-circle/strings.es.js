@@ -29,5 +29,4 @@
     "labelCompanero": "Compañero",
     "labelConocido": "Conocido"
   }, 'es');
-  }, 'es');
 })();

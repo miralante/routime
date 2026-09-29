@@ -78,6 +78,7 @@
 
   /* Renders the level selection buttons. */
   function renderLevels() {
+    if (!levelsEl) return;
     levelsEl.innerHTML = '';
     bank().niveles.forEach(function (level) {
       var btn = document.createElement('button');
@@ -241,8 +242,8 @@
 
   /* Events */
   ['up', 'down', 'left', 'right'].forEach(function (dir) {
-    $('#btn' + dir.charAt(0).toUpperCase() + dir.slice(1))
-      .addEventListener('click', function () { move(dir); });
+    var directionButton = $('#btn' + dir.charAt(0).toUpperCase() + dir.slice(1));
+    if (directionButton) directionButton.addEventListener('click', function () { move(dir); });
   });
   document.addEventListener('keydown', function (ev) {
     if (!inGame || gameScreen.classList.contains('hidden')) return;
@@ -250,8 +251,9 @@
     if (dir) { ev.preventDefault(); move(dir); }
   });
   btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
+  if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
     startScreen.classList.remove('hidden');

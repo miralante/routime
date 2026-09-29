@@ -1,22 +1,22 @@
 ﻿/* ============================================================
-   Datos: Se lo Cuento al MÃ©dico (Mi dÃ­a a dÃ­a â€” comunicar un
-   sÃ­ntoma corporal con words sencillas para poder contÃ¡rselo
-   a un mÃ©dico).
+   Datos: Se lo Cuento al Médico (Mi día a día — comunicar un
+   síntoma corporal con words sencillas para poder contárselo
+   a un médico).
    Formato: DATA.es / DATA.en, cada uno con:
    { porRonda, niveles: [{ id, name, descripcion, estrellas,
      items: [{ text, options: string[3], correct: indice }] }] }
-   'text' describe una escena en 2Âª persona (quÃ© le pasa a la
-   persona); la opciÃ³n correcta es siempre la frase que mejor
-   describe ese sÃ­ntoma en primera persona para decÃ­rsela al
-   mÃ©dico. Complementa a tools/my-body (que practica notar la
-   seÃ±al y elegir la acciÃ³n de autocuidado): aquÃ­ se practica
+   'text' describe una escena en 2ª persona (qué le pasa a la
+   persona); la opción correcta es siempre la frase que mejor
+   describe ese síntoma en primera persona para decírsela al
+   médico. Complementa a tools/my-body (que practica notar la
+   señal y elegir la acción de autocuidado): aquí se practica
    ponerla en words para otra persona.
-   ProgresiÃ³n (regla 13, un solo cambio por nivel): nivel 1 usa
-   dolor con localizaciÃ³n clara (tripa, cabeza, garganta...);
-   nivel 2 mantiene el mismo formato de 3 options y amplÃ­a el
-   tipo de sÃ­ntoma (picor, mareo, fiebre, tos...) aÃ±adiendo el
+   Progresión (regla 13, un solo cambio por nivel): nivel 1 usa
+   dolor con localización clara (tripa, cabeza, garganta...);
+   nivel 2 mantiene el mismo formato de 3 options y amplía el
+   tipo de síntoma (picor, mareo, fiebre, tos...) añadiendo el
    matiz temporal ("desde ayer", "desde hace una semana").
-   Para ampliar: aÃ±adir items al array del nivel correspondiente.
+   Para ampliar: añadir items al array del nivel correspondiente.
    app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 const DATA = {
@@ -26,43 +26,43 @@ const DATA = {
       {
         id: 1,
         name: 'Nivel 1',
-        descripcion: 'DÃ³nde me duele',
+        descripcion: 'Dónde me duele',
         estrellas: 1,
         items: [
-          { text: 'Te duele la tripa desde esta maÃ±ana.', options: ['Me duele la tripa', 'Me duele la pierna', 'No me duele nada'], correct: 0 },
-          { text: 'Te duele la cabeza.', options: ['Me duele la cabeza', 'Me duele el brazo', 'Tengo frÃ­o'], correct: 0 },
-          { text: 'Te duele la garganta al tragar.', options: ['Me duele la garganta', 'Me duele el pie', 'Tengo sueÃ±o'], correct: 0 },
-          { text: 'Te duele el oÃ­do.', options: ['Me duele el oÃ­do', 'Me duele la tripa', 'Tengo hambre'], correct: 0 },
+          { text: 'Te duele la tripa desde esta mañana.', options: ['Me duele la tripa', 'Me duele la pierna', 'No me duele nada'], correct: 0 },
+          { text: 'Te duele la cabeza.', options: ['Me duele la cabeza', 'Me duele el brazo', 'Tengo frío'], correct: 0 },
+          { text: 'Te duele la garganta al tragar.', options: ['Me duele la garganta', 'Me duele el pie', 'Tengo sueño'], correct: 0 },
+          { text: 'Te duele el oído.', options: ['Me duele el oído', 'Me duele la tripa', 'Tengo hambre'], correct: 0 },
           { text: 'Te duele una muela al comer.', options: ['Me duele una muela', 'Me duele la espalda', 'Tengo sed'], correct: 0 },
           { text: 'Te duele la espalda al agacharte.', options: ['Me duele la espalda', 'Me duele el ojo', 'Estoy cansado'], correct: 0 },
           { text: 'Te duele el pie al caminar.', options: ['Me duele el pie', 'Me duele la mano', 'Tengo calor'], correct: 0 },
-          { text: 'Te duele la mano despuÃ©s de escribir mucho.', options: ['Me duele la mano', 'Me duele el cuello', 'Tengo frÃ­o'], correct: 0 },
-          { text: 'Te duele el cuello al girar la cabeza.', options: ['Me duele el cuello', 'Me duele la rodilla', 'Tengo sueÃ±o'], correct: 0 },
+          { text: 'Te duele la mano después de escribir mucho.', options: ['Me duele la mano', 'Me duele el cuello', 'Tengo frío'], correct: 0 },
+          { text: 'Te duele el cuello al girar la cabeza.', options: ['Me duele el cuello', 'Me duele la rodilla', 'Tengo sueño'], correct: 0 },
           { text: 'Te duele la rodilla al subir escaleras.', options: ['Me duele la rodilla', 'Me duele el hombro', 'Tengo hambre'], correct: 0 },
           { text: 'Te duele el hombro al levantar el brazo.', options: ['Me duele el hombro', 'Me duele la tripa', 'Tengo sed'], correct: 0 },
-          { text: 'Te duele el ojo y lo notas rojo.', options: ['Me duele el ojo', 'Me duele la garganta', 'Tengo frÃ­o'], correct: 0 },
-          { text: 'Te duele el estÃ³mago despuÃ©s de comer.', options: ['Me duele el estÃ³mago', 'Me duele la muÃ±eca', 'Tengo sueÃ±o'], correct: 0 }
+          { text: 'Te duele el ojo y lo notas rojo.', options: ['Me duele el ojo', 'Me duele la garganta', 'Tengo frío'], correct: 0 },
+          { text: 'Te duele el estómago después de comer.', options: ['Me duele el estómago', 'Me duele la muñeca', 'Tengo sueño'], correct: 0 }
         ]
       },
       {
         id: 2,
         name: 'Nivel 2',
-        descripcion: 'QuÃ© siento y desde cuÃ¡ndo',
+        descripcion: 'Qué siento y desde cuándo',
         estrellas: 2,
         items: [
           { text: 'Te pica mucho la piel del brazo desde ayer.', options: ['Me pica el brazo desde ayer', 'Me duele el brazo desde hace un mes', 'No me pasa nada en el brazo'], correct: 0 },
-          { text: 'Notas mareo cuando te levantas rÃ¡pido.', options: ['Me mareo cuando me levanto rÃ¡pido', 'Me pica la mano cuando como', 'Tengo mucha hambre por la maÃ±ana'], correct: 0 },
-          { text: 'Tienes fiebre y notas el cuerpo caliente desde esta maÃ±ana.', options: ['Tengo fiebre desde esta maÃ±ana', 'Tengo frÃ­o desde hace una semana', 'Me duele el dedo desde ayer'], correct: 0 },
-          { text: 'Tienes tos desde hace tres dÃ­as.', options: ['Tengo tos desde hace tres dÃ­as', 'Tengo sueÃ±o desde esta maÃ±ana', 'Me pica la garganta desde hace un aÃ±o'], correct: 0 },
-          { text: 'Notas nÃ¡useas despuÃ©s de comer.', options: ['Tengo nÃ¡useas despuÃ©s de comer', 'Me duele la oreja despuÃ©s de comer', 'Tengo sed despuÃ©s de dormir'], correct: 0 },
-          { text: 'Te sientes muy cansado desde hace una semana, aunque duermes bien.', options: ['Estoy muy cansado desde hace una semana', 'Me pica la rodilla desde ayer', 'Tengo frÃ­o desde esta maÃ±ana'], correct: 0 },
-          { text: 'Notas que te quema el pecho despuÃ©s de comer.', options: ['Me quema el pecho despuÃ©s de comer', 'Me pica el ojo despuÃ©s de comer', 'Tengo sueÃ±o despuÃ©s de comer'], correct: 0 },
-          { text: 'Te duele la tripa y ademÃ¡s tienes diarrea desde ayer.', options: ['Me duele la tripa y tengo diarrea desde ayer', 'Me duele la cabeza desde hace un mes', 'Tengo mucho frÃ­o desde esta maÃ±ana'], correct: 0 },
-          { text: 'Notas manchas rojas en la piel desde hace dos dÃ­as.', options: ['Tengo manchas rojas en la piel desde hace dos dÃ­as', 'Tengo fiebre desde hace un aÃ±o', 'Me duele el brazo desde ayer por la tarde'], correct: 0 },
-          { text: 'Te falta el aire despuÃ©s de subir pocas escaleras.', options: ['Me falta el aire al subir escaleras', 'Me pica la mano al subir escaleras', 'Tengo hambre al subir escaleras'], correct: 0 },
-          { text: 'Notas hormigueo en la pierna despuÃ©s de estar sentado mucho rato.', options: ['Tengo hormigueo en la pierna', 'Tengo fiebre en la pierna', 'Me duele el ojo'], correct: 0 },
-          { text: 'Te duele la tripa desde hace una semana, cada dÃ­a un poco.', options: ['Me duele la tripa desde hace una semana', 'Me duele la tripa desde hace cinco minutos', 'No me duele la tripa nunca'], correct: 0 },
-          { text: 'Tienes la nariz tapada y estornudas mucho desde hace dos dÃ­as.', options: ['Tengo la nariz tapada desde hace dos dÃ­as', 'Tengo la nariz tapada desde hace un aÃ±o', 'No tengo nada en la nariz'], correct: 0 }
+          { text: 'Notas mareo cuando te levantas rápido.', options: ['Me mareo cuando me levanto rápido', 'Me pica la mano cuando como', 'Tengo mucha hambre por la mañana'], correct: 0 },
+          { text: 'Tienes fiebre y notas el cuerpo caliente desde esta mañana.', options: ['Tengo fiebre desde esta mañana', 'Tengo frío desde hace una semana', 'Me duele el dedo desde ayer'], correct: 0 },
+          { text: 'Tienes tos desde hace tres días.', options: ['Tengo tos desde hace tres días', 'Tengo sueño desde esta mañana', 'Me pica la garganta desde hace un año'], correct: 0 },
+          { text: 'Notas náuseas después de comer.', options: ['Tengo náuseas después de comer', 'Me duele la oreja después de comer', 'Tengo sed después de dormir'], correct: 0 },
+          { text: 'Te sientes muy cansado desde hace una semana, aunque duermes bien.', options: ['Estoy muy cansado desde hace una semana', 'Me pica la rodilla desde ayer', 'Tengo frío desde esta mañana'], correct: 0 },
+          { text: 'Notas que te quema el pecho después de comer.', options: ['Me quema el pecho después de comer', 'Me pica el ojo después de comer', 'Tengo sueño después de comer'], correct: 0 },
+          { text: 'Te duele la tripa y además tienes diarrea desde ayer.', options: ['Me duele la tripa y tengo diarrea desde ayer', 'Me duele la cabeza desde hace un mes', 'Tengo mucho frío desde esta mañana'], correct: 0 },
+          { text: 'Notas manchas rojas en la piel desde hace dos días.', options: ['Tengo manchas rojas en la piel desde hace dos días', 'Tengo fiebre desde hace un año', 'Me duele el brazo desde ayer por la tarde'], correct: 0 },
+          { text: 'Te falta el aire después de subir pocas escaleras.', options: ['Me falta el aire al subir escaleras', 'Me pica la mano al subir escaleras', 'Tengo hambre al subir escaleras'], correct: 0 },
+          { text: 'Notas hormigueo en la pierna después de estar sentado mucho rato.', options: ['Tengo hormigueo en la pierna', 'Tengo fiebre en la pierna', 'Me duele el ojo'], correct: 0 },
+          { text: 'Te duele la tripa desde hace una semana, cada día un poco.', options: ['Me duele la tripa desde hace una semana', 'Me duele la tripa desde hace cinco minutos', 'No me duele la tripa nunca'], correct: 0 },
+          { text: 'Tienes la nariz tapada y estornudas mucho desde hace dos días.', options: ['Tengo la nariz tapada desde hace dos días', 'Tengo la nariz tapada desde hace un año', 'No tengo nada en la nariz'], correct: 0 }
         ]
       },
       {
@@ -71,18 +71,18 @@ const DATA = {
         descripcion: 'Antes de entrar y en la sala de espera',
         estrellas: 3,
         items: [
-          { text: 'EstÃ¡s en la sala de espera y te llaman por tu name.', options: ['Levantar la mano, decir "soy yo" y seguir al profesional', 'Quedarte sentado en silencio sin moverte', 'Ir detrÃ¡s de otra persona que se levante'], correct: 0 },
-          { text: 'La persona de recepciÃ³n te pregunta tu name.', options: ['Decir tu name despacio', 'Inventarte un name distinto', 'No contestar y mirar al suelo'], correct: 0 },
-          { text: 'La persona de recepciÃ³n te pregunta cuÃ¡ndo naciste.', options: ['Decir tu fecha de nacimiento despacio', 'Inventar otra fecha', 'No contestar'], correct: 0 },
-          { text: 'La persona de recepciÃ³n te pregunta por quÃ© vienes.', options: ['Decirle en una frase lo que te pasa', 'Contarle toda tu vida', 'Decir "no sÃ©" y marcharte'], correct: 0 },
+          { text: 'Estás en la sala de espera y te llaman por tu nombre.', options: ['Levantar la mano, decir "soy yo" y seguir al profesional', 'Quedarte sentado en silencio sin moverte', 'Ir detrás de otra persona que se levante'], correct: 0 },
+          { text: 'La persona de recepción te pregunta tu nombre.', options: ['Decir tu nombre despacio', 'Inventarte un name distinto', 'No contestar y mirar al suelo'], correct: 0 },
+          { text: 'La persona de recepción te pregunta cuándo naciste.', options: ['Decir tu fecha de nacimiento despacio', 'Inventar otra fecha', 'No contestar'], correct: 0 },
+          { text: 'La persona de recepción te pregunta por qué vienes.', options: ['Decirle en una frase lo que te pasa', 'Contarle toda tu vida', 'Decir "no sé" y marcharte'], correct: 0 },
           { text: 'Antes de salir de casa, tu madre te pregunta si llevas la tarjeta sanitaria.', options: ['Buscar la tarjeta sanitaria y meterla en el bolsillo', 'Decir que no hace falta', 'Meter un caramelo en su lugar'], correct: 0 },
-          { text: 'El mÃ©dico te ha dicho que vayas "en ayunas" para un anÃ¡lisis.', options: ['No desayunar nada hasta que te hagan el anÃ¡lisis', 'Desayunar mucho para tener fuerza', 'Solo beber mucho cafÃ©'], correct: 0 },
-          { text: 'Vas a la consulta y la enfermera te dice que te sientes y te relajes.', options: ['Sentarte y respirar despacio, como en Calma', 'Quedarte de pie sin saber dÃ³nde ponerte', 'Tumbarte en la camilla sin que te lo pidan'], correct: 0 },
-          { text: 'Tu acompaÃ±ante tiene que irse un timeOfDay y te quedas solo con el mÃ©dico.', options: ['Decir lo que te pasa y preguntar lo que no entiendas', 'No hablar hasta que vuelva tu acompaÃ±ante', 'Levantarte y salir sin decir nada'], correct: 0 },
-          { text: 'El mÃ©dico te pregunta si estÃ¡s tomando alguna medicina.', options: ['Decir el name de las medicinas que tomas', 'Decir "no sÃ©" siempre', 'Inventarte el name de una medicina'], correct: 0 },
-          { text: 'Tienes dudas de lo que te ha dicho el mÃ©dico.', options: ['Pedir que te lo explique otra vez con words mÃ¡s sencillas', 'Quedarte con la duda y no decir nada', 'Inventar una respuesta para parecer que lo has entendido'], correct: 0 },
-          { text: 'El mÃ©dico te da un papel con una receta.', options: ['Coger la receta, darle las gracias y preguntar si tienes dudas', 'Tirar el papel a la papelera', 'Meter el papel en el bolsillo sin mirarlo'], correct: 0 },
-          { text: 'Tienes que volver a la consulta en una semana.', options: ['Pedir que te lo apunten y poner una alarma con tu acompaÃ±ante', 'Decir que sÃ­ sin saber cuÃ¡ndo es', 'No volver aunque te encuentres mal'], correct: 0 }
+          { text: 'El médico te ha dicho que vayas "en ayunas" para un análisis.', options: ['No desayunar nada hasta que te hagan el análisis', 'Desayunar mucho para tener fuerza', 'Solo beber mucho café'], correct: 0 },
+          { text: 'Vas a la consulta y la enfermera te dice que te sientes y te relajes.', options: ['Sentarte y respirar despacio, como en Calma', 'Quedarte de pie sin saber dónde ponerte', 'Tumbarte en la camilla sin que te lo pidan'], correct: 0 },
+          { text: 'Tu acompañante tiene que irse un momento y te quedas solo con el médico.', options: ['Decir lo que te pasa y preguntar lo que no entiendas', 'No hablar hasta que vuelva tu acompañante', 'Levantarte y salir sin decir nada'], correct: 0 },
+          { text: 'El médico te pregunta si estás tomando alguna medicina.', options: ['Decir el nombre de las medicinas que tomas', 'Decir "no sé" siempre', 'Inventarte el nombre de una medicina'], correct: 0 },
+          { text: 'Tienes dudas de lo que te ha dicho el médico.', options: ['Pedir que te lo explique otra vez con palabras más sencillas', 'Quedarte con la duda y no decir nada', 'Inventar una respuesta para parecer que lo has entendido'], correct: 0 },
+          { text: 'El médico te da un papel con una receta.', options: ['Coger la receta, darle las gracias y preguntar si tienes dudas', 'Tirar el papel a la papelera', 'Meter el papel en el bolsillo sin mirarlo'], correct: 0 },
+          { text: 'Tienes que volver a la consulta en una semana.', options: ['Pedir que te lo apunten y poner una alarma con tu acompañante', 'Decir que sí sin saber cuándo es', 'No volver aunque te encuentres mal'], correct: 0 }
         ]
       },
       {
@@ -91,18 +91,18 @@ const DATA = {
         descripcion: 'Entiendo lo que me dicen',
         estrellas: 3,
         items: [
-          { text: 'El mÃ©dico te dice: "te vamos a hacer un anÃ¡lisis de sangre".', options: ['Me van a sacar un poco de sangre para mirarla', 'Me van a operar del corazÃ³n', 'Me van a poner una inyecciÃ³n para dormirme'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "esto se cura en una semana".', options: ['En una semana estarÃ© mejor', 'Me tendrÃ© que quedar en el hospital un mes', 'Ya nunca se me pasarÃ¡'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "vuelve si empeoras".', options: ['Tengo que volver a la consulta si me encuentro peor', 'Tengo que ir a urgencias hoy mismo', 'No tengo que volver nunca mÃ¡s'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "tÃ³mate la medicina despuÃ©s de comer".', options: ['Tengo que tomar la medicina cuando termine de comer', 'Tengo que tomar la medicina antes de dormir', 'Tengo que tomar la medicina con el estÃ³mago vacÃ­o'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "no te preocupes, es algo leve".', options: ['Es algo pequeÃ±o y me voy a poner bien', 'Es algo grave y tengo que preocuparme mucho', 'El mÃ©dico no sabe lo que dice'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "bebe mucho agua".', options: ['Tengo que beber agua muchas veces al dÃ­a', 'Solo puedo beber agua una vez al dÃ­a', 'No puedo beber agua nunca mÃ¡s'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "duerme ocho horas".', options: ['Tengo que dormir unas ocho horas cada noche', 'Tengo que dormir solo cuatro horas', 'Tengo que dormir todo el dÃ­a'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "no hagas esfuerzos".', options: ['Tengo que descansar y no cargar cosas pesadas', 'Tengo que correr mucho cada dÃ­a', 'Tengo que levantar pesas en el gimnasio'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "te vamos a hacer una radiografÃ­a".', options: ['Me van a hacer una foto del cuerpo por dentro', 'Me van a poner una vacuna', 'Me van a operar'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "pide cita con tu mÃ©dico de cabecera".', options: ['Tengo que llamar a mi mÃ©dico de siempre para volver', 'Tengo que ir a urgencias ahora', 'Tengo que llamar a una ambulancia'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "no fumes y no bebas alcohol".', options: ['No puedo fumar ni tomar bebidas con alcohol', 'Solo puedo fumar un poco al dÃ­a', 'Puedo beber todo el alcohol que quiera'], correct: 0 },
-          { text: 'El mÃ©dico te dice: "si te pica mucho, avÃ­sanos".', options: ['Si me pica mucho, tengo que llamar o volver a la consulta', 'Tengo que rascarme muy fuerte sin decir nada', 'Tengo que esperar a que se pase solo'], correct: 0 }
+          { text: 'El médico te dice: "te vamos a hacer un análisis de sangre".', options: ['Me van a sacar un poco de sangre para mirarla', 'Me van a operar del corazón', 'Me van a poner una inyección para dormirme'], correct: 0 },
+          { text: 'El médico te dice: "esto se cura en una semana".', options: ['En una semana estaré mejor', 'Me tendré que quedar en el hospital un mes', 'Ya nunca se me pasará'], correct: 0 },
+          { text: 'El médico te dice: "vuelve si empeoras".', options: ['Tengo que volver a la consulta si me encuentro peor', 'Tengo que ir a urgencias hoy mismo', 'No tengo que volver nunca más'], correct: 0 },
+          { text: 'El médico te dice: "tómate la medicina después de comer".', options: ['Tengo que tomar la medicina cuando termine de comer', 'Tengo que tomar la medicina antes de dormir', 'Tengo que tomar la medicina con el estómago vacío'], correct: 0 },
+          { text: 'El médico te dice: "no te preocupes, es algo leve".', options: ['Es algo pequeño y me voy a poner bien', 'Es algo grave y tengo que preocuparme mucho', 'El médico no sabe lo que dice'], correct: 0 },
+          { text: 'El médico te dice: "bebe mucho agua".', options: ['Tengo que beber agua muchas veces al día', 'Solo puedo beber agua una vez al día', 'No puedo beber agua nunca más'], correct: 0 },
+          { text: 'El médico te dice: "duerme ocho horas".', options: ['Tengo que dormir unas ocho horas cada noche', 'Tengo que dormir solo cuatro horas', 'Tengo que dormir todo el día'], correct: 0 },
+          { text: 'El médico te dice: "no hagas esfuerzos".', options: ['Tengo que descansar y no cargar cosas pesadas', 'Tengo que correr mucho cada día', 'Tengo que levantar pesas en el gimnasio'], correct: 0 },
+          { text: 'El médico te dice: "te vamos a hacer una radiografía".', options: ['Me van a hacer una foto del cuerpo por dentro', 'Me van a poner una vacuna', 'Me van a operar'], correct: 0 },
+          { text: 'El médico te dice: "pide cita con tu médico de cabecera".', options: ['Tengo que llamar a mi médico de siempre para volver', 'Tengo que ir a urgencias ahora', 'Tengo que llamar a una ambulancia'], correct: 0 },
+          { text: 'El médico te dice: "no fumes y no bebas alcohol".', options: ['No puedo fumar ni tomar bebidas con alcohol', 'Solo puedo fumar un poco al día', 'Puedo beber todo el alcohol que quiera'], correct: 0 },
+          { text: 'El médico te dice: "si te pica mucho, avísanos".', options: ['Si me pica mucho, tengo que llamar o volver a la consulta', 'Tengo que rascarme muy fuerte sin decir nada', 'Tengo que esperar a que se pase solo'], correct: 0 }
         ]
       }
     ]

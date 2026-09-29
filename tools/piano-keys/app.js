@@ -96,7 +96,7 @@
 
   function reproducirMelodia(secuencia, callback) {
     var i = 0;
-    function siguiente() {
+    function next() {
       if (i >= secuencia.length) {
         if (callback) callback();
         return;
@@ -105,9 +105,9 @@
       tocarNota(item.nota, item.duracion || 0.4);
       iluminarTecla(item.nota, 300);
       i++;
-      setTimeout(siguiente, 500);
+      setTimeout(next, 500);
     }
-    siguiente();
+    next();
   }
 
   function iluminarTecla(nota, duracion) {
@@ -144,13 +144,22 @@
   }
 
   /* ---------- Pantallas ---------- */
-  var PANTALLAS = ['pantallaNombre', 'menuScreen', 'pantallaLibre',
-                   'pantallaSeguir', 'pantallaSimon', 'pantallaCanciones',
-                   'pantallaCompositor'];
+  var SCREEN_IDS = {
+    pantallaNombre: 'nameScreen', menuScreen: 'menuJuegos', pantallaLibre: 'freeScreen',
+    pantallaSeguir: 'followScreen', pantallaSimon: 'simonScreen',
+    pantallaCanciones: 'songsScreen', pantallaCompositor: 'composerScreen'
+  };
+  var PANTALLAS = Object.keys(SCREEN_IDS).map(function (key) { return SCREEN_IDS[key]; });
+
+  function screenElement(id) {
+    return document.getElementById(SCREEN_IDS[id] || id);
+  }
 
   function showScreen(id) {
+    var target = SCREEN_IDS[id] || id;
     PANTALLAS.forEach(function (p) {
-      document.getElementById(p).classList.toggle('hidden', p !== id);
+      var el = document.getElementById(p);
+      if (el) el.classList.toggle('hidden', p !== target);
     });
   }
 
@@ -225,7 +234,7 @@
       }
 
       // Solo en modo libre mostramos la nota
-      if (!document.getElementById('pantallaLibre').classList.contains('hidden')) {
+      if (!screenElement('pantallaLibre').classList.contains('hidden')) {
         state.secuenciaActual = state.secuenciaActual || [];
         state.secuenciaActual.push({ nota: nota });
         actualizarSecuenciaLibre();
@@ -312,7 +321,7 @@
 
   function reproducirSimon() {
     var i = 0;
-    function siguiente() {
+    function next() {
       if (i >= simon.secuencia.length) {
         simon.turnoJugador = false;
         simon.idxJugador = 0;
@@ -328,9 +337,9 @@
         setTimeout(function () { el.classList.remove('lit'); }, 400);
       }
       i++;
-      setTimeout(siguiente, 600);
+      setTimeout(next, 600);
     }
-    setTimeout(siguiente, 500);
+    setTimeout(next, 500);
   }
 
   function clickSimon(nota) {
@@ -622,7 +631,7 @@
     var key = e.key.toLowerCase();
 
     // If we're in the composer, add a note
-    if (!document.getElementById('pantallaCompositor').classList.contains('hidden')) {
+    if (!screenElement('pantallaCompositor').classList.contains('hidden')) {
       var nota = TECLAS_NOTAS[key];
       if (nota) {
         tocarNota(nota, 0.5);
@@ -633,7 +642,7 @@
     }
 
     // Simon - using the ASDF keys
-    if (!document.getElementById('pantallaSimon').classList.contains('hidden')) {
+    if (!screenElement('pantallaSimon').classList.contains('hidden')) {
       var mapaSimon = { 'a': 'C', 's': 'E', 'd': 'G', 'f': 'B' };
       if (mapaSimon[key]) {
         clickSimon(mapaSimon[key]);
@@ -642,7 +651,7 @@
     }
 
     // Follow the melody
-    if (!document.getElementById('pantallaSeguir').classList.contains('hidden') && !seguir.esperando) {
+    if (!screenElement('pantallaSeguir').classList.contains('hidden') && !seguir.esperando) {
       var notaSeguir = TECLAS_NOTAS[key];
       if (notaSeguir) {
         if (notaSeguir === seguir.melodia.secuencia[seguir.idx]) {
@@ -682,10 +691,10 @@
     }
 
     // Compositor
-    if (!document.getElementById('pantallaCompositor').classList.contains('hidden')) {
+    if (!screenElement('pantallaCompositor').classList.contains('hidden')) {
       compositor.secuencia.push({ nota: nota, tecla: key.dataset.key.toUpperCase() });
       renderCompositor();
-    } else if (!document.getElementById('pantallaLibre').classList.contains('hidden')) {
+    } else if (!screenElement('pantallaLibre').classList.contains('hidden')) {
       state.secuenciaActual = state.secuenciaActual || [];
       state.secuenciaActual.push({ nota: nota });
       actualizarSecuenciaLibre();
