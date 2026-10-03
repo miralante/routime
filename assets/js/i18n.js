@@ -37,6 +37,7 @@
         roundComplete: '¡Ronda completada!',
         rest: '¡Llevas un buen rato! Puedes descansar si quieres.',
         dataProtection: 'Routime no recolecta datos',
+        aboutApp: 'Sobre la app',
         config: 'Configuración'
       },
       feedback: {
@@ -58,7 +59,9 @@
         loading: 'Loading…',
         roundComplete: 'Round complete!',
         rest: 'You have been playing a while! You can rest if you want.',
-        dataProtection: 'Routime does not collect data'
+        dataProtection: 'Routime does not collect data',
+        aboutApp: 'About the app',
+        config: 'Settings'
       },
       feedback: {
         success: ['Well done!', 'Great!', 'You got it!', 'Fantastic!', 'Keep it up!'],

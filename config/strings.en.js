@@ -113,7 +113,7 @@
     resetAppTitle: 'Reset the whole app',
     resetAppIntro1: 'Deletes ',
     resetAppIntroStrong: 'everything',
-    resetAppIntro2: ' saved in this browser: language, names, stars, completed levels and saved songs in every activity.',
+    resetAppIntro2: ' saved in this browser: language, names, stars, achievements, completed levels and saved songs in every activity.',
     resetAppNoteStrong: 'This cannot be undone.',
     resetAppNote2: ' It is the same as opening the app for the very first time.',
     btnResetApp: '🗑️ Reset the whole app',

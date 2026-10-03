@@ -330,7 +330,7 @@ each one migrates it.
 | `set` | `(toolId, data) → boolean` | Saves JSON. `false` if failed |
 | `remove` | `(toolId) → boolean` | Deletes the tool's progress under both prefixes |
 | `totalStars` | `() → number` | Sums `datos.stars` (or legacy `datos.estrellas`) of all `routime:*` keys (used by landing) |
-| `listaToolIds` | `() → string[]` | Ids of tools with something saved under either prefix (without `'locale'`/`'prefs'`); used by `settings/` |
+| `listaToolIds` | `() → string[]` | Ids of tools with something saved under either prefix (without `'locale'`/`'prefs'`/`'achievements'`/`'activity-days'`); used by `settings/` |
 
 **Progress contract**: the saved object should include `estrellas` (number) if the
 activity gives stars — that's what the landing sums. The rest of the object is free
@@ -782,6 +782,30 @@ including the end user — may land on it. Still follows the
 Keep it up to date, in both languages, whenever what the app stores
 locally changes (new tool asking for a name/personal data, new `settings/`
 reset action, etc.).
+
+### 8.5 `/about-app/`
+
+"About the app" page with the achievements (badges) saved on this device.
+It is linked from the menu footer (`site/`), right before "Configuración",
+through the shared footer injector (`core.aboutApp` key, added by
+`App.utils.inyectarPie` when `data-pie-include-config="true"`).
+
+- Catalog, unlock rules and badge renderer: `assets/js/achievements.js`
+  (`App.achievements.list` / `unlocked()` / `achieve(id)` / `evaluate()` /
+  `render(container)`). Badge styles: `.achievements-grid` /
+  `.achievement-badge*` in `assets/css/components.css`.
+- Achievements are **derived from saved progress** (stars per activity,
+  activities with stars, menu modules with stars), so existing users get
+  them retroactively. `evaluate()` runs every time `site/` or
+  `about-app/` loads. Unlocked ids are stored as `{ id: timestamp }` under
+  `routime:achievements` (idempotent: the first date is kept).
+- Streak: `App.storage.set()` records the day under
+  `routime:activity-days` (last 30 days) whenever an activity's `stars`
+  goes up.
+- `MODULES` in `achievements.js` maps each menu module to the activities'
+  storage ids (`TOOL_ID`): keep it in sync when an activity is added.
+- "Reset entire application" in `settings/` also removes
+  `achievements` and `activity-days`.
 
 ---
 
