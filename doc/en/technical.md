@@ -804,6 +804,8 @@ through the shared footer injector (`core.aboutApp` key, added by
   goes up.
 - `MODULES` in `achievements.js` maps each menu module to the activities'
   storage ids (`TOOL_ID`): keep it in sync when an activity is added.
+  The "Body and relationships" module is left out on purpose, so the
+  "Every group" badge never requires that activity.
 - "Reset entire application" in `settings/` also removes
   `achievements` and `activity-days`.
 

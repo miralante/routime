@@ -827,7 +827,9 @@ dispositivo. Se enlaza desde el pie del menú (`site/`), justo antes de
   (últimos 30 días) cada vez que suben las `stars` de una actividad.
 - `MODULES` en `achievements.js` relaciona cada módulo del menú con los
   ids de guardado (`TOOL_ID`) de sus actividades: mantenlo al día al
-  añadir una actividad.
+  añadir una actividad. El módulo "Cuerpo y relaciones" queda fuera a
+  propósito, para que el logro "Todos los grupos" nunca exija esa
+  actividad.
 - "Restablecer toda la aplicación" en `settings/` borra también
   `achievements` y `activity-days`.
 

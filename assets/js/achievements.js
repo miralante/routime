@@ -27,7 +27,9 @@
 
   /* Main menu modules (site/index.html sections) -> activity storage ids
      (the TOOL_ID each tools/<slug>/app.js saves under, which is not
-     always the folder name). Keep in sync when an activity is added. */
+     always the folder name). Keep in sync when an activity is added.
+     The "Body and relationships" module (cuerpo-relaciones) is left out on
+     purpose: "Every group" must not require that activity. */
   var MODULES = {
     secuencia: ['rutinas', 'la-casa', 'situaciones', 'chat-seguro', 'chat-acoso',
       'lo-publico', 'social-safety', 'senales', 'partes-del-dia', 'clock',
@@ -37,7 +39,6 @@
       'comida-sana', 'mi-botiquin'],
     emocional: ['emociones', 'calma', 'entre-amigos', 'mi-cuerpo-avisa', 'good-manners',
       'education-norms', 'self-esteem', 'resilience', 'trust-circle'],
-    cuerpo: ['cuerpo-relaciones'],
     lenguaje: ['comedy-club', 'dichos', 'double-meaning', 'categorias', 'la-frase',
       'dictionary', 'vocabulary', 'spelling', 'colored-spelling', 'word-search'],
     memoria: ['parejas', 'diferencias', 'que-falta', 'ecos', 'giros-espejos',
