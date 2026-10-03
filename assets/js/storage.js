@@ -15,9 +15,15 @@
   var PREFIJO_LEGACY = 'apptonomia:';
 
   /* Keys under 'routime:*' that are NOT an activity's progress:
-     'locale' (language) and 'prefs' (font size, sounds — see
-     /config/). Excluded from totalStars() and listaToolIds(). */
-  var CLAVES_NO_HERRAMIENTA = ['locale', 'prefs'];
+     'locale' (language), 'prefs' (font size, sounds — see
+     /config/), 'achievements' (unlocked badges, see
+     assets/js/achievements.js) and 'activity-days' (days with a new
+     star, used for the streak achievement). Excluded from
+     totalStars() and listaToolIds(). */
+  var CLAVES_NO_HERRAMIENTA = ['locale', 'prefs', 'achievements', 'activity-days'];
+
+  /* How many recent days with a new star are remembered. */
+  var MAX_ACTIVITY_DAYS = 30;
 
   /* Lazy one-shot migration: copies 'apptonomia:<id>' to 'routime:<id>'
      the first time the new key is read. Subsequent reads use the new
@@ -107,11 +113,40 @@
    */
   function set(toolId, data) {
     try {
+      var previousStars = CLAVES_NO_HERRAMIENTA.indexOf(toolId) === -1 ? starsIn(localStorage.getItem(PREFIJO + toolId)) : null;
       localStorage.setItem(PREFIJO + toolId, JSON.stringify(data));
+      if (previousStars !== null && data && typeof data.stars === 'number' && data.stars > previousStars) {
+        rememberActivityDay();
+      }
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  /* Stars stored in a raw JSON value (0 when missing or unreadable). */
+  function starsIn(raw) {
+    try {
+      var data = raw ? JSON.parse(raw) : {};
+      return (data && typeof data.stars === 'number') ? data.stars : 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  /* Records today as a day with a new star (for the streak
+     achievement). Keeps only the last MAX_ACTIVITY_DAYS days. */
+  function rememberActivityDay() {
+    try {
+      var today = (window.App.utils && window.App.utils.hoy) ? window.App.utils.hoy() : new Date().toISOString().slice(0, 10);
+      var raw = localStorage.getItem(PREFIJO + 'activity-days');
+      var days = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(days)) days = [];
+      if (days.indexOf(today) !== -1) return;
+      days.push(today);
+      days.sort();
+      localStorage.setItem(PREFIJO + 'activity-days', JSON.stringify(days.slice(-MAX_ACTIVITY_DAYS)));
+    } catch (e) { /* tolerated: the streak just waits for the next star */ }
   }
 
   /** Deletes a tool's progress. */

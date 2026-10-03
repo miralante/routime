@@ -233,6 +233,45 @@ async function exerciseSoundSettings(browser, baseUrl) {
   }
 }
 
+/* Routime: the menu footer links "Sobre la app" right before
+   "Configuración", and about-app/ derives the achievements from the
+   progress already saved (stars + days with a new star). */
+async function exerciseRoutimeAchievements(browser, baseUrl) {
+  const context = await browser.newContext({
+    locale: 'es-ES', serviceWorkers: 'block', viewport: { width: 375, height: 800 },
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  try {
+    await page.addInitScript(() => {
+      if (sessionStorage.getItem('seeded')) return;
+      sessionStorage.setItem('seeded', '1');
+      localStorage.clear();
+      localStorage.setItem('routime:locale', 'es');
+      localStorage.setItem('routime:parejas', JSON.stringify({ stars: 2 }));
+      localStorage.setItem('routime:rutinas', JSON.stringify({ stars: 1 }));
+      localStorage.setItem('routime:activity-days', JSON.stringify(['2026-01-01', '2026-01-02', '2026-01-03']));
+    });
+    await page.goto(baseUrl + '/site/index.html', { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
+    const footerLinks = page.locator('footer[data-pie-app] a');
+    await footerLinks.first().waitFor({ state: 'attached', timeout: NAV_TIMEOUT });
+    const hrefs = await footerLinks.evaluateAll(links => links.map(a => a.getAttribute('href')));
+    assert.deepEqual(hrefs.slice(0, 2), ['../about-app/', '../config/'],
+      'El pie del menú debe enlazar "Sobre la app" justo antes de "Configuración"');
+    await footerLinks.first().click();
+    await page.waitForSelector('#achievementsGrid .achievement-badge', { timeout: NAV_TIMEOUT });
+    assert.strictEqual(await page.locator('.achievement-badge').count(), 6, 'Debe haber 6 logros');
+    assert.strictEqual(await page.locator('.achievement-badge.unlocked').count(), 3,
+      'Primera estrella, racha de 3 días y Mi rutina deben estar conseguidos');
+    assert.match(await page.locator('#achievementsCount').textContent(), /3 de 6/);
+    assert.deepEqual(errors, [], 'about-app/ no debe lanzar errores');
+  } finally {
+    await page.close().catch(() => {});
+    await context.close().catch(() => {});
+  }
+}
+
 async function exerciseForms(page) {
   const items = await page.locator('input:visible, select:visible, textarea:visible')
     .evaluateAll(nodes => nodes.map((node, index) => ({
@@ -620,6 +659,10 @@ async function main() {
     process.stdout.write('\n[' + APP + '] sound settings OK');
     await exerciseUnsupportedBrowserLanguage(browser, baseUrl);
     process.stdout.write('\n[' + APP + '] fr-FR fallback OK');
+    if (APP === 'routime') {
+      await exerciseRoutimeAchievements(browser, baseUrl);
+      process.stdout.write('\n[' + APP + '] achievements OK');
+    }
     for (const route of routes) {
       process.stdout.write('\n[' + APP + '] ' + route + ' ');
       try {

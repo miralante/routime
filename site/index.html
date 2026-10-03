@@ -590,6 +590,7 @@
   <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/i18n.js"></script>
   <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/achievements.js"></script>
   <script src="/site/strings.es.js"></script>
   <script src="/site/strings.en.js"></script>
   <script>
@@ -605,6 +606,11 @@
       document.getElementById('estrellasTotales').textContent =
         '⭐ ' + App.storage.estrellasTotales();
       document.getElementById('estrellasTotales').title = App.i18n.t('yourStars');
+
+      /* Achievements are derived from saved progress: check them every
+         time the menu opens (people come back here after each activity).
+         The badges are shown in about-app/, linked from the footer. */
+      App.achievements.evaluate();
 
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('../sw.js').catch(function () {});

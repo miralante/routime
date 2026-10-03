@@ -338,7 +338,7 @@ claves heredadas como "guardadas" hasta que el siguiente `get()` de cada una la 
 | `set` | `(toolId, data) → boolean` | Guarda JSON. `false` si falló |
 | `remove` | `(toolId) → boolean` | Borra el progreso de la herramienta bajo ambos prefijos |
 | `estrellasTotales` | `() → number` | Suma `datos.estrellas` de todas las claves `routime:*` (la usa la landing) |
-| `listaToolIds` | `() → string[]` | Ids de las herramientas con algo guardado bajo cualquier prefijo (sin `'locale'`/`'prefs'`); la usa `settings/` |
+| `listaToolIds` | `() → string[]` | Ids de las herramientas con algo guardado bajo cualquier prefijo (sin `'locale'`/`'prefs'`/`'achievements'`/`'activity-days'`); la usa `settings/` |
 
 **Contrato de progreso**: el objeto guardado debe incluir `estrellas` (number) si la
 actividad da estrellas — es lo que suma la landing. El resto del objeto es libre por
@@ -803,6 +803,35 @@ verificado por `scripts/check.js`.
 Mantenerla actualizada, en los dos idiomas, cada vez que cambie lo que la
 aplicación guarda localmente (una herramienta nueva que pida un nombre o
 datos personales, una acción nueva de borrado en `settings/`, etc.).
+
+### 8.5 `/about-app/`
+
+Página "Sobre la app" con los logros (insignias) guardados en este
+dispositivo. Se enlaza desde el pie del menú (`site/`), justo antes de
+"Configuración", a través del inyector de pie compartido (clave
+`core.aboutApp`, que añade `App.utils.inyectarPie` cuando
+`data-pie-include-config="true"`).
+
+- Catálogo, reglas de desbloqueo y dibujo de insignias:
+  `assets/js/achievements.js` (`App.achievements.list` / `unlocked()` /
+  `achieve(id)` / `evaluate()` / `render(container)`). Estilos de las
+  insignias: `.achievements-grid` / `.achievement-badge*` en
+  `assets/css/components.css`.
+- Los logros **se deducen del progreso guardado** (estrellas por
+  actividad, actividades con estrellas, módulos del menú con estrellas),
+  así que quien ya jugaba los recibe con efecto retroactivo. `evaluate()`
+  se ejecuta cada vez que carga `site/` o `about-app/`. Los ids
+  desbloqueados se guardan como `{ id: timestamp }` en
+  `routime:achievements` (idempotente: se conserva la primera fecha).
+- Racha: `App.storage.set()` apunta el día en `routime:activity-days`
+  (últimos 30 días) cada vez que suben las `stars` de una actividad.
+- `MODULES` en `achievements.js` relaciona cada módulo del menú con los
+  ids de guardado (`TOOL_ID`) de sus actividades: mantenlo al día al
+  añadir una actividad. El módulo "Cuerpo y relaciones" queda fuera a
+  propósito, para que el logro "Todos los grupos" nunca exija esa
+  actividad.
+- "Restablecer toda la aplicación" en `settings/` borra también
+  `achievements` y `activity-days`.
 
 ---
 

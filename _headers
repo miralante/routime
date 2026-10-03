@@ -30,6 +30,8 @@
   Cache-Control: public, max-age=0, must-revalidate
 /about/*
   Cache-Control: public, max-age=0, must-revalidate
+/about-app/*
+  Cache-Control: public, max-age=0, must-revalidate
 /legal/*
   Cache-Control: public, max-age=0, must-revalidate
 

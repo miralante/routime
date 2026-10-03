@@ -121,9 +121,11 @@
     *                      (tools) or '../' (site, about, config, team)
     *                      or './' (legal, when its link points to the
     *                      same folder).
-    *   data-pie-include-config  if 'true', prepends a 'Configuración'
-    *                      link to '../config/' or '../../config/'
-    *                      (only used by the landing right now).
+    *   data-pie-include-config  if 'true', prepends a 'Sobre la app'
+    *                      link (about-app/, achievements) followed by a
+    *                      'Configuración' link to '../config/' or
+    *                      '../../config/' (only used by the landing
+    *                      right now).
     *   data-pie-class     extra class to add to the <footer> element
     *                      itself, to keep visual parity with each
     *                      project's existing footer variant
@@ -146,6 +148,8 @@
       if (extraClass) pie.className = (pie.className ? pie.className + ' ' : '') + extraClass;
       var html = '';
       if (includeConfig) {
+        /* "About the app" (achievements) goes right before Settings. */
+        html += '<a href="' + base + 'about-app/" class="enlace-legal" data-i18n="core.aboutApp"></a>';
         html += '<a href="' + base + 'config/" class="enlace-legal" data-i18n="core.config"></a>';
       }
       html += '<a href="' + base + 'legal/index.html" class="enlace-legal" data-i18n="core.dataProtection"></a>';

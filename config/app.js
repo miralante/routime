@@ -254,6 +254,9 @@
       App.storage.remove(id);
     });
     App.storage.remove('prefs');
+    /* Achievements and streak days are not in listaToolIds(). */
+    App.storage.remove('achievements');
+    App.storage.remove('activity-days');
     var f = $('#feedbackApp');
     f.textContent = App.i18n.t('feedbackResetAppDone');
     f.className = 'feedback acierto';
