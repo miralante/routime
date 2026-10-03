@@ -7,7 +7,7 @@
   background: var(--mod-lenguaje);
 }
 
-.instruction { font-size: var(--text-base); }
+.instruction { font-size: var(--texto-base); }
 
 .center-row { justify-content: center; }
 
@@ -16,7 +16,7 @@
 .level-info {
   display: block;
   font-weight: 400;
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   opacity: 0.9;
 }
 
@@ -79,7 +79,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

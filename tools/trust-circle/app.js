@@ -15,8 +15,6 @@
   var TOOL_ID = 'trust-circle';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
-  var pantallaIntro = $('#pantallaIntro');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var situacionPictoEl = $('#situacionPicto');
@@ -71,8 +69,6 @@
     items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
-    pantallaIntro.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
@@ -186,19 +182,12 @@
   if (btnEscucharExplicacion) btnEscucharExplicacion.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionEl.textContent);
   });
-  $('#btnPlay').addEventListener('click', function () {
-    startScreen.classList.add('hidden');
-    pantallaIntro.classList.remove('hidden');
-  });
-  $('#btnContinuarIntro').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    gameScreen.classList.add('hidden');
-    pantallaIntro.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    renderStars();
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

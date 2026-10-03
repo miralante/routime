@@ -4,7 +4,6 @@
 
   var TOOL_ID = 'lo-publico';
   var $ = App.utils.$;
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var levelEl = $('#level');
@@ -55,7 +54,6 @@
     items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
@@ -148,15 +146,13 @@
     renderStars();
   }
 
-  $('#btnPlay').addEventListener('click', startGame);
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
-    gameScreen.classList.add('hidden');
-    endScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
-  startScreen.classList.remove('hidden');
+  // Iniciar directamente la actividad
+  startGame();
 })();

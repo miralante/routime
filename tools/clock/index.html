@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>El Reloj | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
-  <link rel="stylesheet" href="../../assets/css/tokens.css">
-  <link rel="stylesheet" href="../../assets/css/base.css">
-  <link rel="stylesheet" href="../../assets/css/components.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v3bce">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v3bce">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v3bce">
+  <link rel="stylesheet" href="styles.css?v=routime-v3bce">
 </head>
 <body>
   <div class="container">
@@ -18,13 +18,17 @@
       <span class="stars" id="estrellas">&starf; 0</span>
     </header>
 
-    <section id="startScreen" class="hidden pila centered">
+    <section id="startScreen" class="pila centered">
       <div class="row centered-row">
-        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
+        <p class="instruccion" data-i18n="instruccion">Elige qué quieres practicar con el reloj.</p>
       </div>
-      <button type="button" class="btn btn-principal" id="btnPlay">
-        <span data-i18n="btnJugar">Jugar!</span>
-      </button>
+      <div id="modos" class="pila"></div>
+    </section>
+
+    <section id="pantallaNiveles" class="hidden pila centered">
+      <p class="instruccion">Elige un nivel para empezar.</p>
+      <div id="niveles" class="pila"></div>
+      <button type="button" class="btn btn-secondary" id="btnOtroModo">Elegir otro modo</button>
     </section>
 
     <section id="gameScreen" class="hidden pila centered">
@@ -33,9 +37,8 @@
         <div class="progress-fill" id="progresoRelleno"></div>
         <span class="progress-text" id="progresoTexto"></span>
       </div>
-      <div class="card centered stack" id="zonaPregunta">
-        <p id="questionText" class="prompt" aria-live="polite"></p>
-      </div>
+      <div class="card centered stack" id="zonaPregunta"></div>
+      <p id="questionText" class="prompt centered" aria-live="polite"></p>
       <button type="button" class="btn btn-audio" id="listenBtn">&#128266;</button>
       <div class="options stack" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
@@ -51,6 +54,7 @@
         <p id="endSummary"></p>
         <p class="transferencia">Sigue praticando para aprender mas.</p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnOtroModoFinal">Elegir otro modo</button>
         <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
         <a href="../../site/index.html" class="btn btn-secondary">Volver al menu</a>
       </section>

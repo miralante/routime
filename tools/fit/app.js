@@ -20,7 +20,6 @@
   var TOOL_ID = 'encajar';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var tableroEl = $('#tablero');
@@ -91,7 +90,6 @@
     currentLevel = levelBasedOnProgress();
     idxPieza = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
@@ -294,15 +292,13 @@ $('#transferencia').textContent = '';
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); bajar(); }
   });
   btnNext.addEventListener('click', next);
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    gameScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    renderStars();
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();
 

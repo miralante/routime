@@ -207,13 +207,17 @@
   }
 
   /* ---------- Eventos ---------- */
-  $('#btnNormas').addEventListener('click', function () {
+  var btnNormas = $('#btnNormas');
+  if (btnNormas) btnNormas.addEventListener('click', function () {
     pintarNormas();
     showScreen('pantallaNormas');
   });
-  $('#btnVolverDeNormas').addEventListener('click', irMenu);
-  $('#btnSalirChat').addEventListener('click', irMenu);
-  $('#btnBackToMenu').addEventListener('click', irMenu);
+  var btnVolverDeNormas = $('#btnVolverDeNormas');
+  if (btnVolverDeNormas) btnVolverDeNormas.addEventListener('click', irMenu);
+  var btnSalirChat = $('#btnSalirChat');
+  if (btnSalirChat) btnSalirChat.addEventListener('click', irMenu);
+  var btnBackToMenu = $('#btnBackToMenu');
+  if (btnBackToMenu) btnBackToMenu.addEventListener('click', irMenu);
   /* ---------- Arranque ---------- */
   renderMenu();
 })();

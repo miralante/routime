@@ -24,12 +24,12 @@
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var zonaPreguntaEl = $('#zonaPregunta');
-  var textoPreguntaEl = $('#textoPregunta');
+  var textoPreguntaEl = $('#questionText');
   var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnListen = $('#btnListen');
+  var explicacionWrap = $('#explanationWrap');
+  var explicacionEl = $('#explanation');
+  var btnListen = $('#listenBtn');
   var btnNext = $('#btnNext');
   var progresoRelleno = $('#progresoRelleno');
   var progresoTexto = $('#progresoTexto');
@@ -46,10 +46,7 @@
   var idx = 0;
   var roundHits = 0;
   var enRefuerzo = false;
-  var refuerzoIdx = 0;
   var refuerzoLista = [];
-  var refuerzoTotal = 0;
-  var currentQuestion = null;
   var solved = false;
   var attempts = 0;
   /* Estado de borrador (modo "poner"). */
@@ -196,7 +193,7 @@
 
   function elegirModo(m) {
     modo = m;
-    startScreen.classList.add('hidden');
+    if (startScreen) startScreen.classList.add('hidden');
     pantallaNiveles.classList.remove('hidden');
     renderLevels();
   }
@@ -233,34 +230,11 @@
     idx = 0;
     roundHits = 0;
     enRefuerzo = false;
-    refuerzoIdx = 0;
-    currentQuestion = null;
-    App.reinforce.banner.hide();
-    App.reinforce.start(function (fallos) { iniciarRefuerzo(fallos); });
-    startScreen.classList.add('hidden');
+    refuerzoLista = [];
     pantallaNiveles.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     render();
-  }
-
-  function iniciarRefuerzo(fallos) {
-    refuerzoLista = fallos.map(function (f) { return f.payload; });
-    refuerzoTotal = refuerzoLista.length;
-    refuerzoIdx = 0;
-    enRefuerzo = true;
-    App.reinforce.banner.set(
-      App.i18n.t('refuerzoTitulo') + ' — ' +
-      App.i18n.t('refuerzoIntro').replace('{n}', refuerzoTotal)
-    );
-    currentQuestion = refuerzoLista[0];
-    pintarProgresoRefuerzo();
-    render();
-  }
-
-  function pintarProgresoRefuerzo() {
-    progresoRelleno.style.width = (((refuerzoIdx + 1) / refuerzoTotal) * 100) + '%';
-    progresoTexto.textContent = '';
   }
 
   function renderProgress() {
@@ -480,7 +454,7 @@
       showExplanation(isCorrect, p);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
+      App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
         .forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
@@ -492,7 +466,7 @@
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) App.reinforce.add(lvl.id + ':' + idx, p);
+      if (attempts === 1 && !enRefuerzo) refuerzoLista.push(p);
       if (attempts === 1) {
         showHint(p);
       } else {
@@ -502,36 +476,26 @@
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
       App.feedback.lockUntilAck(
-        App.utils.$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner'),
+        App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner'),
         explicacionWrap);
     }
   }
 
   function next() {
-    if (enRefuerzo) {
-      refuerzoIdx += 1;
-      if (refuerzoIdx >= refuerzoTotal) {
-        enRefuerzo = false;
-        currentQuestion = null;
-        App.reinforce.clear();
-        App.reinforce.banner.hide();
-        endRound();
-        return;
-      }
-      currentQuestion = refuerzoLista[refuerzoIdx];
-      pintarProgresoRefuerzo();
-      optionsEl.className = 'pila';
-      render();
-      return;
-    }
     idx += 1;
     optionsEl.className = 'pila';
-    if (idx >= banco().porRonda) {
-      var consume = App.reinforce.consume();
-      if (consume.length === 0) endRound();
+    if (idx >= preguntas.length) {
+      if (!enRefuerzo && refuerzoLista.length) {
+        preguntas = refuerzoLista.slice();
+        idx = 0;
+        enRefuerzo = true;
+        render();
+        return;
+      }
+      enRefuerzo = false;
+      endRound();
       return;
     }
-    currentQuestion = null;
     render();
   }
 
@@ -539,31 +503,26 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
+    $('#endSummary').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---- Eventos ---- */
-  var btnPlay = $('#btnPlay');
-  if (btnPlay) btnPlay.addEventListener('click', function () {
-    var modos = banco().modos || [];
-    var niveles = banco().niveles || [];
-    if (modos.length && niveles.length) startRound(modos[0], niveles[0]);
-  });
   $('#btnNext').addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startRound(lvl); });
-  var btnOtherLevel = $('#btnOtherLevel');
-  if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    pantallaNiveles.classList.remove('hidden');
+  $('#repeatBtn').addEventListener('click', function () { startRound(lvl); });
+  var btnMenu = $('#btnMenu');
+  if (btnMenu) btnMenu.addEventListener('click', function () {
+    window.location.href = '../../site/index.html';
   });
+  function volverAModos() {
+    endScreen.classList.add('hidden');
+    if (pantallaNiveles) pantallaNiveles.classList.add('hidden');
+    if (startScreen) startScreen.classList.remove('hidden');
+  }
   var btnOtroModo = $('#btnOtroModo');
-  if (btnOtroModo) btnOtroModo.addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    pantallaNiveles.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-  });
+  var btnOtroModoFinal = $('#btnOtroModoFinal');
+  if (btnOtroModo) btnOtroModo.addEventListener('click', volverAModos);
+  if (btnOtroModoFinal) btnOtroModoFinal.addEventListener('click', volverAModos);
   if (btnListen) {
     btnListen.addEventListener('click', function () {
       var t = textoPreguntaEl.textContent || '';
@@ -573,4 +532,5 @@
 
   pintarModos();
   renderStars();
+  if (startScreen) startScreen.classList.remove('hidden');
 })();

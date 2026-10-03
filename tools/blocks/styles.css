@@ -8,13 +8,13 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -30,7 +30,7 @@
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
 }
 
 .grid-modelo, .grid-tuyo {
@@ -112,7 +112,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

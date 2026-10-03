@@ -17,7 +17,7 @@
 
 .dificultad {
   font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }

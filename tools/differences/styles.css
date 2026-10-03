@@ -6,12 +6,12 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
 .escena-titulo {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-memoria);
 }
@@ -29,7 +29,7 @@
 
 .panel-etiqueta {
   font-weight: 700;
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
   margin-bottom: 8px;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .contador {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-memoria);
 }
@@ -98,7 +98,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

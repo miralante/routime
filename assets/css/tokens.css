@@ -30,9 +30,27 @@
   /* Feedback */
   --color-acierto: #2E7D32;
   --color-acierto-suave: #E6F2E6;
+    --color-superficie-2: #F7F4EF;
+    --color-exito-suave: #F0FAF2;
+    --color-banda-cielo: #DCEBF5;
+    --color-banda-suelo: #E8E3D5;
+    --color-pista: #FFF6D6;
+    --color-barra: #DDD9EB;
+    --color-barra-fill: #7462BB;
+  /* tools/house los usaba sin definirlos: el borde y el color de la
+     pieza que se puede mover se quedaban sin valor. */
+  --color-error: #B3261E;
+  --acento-suave: #E6F2F2;
   --color-animo: #C05621;        /* never an aggressive red for mistakes */
   --color-animo-suave: #F9EBE2;
-  --color-estrella: #B8860B;
+  /* El dorado de estrella necesita ser legible como TEXTO sobre crema:
+     #B8860B original daba 2.84:1. Este dorado oscuro da 4.6:1 y sigue
+     leyendose como estrella. */
+  --color-estrella: #8A6208;
+  /* Fondo de la píldora de estrellas. Tiene que existir en TODOS los
+     temas: si falta en dark, la píldora cae al valor del tema claro
+     (crema) y el dorado claro encima queda ilegible. */
+  --acento-2-suave: #F7EFDD;
 
   /* Typography. --escala-texto is applied by assets/js/storage.js based
      on the preference saved in /config/ (Normal=1/Large/Extra large);
@@ -50,8 +68,173 @@
   --espacio: 16px;
   --espacio-grande: 24px;
   --radio: 16px;
+  /* Escala de espaciado y radios. Las hojas de herramientas usaban
+     --espacio-2 / --espacio-3 / --espacio-medio / --radio-grande, que
+     nunca se definieron: la declaracion entera quedaba invalida y el
+     padding, el hueco y el radio no se aplicaban. */
+  --espacio-2: 10px;
+  --espacio-3: 28px;
+  --espacio-medio: 12px;
+  --radio-grande: 28px;
   --sombra: 0 2px 8px rgba(26, 26, 46, 0.12);
 
   /* Visible focus */
   --color-foco: #1B6CA8;
+
+  /* Texto legible ENCIMA de los acentos sólidos (botones primarios).
+     En oscuro y contraste los acentos se aclaran, así que el texto tiene
+     que volverse oscuro o los botones Primario/Acierto quedarían
+     blancos sobre fondo claro, ilegibles. */
+  --texto-sobre-acento: #FFFFFF;
+  --texto-sobre-acierto: #FFFFFF;
+}
+
+/* -------- Tema oscuro --------
+   data-theme="dark", o solo por prefers-color-scheme cuando el
+   atributo no está puesto (tema "auto"). */
+[data-theme="dark"] {
+  --color-fondo: #14161E;
+  --color-superficie: #1E2230;
+  --color-texto: #F2F0EA;
+  --color-texto-suave: #B3B0C8;
+  --color-borde: #39405A;
+
+  --mod-coordinacion: #6BB4F2;
+  --mod-coordinacion-suave: #19354D;
+  --mod-secuencia: #7BD389;
+  --mod-secuencia-suave: #1E3D24;
+  --mod-memoria: #F2B07A;
+  --mod-memoria-suave: #3A2C1E;
+  --mod-emocional: #C3A0F0;
+  --mod-emocional-suave: #2C2340;
+  --mod-razonamiento: #6FD0C4;
+  --mod-razonamiento-suave: #16352F;
+  --mod-lenguaje: #F09BC0;
+  --mod-lenguaje-suave: #3A2430;
+  --mod-cuerpo: #EFA189;
+  --mod-cuerpo-suave: #3A2820;
+
+  --color-acierto: #7BD389;
+  --color-acierto-suave: #1E3D24;
+  --color-animo: #F2B07A;
+  --color-animo-suave: #3A2C1E;
+  --color-estrella: #E0B85C;
+  /* Superfices que las hojas de /tools/ tenían fijas en claro: la banda
+     del teatro, la tarjeta completada, la pista y la barra de progreso.
+     Sin estos valores, "auto" con sistema oscuro las dejaba claras. */
+  --color-superficie-2: #232833;
+  --color-exito-suave: #1E3D24;
+  --color-banda-cielo: #1B2A38;
+  --color-banda-suelo: #2A2519;
+  --color-pista: #3A3116;
+  --color-barra: #2E2C3C;
+  --color-barra-fill: #A99BE0;
+  /* Fondo de la píldora de estrellas: sin esto caía al crema claro del
+     tema claro (--acento-2-suave no existe en dark) y el dorado claro
+     encima quedaba ilegible. */
+  --acento-2-suave: #3A2C1E;
+
+  --sombra: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --color-foco: #6BB4F2;
+
+  --texto-sobre-acento: #14161E;
+  --texto-sobre-acierto: #14161E;
+}
+
+/* -------- Alto contraste -------- */
+[data-theme="contrast"] {
+  --color-fondo: #000000;
+  --color-superficie: #000000;
+  --color-texto: #FFFFFF;
+  --color-texto-suave: #FFFFFF;
+  --color-borde: #FFFFFF;
+
+  --mod-coordinacion: #FFFF00;
+  --mod-coordinacion-suave: #000000;
+  --mod-secuencia: #00FF66;
+  --mod-secuencia-suave: #000000;
+  --mod-memoria: #FF8800;
+  --mod-memoria-suave: #000000;
+  --mod-emocional: #FF66FF;
+  --mod-emocional-suave: #000000;
+  --mod-razonamiento: #00FFFF;
+  --mod-razonamiento-suave: #000000;
+  --mod-lenguaje: #FF99CC;
+  --mod-lenguaje-suave: #000000;
+  --mod-cuerpo: #FFAA88;
+  --mod-cuerpo-suave: #000000;
+
+  --color-acierto: #00FF66;
+  --color-acierto-suave: #000000;
+    --color-superficie-2: #000000;
+    --color-exito-suave: #000000;
+    --color-banda-cielo: #000000;
+    --color-banda-suelo: #000000;
+    --color-pista: #000000;
+    --color-barra: #000000;
+    --color-barra-fill: #00FFFF;
+  --color-error: #FF6B6B;
+  --acento-suave: #000000;
+  --color-animo: #FF8800;
+  --color-animo-suave: #000000;
+  --color-estrella: #FFFF00;
+  --acento-2-suave: #000000;
+
+  --sombra: none;
+  --color-foco: #FFFF00;
+
+  --texto-sobre-acento: #000000;
+  --texto-sobre-acierto: #000000;
+}
+
+/* "Auto": el sistema en oscuro aplica la paleta, salvo que haya un
+   data-theme explícito, que siempre gana. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-fondo: #14161E;
+    --color-superficie: #1E2230;
+    --color-texto: #F2F0EA;
+    --color-texto-suave: #B3B0C8;
+    --color-borde: #39405A;
+
+    --mod-coordinacion: #6BB4F2;
+    --mod-coordinacion-suave: #19354D;
+    --mod-secuencia: #7BD389;
+    --mod-secuencia-suave: #1E3D24;
+    --mod-memoria: #F2B07A;
+    --mod-memoria-suave: #3A2C1E;
+    --mod-emocional: #C3A0F0;
+    --mod-emocional-suave: #2C2340;
+    --mod-razonamiento: #6FD0C4;
+    --mod-razonamiento-suave: #16352F;
+    --mod-lenguaje: #F09BC0;
+    --mod-lenguaje-suave: #3A2430;
+    --mod-cuerpo: #EFA189;
+    --mod-cuerpo-suave: #3A2820;
+
+    --color-acierto: #7BD389;
+    --color-acierto-suave: #1E3D24;
+      --color-superficie-2: #232833;
+      --color-exito-suave: #1E3D24;
+      --color-banda-cielo: #1B2A38;
+      --color-banda-suelo: #2A2519;
+      --color-pista: #3A3116;
+      --color-barra: #2E2C3C;
+      --color-barra-fill: #A99BE0;
+    --color-error: #FF8A80;
+    --acento-suave: #16352F;
+    --color-animo: #F2B07A;
+    --color-animo-suave: #3A2C1E;
+    --color-estrella: #E0B85C;
+  /* Fondo de la píldora de estrellas: sin esto caía al crema claro del
+     tema claro (--acento-2-suave no existe en dark) y el dorado claro
+     encima quedaba ilegible. */
+  --acento-2-suave: #3A2C1E;
+
+    --sombra: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --color-foco: #6BB4F2;
+
+    --texto-sobre-acento: #14161E;
+    --texto-sobre-acierto: #14161E;
+  }
 }

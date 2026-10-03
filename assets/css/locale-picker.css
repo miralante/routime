@@ -24,6 +24,10 @@
   line-height: 1;
 }
 
+/* Cuando el locale picker vive en el drawer, la copia de la cabecera
+   queda vacía y no debe ocupar espacio. */
+#locale-picker[data-empty="true"] { display: none; }
+
 /* Botón trigger */
 .locale-picker-btn {
   display: inline-flex;
@@ -178,8 +182,6 @@
   opacity: 0;
   transition: opacity 0.16s ease;
 }
-.locale-settings-backdrop[hidden],
-.locale-settings-drawer[hidden] { display: none !important; }
 .locale-settings-backdrop.is-open { opacity: 1; }
 .locale-settings-drawer {
   position: fixed;
@@ -196,9 +198,10 @@
   border-left: 2px solid var(--color-border, var(--line, #D8D2C8));
   box-shadow: -10px 0 28px rgba(26, 26, 46, 0.18);
   transform: translateX(100%);
+  visibility: hidden;
   transition: transform 0.16s ease;
 }
-.locale-settings-drawer.is-open { transform: translateX(0); }
+.locale-settings-drawer.is-open { transform: translateX(0); visibility: visible; }
 .locale-settings-drawer-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .locale-settings-drawer h2 { margin: 0; font-size: 1.35em; }
 .locale-settings-close { min-width: 44px; min-height: 44px; border: 2px solid currentColor; border-radius: 10px; background: transparent; color: inherit; cursor: pointer; }

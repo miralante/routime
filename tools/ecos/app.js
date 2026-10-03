@@ -13,13 +13,12 @@
   var $ = App.utils.$;
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var etapaTextoEl = $('#etapaTexto');
-  var padsEl = $('#pads');
+  var etapaTextoEl = $('#promptText');
+  var padsEl = $('#options');
   var feedbackEl = $('#feedback');
-  var btnRepetirSecuencia = $('#btnRepetirSecuencia');
+  var btnRepetirSecuencia = $('#listenBtn');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -84,7 +83,6 @@
     currentLevel = levelBasedOnProgress();
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     pintarPads();
@@ -99,6 +97,7 @@
 
   function pintarPads() {
     padsEl.innerHTML = '';
+    padsEl.className = 'options stack rejilla-pads';
     banco().colores.forEach(function (c) {
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -202,21 +201,19 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
+    $('#endSummary').textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 
   /* Events */
   if (btnRepetirSecuencia) btnRepetirSecuencia.addEventListener('click', reproducirSecuencia);
-  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
   if (btnNext) btnNext.addEventListener('click', next);
-  if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

@@ -13,14 +13,14 @@
 main { margin-top: var(--espacio-grande); }
 
 .text-principal {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   margin: 0 auto;
 }
 
 .card { border-color: var(--mod-lenguaje-suave); }
 
-.pregunta { color: var(--color-text-suave); }
+.pregunta { color: var(--color-texto-suave); }
 
 .emoji-grande { font-size: 96px; }
 
@@ -30,7 +30,7 @@ main { margin-top: var(--espacio-grande); }
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

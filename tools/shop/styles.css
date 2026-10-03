@@ -8,7 +8,7 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -16,7 +16,7 @@
 
 .nivel-info {
   font-weight: 400;
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   opacity: 0.9;
 }
 
@@ -32,11 +32,11 @@
 }
 .tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
 .tarjeta-actividad .picto { font-size: 48px; }
-.tarjeta-actividad .name { font-weight: 800; font-size: var(--text-base); }
-.tarjeta-actividad .detalle { font-size: var(--text-pequeno); color: var(--color-text-suave); text-align: center; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--texto-base); }
+.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
 
 .pregunta {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
 }
 
@@ -60,12 +60,12 @@
 .producto { font-size: 72px; }
 
 .precio {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
 }
 
 .total {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
 }
@@ -78,7 +78,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

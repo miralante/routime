@@ -13,7 +13,6 @@
   var FALLOS_PARA_AYUDA = 3;
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var escenaTituloEl = $('#escenaTitulo');
@@ -52,7 +51,6 @@
     porRonda = banco.porRonda;
     escenaIdx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     pintarEscena();
@@ -189,9 +187,10 @@
 
   /* Events */
   btnNext.addEventListener('click', nextScene);
-  $('#btnStart').addEventListener('click', startRound);
   $('#btnRepeat').addEventListener('click', startRound);
 
   renderStars();
+  // Iniciar directamente la actividad
+  startRound();
 })();
 

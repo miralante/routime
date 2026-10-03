@@ -11,7 +11,6 @@
   var TOOL_ID = 'parejas';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var tableroEl = $('#tablero');
@@ -60,7 +59,6 @@
     encontradas = 0;
     primera = null;
     bloqueado = false;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     feedbackEl.textContent = '';
@@ -143,15 +141,13 @@
   }
 
   /* Events */
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    gameScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    renderStars();
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();
 

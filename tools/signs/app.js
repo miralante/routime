@@ -10,9 +10,9 @@
   var TOOL_ID = 'senales';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var levelEl = $('#level');
   var senalVisual = $('#senalVisual');
   var senalNombre = $('#senalNombre');
   var optionsEl = $('#options');
@@ -61,8 +61,16 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    idx = 0;
+    roundHits = 0;
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
+    render();
   }
-function renderProgress() {
+
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -70,6 +78,7 @@ function renderProgress() {
 
   function render() {
     var item = items[idx];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
     senalVisual.textContent = item.senal;
@@ -90,7 +99,7 @@ function renderProgress() {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
       optionsEl.appendChild(btn);
     });
@@ -155,12 +164,13 @@ function renderProgress() {
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
+    if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -171,10 +181,10 @@ $('#transferencia').textContent = '';
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

@@ -61,6 +61,13 @@ button {
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
+  /* Sin esto el <button> usa su negro por defecto (buttontext) en vez
+     del token, y los botones con emoji o icono quedan ilegibles en
+     oscuro y en alto contraste (se midio 1:1 en las herramientas de
+     differences, pairs y where-is). */
+  color: var(--color-texto, #1A1A2E);
+  background: none;
+  border: 0;
 }
 
 a { color: var(--mod-coordinacion); }

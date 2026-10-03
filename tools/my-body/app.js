@@ -13,7 +13,6 @@
   var TOOL_ID = 'mi-cuerpo-avisa';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var questionTextEl = $('#questionText');
@@ -22,7 +21,6 @@
   var explanationWrap = $('#explanationWrap');
   var explanationEl = $('#explanation');
   var btnListen = $('#btnListen');
-  var btnPlay = $('#btnPlay');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -87,7 +85,6 @@
     items = level.items.slice();
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     render();
   }
@@ -97,7 +94,6 @@
     items = currentLevel.items.slice();
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     render();
   }
@@ -202,7 +198,6 @@
   }
 
   /* Events */
-  if (btnPlay) btnPlay.addEventListener('click', startGame);
   if (btnListen) btnListen.addEventListener('click', function () {
     if (App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
   });
@@ -211,10 +206,11 @@
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
-    startScreen.classList.remove('hidden');
   });
 
   /* Init */
   renderStars();
   renderLevels();
+  // Iniciar directamente la actividad
+  startGame();
 })();

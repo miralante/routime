@@ -10,15 +10,14 @@
   var TOOL_ID = 'categorias';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var itemPictoEl = $('#itemPicto');
-  var itemPalabraEl = $('#itemPalabra');
-  var cajasEl = $('#cajas');
+  var levelEl = $('#level');
+  var itemEl = $('#categoriaPrompt');
+  var cajasEl = $('#options');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
+  var explicacionWrap = $('#explanationWrap');
+  var explicacionEl = $('#explanation');
   var btnListen = $('#btnListen');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
@@ -61,8 +60,16 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    idx = 0;
+    roundHits = 0;
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
+    render();
   }
-function renderProgress() {
+
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -70,6 +77,7 @@ function renderProgress() {
 
   function render() {
     var item = items[idx];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
     feedbackEl.textContent = '';
@@ -78,30 +86,17 @@ function renderProgress() {
     explicacionEl.textContent = '';
     btnNext.classList.add('hidden');
 
-    itemPictoEl.textContent = item.picto;
-    itemPalabraEl.textContent = item.palabra;
+    itemEl.textContent = item.picto + ' ' + item.palabra;
 
     cajasEl.innerHTML = '';
     App.utils.shuffle(currentLevel.categorias).forEach(function (categoria) {
       var row = document.createElement('div');
-      row.className = 'row-caja';
-
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'btn caja';
+      btn.className = 'btn btn-opcion caja';
       btn.textContent = categoria;
       btn.addEventListener('click', function () { answer(btn, categoria === item.categoria, item); });
-
-      var btnAudio = document.createElement('button');
-      btnAudio.type = 'button';
-      btnAudio.className = 'btn btn-audio';
-      btnAudio.textContent = '🔊';
-      btnAudio.setAttribute('aria-label', App.i18n.t('escucharCategoria').replace('{categoria}', categoria));
-      btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(categoria); });
-
-      row.appendChild(btn);
-      row.appendChild(btnAudio);
-      cajasEl.appendChild(row);
+      cajasEl.appendChild(btn);
     });
 
     renderProgress();
@@ -163,12 +158,13 @@ function renderProgress() {
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
+    $('#endSummary').textContent = '';
+    if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -177,12 +173,12 @@ $('#transferencia').textContent = '';
     if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].palabra);
   });
   btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+  $('#repeatBtn').addEventListener('click', function () { startGame(); });
+  $('#btnMenu').addEventListener('click', function () {
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

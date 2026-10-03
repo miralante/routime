@@ -24,7 +24,7 @@
   function paintStars() { $('#stars').textContent = ''; }
 
   function showScreen(id) {
-    ['startScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
+    ['caseScreen', 'endScreen'].forEach(function (screenId) {
       $('#' + screenId).classList.toggle('hidden', screenId !== id);
     });
   }
@@ -129,12 +129,12 @@
 
   $('#nextButton').addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    showScreen('startScreen');
-    paintStars();
+    window.location.href = '../../site/index.html';
   });
 
   paintStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

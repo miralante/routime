@@ -7,13 +7,13 @@
   background: var(--mod-emocional);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -21,12 +21,12 @@
 .card { border-color: var(--mod-emocional-suave); margin-top: var(--espacio-grande); }
 
 .text-principal {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   margin: 0 auto;
 }
 
-.pregunta { color: var(--color-text-suave); }
+.pregunta { color: var(--color-texto-suave); }
 
 .emoji-grande { font-size: 96px; }
 
@@ -36,7 +36,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

@@ -13,9 +13,9 @@
   var TOOL_ID = 'partes-del-dia';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var levelEl = $('#level');
   var itemPictoEl = $('#itemPicto');
   var itemTareaEl = $('#itemTarea');
   var listasDiaEl = $('#listasDia');
@@ -93,8 +93,17 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    idx = 0;
+    roundHits = 0;
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    pintarColumnasVacias();
+    renderLevel();
+    render();
   }
-function renderProgress() {
+
+  function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
     progressText.textContent = '';
@@ -102,6 +111,7 @@ function renderProgress() {
 
   function render() {
     var item = items[idx];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
     feedbackEl.textContent = '';
@@ -183,12 +193,13 @@ function renderProgress() {
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-$('#transferencia').textContent = '';
+    if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -199,10 +210,10 @@ $('#transferencia').textContent = '';
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

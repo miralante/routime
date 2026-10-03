@@ -34,7 +34,6 @@
   var TOOL_ID = 'colored-spelling';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var quizScreen = $('#quizScreen');
   var endScreen = $('#endScreen');
   var starsEl = $('#stars');
@@ -62,7 +61,7 @@
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function show(screen) {
-    [startScreen, quizScreen, endScreen].forEach(function (s) {
+    [quizScreen, endScreen].forEach(function (s) {
       s.classList.toggle('hidden', s !== screen);
     });
   }
@@ -265,7 +264,6 @@
   }
 
   /* ---------- Eventos ---------- */
-  $('#btnPlay').addEventListener('click', startGame);
   clearBtn.addEventListener('click', clearInput);
   checkBtn.addEventListener('click', check);
   // Enter en el input = Comprobar
@@ -280,15 +278,14 @@
   $('#btnRepeat').addEventListener('click', startGame);
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    quizScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    paintStars();
+    window.location.href = '../../site/index.html';
   });
 
   function init() {
     App.i18n.apply();
     paintStars();
+    // Iniciar directamente la actividad
+    startGame();
   }
 
   document.addEventListener('DOMContentLoaded', init);

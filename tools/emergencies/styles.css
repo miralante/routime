@@ -7,7 +7,7 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -24,8 +24,8 @@
 }
 .tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
 .tarjeta-actividad .picto { font-size: 48px; }
-.tarjeta-actividad .name { font-weight: 800; font-size: var(--text-base); }
-.tarjeta-actividad .detalle { font-size: var(--text-pequeno); color: var(--color-text-suave); text-align: center; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--texto-base); }
+.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
 .tarjeta-actividad .marca { position: absolute; top: 10px; right: 14px; color: var(--color-estrella); font-weight: 700; }
 
 /* ---- Actividad 1: ¿Es una emergencia? (motor de quiz) ---- */
@@ -34,23 +34,23 @@
 .situacion-picto { font-size: 64px; }
 
 .text-principal {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   margin: 0 auto;
 }
 
-.pregunta { color: var(--color-text-suave); }
+.pregunta { color: var(--color-texto-suave); }
 
 /* ---- Actividad 2: practica la llamada (motor de ordenar) ---- */
 .lista-titulo {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
 }
 
 .etiqueta {
   font-weight: 700;
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
   margin-top: var(--espacio);
 }
 
@@ -70,13 +70,13 @@
   justify-content: center;
   gap: 4px;
   padding: 8px;
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   font-weight: 700;
   text-align: center;
   border: 3px dashed var(--color-borde);
   border-radius: var(--radio);
   background: var(--color-superficie);
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
 }
 
 .slot.filled {
@@ -103,7 +103,7 @@
 .task-picto { font-size: 32px; }
 
 .tarea-text {
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   font-weight: 700;
   text-align: center;
   line-height: 1.2;
@@ -119,7 +119,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

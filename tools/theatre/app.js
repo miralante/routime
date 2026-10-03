@@ -19,7 +19,6 @@
   var $ = App.utils.$;
   var COLS = 4;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var consignaEl = $('#consigna');
@@ -73,7 +72,6 @@
     currentLevel = levelBasedOnProgress();
     idxEscena = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
@@ -251,18 +249,16 @@
 
   /* Events */
   btnNext.addEventListener('click', next);
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    gameScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    renderStars();
+    window.location.href = '../../site/index.html';
   });
   $('#btnConsigna').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(consignaEl.textContent);
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();
 

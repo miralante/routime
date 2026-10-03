@@ -11,23 +11,22 @@
   var $ = App.utils.$;
   var banco = DATA[App.i18n.locale()] || DATA.es;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var etapaTextoEl = $('#etapaTexto');
   var objetosEl = $('#objetos');
   var zonaBotonEl = $('#zonaBoton');
   var zonaPreguntaEl = $('#zonaPregunta');
-  var optionsEl = $('#opciones');
+  var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnReady = $('#btnReady');
+  var explicacionWrap = $('#explanationWrap');
+  var explicacionEl = $('#explanation');
+  var btnReady = $('#btnListo');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var levelEl = $('#dificultad');
+  var levelEl = $('#level');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -67,7 +66,6 @@
     currentLevel = levelBasedOnProgress();
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
@@ -87,6 +85,7 @@
     explicacionWrap.classList.add('hidden');
     explicacionEl.textContent = '';
     btnNext.classList.add('hidden');
+    btnReady.classList.remove('hidden');
     zonaPreguntaEl.classList.add('hidden');
     zonaBotonEl.classList.remove('hidden');
     etapaTextoEl.textContent = App.i18n.t('etapaRecuerda');
@@ -116,6 +115,7 @@
     conHueco[i] = null;
     etapaTextoEl.textContent = App.i18n.t('pregunta');
     pintarObjetos(conHueco);
+    btnReady.classList.add('hidden');
     zonaBotonEl.classList.add('hidden');
     zonaPreguntaEl.classList.remove('hidden');
 
@@ -181,7 +181,7 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
     }
   }
 
@@ -200,25 +200,22 @@
     guardar();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
+    $('#endSummary').textContent = '';
+    $('#endSummary').textContent += '\n' + App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompleted + 1, banco.niveles.length));
-$('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }
 
   /* Events */
   btnReady.addEventListener('click', ocultarUno);
   btnNext.addEventListener('click', next);
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    gameScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    renderStars();
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();
 

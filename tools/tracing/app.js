@@ -16,7 +16,6 @@
   var TOOL_ID = 'trazos';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var selectionScreen = $('#selectionScreen');
@@ -179,7 +178,6 @@
     totalRonda = formas.length;
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     selectionScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
@@ -201,7 +199,6 @@
     totalRonda = formas.length;
     idx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     selectionScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
@@ -362,22 +359,16 @@
       startGame();
     }
   });
-  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
   $('#btnModoLibre').addEventListener('click', function () {
-    startScreen.classList.add('hidden');
     pintarRejillaLetras();
     pintarResumenSeleccion();
     selectionScreen.classList.remove('hidden');
   });
   if ($('#btnVolverInicio')) $('#btnVolverInicio').addEventListener('click', function () {
-    selectionScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
   $('#btnSeleccionarMayus').addEventListener('click', function () {
     seleccionarGrupo('mayusculas', true);
@@ -409,4 +400,6 @@
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

@@ -157,9 +157,16 @@ var swContenido = fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8');
 var matchArchivos = swContenido.match(/var ARCHIVOS = \[([\s\S]*?)\];/);
 var rutasSw = [];
 if (matchArchivos) {
+  var body = matchArchivos[1]
+    /* Strip comments first: the array legitimately carries explanatory
+       comments, and a quoted word inside one (e.g. the CSP's 'self') is
+       not a path. Without this, a comment becomes a bogus
+       "does not exist on disk" failure. */
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\/\/.*$/gm, '');
   var re = /'([^']+)'/g;
   var m;
-  while ((m = re.exec(matchArchivos[1])) !== null) {
+  while ((m = re.exec(body)) !== null) {
     rutasSw.push(m[1]);
   }
 } else {
@@ -588,7 +595,77 @@ RUTAS_PIE_CANONICO.forEach(function (relPath) {
   }
 });
 
+/* --- CSP: no executable inline <script> in any HTML page.
+
+   The production CSP is `script-src 'self'` with no 'unsafe-inline' and
+   no nonce/hash, so an inline <script> is dropped by the browser at
+   runtime: no build error, no lint error, no failed test — the code
+   simply does not run in production while working perfectly on a preview
+   server that sends no CSP.
+
+   That is not hypothetical. An inline `window.LocalePickerConfig` shipped
+   that way: the shared locale picker fell back to its own defaults and
+   rendered a second settings gear inside the app's own settings drawer.
+   The same mistake disabled the service worker, the language buttons on
+   the subpages, and (in one app) the whole 404 page.
+
+   Non-executable data blocks (`<script type="application/ld+json">`, the
+   JSON-LD in the landing page) are allowed: CSP does not apply to them. */
+var INLINE_DATA_TYPE = /^(application\/ld\+json|application\/json|text\/json|text\/template)\s*$/i;
+var inlineExcluded = ['.git', 'node_modules', '.claude', 'graphify-out', 'graphify-out-meta', 'test-results', 'doc'];
+var inlineScriptHits = [];
+/* Routime is the one app in the suite that does NOT send a CSP today, so
+   its inline blocks still run in production. Failing on them would be
+   noise; but the moment `script-src 'self'` lands in _headers (it already
+   does in the other seven apps) every one of them stops running silently.
+   So: fail when the CSP blocks inline, otherwise report as a warning. */
+var cspBlocksInline = false;
+try {
+  var headersRaw = fs.readFileSync(path.join(RAIZ, '_headers'), 'utf8');
+  var cspMatch = headersRaw.match(/^\s*Content-Security-Policy:\s*(.+)$/m);
+  if (cspMatch) cspBlocksInline = !/script-src[^;]*'unsafe-inline'/.test(cspMatch[1]);
+} catch (error) { /* no _headers: no CSP, inline is fine */ }
+var avisosCsp = [];
+(function walkForInlineScripts(dir) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
+    if (inlineExcluded.indexOf(entry.name) !== -1) return;
+    var full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walkForInlineScripts(full);
+    if (!entry.isFile() || !/\.html?$/.test(entry.name)) return;
+    checks += 1;
+    var src = fs.readFileSync(full, 'utf8');
+    /* Blank out HTML comments (keeping the newlines, so offsets and line
+       numbers stay exact). Prose in a comment is allowed to mention
+       `<script>` — that is not a tag. */
+    var scannable = src.replace(/<!--[\s\S]*?-->/g, function (comment) {
+      return comment.replace(/[^\n]/g, ' ');
+    });
+    var tagRe = /<script\b([^>]*)>/gi;
+    var m;
+    while ((m = tagRe.exec(scannable)) !== null) {
+      var attrs = m[1];
+      if (/\ssrc\s*=/i.test(attrs)) continue;            // external: allowed
+      var typeMatch = attrs.match(/\stype\s*=\s*["']?([^"'\s>]+)/i);
+      var type = typeMatch ? typeMatch[1] : '';
+      if (type && INLINE_DATA_TYPE.test(type)) continue; // data block: not executed
+      var line = scannable.slice(0, m.index).split('\n').length;
+      var msg = path.relative(RAIZ, full) + ':' + line + '  <script>' + (type ? ' type="' + type + '"' : '') +
+        ' is inline; it will silently stop running the day _headers sends script-src \'self\'';
+      inlineScriptHits.push(msg);
+    }
+  });
+})(RAIZ);
+inlineScriptHits.forEach(function (hit) {
+  (cspBlocksInline ? fallos : avisosCsp).push(hit);
+});
+
 /* --- Result --- */
+if (avisosCsp.length) {
+  console.log('AVISOS CSP (' + avisosCsp.length + ') - no bloqueantes mientras _headers no envie script-src \'self\':');
+  avisosCsp.forEach(function (a) { console.log('  - ' + a); });
+  console.log('');
+}
 if (avisosTamano.length) {
   console.log('AVISOS (' + avisosTamano.length + ') - no bloqueantes, ver https://developers.cloudflare.com/pages/limits/ (limite 25 MB por archivo):');
   avisosTamano.forEach(function (a) { console.log('  - ' + a); });

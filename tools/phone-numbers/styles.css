@@ -7,7 +7,7 @@
   background: var(--mod-secuencia);
 }
 
-.instruction { font-size: var(--text-base); }
+.instruction { font-size: var(--texto-base); }
 
 .center-row { justify-content: center; }
 
@@ -19,28 +19,28 @@
 .card-picto { font-size: 64px; }
 
 .card-situation {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   text-align: center;
   max-width: 480px;
 }
 
 .card-number {
-  font-size: var(--text-titulo);
+  font-size: var(--texto-titulo);
   font-weight: 800;
   color: var(--mod-secuencia);
 }
 
 /* ---- Resumen ---- */
 .summary-row {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   text-align: center;
   margin: 0;
 }
 
 .summary-text {
-  font-size: var(--text-base);
-  color: var(--color-text-suave);
+  font-size: var(--texto-base);
+  color: var(--color-texto-suave);
   text-align: center;
   margin-top: var(--espacio);
 }
@@ -49,13 +49,13 @@
 .situation-picto { font-size: 64px; }
 
 .quiz-text {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   margin: 0 auto;
   text-align: center;
 }
 
-.quiz-question { color: var(--color-text-suave); }
+.quiz-question { color: var(--color-texto-suave); }
 
 .big-emoji { font-size: 96px; }
 
@@ -65,7 +65,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

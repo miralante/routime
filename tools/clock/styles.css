@@ -2,13 +2,13 @@
    compartidos viven en assets/css/. El acento del módulo Autonomía
    y hogar es --mod-secuencia (verde). */
 
-.cabecera-app h1 { color: var(--mod-secuencia); }
+.tool-header h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -27,7 +27,7 @@
 }
 .btn-modo .modo-desc {
   font-weight: 400;
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   opacity: 0.85;
 }
 
@@ -79,7 +79,7 @@
   border-radius: 999px;
   border: 2px solid var(--mod-secuencia);
   background: var(--mod-secuencia);
-  color: #FFFFFF;
+  color: var(--texto-sobre-acento);
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
@@ -105,7 +105,7 @@
 }
 .objetivo-poner .objetivo-etiqueta {
   font-size: 1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
 }
 .objetivo-poner .objetivo-hora {
   font-size: 1.6rem;
@@ -133,7 +133,7 @@
 
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
 
-.pregunta { color: var(--color-text-suave); }
+.pregunta { color: var(--color-texto-suave); }
 
 .emoji-grande { font-size: 96px; }
 
@@ -147,6 +147,6 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }

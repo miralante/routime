@@ -11,7 +11,7 @@
   background: var(--mod-secuencia);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -19,7 +19,7 @@
 
 .nivel-info {
   font-weight: 400;
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   opacity: 0.9;
 }
 
@@ -35,15 +35,15 @@
 }
 .tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
 .tarjeta-actividad .picto { font-size: 48px; }
-.tarjeta-actividad .name { font-weight: 800; font-size: var(--text-base); }
-.tarjeta-actividad .detalle { font-size: var(--text-pequeno); color: var(--color-text-suave); text-align: center; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--texto-base); }
+.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
 
 .card { border-color: var(--mod-secuencia-suave); margin-top: var(--espacio-grande); }
 
 .item-picto { font-size: 72px; }
 
 .item-palabra {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
 }
 
@@ -57,7 +57,7 @@
 #cajasSecciones .caja {
   flex: 1;
   min-height: 88px;
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
 }
 
 /* ---- Actividad 2: mi lista de la compra (columnas con lista) ---- */
@@ -87,7 +87,7 @@
 .column-dia .caja {
   flex: 1;
   min-height: 64px;
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
 }
 
 .tasks-list {
@@ -101,7 +101,7 @@
 }
 
 .tasks-list li {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   font-weight: 700;
   padding: 6px 10px;
   background: var(--mod-secuencia-suave);
@@ -123,7 +123,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

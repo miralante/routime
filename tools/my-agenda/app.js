@@ -31,7 +31,7 @@
   }
 
   function showScreen(screenId) {
-    ['startScreen', 'caseScreen', 'endScreen'].forEach(function (id) {
+    ['caseScreen', 'endScreen'].forEach(function (id) {
       $('#' + id).classList.toggle('hidden', id !== screenId);
     });
   }
@@ -152,14 +152,12 @@
 
   $('#nextButton').addEventListener('click', nextCase);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnPlay').addEventListener('click', function () {
-    startGame();
-  });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    showScreen('startScreen');
-    paintStars();
+    window.location.href = '../../site/index.html';
   });
 
   paintStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

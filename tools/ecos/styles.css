@@ -6,19 +6,19 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
 
 .etiqueta {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-memoria);
 }
@@ -35,7 +35,7 @@
   min-height: 120px;
   border: 4px solid transparent;
   border-radius: var(--radio);
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 800;
   color: #FFFFFF;
   transition: transform 0.1s ease, opacity 0.1s ease;
@@ -56,11 +56,10 @@
 
 #endScreen { padding-top: 48px; }
 
-#endScreen .btn { align-self: center; min-width: 280px; 
+#endScreen .btn { align-self: center; min-width: 280px; }
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
-}
 }

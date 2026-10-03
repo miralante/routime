@@ -15,7 +15,6 @@
   var $ = App.utils.$;
   var KEYS = ['R', 'B', 'Y'];
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var modelEl = $('#modelGrid');
@@ -29,7 +28,6 @@
   var progressText = $('#progressText');
   var starsEl = $('#stars');
   var levelsEl = $('#levels');
-  var btnPlay = $('#btnPlay');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -54,7 +52,7 @@
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function colorName(c) { return bank().colors[c]; }
+  function colorName(c) { return bank().colores[c]; }
 
   /* Renders the level selection buttons. */
   function renderLevels() {
@@ -93,7 +91,6 @@
     currentLevel = level;
     modelIdx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     newModel();
   }
@@ -102,7 +99,6 @@
     currentLevel = levelBasedOnProgress();
     modelIdx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     newModel();
   }
@@ -270,17 +266,16 @@
 
   /* Events */
   btnNext.addEventListener('click', next);
-  if (btnPlay) btnPlay.addEventListener('click', startGame);
   var btnRepeat = $('#btnRepeat');
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startGame(); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   /* Init */
   renderStars();
   renderLevels();
+  // Iniciar directamente la actividad
+  startGame();
 })();

@@ -3,23 +3,26 @@
 
 .tool-header h1 { color: var(--mod-memoria); }
 
-.btn:not(.btn-secundario) {
+/* Excluye tambien .btn-audio, como hacen las demas herramientas: si no,
+   el boton de audio se pinta del color solido del modulo y conserva el
+   texto de superficie, que sobre el naranja daba 3.7:1. */
+.btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
 .dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
 
 .status {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   font-weight: 700;
   min-height: 1.4em;
 }
@@ -81,7 +84,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

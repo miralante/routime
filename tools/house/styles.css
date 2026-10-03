@@ -38,7 +38,7 @@
 .column-destination { border-color: var(--mod-secuencia); }
 
 .column-title {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   margin: 0 0 var(--espacio) 0;
   color: var(--mod-secuencia);
@@ -58,8 +58,8 @@
 
 .empty-message {
   text-align: center;
-  color: var(--color-text-suave);
-  font-size: var(--text-base);
+  color: var(--color-texto-suave);
+  font-size: var(--texto-base);
   margin-top: var(--espacio);
 }
 
@@ -91,7 +91,7 @@
 .row-number {
   font-weight: 700;
   color: var(--mod-secuencia);
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   min-width: 24px;
   text-align: right;
 }
@@ -103,7 +103,7 @@
   background: transparent;
   border: none;
   padding: 4px 6px;
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   font-weight: 600;
   color: var(--color-text);
   cursor: pointer;
@@ -181,7 +181,7 @@
 }
 
 .field input {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   padding: 12px 14px;
   border: 2px solid var(--color-borde);
   border-radius: var(--radio);
@@ -253,7 +253,7 @@
 
 .step-number {
   font-weight: 700;
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
   min-width: 24px;
   text-align: right;
 }
@@ -288,7 +288,7 @@
    STEP-ORDERING SCREEN (kept from the original house activity)
    ================================================================= */
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .progress-bar { margin-top: var(--espacio); }
 
@@ -309,7 +309,7 @@
 }
 
 .task-title {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-secuencia);
   margin: 0;
@@ -317,7 +317,7 @@
 
 .label {
   font-weight: 700;
-  color: var(--color-text-suave);
+  color: var(--color-texto-suave);
   margin-top: var(--espacio);
 }
 
@@ -368,7 +368,7 @@
 
 #endScreen .transferencia {
   margin: 8px auto 24px;
-  font-size: var(--text-base);
-  color: var(--color-text-suave);
+  font-size: var(--texto-base);
+  color: var(--color-texto-suave);
   max-width: 480px;
 }

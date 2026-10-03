@@ -11,7 +11,6 @@
   var TOOL_ID = 'calma';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var sessionScreen = $('#sessionScreen');
   var endScreen = $('#endScreen');
   var circle = $('#breathingCircle');
@@ -19,7 +18,6 @@
   var cyclesEl = $('#breathingCycles');
   var starsEl = $('#stars');
   var levelsEl = $('#levels');
-  var btnPlay = $('#btnPlay');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -52,7 +50,6 @@
 
   function startSession(level) {
     currentLevel = level;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     sessionScreen.classList.remove('hidden');
     var cycle = 0;
@@ -105,25 +102,22 @@
 
   function stopEarly() {
     stop();
-    sessionScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   }
 
   /* Events */
   var btnEndSession = $('#btnEndSession');
   if (btnEndSession) btnEndSession.addEventListener('click', stopEarly);
-  if (btnPlay) btnPlay.addEventListener('click', function () { startSession(bank().niveles[0]); });
   var btnRepeat = $('#btnRepeat');
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startSession(currentLevel || bank().niveles[0]); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   /* Init */
   renderStars();
   renderLevels();
+  // Iniciar directamente la actividad
+  startSession(bank().niveles[0]);
 })();

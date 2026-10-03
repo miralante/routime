@@ -10,7 +10,7 @@
   background: var(--mod-memoria);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -19,14 +19,14 @@
 }
 
 .dificultad {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-secundario, #666);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave, #666);
 }
 
 .personaje-current { font-size: 48px; }
 
 .consigna {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   font-weight: 700;
 }
 
@@ -48,11 +48,11 @@
 }
 
 /* Back: sky band, smaller content (far) */
-.banda.fondo { background: #DCEBF5; }
+.banda.fondo { background: var(--color-banda-cielo, #DCEBF5); }
 .banda.fondo .sitio { font-size: 34px; }
 
 /* Front: ground band, larger content (near) */
-.banda.delante { background: #E8E3D5; }
+.banda.delante { background: var(--color-banda-suelo, #E8E3D5); }
 .banda.delante .sitio { font-size: 52px; }
 
 .sitio {
@@ -96,7 +96,7 @@
   #endScreen .transferencia {
     margin: 8px auto 24px;
     font-size: 1.1rem;
-    color: var(--color-text-secundario, #555);
+    color: var(--color-texto-suave, #555);
     max-width: 480px;
   }
 }

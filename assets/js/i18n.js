@@ -69,13 +69,11 @@
 
   function detectar() {
     try {
-      var idiomas = navigator.languages && navigator.languages.length
-        ? navigator.languages
-        : [navigator.language || ''];
-      for (var i = 0; i < idiomas.length; i++) {
-        var prefix = (idiomas[i] || '').slice(0, 2).toLowerCase();
-        if (SOPORTADOS.indexOf(prefix) !== -1) return prefix;
-      }
+      var idiomas = (navigator.languages && navigator.languages.length)
+        ? navigator.languages[0]
+        : (navigator.language || '');
+      var prefix = (idiomas || '').split(/[-_]/)[0].toLowerCase();
+      if (SOPORTADOS.indexOf(prefix) !== -1) return prefix;
     } catch (e) { /* ignore */ }
     return POR_DEFECTO;
   }

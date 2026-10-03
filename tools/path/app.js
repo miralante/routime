@@ -23,7 +23,6 @@
     ArrowLeft: 'left', ArrowRight: 'right'
   };
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var boardEl = $('#board');
@@ -94,7 +93,6 @@
     currentLevel = level;
     pathIdx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     newPath();
   }
@@ -235,7 +233,6 @@
     currentLevel = levelBasedOnProgress();
     pathIdx = 0;
     roundHits = 0;
-    startScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     newPath();
   }
@@ -251,15 +248,15 @@
     if (dir) { ev.preventDefault(); move(dir); }
   });
   btnNext.addEventListener('click', next);
-  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
   if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
-    startScreen.classList.remove('hidden');
   });
 
   /* Init */
   renderStars();
   renderLevels();
+  // Iniciar directamente la actividad
+  startGame();
 })();

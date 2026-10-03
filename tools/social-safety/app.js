@@ -22,7 +22,7 @@
   function paintStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
-    ['startScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
+    ['caseScreen', 'endScreen'].forEach(function (screenId) {
       $('#' + screenId).classList.toggle('hidden', screenId !== id);
     });
   }
@@ -127,6 +127,7 @@
 
   $('#nextButton').addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnPlay').addEventListener('click', function () { startGame(); });
   paintStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

@@ -13,9 +13,9 @@
   var TOOL_ID = 'comida-sana';
   var $ = App.utils.$;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var levelEl = $('#level');
   var itemPictoEl = $('#itemPicto');
   var itemPalabraEl = $('#itemPalabra');
   var cajasEl = $('#cajas');
@@ -64,7 +64,15 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
+    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    idx = 0;
+    roundHits = 0;
+    endScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    renderLevel();
+    render();
   }
+
 function renderProgress() {
     var porRonda = banco().porRonda;
     progressFill.style.width = ((idx / porRonda) * 100) + '%';
@@ -73,6 +81,7 @@ function renderProgress() {
 
   function render() {
     var item = items[idx];
+    if (!item) return endRound();
     solved = false;
     attempts = 0;
     feedbackEl.textContent = '';
@@ -166,12 +175,14 @@ function renderProgress() {
   }
 
   function endRound() {
+    progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
+    var transferenciaEl = $('#transferencia');
+    if (transferenciaEl) transferenciaEl.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -182,10 +193,10 @@ function renderProgress() {
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
-    endScreen.classList.add('hidden');
-    renderLevels();
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

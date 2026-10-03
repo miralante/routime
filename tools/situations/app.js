@@ -4,7 +4,6 @@
 
   var TOOL_ID = 'situaciones';
   var $ = App.utils.$;
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var levelEl = $('#level');
@@ -44,7 +43,6 @@
     items = App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
     index = 0;
     hits = 0;
-    startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
@@ -139,15 +137,13 @@
     renderStars();
   }
 
-  $('#btnPlay').addEventListener('click', startGame);
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
-    gameScreen.classList.add('hidden');
-    endScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
+    window.location.href = '../../site/index.html';
   });
 
   renderStars();
-  startScreen.classList.remove('hidden');
+  // Iniciar directamente la actividad
+  startGame();
 })();

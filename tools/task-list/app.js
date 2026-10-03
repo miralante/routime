@@ -21,7 +21,6 @@
   var $ = App.utils.$;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
-  var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var pantallaCrear = $('#pantallaCrear');
   var endScreen = $('#endScreen');
@@ -59,7 +58,7 @@
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
-    [startScreen, gameScreen, pantallaCrear, endScreen].forEach(function (p) {
+    [gameScreen, pantallaCrear, endScreen].forEach(function (p) {
       if (p) p.classList.add('hidden');
     });
     var dest = $('#' + id);
@@ -589,10 +588,9 @@
 
   /* Events */
   btnNext.addEventListener('click', next);
-  if ($('#btnPlay')) $('#btnPlay').addEventListener('click', startGame);
   if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    showScreen('startScreen');
+    window.location.href = '../../site/index.html';
   });
 
   /* Eventos del Nivel 3 — "Crea tu lista". */
@@ -621,9 +619,11 @@
   if ($('#btnBack')) $('#btnBack').addEventListener('click', function (e) {
     if (!pantallaCrear.classList.contains('hidden')) {
       e.preventDefault();
-      showScreen('startScreen');
+      window.location.href = '../../site/index.html';
     }
   });
 
   renderStars();
+  // Iniciar directamente la actividad
+  startGame();
 })();

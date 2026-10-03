@@ -7,7 +7,7 @@
   background: var(--mod-coordinacion);
 }
 
-.instruction { font-size: var(--text-base); }
+.instruction { font-size: var(--texto-base); }
 
 .center-row { justify-content: center; }
 
@@ -91,6 +91,6 @@
 #finishScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }

@@ -12,7 +12,7 @@
 
 .dificultad {
   font-size: var(--texto-pequeno);
-  color: var(--color-texto-secundario, #666);
+  color: var(--color-texto-suave, #666);
 }
 
 .progress-bar { margin-top: var(--espacio); }
@@ -65,7 +65,7 @@
 #pantallaFinal .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 
@@ -133,7 +133,7 @@
 
 .btn-letra.seleccionada {
   background: var(--mod-coordinacion);
-  color: #fff;
+  color: var(--texto-sobre-acento);
   border-color: var(--mod-coordinacion);
 }
 
@@ -144,6 +144,6 @@
 
 .seleccion-resumen {
   font-size: var(--texto-base);
-  color: var(--color-texto-secundario, #555);
+  color: var(--color-texto-suave, #555);
   min-height: 1.5em;
 }

@@ -27,7 +27,7 @@
 .btn-modo {
   min-width: 200px;
   min-height: var(--boton-min);
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   padding: var(--espacio) calc(var(--espacio) * 2);
 }
 
@@ -91,7 +91,7 @@
 .name-plantilla {
   font-weight: bold;
   text-align: center;
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   color: var(--color-text);
 }
 
@@ -109,14 +109,14 @@
 }
 
 .construccion-titulo {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: bold;
   margin: 0;
 }
 
 .contador-bloques {
-  font-size: var(--text-pequeno);
-  color: var(--color-text-suave);
+  font-size: var(--texto-pequeno);
+  color: var(--color-texto-suave);
 }
 
 /* --- El mundo: cielo azul con marco de tierra --- */
@@ -260,7 +260,7 @@
 }
 
 .etiqueta-paleta {
-  font-size: var(--text-pequeno);
+  font-size: var(--texto-pequeno);
   margin-bottom: calc(var(--espacio) / 2);
 }
 
@@ -313,7 +313,7 @@
 .btn-herramienta.modo-borrar-activo {
   background: var(--color-animo);
   border-color: var(--color-animo);
-  color: white;
+  color: var(--texto-sobre-acento);
 }
 
 /* --- Pantalla final --- */
@@ -360,7 +360,7 @@
 
   .btn-modo {
     min-width: 160px;
-    font-size: var(--text-base);
+    font-size: var(--texto-base);
   }
 }
 
@@ -375,7 +375,7 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
 }

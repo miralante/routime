@@ -21,6 +21,7 @@
   var audioCtx = null;
 
   function sonidoCompartidoActivado(tipo) {
+    if (window.LocalePickerConfig && window.LocalePickerConfig.soundSettings === false) return null;
     try {
       var guardado = JSON.parse(localStorage.getItem('miralante:sounds') || 'null');
       if (guardado && typeof guardado[tipo] === 'boolean') return guardado[tipo];

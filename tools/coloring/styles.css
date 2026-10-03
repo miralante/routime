@@ -6,7 +6,7 @@
   background: var(--mod-coordinacion);
 }
 
-.instruccion { font-size: var(--text-base); }
+.instruccion { font-size: var(--texto-base); }
 
 .centered-row { justify-content: center; }
 
@@ -31,13 +31,13 @@
 .tarjeta-dibujo .picto { font-size: 60px; }
 
 .tarjeta-dibujo .name {
-  font-size: var(--text-base);
+  font-size: var(--texto-base);
   font-weight: 800;
   color: var(--mod-coordinacion);
 }
 
 .dibujo-titulo {
-  font-size: var(--text-grande);
+  font-size: var(--texto-grande);
   font-weight: 700;
   color: var(--mod-coordinacion);
 }
@@ -94,6 +94,6 @@
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
-  color: var(--color-text-secundario, #555);
+  color: var(--color-texto-suave, #555);
   max-width: 480px;
 }

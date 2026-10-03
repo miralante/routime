@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Que falta? | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
-  <link rel="stylesheet" href="../../assets/css/tokens.css">
-  <link rel="stylesheet" href="../../assets/css/base.css">
-  <link rel="stylesheet" href="../../assets/css/components.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v3bce">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v3bce">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v3bce">
+  <link rel="stylesheet" href="styles.css?v=routime-v3bce">
 </head>
 <body>
   <div class="container">
@@ -37,14 +37,17 @@
       <div class="card centered stack">
         <p class="etapa-texto" id="etapaTexto"></p>
       </div>
-      <div class="objetos-row" id="objetos"></div>
-      <div class="zona-pregunta" id="zonaPregunta"></div>
-      <div class="options stack" id="options"></div>
+      <div id="zonaBoton" class="pila">
+        <div class="objetos-row" id="objetos"></div>
+        <button type="button" class="btn hidden" id="btnListo">Listo</button>
+      </div>
+      <div class="zona-pregunta hidden" id="zonaPregunta">
+        <div class="options stack" id="options"></div>
+      </div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="row explanation hidden" id="explanationWrap">
         <p id="explanation" aria-live="polite"></p>
       </div>
-      <button type="button" class="btn hidden" id="btnListo">Listo</button>
       <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
     </section>
 
