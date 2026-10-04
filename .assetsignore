@@ -1,0 +1,34 @@
+# Keep development files and repository metadata out of the public Worker.
+/.git/
+/.dev/
+/.claude/
+/.vscode/
+/.wrangler/
+/.github/
+/.agents/
+/.codex/
+/node_modules/
+/graphify-out*/
+/test-results/
+/scripts/
+/doc/
+
+# Root-level project notes and local debugging artifacts are not site assets.
+/*.md
+/debug*.js
+/fix-*.js
+/audit_all.js
+/validate_all.js
+/*.log
+/_ck_*
+
+# Do not publish credentials if one is accidentally copied into the asset tree.
+**/.env*
+**/*.pem
+**/*.p12
+**/*.pfx
+**/*.key
+**/credentials.json
+**/service-account*.json
+**/firebase-adminsdk*.json
+**/gha-creds-*.json
