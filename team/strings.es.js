@@ -57,7 +57,7 @@
     "colDaily": 'En el día a día',
     "module1Title": '📋 Mi día a día — Autonomía y hogar',
     "module1Intro": 'Actividades de la vida diaria, tareas del hogar, organización y conducta en situaciones cotidianas.',
-    "module2Title": '� Emociones — Emociones y relaciones',
+    "module2Title": '💜 Emociones — Emociones y relaciones',
     "module2Intro": 'Reconocimiento y expresión de emociones, autorregulación, respiración y resolución de conflictos.',
     "module3Title": '💗 Cuerpo y relaciones — Educación afectivo-sexual',
     "module3Intro": 'Cuerpo, consentimiento, relaciones sanas y salud sexual y reproductiva, siempre derivando a personas de confianza o profesionales de la salud.',

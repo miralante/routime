@@ -194,7 +194,7 @@
 
   <link rel="stylesheet" href="../assets/css/tokens.css?v=routime-v3bce">
   <link rel="stylesheet" href="../assets/css/base.css?v=routime-v3bce">
-  <link rel="stylesheet" href="../assets/css/components.css?v=routime-v3bce"><link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-v1bce">  <link rel="stylesheet" href="/site/styles.css">
+  <link rel="stylesheet" href="../assets/css/components.css?v=routime-v3bce"><link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-v1bceaa">  <link rel="stylesheet" href="/site/styles.css">
 </head>
 <body>
   <div class="container suite-home">
@@ -615,16 +615,11 @@
        Routime stores site strings under /site/strings.<locale>.js, so
        path is disabled because Routime only ships Spanish and English.
        storageKey must match the one assets/js/i18n.js writes
-       ('routime:locale'). -->
-  <script>
-  window.LocalePickerConfig = {
-    storageKey: 'routime:locale',
-    path: null,
-    requiredLocales: ['es', 'en'],
-    defaultLocale: 'en',
-    settingsHref: '../config/'
-  };
-  </script>
-  <script src="../assets/js/locale-picker.js?v=routime-v1" defer></script>
+       ('routime:locale'). External file, not inline: the CSP used by the
+       rest of the suite is script-src 'self' with no 'unsafe-inline', and
+       the inline block this replaced would be dropped there — the failure
+       only shows in production, never in the local preview server. -->
+  <script src="../assets/js/locale-picker-config.js?v=1ab"></script>
+  <script src="../assets/js/locale-picker.js?v=routime-v2aa" defer></script>
 </body>
 </html>

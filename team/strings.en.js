@@ -57,7 +57,7 @@
     "colDaily": 'In daily life',
     "module1Title": '📋 My day to day — Independence and home',
     "module1Intro": 'Daily-living activities, household tasks, organization and everyday-situation behavior.',
-    "module2Title": '� Emotions — Emotions and relationships',
+    "module2Title": '💜 Emotions — Emotions and relationships',
     "module2Intro": 'Recognizing and expressing emotions, self-regulation, breathing and conflict resolution.',
     "module3Title": '💗 Body and relationships — Affective-sexual education',
     "module3Intro": 'Body, consent, healthy relationships and sexual and reproductive health, always pointing to trusted people or health professionals.',

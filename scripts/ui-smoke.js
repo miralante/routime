@@ -147,7 +147,29 @@ async function waitForApp(page) {
   assert.ok((await main.innerText().catch(() => '')).trim(), 'El contenedor principal está vacío');
 }
 
-function languageLocator(page, language) {
+/* El desplegable compartido es un panel que se abre y se cierra, asi que
+   el helper tiene que abrirlo y devolver la opcion ya resuelta: un locator
+   perezoso mas un guard de isVisible se habria saltado el ejercicio
+   entero en silencio. Los cinco dialectos de dos botones se quedan como
+   respaldo para una pagina que aun los lleve. */
+async function languageLocator(page, language) {
+  const btn = page.locator('#locale-picker .locale-picker-btn');
+  if (await btn.count()) {
+    /* Con `languageInDrawer` el desplegable vive DENTRO del cajon, asi
+       que no siempre esta a la vista. No basta con abrirlo una vez al
+       principio: `App.i18n.setLocale()` hace `location.reload()`, y al
+       recargar el cajon vuelve a cerrarse. Se abre aqui, justo antes de
+       pulsar, que es cuando puede hacer falta. El cierre lo hace
+       `exerciseLanguages()` en su `finally`. */
+    const drawer = page.locator('#accessibility-settings');
+    if (await drawer.count() && !await drawer.isVisible().catch(() => false)) {
+      await page.locator('.locale-settings-trigger').click();
+      await drawer.waitFor({ state: 'visible', timeout: 5000 });
+    }
+    const panel = page.locator('#locale-picker .locale-picker-panel');
+    if (!await panel.isVisible().catch(() => false)) await btn.click();
+    return panel.locator('li[data-locale="' + language + '"]');
+  }
   return page.locator([
     'button[data-locale="' + language + '"]:visible',
     'button[data-lang="' + language + '"]:visible',
@@ -157,32 +179,58 @@ function languageLocator(page, language) {
   ].join(', ')).first();
 }
 
+/* El desplegable es la primera fila del cajón de ajustes, asi que abrir el
+   ⚙️ es parte del ejercicio de idioma —y cerrarlo tambien: el backdrop se
+   queda encima y las tres funciones que van despues en runRoute() chocan
+   contra el, con un fallo que aparece lejos de su causa. */
+async function closeSettingsDrawer(page) {
+  const drawer = page.locator('#accessibility-settings');
+  if (!await drawer.count() || !await drawer.isVisible().catch(() => false)) return;
+  await drawer.locator('[data-settings-close]').click().catch(() => {});
+  await drawer.waitFor({ state: 'hidden', timeout: 3000 }).catch(() => {});
+}
+
 async function languageIsActive(page, button, language) {
   const lang = (await page.locator('html').getAttribute('lang')) || '';
   if (lang.toLowerCase().startsWith(language)) return true;
   if (await button.getAttribute('aria-pressed') === 'true') return true;
+  /* El desplegable marca la opcion activa con aria-selected, no aria-pressed. */
+  if (await button.getAttribute('aria-selected') === 'true') return true;
   return /\b(active|activo|selected|seleccionado)\b/.test(
     (await button.getAttribute('class')) || '');
 }
 
 async function exerciseLanguages(page) {
-  const en = languageLocator(page, 'en');
-  const es = languageLocator(page, 'es');
-  if (!await en.count() || !await en.isVisible().catch(() => false)) return;
-  const before = await page.locator('main, #app, #contenido, #main, .container, body').first()
-    .innerText().catch(() => '');
-  await en.click();
-  await page.waitForLoadState('domcontentloaded', { timeout: 3000 }).catch(() => {});
-  await page.waitForTimeout(SETTLE_MS);
-  const after = await page.locator('main, #app, #contenido, #main, .container, body').first()
-    .innerText().catch(() => '');
-  assert.ok(await languageIsActive(page, en, 'en') || before !== after,
-    'El selector no activa English');
-  if (await es.count() && await es.isVisible().catch(() => false)) {
-    await es.click();
+  /* Abrir el ⚙️ es cosa de `languageLocator()`, que es quien lo necesita y
+     quien sabe si hace falta: entre una llamada y otra la app puede
+     recargar y cerrarlo. Aquí solo se cuenta si existe, para poder
+     devolverlo a su sitio al terminar con el `finally` de abajo. */
+  const hasDrawer = await page.locator('#accessibility-settings').count();
+  try {
+    const en = await languageLocator(page, 'en');
+    if (!await en.count() || !await en.isVisible().catch(() => false)) return;
+    const before = await page.locator('main, #app, #contenido, #main, .container, body').first()
+      .innerText().catch(() => '');
+    await en.click();
     await page.waitForLoadState('domcontentloaded', { timeout: 3000 }).catch(() => {});
     await page.waitForTimeout(SETTLE_MS);
-    assert.ok(await languageIsActive(page, es, 'es'), 'El selector no vuelve a Español');
+    const after = await page.locator('main, #app, #contenido, #main, .container, body').first()
+      .innerText().catch(() => '');
+    /* Se vuelve a pedir la opcion: el panel se cierra al elegir, asi que la
+       de antes ya no es visible. */
+    const enAgain = await languageLocator(page, 'en');
+    assert.ok(await languageIsActive(page, enAgain, 'en') || before !== after,
+      'El selector no activa English');
+    const es = await languageLocator(page, 'es');
+    if (await es.count() && await es.isVisible().catch(() => false)) {
+      await es.click();
+      await page.waitForLoadState('domcontentloaded', { timeout: 3000 }).catch(() => {});
+      await page.waitForTimeout(SETTLE_MS);
+      const esAgain = await languageLocator(page, 'es');
+      assert.ok(await languageIsActive(page, esAgain, 'es'), 'El selector no vuelve a Español');
+    }
+  } finally {
+    if (hasDrawer) await closeSettingsDrawer(page);
   }
 }
 
@@ -379,21 +427,50 @@ async function exerciseAppearanceSettings(browser, baseUrl) {
     await page.locator('.locale-settings-trigger').waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
     assert.strictEqual(await page.locator('html').getAttribute('data-theme'), 'contrast',
       'El alto contraste debe continuar activo después de recargar');
+    /* El idioma vive DENTRO del cajón de ajustes (`languageInDrawer` en el
+       config de esta app), no como control suelto en la cabecera: hay que
+       abrir el ⚙️ para cambiarlo. La recarga anterior deja el cajón
+       cerrado, así que se abre aquí. */
     await page.locator('.locale-settings-trigger').click();
-    const languagePicker = page.locator('#accessibility-settings .locale-picker-btn');
+    const languageDrawer = page.locator('#accessibility-settings');
+    await languageDrawer.waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
+
+    const languagePicker = languageDrawer.locator('.locale-picker-btn');
     await languagePicker.click();
-    const english = page.locator('#accessibility-settings .locale-picker-panel li[data-locale="en"]');
+    const english = languageDrawer.locator('.locale-picker-panel li[data-locale="en"]');
     await english.waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
     await english.click();
-    await page.waitForFunction(() => document.documentElement.lang.slice(0, 2) === 'en',
-      null, { timeout: NAV_TIMEOUT });
+    /* Choosing a language swaps the document, so for an instant there is
+       no documentElement at all. The predicate has to answer "not yet"
+       instead of throwing, otherwise the TypeError ends the wait instead
+       of polling through the navigation. */
+    await page.waitForFunction(() =>
+      !!(document.documentElement && document.documentElement.lang.slice(0, 2) === 'en'),
+    null, { timeout: NAV_TIMEOUT });
     assert.strictEqual((await page.locator('html').getAttribute('lang') || '').slice(0, 2), 'en',
-      'El idioma del cajón debe cambiar el idioma activo de la app');
+      'El desplegable del cajón debe cambiar el idioma activo de la app');
     assert.strictEqual((await languagePicker.locator('.locale-picker-current').textContent()).trim(), 'EN');
-    const more = page.locator('#accessibility-settings [data-settings-more]');
-    if (await more.count()) {
-      assert.ok(await more.getAttribute('href'), 'El enlace a ajustes propios debe tener destino');
-    }
+
+    /* El ⚙️ se queda solo en la fila de la cabecera y el idioma, dentro.
+       Se comprueba que el engranaje es el último de su fila en vez de que
+       esté solo, porque esa fila puede llevar otros controles. */
+    const gearRow = await page.evaluate(() => {
+      const gear = document.querySelector('.locale-settings-trigger');
+      const drawer = document.getElementById('accessibility-settings');
+      const picker = document.getElementById('locale-picker');
+      return {
+        pickerInDrawer: drawer.contains(picker),
+        gearIsLast: !!gear && gear.parentNode.lastElementChild === gear,
+        alignsEnd: getComputedStyle(gear.parentNode).justifyContent === 'flex-end',
+      };
+    });
+    assert.strictEqual(await page.locator('#accessibility-settings .locale-picker-btn').count(), 1,
+      'El cajón debe traer el desplegable de idioma');
+    assert.ok(gearRow.pickerInDrawer, 'El selector de idioma debe vivir dentro del cajón de ajustes');
+    assert.ok(gearRow.gearIsLast, 'El engranaje debe quedar arriba a la derecha, el último de su fila');
+    assert.ok(gearRow.alignsEnd, 'La fila de controles debe alinearse al final para quedar arriba a la derecha');
+    assert.strictEqual(await page.locator('#accessibility-settings [data-settings-more]').count(), 0,
+      'El cajón no debe enlazar a la página de ajustes propia del proyecto');
   } finally {
     await page.close().catch(() => {});
     await context.close().catch(() => {});
@@ -838,6 +915,7 @@ async function exerciseRoutimeSafeChat(page) {
   assert.equal(cardCount, expectedCards, 'Chat Seguro no muestra todos sus escenarios');
   await cards.first().click({ timeout: 3000 });
   await page.locator('#pantallaChat:not(.hidden)').waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
+  let validatedSocraticPause = false;
 
   for (let round = 0; round < 16; round += 1) {
     if (await page.locator('#reglaFinal:not(.hidden)').isVisible().catch(() => false)) {
@@ -845,12 +923,14 @@ async function exerciseRoutimeSafeChat(page) {
         'Chat Seguro termina sin mostrar la regla de cierre');
       assert.match(await page.locator('#stars').innerText(), /[1-9]/,
         'Completar un chat debe sumar una estrella');
+      assert.ok(validatedSocraticPause,
+        'El smoke no comprobó la pausa socrática de Chat Seguro');
       return 1;
     }
 
     const choices = page.locator('#chatOpciones .btn-opcion:visible');
     if (await choices.count()) {
-      const safeText = await page.evaluate(() => {
+      const answers = await page.evaluate(() => {
         const locale = App.i18n.locale();
         const data = DATA[locale] || DATA.es;
         const alias = document.querySelector('#chatAlias').textContent;
@@ -865,10 +945,29 @@ async function exerciseRoutimeSafeChat(page) {
         });
         const choice = variant.steps.slice(messageIndex + 1).find(step => step.tipo === 'eleccion');
         const safe = choice && choice.options.find(option => option.segura);
-        return safe ? safe.text : '';
+        const wrong = choice && choice.options.find(option => !option.segura);
+        return { safe: safe ? safe.text : '', wrong: wrong ? wrong.text : '' };
       });
-      assert.ok(safeText, 'No se encontró la respuesta segura del paso actual');
-      await page.locator('#chatOpciones .btn-opcion:visible').filter({ hasText: safeText })
+      assert.ok(answers.safe, 'No se encontró la respuesta segura del paso actual');
+      if (!validatedSocraticPause && answers.wrong) {
+        const wrongButton = page.locator('#chatOpciones .btn-opcion:visible').filter({ hasText: answers.wrong });
+        const safeButton = page.locator('#chatOpciones .btn-opcion:visible').filter({ hasText: answers.safe });
+        await wrongButton.click({ timeout: 3000 });
+        const hintZone = page.locator('#consejo');
+        await hintZone.waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
+        assert.ok((await page.locator('#consejoTexto').innerText()).trim(),
+          'Un fallo debe mostrar una pista socrática');
+        assert.equal(await safeButton.isEnabled(), false,
+          'La respuesta segura debe quedar bloqueada hasta pulsar «Entendido»');
+        assert.equal(await wrongButton.isEnabled(), false,
+          'La respuesta ya probada debe seguir bloqueada');
+        await hintZone.locator('.btn-entendido').click({ timeout: 3000 });
+        await hintZone.waitFor({ state: 'hidden', timeout: NAV_TIMEOUT });
+        assert.equal(await safeButton.isEnabled(), true,
+          '«Entendido» debe reactivar la respuesta segura');
+        validatedSocraticPause = true;
+      }
+      await page.locator('#chatOpciones .btn-opcion:visible').filter({ hasText: answers.safe })
         .click({ timeout: 3000 });
       await page.waitForTimeout(3600);
       continue;
@@ -884,6 +983,7 @@ async function exerciseRoutimeSafeChat(page) {
       .waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
   }
 
+  assert.ok(validatedSocraticPause, 'El smoke no comprobó la pausa socrática de Chat Seguro');
   assert.fail('Chat Seguro no completa un escenario hasta la regla final');
 }
 
@@ -902,6 +1002,31 @@ async function exerciseFullFunctionality(page, route) {
   }
   if (APP === 'calculia' || APP === 'routime') return exerciseActivityApp(page);
   return 0;
+}
+
+/* Pulsa un control tolerando las transiciones. El recorrido pulsa y solo
+   espera 25 ms, asi que el control siguiente puede medirse mientras un
+   panel se abre o una tarjeta crece: Playwright lo rechaza con 'Element is
+   outside of the viewport' aunque la app este perfectamente bien. Se deja
+   que la animacion se detenga, se mete el elemento en el viewport a
+   proposito y se reintenta. Devuelve si el control quedo pulsado. */
+async function clickControl(page, locator) {
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      await locator.click({ timeout: 2000, force: true });
+      return true;
+    } catch (error) {
+      if (!await locator.isVisible().catch(() => false)) return false;
+      await locator.scrollIntoViewIfNeeded({ timeout: 1000 }).catch(() => {});
+      try {
+        await locator.click({ timeout: 2000, force: true });
+        return true;
+      } catch (retryError) {
+        await page.waitForTimeout(220);
+      }
+    }
+  }
+  return false;
 }
 
 async function exerciseControls(page) {
@@ -936,33 +1061,80 @@ async function exerciseControls(page) {
       const identity = state + '|' + control.tag + '|' + control.id + '|' +
         control.href + '|' + control.text;
       if (seen.has(identity)) continue;
-      seen.add(identity);
       const selector = control.tag === 'BUTTON' ? 'button:visible' :
         control.tag === 'SUMMARY' ? 'summary:visible' : 'a[href^="#"]:visible';
       const locator = page.locator(selector).nth(control.index);
       if (!await locator.isVisible().catch(() => false)) continue;
+      await settleDrawerTransition(page);
+      /* El indice sale de una foto del DOM y el recorrido va pulsando: en
+         cuanto se pulsa un control la vista puede cambiar (una carta abre un
+         panel, un boton navega) y 'button:visible' ya no es la misma lista,
+         de modo que .nth(control.index) resuelve un elemento DISTINTO del
+         inventariado. Sin esta comprobacion el smoke accuse a la app de un
+         boton que no podia pulsar: el indice caduco, no se rompio nada. Si el
+         elemento que resuelve el indice ya no es el del inventario se salta,
+         y se reintenta en la ronda siguiente con el DOM ya refrescado. */
+      const stillInventoried = await locator.evaluate((node, expected) => {
+        const text = (node.innerText || node.getAttribute('aria-label') || '').trim().slice(0, 100);
+        return node.tagName === expected.tag &&
+          (node.id || '') === expected.id &&
+          (node.getAttribute('href') || '') === expected.href &&
+          text === expected.text;
+      }, control).catch(() => false);
+      if (!stillInventoried) continue;
+      /* Solo se marca como visto lo que se ha pulsado de verdad. Marcandolo
+         antes de comprobar el indice, el control se saltaba y no volvia a
+         intentarse en ninguna de las 12 rondas: el smoke dejaba de fallar
+         pero tambien dejaba de probar (medido: -54% de interacciones). */
+      seen.add(identity);
       try {
         if (control.tag === 'A') await locator.evaluate(node => node.click());
         else await locator.click({ timeout: 2000, force: true });
         actions += 1;
         await page.waitForTimeout(25);
       } catch (error) {
-        /* The shared settings drawer has a 160 ms closing transition. A
-           snapshot taken immediately after activating its close control can
-           still report an off-screen button as :visible. Let that transition
-           settle before treating the control as a real failure. */
-        if (/outside of the viewport|not receiving pointer events/i.test(error.message)) {
-          await page.waitForTimeout(220);
-          if (!await locator.isVisible().catch(() => false)) continue;
+        /* Si el elemento sigue en pantalla tras el fallo, se reintenta una
+           vez dejandolo entrar en el viewport antes de declararlo fallo
+           real. El error tipico es 'Element is outside of the viewport'
+           por una transicion a medias, no un boton roto (lo reproducia
+           okeymoney en /#block-practica con #unidad-bankProducts, que un
+           clic de verdad si acepta). */
+        if (!await locator.isVisible().catch(() => false)) continue;
+        if (await clickControl(page, locator)) {
+          actions += 1;
+          await page.waitForTimeout(25);
+          continue;
         }
-        if (await locator.isVisible().catch(() => false)) {
-          throw new Error('No se pudo activar ' + control.tag + '#' +
-            (control.id || '(sin id)') + ' "' + control.text + '": ' + error.message);
-        }
+        throw new Error('No se pudo activar ' + control.tag + '#' +
+          (control.id || '(sin id)') + ' "' + control.text + '": ' + error.message);
       }
     }
   }
   return actions;
+}
+
+/* El cajon de ajustes compartido entra deslizando 160 ms. En cuanto se
+   pulsa el engranaje sus botones ya son :visible para el navegador
+   (visibility cambia con la clase) pero el transform todavia no los ha
+   metido dentro del viewport, de modo que el clic siguiente revienta con
+   'Element is outside of the viewport'. Aqui se espera a que el cajon
+   termine de entrar. Sin esto el recorrido de controles falla en las
+   paginas donde el engranaje cae entre los primeros botones. */
+async function settleDrawerTransition(page) {
+  await page.evaluate(() => new Promise((done) => {
+    const drawer = document.querySelector('.locale-settings-drawer.is-open');
+    if (!drawer) return done();
+    const inside = () => {
+      const r = drawer.getBoundingClientRect();
+      return r.left >= 0 && r.right <= window.innerWidth + 1;
+    };
+    if (inside()) return done();
+    const onEnd = () => {
+      if (inside()) { drawer.removeEventListener('transitionend', onEnd); done(); }
+    };
+    drawer.addEventListener('transitionend', onEnd);
+    setTimeout(() => { drawer.removeEventListener('transitionend', onEnd); done(); }, 600);
+  }));
 }
 
 async function validateLinks(page, baseUrl) {
