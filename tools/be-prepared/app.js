@@ -149,16 +149,13 @@
       btnNextKnow.focus();
     } else {
       intentosS += 1;
-      if (intentosS === 1) {
-        explicacionSEl.textContent = App.i18n.t('pista') + '"' + item.pregunta + '"';
+      var respuestaTrasPista = intentosS > 1;
+      explicacionSEl.textContent = App.i18n.t('pista') + '"' + item.pregunta + '"';
         explicacionSWrap.classList.remove('hidden');
-      } else {
-        mostrarExplicacionS(isCorrect, item);
-      }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explicacionSWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explicacionSWrap, function () { if (respuestaTrasPista) mostrarExplicacionS(isCorrect, item); });
     }
   }
 

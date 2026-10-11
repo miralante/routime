@@ -66,7 +66,7 @@ cosas:
   salida. No hay `npm install`, ni bundler, ni transformador.
 - **Sin `_redirects`, sin `wrangler.toml`, sin `functions/`.**
   Cloudflare Pages ya hace búsqueda implícita de `index.html` por
-  directorio, así que cada sección (`site/`, `tools/<slug>/`, `team/`,
+  directorio, así que cada sección (`tools/<slug>/`, `team/`,
   `settings/`, `about/`, `legal/`) incluye su propio `index.html` real
   y Cloudflare resuelve `/tools/pairs/` a `tools/pairs/index.html`
   automáticamente.
@@ -113,7 +113,7 @@ Reglas prácticas que se derivan de esto:
   reciente, protégela con `'apiName' in navigator` (o equivalente)
   y ofrece un fallback elegante.
 - **Registra el service worker desde cada punto de entrada**, no
-  solo desde `site/index.html`. El `index.html` raíz, `about/`,
+  solo desde `index.html`. El `index.html` raíz, `about/`,
   `settings/`, `team/`, `legal/` y cada `tools/<slug>/index.html`
   deben llamar a `navigator.serviceWorker.register(...)` con la ruta
   relativa correcta. Motivo: si el usuario llega directamente a una
@@ -144,8 +144,8 @@ El proyecto tiene **tres niveles de modularidad**:
 
 ```
 Routime/
-├── index.html             # Nivel 0: redirección a site/index.html
-├── site/index.html        # Nivel 0: landing = menú de actividades (7 módulos)
+├── index.html             # Nivel 0: redirección a index.html
+├── index.html        # landing = menú de actividades (7 módulos) + entrada de la PWA
 ├── assets/                # Nivel 1: NÚCLEO COMPARTIDO
 │   ├── css/tokens.css     #   variables de diseño (colores, tipografía, táctil)
 │   ├── css/base.css       #   reset, foco visible, prefers-reduced-motion
@@ -184,7 +184,7 @@ anatomía estándar de §4.
 ### 2.2 Nivel 2 — Módulos terapéuticos (agrupación de la landing)
 
 Las actividades se agrupan en **7 módulos** (áreas terapéuticas). Cada módulo es solo
-una `<section class="modulo">` en `site/index.html` con dos variables CSS de acento —
+una `<section class="modulo">` en `index.html` con dos variables CSS de acento —
 no hay código por módulo:
 
 | Módulo | Área | Token de color | Actividades |
@@ -220,52 +220,52 @@ Cada actividad es **autónoma y aislada**:
   (`strings.es.js` / `strings.en.js`) y estilos propios en `styles.css`
   (< 150 líneas, usando los tokens del núcleo).
 
-### 2.4 Landing pública (`site/`)
+### 2.4 Landing pública (raíz del proyecto)
 
-`site/` es la **cara pública** del proyecto: una landing estática, apta para
-SEO, que presenta la app y enlaza hacia ella. **No** es la aplicación en sí:
-el punto de entrada de la PWA es el `index.html` raíz, que redirige a
-`site/index.html` para el menú de actividades.
+El `index.html` raíz es la **cara pública** del proyecto: una landing estática,
+apta para SEO, que presenta la app y enlaza hacia ella. **No** es la aplicación
+en sí: cada actividad es una página independiente bajo `tools/<slug>/`.
 
-La carpeta publica exactamente cuatro archivos (la variante `calculia/site/`
-puede incluir también `app.js` si la landing necesita interactividad propia):
+Hasta el 7 de octubre de 2026 esta landing vivía en `site/`, y el `index.html`
+raíz era un simple trampolín con `meta refresh` hacia `index.html`. Ahora la
+landing **es** el `index.html` raíz y `site/` ya no existe: `/site/` devuelve 404.
+Los cuatro ficheros que la componían viven en la raíz:
 
 ```
-site/
 ├── index.html        # marcado de la landing, meta SEO, JSON-LD, selector de idioma
 ├── styles.css        # estilos exclusivos de la landing (anclas, .tarjeta-cta, .pasos)
 ├── strings.es.js     # copia en español, registrada con App.i18n.register
 └── strings.en.js     # copia en inglés (paridad obligatoria)
 ```
 
-**Por qué vive junto a la app, no dentro de `assets/`**: la landing necesita
-sus propias meta-etiquetas SEO (canonical, Open Graph, Twitter Card, JSON-LD)
-que contaminarían el shell de actividades. Mantener `site/` separado significa
-que cada sección incluye su propio `index.html` real y Cloudflare resuelve
-`/site/` automáticamente (ver §1.1).
+**Por qué en la raíz**: la landing necesita sus propias meta-etiquetas SEO
+(canonical, Open Graph, Twitter Card, JSON-LD) que contaminarían el shell de
+actividades. Al vivir en la raíz, cada sección sigue incluyendo su propio
+`index.html` real y Cloudflare resuelve la portada automáticamente (ver §1.1).
+Este es el mismo criterio que siguen ya `sinonimia`, `teclatlon` y `ludia` en la
+suite.
 
-**Cuando añadas un archivo nuevo bajo `site/`** (por ejemplo, una sección
-nueva, una ilustración o una variación de copia), añádelo al array `FILES`
+Al estar en la raíz, sus rutas son relativas a la raíz y **no** llevan prefijo
+`../`: `assets/css/base.css`, `tools/<slug>/`, `strings.es.js`, `styles.css`.
+
+**Cuando añadas un archivo nuevo en la raíz** (por ejemplo, una sección nueva,
+una ilustración o una variación de copia), añádelo al array `ARCHIVOS`
 de `sw.js` y bumpea `VERSION`. Sin el bump, los usuarios con la PWA instalada
 siguen viendo el shell antiguo. Es la misma regla documentada en `CLAUDE.md`
 y se aplica a cualquier archivo cacheado.
 
-**Proyectos de la suite que publican una landing `site/` hoy** (solo estos
-cuatro siguen el patrón canónico; las demás apps de la suite o bien
-alojan sus actividades en otro sitio, o son la propia landing del
-metaproyecto — ver `apptonomia.uk`):
+**Proyectos de la suite y dónde está su landing**:
 
-| Proyecto | `site/` | `tools/` | Notas |
+| Proyecto | Landing | `tools/` | Notas |
 |---|:---:|:---:|---|
-| `routime` | ✅ | ✅ (69) | Referencia canónica; la landing hace de menú de actividades. |
-| `calculia` | ✅ | ✅ (15) | Referencia canónica; la landing es un catálogo didáctico. |
-| `memofun` | ✅ | ✅ (1) | Flashcards; el catálogo de barajas vive en `decks/concepts/`. |
-| `okeymoney` | ✅ | ✅ (8) | App de finanzas; la landing lleva al `index.html` raíz. |
-
-`apptonomia`, `sinonimia` y `teclatlon` no publican `site/`: el primero es
-la landing del metaproyecto (`apptonomia.uk`), el segundo no tiene catálogo
-`tools/<slug>/`, y el tercero es una app de mecanografía sin landing por
-actividad.
+| `routime` | raíz (`index.html`) | ✅ (69) | La landing hace de menú de actividades. |
+| `calculia` | `site/` | ✅ (15) | Catálogo didáctico. |
+| `memofun` | `site/` | ✅ (1) | Flashcards; el catálogo de barajas vive en `decks/concepts/`. |
+| `okeymoney` | `site/` | ✅ (8) | App de finanzas; la landing lleva al `index.html` raíz. |
+| `sinonimia` | raíz (`index.html`) | — | Sin catálogo `tools/<slug>/`. |
+| `teclatlon` | raíz (`index.html`) | — | App de mecanografía a pantalla completa. |
+| `ludia` | raíz (`index.html`) | — | Juegos de mesa y puzles. |
+| `apptonomia` | raíz (`index.html`) | — | Metaproyecto: es la landing de la suite. |
 
 ---
 
@@ -416,7 +416,7 @@ Cada actividad en `tools/<slug>/` sigue este patrón:
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Volver</a>
+    <a href="../../" class="back-link" data-i18n="core.back">← Volver</a>
     <h1 data-i18n="title">Parejas</h1>
     <div id="app"></div>
     <script src="../../assets/js/utils.js"></script>
@@ -541,6 +541,9 @@ Al crear actividades nuevas, seguir estas **13 reglas obligatorias**:
 12. **Método socrático** al fallar: pista antes de dar la respuesta
 13. **Progresión gradual**: cada nivel cambia una sola variable
 
+Durante la repetición de refuerzo, se mantiene el mensaje positivo al acertar,
+pero se oculta la explicación con la respuesta para reducir la carga visual.
+
 ---
 
 ## 6. Internacionalización
@@ -552,8 +555,8 @@ en un único monolítico). Así, el cliente solo descarga el idioma activo y el
 mantenimiento es independiente por idioma.
 
 ```
-site/strings.es.js    ← solo español (registra en locale 'es')
-site/strings.en.js    ← solo inglés (registra en locale 'en')
+strings.es.js    ← solo español (registra en locale 'es')
+strings.en.js    ← solo inglés (registra en locale 'en')
 
 tools/pairs/strings.es.js    ← solo español
 tools/pairs/strings.en.js    ← solo inglés
@@ -626,8 +629,8 @@ Ya están definidas en `assets/js/i18n.js` (no redefinir en `strings.<locale>.js
 
 1. Añadir el código a `SOPORTADOS` en `assets/js/i18n.js`
 2. Añadir textos core y feedback en `i18n.js` §1.2
-3. Añadir botón al selector en `site/index.html`
-4. Crear `site/strings.<locale>.js`
+3. Añadir botón al selector en `index.html`
+4. Crear `strings.<locale>.js`
 5. Crear `tools/<slug>/strings.<locale>.js` para cada actividad (mismas claves)
 6. Subir `VERSION` en `sw.js` y añadir los nuevos archivos a `ARCHIVOS`
 7. Añadir `'fr'` (o el nuevo idioma) a `STRING_LOCALES` en `scripts/check.js`
@@ -733,7 +736,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
 
 Páginas para adultos (familia/profesorado/agente IA) que gestionan el dispositivo,
 no para la persona usuaria. Reglas comunes a todas: **no enlazarlas nunca** desde
-`site/index.html` ni desde las actividades (acceso solo por URL conocida), llevan
+`index.html` ni desde las actividades (acceso solo por URL conocida), llevan
 `<meta name="robots" content="noindex, nofollow">`, son las únicas páginas del
 producto donde se permite lenguaje clínico o de administración del dispositivo, y
 siguen el mismo patrón multiidioma que el resto del sitio (`strings.es.js` /
@@ -779,7 +782,7 @@ escribiendo la URL.
 
 Mantener la lista y las URLs de las otras apps de la suite sincronizadas
 con `README.md`/`README.es.md` y con la sección equivalente de
-`site/index.html` si cambia algún proyecto del grupo.
+`index.html` si cambia algún proyecto del grupo.
 
 Actualizarla cuando se añadan módulos o cuando cambie el número total de
 actividades, en los dos idiomas. No añadir aquí texto dirigido a la persona
@@ -791,7 +794,7 @@ Página de protección de datos: qué guarda Routime (solo `localStorage`
 — ver §3.4/SPEC.md), dónde, para qué, cómo verlo o borrarlo (enlaza a
 `/settings/`) y cómo plantear una pregunta (el repositorio público de
 GitHub). Es la única excepción a las reglas de "ruta oculta" de arriba:
-**sí** está enlazada desde el pie de todas las demás páginas (`site/`,
+**sí** está enlazada desde el pie de todas las demás páginas (la landing,
 `settings/`, `team/`, `about/` y todas las `tools/<slug>/`, mediante la
 clave i18n compartida `core.dataProtection` en `assets/js/i18n.js` y los
 estilos `.pie-app`/`.enlace-legal` de `assets/css/components.css`), no
@@ -828,8 +831,8 @@ datos personales, una acción nueva de borrado en `settings/`, etc.).
    color de acento del módulo.
 7. **Cumplir las 13 reglas de accesibilidad** (§5).
 8. **Registrar la actividad en todos los puntos canónicos**:
-   - Tarjeta en `site/index.html` y claves correspondientes en
-     `site/strings.es.js` / `site/strings.en.js`.
+   - Tarjeta en `index.html` y claves correspondientes en
+     `strings.es.js` / `strings.en.js`.
    - Los 6 archivos de la actividad en `ARCHIVOS` de `sw.js`, y subir `VERSION` (§11).
    - Fila en `team/index.html` y entrada bilingüe en `actividades.md` / `activities.md`.
 9. **Verificar** con los comandos y criterios de §12: estructura, ambos idiomas,
@@ -846,7 +849,7 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
 1. Añadir el par de tokens en `assets/css/tokens.css`:
    `--mod-<nombre>: <color AA sobre blanco>;` y `--mod-<nombre>-suave: <fondo claro>;`.
    Verificar contraste AA del color sobre `--color-superficie`.
-2. Añadir la `<section class="modulo">` en `site/index.html` con
+2. Añadir la `<section class="modulo">` en `index.html` con
    `style="--acento: var(--mod-<nombre>); --acento-suave: var(--mod-<nombre>-suave);"`,
    un `<h2>` con emoji + nombre en Lectura Fácil, y su `grid-tarjetas`.
 3. Documentar el módulo en `actividades.md` / `activities.md`, `equipo.md` /
@@ -877,11 +880,11 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
   verificar después.
      si no, los usuarios con la PWA instalada no reciben el cambio.
 - El fetch handler cachea también recursos nuevos del mismo origen bajo demanda y
-  hace fallback a `site/index.html` sin conexión.
+  hace fallback a `index.html` sin conexión.
 - Sin aviso de actualización: el SW hace `skipWaiting()` + `clients.claim()`
   sin preguntar y los recursos nuevos se sirven de forma transparente en la
   siguiente navegación, sin interrumpir a la persona usuaria con un diálogo.
-- `manifest.json`: `display: standalone`, `start_url` en `site/index.html`,
+- `manifest.json`: `display: standalone`, `start_url` en `index.html`,
   iconos 192/512 en `assets/img/`.
 - Para comprobar instalabilidad de forma objetiva: DevTools → Lighthouse →
   categoría "PWA".
@@ -894,7 +897,7 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
 
 ```bash
 # Opción 1: Python
-python -m http.server 8080          # → http://localhost:8080/site/index.html
+python -m http.server 8080          # → http://localhost:8080/
 
 # Opción 2: npx serve
 npx serve .                         # alternativa si no hay Python

@@ -102,7 +102,7 @@
 
   function stopEarly() {
     stop();
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   }
 
   /* Events */
@@ -112,7 +112,7 @@
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startSession(currentLevel || bank().niveles[0]); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   /* Init */

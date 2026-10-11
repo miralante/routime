@@ -171,12 +171,13 @@
    * earlier wrong try in this round are left as-is. Shows/reuses an
    * "Entendido" button inside `zona`, focuses it; clicking it re-enables
    * the buttons this call locked. Retries stay unlimited.
-   * @param {Element[]|NodeList} buttons - option buttons of the current round
+   * @param {Element|Element[]|NodeList} buttons - option buttons of the current round
    * @param {Element} zona - wrap holding the pista/explanation (or consejo) text
    * @param {function} [alConfirmar] - called after the person taps Entendido
    */
   function lockUntilAck(buttons, zona, alConfirmar) {
-    var pendientes = Array.prototype.filter.call(buttons || [], function (b) {
+    var opciones = buttons && typeof buttons.length === 'number' ? buttons : (buttons ? [buttons] : []);
+    var pendientes = Array.prototype.filter.call(opciones, function (b) {
       return b && !b.disabled && b.getAttribute('aria-disabled') !== 'true';
     });
     /* `disabled` is enough for native buttons, but some activities use
@@ -195,7 +196,7 @@
       b.addEventListener('keydown', bloquearEvento, true);
     });
     if (!zona) return;
-    colocarZonaAntesDeOpciones(buttons, zona);
+    colocarZonaAntesDeOpciones(opciones, zona);
     var boton = zona.querySelector('.btn-entendido');
     if (!boton) {
       boton = document.createElement('button');

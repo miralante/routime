@@ -210,7 +210,7 @@
   if (btnNext) btnNext.addEventListener('click', next);
   if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" data-i18n-title="title">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alerta Phishing | Routime</title>
+  <meta name="theme-color" content="#FAF7F2">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
+  <link rel="stylesheet" href="styles.css?v=routime-v1phishing">
+</head>
+<body>
+  <div class="container">
+    <header class="tool-header">
+      <a href="../../" class="back-link" data-i18n="core.back">← Volver</a>
+      <h1 data-i18n="title">🚨 Alerta Phishing</h1>
+      <span class="stars" id="stars">⭐ 0</span>
+    </header>
+
+    <!-- Screen: chat menu -->
+    <section id="menuScreen" class="pila">
+      <div class="row centered-row">
+        <p class="instruccion centered" id="instruccion" data-i18n="instruccion">Practica cómo detectar correos falsos, enlaces sospechosos y archivos adjuntos peligrosos.</p>
+      </div>
+      <div class="cards-grid" id="listaChats"></div>
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnNormas" data-i18n="btnNormas">📜 Mis normas</button>
+      </div>
+    </section>
+
+    <!-- Pantalla: mis normas -->
+    <section id="pantallaNormas" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverDeNormas" data-i18n="volverChats">← Chats</button>
+        <h2 class="titulo-seccion" data-i18n="normasTitulo">Mis normas</h2>
+      </div>
+      <p class="instruccion" data-i18n="instruccionNormas">Estas normas te protegen de correos y mensajes peligrosos.</p>
+      <div class="pila" id="listaNormas"></div>
+    </section>
+
+    <!-- Pantalla: chat -->
+    <section id="pantallaChat" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnSalirChat" data-i18n="volverChats">← Chats</button>
+        <div class="chat-contacto">
+          <span class="chat-avatar" aria-hidden="true">📧</span>
+          <span class="pila-mini">
+            <span class="chat-alias" id="chatAlias" data-i18n="desconocado">Remitente desconocido</span>
+            <span class="chat-badge" id="chatTipo">📧 Correo electrónico</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="chat-marco">
+        <div class="chat-mensajes pila" id="chatMensajes"></div>
+      </div>
+
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+
+      <div class="consejo hidden" id="consejo">
+        <p id="consejoTexto"></p>
+      </div>
+
+      <div class="consejo consejo-seguro hidden" id="consejoSeguro">
+        <p id="consejoSeguroTexto"></p>
+      </div>
+
+      <p class="pregunta centered hidden" id="chatPregunta" data-i18n="chatPregunta">¿Qué respondes?</p>
+      <div class="pila" id="chatOpciones"></div>
+
+      <div class="regla-final hidden" id="reglaFinal">
+        <h3 data-i18n="reglaFinalTitulo">⭐ Para recordar</h3>
+        <p id="reglaTexto"></p>
+        <div class="row centered-row">
+          <button type="button" class="btn" id="btnBackToMenu" data-i18n="volverAChats">Volver a los chats</button>
+        </div>
+      </div>
+    </section>
+    <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
+  </div>
+
+  <script src="../../assets/js/utils.js?v=routime-v32a47fbd"></script>
+  <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
+  <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
+  <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
+  <script src="strings.es.js?v=routime-v1phishing-es"></script>
+  <script src="strings.en.js?v=routime-v1phishing-en"></script>
+  <script src="data.js?v=routime-v1phishing-data"></script>
+  <script src="app.js?v=routime-v1phishing-app"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+    }
+  </script>
+</body>
+</html>

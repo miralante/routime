@@ -172,7 +172,7 @@
       App.feedback.encourage($('#feedback'));
       $('#consejoTexto').textContent = op.pista || op.aviso || App.i18n.t('pista');
       $('#consejo').classList.remove('hidden');
-      App.feedback.lockUntilAck($('#chatOpciones .btn-opcion'), $('#consejo'));
+      App.feedback.lockUntilAck($$('#chatOpciones .btn-opcion'), $('#consejo'));
     }
   }
 

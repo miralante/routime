@@ -270,7 +270,7 @@
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startGame(); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   /* Init */

@@ -500,7 +500,7 @@
 
       var btnAbrir = document.createElement('button');
       btnAbrir.type = 'button';
-      btnAbrir.textContent = '✏ï¸';
+      btnAbrir.textContent = '✏️';
       btnAbrir.setAttribute('aria-label', App.i18n.t('ariaAbrirLista').replace('{name}', lista.name));
       btnAbrir.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -509,7 +509,7 @@
 
       var btnErase = document.createElement('button');
       btnErase.type = 'button';
-      btnErase.textContent = '🗑ï¸';
+      btnErase.textContent = '🗑️';
       btnErase.setAttribute('aria-label', App.i18n.t('ariaDeleteList').replace('{name}', lista.name));
       btnErase.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -590,7 +590,7 @@
   btnNext.addEventListener('click', next);
   if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   /* Eventos del Nivel 3 — "Crea tu lista". */
@@ -619,7 +619,7 @@
   if ($('#btnBack')) $('#btnBack').addEventListener('click', function (e) {
     if (!pantallaCrear.classList.contains('hidden')) {
       e.preventDefault();
-      window.location.href = '../../site/index.html';
+      window.location.href = '../../';
     }
   });
 

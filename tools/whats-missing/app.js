@@ -173,15 +173,13 @@
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        showHint();
-      } else {
-        showExplanation(isCorrect);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint();
+      /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect); });
     }
   }
 
@@ -211,7 +209,7 @@
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

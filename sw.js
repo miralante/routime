@@ -3,29 +3,28 @@
    Cache-first strategy for the app shell (works offline).
    When adding new files: add them to ARCHIVOS and bump VERSION.
    ============================================================ */
-var VERSION = 'routime-v41';
+var VERSION = 'routime-v45';
 
 var ARCHIVOS = [
-  './index.html',
+  './',
   './manifest.json',
-  './site/index.html',
-  './site/styles.css',
-  './site/strings.es.js',
-  './site/strings.en.js',
-  './team/index.html',
+  './styles.css',
+  './strings.es.js',
+  './strings.en.js',
+  './team/',
   './team/styles.css',
   './team/strings.es.js',
   './team/strings.en.js',
-  './config/index.html',
+  './config/',
   './config/app.js',
   './config/styles.css',
   './config/strings.es.js',
   './config/strings.en.js',
-  './about/index.html',
+  './about/',
   './about/styles.css',
   './about/strings.es.js',
   './about/strings.en.js',
-  './legal/index.html',
+  './legal/',
   './legal/styles.css',
   './legal/strings.es.js',
   './legal/strings.en.js',
@@ -47,379 +46,379 @@ var ARCHIVOS = [
   './assets/img/icono-192.png',
   './assets/img/icono-512.png',
   './assets/img/pile-dust.svg',
-  './tools/catch/index.html',
+  './tools/catch/',
   './tools/catch/app.js',
   './tools/catch/data.js',
   './tools/catch/strings.es.js',
   './tools/catch/strings.en.js',
   './tools/catch/styles.css',
-  './tools/connect-dots/index.html',
+  './tools/connect-dots/',
   './tools/connect-dots/app.js',
   './tools/connect-dots/data.js',
   './tools/connect-dots/strings.es.js',
   './tools/connect-dots/strings.en.js',
   './tools/connect-dots/styles.css',
-  './tools/calm/index.html',
+  './tools/calm/',
   './tools/calm/app.js',
   './tools/calm/data.js',
   './tools/calm/strings.es.js',
   './tools/calm/strings.en.js',
   './tools/calm/styles.css',
-  './tools/categories/index.html',
+  './tools/categories/',
   './tools/categories/app.js',
   './tools/categories/data.js',
   './tools/categories/strings.es.js',
   './tools/categories/strings.en.js',
   './tools/categories/styles.css',
-  './tools/bullying-chat/index.html',
+  './tools/bullying-chat/',
   './tools/bullying-chat/app.js',
   './tools/bullying-chat/data.js',
   './tools/bullying-chat/strings.es.js',
   './tools/bullying-chat/strings.en.js',
   './tools/bullying-chat/styles.css',
-  './tools/safe-chat/index.html',
+  './tools/safe-chat/',
   './tools/safe-chat/app.js',
   './tools/safe-chat/data.js',
   './tools/safe-chat/strings.es.js',
   './tools/safe-chat/strings.en.js',
   './tools/safe-chat/styles.css',
-  './tools/coloring/index.html',
+  './tools/coloring/',
   './tools/coloring/app.js',
   './tools/coloring/data.js',
   './tools/coloring/strings.es.js',
   './tools/coloring/strings.en.js',
   './tools/coloring/styles.css',
-  './tools/comedy-club/index.html',
+  './tools/comedy-club/',
   './tools/comedy-club/app.js',
   './tools/comedy-club/data.js',
   './tools/comedy-club/strings.es.js',
   './tools/comedy-club/strings.en.js',
   './tools/comedy-club/styles.css',
-  './tools/builders/index.html',
+  './tools/builders/',
   './tools/builders/app.js',
   './tools/builders/data.js',
   './tools/builders/strings.es.js',
   './tools/builders/strings.en.js',
   './tools/builders/styles.css',
-  './tools/idioms/index.html',
+  './tools/idioms/',
   './tools/idioms/app.js',
   './tools/idioms/data.js',
   './tools/idioms/strings.es.js',
   './tools/idioms/strings.en.js',
   './tools/idioms/styles.css',
-  './tools/double-meaning/index.html',
+  './tools/double-meaning/',
   './tools/double-meaning/app.js',
   './tools/double-meaning/data.js',
   './tools/double-meaning/strings.es.js',
   './tools/double-meaning/strings.en.js',
   './tools/double-meaning/styles.css',
-  './tools/differences/index.html',
+  './tools/differences/',
   './tools/differences/app.js',
   './tools/differences/data.js',
   './tools/differences/strings.es.js',
   './tools/differences/strings.en.js',
   './tools/differences/styles.css',
-  './tools/where-is/index.html',
+  './tools/where-is/',
   './tools/where-is/app.js',
   './tools/where-is/data.js',
   './tools/where-is/strings.es.js',
   './tools/where-is/strings.en.js',
   './tools/where-is/styles.css',
-  './tools/where-to-store/index.html',
+  './tools/where-to-store/',
   './tools/where-to-store/app.js',
   './tools/where-to-store/data.js',
   './tools/where-to-store/strings.es.js',
   './tools/where-to-store/strings.en.js',
   './tools/where-to-store/styles.css',
-  './tools/ecos/index.html',
+  './tools/ecos/',
   './tools/ecos/app.js',
   './tools/ecos/data.js',
   './tools/ecos/strings.es.js',
   './tools/ecos/strings.en.js',
   './tools/ecos/styles.css',
-  './tools/path/index.html',
+  './tools/path/',
   './tools/path/app.js',
   './tools/path/data.js',
   './tools/path/strings.es.js',
   './tools/path/strings.en.js',
   './tools/path/styles.css',
-  './tools/theatre/index.html',
+  './tools/theatre/',
   './tools/theatre/app.js',
   './tools/theatre/data.js',
   './tools/theatre/strings.es.js',
   './tools/theatre/strings.en.js',
   './tools/theatre/styles.css',
-  './tools/emotions/index.html',
+  './tools/emotions/',
   './tools/emotions/app.js',
   './tools/emotions/data.js',
   './tools/emotions/strings.es.js',
   './tools/emotions/strings.en.js',
   './tools/emotions/styles.css',
-  './tools/emergencies/index.html',
+  './tools/emergencies/',
   './tools/emergencies/app.js',
   './tools/emergencies/data.js',
   './tools/emergencies/strings.es.js',
   './tools/emergencies/strings.en.js',
   './tools/emergencies/styles.css',
-  './tools/phone-numbers/index.html',
+  './tools/phone-numbers/',
   './tools/phone-numbers/app.js',
   './tools/phone-numbers/data.js',
   './tools/phone-numbers/strings.es.js',
   './tools/phone-numbers/strings.en.js',
   './tools/phone-numbers/styles.css',
-  './tools/doctor-visit/index.html',
+  './tools/doctor-visit/',
   './tools/doctor-visit/app.js',
   './tools/doctor-visit/data.js',
   './tools/doctor-visit/strings.es.js',
   './tools/doctor-visit/strings.en.js',
   './tools/doctor-visit/styles.css',
-  './tools/first-aid-kit/index.html',
+  './tools/first-aid-kit/',
   './tools/first-aid-kit/app.js',
   './tools/first-aid-kit/data.js',
   './tools/first-aid-kit/strings.es.js',
   './tools/first-aid-kit/strings.en.js',
   './tools/first-aid-kit/styles.css',
-  './tools/my-details/index.html',
+  './tools/my-details/',
   './tools/my-details/app.js',
   './tools/my-details/data.js',
   './tools/my-details/strings.es.js',
   './tools/my-details/strings.en.js',
   './tools/my-details/styles.css',
-  './tools/fit/index.html',
+  './tools/fit/',
   './tools/fit/app.js',
   './tools/fit/data.js',
   './tools/fit/strings.es.js',
   './tools/fit/strings.en.js',
   './tools/fit/styles.css',
-  './tools/friends/index.html',
+  './tools/friends/',
   './tools/friends/app.js',
   './tools/friends/data.js',
   './tools/friends/strings.es.js',
   './tools/friends/strings.en.js',
   './tools/friends/styles.css',
-  './tools/self-esteem/index.html',
+  './tools/self-esteem/',
   './tools/self-esteem/app.js',
   './tools/self-esteem/data.js',
   './tools/self-esteem/strings.es.js',
   './tools/self-esteem/strings.en.js',
   './tools/self-esteem/styles.css',
-  './tools/resilience/index.html',
+  './tools/resilience/',
   './tools/resilience/app.js',
   './tools/resilience/data.js',
   './tools/resilience/strings.es.js',
   './tools/resilience/strings.en.js',
   './tools/resilience/styles.css',
-  './tools/trust-circle/index.html',
+  './tools/trust-circle/',
   './tools/trust-circle/app.js',
   './tools/trust-circle/data.js',
   './tools/trust-circle/strings.es.js',
   './tools/trust-circle/strings.en.js',
   './tools/trust-circle/styles.css',
-  './tools/turns-mirrors/index.html',
+  './tools/turns-mirrors/',
   './tools/turns-mirrors/app.js',
   './tools/turns-mirrors/data.js',
   './tools/turns-mirrors/strings.es.js',
   './tools/turns-mirrors/strings.en.js',
   './tools/turns-mirrors/styles.css',
-  './tools/street/index.html',
+  './tools/street/',
   './tools/street/app.js',
   './tools/street/data.js',
   './tools/street/strings.es.js',
   './tools/street/strings.en.js',
   './tools/street/styles.css',
-  './tools/house/index.html',
+  './tools/house/',
   './tools/house/app.js',
   './tools/house/data.js',
   './tools/house/strings.es.js',
   './tools/house/strings.en.js',
   './tools/house/styles.css',
-  './tools/shopping/index.html',
+  './tools/shopping/',
   './tools/shopping/app.js',
   './tools/shopping/data.js',
   './tools/shopping/strings.es.js',
   './tools/shopping/strings.en.js',
   './tools/shopping/styles.css',
-  './tools/healthy-food/index.html',
+  './tools/healthy-food/',
   './tools/healthy-food/app.js',
   './tools/healthy-food/data.js',
   './tools/healthy-food/strings.es.js',
   './tools/healthy-food/strings.en.js',
   './tools/healthy-food/styles.css',
-  './tools/sentence/index.html',
+  './tools/sentence/',
   './tools/sentence/app.js',
   './tools/sentence/data.js',
   './tools/sentence/strings.es.js',
   './tools/sentence/strings.en.js',
   './tools/sentence/styles.css',
-  './tools/shop/index.html',
+  './tools/shop/',
   './tools/shop/app.js',
   './tools/shop/data.js',
   './tools/shop/strings.es.js',
   './tools/shop/strings.en.js',
   './tools/shop/styles.css',
-  './tools/task-list/index.html',
+  './tools/task-list/',
   './tools/task-list/app.js',
   './tools/task-list/data.js',
   './tools/task-list/strings.es.js',
   './tools/task-list/strings.en.js',
   './tools/task-list/styles.css',
-  './tools/my-agenda/index.html',
+  './tools/my-agenda/',
   './tools/my-agenda/app.js',
   './tools/my-agenda/data.js',
   './tools/my-agenda/strings.es.js',
   './tools/my-agenda/strings.en.js',
   './tools/my-agenda/styles.css',
-  './tools/post-or-not/index.html',
+  './tools/post-or-not/',
   './tools/post-or-not/app.js',
   './tools/post-or-not/data.js',
   './tools/post-or-not/strings.es.js',
   './tools/post-or-not/strings.en.js',
   './tools/post-or-not/styles.css',
-  './tools/social-safety/index.html',
+  './tools/social-safety/',
   './tools/social-safety/app.js',
   './tools/social-safety/data.js',
   './tools/social-safety/strings.es.js',
   './tools/social-safety/strings.en.js',
   './tools/social-safety/styles.css',
-  './tools/sexual-health/index.html',
+  './tools/sexual-health/',
   './tools/sexual-health/app.js',
   './tools/sexual-health/data.js',
   './tools/sexual-health/strings.es.js',
   './tools/sexual-health/strings.en.js',
   './tools/sexual-health/styles.css',
-  './tools/blocks/index.html',
+  './tools/blocks/',
   './tools/blocks/app.js',
   './tools/blocks/data.js',
   './tools/blocks/strings.es.js',
   './tools/blocks/strings.en.js',
   './tools/blocks/styles.css',
-  './tools/my-body/index.html',
+  './tools/my-body/',
   './tools/my-body/app.js',
   './tools/my-body/data.js',
   './tools/my-body/strings.es.js',
   './tools/my-body/strings.en.js',
   './tools/my-body/styles.css',
-  './tools/good-manners/index.html',
+  './tools/good-manners/',
   './tools/good-manners/app.js',
   './tools/good-manners/data.js',
   './tools/good-manners/strings.es.js',
   './tools/good-manners/strings.en.js',
   './tools/good-manners/styles.css',
-  './tools/dictionary/index.html',
+  './tools/dictionary/',
   './tools/dictionary/app.js',
   './tools/dictionary/data.js',
   './tools/dictionary/strings.es.js',
   './tools/dictionary/strings.en.js',
   './tools/dictionary/styles.css',
-  './tools/spelling/index.html',
+  './tools/spelling/',
   './tools/spelling/app.js',
   './tools/spelling/data.js',
   './tools/spelling/strings.es.js',
   './tools/spelling/strings.en.js',
   './tools/spelling/styles.css',
-  './tools/colored-spelling/index.html',
+  './tools/colored-spelling/',
   './tools/colored-spelling/app.js',
   './tools/colored-spelling/data.js',
   './tools/colored-spelling/strings.es.js',
   './tools/colored-spelling/strings.en.js',
   './tools/colored-spelling/styles.css',
-  './tools/word-search/index.html',
+  './tools/word-search/',
   './tools/word-search/app.js',
   './tools/word-search/data.js',
   './tools/word-search/strings.es.js',
   './tools/word-search/strings.en.js',
   './tools/word-search/styles.css',
-  './tools/vocabulary/index.html',
+  './tools/vocabulary/',
   './tools/vocabulary/app.js',
   './tools/vocabulary/data.js',
   './tools/vocabulary/strings.es.js',
   './tools/vocabulary/strings.en.js',
   './tools/vocabulary/styles.css',
-  './tools/pairs/index.html',
+  './tools/pairs/',
   './tools/pairs/app.js',
   './tools/pairs/data.js',
   './tools/pairs/strings.es.js',
   './tools/pairs/strings.en.js',
   './tools/pairs/styles.css',
-  './tools/times-of-day/index.html',
+  './tools/times-of-day/',
   './tools/times-of-day/app.js',
   './tools/times-of-day/data.js',
   './tools/times-of-day/strings.es.js',
   './tools/times-of-day/strings.en.js',
   './tools/times-of-day/styles.css',
-  './tools/clock/index.html',
+  './tools/clock/',
   './tools/clock/app.js',
   './tools/clock/data.js',
   './tools/clock/strings.es.js',
   './tools/clock/strings.en.js',
   './tools/clock/styles.css',
-  './tools/piano-keys/index.html',
+  './tools/piano-keys/',
   './tools/piano-keys/app.js',
   './tools/piano-keys/data.js',
   './tools/piano-keys/strings.es.js',
   './tools/piano-keys/strings.en.js',
   './tools/piano-keys/styles.css',
-  './tools/whats-missing/index.html',
+  './tools/whats-missing/',
   './tools/whats-missing/app.js',
   './tools/whats-missing/data.js',
   './tools/whats-missing/strings.es.js',
   './tools/whats-missing/strings.en.js',
   './tools/whats-missing/styles.css',
-  './tools/be-prepared/index.html',
+  './tools/be-prepared/',
   './tools/be-prepared/app.js',
   './tools/be-prepared/data.js',
   './tools/be-prepared/strings.es.js',
   './tools/be-prepared/strings.en.js',
   './tools/be-prepared/styles.css',
-  './tools/while-help-arrives/index.html',
+  './tools/while-help-arrives/',
   './tools/while-help-arrives/app.js',
   './tools/while-help-arrives/data.js',
   './tools/while-help-arrives/strings.es.js',
   './tools/while-help-arrives/strings.en.js',
   './tools/while-help-arrives/styles.css',
-  './tools/what-to-wear/index.html',
+  './tools/what-to-wear/',
   './tools/what-to-wear/app.js',
   './tools/what-to-wear/data.js',
   './tools/what-to-wear/strings.es.js',
   './tools/what-to-wear/strings.en.js',
   './tools/what-to-wear/styles.css',
-  './tools/what-do-i-need/index.html',
+  './tools/what-do-i-need/',
   './tools/what-do-i-need/app.js',
   './tools/what-do-i-need/data.js',
   './tools/what-do-i-need/strings.es.js',
   './tools/what-do-i-need/strings.en.js',
   './tools/what-do-i-need/styles.css',
-  './tools/what-first/index.html',
+  './tools/what-first/',
   './tools/what-first/app.js',
   './tools/what-first/data.js',
   './tools/what-first/strings.es.js',
   './tools/what-first/strings.en.js',
   './tools/what-first/styles.css',
-  './tools/routines/index.html',
+  './tools/routines/',
   './tools/routines/app.js',
   './tools/routines/data.js',
   './tools/routines/strings.es.js',
   './tools/routines/strings.en.js',
   './tools/routines/styles.css',
-  './tools/education-norms/index.html',
+  './tools/education-norms/',
   './tools/education-norms/app.js',
   './tools/education-norms/data.js',
   './tools/education-norms/strings.es.js',
   './tools/education-norms/strings.en.js',
   './tools/education-norms/styles.css',
-  './tools/signs/index.html',
+  './tools/signs/',
   './tools/signs/app.js',
   './tools/signs/data.js',
   './tools/signs/strings.es.js',
   './tools/signs/strings.en.js',
   './tools/signs/styles.css',
-  './tools/situations/index.html',
+  './tools/situations/',
   './tools/situations/app.js',
   './tools/situations/data.js',
   './tools/situations/strings.es.js',
   './tools/situations/strings.en.js',
   './tools/situations/styles.css',
-  './tools/tracing/index.html',
+  './tools/tracing/',
   './tools/tracing/app.js',
   './tools/tracing/data.js',
   './tools/tracing/strings.es.js',
@@ -428,14 +427,41 @@ var ARCHIVOS = [
 
 ];
 
+/* Cloudflare answers EVERY "/x.html" URL with a 307 to its extensionless form
+   (/index.html -> /, /404.html -> /404, /offline.html -> /offline). Following
+   that redirect yields a response with `redirected === true`, and the Cache API
+   PRESERVES that flag across a store/load round trip, so cache.addAll()
+   silently poisons the entry under its original key. Chrome refuses to hand
+   such a response to a top-level navigation ("Response served by service
+   worker has redirections").
+
+   Rebuilding the response produces a brand-new object whose flag is false while
+   keeping body, status and headers. */
+function deRedirect(res) {
+  if (!res || !res.redirected) return res;
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: res.headers
+  });
+}
+
+/* addAll() stores the followed response as-is, so precache entry by entry and
+   sanitise. Still all-or-nothing: a missing file rejects, as addAll did. */
+function precache(cache, files) {
+  return Promise.all(files.map(function (file) {
+    /* cache: 'reload' avoids stale copies from the browser HTTP cache */
+    return fetch(new Request(file, { cache: 'reload' })).then(function (res) {
+      if (!res || !res.ok) throw new Error('precache failed: ' + file);
+      return cache.put(file, deRedirect(res));
+    });
+  }));
+}
+
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(VERSION).then(function (cache) {
-      /* cache: 'reload' avoids storing stale copies from the browser's HTTP cache */
-      var peticiones = ARCHIVOS.map(function (a) {
-        return new Request(a, { cache: 'reload' });
-      });
-      return cache.addAll(peticiones);
+      return precache(cache, ARCHIVOS);
     }).then(function () {
       return self.skipWaiting();
     })
@@ -465,15 +491,14 @@ self.addEventListener('fetch', function (event) {
     event.respondWith(
       fetch(event.request).then(function (r) {
         if (r.status === 200) {
-          var copiaNavegacion = r.clone();
           caches.open(VERSION).then(function (cache) {
-            cache.put(event.request, copiaNavegacion);
+            cache.put(event.request, deRedirect(r.clone()));
           });
         }
-        return r;
+        return deRedirect(r);
       }).catch(function () {
         return caches.match(event.request).then(function (respuesta) {
-          return respuesta || new Response('Sin conexión', { status: 503 });
+          return respuesta ? deRedirect(respuesta) : new Response('Sin conexión', { status: 503 });
         });
       })
     );
@@ -481,26 +506,28 @@ self.addEventListener('fetch', function (event) {
   }
   event.respondWith(
     caches.match(event.request).then(function (respuesta) {
-      if (respuesta) return respuesta;
+      /* A hit can come from a precache written by an older worker. */
+      if (respuesta) return deRedirect(respuesta);
       return fetch(event.request).then(function (r) {
-        /* Also cache new same-origin resources and fonts — but never cache
-           a redirect. Safari (and the Fetch spec) rejects a top-level
-           navigation served by the SW that carries a Location header
-           ("Response served by service worker has redirections"), so we
-           follow the redirect and cache only the final 200. */
+        /* Cache new same-origin resources and fonts, but never a redirect.
+           Following one still yields status 200 with redirected === true,
+           which is exactly the poisoned entry the precache comment above
+           describes. */
         if (r.status === 200) {
-          var copia = r.clone();
           caches.open(VERSION).then(function (cache) {
-            cache.put(event.request, copia);
+            cache.put(event.request, deRedirect(r.clone()));
           });
         }
-        return r;
+        return deRedirect(r);
       }).catch(function () {
-        /* Offline / network failure. Don't serve site/index.html here:
-           its relative paths only resolve correctly under /site/, so
-           Safari would either break the layout or refuse the response
-           as a phantom redirect. Reply with a tiny inline HTML that
-           stays at the current URL and offers a link to the landing. */
+        /* Offline / network failure. Don't serve the cached landing page
+           here: this branch answers at whatever URL the user was already
+           on (e.g. /tools/clock/), and Safari would either break the layout
+           or refuse the response as a phantom redirect. Reply with a tiny
+           inline HTML that stays at the current URL and offers a link to
+           the landing. The href is absolute ("/") because a relative one
+           would resolve against the failed page's own directory, not the
+           site root. */
         return new Response(
           '<!doctype html><html lang="es"><head><meta charset="utf-8">' +
           '<meta name="viewport" content="width=device-width,initial-scale=1">' +
@@ -510,7 +537,7 @@ self.addEventListener('fetch', function (event) {
           '<h1>Sin conexión</h1>' +
           '<p>No hemos podido cargar esta página. Comprueba tu conexión a ' +
           'Internet y vuelve a intentarlo.</p>' +
-          '<p><a href="./site/index.html">Volver a la portada</a></p>' +
+          '<p><a href="/">Volver a la portada</a></p>' +
           '</body></html>',
           { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
         );

@@ -138,16 +138,13 @@
       }
     } else {
       intentosS += 1;
-      if (intentosS === 1) {
-        explicacionSEl.textContent = App.i18n.t('pista');
+      var respuestaTrasPista = intentosS > 1;
+      explicacionSEl.textContent = App.i18n.t('pista');
         explicacionSWrap.classList.remove('hidden');
-      } else {
-        mostrarExplicacionS(isCorrect, item);
-      }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$$('.caja', cajasSEl), explicacionSWrap);
+      App.feedback.lockUntilAck(App.utils.$$('.caja', cajasSEl), explicacionSWrap, function () { if (respuestaTrasPista) mostrarExplicacionS(isCorrect, item); });
     }
   }
 
@@ -305,16 +302,13 @@
       }
     } else {
       intentosL += 1;
-      if (intentosL === 1) {
-        explicacionLEl.textContent = App.i18n.t('pista');
+      var respuestaTrasPista = intentosL > 1;
+      explicacionLEl.textContent = App.i18n.t('pista');
         explicacionLWrap.classList.remove('hidden');
-      } else {
-        mostrarExplicacionL(isCorrect, item);
-      }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackLEl);
-      App.feedback.lockUntilAck(App.utils.$$('.btn.caja', listasDiaEl), explicacionLWrap);
+      App.feedback.lockUntilAck(App.utils.$$('.btn.caja', listasDiaEl), explicacionLWrap, function () { if (respuestaTrasPista) mostrarExplicacionL(isCorrect, item); });
     }
   }
 

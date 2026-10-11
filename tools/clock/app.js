@@ -451,7 +451,12 @@
   function answer(btn, isCorrect, p) {
     if (solved) return;
     if (isCorrect) {
-      showExplanation(isCorrect, p);
+      if (enRefuerzo) {
+        explicacionEl.textContent = '';
+        explicacionWrap.classList.add('hidden');
+      } else {
+        showExplanation(isCorrect, p);
+      }
       solved = true;
       btn.classList.add('correcta');
       App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
@@ -467,17 +472,14 @@
     } else {
       attempts += 1;
       if (attempts === 1 && !enRefuerzo) refuerzoLista.push(p);
-      if (attempts === 1) {
-        showHint(p);
-      } else {
-        showExplanation(isCorrect, p);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint(p);
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
       App.feedback.lockUntilAck(
         App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner'),
-        explicacionWrap);
+        explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, p); });
     }
   }
 
@@ -512,7 +514,7 @@
   $('#repeatBtn').addEventListener('click', function () { startRound(lvl); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
   function volverAModos() {
     endScreen.classList.add('hidden');

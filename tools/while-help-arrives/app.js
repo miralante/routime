@@ -147,16 +147,13 @@
       btnNextWhatToDo.focus();
     } else {
       intentosQ += 1;
-      if (intentosQ === 1) {
-        explicacionQEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
+      var respuestaTrasPista = intentosQ > 1;
+      explicacionQEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
         explicacionQWrap.classList.remove('hidden');
-      } else {
-        mostrarExplicacionQ(isCorrect, item);
-      }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackQEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesQueHago .btn-opcion'), explicacionQWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesQueHago .btn-opcion'), explicacionQWrap, function () { if (respuestaTrasPista) mostrarExplicacionQ(isCorrect, item); });
     }
   }
 

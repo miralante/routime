@@ -137,17 +137,19 @@
       nextBtn.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        explanationEl.textContent = t('hint');
-      } else {
-        explanationEl.textContent = explanationFor(item);
-      }
+      var respuestaTrasPista = attempts > 1;
+      explanationEl.textContent = t('hint');
       explanationWrap.classList.remove('hidden');
       if (false && App.tts && App.tts.speak) App.tts.speak(item.sentence);
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap, function () {
+        if (respuestaTrasPista) {
+          explanationEl.textContent = explanationFor(item);
+          explanationWrap.classList.remove('hidden');
+        }
+      });
     }
   }
 
@@ -183,7 +185,7 @@
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   function init() {

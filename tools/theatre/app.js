@@ -251,7 +251,7 @@
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
   $('#btnConsigna').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(consignaEl.textContent);

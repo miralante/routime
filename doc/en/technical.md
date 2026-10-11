@@ -65,7 +65,7 @@ things suffice here:
   `npm install`, no bundler, no transformer.
 - **No `_redirects`, no `wrangler.toml`, no `functions/`.** Cloudflare
   Pages already provides implicit `index.html` lookup per directory,
-  so each section (`site/`, `tools/<slug>/`, `team/`, `settings/`,
+  so each section (`tools/<slug>/`, `team/`, `settings/`,
   `about/`, `legal/`) ships its own real `index.html` and Cloudflare
   resolves `/tools/pairs/` to `tools/pairs/index.html` automatically.
 - **Cache headers live in `_headers`** at the repo root. Cloudflare
@@ -108,7 +108,7 @@ Practical rules that follow from that:
   with `'apiName' in navigator` (or the equivalent) and provide a
   graceful fallback.
 - **Register the service worker from every entry point**, not only
-  from `site/index.html`. The root `index.html`, `about/`, `settings/`,
+  from `index.html`. The root `index.html`, `about/`, `settings/`,
   `team/`, `legal/` and every `tools/<slug>/index.html` must call
   `navigator.serviceWorker.register(...)` with the correct relative
   path. Rationale: if a user lands on a page directly (bookmark, home
@@ -136,8 +136,8 @@ The project has **three levels of modularity**:
 
 ```
 Routime/
-├── index.html             # Level 0: redirect to site/index.html
-├── site/index.html        # Level 0: landing = activity menu (7 modules)
+├── index.html             # Level 0: redirect to index.html
+├── index.html        # Level 0: landing = activity menu (7 modules)
 ├── assets/                # Level 1: SHARED CORE
 │   ├── css/tokens.css     #   design variables (colors, typography, touch)
 │   ├── css/base.css       #   reset, visible focus, prefers-reduced-motion
@@ -175,7 +175,7 @@ anatomy in §4.
 ### 2.2 Level 2 — Therapeutic modules (landing grouping)
 
 Activities are grouped in **7 modules** (therapeutic areas). Each module is just
-a `<section class="modulo">` in `site/index.html` with two CSS accent variables —
+a `<section class="modulo">` in `index.html` with two CSS accent variables —
 no code per module:
 
 | Module | Area | Color token | Activities |
@@ -211,52 +211,52 @@ Each activity is **autonomous and isolated**:
   logic in `app.js`, one text file per language (`strings.es.js` /
   `strings.en.js`), and own styles in `styles.css` (< 150 lines, using core tokens).
 
-### 2.4 Public landing (`site/`)
+### 2.4 Public landing (project root)
 
-`site/` is the **public face** of the project: a static, SEO-friendly landing
-page that markets the app and links into it. It is **not** the application
-itself — the PWA entry point is the root `index.html`, which redirects to
-`site/index.html` for the activity menu.
+The root `index.html` is the **public face** of the project: a static,
+SEO-friendly landing page that markets the app and links into it. It is **not**
+the application itself — each activity is a standalone page under
+`tools/<slug>/`.
 
-The folder ships exactly four files (the `calculia/site/` variant may also
-include `app.js` if the landing needs its own interactivity):
+Until 7 October 2026 this landing lived in `site/`, and the root `index.html`
+was a bare trampoline with a `meta refresh` to `index.html`. The landing
+**is** now the root `index.html` and `site/` no longer exists: `/site/` returns
+404. The four files that composed it now live at the root:
 
 ```
-site/
 ├── index.html        # landing markup, SEO meta, JSON-LD, language selector
 ├── styles.css        # landing-only styles (anclas, .tarjeta-cta, .pasos)
 ├── strings.es.js     # Spanish copy, registered via App.i18n.register
 └── strings.en.js     # English copy (parity mandatory)
 ```
 
-**Why it lives next to the app, not inside `assets/`**: the landing needs its
-own SEO meta tags (canonical, Open Graph, Twitter Card, JSON-LD) that would
-pollute the activity shell. Keeping `site/` separate means each section ships
-its own real `index.html` and Cloudflare resolves `/site/` automatically
-(see §1.1).
+**Why it lives at the root**: the landing needs its own SEO meta tags
+(canonical, Open Graph, Twitter Card, JSON-LD) that would pollute the activity
+shell. At the root, each section still ships its own real `index.html` and
+Cloudflare resolves the landing automatically (see §1.1). This is the same
+approach `sinonimia`, `teclatlon` and `ludia` already follow in the suite.
 
-**When you add a new file under `site/`** (for example, a new section,
-illustration or copy variation), add it to the `FILES` array in `sw.js` and
+Being at the root, its paths are root-relative and carry **no** `../` prefix:
+`assets/css/base.css`, `tools/<slug>/`, `strings.es.js`, `styles.css`.
+
+**When you add a new file at the root** (for example, a new section,
+illustration or copy variation), add it to the `ARCHIVOS` array in `sw.js` and
 bump `VERSION`. Without the bump, users with the PWA installed keep seeing
 the old shell. This is the same rule documented in `CLAUDE.md` and applies
 to every cached file.
 
-**Suite projects that ship a `site/` landing today** (only these four follow
-the canonical pattern; other apps of the suite either host their
-activities elsewhere or are the metaproject landing itself — see
-`apptonomia.uk`):
+**Suite projects and where their landing lives**:
 
-| Project | `site/` | `tools/` | Notes |
+| Project | Landing | `tools/` | Notes |
 |---|:---:|:---:|---|
-| `routime` | ✅ | ✅ (69) | Canonical reference; landing doubles as the activity menu. |
-| `calculia` | ✅ | ✅ (15) | Canonical reference; landing is a didactic catalog. |
-| `memofun` | ✅ | ✅ (1) | Flashcards; deck catalogue lives in `decks/concepts/`. |
-| `okeymoney` | ✅ | ✅ (8) | Finance app; landing has a CTA to the root `index.html`. |
-
-`apptonomia`, `sinonimia` and `teclatlon` do not ship a `site/` folder: the
-first is the metaproject landing (`apptonomia.uk`), the second has no
-`tools/<slug>/` catalogue, and the third is a typing app without a per-activity
-landing.
+| `routime` | root (`index.html`) | ✅ (69) | Landing doubles as the activity menu. |
+| `calculia` | `site/` | ✅ (15) | Didactic catalog. |
+| `memofun` | `site/` | ✅ (1) | Flashcards; deck catalogue lives in `decks/concepts/`. |
+| `okeymoney` | `site/` | ✅ (8) | Finance app; landing has a CTA to the root `index.html`. |
+| `sinonimia` | root (`index.html`) | — | No `tools/<slug>/` catalogue. |
+| `teclatlon` | root (`index.html`) | — | Full-screen typing app. |
+| `ludia` | root (`index.html`) | — | Board games and puzzles. |
+| `apptonomia` | root (`index.html`) | — | Metaproject: the suite's landing. |
 
 ---
 
@@ -407,7 +407,7 @@ Each activity in `tools/<slug>/` follows this pattern:
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a href="../../site/index.html" class="back-link" data-i18n="core.back">← Back</a>
+    <a href="../../" class="back-link" data-i18n="core.back">← Back</a>
     <h1 data-i18n="title">Pairs</h1>
     <div id="app"></div>
     <script src="../../assets/js/utils.js"></script>
@@ -530,6 +530,9 @@ When creating new activities, follow these **13 mandatory rules**:
 12. **Socratic method** when failing: hint before giving the answer
 13. **Gradual progression**: each level changes only one variable
 
+During a reinforcement repeat, keep the positive feedback after a correct answer
+but hide the answer explanation to reduce visual load.
+
 ---
 
 ## 6. Internationalization
@@ -541,8 +544,8 @@ single monolithic file). This way the client only downloads the active language 
 maintenance is independent per language.
 
 ```
-site/strings.es.js    ← Spanish only (registers in locale 'es')
-site/strings.en.js    ← English only (registers in locale 'en')
+strings.es.js    ← Spanish only (registers in locale 'es')
+strings.en.js    ← English only (registers in locale 'en')
 
 tools/pairs/strings.es.js    ← Spanish only
 tools/pairs/strings.en.js    ← English only
@@ -612,8 +615,8 @@ Already defined in `assets/js/i18n.js` (don't redefine in `strings.<locale>.js`)
 
 1. Add the code to `SOPORTADOS` in `assets/js/i18n.js`
 2. Add core and feedback texts in `i18n.js` §1.2
-3. Add a button to the selector in `site/index.html`
-4. Create `site/strings.<locale>.js`
+3. Add a button to the selector in `index.html`
+4. Create `strings.<locale>.js`
 5. Create `tools/<slug>/strings.<locale>.js` for each activity (same keys)
 6. Bump `VERSION` in `sw.js` and add the new files to `ARCHIVOS`
 7. Add `'<locale>'` to `STRING_LOCALES` in `scripts/check.js`
@@ -712,7 +715,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
 ## 8. Hidden routes
 
 Pages for adults (family/teachers/AI agent) who manage the device, not for the
-end user. Common rules to all: **never link them** from `site/index.html` or
+end user. Common rules to all: **never link them** from `index.html` or
 from activities (access only by known URL), they carry
 `<meta name="robots" content="noindex, nofollow">`, they're the only product
 pages where clinical or device-administration language is allowed, and they
@@ -762,7 +765,7 @@ that page is not for them.
 
 Keep the other-apps-of-the-suite
 Keep the other-apps-of-the-suite list and URLs in sync with `README.md`/
-`README.es.md` and with the equivalent section in `site/index.html` if
+`README.es.md` and with the equivalent section in `index.html` if
 any project in the group changes.
 
 ### 8.4 `/legal/`
@@ -771,7 +774,7 @@ Data protection page: what Routime stores (`localStorage` only — see
 §3.4/SPEC.md), where, why, how to see or delete it (link to `/settings/`),
 and how to raise a question (the public GitHub repository). It is the one
 exception to the "hidden route" rules above: it **is** linked from every
-other page's footer (`site/`, `settings/`, `team/`, `about/` and all
+other page's footer (`settings/`, `team/`, `about/` and all
 `tools/<slug>/`, via the shared `core.dataProtection` i18n key in
 `assets/js/i18n.js` and the `.pie-app`/`.enlace-legal` styles in
 `assets/css/components.css`), it carries no `noindex` meta, and its
@@ -805,8 +808,8 @@ reset action, etc.).
    the module accent color.
 7. **Meet all 13 accessibility rules** (§5).
 8. **Register the activity in every canonical location**:
-   - Card in `site/index.html` and matching keys in
-     `site/strings.es.js` / `site/strings.en.js`.
+   - Card in `index.html` and matching keys in
+     `strings.es.js` / `strings.en.js`.
    - All 6 activity files in `sw.js`'s `ARCHIVOS`, and bump `VERSION` (§11).
    - Row in `team/index.html` and bilingual entry in `activities.md`.
 9. **Verify** with §12 commands and criteria: structure, both languages,
@@ -823,7 +826,7 @@ Only if the area does not fit the 7 existing modules (check coverage in
 1. Add the token pair in `assets/css/tokens.css`:
    `--mod-<name>: <AA color over white>;` and `--mod-<name>-suave: <light background>;`.
    Verify AA contrast of the color against `--color-superficie`.
-2. Add the `<section class="modulo">` in `site/index.html` with
+2. Add the `<section class="modulo">` in `index.html` with
    `style="--acento: var(--mod-<name>); --acento-suave: var(--mod-<name>-suave);"`,
    an `<h2>` with emoji + name in Easy Reading, and its `grid-tarjetas`.
 3. Document the module in `activities.md`, `team.md`, `team/index.html` and
@@ -851,11 +854,11 @@ Only if the area does not fit the 7 existing modules (check coverage in
   source again, still doesn't — and the only thing missing was the
   integer bump. The fix is to bump `VERSION` first, then verify.
 - The fetch handler also caches new same-origin resources on demand and
-  falls back to `site/index.html` offline.
+  falls back to `index.html` offline.
 - No update notice: the SW does `skipWaiting()` + `clients.claim()` without
   asking, and new resources are served transparently on the next navigation,
   without interrupting the person with a dialog.
-- `manifest.json`: `display: standalone`, `start_url` in `site/index.html`,
+- `manifest.json`: `display: standalone`, `start_url` in `index.html`,
   192/512 icons in `assets/img/`.
 - To check installability objectively: DevTools → Lighthouse → "PWA" category.
 
@@ -867,7 +870,7 @@ Only if the area does not fit the 7 existing modules (check coverage in
 
 ```bash
 # Option 1: Python
-python -m http.server 8080          # → http://localhost:8080/site/index.html
+python -m http.server 8080          # → http://localhost:8080/
 
 # Option 2: npx serve
 npx serve .                         # alternative if no Python

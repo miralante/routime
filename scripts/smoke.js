@@ -122,7 +122,11 @@ function probarHerramienta(page, slug, locale) {
     page.on('pageerror', onError);
     page.on('console', onConsole);
 
-    var url = 'http://localhost:' + PUERTO + '/tools/' + slug + '/index.html';
+    /* Canonical directory URL. Cloudflare answers "/tools/<slug>/index.html"
+       with a 307, and a service worker cannot hand that followed response to
+       a navigation, so testing the .html form here would exercise a URL real
+       visitors no longer reach. */
+    var url = 'http://localhost:' + PUERTO + '/tools/' + slug + '/';
     page.goto(url, { waitUntil: 'networkidle', timeout: TIMEOUT_NAV })
       .then(function () { return page.waitForTimeout(ESPERA_ASENTAR); })
       .then(function () { return page.locator('.btn-nivel').first(); })

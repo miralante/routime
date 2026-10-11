@@ -153,15 +153,12 @@ function renderProgress() {
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        showHint();
-      } else {
-        showExplanation(isCorrect, item);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint();
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('.caja', cajasEl), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('.caja', cajasEl), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
     }
   }
 
@@ -193,7 +190,7 @@ function renderProgress() {
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

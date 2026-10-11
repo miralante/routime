@@ -20,7 +20,7 @@ window.LocalePickerConfig = {
      preferencias. Coste: un clic más para llegar al idioma. */
   languageInDrawer: true,
   storageKey: 'routime:locale',
-  /* Routime stores site strings under /site/strings.<locale>.js and only
+  /* Routime stores site strings under /strings.<locale>.js and only
      ships Spanish and English, so discovery is skipped: no HEAD probes,
      and requiredLocales names the two locales actually present. */
   path: null,

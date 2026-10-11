@@ -629,7 +629,7 @@ def make_html(activity, game_content, has_start_screen=True, has_end_screen=True
         <p class="transferencia">Sigue praticando para aprender mas.</p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
         <button type="button" class="btn btn-secundario" id="btnMenu">Volver al inicio</button>
-        <a href="../../site/index.html" class="btn btn-secundario">Volver al menu</a>
+        <a href="../../" class="btn btn-secundario">Volver al menu</a>
       </section>'''
 
     title = activity.get('title', 'Routime')
@@ -650,7 +650,7 @@ def make_html(activity, game_content, has_start_screen=True, has_end_screen=True
             '<body>\n'
             '  <div class="container">\n'
             '    <header class="tool-header">\n'
-            '      <a href="../../site/index.html" class="back-link">&larr; Volver</a>\n'
+            '      <a href="../../" class="back-link">&larr; Volver</a>\n'
             '      <h1>Routime</h1>\n'
             '      <span class="stars" id="' + stars_id + '">&starf; 0</span>\n'
             '    </header>\n'

@@ -62,7 +62,7 @@ to enable the 404 fallback — keep it.
 | `.github/workflows/validate.yml` | `node scripts/check.js`, i18n smoke and secrets scan on every push/PR (does **not** deploy) |
 | `.github/workflows/pages-deploy.yml` | Optional self-hosted fallback via Wrangler Action; no-op unless the two `CLOUDFLARE_*` secrets are set |
 
-Every section of the site (`site/`, `tools/<slug>/` for all
+Every section of the site (the root landing, `tools/<slug>/` for all
 activities, `team/`, `about/`, `config/`, `legal/`) ships its own
 real `index.html`, so Cloudflare's implicit per-directory
 `index.html` lookup handles deep links (`/tools/pairs/` →
@@ -71,7 +71,7 @@ rewrite would in fact loop: `/index.html` itself matches `/*` and
 would re-trigger the rule indefinitely.
 
 The root `/index.html` keeps its `<meta http-equiv="refresh">` to
-`site/index.html` as a client-side entry pointer — that has nothing
+`index.html` as a client-side entry pointer — that has nothing
 to do with server-side routing and does not cause a loop.
 
 No `_redirects`, no `functions/`, no `package.json`, no Cloudflare

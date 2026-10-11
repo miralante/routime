@@ -112,13 +112,13 @@
     * Marks any <footer data-pie-app>...</footer> in the page with the
     * canonical content, using App.i18n.t() for the text. Replaces the
     * 70+ hand-maintained copies that used to live in every
-    * tools/<slug>/index.html, site/index.html, about/, config/, team/,
-    * legal/ — see scripts/check.js for the lint that enforces the
+    * tools/<slug>/index.html, the landing index.html, about/, config/,
+    * team/, legal/ — see scripts/check.js for the lint that enforces the
     * canonical marker shape.
     *
     * Marker attributes:
     *   data-pie-base      base path for relative links, e.g. '../../'
-    *                      (tools) or '../' (site, about, config, team)
+    *                      (tools) or '../' (about, config, team)
     *                      or './' (legal, when its link points to the
     *                      same folder).
     *   data-pie-include-config  if 'true', prepends a 'Configuración'

@@ -18,7 +18,7 @@ en el navegador, sin coste y sin datos personales.
 
 - 🌐 **Aplicación**: [routime.apptonomia.uk](https://routime.apptonomia.uk)
 -  📦 **Repositorio**: [github.com/miralante/routime](https://github.com/miralante/routime)
-- 💻 **Usar en tu propio ordenador**: consulta [`doc/es/guia-rapida.md`](doc/es/guia-rapida.md) §1 — descarga el ZIP y haz doble clic en `site/index.html`, o usa `python -m http.server 8080` para la experiencia PWA completa.
+- 💻 **Usar en tu propio ordenador**: consulta [`doc/es/guia-rapida.md`](doc/es/guia-rapida.md) §1 — descarga el ZIP y haz doble clic en `index.html`, o usa `python -m http.server 8080` para la experiencia PWA completa.
 
 ---
 
@@ -27,7 +27,7 @@ en el navegador, sin coste y sin datos personales.
 Routime está desplegada en **[routime.apptonomia.uk](https://routime.apptonomia.uk)**
 — ábrela en un navegador, instálala en la pantalla de inicio para usarla
 sin conexión, y elige un módulo. La portada que ves al instalar
-(`site/index.html`) es en sí misma el **landing de Apptonomia**, de
+(the landing page) es en sí misma el **landing de Apptonomia**, de
 modo que una sola instalación cubre tanto las actividades de Routime
 como el catálogo de toda la suite.
 
@@ -38,7 +38,7 @@ como el catálogo de toda la suite.
 Routime es un **catálogo multi-actividad** construido sobre la misma
 arquitectura de tres niveles que Apptonomia (núcleo compartido en
 `assets/js/`, una carpeta por actividad en `tools/<slug>/`, una
-portada en `site/`), más una página de ajustes para ver el progreso.
+portada en la raíz), más una página de ajustes para ver el progreso.
 
 - 🎯 **6 módulos terapéuticos** — Apuntado y manos, Mi rutina diaria,
   Memoria y atención, Pensar y contar, Emociones, y Lectura (números y
@@ -70,7 +70,7 @@ usarse **de forma autónoma entre sesiones**, sin necesidad de
 que haya un profesional presente.
 
 Routime es además la PWA que envuelve el **landing de Apptonomia**
-(el producto original del que nació el grupo) dentro de `site/`,
+(el producto original del que nació el grupo) en la raíz,
 para que una sola instalación cubra toda la suite. Es una de las
 **siete apps** de la suite **Miralante** — la lista completa está
 en [🌐 La suite Miralante](#-la-suite-miralante--proyectos-del-grupo)
@@ -102,7 +102,7 @@ Routime se construye para:
   build.
 - 🏠 **Llevar de serie el landing de Apptonomia** — la persona
   usuaria obtiene el portal de toda la suite con una sola
-  instalación (ver `site/index.html`).
+  instalación (ver `index.html`).
 
 Cada objetivo referencia una sección de
 [`doc/es/spec.md`](doc/es/spec.md); si un objetivo no está allí,
@@ -131,7 +131,7 @@ con su propio punto de entrada:
 | 💻 **Construcción** (desarrollador/a) | Programa la aplicación | Implementa código, mantiene la arquitectura, revisa PRs, despliega | [`tecnico.md`](doc/es/tecnico.md) |
 
 Routime es la PWA que envuelve varias experiencias de la suite.
-La portada que ves al instalar (`site/index.html`) es en sí misma
+La portada que ves al instalar (the landing page) es en sí misma
 el **landing de Apptonomia** — la app que actúa como portal de la
 suite, presentado aquí porque Apptonomia fue el producto original
 del que surgió este repositorio.
@@ -180,8 +180,8 @@ misma historia de despliegue. Apptonomia, además de ser una app en sí
 misma, actúa como **portal de la suite** que la presenta al mundo.
 Ninguno de los siete repos es el "principal" — son iguales; este
 repositorio casualmente también envía ese **landing de Apptonomia**
-(el producto original del que nació el grupo) bajo la carpeta
-`site/`, para que una sola instalación cubra todo el catálogo a quien
+(el producto original del que nació el grupo) en su `index.html` raíz,
+para que una sola instalación cubra todo el catálogo a quien
 lo quiera.
 
 | Proyecto | Qué es | Repositorio |
@@ -208,15 +208,15 @@ actividad trae los mismos seis archivos (`index.html`, `app.js`,
 `data.js`, `strings.es.js`, `strings.en.js`, `styles.css`); cualquier
 cambio tiene que respetar el bloqueo de paridad del catálogo (el
 mismo conjunto de slugs debe aparecer en `tools/` en disco, en las
-tarjetas de `site/index.html`, en las filas de progreso de
+tarjetas de `index.html`, en las filas de progreso de
 `config/index.html` y en `ARCHIVOS` de `sw.js`).
 
 Para añadir una actividad nueva:
 
 1. Crea `tools/<slug>/` con los seis archivos canónicos (usa una
    actividad existente como plantilla).
-2. Registra la actividad: añade su tarjeta a `site/index.html` (+ las
-   claves en ambos `site/strings.<locale>.js`), su fila de progreso a
+2. Registra la actividad: añade su tarjeta a `index.html` (+ las
+   claves en ambos `strings.<locale>.js`), su fila de progreso a
     `config/index.html` (+ las claves en ambos
     `config/strings.<locale>.js`), y sus seis archivos a `ARCHIVOS` de
    `sw.js`.
@@ -240,11 +240,11 @@ node scripts/check.js
 
 No hace falta 
 pm install` — el script solo usa la librería estándar de
-Node. Comprueba sintaxis JS en `tools/`, `site/` y `assets/js/`, la
+Node. Comprueba sintaxis JS en `tools/`, los strings de la portada y `assets/js/`, la
 anatomía canónica de cada carpeta de actividad, paridad entre `sw.js`
 y el contenido en disco, paridad de claves es/en, y la regla de paridad
 del catálogo (el mismo conjunto de slugs debe aparecer en `tools/` en
-disco, en las tarjetas de `site/index.html`, en las filas de progreso
+disco, en las tarjetas de `index.html`, en las filas de progreso
 de `config/index.html` y en `ARCHIVOS` de `sw.js`).
 
 ---

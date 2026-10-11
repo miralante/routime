@@ -140,15 +140,13 @@
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(item);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint(item);
+      /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(item); });
     }
   }
 
@@ -167,10 +165,20 @@
     guardar();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-    $('#transferencia').textContent = '';
+    var resumenEl = $('#resumenFinal');
+    if (resumenEl) {
+      resumenEl.textContent = '';
+      resumenEl.textContent += '\n' + App.i18n.t('proximoNivel')
+        .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+    }
+    /* Esta herramienta ya no trae bloque de "transferencia": ni #transferencia
+       ni su alias #transfer existen en el HTML, y la linea lo vaciaba a pelo.
+       Al cerrar la ronda reventaba con "Cannot set properties of null
+       (setting 'textContent')", asi que el resumen de fin no llegaba a
+       escribirse y no se cantaba el final de ronda. Se escribe solo si el
+       elemento sigue estando, como el resto de guardas de este fichero. */
+    var transferenciaEl = $('#transferencia');
+    if (transferenciaEl) transferenciaEl.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -184,7 +192,7 @@
   });
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

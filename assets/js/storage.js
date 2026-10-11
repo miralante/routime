@@ -47,7 +47,7 @@
 
   /* Applies right away the font-size preference saved in /config/
      (rule: only once in the shared core, never per tool — storage.js
-     is loaded in site/ and in every activity before anything is
+     is loaded in the landing and in every activity before anything is
      painted). --escala-texto defaults to 1 (tokens.css), so anyone
      who hasn't touched the preference sees no change. */
   (function aplicarTamanoLetra() {

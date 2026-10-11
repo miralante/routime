@@ -85,11 +85,14 @@
     if (solved) return;
     if (!correct) {
       attempts += 1;
+      var respuestaTrasPista = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
-      showExplanation(attempts === 1 ? item.pista : item.explicacion);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'));
+      showExplanation(item.pista);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
+        if (respuestaTrasPista) showExplanation(item.explicacion);
+      });
       return;
     }
 

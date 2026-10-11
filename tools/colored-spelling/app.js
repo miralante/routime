@@ -278,7 +278,7 @@
   $('#btnRepeat').addEventListener('click', startGame);
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   function init() {

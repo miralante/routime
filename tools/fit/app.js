@@ -294,7 +294,7 @@ $('#transferencia').textContent = '';
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

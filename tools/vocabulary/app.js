@@ -329,15 +329,13 @@
       quizNextBtn.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(item, false);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint(item);
+      /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap, function () { if (respuestaTrasPista) showExplanation(item, false); });
     }
   }
 

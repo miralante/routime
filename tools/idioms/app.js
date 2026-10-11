@@ -133,15 +133,13 @@
     } else {
       /* Encouragement, never punishment: can try again */
       attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(isCorrect, item);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint(item);
+      /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
     }
   }
 

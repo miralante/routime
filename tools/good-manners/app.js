@@ -89,7 +89,7 @@
     app.innerHTML = '';
 
     var backLink = document.createElement('a');
-    backLink.href = '../../site/index.html';
+    backLink.href = '../../';
     backLink.className = 'back-link';
     backLink.setAttribute('data-i18n', 'core.back');
     backLink.textContent = '← ' + App.i18n.t('core.back');
@@ -220,21 +220,24 @@
       btnEl.classList.add('error');
       App.feedback.encourage(feedbackZone);
       var explanation = 'La respuesta correcta es: ' + App.i18n.t(state.currentSituation.correcta);
-      feedbackZone.textContent = explanation;
+      feedbackZone.textContent = App.i18n.t('pista');
       optionBtns.forEach(function (b) { b.disabled = true; });
       App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
-        state.completedRounds++;
-        saveProgress();
+        feedbackZone.textContent = explanation;
+        App.feedback.lockUntilAck([], feedbackZone, function () {
+          state.completedRounds++;
+          saveProgress();
 
-        var lvl = DATA.niveles[state.currentLevel];
-        if (state.completedRounds >= lvl.maxSituaciones) {
-          showCompletion();
-        } else {
-          state.attempts = 0;
-          state.selectedAnswer = null;
-          state.showingFeedback = false;
-          startRound();
-        }
+          var lvl = DATA.niveles[state.currentLevel];
+          if (state.completedRounds >= lvl.maxSituaciones) {
+            showCompletion();
+          } else {
+            state.attempts = 0;
+            state.selectedAnswer = null;
+            state.showingFeedback = false;
+            startRound();
+          }
+        });
       });
     }
   }
@@ -279,7 +282,7 @@
     btnMenu.className = 'btn btn-secundario';
     btnMenu.textContent = 'Volver al menú';
     btnMenu.onclick = function () {
-      window.location.href = '../../site/index.html';
+      window.location.href = '../../';
     };
     btns.appendChild(btnMenu);
 

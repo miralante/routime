@@ -98,15 +98,14 @@
 
     if (!choice.correct) {
       attempts += 1;
+      var respuestaTrasPista = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
-      if (attempts === 1) {
-        showExplanation('hintLabel', currentCase.hint);
-      } else {
-        showExplanation('explanationLabel', choice.explanation);
-      }
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'));
+      showExplanation('hintLabel', currentCase.hint);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
+        if (respuestaTrasPista) showExplanation('explanationLabel', choice.explanation);
+      });
       return;
     }
 
@@ -154,7 +153,7 @@
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   paintStars();

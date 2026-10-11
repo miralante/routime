@@ -120,12 +120,14 @@
     }
 
     attempts += 1;
-    if (attempts === 1) showHint(item);
-    else showExplanation(false, item);
+    var respuestaTrasPista = attempts > 1;
+    showHint(item);
     btn.classList.add('animo');
     btn.disabled = true;
     App.feedback.encourage(feedbackEl);
-    App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap);
+    App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap, function () {
+      if (respuestaTrasPista) showExplanation(false, item);
+    });
   }
 
   function next() {
@@ -149,7 +151,7 @@
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

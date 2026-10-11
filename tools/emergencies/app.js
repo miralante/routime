@@ -144,16 +144,13 @@
       btnNextRecognize.focus();
     } else {
       intentosR += 1;
-      if (intentosR === 1) {
-        explicacionREl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
+      var respuestaTrasPista = intentosR > 1;
+      explicacionREl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
         explicacionRWrap.classList.remove('hidden');
-      } else {
-        mostrarExplicacionR(isCorrect, item);
-      }
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackREl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesReconocer .btn-opcion'), explicacionRWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesReconocer .btn-opcion'), explicacionRWrap, function () { if (respuestaTrasPista) mostrarExplicacionR(isCorrect, item); });
     }
   }
 

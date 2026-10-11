@@ -2,9 +2,9 @@
 /* ============================================================
    Routime — scripts/build-head.js
    Regenerate the SEO / OG / Twitter Card / theme-color block in
-   `site/index.html` from the project metadata in `app.config.json`.
+   `index.html` from the project metadata in `app.config.json`.
 
-   SAFETY: this script ONLY touches `site/index.html` when the
+   SAFETY: this script ONLY touches `index.html` when the
    markers `<!-- build:head:start -->` and `<!-- build:head:end -->`
    are BOTH present and bracket a single contiguous block. If the
    markers are not present (e.g. on a fresh checkout where the head
@@ -36,7 +36,7 @@ var path = require('path');
 
 var RAIZ = path.join(__dirname, '..');
 var CONFIG = path.join(RAIZ, 'app.config.json');
-var TARGET = path.join(RAIZ, 'site', 'index.html');
+var TARGET = path.join(RAIZ, 'index.html');
 
 var START = '<!-- build:head:start -->';
 var END = '<!-- build:head:end -->';

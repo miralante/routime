@@ -360,7 +360,7 @@
     }
   });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
   $('#btnModoLibre').addEventListener('click', function () {
     pintarRejillaLetras();
@@ -368,7 +368,7 @@
     selectionScreen.classList.remove('hidden');
   });
   if ($('#btnVolverInicio')) $('#btnVolverInicio').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
   $('#btnSeleccionarMayus').addEventListener('click', function () {
     seleccionarGrupo('mayusculas', true);

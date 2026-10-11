@@ -18,7 +18,7 @@ browser, free of charge and without personal data.
 
 - 🌐 **App**: [routime.apptonomia.uk](https://routime.apptonomia.uk)
 - 📦 **Repository**: [github.com/miralante/routime](https://github.com/miralante/routime)
-- 💻 **Run locally**: see [`doc/en/quick-guide.md`](doc/en/quick-guide.md) §1 — download the ZIP and double-click `site/index.html`, or use `python -m http.server 8080` for the full PWA experience.
+- 💻 **Run locally**: see [`doc/en/quick-guide.md`](doc/en/quick-guide.md) §1 — download the ZIP and double-click `index.html`, or use `python -m http.server 8080` for the full PWA experience.
 
 ---
 
@@ -26,7 +26,7 @@ browser, free of charge and without personal data.
 
 Routime is deployed at **[routime.apptonomia.uk](https://routime.apptonomia.uk)**
 — open it in a browser, install it to the home screen for offline use,
-and pick a module. The site you land on (`site/index.html`) is itself
+and pick a module. The site you land on (the landing page) is itself
 the **Apptonomia landing**, so a single install covers both Routime's
 activities and the catalogue of the whole suite.
 
@@ -36,7 +36,7 @@ activities and the catalogue of the whole suite.
 
 Routime is a **multi-activity catalogue** built on the same three-
 level architecture as Apptonomia (shared core in `assets/js/`, one
-folder per activity in `tools/<slug>/`, a landing in `site/`), plus
+folder per activity in `tools/<slug>/`, a landing at the root), plus
 a settings page for progress visibility.
 
 - 🎯 **6 therapeutic modules** — Aiming & Hands, My Daily Routine,
@@ -66,7 +66,7 @@ between sessions** without needing a professional present at all
 times.
 
 Routime is also the PWA that wraps the **Apptonomia landing**
-(the original product this group grew out of) inside `site/`, so
+(the original product this group grew out of) at the root, so
 a single install covers the whole suite for users who want it.
 It is one of the **Miralante** suite of seven sibling apps — see
 [🌐 The Miralante suite](#-the-miralante-suite--projects-in-the-suite)
@@ -95,7 +95,7 @@ Routime is built to:
   use on a tablet with no signal.
 - 🪶 **Stay dependency-free** — pure HTML/CSS/JS, no build.
 - 🏠 **Bundle the Apptonomia landing** — the user gets the
-  whole suite's portal from one install (see `site/index.html`).
+  whole suite's portal from one install (see `index.html`).
 
 Each goal cross-references a spec section in
 [`doc/en/spec.md`](doc/en/spec.md); if a goal is not in the spec,
@@ -165,15 +165,15 @@ Routime grows by adding **activities** under `tools/<slug>/`. Each
 activity ships the six canonical files (`index.html`, `app.js`,
 `data.js`, `strings.es.js`, `strings.en.js`, `styles.css`); every
 change must respect the catalog parity lock (the same set of slugs
-must appear in `tools/` on disk, in `site/index.html`'s cards, in
+must appear in `tools/` on disk, in `index.html`'s cards, in
 `config/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
 
 To add a new activity:
 
 1. Create `tools/<slug>/` with the six canonical files (use an
    existing activity as a template).
-2. Register the activity: add its card to `site/index.html` (+ both
-   `site/strings.<locale>.js` keys), its progress row to
+2. Register the activity: add its card to `index.html` (+ both
+   `strings.<locale>.js` keys), its progress row to
    `config/index.html` (+ both `config/strings.<locale>.js` keys),
    and its six files to `sw.js`'s `ARCHIVOS`.
 3. Bump `VERSION` in `sw.js` (e.g. `routime-vN` → `routime-vN+1`).
@@ -197,10 +197,10 @@ node scripts/check.js
 
 No 
 pm install` needed — the script only uses Node's standard library.
-It checks JS syntax across `tools/`, `site/` and `assets/js/`,
+It checks JS syntax across `tools/`, the landing strings and `assets/js/`,
 canonical file anatomy per activity folder, `sw.js` ↔ disk parity,
 es/en key parity, and the catalog-parity lock (the same set of slugs
-must appear in `tools/` on disk, in `site/index.html`'s cards, in
+must appear in `tools/` on disk, in `index.html`'s cards, in
 `config/index.html`'s progress rows, and in `sw.js`'s `ARCHIVOS`).
 
 ---
@@ -271,7 +271,7 @@ and the same deploy story. Apptonomia, on top of being an app itself,
 also acts as the **landing portal** that introduces the whole suite.
 None of the seven repos is the "main" one — they are peers; this repo
 just happens to also ship that **Apptonomia landing** (the original
-product this group grew out of) under its `site/` folder so a single
+product this group grew out of) at its project root so a single
 install covers the whole catalogue for users who want it.
 
 | Project | What it is | Repository |

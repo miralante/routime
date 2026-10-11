@@ -94,13 +94,13 @@ imágenes y fuentes).
   `unzip Routime-main.zip -d ~/Routime`
 
 > ⚠️ **Importante**: la carpeta resultante debe contener directamente
-> `index.html`, `site/`, `tools/`, `assets/`, etc. Si ves una carpeta
+> `index.html`, `tools/`, `assets/`, etc. Si ves una carpeta
 > intermedia tipo `Routime-main/Routime/...`, muévete a la
 > carpeta interior.
 
 #### Paso 3 · Abre la app
 
-Haz **doble clic** sobre el archivo `site/index.html`.
+Haz **doble clic** sobre el archivo `index.html`.
 
 Se abrirá en tu navegador por defecto y verás la pantalla principal. ✅
 
@@ -162,7 +162,7 @@ Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
 Visita:
 
 ```
-http://localhost:8080/site/index.html
+http://localhost:8080/
 ```
 
 ¡Listo! Ya tienes Routime funcionando localmente, **con PWA y modo
@@ -206,7 +206,7 @@ node -e "require('http').createServer((_,res)=>{const fs=require('fs'),p=require
 #### Paso 3 · Abre en el navegador
 
 ```
-http://localhost:8080/site/index.html
+http://localhost:8080/
 ```
 
 > 💡 Si prefieres tener un comando fijo, puedes instalar `http-server`
@@ -237,13 +237,13 @@ local). **No funciona** con el método **B** (`file://`).
 
 | Síntoma | Causa probable | Solución |
 |---|---|---|
-| Doble clic en `index.html` y se ve en blanco | El navegador está abriendo desde una ruta rara | Abre `site/index.html` directamente |
-| "No se puede cargar `manifest.json`" o faltan iconos | Moviste archivos de sitio | Asegúrate de que `index.html`, `site/`, `tools/`, `assets/`, `manifest.json` están en la **misma carpeta raíz** |
+| Doble clic en `index.html` y se ve en blanco | El navegador está abriendo desde una ruta rara | Abre `index.html` directamente |
+| "No se puede cargar `manifest.json`" o faltan iconos | Moviste archivos de sitio | Asegúrate de que `index.html`, `tools/`, `assets/`, `manifest.json` están en la **misma carpeta raíz** |
 | Las voces (TTS) no suenan en `file://` | Algunos navegadores desactivan TTS en `file://` | Usa el método C o D (servidor local) |
 | Service Worker no se registra | Estás en `file://` | Es normal. Usa método C o D |
 | `python: command not found` | Python no está instalado | Usa método D (Node), o instala Python |
-| El puerto 8080 ya está ocupado | Otra app usa ese puerto | Cambia el puerto: `python -m http.server 9000` y abre `http://localhost:9000/site/index.html` |
-| Quiero compartir la app con otros dispositivos en mi red | Estás en el mismo Wi-Fi | Averigua tu IP local (`ipconfig` en Windows, `ifconfig` en Mac/Linux) y desde otro dispositivo visita `http://TU-IP:8080/site/index.html` |
+| El puerto 8080 ya está ocupado | Otra app usa ese puerto | Cambia el puerto: `python -m http.server 9000` y abre `http://localhost:9000/index.html` |
+| Quiero compartir la app con otros dispositivos en mi red | Estás en el mismo Wi-Fi | Averigua tu IP local (`ipconfig` en Windows, `ifconfig` en Mac/Linux) y desde otro dispositivo visita `http://TU-IP:8080/index.html` |
 
 ### ¿Dónde se guardan mis progresos?
 
@@ -453,5 +453,5 @@ Si necesitas más información:
 | Repetir una actividad | Toca "Jugar otra vez" |
 | Volver al menú | Toca "← Volver" |
 | Abrir la app sin instalar nada | Visita [routime.apptonomia.uk](https://routime.apptonomia.uk) |
-| Usarla en mi propio ordenador | Descarga el ZIP de GitHub y abre `site/index.html` |
-| Experiencia completa (PWA, offline) | `python -m http.server 8080` y abre `http://localhost:8080/site/index.html` |
+| Usarla en mi propio ordenador | Descarga el ZIP de GitHub y abre `index.html` |
+| Experiencia completa (PWA, offline) | `python -m http.server 8080` y abre `http://localhost:8080/` |

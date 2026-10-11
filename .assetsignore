@@ -19,6 +19,10 @@
 /fix-*.js
 /audit_all.js
 /validate_all.js
+/wrangler.toml
+/package.json
+/serve.js
+/_o.txt
 /*.log
 /_ck_*
 

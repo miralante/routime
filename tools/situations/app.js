@@ -94,14 +94,18 @@
     if (solved) return;
     if (!correct) {
       attempts += 1;
+      var respuestaTrasPista = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage(feedbackEl);
-      explanationEl.textContent = attempts === 1
-        ? App.i18n.t('pista') + ' "' + item.situacion + '"'
-        : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
+      explanationEl.textContent = App.i18n.t('pista') + ' "' + item.situacion + '"';
       explanationWrap.classList.remove('hidden');
-      App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap, function () {
+        if (respuestaTrasPista) {
+          explanationEl.textContent = App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
+          explanationWrap.classList.remove('hidden');
+        }
+      });
       return;
     }
 
@@ -140,7 +144,7 @@
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
 
   renderStars();

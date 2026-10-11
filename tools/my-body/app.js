@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Routime — My Body Tells Me (emotions: interoception)
    Data in data.js (DATA.niveles). Shared modules in assets/js/.
    Mechanics: read a body signal (hunger, thirst, sleep, pain,
@@ -162,15 +162,13 @@
       btnNext.focus();
     } else {
       attempts += 1;
-      if (attempts === 1) {
-        showHint(item);
-      } else {
-        showExplanation(isCorrect, item);
-      }
+      var respuestaTrasPista = attempts > 1;
+      showHint(item);
+      /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap);
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
     }
   }
 

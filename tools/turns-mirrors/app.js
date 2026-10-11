@@ -210,7 +210,7 @@ $('#transferencia').textContent = '';
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../site/index.html';
+    window.location.href = '../../';
   });
   $('#btnPregunta').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(questionEl.textContent);

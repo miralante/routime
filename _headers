@@ -18,9 +18,6 @@
 /404.html
   Cache-Control: public, max-age=0, must-revalidate
 
-/site/*
-  Cache-Control: public, max-age=0, must-revalidate
-
 /tools/*
   Cache-Control: public, max-age=0, must-revalidate
 

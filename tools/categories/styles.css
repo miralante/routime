@@ -2,8 +2,15 @@
 
 .tool-header h1 { color: var(--mod-lenguaje); }
 
+/* --mod-lenguaje es un acento de frente: en oscuro es un rosa claro
+   (#F09BC0) pensado para texto sobre fondo oscuro, asi que al usarlo
+   como fondo de un boton lleno hay que poner el texto del otro color.
+   Sin --texto-sobre-acento el boton salia con el texto claro del tema
+   sobre el rosa claro: 1.81:1, dos veces por debajo del minimo. El
+   mismo patron ya lo usa tools/word-search/styles.css. */
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-lenguaje);
+  color: var(--texto-sobre-acento);
 }
 
 .instruccion { font-size: var(--texto-base); }

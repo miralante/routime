@@ -115,7 +115,7 @@
     app.innerHTML = '';
 
     var backLink = document.createElement('a');
-    backLink.href = '../../site/index.html';
+    backLink.href = '../../';
     backLink.className = 'back-link';
     backLink.setAttribute('data-i18n', 'core.back');
     backLink.textContent = '\u2190 ' + App.i18n.t('core.back');
@@ -335,7 +335,7 @@
     btnMenu.setAttribute('data-i18n', 'core.backToMenu');
     btnMenu.textContent = App.i18n.t('core.backToMenu');
     btnMenu.onclick = function () {
-      window.location.href = '../../site/index.html';
+      window.location.href = '../../';
     };
     btns.appendChild(btnMenu);
 

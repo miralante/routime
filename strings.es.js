@@ -45,6 +45,8 @@
     "postornot_detalle": "Peligros de las redes sociales.",
     "socialsafety_nombre": "Redes, intimidad y ley",
     "socialsafety_detalle": "Practica cómo reconocer la manipulación y pedir ayuda.",
+    "phishing_nombre": "Alerta Phishing",
+    "phishing_detalle": "Correos falsos, enlaces sospechosos y archivos adjuntos peligrosos.",
     "signs_nombre": "Señales",
     "signs_detalle": "¿Qué significa cada señal?",
     "timesofday_nombre": "Partes del Día",

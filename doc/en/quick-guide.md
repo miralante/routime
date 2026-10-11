@@ -94,13 +94,13 @@ of it is images and fonts).
   `unzip Routime-main.zip -d ~/Routime`
 
 > ⚠️ **Important**: the resulting folder must contain `index.html`,
-> `site/`, `tools/`, `assets/`, etc. **directly**. If you see an
+> `tools/`, `assets/`, etc. **directly**. If you see an
 > intermediate folder like `Routime-main/Routime/...`, move
 > into the inner folder.
 
 #### Step 3 · Open the app
 
-**Double-click** the `site/index.html` file.
+**Double-click** the `index.html` file.
 
 It opens in your default browser and you should see the home screen. ✅
 
@@ -162,7 +162,7 @@ Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
 Visit:
 
 ```
-http://localhost:8080/site/index.html
+http://localhost:8080/
 ```
 
 Done! Routime is now running locally, **with PWA and offline
@@ -206,7 +206,7 @@ node -e "require('http').createServer((_,res)=>{const fs=require('fs'),p=require
 #### Step 3 · Open in your browser
 
 ```
-http://localhost:8080/site/index.html
+http://localhost:8080/
 ```
 
 > 💡 If you want a fixed command, you can install `http-server`
@@ -237,13 +237,13 @@ Works with methods **A** (internet), **C** and **D** (local server).
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Double-click on `index.html` and the page is blank | Browser is opening from a weird path | Open `site/index.html` directly |
-| "Can't load `manifest.json`" or icons missing | Files were moved | Make sure `index.html`, `site/`, `tools/`, `assets/`, `manifest.json` are all in the **same root folder** |
+| Double-click on `index.html` and the page is blank | Browser is opening from a weird path | Open `index.html` directly |
+| "Can't load `manifest.json`" or icons missing | Files were moved | Make sure `index.html`, `tools/`, `assets/`, `manifest.json` are all in the **same root folder** |
 | TTS voices don't play on `file://` | Some browsers disable TTS on `file://` for security | Use method C or D (local server) |
 | Service Worker won't register | You're on `file://` | That's expected. Use method C or D |
 | `python: command not found` | Python isn't installed | Use method D (Node), or install Python |
-| Port 8080 is already in use | Another app is using that port | Change the port: `python -m http.server 9000` and open `http://localhost:9000/site/index.html` |
-| I want to share the app with other devices on my network | Same Wi-Fi | Find your local IP (`ipconfig` on Windows, `ifconfig` on Mac/Linux) and visit `http://YOUR-IP:8080/site/index.html` from another device |
+| Port 8080 is already in use | Another app is using that port | Change the port: `python -m http.server 9000` and open `http://localhost:9000/index.html` |
+| I want to share the app with other devices on my network | Same Wi-Fi | Find your local IP (`ipconfig` on Windows, `ifconfig` on Mac/Linux) and visit `http://YOUR-IP:8080/index.html` from another device |
 
 ### Where is my progress saved?
 
@@ -453,5 +453,5 @@ If you need more information:
 | Repeat an activity | Tap "Play again" |
 | Return to menu | Tap "← Back" |
 | Open the app with no setup | Visit [routime.apptonomia.uk](https://routime.apptonomia.uk) |
-| Use it on my own computer | Download the ZIP from GitHub and open `site/index.html` |
-| Full experience (PWA, offline) | `python -m http.server 8080` and open `http://localhost:8080/site/index.html` |
+| Use it on my own computer | Download the ZIP from GitHub and open `index.html` |
+| Full experience (PWA, offline) | `python -m http.server 8080` and open `http://localhost:8080/` |

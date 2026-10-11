@@ -196,7 +196,10 @@ function probarUnaCombinacion(playwright, slug, combo) {
         }
 
         function urlDestino() {
-            return 'http://localhost:' + PUERTO + '/tools/' + slug + '/index.html';
+            /* Canonical directory URL: Cloudflare 307s "/tools/<slug>/index.html",
+               and a service worker cannot hand that followed response to a
+               navigation. Same reason as in scripts/smoke.js. */
+            return 'http://localhost:' + PUERTO + '/tools/' + slug + '/';
         }
 
         function cargar() {
@@ -207,7 +210,7 @@ function probarUnaCombinacion(playwright, slug, combo) {
 
         function verificarAccesibilidad() {
             // Back-to-landing button
-            return page.locator('a[href*="site/index.html"]').first()
+            return page.locator('a[href$="/"], a[href="../"], a[href="../../"]').first()
                 .isVisible({ timeout: 500 }).catch(function () { return false; })
                 .then(function (hayVolver) {
                     var f1 = errorSiNoCumple(hayVolver, 'no se ve el botón "Volver" al menú');

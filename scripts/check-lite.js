@@ -4,7 +4,7 @@
    Structural check with no dependencies (plain Node only).
    Usage: node scripts/check.js
    Checks:
-   1. That every .js file in tools/, site/ and assets/js/ parses
+   1. That every .js file in tools/, the landing strings and assets/js/ parses
       (equivalent to `node --check`).
    2. That every tools/<slug>/ has the canonical files:
       index.html, app.js, data.js, strings.es.js, strings.en.js, styles.css.
@@ -12,8 +12,8 @@
       tool file is listed in ARCHIVOS.
    4. es/en key parity between strings.es.js and strings.en.js.
    5. Catalog parity: every tools/<slug>/ has a card in
-      site/index.html (href="../tools/<slug>/") and vice versa.
-   6. Parity with team/: the cover name (site/index.html) of
+      index.html (href="tools/<slug>/") and vice versa.
+   6. Parity with team/: the cover name (index.html) of
       each activity also appears in team/index.html.
    7. Synced counts: the "## Activities (N)" number in
       README.md (ES) and the "(N activities)" comment in
@@ -88,12 +88,17 @@ function listarJs(dir) {
   return out;
 }
 
-/* --- 1. node --check on tools/, site/, assets/js/ --- */
+/* --- 1. node --check on tools/, the landing strings, assets/js/ ---
+   The landing's strings.*.js live at the root (they used to live in
+   site/), so they are listed explicitly: listarJs() only walks
+   directories and would miss them. */
 var archivosJs = []
   .concat(listarJs(path.join(RAIZ, 'tools')))
-  .concat(listarJs(path.join(RAIZ, 'site')))
+  .concat(['strings.es.js', 'strings.en.js']
+    .map(function (f) { return path.join(RAIZ, f); })
+    .filter(function (f) { return fs.existsSync(f); }))
   .concat(listarJs(path.join(RAIZ, 'assets', 'js')))
-  .concat(listarJs(path.join(RAIZ, 'settings')))
+  .concat(listarJs(path.join(RAIZ, 'config')))
   .concat(listarJs(path.join(RAIZ, 'about')))
   .concat(listarJs(path.join(RAIZ, 'team')))
   .concat(listarJs(path.join(RAIZ, 'legal')));
@@ -157,7 +162,9 @@ rutasSw.forEach(function (ruta) {
 slugs.forEach(function (slug) {
   CANONICOS_BASE.concat(STRING_LOCALES.map(function (loc) { return 'strings.' + loc + '.js'; }))
     .forEach(function (archivo) {
-      var ruta = './tools/' + slug + '/' + archivo;
+      /* Canonical directory URL for the landing page: "./tools/<slug>/",
+         never "./tools/<slug>/index.html". See the note in scripts/check.js. */
+      var ruta = './tools/' + slug + (archivo === 'index.html' ? '/' : '/' + archivo);
       if (rutasSw.indexOf(ruta) === -1) {
         fallos.push('sw.js: falta ' + ruta + ' en ARCHIVOS');
       }
@@ -231,9 +238,9 @@ slugs.forEach(function (slug) {
   }
 });
 
-/* --- 4b. es/en key parity for the hidden routes (settings/, about/,
+/* --- 4b. es/en key parity for the hidden routes (config/, about/,
    team/, legal/), which follow the same strings.<locale>.js pattern as tools/. --- */
-['settings', 'about', 'team', 'legal'].forEach(function (ruta) {
+['config', 'about', 'team', 'legal'].forEach(function (ruta) {
   var archivoEs = path.join(RAIZ, ruta, 'strings.es.js');
   var archivoEn = path.join(RAIZ, ruta, 'strings.en.js');
   if (!fs.existsSync(archivoEs) || !fs.existsSync(archivoEn)) return;
@@ -256,34 +263,37 @@ slugs.forEach(function (slug) {
   }
 });
 
-/* --- 5. Catalog parity with site/index.html --- */
+/* --- 5. Catalog parity with index.html --- */
 checks += 1;
-var siteHtml = fs.readFileSync(path.join(RAIZ, 'site', 'index.html'), 'utf8');
-var slugsEnSite = [];
-var reHref = /href="\.\.\/tools\/([^/]+)\/index\.html"/g;
+var portadaHtml = fs.readFileSync(path.join(RAIZ, 'index.html'), 'utf8');
+var slugsEnPortada = [];
+/* Canonical link form only: Cloudflare 307s ".../tools/<slug>/index.html"
+   to the directory, and a service worker cannot hand that followed response
+   to a navigation. See the identical note in scripts/check.js. */
+var reHref = /href="tools\/([^/]+)\/"/g;
 var mh;
-while ((mh = reHref.exec(siteHtml)) !== null) {
-  slugsEnSite.push(mh[1]);
+while ((mh = reHref.exec(portadaHtml)) !== null) {
+  slugsEnPortada.push(mh[1]);
 }
 
 slugs.forEach(function (slug) {
-  if (slugsEnSite.indexOf(slug) === -1) {
-    fallos.push('site/index.html: falta la tarjeta de tools/' + slug + '/');
+  if (slugsEnPortada.indexOf(slug) === -1) {
+    fallos.push('index.html: falta la tarjeta de tools/' + slug + '/');
   }
 });
-slugsEnSite.forEach(function (slug) {
+slugsEnPortada.forEach(function (slug) {
   if (slugs.indexOf(slug) === -1) {
-    fallos.push('site/index.html: tiene tarjeta de tools/' + slug + '/ pero esa carpeta no existe');
+    fallos.push('index.html: tiene tarjeta de tools/' + slug + '/ pero esa carpeta no existe');
   }
 });
 
 /* --- 6. Parity with team/: the cover name of each card
-   from site/index.html must also appear in team/index.html. */
+   from index.html must also appear in team/index.html. */
 checks += 1;
 var teamHtml = fs.readFileSync(path.join(RAIZ, 'team', 'index.html'), 'utf8');
-var reTarjeta = /<a href="\.\.\/tools\/([^/]+)\/index\.html" class="tarjeta">[\s\S]*?<span class="nombre"[^>]*>([^<]+)<\/span>/g;
+var reTarjeta = /<a href="tools\/([^/]+)\/" class="tarjeta">[\s\S]*?<span class="nombre"[^>]*>([^<]+)<\/span>/g;
 var mt;
-while ((mt = reTarjeta.exec(siteHtml)) !== null) {
+while ((mt = reTarjeta.exec(portadaHtml)) !== null) {
   var nombrePortada = mt[2].trim();
   if (teamHtml.indexOf(nombrePortada) === -1) {
     fallos.push('team/index.html: falta "' + nombrePortada + '" (tools/' + mt[1] + '), o el texto no coincide exactamente');
@@ -338,7 +348,7 @@ slugs.forEach(function (slug) {
 /* --- 9. Catalog parity lock.
    The set of activity slugs must match between:
      - tools/ folders on disk (source of truth)
-     - the landing cards (<a href="../tools/...">) in site/index.html
+     - the landing cards (<a href="tools/...") in index.html
      - the progress rows (data-tool="<slug>") in config/index.html
      - the assets listed for tools in sw.js ARCHIVOS
    This guards against the historic drift (Spanish folder names left
@@ -354,7 +364,7 @@ function setDiff(base, otros) {
   return resultado;
 }
 var slugsSet = new Set(slugs);
-var siteSet = new Set(slugsEnSite);
+var portadaSet = new Set(slugsEnPortada);
 
 function parsearSlugsDeSw() {
   var txt = fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8');
@@ -367,7 +377,10 @@ function parsearSlugsDeSw() {
   return set;
 }
 function parsearDataToolInSettings() {
-  var html = fs.readFileSync(path.join(RAIZ, 'settings', 'index.html'), 'utf8');
+  /* config/ — this directory was renamed from settings/; the read below was
+     left pointing at the old name, so it threw ENOENT and check-lite could
+     not run at all. scripts/check.js already uses config/. */
+  var html = fs.readFileSync(path.join(RAIZ, 'config', 'index.html'), 'utf8');
   var re = /data-tool="([^"]+)"/g;
   var set = new Set();
   var m;
@@ -376,7 +389,7 @@ function parsearDataToolInSettings() {
 }
 var swSet = parsearSlugsDeSw();
 var settingsSet = parsearDataToolInSettings();
-var destinos = { site: siteSet, settings: settingsSet, sw: swSet };
+var destinos = { portada: portadaSet, settings: settingsSet, sw: swSet };
 Object.keys(destinos).forEach(function (f) {
   var targetSet = destinos[f];
   var faltan = [];
@@ -392,7 +405,7 @@ Object.keys(destinos).forEach(function (f) {
     sobran.forEach(function (s) { fallos.push('catálogo: ' + f + ' contiene slug inexistente "' + s + '"'); });
   }
 });
-// siteSet queda como referencia del chequeo anterior; el de catálogo se
+// portadaSet queda como referencia del chequeo anterior; el de catálogo se
 // resuelve en el bucle superior.
 
 /* --- 9. _headers: comillado de las expresiones de origen del CSP --- */

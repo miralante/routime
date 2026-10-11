@@ -45,6 +45,8 @@
     "postornot_detalle": "Social media dangers.",
     "socialsafety_nombre": "Social media, intimacy and law",
     "socialsafety_detalle": "Practise how to spot manipulation and ask for help.",
+    "phishing_nombre": "Phishing Alert",
+    "phishing_detalle": "Fake emails, suspicious links and dangerous attachments.",
     "signs_nombre": "Signs",
     "signs_detalle": "What does each sign mean?",
     "timesofday_nombre": "Times of Day",
