@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-i18n-title="title">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <meta name="description" content="Routime es una aplicación web gratuita y sin registro con actividades para entrenar tu mente y tus habilidades a tu ritmo: coordinación, razonamiento, memoria, comunicación, autorregulación y vida diaria. Parte de la suite Apptonomia.">
     <meta name="keywords" content="routime, apptonomia, actividades terapéuticas, terapia ocupacional, accesibilidad cognitiva, easy read, lectura fácil, coordinación, razonamiento, memoria, autorregulación, vida diaria, aplicaciones gratuitas sin registro">
     <meta name="author" content="Routime">
-    <meta name="robots" content="noindex,nofollow">
+    <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://routime.apptonomia.uk/">
     <link rel="alternate" hreflang="es" href="https://routime.apptonomia.uk/?lang=es">
     <link rel="alternate" hreflang="en" href="https://routime.apptonomia.uk/?lang=en">
@@ -215,8 +215,13 @@
       </div>
     </header>
 
-        <nav class="anclas-modulo" aria-label="Ir a un bloque">
-        <a href="#mod-secuencia" class="ancla-modulo" style="--acento: var(--mod-secuencia);"><span data-i18n="modSecuencia">📋 Mi día a día</span></a>
+    <nav class="anclas-modulo" aria-label="Ir a un módulo">
+      <a href="#mod-secuencia" class="ancla-modulo" style="--acento: var(--mod-secuencia);"><span data-i18n="modSecuencia">📋 Mi día a día</span></a>
+      <a href="#mod-emocional" class="ancla-modulo" style="--acento: var(--mod-emocional);"><span data-i18n="modEmocional">💜 Emociones</span></a>
+      <a href="#mod-memoria" class="ancla-modulo" style="--acento: var(--mod-memoria);"><span data-i18n="modMemoria">🧠 Memoria y atención</span></a>
+      <a href="#mod-lenguaje" class="ancla-modulo" style="--acento: var(--mod-lenguaje);"><span data-i18n="modLenguaje">💬 Lenguaje y palabras</span></a>
+      <a href="#mod-coordinacion" class="ancla-modulo" style="--acento: var(--mod-coordinacion);"><span data-i18n="modCoordinacion">🎯 Puntería y manos</span></a>
+      <a href="#mod-cuerpo" class="ancla-modulo" style="--acento: var(--mod-cuerpo);"><span data-i18n="modCuerpo">💗 Cuerpo y relaciones</span></a>
     </nav>
 
     <main class="pila modulos">
@@ -225,6 +230,16 @@
       <section class="modulo" id="mod-secuencia" style="--acento: var(--mod-secuencia); --acento-suave: var(--mod-secuencia-suave);">
         <h2><span aria-hidden="true" data-i18n="modSecuencia">📋 Mi día a día</span></h2>
         <div class="grid-tarjetas">
+          <a href="../tools/routines/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🌅</span>
+            <span class="nombre" data-i18n="routines_nombre">Mis Rutinas</span>
+            <span class="detalle" data-i18n="routines_detalle">Paso a paso, cada día.</span>
+          </a>
+          <a href="../tools/house/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏠</span>
+            <span class="nombre" data-i18n="house_nombre">La Casa</span>
+            <span class="detalle" data-i18n="house_detalle">Ordena los pasos de la tarea.</span>
+          </a>
           <a href="../tools/situations/" class="tarjeta">
             <span class="picto" aria-hidden="true">🤔</span>
             <span class="nombre" data-i18n="situations_nombre">Situaciones</span>
@@ -250,11 +265,328 @@
             <span class="nombre" data-i18n="socialsafety_nombre">Redes, intimidad y ley</span>
             <span class="detalle" data-i18n="socialsafety_detalle">Practica cómo reconocer la manipulación y pedir ayuda.</span>
           </a>
+          <a href="../tools/phishing-alert/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚨</span>
+            <span class="nombre" data-i18n="phishing_nombre">Alerta Phishing</span>
+            <span class="detalle" data-i18n="phishing_detalle">Correos falsos, enlaces sospechosos y archivos adjuntos peligrosos.</span>
+          </a>
+          <a href="../tools/signs/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚦</span>
+            <span class="nombre" data-i18n="signs_nombre">Señales</span>
+            <span class="detalle" data-i18n="signs_detalle">¿Qué significa cada señal?</span>
+          </a>
+          <a href="../tools/times-of-day/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🌗</span>
+            <span class="nombre" data-i18n="timesofday_nombre">Partes del Día</span>
+            <span class="detalle" data-i18n="timesofday_detalle">¿Mañana, tarde o noche?</span>
+          </a>
+          <a href="../tools/clock/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🕐</span>
+            <span class="nombre" data-i18n="clock_nombre">El Reloj</span>
+            <span class="detalle" data-i18n="clock_detalle">¿Qué hora es?</span>
+          </a>
+          <a href="../tools/what-first/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📝</span>
+            <span class="nombre" data-i18n="whatfirst_nombre">¿Qué hago primero?</span>
+            <span class="detalle" data-i18n="whatfirst_detalle">Elige qué es más urgente.</span>
+          </a>
+          <a href="../tools/what-do-i-need/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🎒</span>
+            <span class="nombre" data-i18n="whatdoineed_nombre">¿Qué necesito?</span>
+            <span class="detalle" data-i18n="whatdoineed_detalle">Prepara lo que hace falta.</span>
+          </a>
+          <a href="../tools/where-to-store/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🗄️</span>
+            <span class="nombre" data-i18n="wheretostore_nombre">¿Dónde lo guardo?</span>
+            <span class="detalle" data-i18n="wheretostore_detalle">Cada cosa en su sitio.</span>
+          </a>
+          <a href="../tools/task-list/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🗒️</span>
+            <span class="nombre" data-i18n="tasklist_nombre">Lista de Tareas</span>
+            <span class="detalle" data-i18n="tasklist_detalle">Ordena tareas de casa y trabajo.</span>
+          </a>
+          <a href="../tools/my-agenda/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📅</span>
+            <span class="nombre" data-i18n="myAgendaName">Mi agenda</span>
+            <span class="detalle" data-i18n="myAgendaDetail">Prepara tus citas y tareas.</span>
+          </a>
+          <a href="../tools/what-to-wear/" class="tarjeta">
+            <span class="picto" aria-hidden="true">👕</span>
+            <span class="nombre" data-i18n="whattowear_nombre">¿Qué me pongo?</span>
+            <span class="detalle" data-i18n="whattowear_detalle">Viste según el tiempo que hace.</span>
+          </a>
+          <a href="../tools/street/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚸</span>
+            <span class="nombre" data-i18n="street_nombre">La Calle</span>
+            <span class="detalle" data-i18n="street_detalle">Cruza y muévete con seguridad.</span>
+          </a>
+          <a href="../tools/emergencies/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚨</span>
+            <span class="nombre" data-i18n="emergencies_nombre">Emergencias</span>
+            <span class="detalle" data-i18n="emergencies_detalle">Reconoce y practica pedir ayuda.</span>
+          </a>
+          <a href="../tools/while-help-arrives/" class="tarjeta">
+            <span class="picto" aria-hidden="true">⏱️</span>
+            <span class="nombre" data-i18n="whilehelp_nombre">Mientras Llega la Ayuda</span>
+            <span class="detalle" data-i18n="whilehelp_detalle">Qué hacer mientras esperas a la ambulancia o a los bomberos.</span>
+          </a>
+          <a href="../tools/be-prepared/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🛟</span>
+            <span class="nombre" data-i18n="beprepared_nombre">Antes de la Emergencia</span>
+            <span class="detalle" data-i18n="beprepared_detalle">Prepara en casa, con la familia, lo que se necesita antes de que pase algo.</span>
+          </a>
+          <a href="../tools/phone-numbers/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📞</span>
+            <span class="nombre" data-i18n="phonenumbers_nombre">Teléfonos Importantes</span>
+            <span class="detalle" data-i18n="phonenumbers_detalle">Aprende el número de policía, bomberos y emergencias.</span>
+          </a>
+          <a href="../tools/doctor-visit/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🩺</span>
+            <span class="nombre" data-i18n="doctorvisit_nombre">Se lo Cuento al Médico</span>
+            <span class="detalle" data-i18n="doctorvisit_detalle">Aprende a describir un síntoma para contárselo al médico.</span>
+          </a>
+          <a href="../tools/my-details/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏠</span>
+            <span class="nombre" data-i18n="mydetails_nombre">Mis Datos</span>
+            <span class="detalle" data-i18n="mydetails_detalle">Repasa tu dirección y tu teléfono, y los de tu familia.</span>
+          </a>
+          <a href="../tools/shopping/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🛒</span>
+            <span class="nombre" data-i18n="shopping_nombre">La Compra</span>
+            <span class="detalle" data-i18n="shopping_detalle">Secciones del súper y tu lista.</span>
+          </a>
+          <a href="../tools/shop/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏪</span>
+            <span class="nombre" data-i18n="shop_nombre">La Tienda</span>
+            <span class="detalle" data-i18n="shop_detalle">Compra de verdad con tu dinero.</span>
+          </a>
+          <a href="../tools/healthy-food/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🥗</span>
+            <span class="nombre" data-i18n="healthyfood_nombre">Comida Sana</span>
+            <span class="detalle" data-i18n="healthyfood_detalle">Elige entre comer cada día o de vez en cuando.</span>
+          </a>
+          <a href="../tools/first-aid-kit/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧰</span>
+            <span class="nombre" data-i18n="firstaidkit_nombre">Mi Botiquín</span>
+            <span class="detalle" data-i18n="firstaidkit_detalle">Cuídate en casa y sabe cuándo pedir ayuda.</span>
+          </a>
         </div>
       </section>
 
+      <!-- Módulo: Emociones -->
+      <section class="modulo" id="mod-emocional" style="--acento: var(--mod-emocional); --acento-suave: var(--mod-emocional-suave);">
+        <h2><span aria-hidden="true" data-i18n="modEmocional">💜 Emociones</span></h2>
+        <div class="grid-tarjetas">
+          <a href="../tools/emotions/" class="tarjeta">
+            <span class="picto" aria-hidden="true">😊</span>
+            <span class="nombre" data-i18n="emotions_nombre">¿Cómo me siento?</span>
+            <span class="detalle" data-i18n="emotions_detalle">Elige tu emoción de hoy.</span>
+          </a>
+          <a href="../tools/calm/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧘</span>
+            <span class="nombre" data-i18n="calm_nombre">Calma</span>
+            <span class="detalle" data-i18n="calm_detalle">Respira despacio.</span>
+          </a>
+          <a href="../tools/friends/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧑‍🤝‍🧑</span>
+            <span class="nombre" data-i18n="friends_nombre">Entre Amigos</span>
+            <span class="detalle" data-i18n="friends_detalle">Emociones y conflictos.</span>
+          </a>
+          <a href="../tools/my-body/" class="tarjeta">
+            <span class="picto" aria-hidden="true">💗</span>
+            <span class="nombre" data-i18n="mybody_nombre">Mi Cuerpo Me Avisa</span>
+            <span class="detalle" data-i18n="mybody_detalle">Nota lo que sientes y cuida de ti.</span>
+          </a>
+          <a href="../tools/good-manners/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🤝</span>
+            <span class="nombre" data-i18n="goodmanners_nombre">Buenos Modales</span>
+            <span class="detalle" data-i18n="goodmanners_detalle">Aprende a ser amable: gracias, por favor, adiós.</span>
+          </a>
+          <a href="../tools/education-norms/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏫</span>
+            <span class="nombre" data-i18n="education-norms_nombre">Normas de Educación</span>
+            <span class="detalle" data-i18n="schoolrules_detalle">Aprende las normas de clase, la calle y los sitios públicos.</span>
+          </a>
+          <a href="../tools/self-esteem/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🙋</span>
+            <span class="nombre" data-i18n="selfesteem_nombre">Así Soy Yo</span>
+            <span class="detalle" data-i18n="selfesteem_detalle">Acepta cómo eres y responde ante quien no te acepta.</span>
+          </a>
+          <a href="../tools/resilience/" class="tarjeta">
+            <span class="picto" aria-hidden="true">💪</span>
+            <span class="nombre" data-i18n="resilience_nombre">Cuando Algo Me Cuesta</span>
+            <span class="detalle" data-i18n="resilience_detalle">Aprende a tolerar la frustración y a pedir ayuda.</span>
+          </a>
+          <a href="../tools/trust-circle/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧭</span>
+            <span class="nombre" data-i18n="trustcircle_nombre">Círculo de Confianza</span>
+            <span class="detalle" data-i18n="trustcircle_detalle">Amigo, compañero o conocido, y cómo reconocer la manipulación.</span>
+          </a>
+        </div>
+      </section>
 
+      <!-- Módulo: Cuerpo y relaciones (educación afectivo-sexual) -->
+      <section class="modulo" id="mod-cuerpo" style="--acento: var(--mod-cuerpo); --acento-suave: var(--mod-cuerpo-suave);">
+        <h2><span aria-hidden="true" data-i18n="modCuerpo">💗 Cuerpo y relaciones</span></h2>
+        <div class="grid-tarjetas">
+          <a href="../tools/sexual-health/" class="tarjeta">
+            <span class="picto" aria-hidden="true">💗</span>
+            <span class="nombre" data-i18n="sexualhealth_nombre">Mi Cuerpo, Mis Decisiones</span>
+            <span class="detalle" data-i18n="sexualhealth_detalle">Cuerpo, relaciones y salud, con apoyo.</span>
+          </a>
+        </div>
+      </section>
 
+      <!-- Módulo: Lenguaje y comunicación (académico) -->
+      <section class="modulo" id="mod-lenguaje" style="--acento: var(--mod-lenguaje); --acento-suave: var(--mod-lenguaje-suave);">
+        <h2><span aria-hidden="true" data-i18n="modLenguaje">💬 Lenguaje y comprensión</span></h2>
+        <div class="grid-tarjetas">
+          <a href="../tools/comedy-club/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🎭</span>
+            <span class="nombre" data-i18n="chistes_nombre">Chistes</span>
+            <span class="detalle" data-i18n="chistes_detalle">¿Por qué es gracioso?</span>
+          </a>
+          <a href="../tools/idioms/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🗣️</span>
+            <span class="nombre" data-i18n="idioms_nombre">Dichos</span>
+            <span class="detalle" data-i18n="idioms_detalle">¿Qué significa?</span>
+          </a>
+          <a href="../tools/double-meaning/" class="tarjeta">
+            <span class="picto" aria-hidden="true">👀</span>
+            <span class="nombre" data-i18n="doublemeaning_nombre">Doble Sentido</span>
+            <span class="detalle" data-i18n="doublemeaning_detalle">¿Puede significar dos cosas?</span>
+          </a>
+          <a href="../tools/categories/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🗂️</span>
+            <span class="nombre" data-i18n="categories_nombre">Categorías</span>
+            <span class="detalle" data-i18n="categories_detalle">¿En qué grupo va?</span>
+          </a>
+          <a href="../tools/sentence/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📝</span>
+            <span class="nombre" data-i18n="sentence_nombre">La Frase</span>
+            <span class="detalle" data-i18n="sentence_detalle">Lee y responde.</span>
+          </a>
+          <a href="../tools/dictionary/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📚</span>
+            <span class="nombre" data-i18n="dictionary_nombre">Diccionario</span>
+            <span class="detalle" data-i18n="dictionary_detalle">Palabras difíciles, fácil de entender.</span>
+          </a>
+          <a href="../tools/vocabulary/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🗂️</span>
+            <span class="nombre" data-i18n="vocabulary_nombre">Vocabulario por tema</span>
+            <span class="detalle" data-i18n="vocabulary_detalle">Elige un bloque y un nivel.</span>
+          </a>
+          <a href="../tools/spelling/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔡</span>
+            <span class="nombre" data-i18n="spelling_nombre">Completa la Palabra</span>
+            <span class="detalle" data-i18n="spelling_detalle">Elige la letra que falta.</span>
+          </a>
+          <a href="../tools/colored-spelling/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🖍️</span>
+            <span class="nombre" data-i18n="coloredspelling_nombre">Ortografía en Colores</span>
+            <span class="detalle" data-i18n="coloredspelling_detalle">Escribe y mira los colores.</span>
+          </a>
+          <a href="../tools/word-search/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔍</span>
+            <span class="nombre" data-i18n="wordsearch_nombre">Sopa de Letras</span>
+            <span class="detalle" data-i18n="wordsearch_detalle">Encuentra las palabras escondidas.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Módulo: Memoria y atención (académico) -->
+      <section class="modulo" id="mod-memoria" style="--acento: var(--mod-memoria); --acento-suave: var(--mod-memoria-suave);">
+        <h2><span aria-hidden="true" data-i18n="modMemoria">🧠 Memoria y atención</span></h2>
+        <div class="grid-tarjetas">
+          <a href="../tools/pairs/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🃏</span>
+            <span class="nombre" data-i18n="pairs_nombre">Parejas</span>
+            <span class="detalle" data-i18n="pairs_detalle">Busca las cartas iguales.</span>
+          </a>
+          <a href="../tools/differences/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔍</span>
+            <span class="nombre" data-i18n="differences_nombre">Diferencias</span>
+            <span class="detalle" data-i18n="differences_detalle">Busca lo que es distinto.</span>
+          </a>
+          <a href="../tools/whats-missing/" class="tarjeta">
+            <span class="picto" aria-hidden="true">❔</span>
+            <span class="nombre" data-i18n="whatsmissing_nombre">¿Qué falta?</span>
+            <span class="detalle" data-i18n="whatsmissing_detalle">Recuerda qué desapareció.</span>
+          </a>
+          <a href="../tools/ecos/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔔</span>
+            <span class="nombre" data-i18n="ecos_nombre">Ecos</span>
+            <span class="detalle" data-i18n="ecos_detalle">Repite lo que oigas y veas.</span>
+          </a>
+          <a href="../tools/turns-mirrors/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔄</span>
+            <span class="nombre" data-i18n="turnsmirrors_nombre">Giros y Espejos</span>
+            <span class="detalle" data-i18n="turnsmirrors_detalle">Figuras giradas y reflejadas.</span>
+          </a>
+          <a href="../tools/blocks/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧱</span>
+            <span class="nombre" data-i18n="blocks_nombre">Los Bloques</span>
+            <span class="detalle" data-i18n="blocks_detalle">Copia la construcción.</span>
+          </a>
+          <a href="../tools/where-is/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧭</span>
+            <span class="nombre" data-i18n="whereis_nombre">¿Dónde está?</span>
+            <span class="detalle" data-i18n="whereis_detalle">Izquierda, derecha, encima, debajo.</span>
+          </a>
+          <a href="../tools/path/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🐢</span>
+            <span class="nombre" data-i18n="path_nombre">El Camino</span>
+            <span class="detalle" data-i18n="path_detalle">Guía a la tortuga con flechas.</span>
+          </a>
+          <a href="../tools/fit/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🕹️</span>
+            <span class="nombre" data-i18n="fit_nombre">Encaja la Pieza</span>
+            <span class="detalle" data-i18n="fit_detalle">Mueve, gira y baja la pieza.</span>
+          </a>
+          <a href="../tools/theatre/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🎭</span>
+            <span class="nombre" data-i18n="theatre_nombre">El Teatro</span>
+            <span class="detalle" data-i18n="theatre_detalle">Monta la escena: delante y detrás.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Módulo: Coordinación y motricidad (dificultades motoras) -->
+      <section class="modulo" id="mod-coordinacion" style="--acento: var(--mod-coordinacion); --acento-suave: var(--mod-coordinacion-suave);">
+        <h2><span aria-hidden="true" data-i18n="modCoordinacion">🎯 Puntería y manos</span></h2>
+        <div class="grid-tarjetas">
+          <a href="../tools/catch/" class="tarjeta">
+            <span class="picto" aria-hidden="true">⚽</span>
+            <span class="nombre" data-i18n="catch_nombre">Atrapa</span>
+            <span class="detalle" data-i18n="catch_detalle">Toca el dibujo que se mueve.</span>
+          </a>
+          <a href="../tools/connect-dots/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🔢</span>
+            <span class="nombre" data-i18n="connectdots_nombre">Une los Puntos</span>
+            <span class="detalle" data-i18n="connectdots_detalle">Une los números en orden.</span>
+          </a>
+          <a href="../tools/piano-keys/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🎹</span>
+            <span class="nombre" data-i18n="piano_nombre">Piano</span>
+            <span class="detalle" data-i18n="piano_detalle">Toca música con el teclado.</span>
+          </a>
+          <a href="../tools/tracing/" class="tarjeta">
+            <span class="picto" aria-hidden="true">✏️</span>
+            <span class="nombre" data-i18n="tracing_nombre">Trazos</span>
+            <span class="detalle" data-i18n="tracing_detalle">Repasa la línea de puntos.</span>
+          </a>
+          <a href="../tools/coloring/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🎨</span>
+            <span class="nombre" data-i18n="coloring_nombre">Colorear</span>
+            <span class="detalle" data-i18n="coloring_detalle">Pinta el dibujo a tu gusto.</span>
+          </a>
+          <a href="../tools/builders/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏗️</span>
+            <span class="nombre" data-i18n="builders_nombre">Constructores</span>
+            <span class="detalle" data-i18n="builders_detalle">Pon bloques de colores. ¡Construye lo que quieras!</span>
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer data-pie-app data-pie-base="../" data-pie-class="pie-app" data-pie-include-config="true"></footer>
@@ -280,7 +612,7 @@
       document.getElementById('estrellasTotales').title = App.i18n.t('yourStars');
 
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('../sw.js').catch(function () {});
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
       }
     })();
   </script>
