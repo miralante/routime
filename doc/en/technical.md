@@ -42,7 +42,7 @@ Spanish, in Easy Reading format.
 - **No JS CDNs.** Only external exception: Google Fonts (Atkinson Hyperlegible and Nunito).
 - **Persistence only in `localStorage`.** No login, no cookies, no personal data,
   no analytics.
-- **Offline-first PWA**: `manifest.json` + `sw.js` (cache-first of the app shell).
+- **Offline-first PWA**: `manifest.json` + `sw.js` (network-first with a cache fallback for the app shell).
 - **Code style**: ES5-style JS in tools (`var`, classic functions,
   IIFE with `'use strict'`); variable/function names and identifiers always in
   English whenever a file is touched — code belongs to the technology domain.
@@ -837,7 +837,7 @@ Only if the area does not fit the 7 existing modules (check coverage in
 
 ## 11. PWA and service worker
 
-- `sw.js` is **cache-first** for the app shell. Contract when touching files:
+- `sw.js` is **network-first with a cache fallback** for the app shell. Contract when touching files:
   1. New file → add it to the `ARCHIVOS` list.
   2. Any change to cached files → **bump `VERSION`** (`Routime-vNN`),
      otherwise users with the installed PWA won't receive the change.

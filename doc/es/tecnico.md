@@ -42,7 +42,7 @@ Aplicación web de terapia ocupacional para personas con discapacidad intelectua
 - **Sin CDNs de JS.** Única excepción externa: Google Fonts (Atkinson Hyperlegible y Nunito).
 - **Persistencia solo en `localStorage`.** Sin login, sin cookies, sin datos personales,
   sin analítica.
-- **PWA offline-first**: `manifest.json` + `sw.js` (cache-first del app shell).
+- **PWA offline-first**: `manifest.json` + `sw.js` (network-first con caché de respaldo del app shell).
 - **Estilo de código**: JS estilo ES5 en las herramientas (`var`, funciones clásicas,
   IIFE con `'use strict'`); nombres de variables/funciones e identificadores en
   inglés siempre que se toque un archivo — el código pertenece al ámbito
@@ -860,7 +860,7 @@ Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura 
 
 ## 11. PWA y service worker
 
-- `sw.js` es **cache-first** del app shell. Contrato al tocar archivos:
+- `sw.js` es **network-first con caché de respaldo** del app shell. Contrato al tocar archivos:
   1. Archivo nuevo → añadirlo a la lista `ARCHIVOS`.
   2. Cualquier cambio en archivos cacheados → **subir `VERSION`** (`Routime-vNN`),
      de lo contrario quienes tengan la PWA instalada no recibirán el cambio.

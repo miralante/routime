@@ -1,9 +1,12 @@
 /* ============================================================
    Routime — Service Worker
-   Cache-first strategy for the app shell (works offline).
-   When adding new files: add them to ARCHIVOS and bump VERSION.
+   Network-first strategy with a cache fallback (works offline).
+   The server copy wins whenever the device is online, so a deploy
+   reaches installed PWAs without anyone bumping VERSION by hand.
+   When adding new files: add them to ARCHIVOS and bump VERSION (the
+   precache still needs the list for offline use).
    ============================================================ */
-var VERSION = 'routime-v45';
+var VERSION = 'routime-v46';
 
 var ARCHIVOS = [
   './',
@@ -42,6 +45,7 @@ var ARCHIVOS = [
   './assets/js/storage.js',
   './assets/js/feedback.js',
   './assets/js/dinero.js',
+  './assets/js/sw-update.js',
   './assets/img/icono.svg',
   './assets/img/icono-192.png',
   './assets/img/icono-512.png',
@@ -504,22 +508,26 @@ self.addEventListener('fetch', function (event) {
     );
     return;
   }
+  /* Network-first for everything else too (scripts, styles, fonts, decks).
+     The cache answers only when the network is unreachable. */
   event.respondWith(
-    caches.match(event.request).then(function (respuesta) {
-      /* A hit can come from a precache written by an older worker. */
-      if (respuesta) return deRedirect(respuesta);
-      return fetch(event.request).then(function (r) {
-        /* Cache new same-origin resources and fonts, but never a redirect.
-           Following one still yields status 200 with redirected === true,
-           which is exactly the poisoned entry the precache comment above
-           describes. */
-        if (r.status === 200) {
-          caches.open(VERSION).then(function (cache) {
-            cache.put(event.request, deRedirect(r.clone()));
-          });
-        }
-        return deRedirect(r);
-      }).catch(function () {
+    fetch(event.request).then(function (r) {
+      /* Cache new same-origin resources and fonts, but never a redirect.
+         Following one still yields status 200 with redirected === true,
+         which is exactly the poisoned entry the precache comment above
+         describes. */
+      if (r.status === 200) {
+        caches.open(VERSION).then(function (cache) {
+          cache.put(event.request, deRedirect(r.clone()));
+        });
+      }
+      return deRedirect(r);
+    }).catch(function () {
+      return caches.match(event.request).then(function (respuesta) {
+        if (respuesta) return deRedirect(respuesta);
+        return null;
+      }).then(function (cached) {
+        if (cached) return cached;
         /* Offline / network failure. Don't serve the cached landing page
            here: this branch answers at whatever URL the user was already
            on (e.g. /tools/clock/), and Safari would either break the layout

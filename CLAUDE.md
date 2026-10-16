@@ -71,7 +71,7 @@ location.
 | Roadmap and closed product decisions | Git only: every PR leaves a message; reconstruct with `git log`. |
 | Human contribution flow | [`CONTRIBUTING.md`](CONTRIBUTING.md) ↔ [`CONTRIBUTING.es.md`](CONTRIBUTING.es.md) |
 | AI agent operational flow | `CLAUDE.md` (this file) |
-| Cloudflare deploy / cache contract (network-first vs cache-first SW) | [`CLOUDFLARE.md`](CLOUDFLARE.md) |
+| Cloudflare deploy / service worker cache contract (network-first with cache fallback) | [`CLOUDFLARE.md`](CLOUDFLARE.md) |
 | Contents / TOC | [`doc/en/contents.md`](doc/en/contents.md) ↔ [`doc/es/contenidos.md`](doc/es/contenidos.md) |
 | Doc index | [`doc/en/index.md`](doc/en/index.md) ↔ [`doc/es/indice.md`](doc/es/indice.md) |
 | Quick guide | [`doc/en/quick-guide.md`](doc/en/quick-guide.md) ↔ [`doc/es/guia-rapida.md`](doc/es/guia-rapida.md) |
@@ -152,11 +152,12 @@ and stable.
 
 ### B.1 Service worker cache
 
-`sw.js` is **cache-first**: every file in `FILES` is served from
-the cache; the network is only consulted when the request is not in
-the cache. The cache is silent and persistent — users with the PWA
-installed keep seeing the old version after a deploy until `VERSION`
-in `sw.js` is bumped. **Rule**: bump `VERSION` on every commit that
+`sw.js` is **network-first with a cache fallback**: every request goes to
+the network first, so the server copy wins while online; the cache (every
+file in `FILES`, plus every response fetched so far) answers only when the
+network is unreachable. The offline copy is precached per `VERSION`, so a
+cached file changed without a bump stays stale offline and the installed
+worker does not re-install. **Rule**: bump `VERSION` on every commit that
 touches any file in `FILES`, and add any new file to `FILES` at the
 same time. Run `node scripts/check-version-bump.js` to verify the
 bump is consistent. Full contract: [`CLOUDFLARE.md`](CLOUDFLARE.md)
