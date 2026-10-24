@@ -149,7 +149,7 @@ Routime/
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (euro activities)
 │   └── img/               #   SVG pictograms and PWA icons; the UI uses system icons and emojis first for simple graphical elements; if more is needed, use free images downloaded locally from CC0/public-domain sources
-├── tools/<slug>/          # Level 2: one folder per ACTIVITY (63 current)
+├── tools/<slug>/          # Level 2: one folder per ACTIVITY (64 current)
 │   ├── index.html         #   structure and asset loading
 │   ├── app.js             #   logic only
 │   ├── data.js            #   data only
@@ -249,7 +249,7 @@ to every cached file.
 
 | Project | Landing | `tools/` | Notes |
 |---|:---:|:---:|---|
-| `routime` | root (`index.html`) | ✅ (69) | Landing doubles as the activity menu. |
+| `routime` | root (`index.html`) | ✅ (64) | Landing doubles as the activity menu. |
 | `calculia` | `site/` | ✅ (15) | Didactic catalog. |
 | `memofun` | `site/` | ✅ (1) | Flashcards; deck catalogue lives in `decks/concepts/`. |
 | `okeymoney` | `site/` | ✅ (8) | Finance app; landing has a CTA to the root `index.html`. |

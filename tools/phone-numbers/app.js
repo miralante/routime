@@ -167,7 +167,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answerQuiz(btn, op.isCorrect, item); });
       quizOptions.appendChild(btn);
     });

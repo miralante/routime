@@ -209,7 +209,7 @@
       },
       "emergencies": {
         "name": 'Emergencias',
-        "does": 'Dos partes: distinguir una emergencia real de lo que no lo es, y practicar ordenar qué decir si se pide ayuda (nombre, qué pasa, dónde está).',
+        "does": 'Tres partes: distinguir una emergencia real de lo que no lo es, practicar ordenar qué decir si se pide ayuda (nombre, qué pasa, dónde está) y un escenario de qué hacer y qué decir si te quedas encerrado en el ascensor (pedir ayuda con la alarma, el interfono, el teléfono o el 112; decir el edificio y la planta; esperar dentro sin forzar la puerta).',
         "works": 'Reconocimiento de emergencias reales vs. falsas alarmas; estructura de una llamada de ayuda. Deja claro que el 112 es solo para emergencias de verdad.',
         "daily": 'Acordad con la persona cuál es su dirección exacta y practicad decirla en voz alta.'
       },

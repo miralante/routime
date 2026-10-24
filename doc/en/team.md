@@ -159,7 +159,7 @@ Some activities deal with sensitive topics:
 
 | Activity | Topic | Recommendation |
 |----------|-------|---------------|
-| **Emergencies** | 112, dangerous situations | Review first, accompany if necessary |
+| **Emergencies** | 112, dangerous situations, getting stuck in the lift | Review first, accompany if necessary |
 | **Important Phone Numbers** | 112, dangerous situations | Review first, accompany if necessary |
 | **My Details** | The person's and family's real address and phone numbers | Needs to be set up beforehand in `/settings/` (address and phone numbers); without that the activity only shows a notice |
 | **Safe Chat** | Online manipulation | Requires support from a support person |

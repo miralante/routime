@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-v38096a50">
+  <link rel="stylesheet" href="styles.css?v=routime-ve71b0983">
 </head>
 <body>
   <div class="container">
@@ -18,10 +18,10 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <!-- Screen: menu of the 2 activities -->
+    <!-- Screen: menu of the 3 activities -->
     <section id="menuScreen" class="pila">
       <div class="row centered-row">
-        <p class="instruccion" id="instruccion" data-i18n="instruccion">Aquí practicas dos cosas: saber si algo es una emergencia de verdad, y practicar cómo pedir ayuda. El 112 solo es para emergencias de verdad.</p>
+        <p class="instruccion" id="instruccion" data-i18n="instruccion">Aquí practicas tres cosas: saber si algo es una emergencia de verdad, practicar cómo pedir ayuda y qué hacer si te quedas encerrado en el ascensor. El 112 solo es para emergencias de verdad.</p>
       </div>
       <div class="cards-grid">
         <button type="button" class="tarjeta-actividad" id="tarjetaReconocer">
@@ -35,6 +35,12 @@
           <span class="name" data-i18n="menuLlamada">Practica la llamada</span>
           <span class="detalle" data-i18n="menuLlamadaDetalle">Ordena qué decir si pides ayuda.</span>
           <span class="marca" id="marcaLlamada"></span>
+        </button>
+        <button type="button" class="tarjeta-actividad" id="tarjetaAscensor">
+          <span class="picto" aria-hidden="true">🛗</span>
+          <span class="name" data-i18n="menuAscensor">Atrapado en el ascensor</span>
+          <span class="detalle" data-i18n="menuAscensorDetalle">Qué hacer y qué decir si te quedas encerrado.</span>
+          <span class="marca" id="marcaAscensor"></span>
         </button>
       </div>
     </section>
@@ -85,7 +91,40 @@
       <div class="feedback" id="feedbackLlamada" aria-live="polite"></div>
     </section>
 
-    <!-- Pantalla final (compartida por las 2 actividades) -->
+    <!-- Pantalla: atrapado en el ascensor -->
+    <section id="pantallaAscensor" class="hidden pila">
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="btnVolverAscensor" data-i18n="volverMenu">← Volver</button>
+        <h2 class="titulo-seccion" id="ascensorTitulo">El ascensor se para</h2>
+      </div>
+
+      <div class="asc-historia" id="ascensorHistoria" aria-live="polite"></div>
+
+      <p class="pregunta centered hidden" id="ascensorPregunta"></p>
+      <div class="pila" id="ascensorOpciones"></div>
+
+      <div class="feedback" id="ascensorFeedback" aria-live="polite"></div>
+
+      <div class="consejo hidden" id="ascensorConsejo">
+        <p id="ascensorConsejoTexto"></p>
+      </div>
+
+      <div class="row explicacion hidden" id="ascensorExplicacionWrap">
+        <p id="ascensorExplicacion" aria-live="polite"></p>
+      </div>
+      <button type="button" class="btn hidden" id="btnSiguienteAscensor" data-i18n="ascensorContinuar">Continuar →</button>
+
+      <div class="asc-regla hidden" id="ascensorRegla">
+        <h3 data-i18n="ascensorParaRecordar">⭐ Para recordar</h3>
+        <p id="ascensorReglaTexto"></p>
+        <div class="row centered-row">
+          <button type="button" class="btn" id="btnRepetirAscensor" data-i18n="core.playAgain">Jugar otra vez</button>
+          <button type="button" class="btn btn-secondary" id="btnMenuAscensor" data-i18n="volverMenu">← Volver</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pantalla final (compartida por las actividades) -->
     <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🎉</div>
       <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
@@ -101,10 +140,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-v6050a093"></script>
-  <script src="strings.en.js?v=routime-v3ad9ebef"></script>
-  <script src="data.js?v=routime-v91c0a46c"></script>
-  <script src="app.js?v=routime-v2d06608c"></script>
+  <script src="strings.es.js?v=routime-va00e6ab1"></script>
+  <script src="strings.en.js?v=routime-v408daefc"></script>
+  <script src="data.js?v=routime-ve3f17906"></script>
+  <script src="app.js?v=routime-v00a17204"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});

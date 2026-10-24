@@ -8,11 +8,13 @@
 
   App.i18n.register({
     "title": "🚨 Emergencias",
-    "instruccion": "Aquí practicas dos cosas: saber si algo es una emergencia de verdad, y practicar cómo pedir ayuda. El 112 solo es para emergencias de verdad.",
+    "instruccion": "Aquí practicas tres cosas: saber si algo es una emergencia de verdad, practicar cómo pedir ayuda y qué hacer si te quedas encerrado en el ascensor. El 112 solo es para emergencias de verdad.",
     "menuReconocer": "🚨 ¿Es una emergencia?",
     "menuReconocerDetalle": "Distingue lo que sí lo es de lo que no.",
     "menuLlamada": "📞 Practica la llamada",
     "menuLlamadaDetalle": "Ordena qué decir si pides ayuda.",
+    "menuAscensor": "🛗 Atrapado en el ascensor",
+    "menuAscensorDetalle": "Qué haces y qué dices si te quedas encerrado.",
     "volverMenu": "← Volver",
     "pregunta": "¿Qué haces?",
     "veces": "veces",
@@ -24,6 +26,10 @@
     "etiquetaOrden": "Tu llamada",
     "etiquetaPasos": "Pasos",
     "ariaPaso": "Paso de la llamada",
+    "ascensorContinuar": "Continuar →",
+    "ascensorPista": "🤔 Prueba otra vez. Piensa en lo más seguro.",
+    "ascensorSuperado": "¡Lo has conseguido!",
+    "ascensorParaRecordar": "⭐ Para recordar",
     "transferencia": "Lo que practicas aquí también vale para el día a día: reconocer una emergencia real, llamar al 112 con los datos claros y mantener la calma son cosas que pueden hacer falta en casa, en el cole o en la calle."
   }, 'es');
 })();

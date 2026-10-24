@@ -157,7 +157,7 @@ Routime/
 │   ├── js/feedback.js     #   window.App.feedback
 │   ├── js/dinero.js       #   window.App.dinero (actividades de euros)
 │   └── img/               #   pictogramas SVG e iconos PWA; la interfaz usa primero iconos del sistema y emojis para gráficos simples; si hace falta algo más, usar imágenes libres descargadas localmente desde fuentes CC0 o de uso libre
-├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (63 actuales)
+├── tools/<slug>/          # Nivel 2: una carpeta por ACTIVIDAD (64 actuales)
 │   ├── index.html         #   estructura y carga de assets
 │   ├── app.js             #   solo lógica
 │   ├── data.js            #   solo datos
@@ -258,7 +258,7 @@ y se aplica a cualquier archivo cacheado.
 
 | Proyecto | Landing | `tools/` | Notas |
 |---|:---:|:---:|---|
-| `routime` | raíz (`index.html`) | ✅ (69) | La landing hace de menú de actividades. |
+| `routime` | raíz (`index.html`) | ✅ (64) | La landing hace de menú de actividades. |
 | `calculia` | `site/` | ✅ (15) | Catálogo didáctico. |
 | `memofun` | `site/` | ✅ (1) | Flashcards; el catálogo de barajas vive en `decks/concepts/`. |
 | `okeymoney` | `site/` | ✅ (8) | App de finanzas; la landing lleva al `index.html` raíz. |

@@ -4,7 +4,9 @@
    Formato: DATA.es / DATA.en, cada uno con:
    { porRonda,
      reconocer: [{ picto, situacion, options: string[3], correcta }],
-     llamadas: [{ name, items: [{ picto, text }] }] }
+     llamadas: [{ name, items: [{ picto, text }] }],
+     ascensor: { tituloEscenario, tituloLlamada,
+                 escenario: { pasos, regla }, llamada: { pasos, regla } } }
    'reconocer' es un quiz de una sola ronda (sin niveles): mezcla
    emergencias de verdad (fuego, alguien herido que no responde, no
    puede respirar) con cosas que NO son una emergencia (no encuentra
@@ -19,6 +21,9 @@
    para que se aprenda la estructura de la llamada, no un guion fijo.
    Sin niveles (regla 13 no aplica: cada ronda ya mezcla dificultad
    a propósito, como contraste didáctico, no como progresión).
+   'ascensor' es la tercera subactividad: un escenario guiado de dos
+   etapas (qué hacer y qué decir por el interfono) con el motor de
+   pasos de este archivo. Ver el comentario del bloque para el formato.
    app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 const DATA = {
@@ -85,7 +90,77 @@ const DATA = {
         { picto: '💊', text: 'Decir qué está pasando: se ha tragado unas pastillas' },
         { picto: '📍', text: 'Decir dónde estás' }
       ] }
-    ]
+    ],
+    /* Subactividad: "Atrapado en el ascensor". Es una emergencia con
+       reglas propias (dentro se espera, no se fuerza la puerta) y con
+       información propia (el interfono es del edificio: hay que decir
+       edificio y planta). Por eso va dentro de Emergencias y no como
+       un ítem suelto en otro sitio.
+       'escenario' = qué hacer (motor de pasos: narración + pregunta de
+       3 opciones). 'llamada' = qué decir por el interfono (mismo
+       motor, 3 preguntas). Cada paso:
+       { tipo: 'narracion', picto, text } o
+       { tipo: 'pregunta', text, opciones: [{ texto, correcta,
+       explicacion, pista }] }.
+       La opción correcta siempre lleva explicación; cada incorrecta
+       lleva su pista (método socrático, regla 12). En segunda persona
+       y sin género. */
+    ascensor: {
+      tituloEscenario: 'El ascensor se para',
+      tituloLlamada: 'La llamada por el interfono',
+      escenario: {
+        pasos: [
+          { tipo: 'narracion', picto: '🛗', text: 'Entras en el ascensor. Pulsas el botón de la planta. El ascensor arranca y se para. Las puertas no se abren.' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué haces primero?', opciones: [
+            { texto: 'Pulsar el botón de alarma del ascensor', correcta: true, explicacion: 'El botón de alarma avisa al edificio. Es la forma más rápida de pedir ayuda.', pista: '' },
+            { texto: 'Empujar la puerta para salir', correcta: false, explicacion: '', pista: 'Si empujas la puerta, puedes salir pero te puedes hacer mucho daño. Mira la cabina: hay un botón de alarma.' },
+            { texto: 'Quedarte callado hasta que el ascensor se mueva solo', correcta: false, explicacion: '', pista: 'Tener calma está bien, pero solo no vas a salir. ¿Hay algún botón en la cabina para pedir ayuda?' }
+          ] },
+          { tipo: 'narracion', picto: '🔔', text: 'Suena la alarma. En la cabina hay un botón de alarma, un interfono y un teléfono.' },
+          { tipo: 'pregunta', picto: '❓', text: 'El botón de alarma no suena. ¿Qué haces?', opciones: [
+            { texto: 'Coger el teléfono de la cabina o llamar al 112 con tu móvil', correcta: true, explicacion: 'El 112 sirve para pedir ayuda en cualquier sitio. También puedes usar el teléfono de la cabina.', pista: '' },
+            { texto: 'Esperar sin hacer nada', correcta: false, explicacion: '', pista: 'Esperar está bien cuando ya has pedido ayuda. Pero si la alarma no suena, tienes que pedirla por otro lado.' },
+            { texto: 'Empujar la puerta para salir', correcta: false, explicacion: '', pista: 'Empujar la puerta es peligroso. Pide ayuda antes: por el interfono, por el teléfono o con el 112.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'Coges el interfono. Una persona contesta: «Dime, ¿qué pasa?»' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué le dices?', opciones: [
+            { texto: 'Tu nombre, que estás en el ascensor y que no puedes salir, y en qué edificio y planta estás', correcta: true, explicacion: 'Con tu nombre y el edificio y la planta te encuentran rápido. Por eso hay que decir las tres cosas.', pista: '' },
+            { texto: 'Solo «Ayuda»', correcta: false, explicacion: '', pista: 'Te van a preguntar más. Dilo todo: tu nombre, qué pasa y dónde estás.' },
+            { texto: 'Cuelgar el interfono', correcta: false, explicacion: '', pista: 'Si cuelgas no podrán ayudarte. Espera en línea y explica lo que pasa.' }
+          ] },
+          { tipo: 'narracion', picto: '👷', text: 'La persona del edificio te dice: «Ya aviso al técnico. Quédate dentro y no toques la puerta.»' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué haces mientras esperas?', opciones: [
+            { texto: 'Quedarte dentro con calma, sin forzar la puerta, y seguir hablando con quien te ayuda', correcta: true, explicacion: 'El ascensor es un lugar seguro. Lo peligroso es forzar la puerta o salir sin ayuda.', pista: '' },
+            { texto: 'Forzar las puertas para salir', correcta: false, explicacion: '', pista: 'Si el ascensor está parado, las puertas no se abren. Espera dentro y deja que te abran.' },
+            { texto: 'Llorar y gritar', correcta: false, explicacion: '', pista: 'Los nervios pasan. Respira, siéntate y sigue hablando con quien te ayuda.' }
+          ] }
+        ],
+        regla: '⭐ Para recordar: pide ayuda con la alarma, el interfono, el teléfono o el 112. Di tu nombre, qué pasa y en qué edificio y planta estás. Espera dentro, con calma y sin forzar la puerta.'
+      },
+      llamada: {
+        pasos: [
+          { tipo: 'narracion', picto: '📞', text: 'Suena el interfono del ascensor. Una persona dice: «¿Quién es?»' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué dices primero?', opciones: [
+            { texto: 'Tu nombre', correcta: true, explicacion: 'Empieza por tu nombre. Así saben quién eres y pueden buscarte.', pista: '' },
+            { texto: 'Solo «Ayuda»', correcta: false, explicacion: '', pista: 'Empieza por tu nombre. Después explicas qué pasa.' },
+            { texto: 'No decir nada', correcta: false, explicacion: '', pista: 'Contestar es el primer paso. Di tu nombre.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'La persona pregunta: «¿Qué ha pasado?»' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué dices?', opciones: [
+            { texto: 'Que estás en el ascensor y que no puedes salir', correcta: true, explicacion: 'Así saben que necesitas ayuda ahora. Dilo claro y en una frase.', pista: '' },
+            { texto: 'Que el ascensor está roto', correcta: false, explicacion: '', pista: 'Que está roto no dice que tú estás dentro. Dilo: «Estoy en el ascensor y no puedo salir».' },
+            { texto: 'Cuelgar el interfono', correcta: false, explicacion: '', pista: 'Si cuelgas, la llamada se acaba. Espera y explica.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'La persona pregunta: «¿Dónde estás?»' },
+          { tipo: 'pregunta', picto: '❓', text: '¿Qué dices?', opciones: [
+            { texto: 'El nombre del edificio y la planta', correcta: true, explicacion: 'El interfono es del edificio. Con el nombre del edificio y la planta te encuentran.', pista: '' },
+            { texto: 'Solo «En un ascensor»', correcta: false, explicacion: '', pista: 'Hay muchos ascensores. Di el nombre del edificio y la planta.' },
+            { texto: 'No saber el nombre del edificio ni la planta', correcta: false, explicacion: '', pista: 'Si no lo sabes, dilo. Ellos lo pueden buscar. Para saberlo, mira el cartel del portal antes de subir.' }
+          ] }
+        ],
+        regla: '⭐ Para recordar: en la llamada dices tu nombre, qué pasa (estoy en el ascensor y no puedo salir) y dónde estás (edificio y planta).'
+      }
+    }
   },
   en: {
     porRonda: 8,
@@ -150,6 +225,62 @@ const DATA = {
         { picto: '💊', text: 'Say what is happening: they swallowed some pills' },
         { picto: '📍', text: 'Say where you are' }
       ] }
-    ]
+    ],
+    ascensor: {
+      tituloEscenario: 'The lift stops',
+      tituloLlamada: 'The intercom call',
+      escenario: {
+        pasos: [
+          { tipo: 'narracion', picto: '🛗', text: 'You get into the lift. You press the floor button. The lift starts and then stops. The doors do not open.' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you do first?', opciones: [
+            { texto: 'Press the alarm button in the lift', correcta: true, explicacion: 'The alarm button tells the building. It is the quickest way to get help.', pista: '' },
+            { texto: 'Push the doors to get out', correcta: false, explicacion: '', pista: 'If you push the doors you may get out, but you can hurt yourself a lot. Look in the cabin: there is an alarm button.' },
+            { texto: 'Stay quiet until the lift moves again on its own', correcta: false, explicacion: '', pista: 'Staying calm is good, but you will not get out on your own. Is there a button in the cabin to ask for help?' }
+          ] },
+          { tipo: 'narracion', picto: '🔔', text: 'The alarm rings. In the cabin there is an alarm button, an intercom and a phone.' },
+          { tipo: 'pregunta', picto: '❓', text: 'The alarm button does not ring. What do you do?', opciones: [
+            { texto: 'Use the phone in the cabin or call 112 on your mobile', correcta: true, explicacion: 'You can call 112 for help anywhere. You can also use the phone in the cabin.', pista: '' },
+            { texto: 'Wait and do nothing', correcta: false, explicacion: '', pista: 'Waiting is fine when you have already asked for help. But if the alarm does not ring, ask another way.' },
+            { texto: 'Push the doors to get out', correcta: false, explicacion: '', pista: 'Pushing the doors is dangerous. Ask for help first: intercom, phone or 112.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'You pick up the intercom. A person answers: "Tell me, what happened?"' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you say?', opciones: [
+            { texto: 'Your name, that you are in the lift and cannot get out, and which building and floor you are on', correcta: true, explicacion: 'With your name and the building and the floor they find you fast. That is why you say all three.', pista: '' },
+            { texto: 'Only "Help"', correcta: false, explicacion: '', pista: 'They will ask you more. Say it all: your name, what happened and where you are.' },
+            { texto: 'Hang up the intercom', correcta: false, explicacion: '', pista: 'If you hang up they cannot help you. Stay on the line and explain.' }
+          ] },
+          { tipo: 'narracion', picto: '👷', text: 'The person from the building says: "I will call the technician. Stay inside and do not touch the door."' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you do while you wait?', opciones: [
+            { texto: 'Stay inside calmly, without forcing the doors, and keep talking to the person helping you', correcta: true, explicacion: 'The lift is a safe place. What is dangerous is forcing the doors or getting out without help.', pista: '' },
+            { texto: 'Force the doors to get out', correcta: false, explicacion: '', pista: 'If the lift is stopped the doors will not open. Wait inside and let them open them for you.' },
+            { texto: 'Cry and shout', correcta: false, explicacion: '', pista: 'The nerves pass. Breathe, sit down and keep talking to the person helping you.' }
+          ] }
+        ],
+        regla: '⭐ To remember: ask for help with the alarm, the intercom, the phone or 112. Say your name, what happened and which building and floor you are on. Wait inside, calmly, without forcing the doors.'
+      },
+      llamada: {
+        pasos: [
+          { tipo: 'narracion', picto: '📞', text: 'The intercom in the lift rings. A person says: "Who is it?"' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you say first?', opciones: [
+            { texto: 'Your name', correcta: true, explicacion: 'Start with your name. Then they know who you are and they can look for you.', pista: '' },
+            { texto: 'Only "Help"', correcta: false, explicacion: '', pista: 'Start with your name. Then explain what happened.' },
+            { texto: 'Say nothing', correcta: false, explicacion: '', pista: 'Answering is the first step. Say your name.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'The person asks: "What happened?"' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you say?', opciones: [
+            { texto: 'That you are in the lift and cannot get out', correcta: true, explicacion: 'Now they know you need help right now. Say it clearly, in one sentence.', pista: '' },
+            { texto: 'That the lift is broken', correcta: false, explicacion: '', pista: '"The lift is broken" does not say that you are inside. Say it: "I am in the lift and I cannot get out".' },
+            { texto: 'Hang up the intercom', correcta: false, explicacion: '', pista: 'If you hang up, the call ends. Wait and explain.' }
+          ] },
+          { tipo: 'narracion', picto: '📞', text: 'The person asks: "Where are you?"' },
+          { tipo: 'pregunta', picto: '❓', text: 'What do you say?', opciones: [
+            { texto: 'The name of the building and the floor', correcta: true, explicacion: 'The intercom belongs to the building. With the name of the building and the floor they find you.', pista: '' },
+            { texto: 'Only "In a lift"', correcta: false, explicacion: '', pista: 'There are many lifts. Say the name of the building and the floor.' },
+            { texto: 'Not knowing the name of the building or the floor', correcta: false, explicacion: '', pista: 'If you do not know it, say so. They can look it up. To know it, check the sign at the entrance before you go up.' }
+          ] }
+        ],
+        regla: '⭐ To remember: in the call you say your name, what happened (I am in the lift and I cannot get out) and where you are (building and floor).'
+      }
+    }
   }
 };

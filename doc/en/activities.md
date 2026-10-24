@@ -28,7 +28,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **My Schedule** | Prepare for an appointment or task: order, materials and timing |
 | **What Do I Wear?** | Choose appropriate clothing based on the weather |
 | **The Street** | Crossing the street, public transport, what to do if you get lost |
-| **Emergencies** | Recognize real emergencies and practice calling 112 |
+| **Emergencies** | Recognize real emergencies, practice calling 112, and what to do and what to say if you get stuck in the lift |
 | **While Help Is on Its Way** | What to do after calling 112, while waiting for the ambulance, firefighters or police: leave, do not move the injured, press the wound, recovery position |
 | **Before the Emergency** | Prepare at home with the family what to have ready: 112 written down, address visible, smoke detector, pills out of reach, gas and electricity shut-off |
 | **Important Phone Numbers** | Learn that 112 is the number for police, firefighters and medical emergencies |

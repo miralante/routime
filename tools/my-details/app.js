@@ -296,7 +296,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { answerChoice(btn, op.isCorrect); });
       choiceOptions.appendChild(btn);
     });

@@ -209,7 +209,7 @@
       },
       "emergencies": {
         "name": 'Emergencies',
-        "does": 'Two parts: telling a real emergency apart from something that is not one, and practicing what to say when asking for help (name, what is happening, where they are).',
+        "does": 'Three parts: telling a real emergency apart from something that is not one, practicing what to say when asking for help (name, what is happening, where they are) and a scenario about what to do and what to say if you get stuck in the lift (ask for help with the alarm, the intercom, the phone or 112; say the building and the floor; wait inside without forcing the doors).',
         "works": 'Recognizing real emergencies vs. false alarms; the structure of a call for help. Makes clear that 911 is only for real emergencies.',
         "daily": 'Agree with the person on their exact address and practice saying it out loud.'
       },

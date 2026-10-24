@@ -1,9 +1,9 @@
 /* ============================================================
    Routime — Emergencias (autonomía: reconocer una emergencia
    de verdad y practicar cómo pedir help)
-   Datos en data.js (DATA.reconocer, DATA.llamadas). Dos actividades
-   elegibles desde un menú (regla 10: una acción principal por
-   pantalla):
+   Datos en data.js (DATA.reconocer, DATA.llamadas, DATA.ascensor).
+   Tres actividades elegibles desde un menú (regla 10: una acción
+   principal por pantalla):
    - "¿Es una emergencia?": quiz de 3 options (motor de Situaciones)
      que mezcla emergencias reales con cosas que no lo son, para que
      el contraste enseñe a distinguir. Sin niveles: la mezcla de
@@ -12,6 +12,10 @@
      Tareas) siempre en el mismo orden — name, qué pasa, dónde
      estás — cambiando solo la emergencia descrita, para aprender la
      estructura y no un guion fijo.
+   - "Atrapado en el ascensor": subactividad con escenario guiado de
+     dos etapas (qué hacer y qué decir por el interfono). Es una
+     emergencia con reglas propias, por eso vive aquí y no suelta
+     en otra actividad.
    El error nunca se castiga (regla 5); pista socrática en el primer
    fallo (regla 12).
    ============================================================ */
@@ -24,6 +28,7 @@
   var menuScreen = $('#menuScreen');
   var pantallaReconocer = $('#pantallaReconocer');
   var pantallaLlamada = $('#pantallaLlamada');
+  var pantallaAscensor = $('#pantallaAscensor');
   var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
@@ -32,15 +37,16 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completadoReconocer) progress.completadoReconocer = 0;
   if (!progress.completadoLlamada) progress.completadoLlamada = 0;
+  if (!progress.completadoAscensor) progress.completadoAscensor = 0;
 
-  var actividadActual = null; /* 'reconocer' | 'llamada' */
+  var actividadActual = null; /* 'reconocer' | 'llamada' | 'ascensor' */
 
   function save() { App.storage.set(TOOL_ID, progress); }
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function ocultarTodas() {
-    [menuScreen, pantallaReconocer, pantallaLlamada, endScreen].forEach(function (p) {
+    [menuScreen, pantallaReconocer, pantallaLlamada, pantallaAscensor, endScreen].forEach(function (p) {
       p.classList.add('hidden');
     });
   }
@@ -54,6 +60,7 @@
   function renderMenu() {
     $('#marcaReconocer').textContent = '';
     $('#marcaLlamada').textContent = '';
+    $('#marcaAscensor').textContent = '';
     renderStars();
   }
 
@@ -110,7 +117,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () { responderReconocer(btn, op.isCorrect, item); });
       opcionesREl.appendChild(btn);
     });
@@ -221,8 +228,8 @@ $('#transferencia').textContent = '';
       btn.type = 'button';
       btn.className = 'btn tarea-btn';
       btn.innerHTML = '<span class="task-picto" aria-hidden="true">' + p.item.picto + '</span>' +
-        '<span class="tarea-text">' + p.item.textContent + '</span>';
-      btn.setAttribute('aria-label', App.i18n.t('ariaPaso') + ': ' + p.item.textContent);
+        '<span class="tarea-text">' + p.item.text + '</span>';
+      btn.setAttribute('aria-label', App.i18n.t('ariaPaso') + ': ' + p.item.text);
       btn.addEventListener('click', function () { tocarL(p.orden, btn); });
       disponiblesEl.appendChild(btn);
     });
@@ -238,7 +245,7 @@ $('#transferencia').textContent = '';
       div.className = 'slot' + (item ? ' filled' : '');
       if (item) {
         div.innerHTML = '<span class="task-picto" aria-hidden="true">' + item.picto + '</span>' +
-          '<span class="tarea-text">' + item.textContent + '</span>';
+          '<span class="tarea-text">' + item.text + '</span>';
       } else {
         div.textContent = String(i + 1);
       }
@@ -286,18 +293,162 @@ $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
+  /* ============== Subactividad 3: Atrapado en el ascensor ==============
+     Escenario guiado de dos etapas: "qué hago" (pedir ayuda, decir
+     dónde, esperar sin forzar la puerta) y "qué digo" (la llamada por
+     el interfono). Motor de pasos: narración y preguntas de 3
+     opciones. La opción correcta muestra su explicación y un botón
+     "Continuar"; la incorrecta se desactiva, muestra su pista y
+     espera a "Entendido" (App.feedback.lockUntilAck) antes de
+     dejar volver a intentar. */
+  var pasosAsc = [];
+  var idxA = 0;
+  var DELAY_A = App.utils.reducedMotion() ? 0 : 800;
+
+  var ascTituloEl = $('#ascensorTitulo');
+  var ascHistoriaEl = $('#ascensorHistoria');
+  var ascFeedbackEl = $('#ascensorFeedback');
+  var ascConsejoEl = $('#ascensorConsejo');
+  var ascConsejoTextoEl = $('#ascensorConsejoTexto');
+  var ascPreguntaEl = $('#ascensorPregunta');
+  var ascOpcionesEl = $('#ascensorOpciones');
+  var ascExplicacionWrap = $('#ascensorExplicacionWrap');
+  var ascExplicacionEl = $('#ascensorExplicacion');
+  var btnSiguienteAscensor = $('#btnSiguienteAscensor');
+  var ascReglaEl = $('#ascensorRegla');
+  var ascReglaTextoEl = $('#ascensorReglaTexto');
+
+  function iniciarAscensor() {
+    actividadActual = 'ascensor';
+    var datos = banco().ascensor;
+    pasosAsc = datos.escenario.pasos.concat(datos.llamada.pasos);
+    idxA = 0;
+    ascTituloEl.textContent = datos.tituloEscenario;
+    ascHistoriaEl.innerHTML = '';
+    ascReglaEl.classList.add('hidden');
+    ascReglaTextoEl.textContent = datos.escenario.regla + ' ' + datos.llamada.regla;
+    ocultarTodas();
+    pantallaAscensor.classList.remove('hidden');
+    siguientePasoA();
+  }
+
+  function limpiarZonaA() {
+    ascOpcionesEl.innerHTML = '';
+    ascPreguntaEl.classList.add('hidden');
+    ascConsejoEl.classList.add('hidden');
+    ascExplicacionWrap.classList.add('hidden');
+    btnSiguienteAscensor.classList.add('hidden');
+    ascFeedbackEl.textContent = '';
+    ascFeedbackEl.className = 'feedback';
+  }
+
+  function narracionA(paso) {
+    var fila = document.createElement('div');
+    fila.className = 'asc-linea';
+    var picto = document.createElement('span');
+    picto.className = 'asc-picto';
+    picto.setAttribute('aria-hidden', 'true');
+    picto.textContent = paso.picto || '';
+    var texto = document.createElement('span');
+    texto.className = 'asc-texto';
+    texto.textContent = paso.text;
+    fila.appendChild(picto);
+    fila.appendChild(texto);
+    ascHistoriaEl.appendChild(fila);
+    ascHistoriaEl.scrollTop = ascHistoriaEl.scrollHeight;
+  }
+
+  function siguientePasoA() {
+    if (!pasosAsc.length) return;
+    if (idxA >= pasosAsc.length) {
+      terminarAscensor();
+      return;
+    }
+    var datos = banco().ascensor;
+    /* Al empezar la segunda etapa cambia el título de la pantalla. */
+    if (idxA === datos.escenario.pasos.length) {
+      ascTituloEl.textContent = datos.tituloLlamada;
+    }
+    var paso = pasosAsc[idxA];
+    idxA += 1;
+    if (paso.tipo === 'narracion') {
+      narracionA(paso);
+      setTimeout(function () {
+        if (actividadActual === 'ascensor') siguientePasoA();
+      }, DELAY_A);
+    } else {
+      pintarPreguntaA(paso);
+    }
+  }
+
+  function pintarPreguntaA(paso) {
+    limpiarZonaA();
+    ascPreguntaEl.textContent = paso.text;
+    ascPreguntaEl.classList.remove('hidden');
+    App.utils.shuffle(paso.opciones).forEach(function (op) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-opcion';
+      btn.textContent = op.texto;
+      btn.addEventListener('click', function () { responderA(btn, op); });
+      ascOpcionesEl.appendChild(btn);
+    });
+  }
+
+  function responderA(btn, op) {
+    if (op.correcta) {
+      Array.prototype.forEach.call(ascOpcionesEl.querySelectorAll('.btn-opcion'), function (b) {
+        b.disabled = true;
+      });
+      btn.classList.add('correcta');
+      App.feedback.success(ascFeedbackEl);
+      ascExplicacionEl.textContent = op.explicacion;
+      ascExplicacionWrap.classList.remove('hidden');
+      btnSiguienteAscensor.classList.remove('hidden');
+      btnSiguienteAscensor.focus();
+    } else {
+      btn.classList.add('animo');
+      btn.disabled = true;
+      App.feedback.encourage(ascFeedbackEl);
+      ascConsejoTextoEl.textContent = op.pista || App.i18n.t('ascensorPista');
+      ascConsejoEl.classList.remove('hidden');
+      App.feedback.lockUntilAck(ascOpcionesEl.querySelectorAll('.btn-opcion'), ascConsejoEl);
+    }
+  }
+
+  function terminarAscensor() {
+    progress.stars += 1;
+    progress.completadoAscensor += 1;
+    save();
+    renderStars();
+    if (App.feedback && App.feedback.star) App.feedback.star();
+    ascReglaEl.classList.remove('hidden');
+    App.feedback.celebrate(App.i18n.t('ascensorSuperado'));
+  }
+
   /* ---- Eventos ---- */
   $('#tarjetaReconocer').addEventListener('click', iniciarReconocer);
   $('#tarjetaLlamada').addEventListener('click', iniciarLlamada);
+  $('#tarjetaAscensor').addEventListener('click', iniciarAscensor);
   $('#btnVolverReconocer').addEventListener('click', irMenu);
   $('#btnVolverLlamada').addEventListener('click', irMenu);
+  $('#btnVolverAscensor').addEventListener('click', irMenu);
+  var btnRepetirAscensor = $('#btnRepetirAscensor');
+  if (btnRepetirAscensor) btnRepetirAscensor.addEventListener('click', iniciarAscensor);
+  var btnMenuAscensor = $('#btnMenuAscensor');
+  if (btnMenuAscensor) btnMenuAscensor.addEventListener('click', irMenu);
   btnNextRecognize.addEventListener('click', nextRecognize);
+  btnSiguienteAscensor.addEventListener('click', function () {
+    limpiarZonaA();
+    siguientePasoA();
+  });
   var btnEscucharReconocer = $('#btnEscucharReconocer');
   if (btnEscucharReconocer) btnEscucharReconocer.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(itemsReconocer[idxR].situacion);
   });
   $('#btnRepeat').addEventListener('click', function () {
     if (actividadActual === 'reconocer') iniciarReconocer();
+    else if (actividadActual === 'ascensor') iniciarAscensor();
     else iniciarLlamada();
   });
   $('#btnVolverMenuFinal').addEventListener('click', irMenu);

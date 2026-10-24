@@ -160,7 +160,7 @@ Algunas actividades tratan temas delicados:
 
 | Actividad | Tema | Recomendación |
 |-----------|------|---------------|
-| **Emergencias** | 112, situaciones de peligro | Revisar primero, acompañar si es necesario |
+| **Emergencias** | 112, situaciones de peligro, quedarse encerrado en el ascensor | Revisar primero, acompañar si es necesario |
 | **Teléfonos Importantes** | 112, situaciones de peligro | Revisar primero, acompañar si es necesario |
 | **Mis Datos** | Dirección y teléfonos reales de la persona y su familia | Requiere configurarla antes en `/settings/` (dirección y teléfonos); sin eso la actividad muestra solo un aviso |
 | **Chat Seguro** | Manipulación online | Requiere supervisión de la persona de apoyo |

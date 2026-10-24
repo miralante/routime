@@ -28,7 +28,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Mi agenda** | Prepara una cita o tarea: orden, materiales y momento adecuado |
 | **¿Qué me pongo?** | Elige la ropa adecuada según el tiempo que hace |
 | **La Calle** | Cruzar la calle, transporte público, qué hacer si te pierdes |
-| **Emergencias** | Reconoce emergencias reales y practica llamar al 112 |
+| **Emergencias** | Reconoce emergencias reales, practica llamar al 112 y qué hacer y qué decir si te quedas encerrado en el ascensor |
 | **Mientras Llega la Ayuda** | Qué hacer tras llamar al 112 mientras llega la ambulancia, los bomberos o la policía: salir, no mover al herido, presionar la herida, posición lateral |
 | **Antes de la Emergencia** | Prepara en casa con la familia lo que tiene que estar listo: 112 escrito, dirección visible, detector de humo, pastillas fuera de alcance, llaves de luz y gas |
 | **Teléfonos Importantes** | Aprende que el 112 sirve para policía, bomberos y emergencia médica |
