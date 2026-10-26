@@ -49,6 +49,12 @@
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
+  function escapeHtml(texto) {
+    return String(texto).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function doneOf(rutina) {
@@ -148,9 +154,9 @@
       btnAccion.type = 'button';
       if (modo === 'steps') {
         btnAccion.className = 'btn btn-start';
-        btnAccion.textContent = App.i18n.t(completada ? 'btnRepeat' : 'btnStart');
+        btnAccion.textContent = App.i18n.t(completada ? 'btnRepetir' : 'btnEmpezar');
         btnAccion.setAttribute('aria-label',
-          (completada ? App.i18n.t('btnRepeat') : App.i18n.t('btnStart'))
+          (completada ? App.i18n.t('btnRepetir') : App.i18n.t('btnEmpezar'))
           + ': ' + rutina.name);
         btnAccion.addEventListener('click', function () { openRoutine(rutina); });
       } else {
@@ -278,8 +284,8 @@
     var btnAccion = document.createElement('button');
     btnAccion.type = 'button';
     btnAccion.className = 'btn btn-start';
-    btnAccion.textContent = App.i18n.t('btnStart');
-    btnAccion.setAttribute('aria-label', App.i18n.t('btnStart') + ': ' + App.i18n.t('freeListCardName'));
+    btnAccion.textContent = App.i18n.t('btnEmpezar');
+    btnAccion.setAttribute('aria-label', App.i18n.t('btnEmpezar') + ': ' + App.i18n.t('freeListCardName'));
     btnAccion.addEventListener('click', openFreeList);
     acciones.appendChild(btnAccion);
     cuerpo.appendChild(acciones);
@@ -295,6 +301,7 @@
   function openRoutine(rutina) {
     currentRoutine = rutina;
     menuScreen.classList.add('hidden');
+    freeListScreen.classList.add('hidden');
     routineScreen.classList.remove('hidden');
     routineTitle.textContent = rutina.picto + ' ' + rutina.name;
     feedbackEl.textContent = '';
@@ -316,7 +323,7 @@
       var picto = (typeof paso.picto === 'string' && /^\.{1,2}\//.test(paso.picto))
         ? '<img class="picto" src="' + paso.picto + '" alt="" aria-hidden="true" loading="lazy" decoding="async">'
         : '<span class="picto" aria-hidden="true">' + paso.picto + '</span>';
-      var text = '<span class="text">' + paso.text + '</span>';
+      var text = '<span class="text">' + escapeHtml(paso.text) + '</span>';
       var hechoBtn = '<button type="button" class="btn btn-done"' +
         (i === current ? '' : ' disabled') + '>' +
         App.i18n.t('btnDone') + '</button>';
@@ -355,7 +362,7 @@
     renderSteps();
     routineScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = App.i18n.t('routineCompletedTitle');
+    $('#resumenFinal').textContent = App.i18n.t('resumenFinal').replace('{name}', currentRoutine.name);
     $('#transferencia').textContent = App.i18n.t('transferencia');
     App.feedback.celebrate(App.i18n.t('routineCompletedTitle'));
     renderStars();
@@ -405,8 +412,9 @@
     menuScreen.classList.add('hidden');
     routineScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
+    freeListScreen.classList.add('hidden');
     orderScreen.classList.remove('hidden');
-    orderTitle.textContent = rutina.picto + ' ' + rutina.name;
+    orderTitle.textContent = App.i18n.t('ordenTitulo').replace('{name}', rutina.picto + ' ' + rutina.name);
     orderFeedback.textContent = '';
     orderFeedback.className = 'feedback';
     renderOrder();
@@ -683,7 +691,9 @@
     }
     currentOrder.hintSlot = slotToMark;
     currentOrder.hintUsed = true;
-    orderFeedback.textContent = '';
+    orderFeedback.textContent = App.i18n.t('hintOrder')
+      .replace('{posicion}', slotToMark + 1)
+      .replace('{primero}', steps[slotToMark].text);
     renderOrder();
     /* Quita el resaltado tras unos segundos para no condicionar el siguiente intento. */
     setTimeout(function () {
@@ -1003,6 +1013,9 @@
       renderMenu();
     }
   });
+
+  $('#inputNewItem').placeholder = App.i18n.t('placeholderInputItem');
+  $('#inputNewItem').setAttribute('aria-label', App.i18n.t('ariaInputItem'));
 
   renderMenu();
 })();

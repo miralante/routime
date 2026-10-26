@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-vdca4c70d">
+  <link rel="stylesheet" href="styles.css?v=routime-vfacb6992">
 </head>
 <body>
   <div class="container">
@@ -18,22 +18,9 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <section id="startScreen" class="pila centered">
-      <div class="row centered-row">
-        <p class="instruccion" id="instruction" data-i18n="instruction">Practica cómo protegerte ante situaciones difíciles en redes sociales.</p>
-      </div>
-      <div class="safety-note" role="note">
-        <span aria-hidden="true">🛟</span>
-        <p data-i18n="safetyNote">Si algo parecido te ha ocurrido, no es tu culpa. Para, guarda las pruebas y pide ayuda a una persona de confianza.</p>
-      </div>
-      <span class="dificultad" id="dificultad" aria-live="polite"></span>
-      <button type="button" class="btn btn-principal" id="btnPlay">
-        <span data-i18n="btnJugar">¡Jugar!</span>
-      </button>
-    </section>
-
     <section id="caseScreen" class="hidden pila">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div><span class="progress-text" id="progressText">1 / 5</span></div>
+      <span class="dificultad" id="grupoCaso" aria-live="polite"></span>
       <div class="card centered pila">
         <div class="case-icon" id="caseIcon" aria-hidden="true"></div>
         <p class="text-principal" id="caseText"></p>
@@ -45,16 +32,30 @@
         <p id="explanation" aria-live="polite"></p>
       </div>
       <button type="button" class="btn hidden" id="nextButton" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todos los casos</button>
     </section>
 
     <section id="endScreen" class="hidden centered pila" aria-live="polite">
       <div class="emoji-grande" aria-hidden="true">🛡️</div>
+      <div class="safety-note" role="note">
+        <span aria-hidden="true">🛟</span>
+        <p data-i18n="safetyNote">Si algo parecido te ha ocurrido, no es tu culpa. Para, guarda las pruebas y pide ayuda a una persona de confianza.</p>
+      </div>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <h2 data-i18n="roundComplete">Tema completado</h2>
       <p id="endText"></p>
       <p id="resumenFinal"></p>
       <button type="button" class="btn" id="btnRepeat" data-i18n="repeat">Practicar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todos los casos</button>
       <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
+    </section>
+
+    <section id="listScreen" class="hidden pila" aria-live="polite">
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnVolverJugar" data-i18n="volverJugar">Volver a practicar</button>
+      </div>
+      <h2 data-i18n="listaTitulo">Todos los casos</h2>
+      <div id="listaTodas"></div>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
@@ -63,10 +64,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-ve668b726"></script>
-  <script src="strings.en.js?v=routime-vcfd66265"></script>
-  <script src="data.js?v=routime-v6af3a6db"></script>
-  <script src="app.js?v=routime-v6331d0af"></script>
+  <script src="strings.es.js?v=routime-v15ec4d8e"></script>
+  <script src="strings.en.js?v=routime-vf6641d36"></script>
+  <script src="data.js?v=routime-vf700fedb"></script>
+  <script src="app.js?v=routime-vc834f553"></script>
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('../../sw.js').catch(function () {});</script>
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
 </body>

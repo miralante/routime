@@ -17,13 +17,15 @@
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
+  var listScreen = $('#listScreen');
+  var listEl = $('#listaTodas');
+  var lastScreen = gameScreen;
 
   var progress = App.storage.get(TOOL_ID);
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
-  var currentLevel = null;
+  var roundStart = 0;
   var items = [];
   var index = 0;
   var hits = 0;
@@ -34,18 +36,34 @@
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function levelForProgress() {
-    return bank().niveles[Math.min(progress.roundsCompleted, bank().niveles.length - 1)];
+  // Un único recorrido por todas las situaciones: nivel 1, nivel 2 y
+  // nivel 3, cada uno en su orden por subactividad. Cada entrada guarda
+  // su nivel para mostrarlo al pasar de un nivel a otro dentro de la ronda.
+  function catalog() {
+    var out = [];
+    bank().niveles.forEach(function (level) {
+      level.items.forEach(function (item) { out.push({ level: level, item: item }); });
+    });
+    return out;
+  }
+
+  // Cada ronda continúa donde terminó la anterior y da la vuelta al final.
+  function roundEntries(all, start) {
+    var out = [];
+    for (var i = 0; i < bank().porRonda; i++) {
+      out.push(all[(start + i) % all.length]);
+    }
+    return out;
   }
 
   function startGame() {
-    currentLevel = levelForProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
+    var all = catalog();
+    roundStart = (progress.position || 0) % all.length;
+    items = roundEntries(all, roundStart);
     index = 0;
     hits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
     render();
   }
 
@@ -56,10 +74,12 @@
   }
 
   function render() {
-    var item = items[index];
-    if (!item) return endRound();
+    var entry = items[index];
+    if (!entry) return endRound();
+    var item = entry.item;
     solved = false;
     attempts = 0;
+    levelEl.textContent = entry.level.name + ' · ' + entry.level.descripcion + ' · ' + entry.level.grupos[item.grupo];
     situationIcon.textContent = item.picto;
     situationText.textContent = item.situacion;
     feedbackEl.textContent = '';
@@ -131,7 +151,9 @@
 
   function endRound() {
     progress.roundsCompleted += 1;
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    progress.position = (roundStart + items.length) % catalog().length;
+    var levelId = items[0].level.id;
+    progress.completed[levelId] = (progress.completed[levelId] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
@@ -141,7 +163,53 @@
     renderStars();
   }
 
+  // Lista de solo lectura con todas las situaciones, agrupadas por
+  // nivel y subactividad. No cambia el progreso.
+  function renderList() {
+    listEl.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var heading = document.createElement('h2');
+      heading.textContent = level.name + ' · ' + level.descripcion;
+      listEl.appendChild(heading);
+      Object.keys(level.grupos).forEach(function (grupo) {
+        var subheading = document.createElement('h3');
+        subheading.textContent = level.grupos[grupo];
+        var ul = document.createElement('ul');
+        ul.className = 'lista-situaciones';
+        level.items.filter(function (item) { return item.grupo === grupo; }).forEach(function (item) {
+          var li = document.createElement('li');
+          var picto = document.createElement('span');
+          picto.className = 'lista-picto';
+          picto.setAttribute('aria-hidden', 'true');
+          picto.textContent = item.picto;
+          li.appendChild(picto);
+          li.appendChild(document.createTextNode(item.situacion));
+          ul.appendChild(li);
+        });
+        listEl.appendChild(subheading);
+        listEl.appendChild(ul);
+      });
+    });
+  }
+
+  function showList() {
+    lastScreen = gameScreen.classList.contains('hidden') ? endScreen : gameScreen;
+    gameScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    renderList();
+    listScreen.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function hideList() {
+    listScreen.classList.add('hidden');
+    lastScreen.classList.remove('hidden');
+  }
+
   btnNext.addEventListener('click', next);
+  $('#btnVerTodas').addEventListener('click', showList);
+  $('#btnVerTodasFin').addEventListener('click', showList);
+  $('#btnVolverJugar').addEventListener('click', hideList);
   $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';

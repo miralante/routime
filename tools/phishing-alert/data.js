@@ -589,14 +589,14 @@ var DATA = {
               ] },
               { tipo: 'msg', text: 'Open this link to see the photo. Come look now!' },
               { tipo: 'eleccion', options: [
-                { text: 'I do not open it. I tell a family member or trusted person.', segura: true,
+                { text: 'I do not open it. I tell a trusted person.', segura: true,
                   avisoSeguro: 'Not opening it is correct. Links from strangers can contain viruses or lead to fake websites.' },
                 { text: 'I will open it and close it right away.',
                   segura: false,
                   pista: 'Opening a link can infect your device the moment you click. Never open it!',
                   aviso: 'Opening the link can infect your device instantly. Delete this message.' }
               ] },
-              { tipo: 'accion', text: '🚫 Do not open the link, tell a family member or trusted person',
+              { tipo: 'accion', text: '🚫 Do not open the link, tell a trusted person',
                 confirmacion: 'You did not open the link. Well done! Do not click links from strangers.' }
             ],
             regla: 'Links from strangers are dangerous. Do not click. Talk to someone you trust.'

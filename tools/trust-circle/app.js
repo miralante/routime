@@ -8,6 +8,8 @@
    carries its own pista/explicacion (Socratic: hint on the first
    mistake, explanation on the second, same as social-safety).
    Round of 8. No punishment for a wrong answer.
+   Un único recorrido por todas las situaciones: nivel 1 a 5, cada uno
+   en su orden. Las rondas continúan donde terminó la anterior.
    ============================================================ */
 (function () {
   'use strict';
@@ -17,6 +19,9 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var introScreen = $('#pantallaIntro');
+  var listScreen = $('#listScreen');
+  var listEl = $('#listaTodas');
   var situacionPictoEl = $('#situacionPicto');
   var situacionTextoEl = $('#situacionTexto');
   var optionsEl = $('#opciones');
@@ -37,13 +42,14 @@
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  /* Round state */
-  var currentLevel = null;
+  /* Round state: items son entradas { level, item } */
+  var roundStart = 0;
   var items = [];
   var idx = 0;
   var roundHits = 0;
   var solved = false;
   var attempts = 0;
+  var lastScreen = gameScreen;
 
   function guardar() { App.storage.set(TOOL_ID, progress); }
 
@@ -51,37 +57,50 @@
 
   function banco() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
+  /* Un solo recorrido: todos los niveles en orden, cada uno con su
+     lista tal como está escrita en data.js. */
+  function catalog() {
+    var out = [];
+    banco().niveles.forEach(function (level) {
+      level.items.forEach(function (item) { out.push({ level: level, item: item }); });
+    });
+    return out;
   }
 
-  /* Muestra la dificultad actual (etiqueta del nivel). */
-  function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.nombre;
+  /* Cada ronda toma los items seguidos desde donde quedó la anterior. */
+  function roundEntries(all, start) {
+    var out = [];
+    for (var i = 0; i < banco().porRonda; i++) {
+      out.push(all[(start + i) % all.length]);
     }
+    return out;
+  }
+
+  function renderLevel(level) {
+    if (levelEl) levelEl.textContent = level.nombre + ' · ' + level.descripcion;
   }
 
   function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    var all = catalog();
+    roundStart = (progress.position || 0) % all.length;
+    items = roundEntries(all, roundStart);
     idx = 0;
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    renderLevel();
     render();
   }
 
   function renderProgress() {
-    progressFill.style.width = ((idx / banco().porRonda) * 100) + '%';
-    progressText.textContent = '';
+    progressFill.style.width = ((idx / items.length) * 100) + '%';
+    progressText.textContent = (idx + 1) + ' / ' + items.length;
   }
 
   function render() {
-    var item = items[idx];
+    var entry = items[idx];
+    if (!entry) return endRound();
+    var item = entry.item;
+    renderLevel(entry.level);
     solved = false;
     attempts = 0;
     situacionPictoEl.textContent = item.picto;
@@ -152,7 +171,7 @@
 
   function next() {
     idx += 1;
-    if (idx >= banco().porRonda) {
+    if (idx >= items.length) {
       endRound();
     } else {
       render();
@@ -160,42 +179,84 @@
   }
 
   function endRound() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    var total = catalog().length;
+    progress.position = (roundStart + items.length) % total;
     progress.roundsCompleted += 1;
+    var levelId = items[0].level.id;
+    progress.completed[levelId] = (progress.completed[levelId] || 0) + 1;
     guardar();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    var resumenEl = $('#resumenFinal');
-    if (resumenEl) {
-      resumenEl.textContent = '';
-      resumenEl.textContent += '\n' + App.i18n.t('proximoNivel')
-        .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-    }
-    /* Esta herramienta ya no trae bloque de "transferencia": ni #transferencia
-       ni su alias #transfer existen en el HTML, y la linea lo vaciaba a pelo.
-       Al cerrar la ronda reventaba con "Cannot set properties of null
-       (setting 'textContent')", asi que el resumen de fin no llegaba a
-       escribirse y no se cantaba el final de ronda. Se escribe solo si el
-       elemento sigue estando, como el resto de guardas de este fichero. */
+    $('#endSummary').textContent = App.i18n.t('roundSummary')
+      .replace('{hits}', roundHits).replace('{total}', items.length);
+    /* Esta herramienta ya no trae bloque de "transferencia". Se escribe
+       solo si el elemento existe, como el resto de guardas de este fichero. */
     var transferenciaEl = $('#transferencia');
     if (transferenciaEl) transferenciaEl.textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
+  /* Lista de solo lectura con todas las situaciones, agrupadas por
+     nivel. No cambia el progreso. */
+  function renderList() {
+    listEl.innerHTML = '';
+    banco().niveles.forEach(function (level) {
+      var heading = document.createElement('h2');
+      heading.textContent = level.nombre + ' · ' + level.descripcion;
+      listEl.appendChild(heading);
+      var ul = document.createElement('ul');
+      ul.className = 'lista-situaciones';
+      level.items.forEach(function (item) {
+        var li = document.createElement('li');
+        var picto = document.createElement('span');
+        picto.className = 'lista-picto';
+        picto.setAttribute('aria-hidden', 'true');
+        picto.textContent = item.picto;
+        li.appendChild(picto);
+        li.appendChild(document.createTextNode(item.situacion));
+        ul.appendChild(li);
+      });
+      listEl.appendChild(ul);
+    });
+  }
+
+  function showList() {
+    lastScreen = gameScreen.classList.contains('hidden') ? endScreen : gameScreen;
+    gameScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    renderList();
+    listScreen.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function hideList() {
+    listScreen.classList.add('hidden');
+    lastScreen.classList.remove('hidden');
+  }
+
   /* Events */
   if (btnListen) btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].item.situacion);
   });
   btnNext.addEventListener('click', next);
   if (btnEscucharExplicacion) btnEscucharExplicacion.addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(explicacionEl.textContent);
   });
+  $('#btnVerTodas').addEventListener('click', showList);
+  $('#btnVerTodasFin').addEventListener('click', showList);
+  $('#btnVolverJugar').addEventListener('click', hideList);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
 
+  /* La introducción se muestra solo al abrir la herramienta; el botón
+     "¡Entendido, jugar!" empieza la primera ronda. */
+  $('#btnContinuarIntro').addEventListener('click', function () {
+    introScreen.classList.add('hidden');
+    startGame();
+  });
+
   renderStars();
-  // Iniciar directamente la actividad
-  startGame();
+  introScreen.classList.remove('hidden');
 })();

@@ -118,7 +118,7 @@ aviso: 'Un momento basta para grabar tu imagen. Con desconocidos, la cámara sie
               ] },
               { tipo: 'msg', text: 'Solo será un segundo. Nadie se va a enterar.' },
               { tipo: 'eleccion', options: [
-                { text: 'He dicho que no. Se lo voy a contar a mi familia.', segura: true,
+                { text: 'He dicho que no. Se lo voy a contar a una persona de confianza.', segura: true,
                   avisoSeguro: '"Nadie se va a enterar" es justo lo que dice quien quiere que hagas algo malo. Contarlo protege.' },
                 { text: 'Bueno, si es solo un segundo…',
 segura: false,
@@ -246,7 +246,7 @@ aviso: 'Con tu teléfono te pueden llamar y escribir cuando quieran. No lo des.'
               { tipo: 'msg', text: 'Para participar, escribe tu nombre completo, tu colegio y tu clase.' },
               { tipo: 'eleccion', options: [
                 { text: 'No doy mis datos. Preguntaré en mi colegio si esto existe.', segura: true,
-                  avisoSeguro: 'Los sorteos de verdad no llegan por chat pidiendo datos. Comprobarlo con tu colegio o familia es lo seguro.' },
+                  avisoSeguro: 'Los sorteos de verdad no llegan por chat pidiendo datos. Comprobarlo con tu colegio o con una persona de confianza es lo seguro.' },
                 { text: '¡Quiero participar! Apunta mis datos.',
 segura: false,
 pista: '¿De verdad: este "sorteo" solo quiere tus datos. Con tu nombre, colegio y clase pueden saber dónde estás…',
@@ -264,7 +264,7 @@ aviso: 'La prisa es la trampa. Nadie pierde nada por comprobar antes con su fami
               { tipo: 'accion', text: '🚫 Bloquear y preguntar en el colegio',
                 confirmacion: 'Has bloqueado a Sorteo_Escolar. En tu colegio nadie sabía nada de ese sorteo: era falso.' }
             ],
-            regla: 'Los formularios y sorteos que llegan por chat pidiendo datos son casi siempre falsos. Compruébalo antes con tu familia o tu colegio.'
+            regla: 'Los formularios y sorteos que llegan por chat pidiendo datos son casi siempre falsos. Compruébalo antes con una persona de confianza o tu colegio.'
           },
           {
             contacto: 'Rutas_Amigos',
@@ -281,14 +281,14 @@ aviso: 'Con tu hora y tu camino, un desconocido sabe dónde encontrarte. Los hor
               ] },
               { tipo: 'msg', text: 'Es solo para el mapa… ¿me dices al menos tu parada de bus?' },
               { tipo: 'eleccion', options: [
-                { text: 'No. Y se lo voy a contar a mi familia.', segura: true,
+                { text: 'No. Y se lo voy a contar a una persona de confianza.', segura: true,
                   avisoSeguro: 'Insistir con preguntas cada vez más pequeñas es una técnica. Contarlo es lo correcto.' },
                 { text: 'Bueno, la parada sí te la digo.',
 segura: false,
 pista: '¿De verdad: la parada también dice dónde estás cada día?',
 aviso: 'La parada también dice dónde estás cada día. No hay dato "pequeño" cuando es sobre tu camino.' }
               ] },
-              { tipo: 'accion', text: '🚫 Bloquear y contarlo a mi familia',
+              { tipo: 'accion', text: '🚫 Bloquear y contarlo a una persona de confianza',
                 confirmacion: 'Has bloqueado a Rutas_Amigos y lo has contado. Tus horarios están a salvo.' }
             ],
             regla: 'Tus horarios y tu camino al colegio o al trabajo son datos secretos. Nadie de internet los necesita.'
@@ -350,10 +350,10 @@ segura: false,
 pista: 'Las prisas son una trampa. Quieren que pienses sin comprobar. ¿Qué puedes hacer?',
 aviso: 'Las prisas son una trampa. Quieren que no pienses. Tú puedes parar y pensar con calma.' }
               ] },
-              { tipo: 'accion', text: '🚫 Bloquear y avisar a mi familia',
-                confirmacion: 'Has bloqueado a Premios_Ya y has avisado a tu familia. ¡Genial!' }
+              { tipo: 'accion', text: '🚫 Bloquear y avisar a una persona de confianza',
+                confirmacion: 'Has bloqueado a Premios_Ya y has avisado a una persona de confianza. ¡Genial!' }
             ],
-            regla: 'Si te regalan algo a cambio de datos o dinero, es un engaño. Para, no contestes y avisa a tu familia.'
+            regla: 'Si te regalan algo a cambio de datos o dinero, es un engaño. Para, no contestes y avisa a una persona de confianza.'
           },
           {
             contacto: 'Soporte_Envios',
@@ -377,7 +377,7 @@ segura: false,
 pista: '¿De verdad: piensa primero: ¿habías pedido algo? Los mensajes de paquetes sorpresa casi siempre son engaños?',
 aviso: 'Piensa primero: ¿habías pedido algo? Los mensajes de paquetes sorpresa casi siempre son engaños.' }
               ] },
-              { tipo: 'accion', text: '🚫 Bloquear y avisar a mi familia',
+              { tipo: 'accion', text: '🚫 Bloquear y avisar a una persona de confianza',
                 confirmacion: 'Has bloqueado a Soporte_Envios. Los códigos del SMS son solo tuyos.' }
             ],
             regla: 'Los códigos que llegan por SMS son secretos: abren tus cuentas. No se los des a nadie, diga lo que diga.'
@@ -469,7 +469,7 @@ aviso: 'Contar lo que te pasa nunca es malo. Las personas de confianza te ayudan
               { tipo: 'accion', text: '🚫 Bloquear y contarlo a una persona de confianza',
                 confirmacion: 'Has bloqueado a Dani_Guay y lo has contado. Eso es ser valiente.' }
             ],
-            regla: 'Los secretos de internet no se guardan. Cuéntaselo siempre a una persona de confianza: tu familia, un profesor…'
+            regla: 'Los secretos de internet no se guardan. Cuéntaselo siempre a una persona de confianza, como un profesor…'
           },
           {
             contacto: 'Tu_Amigo_Nuevo',
@@ -486,7 +486,7 @@ aviso: 'Te quiere llevar donde ninguna persona de confianza pueda ver la convers
               ] },
               { tipo: 'msg', text: 'Es que aquí no puedo contarte mi sorpresa…' },
               { tipo: 'eleccion', options: [
-                { text: 'Pues no me la cuentes. Se lo diré a mi familia.', segura: true,
+                { text: 'Pues no me la cuentes. Se lo diré a una persona de confianza.', segura: true,
                   avisoSeguro: 'Las "sorpresas" que necesitan esconderse no son buenas sorpresas. Contarlo es lo seguro.' },
                 { text: 'Una sorpresa… vale, me la bajo.',
 segura: false,
@@ -577,17 +577,17 @@ aviso: 'Aunque sea un ratito, es peligroso. No vayas a ningún sitio sin tu fami
               ] },
               { tipo: 'msg', text: '¿Por qué no? Tengo un regalo para ti.' },
               { tipo: 'eleccion', options: [
-                { text: 'No quiero tu regalo. Se lo voy a contar a mi familia.', segura: true,
-                  avisoSeguro: 'Un regalo a cambio de quedar es una trampa habitual; contarlo a la familia protege.' },
+                { text: 'No quiero tu regalo. Se lo voy a contar a una persona de confianza.', segura: true,
+                  avisoSeguro: 'Un regalo a cambio de quedar es una trampa habitual; contarlo a una persona de confianza protege.' },
                 { text: '¿Un regalo? Bueno, entonces voy.',
 segura: false,
 pista: '¿De verdad: el regalo es una trampa para que vayas?',
-aviso: 'El regalo es una trampa para que vayas. Cuéntaselo a tu familia.' }
+aviso: 'El regalo es una trampa para que vayas. Cuéntaselo a una persona de confianza.' }
               ] },
-              { tipo: 'accion', text: '🚫 Bloquear y contarlo a mi familia',
-                confirmacion: 'Has bloqueado a Sara_Juegos y lo has contado a tu familia. ¡Muy bien!' }
+              { tipo: 'accion', text: '🚫 Bloquear y contarlo a una persona de confianza',
+                confirmacion: 'Has bloqueado a Sara_Juegos y lo has contado a una persona de confianza. ¡Muy bien!' }
             ],
-            regla: 'Nunca quedes con alguien que solo conoces por internet. Si te lo pide, cuéntaselo a tu familia.'
+            regla: 'Nunca quedes con alguien que solo conoces por internet. Si te lo pide, cuéntaselo a una persona de confianza.'
           },
           {
             contacto: 'Cachorros_Adopta',
@@ -604,8 +604,8 @@ aviso: 'Piénsalo: ¿por qué un desconocido invita a su casa a alguien que no c
               ] },
               { tipo: 'msg', text: 'Solo será un momento, y te llevas uno gratis.' },
               { tipo: 'eleccion', options: [
-                { text: 'No. Y se lo voy a enseñar a mi familia.', segura: true,
-                  avisoSeguro: 'Enseñar el chat a tu familia es lo mejor: ellos pueden comprobar si algo es de verdad.' },
+                { text: 'No. Y se lo voy a enseñar a una persona de confianza.', segura: true,
+                  avisoSeguro: 'Enseñar el chat a una persona de confianza es lo mejor: puede comprobar si algo es de verdad.' },
                 { text: 'Gratis… vale, dime dónde vives.',
 segura: false,
 pista: '¿De verdad: "Gratis" y "solo un momento" son las palabras de las trampas?',
@@ -614,7 +614,7 @@ aviso: '"Gratis" y "solo un momento" son las palabras de las trampas. Nunca vaya
               { tipo: 'accion', text: '🚫 Bloquear y enseñar el chat en casa',
                 confirmacion: 'Has bloqueado a Cachorros_Adopta y has enseñado el chat. ¡Muy bien hecho!' }
             ],
-            regla: 'Nunca vayas a casa de alguien que conociste por internet, dé igual lo que ofrezca. Enséñale el chat a tu familia.'
+            regla: 'Nunca vayas a casa de alguien que conociste por internet, dé igual lo que ofrezca. Enséñale el chat a una persona de confianza.'
           },
           {
             contacto: 'Casi_Vecino',
@@ -746,7 +746,7 @@ aviso: 'Esos comentarios los escribió la misma persona que quiere tu contraseñ
               { tipo: 'msg', text: '¡Necesito tu ayuda! Es una emergencia. 😭' },
               { tipo: 'msg', text: 'Cómprame una tarjeta regalo y mándame los números. Te lo devuelvo mañana.' },
               { tipo: 'eleccion', options: [
-                { text: 'No mando dinero ni tarjetas. Lo hablo con mi familia.', segura: true,
+                { text: 'No mando dinero ni tarjetas. Lo hablo con una persona de confianza.', segura: true,
                   avisoSeguro: 'Las emergencias de verdad no se arreglan con tarjetas regalo. Es un truco muy común.' },
                 { text: 'Vale, te ayudo. Voy a comprarla.',
 segura: false,
@@ -762,10 +762,10 @@ segura: false,
 pista: 'Cuando alguien no quiere que preguntes, ¿será porque al preguntar se descubre el engaño?',
 aviso: 'Cuando alguien no quiere que preguntes, es porque preguntando se descubre el engaño.' }
               ] },
-              { tipo: 'accion', text: '🚫 Bloquear y avisar a mi familia',
+              { tipo: 'accion', text: '🚫 Bloquear y avisar a una persona de confianza',
                 confirmacion: 'Has bloqueado a Alex_Colega y lo has contado. Tu dinero está a salvo.' }
             ],
-            regla: 'No mandes dinero ni números de tarjetas regalo a nadie de internet. Ante una "emergencia", avisa a tu familia.'
+            regla: 'No mandes dinero ni números de tarjetas regalo a nadie de internet. Ante una "emergencia", avisa a una persona de confianza.'
           },
           {
             contacto: 'Numero_Nuevo',
@@ -859,7 +859,7 @@ aviso: 'Ceder para que no se enfade es justo lo que busca. Un conocido de unos d
       { picto: '🤫', text: 'Los secretos de internet no se guardan. Cuéntalos a una persona de confianza.' },
       { picto: '📍', text: 'Nunca quedes con alguien que solo conoces por internet.' },
       { picto: '🔑', text: 'Tu contraseña y los códigos del SMS son solo tuyos. No los des a nadie.' },
-      { picto: '💶', text: 'No mandes dinero ni tarjetas regalo a nadie de internet. Pregunta antes a tu familia.' },
+      { picto: '💶', text: 'No mandes dinero ni tarjetas regalo a nadie de internet. Pregunta antes a una persona de confianza.' },
       { picto: '🧭', text: 'Unos días chateando no convierten a alguien en tu amigo. La confianza se gana con tiempo.' },
       { picto: '🛡️', text: 'Si un chat te hace sentir mal: para, bloquea y cuéntalo. Pedir ayuda siempre está bien.' }
     ]
@@ -948,7 +948,7 @@ aviso: 'A moment is enough to record you. With strangers, the camera stays off.'
               ] },
               { tipo: 'msg', text: "It'll just be a second. Nobody will know." },
               { tipo: 'eleccion', options: [
-                { text: "I said no. I'm going to tell my family.", segura: true,
+                { text: "I said no. I'm going to tell a trusted person.", segura: true,
                   avisoSeguro: '"Nobody will know" is exactly what people say when they want you to do something bad. Telling protects you.' },
                 { text: 'Well, if it is just a second…',
 segura: false,
@@ -1074,7 +1074,7 @@ aviso: 'With your phone number, someone can call or message you whenever they wa
               { tipo: 'msg', text: 'To take part, write your full name, your school and your class.' },
               { tipo: 'eleccion', options: [
                 { text: "I don't give my details. I'll ask at school if this is real.", segura: true,
-                  avisoSeguro: 'Real raffles do not arrive by chat asking for details. Checking with your school or family is the safe move.' },
+                  avisoSeguro: 'Real raffles do not arrive by chat asking for details. Checking with your school or a trusted person is the safe move.' },
                 { text: 'I want to take part! Here are my details.',
 segura: false,
 pista: '¿De verdad: this "raffle" only wants your details. With your name, school and class they can know where…',
@@ -1092,7 +1092,7 @@ aviso: 'The rush is the trick. Nobody loses anything by checking with their fami
               { tipo: 'accion', text: '🚫 Block and ask at school',
                 confirmacion: 'You blocked School_Raffle. Nobody at your school knew about that raffle: it was fake.' }
             ],
-            regla: 'Forms and raffles that arrive by chat asking for details are almost always fake. Check with your family or school first.'
+            regla: 'Forms and raffles that arrive by chat asking for details are almost always fake. Check with a trusted person or your school first.'
           },
           {
             contacto: 'Friend_Routes',
@@ -1109,15 +1109,15 @@ aviso: 'With your time and route, a stranger knows where to find you. Schedules 
               ] },
               { tipo: 'msg', text: "It's just for the map… at least tell me your bus stop?" },
               { tipo: 'eleccion', options: [
-                { text: "No. And I'm going to tell my family about this.", segura: true,
+                { text: "No. And I'm going to tell a trusted person about this.", segura: true,
                   avisoSeguro: 'Insisting with smaller and smaller questions is a technique. Telling someone is the right move.' },
                 { text: "Well, the bus stop I can tell you.",
 segura: false,
 pista: '¿De verdad: the bus stop also says where you are every day?',
 aviso: 'The bus stop also says where you are every day. No detail about your route is "small".' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
-                confirmacion: 'You blocked Friend_Routes and told your family. Your schedule is safe.' }
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
+                confirmacion: 'You blocked Friend_Routes and told a trusted person. Your schedule is safe.' }
             ],
             regla: 'Your schedule and your route to school or work are secret. Nobody online needs them.'
           },
@@ -1178,10 +1178,10 @@ segura: false,
 pista: '¿De verdad: rushing you is a trick. They want you to stop thinking?',
 aviso: 'Rushing you is a trick. They want you to stop thinking. You can stop and think calmly.' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
-                confirmacion: 'You blocked PrizesNow and told your family. Great job!' }
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
+                confirmacion: 'You blocked PrizesNow and told a trusted person. Great job!' }
             ],
-            regla: "If someone offers you a gift in exchange for information or money, it's a trick. Stop, don't reply, and tell your family."
+            regla: "If someone offers you a gift in exchange for information or money, it's a trick. Stop, don't reply, and tell a trusted person."
           },
           {
             contacto: 'Delivery_Support',
@@ -1205,7 +1205,7 @@ segura: false,
 pista: '¿De verdad: think first: did you order anything? Surprise parcel messages are almost always scams?',
 aviso: 'Think first: did you order anything? Surprise parcel messages are almost always scams.' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
                 confirmacion: 'You blocked Delivery_Support. SMS codes are yours alone.' }
             ],
             regla: 'Codes that arrive by SMS are secret: they open your accounts. Never give them to anyone, whatever they say.'
@@ -1297,7 +1297,7 @@ aviso: 'Telling someone what is happening is never wrong. People you trust can h
               { tipo: 'accion', text: '🚫 Block and tell someone I trust',
                 confirmacion: 'You blocked Sam_Cool and told someone. That is being brave.' }
             ],
-            regla: 'Online secrets should not be kept. Always tell someone you trust: your family, a teacher…'
+            regla: 'Online secrets should not be kept. Always tell someone you trust, such as a teacher…'
           },
           {
             contacto: 'Your_New_Friend',
@@ -1314,7 +1314,7 @@ aviso: 'They want to take you where no trusted person can see the conversation. 
               ] },
               { tipo: 'msg', text: "It's just that I can't tell you my surprise here…" },
               { tipo: 'eleccion', options: [
-                { text: "Then don't tell me. I'll tell my family about this.", segura: true,
+                { text: "Then don't tell me. I'll tell a trusted person about this.", segura: true,
                   avisoSeguro: '"Surprises" that need hiding are not good surprises. Telling someone is the safe move.' },
                 { text: "A surprise… okay, downloading it.",
 segura: false,
@@ -1405,17 +1405,17 @@ aviso: 'Even for a little while, it is dangerous. Do not go anywhere without you
               ] },
               { tipo: 'msg', text: 'Why not? I have a gift for you.' },
               { tipo: 'eleccion', options: [
-                { text: "I don't want your gift. I'm going to tell my family.", segura: true,
-                  avisoSeguro: 'A gift in exchange for meeting up is a common trick; telling your family protects you.' },
+                { text: "I don't want your gift. I'm going to tell a trusted person.", segura: true,
+                  avisoSeguro: 'A gift in exchange for meeting up is a common trick; telling a trusted person protects you.' },
                 { text: "A gift? Okay, then I'll go.",
 segura: false,
 pista: '¿De verdad: the gift is a trick to get you to go?',
-aviso: 'The gift is a trick to get you to go. Tell your family.' }
+aviso: 'The gift is a trick to get you to go. Tell a trusted person.' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
-                confirmacion: 'You blocked Sara_Games and told your family. Well done!' }
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
+                confirmacion: 'You blocked Sara_Games and told a trusted person. Well done!' }
             ],
-            regla: 'Never meet someone you only know from the internet. If they ask you to, tell your family.'
+            regla: 'Never meet someone you only know from the internet. If they ask you to, tell a trusted person.'
           },
           {
             contacto: 'Puppy_Adopt',
@@ -1432,8 +1432,8 @@ aviso: 'Think: why would a stranger invite someone they do not know to their hou
               ] },
               { tipo: 'msg', text: 'It will only take a moment, and you get one for free.' },
               { tipo: 'eleccion', options: [
-                { text: 'No. And I am going to show this chat to my family.', segura: true,
-                  avisoSeguro: 'Showing the chat to your family is best: they can check if something is real.' },
+                { text: 'No. And I am going to show this chat to a trusted person.', segura: true,
+                  avisoSeguro: 'Showing the chat to a trusted person is best: they can check if something is real.' },
                 { text: 'Free… okay, where do you live?',
 segura: false,
 pista: '¿De verdad: "Free" and "just a moment" are the words of traps?',
@@ -1442,7 +1442,7 @@ aviso: '"Free" and "just a moment" are the words of traps. Never go to a strange
               { tipo: 'accion', text: '🚫 Block and show the chat at home',
                 confirmacion: 'You blocked Puppy_Adopt and showed the chat at home. Very well done!' }
             ],
-            regla: "Never go to the house of someone you met online, whatever they offer. Show the chat to your family."
+            regla: "Never go to the house of someone you met online, whatever they offer. Show the chat to a trusted person."
           },
           {
             contacto: 'Almost_Neighbour',
@@ -1574,7 +1574,7 @@ aviso: 'Those comments were written by the person who wants your password. They 
               { tipo: 'msg', text: 'I need your help! It is an emergency. 😭' },
               { tipo: 'msg', text: 'Buy me a gift card and send me the numbers. I will pay you back tomorrow.' },
               { tipo: 'eleccion', options: [
-                { text: "I don't send money or cards. I'll talk to my family.", segura: true,
+                { text: "I don't send money or cards. I'll talk to a trusted person.", segura: true,
                   avisoSeguro: 'Real emergencies are not fixed with gift cards. It is a very common trick.' },
                 { text: "Okay, I'll help. Going to buy it.",
 segura: false,
@@ -1590,10 +1590,10 @@ segura: false,
 pista: '¿De verdad: when someone does not want you to ask, it is because asking uncovers the scam?',
 aviso: 'When someone does not want you to ask, it is because asking uncovers the scam.' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
                 confirmacion: 'You blocked Alex_Mate and told someone. Your money is safe.' }
             ],
-            regla: 'Never send money or gift card numbers to anyone online. If there is an "emergency", tell your family.'
+            regla: 'Never send money or gift card numbers to anyone online. If there is an "emergency", tell a trusted person.'
           },
           {
             contacto: 'New_Number',
@@ -1669,7 +1669,7 @@ segura: false,
 pista: '¿De verdad: giving in so they do not get upset is exactly what they are counting on?',
 aviso: 'Giving in so they do not get upset is exactly what they are counting on. Someone you just met does not need your money.' }
               ] },
-              { tipo: 'accion', text: '🚫 Block and tell my family',
+              { tipo: 'accion', text: '🚫 Block and tell a trusted person',
                 confirmacion: 'You blocked Friend_of_a_Friend and told someone. Someone you just met is not a real friend yet.' }
             ],
             regla: "Someone you have known for a few days is not a real friend yet. Trust and money are never asked for or given lightly."
@@ -1685,7 +1685,7 @@ aviso: 'Giving in so they do not get upset is exactly what they are counting on.
       { picto: '🤫', text: 'Online secrets should not be kept. Tell someone you trust.' },
       { picto: '📍', text: 'Never meet someone you only know from the internet.' },
       { picto: '🔑', text: 'Your password and SMS codes are yours alone. Do not give them to anyone.' },
-      { picto: '💶', text: 'Never send money or gift cards to anyone online. Ask your family first.' },
+      { picto: '💶', text: 'Never send money or gift cards to anyone online. Ask a trusted person first.' },
       { picto: '🧭', text: 'A few days of chatting does not make someone your friend. Trust is earned over time.' },
       { picto: '🛡️', text: 'If a chat makes you feel bad: stop, block, and tell someone. Asking for help is always okay.' }
     ]

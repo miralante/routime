@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-v927c8926">
+  <link rel="stylesheet" href="styles.css?v=routime-v12c52c22">
 </head>
 <body>
   <div class="container">
@@ -35,6 +35,7 @@
           <h2 class="column-title" data-i18n="tituloOrigen">Tareas disponibles</h2>
           <ul class="task-list" id="sourceList" aria-live="polite"></ul>
           <button type="button" class="btn btn-add" id="btnAdd" data-i18n="anadir">➕ Añadir tarea</button>
+          <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todas las tareas</button>
         </div>
 
         <!-- Destination column: the user's planned order. -->
@@ -84,6 +85,14 @@
          activity, one task at a time). "← Back to list" lets
          the user go back to the list screen.
          ========================================================= -->
+    <section id="allScreen" class="hidden pila" aria-live="polite">
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnVolverTodas" data-i18n="volverLista">← Volver a la lista</button>
+      </div>
+      <h2 data-i18n="listaTitulo">Todas las tareas</h2>
+      <div id="allList"></div>
+    </section>
+
     <section id="gameScreen" class="hidden pila" aria-labelledby="taskTitle">
       <button type="button" class="btn btn-secondary btn-back-to-list" id="btnBackToList" data-i18n="volverLista">← Volver a la lista</button>
 
@@ -126,10 +135,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-v5b864101"></script>
-  <script src="strings.en.js?v=routime-v37429de6"></script>
-  <script src="data.js?v=routime-v3afaa06d"></script>
-  <script src="app.js?v=routime-vca0aea2e"></script>
+  <script src="strings.es.js?v=routime-vf5f651b0"></script>
+  <script src="strings.en.js?v=routime-v078da520"></script>
+  <script src="data.js?v=routime-v658fb349"></script>
+  <script src="app.js?v=routime-vc289a71b"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});

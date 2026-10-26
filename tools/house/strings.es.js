@@ -26,13 +26,16 @@
     "anadirGuardar": "Guardar",
     "addErrorName": "Escribe un nombre para la tarea (al menos 2 letras).",
     "volverLista": "\u2190 Volver a la lista",
-    "ariaOpenSteps": "Ver los pasos de {nombre}",
+    "ariaOpenSteps": "Ver los pasos de {name}",
     "ariaMoveRight": "Añadir {name} a mi orden",
     "ariaMoveLeft": "Quitar {name} de mi orden",
     "ariaMoveUp": "Subir",
     "ariaMoveDown": "Bajar",
     "ariaStep": "Paso",
     "resumenFinal": "Has ordenado {n} tareas. Ahora tienes {total} estrellas.",
-    "transferencia": "Esto te servirá cuando hagas estas tareas en casa de verdad."
+    "transferencia": "Esto te servirá cuando hagas estas tareas en casa de verdad.",
+    "themeUser": "Mis tareas",
+    "verTodas": "Ver todas las tareas",
+    "listaTitulo": "Todas las tareas"
   }, 'es');
 })();

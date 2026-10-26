@@ -147,6 +147,12 @@
         "works": 'Reconocimiento de captación y presión sexual, consentimiento, intimidad digital, freno de la difusión y comprensión básica de posibles consecuencias legales.',
         "daily": 'Usadla siempre con supervisión profesional o familiar. Recordad que pedir ayuda nunca implica culpa y acordad quiénes son las personas de confianza.'
       },
+      "phishing-alert": {
+        "name": 'Alerta Phishing',
+        "does": 'Decide si un correo, mensaje o enlace es seguro o es una trampa, en situaciones simuladas.',
+        "works": 'Detección de engaños digitales: remitentes falsos, urgencia, premios, datos pedidos por correo y enlaces o adjuntos peligrosos.',
+        "daily": 'Comentad juntos los mensajes que recibe: ¿quién lo envía? ¿pide datos o dinero? Ante la duda, no pulsar y consultarlo con una persona de confianza.'
+      },
       "signs": {
         "name": 'Señales',
         "does": 'Reconoce señales de la calle y de los edificios (peligro, baño, prohibido, salida, emergencias, transporte) y elige qué significa cada una.',
@@ -439,7 +445,7 @@
         "name": 'Círculo de Confianza',
         "does": 'Clasifica relaciones (amigo, compañero, conocido) y elige la respuesta sana ante intentos de manipulación, incluida la petición de dinero.',
         "works": 'Distinción de niveles de cercanía en las relaciones, detección de señales de manipulación (aislamiento, secretismo, chantaje emocional, presión de grupo) y el límite del dinero: quien te quiere de verdad no lo pide.',
-        "daily": 'Habladle de las personas que conoce de verdad y recordadle que nunca debe dar dinero ni datos personales sin consultarlo antes con la familia.'
+        "daily": 'Habladle de las personas que conoce de verdad y recordadle que nunca debe dar dinero ni datos personales sin consultarlo antes con una persona de confianza.'
       },
       "sexual-health": {
         "name": 'Mi Cuerpo, Mis Decisiones',

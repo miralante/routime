@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-vaae00a9e">
+  <link rel="stylesheet" href="styles.css?v=routime-vdae7a9e1">
 </head>
 <body>
   <div class="container">
@@ -27,12 +27,36 @@
       </button>
     </section>
 
+    <section id="pantallaIntro" class="hidden pila centered intro-screen" aria-live="polite">
+      <h2 class="intro-titulo" data-i18n="introTitulo">Antes de empezar, ¿sabes distinguirlos?</h2>
+      <div class="tarjetas-intro">
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">🫂</span>
+          <div>
+            <h3 data-i18n="labelAmigo">Amigo</h3>
+            <p data-i18n="introAmigo">Un amigo es alguien que te importa mucho. Confías en esa persona y compartes cosas importantes contigo. Es alguien con quien pasas tiempo también fuera del colegio.</p>
+          </div>
+        </div>
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">🏫</span>
+          <div>
+            <h3 data-i18n="labelCompanero">Compañero</h3>
+            <p data-i18n="introCompanero">Un compañero es alguien que ves en el colegio o en una actividad. Hacéis cosas juntos, pero no necesariamente lo conoces fuera de ese sitio.</p>
+          </div>
+        </div>
+        <div class="tarjeta-intro">
+          <span class="tarjeta-picto" aria-hidden="true">👋</span>
+          <div>
+            <h3 data-i18n="labelConocido">Conocido</h3>
+            <p data-i18n="introConocido">Un conocido es alguien que sabes quién es: lo has visto, conoces su nombre, pero no tienes una relación cercana. Es alguien con quien puedes saludar.</p>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn" id="btnContinuarIntro" data-i18n="btnContinuarIntro">¡Entendido, jugar!</button>
+    </section>
+
     <section id="gameScreen" class="hidden pila centered">
 
-      <div class="intro-screen" id="pantallaIntro">
-        <p class="instruccion">Aprende situaciones seguras y peligrosas con tus contactos de confianza.</p>
-        <button type="button" class="btn" id="btnContinuarIntro">Continuar</button>
-      </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
         <span class="progress-text" id="progressText"></span>
@@ -50,6 +74,7 @@
         <p id="explanation" aria-live="polite"></p>
       </div>
       <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todas las situaciones</button>
     </section>
 
       <section id="endScreen" class="hidden centered pila" aria-live="polite">
@@ -58,8 +83,17 @@
         <p id="endSummary"></p>
         <p class="transferencia">Sigue praticando para aprender mas.</p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todas las situaciones</button>
         <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
         <a href="../../" class="btn btn-secondary">Volver al menu</a>
+      </section>
+
+      <section id="listScreen" class="hidden pila" aria-live="polite">
+        <div class="row centered-row">
+          <button type="button" class="btn btn-secondary" id="btnVolverJugar" data-i18n="volverJugar">Volver a jugar</button>
+        </div>
+        <h2 data-i18n="listaTitulo">Todas las situaciones</h2>
+        <div id="listaTodas"></div>
       </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
@@ -68,10 +102,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-v7a811256"></script>
-  <script src="strings.en.js?v=routime-v7b151920"></script>
-  <script src="data.js?v=routime-v744a2033"></script>
-  <script src="app.js?v=routime-v3bd795bc"></script>
+  <script src="strings.es.js?v=routime-vbc69318c"></script>
+  <script src="strings.en.js?v=routime-v12f47ffe"></script>
+  <script src="data.js?v=routime-ve2091b28"></script>
+  <script src="app.js?v=routime-v10b8f05f"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});

@@ -147,6 +147,12 @@
         "works": 'Recognizing grooming and sexual pressure, consent, digital privacy, stopping the spread of content, and a basic understanding of possible legal consequences.',
         "daily": 'Always use it with professional or family supervision. Remind them that asking for help never means it is their fault, and agree on who the trusted people are.'
       },
+      "phishing-alert": {
+        "name": 'Phishing Alert',
+        "does": 'Decides whether an email, message or link is safe or a trap, in simulated situations.',
+        "works": 'Spotting digital deception: fake senders, urgency, prizes, requests for data by email, and dangerous links or attachments.',
+        "daily": 'Look at the messages they receive together: who sent it? Does it ask for data or money? If in doubt, do not click and check with a trusted person.'
+      },
       "signs": {
         "name": 'Signs',
         "does": 'Recognizes street and building signs (danger, restroom, forbidden, exit, emergency, transport) and chooses what each one means.',
@@ -437,7 +443,7 @@
         "name": 'Circle of Trust',
         "does": 'Classifies relationships (friend, companion, acquaintance) and chooses the healthy response to manipulation attempts, including requests for money.',
         "works": "Distinguishing closeness levels in relationships, spotting manipulation signs (isolation, secrecy, emotional blackmail, group pressure), and the money boundary: someone who truly cares about you doesn't ask for it.",
-        "daily": "Talk with them about the people they really know, and remind them to never give money or personal details without checking with family first."
+        "daily": "Talk with them about the people they really know, and remind them to never give money or personal details without checking with a trusted person first."
       },
       "sexual-health": {
         "name": 'My Body, My Choices',

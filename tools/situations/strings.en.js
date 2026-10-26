@@ -9,4 +9,7 @@ App.i18n.register({
   "pista": "🤔 Read the situation again and think about what you can do.",
   "roundComplete": "Round complete!",
   "roundSummary": "You got {hits} out of {total} situations right.",
+  "verTodas": "View all situations",
+  "volverJugar": "Back to playing",
+  "listaTitulo": "All situations",
 }, 'en');

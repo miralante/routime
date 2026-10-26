@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-v9f5bb126">
+  <link rel="stylesheet" href="styles.css?v=routime-vaf87a84a">
 </head>
 <body>
   <div class="container">
@@ -45,6 +45,7 @@
         <p id="explanation" aria-live="polite"></p>
       </div>
       <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todas las situaciones</button>
     </section>
 
     <section id="endScreen" class="hidden centered pila" aria-live="polite">
@@ -53,8 +54,17 @@
       <p id="endSummary"></p>
       <p class="transferencia">Sigue praticando para aprender mas.</p>
       <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todas las situaciones</button>
       <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
       <a href="../../" class="btn btn-secondary">Volver al menu</a>
+    </section>
+
+    <section id="listScreen" class="hidden pila" aria-live="polite">
+      <div class="row centered-row">
+        <button type="button" class="btn btn-secondary" id="btnVolverJugar" data-i18n="volverJugar">Volver a jugar</button>
+      </div>
+      <h2 data-i18n="listaTitulo">Todas las situaciones</h2>
+      <div id="listaTodas"></div>
     </section>
     <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
   </div>
@@ -63,10 +73,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-vada40fd3"></script>
-  <script src="strings.en.js?v=routime-v1b381be0"></script>
+  <script src="strings.es.js?v=routime-v3a3fac16"></script>
+  <script src="strings.en.js?v=routime-vdecce4ba"></script>
   <script src="data.js?v=routime-vc9ee5202"></script>
-  <script src="app.js?v=routime-v5dc01aff"></script>
+  <script src="app.js?v=routime-v18fcb463"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});

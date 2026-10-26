@@ -33,6 +33,9 @@
     "ariaMoveDown": "Move down",
     "ariaStep": "Step",
     "resumenFinal": "You ordered {n} tasks. You now have {total} stars.",
-    "transferencia": "This will help you when you do these tasks at home for real."
+    "transferencia": "This will help you when you do these tasks at home for real.",
+    "themeUser": "My tasks",
+    "verTodas": "View all tasks",
+    "listaTitulo": "All tasks"
   }, 'en');
 })();

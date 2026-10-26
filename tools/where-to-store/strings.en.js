@@ -8,6 +8,11 @@
 
   App.i18n.register({
     "title": "🗄️ Where Do I Keep It?",
+    "roundSummary": "You got {hits} out of {total} objects right.",
+    "verTodas": "View all objects",
+    "volverJugar": "Back to playing",
+    "listaTitulo": "All objects",
+    "volverLista": "← Back",
     "instruccion": "Look at the object. Touch the box for the right place.",
     "elegirNivel": "Choose a level",
     "escucharCategoria": "Listen: {categoria}",

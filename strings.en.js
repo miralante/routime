@@ -92,6 +92,7 @@
     "goodmanners_nombre": "Good Manners",
     "goodmanners_detalle": "Learn to be polite: thank you, please, goodbye.",
     "schoolrules_nombre": "School Rules",
+    "education-norms_nombre": "Education Norms",
     "schoolrules_detalle": "Learn the rules for class, the street and public places.",
     "pairs_nombre": "Pairs",
     "pairs_detalle": "Find the matching cards.",

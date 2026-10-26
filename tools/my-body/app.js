@@ -6,6 +6,8 @@
    option always takes care of the signal (eat, drink, rest, breathe,
    tell a trusted person), never ignore it. 8-item rounds. Errors
    are never punished.
+   Un único recorrido por todas las señales: nivel 1, 2 y 3, cada uno
+   en su orden. Las rondas continúan donde terminó la anterior.
    ============================================================ */
 (function () {
   'use strict';
@@ -15,6 +17,8 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var listScreen = $('#listScreen');
+  var listEl = $('#listaTodas');
   var questionTextEl = $('#questionText');
   var optionsEl = $('#options');
   var feedbackEl = $('#feedback');
@@ -34,13 +38,14 @@
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  /* Round state */
-  var currentLevel = null;
+  /* Round state: items son entradas { level, item } */
+  var roundStart = 0;
   var items = [];
   var idx = 0;
   var roundHits = 0;
   var solved = false;
   var attempts = 0;
+  var lastScreen = gameScreen;
 
   function save() { App.storage.set(TOOL_ID, progress); }
 
@@ -48,23 +53,33 @@
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  /* Determines the level based on progress: each completed round raises one level. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, bank().niveles.length - 1);
-    return bank().niveles[idxN];
+  /* Un solo recorrido: todos los niveles en orden, cada uno con su
+     lista tal como está escrita en data.js. */
+  function catalog() {
+    var out = [];
+    bank().niveles.forEach(function (level) {
+      level.items.forEach(function (item) { out.push({ level: level, item: item }); });
+    });
+    return out;
   }
 
-  /* Shows the current difficulty (level label). */
-  function renderLevel() {
-    if (levelEl && currentLevel) {
-      levelEl.textContent = currentLevel.name;
+  /* Cada ronda toma los items seguidos desde donde quedó la anterior. */
+  function roundEntries(all, start) {
+    var out = [];
+    for (var i = 0; i < bank().porRonda; i++) {
+      out.push(all[(start + i) % all.length]);
     }
+    return out;
   }
 
   function renderProgress() {
-    var perRound = bank().porRonda;
+    var perRound = items.length || bank().porRonda;
     progressFill.style.width = ((idx / perRound) * 100) + '%';
     progressText.textContent = (idx + 1) + ' / ' + perRound;
+  }
+
+  function renderLevel(level) {
+    if (levelEl) levelEl.textContent = level.name;
   }
 
   function renderLevels() {
@@ -75,31 +90,26 @@
       btn.type = 'button';
       btn.className = 'btn btn-nivel';
       btn.innerHTML = '<strong>' + level.name + '</strong><br><small>' + level.descripcion + '</small>';
-      btn.addEventListener('click', function () { selectLevel(level); });
+      btn.addEventListener('click', function () { startGame(); });
       levelsEl.appendChild(btn);
     });
   }
 
-  function selectLevel(level) {
-    currentLevel = level;
-    items = level.items.slice();
-    idx = 0;
-    roundHits = 0;
-    gameScreen.classList.remove('hidden');
-    render();
-  }
-
   function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = currentLevel.items.slice();
+    var all = catalog();
+    roundStart = (progress.position || 0) % all.length;
+    items = roundEntries(all, roundStart);
     idx = 0;
     roundHits = 0;
+    endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     render();
   }
 
   function render() {
-    var item = items[idx];
+    var entry = items[idx];
+    if (!entry) return endRound();
+    var item = entry.item;
     solved = false;
     attempts = 0;
     questionTextEl.textContent = item.textContent || item.text;
@@ -124,7 +134,7 @@
     });
 
     renderProgress();
-    renderLevel();
+    renderLevel(entry.level);
     renderStars();
   }
 
@@ -174,7 +184,7 @@
 
   function next() {
     idx += 1;
-    if (idx >= bank().porRonda) {
+    if (idx >= items.length) {
       endRound();
     } else {
       render();
@@ -182,24 +192,61 @@
   }
 
   function endRound() {
+    var total = catalog().length;
+    progress.position = (roundStart + items.length) % total;
     progress.roundsCompleted += 1;
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    var levelId = items[0].level.id;
+    progress.completed[levelId] = (progress.completed[levelId] || 0) + 1;
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal', {
-      n: roundHits,
-      total: progress.stars
-    });
+    $('#endSummary').textContent = App.i18n.t('roundSummary')
+      .replace('{hits}', roundHits).replace('{total}', items.length);
     App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
+  /* Lista de solo lectura con todas las señales, agrupadas por nivel.
+     No cambia el progreso. */
+  function renderList() {
+    listEl.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var heading = document.createElement('h2');
+      heading.textContent = level.name + ' · ' + level.descripcion;
+      listEl.appendChild(heading);
+      var ul = document.createElement('ul');
+      ul.className = 'lista-situaciones';
+      level.items.forEach(function (item) {
+        var li = document.createElement('li');
+        li.textContent = item.textContent || item.text;
+        ul.appendChild(li);
+      });
+      listEl.appendChild(ul);
+    });
+  }
+
+  function showList() {
+    lastScreen = gameScreen.classList.contains('hidden') ? endScreen : gameScreen;
+    gameScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    renderList();
+    listScreen.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function hideList() {
+    listScreen.classList.add('hidden');
+    lastScreen.classList.remove('hidden');
+  }
+
   /* Events */
   if (btnListen) btnListen.addEventListener('click', function () {
-    if (App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
+    if (App.tts && App.tts.speak) App.tts.speak(items[idx].item.textContent);
   });
   btnNext.addEventListener('click', next);
+  $('#btnVerTodas').addEventListener('click', showList);
+  $('#btnVerTodasFin').addEventListener('click', showList);
+  $('#btnVolverJugar').addEventListener('click', hideList);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');

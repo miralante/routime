@@ -50,6 +50,6 @@
     typedCheck: 'Check',
 
     finalSummary: 'You earned {n} stars. You now have {total} stars.',
-    transferencia: 'This will help you if you ever get lost or need to say where you live or call your family.'
+    transferencia: 'This will help you if you ever get lost or need to say where you live or call a trusted person.'
   }, 'en');
 })();

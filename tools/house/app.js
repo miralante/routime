@@ -32,6 +32,8 @@
 
   /* ---- DOM ---- */
   var listScreen       = $('#listScreen');
+  var allScreen        = $('#allScreen');
+  var allList          = $('#allList');
   var addScreen        = $('#addScreen');
   var gameScreen       = $('#gameScreen');
   var endScreen        = $('#endScreen');
@@ -124,6 +126,43 @@
      LIST SCREEN — render + interactions
      ============================================================ */
 
+  /* Lista de solo lectura con todas las tareas, agrupadas por tema. */
+  function renderAll() {
+    allList.innerHTML = '';
+    Object.keys(DATOS.themes).forEach(function (tema) {
+      var tareas = catalogTasks.filter(function (t) { return t.tema === tema; });
+      if (!tareas.length) return;
+      var h = document.createElement('h3');
+      h.textContent = DATOS.themes[tema];
+      allList.appendChild(h);
+      var ul = document.createElement('ul');
+      ul.className = 'lista-tareas';
+      tareas.forEach(function (t) {
+        var li = document.createElement('li');
+        var picto = document.createElement('span');
+        picto.className = 'lista-picto';
+        picto.setAttribute('aria-hidden', 'true');
+        picto.textContent = t.picto;
+        li.appendChild(picto);
+        li.appendChild(document.createTextNode(t.name));
+        ul.appendChild(li);
+      });
+      allList.appendChild(ul);
+    });
+  }
+
+  function showAll() {
+    listScreen.classList.add('hidden');
+    renderAll();
+    allScreen.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function hideAll() {
+    allScreen.classList.add('hidden');
+    listScreen.classList.remove('hidden');
+  }
+
   function renderLists() {
     /* Source: every task NOT in 'order', grouped to keep determinism
        but unordered inside. Tapping the row body opens the steps;
@@ -134,7 +173,22 @@
     for (var i = 0; i < all.length; i++) {
       if (!isInDestination(all[i])) available.push(all[i]);
     }
-    available.forEach(function (t) { sourceList.appendChild(createRow(t, 'source')); });
+    /* Agrupadas por tema, en el orden de DATA.<locale>.themes. Las tareas
+       añadidas por la persona van al final, en su propio grupo. */
+    var grupos = Object.keys(DATOS.themes).map(function (tema) {
+      return { nombre: DATOS.themes[tema], tareas: available.filter(function (t) { return t.tema === tema; }) };
+    });
+    var sinTema = available.filter(function (t) { return !t.tema || !DATOS.themes[t.tema]; });
+    if (sinTema.length) grupos.push({ nombre: App.i18n.t('themeUser'), tareas: sinTema });
+    grupos.forEach(function (g) {
+      if (!g.tareas.length) return;
+      var cabecera = document.createElement('li');
+      cabecera.className = 'theme-title';
+      cabecera.setAttribute('role', 'presentation');
+      cabecera.textContent = g.nombre;
+      sourceList.appendChild(cabecera);
+      g.tareas.forEach(function (t) { sourceList.appendChild(createRow(t, 'source')); });
+    });
 
     /* Destination: the user's planned order, top to bottom. */
     destinationList.innerHTML = '';
@@ -496,6 +550,8 @@
   /* ============================================================
      Events + boot
      ============================================================ */
+  $('#btnVerTodas').addEventListener('click', showAll);
+  $('#btnVolverTodas').addEventListener('click', hideAll);
   btnAdd.addEventListener('click', openAddForm);
   btnAddSave.addEventListener('click', saveNewTask);
   btnAddCancel.addEventListener('click', closeAddForm);

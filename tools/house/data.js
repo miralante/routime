@@ -40,100 +40,94 @@ var DATA = {
     ],
     templateSteps: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'],
 
+    themes: {
+      comida: 'Mesa y comida',
+      cocina: 'Platos y cocina',
+      ropa: 'Ropa y lavadora',
+      dormitorio: 'Dormitorio y cama',
+      limpieza: 'Limpieza de la casa',
+      basura: 'Basura y reciclaje',
+      plantas: 'Plantas y jardín',
+      mascotas: 'Mascotas',
+      compra: 'Compra y nevera',
+      cole: 'Cole y salidas',
+      fiesta: 'Fiestas en casa',
+      higiene: 'Higiene y aspecto',
+      salud: 'Salud en casa',
+      mantenimiento: 'Mantenimiento y día a día'
+    },
     tasks: [
-      /* --- Mesa y comida --- */
-      { id: 'mesa',         name: 'Poner la mesa',                  picto: '🍽️', steps: ['🍽️', '🍴', '🥄', '🥤', '🪑'] },
-      { id: 'recoger',      name: 'Recoger la mesa',                picto: '🧽', steps: ['🍽️', '🍴', '🥄', '🧽', '✨'] },
-      { id: 'merienda',     name: 'Preparar la merienda',           picto: '🥪', steps: ['🍞', '🧈', '🔪', '🍽️', '😋'] },
-      { id: 'desayuno',     name: 'Preparar el desayuno',           picto: '🥣', steps: ['🥣', '🥛', '🍞', '🥄', '😋'] },
-      { id: 'cena',         name: 'Preparar la cena',               picto: '🌙', steps: ['🥣', '🍞', '🥄', '🥛', '😋'] },
-
-      /* --- Platos y cocina --- */
-      { id: 'platos',       name: 'Fregar los platos',              picto: '🧽', steps: ['🍽️', '🧽', '🧴', '🚿', '✨'] },
-      { id: 'cocinar',      name: 'Cocinar una comida',             picto: '🍳', steps: ['🥕', '🔪', '🍳', '🍽️', '🧽'] },
-      { id: 'receta',       name: 'Seguir una receta',              picto: '📝', steps: ['📖', '📝', '🥕', '🍳', '😋'] },
-      { id: 'lavavajillas', name: 'Cargar el lavavajillas',         picto: '🍽️', steps: ['🍽️', '🧴', '🚪', '▶️', '✨'] },
-
-      /* --- Ropa y lavadora --- */
-      { id: 'doblar',       name: 'Doblar la ropa',                 picto: '👕', steps: ['🧺', '👕', '👖', '🧦', '🗄️'] },
-      { id: 'lavar',        name: 'Poner la lavadora',              picto: '🌀', steps: ['🧺', '🧴', '🌀', '👕', '🚪'] },
-      { id: 'tender',       name: 'Tender la ropa',                 picto: '☀️', steps: ['🧺', '🪝', '👕', '💧', '☀️'] },
-      { id: 'recogerRopa',  name: 'Recoger la ropa tendida',        picto: '🧺', steps: ['🧺', '👕', '🪝', '🗄️', '✨'] },
-      { id: 'plancha',      name: 'Planchar la ropa',               picto: '🔥', steps: ['🪑', '👕', '🔥', '👕', '🗄️'] },
-      { id: 'armario',      name: 'Guardar la ropa en el armario',  picto: '🚪', steps: ['🗄️', '👕', '👖', '🚪', '✨'] },
-
-      /* --- Hacer la cama --- */
-      { id: 'cama',         name: 'Hacer la cama',                  picto: '🛏️', steps: ['🛏️', '🧴', '🛌', '🪟', '✨'] },
-      { id: 'cambiarRopaCama',name:'Cambiar las sábanas',           picto: '🛌', steps: ['🛌', '🧺', '🛏️', '🛌', '✨'] },
-
-      /* --- Limpieza general --- */
-      { id: 'barrer',       name: 'Barrer el suelo',                picto: '🧹', steps: ['🧹', '🗑️', '🚪', '🧺', '✨'] },
-      { id: 'fregar',       name: 'Fregar el suelo',                picto: '🪣', steps: ['🪣', '🧴', '🧹', '🚪', '✨'] },
-      { id: 'polvo',        name: 'Limpiar el polvo',               picto: '🪑', steps: ['🪑', '🧴', '🧽', '🗑️', '✨'] },
-      { id: 'habitacion',   name: 'Ordenar mi habitación',          picto: '🛏️', steps: ['🛏️', '👕', '🧸', '📦', '✨'] },
-      { id: 'cocinaLimpia', name: 'Limpiar la cocina',              picto: '🍳', steps: ['🍽️', '🧽', '🧴', '🧹', '✨'] },
-      { id: 'bano',         name: 'Limpiar el baño',                picto: '🛁', steps: ['🧴', '🧽', '🚿', '🪥', '✨'] },
-      { id: 'ventanas',     name: 'Limpiar las ventanas',           picto: '🪟', steps: ['🧴', '🧽', '🪟', '☀️', '✨'] },
-      { id: 'aspirar',      name: 'Pasar la aspiradora',            picto: '🧹', steps: ['🔌', '🧹', '🚪', '🧺', '✨'] },
-
-      /* --- Basura y reciclaje --- */
-      { id: 'basura',       name: 'Sacar la basura',                picto: '🚮', steps: ['🗑️', '🪢', '🚪', '🚮', '✨'] },
-      { id: 'reciclar',     name: 'Separar el reciclaje',           picto: '♻️', steps: ['🗑️', '♻️', '📦', '🚮', '✨'] },
-
-      /* --- Plantas y jardín --- */
-      { id: 'plantas',      name: 'Regar las plantas',              picto: '🪴', steps: ['🪴', '🚰', '💧', '☀️', '✨'] },
-      { id: 'jardin',       name: 'Regar el jardín',                picto: '🌱', steps: ['🚿', '🌱', '💧', '🌸', '☀️'] },
-      { id: 'semilla',      name: 'Plantar una semilla',            picto: '🌰', steps: ['🌰', '🕳️', '🌱', '🚰', '☀️'] },
-
-      /* --- Mascotas --- */
-      { id: 'pasear',       name: 'Pasear al perro',                picto: '🐶', steps: ['🐶', '🦮', '🚪', '🌳', '🏠'] },
-      { id: 'banarPerro',   name: 'Bañar al perro',                 picto: '🛁', steps: ['🐶', '🛁', '🧼', '💧', '🐩'] },
-      { id: 'comidaPerro',  name: 'Dar de comer al perro',          picto: '🦴', steps: ['🥣', '🥄', '🦴', '🐶', '✨'] },
-      { id: 'comidaGato',   name: 'Dar de comer al gato',           picto: '🐱', steps: ['🥣', '🥫', '🥄', '🐱', '✨'] },
-      { id: 'arenero',      name: 'Limpiar el arenero del gato',    picto: '🐈', steps: ['🧹', '🪣', '🐈', '🧴', '✨'] },
-      { id: 'comidaPajaro', name: 'Dar de comer al pájaro',         picto: '🐦', steps: ['🐦', '🌾', '🚰', '🪺', '✨'] },
-      { id: 'limpiarPecera',name: 'Limpiar la pecera',              picto: '🐠', steps: ['🐠', '🪣', '💧', '🐠', '✨'] },
-
-      /* --- Compra y comida fuera --- */
-      { id: 'compra',       name: 'Hacer la compra semanal',        picto: '🛒', steps: ['📝', '🛒', '💳', '🛍️', '🏠'] },
-      { id: 'fruta',        name: 'Lavar la fruta',                 picto: '🍎', steps: ['🍎', '🚿', '💧', '🍽️', '😋'] },
-      { id: 'nevera',       name: 'Guardar la comida en la nevera', picto: '🧊', steps: ['🛍️', '🧴', '🧊', '🚪', '✨'] },
-
-      /* --- Preparar el cole --- */
-      { id: 'mochila',      name: 'Preparar la mochila del cole',   picto: '🎒', steps: ['🎒', '📚', '✏️', '🍎', '🚪'] },
-      { id: 'uniforme',     name: 'Preparar el uniforme del cole',  picto: '👕', steps: ['👕', '👖', '👟', '🎒', '🚪'] },
-
-      /* --- Fiesta en casa --- */
-      { id: 'fiesta',       name: 'Preparar una fiesta en casa',    picto: '🎉', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
-      { id: 'invitados',    name: 'Preparar la mesa para invitados',picto: '🍽️', steps: ['🧽', '🍽️', '🍴', '🥤', '🪑'] },
-
-      /* --- Higiene personal --- */
-      { id: 'ducha',        name: 'Ducharme',                       picto: '🚿', steps: ['🚿', '🧼', '💧', '🧴', '😌'] },
-      { id: 'dientes',      name: 'Lavarme los dientes',            picto: '🪥', steps: ['🪥', '🧴', '💧', '🪞', '✨'] },
-      { id: 'manos',        name: 'Lavarme las manos',              picto: '🧼', steps: ['🚰', '🧼', '💧', '🧻', '✨'] },
-
-      /* --- Ropa y aspecto --- */
-      { id: 'vestirme',     name: 'Vestirme',                       picto: '👕', steps: ['👕', '👖', '👟', '🪞', '✨'] },
-      { id: 'peinarme',     name: 'Peinarme',                       picto: '💇', steps: ['🪞', '💇', '💆', '🪞', '✨'] },
-
-      /* --- Salir y volver a casa --- */
-      { id: 'salirCasa',    name: 'Salir de casa',                  picto: '🚪', steps: ['🪥', '👟', '🔑', '🚪', '🏃'] },
-      { id: 'volverCasa',   name: 'Volver a casa',                  picto: '🏠', steps: ['🔑', '🚪', '👟', '🛋️', '😌'] },
-
-      /* --- Nuevas tareas útiles --- */
-      { id: 'airear',       name: 'Airear la habitación',           picto: '🪟', steps: ['🛏️', '🪟', '🌬️', '⏰', '🪟'] },
-      { id: 'tirarColchon', name: 'Tender y doblar la ropa de la cama', picto: '🛏️', steps: ['🛌', '☀️', '🧺', '🗄️', '✨'] },
-      { id: 'cargarMovil',  name: 'Cargar el móvil',                picto: '🔌', steps: ['📱', '🔌', '⏰', '🔋', '✨'] },
-      { id: 'medicamento',  name: 'Tomar la medicina',              picto: '💊', steps: ['💊', '🥛', '⏰', '🩺', '✨'] },
-      { id: 'curita',       name: 'Poner una tirita',               picto: '🩹', steps: ['🩹', '🧼', '🩹', '💧', '✨'] },
-      { id: 'cumple',       name: 'Preparar un cumpleaños',         picto: '🎂', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
-      { id: 'invierno',     name: 'Preparar la casa para el frío',  picto: '🔥', steps: ['🔥', '🧣', '🧤', '🚪', '🛋️'] },
-      { id: 'verano',       name: 'Preparar la casa para el calor', picto: '🌬️', steps: ['🪟', '🌬️', '💧', '🧊', '🛋️'] },
-      { id: 'botiquin',     name: 'Revisar el botiquín',            picto: '💊', steps: ['💊', '📅', '🩹', '🩺', '✅'] },
-      { id: 'llaves',       name: 'Dejar las llaves en su sitio',   picto: '🔑', steps: ['🔑', '🚪', '🪝', '✅', '🏠'] },
-      { id: 'basuraReciclar',name:'Bajar los contenedores',         picto: '🚮', steps: ['♻️', '🚪', '🚮', '🪢', '✨'] },
-      { id: 'cambiarBombilla',name:'Cambiar una bombilla',          picto: '💡', steps: ['💡', '🪑', '🔌', '💡', '✨'] },
-      { id: 'cerrarCasa',   name: 'Cerrar la casa para salir',      picto: '🚪', steps: ['🪟', '🔥', '🔑', '🚪', '✅'] }
+      { id: 'mesa', tema: 'comida',         name: 'Poner la mesa',                  picto: '🍽️', steps: ['🍽️', '🍴', '🥄', '🥤', '🪑'] },
+      { id: 'recoger', tema: 'comida',      name: 'Recoger la mesa',                picto: '🧽', steps: ['🍽️', '🍴', '🥄', '🧽', '✨'] },
+      { id: 'merienda', tema: 'comida',     name: 'Preparar la merienda',           picto: '🥪', steps: ['🍞', '🧈', '🔪', '🍽️', '😋'] },
+      { id: 'desayuno', tema: 'comida',     name: 'Preparar el desayuno',           picto: '🥣', steps: ['🥣', '🥛', '🍞', '🥄', '😋'] },
+      { id: 'cena', tema: 'comida',         name: 'Preparar la cena',               picto: '🌙', steps: ['🥣', '🍞', '🥄', '🥛', '😋'] },
+      { id: 'platos', tema: 'cocina',       name: 'Fregar los platos',              picto: '🧽', steps: ['🍽️', '🧽', '🧴', '🚿', '✨'] },
+      { id: 'cocinar', tema: 'cocina',      name: 'Cocinar una comida',             picto: '🍳', steps: ['🥕', '🔪', '🍳', '🍽️', '🧽'] },
+      { id: 'receta', tema: 'cocina',       name: 'Seguir una receta',              picto: '📝', steps: ['📖', '📝', '🥕', '🍳', '😋'] },
+      { id: 'lavavajillas', tema: 'cocina', name: 'Cargar el lavavajillas',         picto: '🍽️', steps: ['🍽️', '🧴', '🚪', '▶️', '✨'] },
+      { id: 'doblar', tema: 'ropa',       name: 'Doblar la ropa',                 picto: '👕', steps: ['🧺', '👕', '👖', '🧦', '🗄️'] },
+      { id: 'lavar', tema: 'ropa',        name: 'Poner la lavadora',              picto: '🌀', steps: ['🧺', '🧴', '🌀', '👕', '🚪'] },
+      { id: 'tender', tema: 'ropa',       name: 'Tender la ropa',                 picto: '☀️', steps: ['🧺', '🪝', '👕', '💧', '☀️'] },
+      { id: 'recogerRopa', tema: 'ropa',  name: 'Recoger la ropa tendida',        picto: '🧺', steps: ['🧺', '👕', '🪝', '🗄️', '✨'] },
+      { id: 'plancha', tema: 'ropa',      name: 'Planchar la ropa',               picto: '🔥', steps: ['🪑', '👕', '🔥', '👕', '🗄️'] },
+      { id: 'armario', tema: 'ropa',      name: 'Guardar la ropa en el armario',  picto: '🚪', steps: ['🗄️', '👕', '👖', '🚪', '✨'] },
+      { id: 'cama', tema: 'dormitorio',         name: 'Hacer la cama',                  picto: '🛏️', steps: ['🛏️', '🧴', '🛌', '🪟', '✨'] },
+      { id: 'cambiarRopaCama', tema: 'dormitorio',name:'Cambiar las sábanas',           picto: '🛌', steps: ['🛌', '🧺', '🛏️', '🛌', '✨'] },
+      { id: 'barrer', tema: 'limpieza',       name: 'Barrer el suelo',                picto: '🧹', steps: ['🧹', '🗑️', '🚪', '🧺', '✨'] },
+      { id: 'fregar', tema: 'limpieza',       name: 'Fregar el suelo',                picto: '🪣', steps: ['🪣', '🧴', '🧹', '🚪', '✨'] },
+      { id: 'polvo', tema: 'limpieza',        name: 'Limpiar el polvo',               picto: '🪑', steps: ['🪑', '🧴', '🧽', '🗑️', '✨'] },
+      { id: 'habitacion', tema: 'dormitorio',   name: 'Ordenar mi habitación',          picto: '🛏️', steps: ['🛏️', '👕', '🧸', '📦', '✨'] },
+      { id: 'cocinaLimpia', tema: 'limpieza', name: 'Limpiar la cocina',              picto: '🍳', steps: ['🍽️', '🧽', '🧴', '🧹', '✨'] },
+      { id: 'bano', tema: 'limpieza',         name: 'Limpiar el baño',                picto: '🛁', steps: ['🧴', '🧽', '🚿', '🪥', '✨'] },
+      { id: 'ventanas', tema: 'limpieza',     name: 'Limpiar las ventanas',           picto: '🪟', steps: ['🧴', '🧽', '🪟', '☀️', '✨'] },
+      { id: 'aspirar', tema: 'limpieza',      name: 'Pasar la aspiradora',            picto: '🧹', steps: ['🔌', '🧹', '🚪', '🧺', '✨'] },
+      { id: 'basura', tema: 'basura',       name: 'Sacar la basura',                picto: '🚮', steps: ['🗑️', '🪢', '🚪', '🚮', '✨'] },
+      { id: 'reciclar', tema: 'basura',     name: 'Separar el reciclaje',           picto: '♻️', steps: ['🗑️', '♻️', '📦', '🚮', '✨'] },
+      { id: 'plantas', tema: 'plantas',      name: 'Regar las plantas',              picto: '🪴', steps: ['🪴', '🚰', '💧', '☀️', '✨'] },
+      { id: 'jardin', tema: 'plantas',       name: 'Regar el jardín',                picto: '🌱', steps: ['🚿', '🌱', '💧', '🌸', '☀️'] },
+      { id: 'semilla', tema: 'plantas',      name: 'Plantar una semilla',            picto: '🌰', steps: ['🌰', '🕳️', '🌱', '🚰', '☀️'] },
+      { id: 'pasear', tema: 'mascotas',       name: 'Pasear al perro',                picto: '🐶', steps: ['🐶', '🦮', '🚪', '🌳', '🏠'] },
+      { id: 'banarPerro', tema: 'mascotas',   name: 'Bañar al perro',                 picto: '🛁', steps: ['🐶', '🛁', '🧼', '💧', '🐩'] },
+      { id: 'comidaPerro', tema: 'mascotas',  name: 'Dar de comer al perro',          picto: '🦴', steps: ['🥣', '🥄', '🦴', '🐶', '✨'] },
+      { id: 'comidaGato', tema: 'mascotas',   name: 'Dar de comer al gato',           picto: '🐱', steps: ['🥣', '🥫', '🥄', '🐱', '✨'] },
+      { id: 'arenero', tema: 'mascotas',      name: 'Limpiar el arenero del gato',    picto: '🐈', steps: ['🧹', '🪣', '🐈', '🧴', '✨'] },
+      { id: 'comidaPajaro', tema: 'mascotas', name: 'Dar de comer al pájaro',         picto: '🐦', steps: ['🐦', '🌾', '🚰', '🪺', '✨'] },
+      { id: 'limpiarPecera', tema: 'mascotas',name: 'Limpiar la pecera',              picto: '🐠', steps: ['🐠', '🪣', '💧', '🐠', '✨'] },
+      { id: 'compra', tema: 'compra',       name: 'Hacer la compra semanal',        picto: '🛒', steps: ['📝', '🛒', '💳', '🛍️', '🏠'] },
+      { id: 'fruta', tema: 'compra',        name: 'Lavar la fruta',                 picto: '🍎', steps: ['🍎', '🚿', '💧', '🍽️', '😋'] },
+      { id: 'nevera', tema: 'compra',       name: 'Guardar la comida en la nevera', picto: '🧊', steps: ['🛍️', '🧴', '🧊', '🚪', '✨'] },
+      { id: 'mochila', tema: 'cole',      name: 'Preparar la mochila del cole',   picto: '🎒', steps: ['🎒', '📚', '✏️', '🍎', '🚪'] },
+      { id: 'uniforme', tema: 'cole',     name: 'Preparar el uniforme del cole',  picto: '👕', steps: ['👕', '👖', '👟', '🎒', '🚪'] },
+      { id: 'fiesta', tema: 'fiesta',       name: 'Preparar una fiesta en casa',    picto: '🎉', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
+      { id: 'invitados', tema: 'fiesta',    name: 'Preparar la mesa para invitados',picto: '🍽️', steps: ['🧽', '🍽️', '🍴', '🥤', '🪑'] },
+      { id: 'ducha', tema: 'higiene',        name: 'Ducharme',                       picto: '🚿', steps: ['🚿', '🧼', '💧', '🧴', '😌'] },
+      { id: 'dientes', tema: 'higiene',      name: 'Lavarme los dientes',            picto: '🪥', steps: ['🪥', '🧴', '💧', '🪞', '✨'] },
+      { id: 'manos', tema: 'higiene',        name: 'Lavarme las manos',              picto: '🧼', steps: ['🚰', '🧼', '💧', '🧻', '✨'] },
+      { id: 'vestirme', tema: 'higiene',     name: 'Vestirme',                       picto: '👕', steps: ['👕', '👖', '👟', '🪞', '✨'] },
+      { id: 'peinarme', tema: 'higiene',     name: 'Peinarme',                       picto: '💇', steps: ['🪞', '💇', '💆', '🪞', '✨'] },
+      { id: 'salirCasa', tema: 'cole',    name: 'Salir de casa',                  picto: '🚪', steps: ['🪥', '👟', '🔑', '🚪', '🏃'] },
+      { id: 'volverCasa', tema: 'cole',   name: 'Volver a casa',                  picto: '🏠', steps: ['🔑', '🚪', '👟', '🛋️', '😌'] },
+      { id: 'airear', tema: 'dormitorio',       name: 'Airear la habitación',           picto: '🪟', steps: ['🛏️', '🪟', '🌬️', '⏰', '🪟'] },
+      { id: 'tirarColchon', tema: 'dormitorio', name: 'Airear la cama', picto: '🛏️', steps: ['🛌', '☀️', '🧺', '🗄️', '✨'] },
+      { id: 'cargarMovil', tema: 'mantenimiento',  name: 'Cargar el móvil',                picto: '🔌', steps: ['📱', '🔌', '⏰', '🔋', '✨'] },
+      { id: 'medicamento', tema: 'salud',  name: 'Tomar la medicina',              picto: '💊', steps: ['💊', '🥛', '⏰', '🩺', '✨'] },
+      { id: 'curita', tema: 'salud',       name: 'Poner una tirita',               picto: '🩹', steps: ['🩹', '🧼', '🩹', '💧', '✨'] },
+      { id: 'cumple', tema: 'fiesta',       name: 'Preparar un cumpleaños',         picto: '🎂', steps: ['🕯️', '🎁', '🎈', '📸', '🎉'] },
+      { id: 'invierno', tema: 'mantenimiento',     name: 'Preparar la casa para el frío',  picto: '🔥', steps: ['🔥', '🧣', '🧤', '🚪', '🛋️'] },
+      { id: 'verano', tema: 'mantenimiento',       name: 'Preparar la casa para el calor', picto: '🌬️', steps: ['🪟', '🌬️', '💧', '🧊', '🛋️'] },
+      { id: 'botiquin', tema: 'salud',     name: 'Revisar el botiquín',            picto: '💊', steps: ['💊', '📅', '🩹', '🩺', '✅'] },
+      { id: 'llaves', tema: 'cole',       name: 'Dejar las llaves en su sitio',   picto: '🔑', steps: ['🔑', '🚪', '🪝', '✅', '🏠'] },
+      { id: 'basuraReciclar', tema: 'basura',name:'Bajar los contenedores',         picto: '🚮', steps: ['♻️', '🚪', '🚮', '🪢', '✨'] },
+      { id: 'cambiarBombilla', tema: 'mantenimiento',name:'Cambiar una bombilla',          picto: '💡', steps: ['💡', '🪑', '🔌', '💡', '✨'] },
+      { id: 'cerrarCasa', tema: 'cole',   name: 'Cerrar la casa para salir',      picto: '🚪', steps: ['🪟', '🔥', '🔑', '🚪', '✅'] },
+      { id: 'horno', tema: 'cocina', name: 'Limpiar el horno', picto: '🔥', steps: ['🧤', '🧴', '🧽', '🔥', '✨'] },
+      { id: 'lavabo', tema: 'limpieza', name: 'Limpiar el lavabo', picto: '🚰', steps: ['🧴', '🧽', '🚰', '🪞', '✨'] },
+      { id: 'pelo', tema: 'higiene', name: 'Lavarme el pelo', picto: '💇', steps: ['🚿', '🧴', '💧', '💇', '✨'] },
+      { id: 'cepillarPerro', tema: 'mascotas', name: 'Cepillar al perro', picto: '🐶', steps: ['🐶', '🪥', '🧴', '💧', '✨'] },
+      { id: 'deberes', tema: 'cole', name: 'Hacer los deberes', picto: '📚', steps: ['📚', '✏️', '🪑', '📝', '✅'] },
+      { id: 'cita', tema: 'salud', name: 'Pedir cita al médico', picto: '📅', steps: ['📱', '📝', '📅', '🩺', '✅'] },
+      { id: 'coser', tema: 'ropa', name: 'Coser un botón', picto: '🪡', steps: ['👕', '🪡', '🧵', '✂️', '✅'] }
     ]
   },
 
@@ -156,100 +150,94 @@ var DATA = {
     ],
     templateSteps: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'],
 
+    themes: {
+      comida: 'Table and food',
+      cocina: 'Dishes and cooking',
+      ropa: 'Laundry',
+      dormitorio: 'Bedroom and bed',
+      limpieza: 'Cleaning the house',
+      basura: 'Rubbish and recycling',
+      plantas: 'Plants and garden',
+      mascotas: 'Pets',
+      compra: 'Shopping and fridge',
+      cole: 'School and going out',
+      fiesta: 'Parties at home',
+      higiene: 'Hygiene and looks',
+      salud: 'Health at home',
+      mantenimiento: 'Home upkeep and daily life'
+    },
     tasks: [
-      /* --- Table and food --- */
-      { id: 'mesa',         name: 'Set the table',                  picto: '🍽️', steps: ['🍽️', '🍴', '🥄', '🥤', '🪑'] },
-      { id: 'recoger',      name: 'Clear the table',                picto: '🧽', steps: ['🍽️', '🍴', '🥄', '🧽', '✨'] },
-      { id: 'merienda',     name: 'Make a snack',                   picto: '🥪', steps: ['🍞', '🧈', '🔪', '🍽️', '😋'] },
-      { id: 'desayuno',     name: 'Make breakfast',                 picto: '🥣', steps: ['🥣', '🥛', '🍞', '🥄', '😋'] },
-      { id: 'cena',         name: 'Make dinner',                    picto: '🌙', steps: ['🥣', '🍞', '🥄', '🥛', '😋'] },
-
-      /* --- Dishes and cooking --- */
-      { id: 'platos',       name: 'Wash the dishes',                picto: '🧽', steps: ['🍽️', '🧽', '🧴', '🚿', '✨'] },
-      { id: 'cocinar',      name: 'Cook a meal',                    picto: '🍳', steps: ['🥕', '🔪', '🍳', '🍽️', '🧽'] },
-      { id: 'receta',       name: 'Follow a recipe',                picto: '📝', steps: ['📖', '📝', '🥕', '🍳', '😋'] },
-      { id: 'lavavajillas', name: 'Load the dishwasher',            picto: '🍽️', steps: ['🍽️', '🧴', '🚪', '▶️', '✨'] },
-
-      /* --- Laundry --- */
-      { id: 'doblar',       name: 'Fold the clothes',               picto: '👕', steps: ['🧺', '👕', '👖', '🧦', '🗄️'] },
-      { id: 'lavar',        name: 'Do the laundry',                 picto: '🌀', steps: ['🧺', '🧴', '🌀', '👕', '🚪'] },
-      { id: 'tender',       name: 'Hang out the laundry',           picto: '☀️', steps: ['🧺', '🪝', '👕', '💧', '☀️'] },
-      { id: 'recogerRopa',  name: 'Bring in the laundry',           picto: '🧺', steps: ['🧺', '👕', '🪝', '🗄️', '✨'] },
-      { id: 'plancha',      name: 'Iron the clothes',               picto: '🔥', steps: ['🪑', '👕', '🔥', '👕', '🗄️'] },
-      { id: 'armario',      name: 'Put away the clothes',           picto: '🚪', steps: ['🗄️', '👕', '👖', '🚪', '✨'] },
-
-      /* --- Make the bed --- */
-      { id: 'cama',         name: 'Make the bed',                   picto: '🛏️', steps: ['🛏️', '🧴', '🛌', '🪟', '✨'] },
-      { id: 'cambiarRopaCama',name:'Change the sheets',             picto: '🛌', steps: ['🛌', '🧺', '🛏️', '🛌', '✨'] },
-
-      /* --- General cleaning --- */
-      { id: 'barrer',       name: 'Sweep the floor',                picto: '🧹', steps: ['🧹', '🗑️', '🚪', '🧺', '✨'] },
-      { id: 'fregar',       name: 'Mop the floor',                  picto: '🪣', steps: ['🪣', '🧴', '🧹', '🚪', '✨'] },
-      { id: 'polvo',        name: 'Dust the furniture',             picto: '🪑', steps: ['🪑', '🧴', '🧽', '🗑️', '✨'] },
-      { id: 'habitacion',   name: 'Tidy up my bedroom',             picto: '🛏️', steps: ['🛏️', '👕', '🧸', '📦', '✨'] },
-      { id: 'cocinaLimpia', name: 'Clean the kitchen',              picto: '🍳', steps: ['🍽️', '🧽', '🧴', '🧹', '✨'] },
-      { id: 'bano',         name: 'Clean the bathroom',             picto: '🛁', steps: ['🧴', '🧽', '🚿', '🪥', '✨'] },
-      { id: 'ventanas',     name: 'Clean the windows',              picto: '🪟', steps: ['🧴', '🧽', '🪟', '☀️', '✨'] },
-      { id: 'aspirar',      name: 'Vacuum the floor',               picto: '🧹', steps: ['🔌', '🧹', '🚪', '🧺', '✨'] },
-
-      /* --- Trash --- */
-      { id: 'basura',       name: 'Take out the trash',             picto: '🚮', steps: ['🗑️', '🪢', '🚪', '🚮', '✨'] },
-      { id: 'reciclar',     name: 'Sort the recycling',             picto: '♻️', steps: ['🗑️', '♻️', '📦', '🚮', '✨'] },
-
-      /* --- Plants and garden --- */
-      { id: 'plantas',      name: 'Water the plants',               picto: '🪴', steps: ['🪴', '🚰', '💧', '☀️', '✨'] },
-      { id: 'jardin',       name: 'Water the garden',               picto: '🌱', steps: ['🚿', '🌱', '💧', '🌸', '☀️'] },
-      { id: 'semilla',      name: 'Plant a seed',                   picto: '🌰', steps: ['🌰', '🕳️', '🌱', '🚰', '☀️'] },
-
-      /* --- Pets --- */
-      { id: 'pasear',       name: 'Walk the dog',                   picto: '🐶', steps: ['🐶', '🦮', '🚪', '🌳', '🏠'] },
-      { id: 'banarPerro',   name: 'Bathe the dog',                  picto: '🛁', steps: ['🐶', '🛁', '🧼', '💧', '🐩'] },
-      { id: 'comidaPerro',  name: 'Feed the dog',                   picto: '🦴', steps: ['🥣', '🥄', '🦴', '🐶', '✨'] },
-      { id: 'comidaGato',   name: 'Feed the cat',                   picto: '🐱', steps: ['🥣', '🥫', '🥄', '🐱', '✨'] },
-      { id: 'arenero',      name: 'Clean the cat litter',           picto: '🐈', steps: ['🧹', '🪣', '🐈', '🧴', '✨'] },
-      { id: 'comidaPajaro', name: 'Feed the bird',                  picto: '🐦', steps: ['🐦', '🌾', '🚰', '🪺', '✨'] },
-      { id: 'limpiarPecera',name: 'Clean the fish tank',            picto: '🐠', steps: ['🐠', '🪣', '💧', '🐠', '✨'] },
-
-      /* --- Shopping --- */
-      { id: 'compra',       name: 'Do the weekly shopping',         picto: '🛒', steps: ['📝', '🛒', '💳', '🛍️', '🏠'] },
-      { id: 'fruta',        name: 'Wash the fruit',                 picto: '🍎', steps: ['🍎', '🚿', '💧', '🍽️', '😋'] },
-      { id: 'nevera',       name: 'Put the food in the fridge',     picto: '🧊', steps: ['🛍️', '🧴', '🧊', '🚪', '✨'] },
-
-      /* --- School bag --- */
-      { id: 'mochila',      name: 'Pack the school bag',            picto: '🎒', steps: ['🎒', '📚', '✏️', '🍎', '🚪'] },
-      { id: 'uniforme',     name: 'Get the school uniform ready',   picto: '👕', steps: ['👕', '👖', '👟', '🎒', '🚪'] },
-
-      /* --- Party at home --- */
-      { id: 'fiesta',       name: 'Set up a party at home',         picto: '🎉', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
-      { id: 'invitados',    name: 'Set the table for guests',       picto: '🍽️', steps: ['🧽', '🍽️', '🍴', '🥤', '🪑'] },
-
-      /* --- Personal hygiene --- */
-      { id: 'ducha',        name: 'Take a shower',                  picto: '🚿', steps: ['🚿', '🧼', '💧', '🧴', '😌'] },
-      { id: 'dientes',      name: 'Brush my teeth',                 picto: '🪥', steps: ['🪥', '🧴', '💧', '🪞', '✨'] },
-      { id: 'manos',        name: 'Wash my hands',                  picto: '🧼', steps: ['🚰', '🧼', '💧', '🧻', '✨'] },
-
-      /* --- Clothing --- */
-      { id: 'vestirme',     name: 'Get dressed',                    picto: '👕', steps: ['👕', '👖', '👟', '🪞', '✨'] },
-      { id: 'peinarme',     name: 'Comb my hair',                   picto: '💇', steps: ['🪞', '💇', '💆', '🪞', '✨'] },
-
-      /* --- Leaving and coming back home --- */
-      { id: 'salirCasa',    name: 'Leave the house',                picto: '🚪', steps: ['🪥', '👟', '🔑', '🚪', '🏃'] },
-      { id: 'volverCasa',   name: 'Come back home',                 picto: '🏠', steps: ['🔑', '🚪', '👟', '🛋️', '😌'] },
-
-      /* --- New useful tasks --- */
-      { id: 'airear',       name: 'Air out the room',               picto: '🪟', steps: ['🛏️', '🪟', '🌬️', '⏰', '🪟'] },
-      { id: 'tirarColchon', name: 'Make the bed and air it',        picto: '🛏️', steps: ['🛌', '☀️', '🧺', '🗄️', '✨'] },
-      { id: 'cargarMovil',  name: 'Charge the phone',               picto: '🔌', steps: ['📱', '🔌', '⏰', '🔋', '✨'] },
-      { id: 'medicamento',  name: 'Take the medicine',              picto: '💊', steps: ['💊', '🥛', '⏰', '🩺', '✨'] },
-      { id: 'curita',       name: 'Put on a plaster',               picto: '🩹', steps: ['🩹', '🧼', '🩹', '💧', '✨'] },
-      { id: 'cumple',       name: 'Prepare a birthday',             picto: '🎂', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
-      { id: 'invierno',     name: 'Get the house ready for cold',   picto: '🔥', steps: ['🔥', '🧣', '🧤', '🚪', '🛋️'] },
-      { id: 'verano',       name: 'Get the house ready for heat',   picto: '🌬️', steps: ['🪟', '🌬️', '💧', '🧊', '🛋️'] },
-      { id: 'botiquin',     name: 'Check the first-aid kit',        picto: '💊', steps: ['💊', '📅', '🩹', '🩺', '✅'] },
-      { id: 'llaves',       name: 'Put the keys back in their place', picto: '🔑', steps: ['🔑', '🚪', '🪝', '✅', '🏠'] },
-      { id: 'basuraReciclar',name:'Take down the bins',             picto: '🚮', steps: ['♻️', '🚪', '🚮', '🪢', '✨'] },
-      { id: 'cambiarBombilla',name:'Change a lightbulb',            picto: '💡', steps: ['💡', '🪑', '🔌', '💡', '✨'] },
-      { id: 'cerrarCasa',   name: 'Lock up the house before leaving', picto: '🚪', steps: ['🪟', '🔥', '🔑', '🚪', '✅'] }
+      { id: 'mesa', tema: 'comida',         name: 'Set the table',                  picto: '🍽️', steps: ['🍽️', '🍴', '🥄', '🥤', '🪑'] },
+      { id: 'recoger', tema: 'comida',      name: 'Clear the table',                picto: '🧽', steps: ['🍽️', '🍴', '🥄', '🧽', '✨'] },
+      { id: 'merienda', tema: 'comida',     name: 'Make a snack',                   picto: '🥪', steps: ['🍞', '🧈', '🔪', '🍽️', '😋'] },
+      { id: 'desayuno', tema: 'comida',     name: 'Make breakfast',                 picto: '🥣', steps: ['🥣', '🥛', '🍞', '🥄', '😋'] },
+      { id: 'cena', tema: 'comida',         name: 'Make dinner',                    picto: '🌙', steps: ['🥣', '🍞', '🥄', '🥛', '😋'] },
+      { id: 'platos', tema: 'cocina',       name: 'Wash the dishes',                picto: '🧽', steps: ['🍽️', '🧽', '🧴', '🚿', '✨'] },
+      { id: 'cocinar', tema: 'cocina',      name: 'Cook a meal',                    picto: '🍳', steps: ['🥕', '🔪', '🍳', '🍽️', '🧽'] },
+      { id: 'receta', tema: 'cocina',       name: 'Follow a recipe',                picto: '📝', steps: ['📖', '📝', '🥕', '🍳', '😋'] },
+      { id: 'lavavajillas', tema: 'cocina', name: 'Load the dishwasher',            picto: '🍽️', steps: ['🍽️', '🧴', '🚪', '▶️', '✨'] },
+      { id: 'doblar', tema: 'ropa',       name: 'Fold the clothes',               picto: '👕', steps: ['🧺', '👕', '👖', '🧦', '🗄️'] },
+      { id: 'lavar', tema: 'ropa',        name: 'Do the laundry',                 picto: '🌀', steps: ['🧺', '🧴', '🌀', '👕', '🚪'] },
+      { id: 'tender', tema: 'ropa',       name: 'Hang out the laundry',           picto: '☀️', steps: ['🧺', '🪝', '👕', '💧', '☀️'] },
+      { id: 'recogerRopa', tema: 'ropa',  name: 'Bring in the laundry',           picto: '🧺', steps: ['🧺', '👕', '🪝', '🗄️', '✨'] },
+      { id: 'plancha', tema: 'ropa',      name: 'Iron the clothes',               picto: '🔥', steps: ['🪑', '👕', '🔥', '👕', '🗄️'] },
+      { id: 'armario', tema: 'ropa',      name: 'Put away the clothes',           picto: '🚪', steps: ['🗄️', '👕', '👖', '🚪', '✨'] },
+      { id: 'cama', tema: 'dormitorio',         name: 'Make the bed',                   picto: '🛏️', steps: ['🛏️', '🧴', '🛌', '🪟', '✨'] },
+      { id: 'cambiarRopaCama', tema: 'dormitorio',name:'Change the sheets',             picto: '🛌', steps: ['🛌', '🧺', '🛏️', '🛌', '✨'] },
+      { id: 'barrer', tema: 'limpieza',       name: 'Sweep the floor',                picto: '🧹', steps: ['🧹', '🗑️', '🚪', '🧺', '✨'] },
+      { id: 'fregar', tema: 'limpieza',       name: 'Mop the floor',                  picto: '🪣', steps: ['🪣', '🧴', '🧹', '🚪', '✨'] },
+      { id: 'polvo', tema: 'limpieza',        name: 'Dust the furniture',             picto: '🪑', steps: ['🪑', '🧴', '🧽', '🗑️', '✨'] },
+      { id: 'habitacion', tema: 'dormitorio',   name: 'Tidy up my bedroom',             picto: '🛏️', steps: ['🛏️', '👕', '🧸', '📦', '✨'] },
+      { id: 'cocinaLimpia', tema: 'limpieza', name: 'Clean the kitchen',              picto: '🍳', steps: ['🍽️', '🧽', '🧴', '🧹', '✨'] },
+      { id: 'bano', tema: 'limpieza',         name: 'Clean the bathroom',             picto: '🛁', steps: ['🧴', '🧽', '🚿', '🪥', '✨'] },
+      { id: 'ventanas', tema: 'limpieza',     name: 'Clean the windows',              picto: '🪟', steps: ['🧴', '🧽', '🪟', '☀️', '✨'] },
+      { id: 'aspirar', tema: 'limpieza',      name: 'Vacuum the floor',               picto: '🧹', steps: ['🔌', '🧹', '🚪', '🧺', '✨'] },
+      { id: 'basura', tema: 'basura',       name: 'Take out the trash',             picto: '🚮', steps: ['🗑️', '🪢', '🚪', '🚮', '✨'] },
+      { id: 'reciclar', tema: 'basura',     name: 'Sort the recycling',             picto: '♻️', steps: ['🗑️', '♻️', '📦', '🚮', '✨'] },
+      { id: 'plantas', tema: 'plantas',      name: 'Water the plants',               picto: '🪴', steps: ['🪴', '🚰', '💧', '☀️', '✨'] },
+      { id: 'jardin', tema: 'plantas',       name: 'Water the garden',               picto: '🌱', steps: ['🚿', '🌱', '💧', '🌸', '☀️'] },
+      { id: 'semilla', tema: 'plantas',      name: 'Plant a seed',                   picto: '🌰', steps: ['🌰', '🕳️', '🌱', '🚰', '☀️'] },
+      { id: 'pasear', tema: 'mascotas',       name: 'Walk the dog',                   picto: '🐶', steps: ['🐶', '🦮', '🚪', '🌳', '🏠'] },
+      { id: 'banarPerro', tema: 'mascotas',   name: 'Bathe the dog',                  picto: '🛁', steps: ['🐶', '🛁', '🧼', '💧', '🐩'] },
+      { id: 'comidaPerro', tema: 'mascotas',  name: 'Feed the dog',                   picto: '🦴', steps: ['🥣', '🥄', '🦴', '🐶', '✨'] },
+      { id: 'comidaGato', tema: 'mascotas',   name: 'Feed the cat',                   picto: '🐱', steps: ['🥣', '🥫', '🥄', '🐱', '✨'] },
+      { id: 'arenero', tema: 'mascotas',      name: 'Clean the cat litter',           picto: '🐈', steps: ['🧹', '🪣', '🐈', '🧴', '✨'] },
+      { id: 'comidaPajaro', tema: 'mascotas', name: 'Feed the bird',                  picto: '🐦', steps: ['🐦', '🌾', '🚰', '🪺', '✨'] },
+      { id: 'limpiarPecera', tema: 'mascotas',name: 'Clean the fish tank',            picto: '🐠', steps: ['🐠', '🪣', '💧', '🐠', '✨'] },
+      { id: 'compra', tema: 'compra',       name: 'Do the weekly shopping',         picto: '🛒', steps: ['📝', '🛒', '💳', '🛍️', '🏠'] },
+      { id: 'fruta', tema: 'compra',        name: 'Wash the fruit',                 picto: '🍎', steps: ['🍎', '🚿', '💧', '🍽️', '😋'] },
+      { id: 'nevera', tema: 'compra',       name: 'Put the food in the fridge',     picto: '🧊', steps: ['🛍️', '🧴', '🧊', '🚪', '✨'] },
+      { id: 'mochila', tema: 'cole',      name: 'Pack the school bag',            picto: '🎒', steps: ['🎒', '📚', '✏️', '🍎', '🚪'] },
+      { id: 'uniforme', tema: 'cole',     name: 'Get the school uniform ready',   picto: '👕', steps: ['👕', '👖', '👟', '🎒', '🚪'] },
+      { id: 'fiesta', tema: 'fiesta',       name: 'Set up a party at home',         picto: '🎉', steps: ['📝', '🛒', '🎈', '🎂', '🎉'] },
+      { id: 'invitados', tema: 'fiesta',    name: 'Set the table for guests',       picto: '🍽️', steps: ['🧽', '🍽️', '🍴', '🥤', '🪑'] },
+      { id: 'ducha', tema: 'higiene',        name: 'Take a shower',                  picto: '🚿', steps: ['🚿', '🧼', '💧', '🧴', '😌'] },
+      { id: 'dientes', tema: 'higiene',      name: 'Brush my teeth',                 picto: '🪥', steps: ['🪥', '🧴', '💧', '🪞', '✨'] },
+      { id: 'manos', tema: 'higiene',        name: 'Wash my hands',                  picto: '🧼', steps: ['🚰', '🧼', '💧', '🧻', '✨'] },
+      { id: 'vestirme', tema: 'higiene',     name: 'Get dressed',                    picto: '👕', steps: ['👕', '👖', '👟', '🪞', '✨'] },
+      { id: 'peinarme', tema: 'higiene',     name: 'Comb my hair',                   picto: '💇', steps: ['🪞', '💇', '💆', '🪞', '✨'] },
+      { id: 'salirCasa', tema: 'cole',    name: 'Leave the house',                picto: '🚪', steps: ['🪥', '👟', '🔑', '🚪', '🏃'] },
+      { id: 'volverCasa', tema: 'cole',   name: 'Come back home',                 picto: '🏠', steps: ['🔑', '🚪', '👟', '🛋️', '😌'] },
+      { id: 'airear', tema: 'dormitorio',       name: 'Air out the room',               picto: '🪟', steps: ['🛏️', '🪟', '🌬️', '⏰', '🪟'] },
+      { id: 'tirarColchon', tema: 'dormitorio', name: 'Air out the bed',        picto: '🛏️', steps: ['🛌', '☀️', '🧺', '🗄️', '✨'] },
+      { id: 'cargarMovil', tema: 'mantenimiento',  name: 'Charge the phone',               picto: '🔌', steps: ['📱', '🔌', '⏰', '🔋', '✨'] },
+      { id: 'medicamento', tema: 'salud',  name: 'Take the medicine',              picto: '💊', steps: ['💊', '🥛', '⏰', '🩺', '✨'] },
+      { id: 'curita', tema: 'salud',       name: 'Put on a plaster',               picto: '🩹', steps: ['🩹', '🧼', '🩹', '💧', '✨'] },
+      { id: 'cumple', tema: 'fiesta',       name: 'Prepare a birthday',             picto: '🎂', steps: ['🕯️', '🎁', '🎈', '📸', '🎉'] },
+      { id: 'invierno', tema: 'mantenimiento',     name: 'Get the house ready for cold',   picto: '🔥', steps: ['🔥', '🧣', '🧤', '🚪', '🛋️'] },
+      { id: 'verano', tema: 'mantenimiento',       name: 'Get the house ready for heat',   picto: '🌬️', steps: ['🪟', '🌬️', '💧', '🧊', '🛋️'] },
+      { id: 'botiquin', tema: 'salud',     name: 'Check the first-aid kit',        picto: '💊', steps: ['💊', '📅', '🩹', '🩺', '✅'] },
+      { id: 'llaves', tema: 'cole',       name: 'Put the keys back in their place', picto: '🔑', steps: ['🔑', '🚪', '🪝', '✅', '🏠'] },
+      { id: 'basuraReciclar', tema: 'basura',name:'Take down the bins',             picto: '🚮', steps: ['♻️', '🚪', '🚮', '🪢', '✨'] },
+      { id: 'cambiarBombilla', tema: 'mantenimiento',name:'Change a lightbulb',            picto: '💡', steps: ['💡', '🪑', '🔌', '💡', '✨'] },
+      { id: 'cerrarCasa', tema: 'cole',   name: 'Lock up the house before leaving', picto: '🚪', steps: ['🪟', '🔥', '🔑', '🚪', '✅'] },
+      { id: 'horno', tema: 'cocina', name: 'Clean the oven', picto: '🔥', steps: ['🧤', '🧴', '🧽', '🔥', '✨'] },
+      { id: 'lavabo', tema: 'limpieza', name: 'Clean the sink', picto: '🚰', steps: ['🧴', '🧽', '🚰', '🪞', '✨'] },
+      { id: 'pelo', tema: 'higiene', name: 'Wash my hair', picto: '💇', steps: ['🚿', '🧴', '💧', '💇', '✨'] },
+      { id: 'cepillarPerro', tema: 'mascotas', name: 'Brush the dog', picto: '🐶', steps: ['🐶', '🪥', '🧴', '💧', '✨'] },
+      { id: 'deberes', tema: 'cole', name: 'Do the homework', picto: '📚', steps: ['📚', '✏️', '🪑', '📝', '✅'] },
+      { id: 'cita', tema: 'salud', name: 'Book a doctor\'s appointment', picto: '📅', steps: ['📱', '📝', '📅', '🩺', '✅'] },
+      { id: 'coser', tema: 'ropa', name: 'Sew on a button', picto: '🪡', steps: ['👕', '🪡', '🧵', '✂️', '✅'] }
     ]
   }
 };

@@ -96,3 +96,8 @@
   color: var(--color-texto-suave);
   max-width: 480px;
 }
+#listScreen { text-align: left; width: 100%; max-width: 720px; margin: 0 auto; }
+#listScreen h2 { margin-top: var(--espacio-grande); }
+.lista-situaciones { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lista-situaciones li { padding: 10px 12px; background: var(--color-superficie); border: 2px solid var(--color-borde); border-radius: var(--radio); overflow-wrap: anywhere; }
+.lista-picto { font-size: 1.4em; margin-right: 4px; }

@@ -92,6 +92,7 @@
     "goodmanners_nombre": "Buenos Modales",
     "goodmanners_detalle": "Aprende a ser amable: gracias, por favor, adiós.",
     "schoolrules_nombre": "Normas del Cole",
+    "education-norms_nombre": "Normas de Educación",
     "schoolrules_detalle": "Aprende las normas de clase, la calle y los sitios públicos.",
     "pairs_nombre": "Parejas",
     "pairs_detalle": "Busca las cartas iguales.",

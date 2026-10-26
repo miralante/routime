@@ -47,7 +47,16 @@
         <p id="explanation" aria-live="polite"></p>
       </div>
       <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
+      <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todos los objetos</button>
     </section>
+
+      <section id="allScreen" class="hidden pila" aria-live="polite">
+        <div class="row centered-row">
+          <button type="button" class="btn btn-secondary" id="btnVolverTodas" data-i18n="volverLista">← Volver</button>
+        </div>
+        <h2 data-i18n="listaTitulo">Todos los objetos</h2>
+        <div id="allList"></div>
+      </section>
 
       <section id="endScreen" class="hidden centered pila" aria-live="polite">
         <div class="emoji-grande" aria-hidden="true">&#x1F38A;</div>
@@ -55,6 +64,7 @@
         <p id="endSummary"></p>
         <p class="transferencia">Sigue praticando para aprender mas.</p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
+        <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todos los objetos</button>
         <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
         <a href="../../" class="btn btn-secondary">Volver al menu</a>
       </section>
@@ -65,10 +75,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-vc1c35881"></script>
-  <script src="strings.en.js?v=routime-vfcd07fab"></script>
-  <script src="data.js?v=routime-v5cbe95b9"></script>
-  <script src="app.js?v=routime-vd190598d"></script>
+  <script src="strings.es.js?v=routime-vf182e813"></script>
+  <script src="strings.en.js?v=routime-v15e47a25"></script>
+  <script src="data.js?v=routime-vfe7ee436"></script>
+  <script src="app.js?v=routime-va2de31f8"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});

@@ -93,7 +93,7 @@ aviso: 'No hace falta fingir que no duele. Si te molesta, cuenta. Trabajar a tu 
               ] },
               { tipo: 'msg', text: 'Cada día te llaman por ese mote, aunque ya has pedido que paren.' },
               { tipo: 'eleccion', options: [
-                { text: 'Guardo los mensajes y se los enseño al encargado o a mi familia.', segura: true,
+                { text: 'Guardo los mensajes y se los enseño al encargado o a una persona de confianza.', segura: true,
                   avisoSeguro: 'Cuando pides que paren y no paran, toca contarlo con pruebas. El encargado está para ayudarte.' },
                 { text: 'Dejo de mirar el grupo del taller para siempre.',
 segura: false,
@@ -101,7 +101,7 @@ pista: '¿De verdad: dejar de mirar el grupo te aísla del trabajo, y la burla s
 aviso: 'Dejar de mirar el grupo te aísla del trabajo, y la burla sigue. Contarlo puede pararla de verdad.' }
               ] },
               { tipo: 'accion', text: '🗣️ Contárselo a una persona de confianza',
-                confirmacion: 'Muy bien. En el taller, el encargado y tu familia pueden hacer que esto pare.' }
+                confirmacion: 'Muy bien. En el taller, el encargado y una persona de confianza pueden hacer que esto pare.' }
             ],
             regla: 'Un mote que te hace daño y se repite es acoso, aunque digan que es broma. Pide que paren y cuéntaselo a una persona de confianza.'
           },
@@ -253,14 +253,14 @@ aviso: 'En los grupos siempre hay sitio. Dejarte fuera de los avisos del trabajo
               ] },
               { tipo: 'msg', text: 'Un compañero te dice: "Es que en ese grupo estamos los de siempre, tú no pintas nada."' },
               { tipo: 'eleccion', options: [
-                { text: 'Se lo cuento al encargado o a mi familia. Es mi trabajo también.', segura: true,
+                { text: 'Se lo cuento al encargado o a una persona de confianza. Es mi trabajo también.', segura: true,
                   avisoSeguro: 'Los avisos del taller son de todos. Excluirte a propósito es un problema que el encargado debe arreglar.' },
                 { text: 'Le pido perdón por haber preguntado.',
 segura: false,
 pista: '¿De verdad: no has hecho nada malo al preguntar. Quien excluye es quien actúa mal?',
 aviso: 'No has hecho nada malo al preguntar. Quien excluye es quien actúa mal.' }
               ] },
-              { tipo: 'accion', text: '🗣️ Contárselo al encargado o a mi familia',
+              { tipo: 'accion', text: '🗣️ Contárselo al encargado o a una persona de confianza',
                 confirmacion: 'Muy bien. Los avisos del trabajo son para todos, y tú formas parte del equipo.' }
             ],
             regla: 'Dejarte fuera de los grupos donde se avisan las cosas del trabajo o la clase también es exclusión. Cuéntalo.'
@@ -680,17 +680,17 @@ aviso: 'Responder al desafío puede acabar muy mal. La fuerza aquí es contarlo,
               ] },
               { tipo: 'msg', text: '"Ni se te ocurra decírselo a un profe. Te estaré vigilando."' },
               { tipo: 'eleccion', options: [
-                { text: 'Precisamente por eso se lo digo ya: a un profesor y a mi familia.', segura: true,
+                { text: 'Precisamente por eso se lo digo ya: a un profesor y a una persona de confianza.', segura: true,
                   avisoSeguro: 'Cuanto más insiste en el silencio, más claro está que contarlo le detiene. Bien visto.' },
                 { text: 'Mejor me callo, no quiero que me vigile.',
 segura: false,
 pista: '¿De verdad: el silencio te deja solo con el miedo?',
 aviso: 'El silencio te deja solo con el miedo. Contarlo pone a las personas de confianza de tu lado, que es donde deben estar.' }
               ] },
-              { tipo: 'accion', text: '🗣️ Contarlo hoy a un profesor y a mi familia',
+              { tipo: 'accion', text: '🗣️ Contarlo hoy a un profesor y a una persona de confianza',
                 confirmacion: 'Muy bien. Pedir dinero con amenazas es de las cosas más importantes de contar enseguida.' }
             ],
-            regla: 'Si alguien te pide dinero con amenazas, no pagues: cuéntaselo hoy mismo a un profesor y a tu familia.'
+            regla: 'Si alguien te pide dinero con amenazas, no pagues: cuéntaselo hoy mismo a un profesor y a una persona de confianza.'
           },
           {
             contacto: 'Grupo de clase',
@@ -918,7 +918,7 @@ aviso: 'You do not have to pretend it does not hurt. Working at your own pace is
               ] },
               { tipo: 'msg', text: 'Every day they call you that nickname, even though you asked them to stop.' },
               { tipo: 'eleccion', options: [
-                { text: 'I save the messages and show them to the supervisor or my family.', segura: true,
+                { text: 'I save the messages and show them to the supervisor or a trusted person.', segura: true,
                   avisoSeguro: 'When you ask them to stop and they do not, it is time to tell with proof. The supervisor is there to help you.' },
                 { text: 'I stop looking at the workshop group forever.',
 segura: false,
@@ -926,7 +926,7 @@ pista: '¿De verdad: not looking at the group cuts you off from work, and the mo
 aviso: 'Not looking at the group cuts you off from work, and the mocking continues. Telling someone can really stop it.' }
               ] },
               { tipo: 'accion', text: '🗣️ Tell someone I trust',
-                confirmacion: 'Well done. At the workshop, the supervisor and your family can make this stop.' }
+                confirmacion: 'Well done. At the workshop, the supervisor and a trusted person can make this stop.' }
             ],
             regla: 'A nickname that hurts you and gets repeated is bullying, even if they call it a joke. Ask them to stop and tell someone you trust.'
           },
@@ -1076,14 +1076,14 @@ aviso: 'There is always room in a group. Leaving you out of work announcements i
               ] },
               { tipo: 'msg', text: 'A colleague says: "That group is just for the usual crowd, you don\'t belong there."' },
               { tipo: 'eleccion', options: [
-                { text: 'I tell the supervisor or my family. It is my work too.', segura: true,
+                { text: 'I tell the supervisor or a trusted person. It is my work too.', segura: true,
                   avisoSeguro: 'Workshop announcements belong to everyone. Excluding you on purpose is a problem the supervisor must fix.' },
                 { text: 'I apologise for having asked.',
 segura: false,
 pista: '¿De verdad: you did nothing wrong by asking. Whoever excludes is the one acting wrong?',
 aviso: 'You did nothing wrong by asking. Whoever excludes is the one acting wrong.' }
               ] },
-              { tipo: 'accion', text: '🗣️ Tell the supervisor or my family',
+              { tipo: 'accion', text: '🗣️ Tell the supervisor or a trusted person',
                 confirmacion: 'Well done. Work announcements are for everyone, and you are part of the team.' }
             ],
             regla: 'Being left out of the groups where class or work news is shared is also exclusion. Tell someone.'
@@ -1489,17 +1489,17 @@ aviso: 'Rising to the challenge can end very badly. Strength here is telling, no
               ] },
               { tipo: 'msg', text: '"Don\'t even think of telling a teacher. I\'ll be watching you."' },
               { tipo: 'eleccion', options: [
-                { text: 'That is exactly why I am telling now: a teacher and my family.', segura: true,
+                { text: 'That is exactly why I am telling now: a teacher and a trusted person.', segura: true,
                   avisoSeguro: 'The more he insists on silence, the clearer it is that telling stops him. Well spotted.' },
                 { text: "I'd better keep quiet, I don't want him watching me.",
 segura: false,
 pista: '¿De verdad: silence leaves you alone with the fear. Telling puts the trusted people on your side, which is…',
 aviso: 'Silence leaves you alone with the fear. Telling puts the trusted people on your side, which is where they belong.' }
               ] },
-              { tipo: 'accion', text: '🗣️ Tell a teacher and my family today',
+              { tipo: 'accion', text: '🗣️ Tell a teacher and a trusted person today',
                 confirmacion: 'Well done. Demanding money with threats is one of the most important things to report right away.' }
             ],
-            regla: 'If someone demands money with threats, do not pay: tell a teacher and your family today.'
+            regla: 'If someone demands money with threats, do not pay: tell a teacher and a trusted person today.'
           },
           {
             contacto: 'Class group',

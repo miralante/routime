@@ -50,6 +50,6 @@
     typedCheck: 'Comprobar',
 
     finalSummary: 'Has ganado {n} estrellas. Ahora tienes {total} estrellas.',
-    transferencia: 'Esto te ayudará si algún día te pierdes o necesitas decir dónde vives o llamar a tu familia.'
+    transferencia: 'Esto te ayudará si algún día te pierdes o necesitas decir dónde vives o llamar a una persona de confianza.'
   }, 'es');
 })();

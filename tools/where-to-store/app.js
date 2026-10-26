@@ -36,6 +36,7 @@
   var items = [];
   var idx = 0;
   var roundHits = 0;
+  var roundStart = 0;
   var solved = false;
   var attempts = 0;
 
@@ -61,14 +62,32 @@
     }
   }
 
+  /* Un único recorrido: nivel 1 y nivel 2, cada uno agrupado por sitio. */
+  function catalog() {
+    var out = [];
+    banco().niveles.forEach(function (level) {
+      level.items.forEach(function (item) { out.push({ level: level, item: item }); });
+    });
+    return out;
+  }
+
+  /* Cada ronda continúa donde terminó la anterior y da la vuelta al final. */
+  function roundEntries(all, start) {
+    var out = [];
+    for (var i = 0; i < banco().porRonda; i++) {
+      out.push(all[(start + i) % all.length]);
+    }
+    return out;
+  }
+
   function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
+    var all = catalog();
+    roundStart = (progress.position || 0) % all.length;
+    items = roundEntries(all, roundStart);
     idx = 0;
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    renderLevel();
     render();
   }
 
@@ -79,7 +98,11 @@
   }
 
   function render() {
-    var item = items[idx];
+    var entry = items[idx];
+    if (!entry) return endRound();
+    currentLevel = entry.level;
+    var item = entry.item;
+    renderLevel();
     solved = false;
     attempts = 0;
     feedbackEl.textContent = '';
@@ -162,7 +185,7 @@
 
   function next() {
     idx += 1;
-    if (idx >= banco().porRonda) {
+    if (idx >= items.length) {
       endRound();
     } else {
       render();
@@ -170,23 +193,73 @@
   }
 
   function endRound() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
+    var total = catalog().length;
+    progress.position = (roundStart + items.length) % total;
     progress.roundsCompleted += 1;
+    var levelId = items[0].level.id;
+    progress.completed[levelId] = (progress.completed[levelId] || 0) + 1;
     guardar();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-$('#transferencia').textContent = '';
+    $('#endSummary').textContent = App.i18n.t('roundSummary')
+      .replace('{hits}', roundHits).replace('{total}', items.length);
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
+  }
+
+  /* Lista de solo lectura con todos los objetos, agrupados por nivel y
+     por sitio. No cambia el progreso. */
+  var lastScreen = gameScreen;
+  function renderAll() {
+    var cont = $('#allList');
+    cont.innerHTML = '';
+    banco().niveles.forEach(function (level) {
+      var h2 = document.createElement('h2');
+      h2.textContent = level.nombre + ' · ' + level.descripcion;
+      cont.appendChild(h2);
+      level.categorias.forEach(function (categoria) {
+        var tareas = level.items.filter(function (it) { return it.categoria === categoria; });
+        var h3 = document.createElement('h3');
+        h3.textContent = categoria;
+        cont.appendChild(h3);
+        var ul = document.createElement('ul');
+        ul.className = 'lista-objetos';
+        tareas.forEach(function (it) {
+          var li = document.createElement('li');
+          var picto = document.createElement('span');
+          picto.className = 'lista-picto';
+          picto.setAttribute('aria-hidden', 'true');
+          picto.textContent = it.picto;
+          li.appendChild(picto);
+          li.appendChild(document.createTextNode(it.palabra));
+          ul.appendChild(li);
+        });
+        cont.appendChild(ul);
+      });
+    });
+  }
+
+  function showAll() {
+    lastScreen = gameScreen.classList.contains('hidden') ? endScreen : gameScreen;
+    gameScreen.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    renderAll();
+    $('#allScreen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function hideAll() {
+    $('#allScreen').classList.add('hidden');
+    lastScreen.classList.remove('hidden');
   }
 
   /* Events */
   btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].palabra);
+    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].item.palabra);
   });
   btnNext.addEventListener('click', next);
+  $('#btnVerTodas').addEventListener('click', showAll);
+  $('#btnVerTodasFin').addEventListener('click', showAll);
+  $('#btnVolverTodas').addEventListener('click', hideAll);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';

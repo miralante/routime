@@ -8,6 +8,11 @@
 
   App.i18n.register({
     "title": "🗄️ ¿Dónde lo guardo?",
+    "roundSummary": "Has acertado {hits} de {total} objetos.",
+    "verTodas": "Ver todos los objetos",
+    "volverJugar": "Volver a jugar",
+    "listaTitulo": "Todos los objetos",
+    "volverLista": "← Volver",
     "instruccion": "Mira el objeto. Toca la caja del sitio correcto.",
     "elegirNivel": "Elige el nivel",
     "escucharCategoria": "Escuchar: {categoria}",
