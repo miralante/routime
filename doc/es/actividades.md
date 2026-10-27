@@ -30,6 +30,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Comida Sana** | Clasifica alimentos en "cada día" o "de vez en cuando" y descubre cómo te sientan |
 | **Se lo Cuento al Médico** | Practica poner en palabras sencillas en primera persona un síntoma del cuerpo (dónde, qué, desde cuándo) para que el médico lo entienda |
 | **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a una persona de confianza o llamar al 112 |
+| **Normas del Cole y Civismo** | Practica las normas del aula, del cole y de los sitios públicos (pedir la palabra, hacer cola, reciclar, cruzar con el semáforo en verde, apagar la luz, mediar en una pelea, incluir a alguien excluido) |
 
 ---
 
@@ -46,7 +47,6 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Entre Amigos** | Resuelve situaciones sociales con amigos |
 | **Mi Cuerpo Me Avisa** | Aprende a notar las señales de tu cuerpo cuando sientes algo |
 | **Buenos Modales** | Practica fórmulas de cortesía: gracias, por favor, buenos días, adiós, ceder el paso |
-| **Normas del Cole y Civismo** | Practica las normas del aula, del cole y de los sitios públicos (pedir la palabra, hacer cola, reciclar, cruzar con el semáforo en verde, apagar la luz, mediar en una pelea, incluir a alguien excluido) |
 | **Así Soy Yo** | Acepta cómo eres y responde ante la discapacidad, la discriminación y la gente insensible |
 | **Cuando Algo Me Cuesta** | Tolera la frustración y aprende a pedir ayuda sin vergüenza |
 | **Círculo de Confianza** | Distingue amigo, compañero y conocido, y reconoce la manipulación (incluida la petición de dinero) |

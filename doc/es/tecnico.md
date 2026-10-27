@@ -190,12 +190,12 @@ no hay código por módulo:
 | Módulo | Área | Token de color | Actividades |
 |---|---|---|---|
 | 🎯 Puntería y manos | Coordinación y motricidad | `--mod-coordinacion` (azul) | catch, connect-dots, tracing, coloring, piano-keys, builders |
-| 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food |
+| 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food, education-norms |
 | 🚶 Salir a la calle | Movilidad y vida fuera de casa | `--mod-calle` (ocre) | street, shopping, shop, what-to-wear |
 | 💻 Actividades digitales | Uso seguro del móvil e internet | `--mod-digital` (índigo) | safe-chat, bullying-chat, post-or-not, social-safety, phishing-alert |
 | 🧠 Memoria y atención | Memoria y atención | `--mod-memoria` (naranja) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 💬 Lenguaje y comprensión | Lenguaje y comunicación | `--mod-lenguaje` (frambuesa) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
-| 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
+| 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, self-esteem, resilience, trust-circle |
 | 💗 Cuerpo y relaciones | Educación afectivo-sexual | `--mod-cuerpo` (terracota) | sexual-health |
 
 > **Nota multi-área**: una actividad puede trabajar más de un área terapéutica

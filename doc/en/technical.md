@@ -181,12 +181,12 @@ no code per module:
 | Module | Area | Color token | Activities |
 |---|---|---|---|
 | 🎯 Aiming and hands | Coordination and motor skills | `--mod-coordinacion` (blue) | catch, connect-dots, tracing, coloring, piano-keys, builders |
-| 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food |
+| 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food, education-norms |
 | 🚶 Going out | Mobility and life outside the home | `--mod-calle` (ochre) | street, shopping, shop, what-to-wear |
 | 💻 Digital activities | Safe use of phone and internet | `--mod-digital` (indigo) | safe-chat, bullying-chat, post-or-not, social-safety, phishing-alert |
 | 🧠 Memory and attention | Memory and attention | `--mod-memoria` (orange) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 💬 Language and comprehension | Language and communication | `--mod-lenguaje` (raspberry) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
-| 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
+| 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, self-esteem, resilience, trust-circle |
 | 💗 Body and relationships | Affective-sexual education | `--mod-cuerpo` (terracotta) | sexual-health |
 
 > **Multi-area note**: an activity may work on more than one therapeutic

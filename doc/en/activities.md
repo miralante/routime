@@ -31,6 +31,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **Healthy Food** | Sort foods into "every day" or "now and then" and discover how they make you feel |
 | **I Tell the Doctor** | Practise putting a body symptom into simple first-person words so a doctor can understand (location, type, since when) |
 | **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted person or call 112 |
+| **School Rules and Civics** | Practise the rules of the classroom, school and public places (asking to speak, queueing, recycling, crossing on green, switching off the lights, mediating an argument, including an excluded classmate) |
 
 ---
 
@@ -47,7 +48,6 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **Among Friends** | Solve social situations with friends |
 | **My Body Tells Me** | Learn to notice your body's signals when you feel something |
 | **Good Manners** | Practice courtesy phrases: thank you, please, good morning, goodbye, giving way |
-| **School Rules and Civics** | Practise the rules of the classroom, school and public places (asking to speak, queueing, recycling, crossing on green, switching off the lights, mediating an argument, including an excluded classmate) |
 | **This Is Me** | Accept who you are and respond to disability, discrimination and insensitive people |
 | **When It's Hard** | Tolerate frustration and learn to ask for help without shame |
 | **Circle of Trust** | Tell friend, companion and acquaintance apart, and recognize manipulation (including requests for money) |
