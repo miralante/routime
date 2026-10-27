@@ -18,6 +18,8 @@
     "modMemoria": "🧠 Memoria y atención",
     "modLenguaje": "💬 Lenguaje y comprensión",
     "modEmocional": "💜 Emociones",
+    "modCalle": "🚶 Salir a la calle",
+    "modDigital": "💻 Actividades digitales",
     "otraAppLinkHint": "Se abre en otra aplicación, en una pestaña nueva.",
     "catch_nombre": "Atrapa",
     "catch_detalle": "Toca el dibujo que se mueve.",

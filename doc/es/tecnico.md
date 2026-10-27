@@ -145,7 +145,7 @@ El proyecto tiene **tres niveles de modularidad**:
 ```
 Routime/
 ├── index.html             # Nivel 0: redirección a index.html
-├── index.html        # landing = menú de actividades (7 módulos) + entrada de la PWA
+├── index.html        # landing = menú de actividades (9 módulos) + entrada de la PWA
 ├── assets/                # Nivel 1: NÚCLEO COMPARTIDO
 │   ├── css/tokens.css     #   variables de diseño (colores, tipografía, táctil)
 │   ├── css/base.css       #   reset, foco visible, prefers-reduced-motion
@@ -183,14 +183,16 @@ anatomía estándar de §4.
 
 ### 2.2 Nivel 2 — Módulos terapéuticos (agrupación de la landing)
 
-Las actividades se agrupan en **7 módulos** (áreas terapéuticas). Cada módulo es solo
+Las actividades se agrupan en **9 módulos** (áreas terapéuticas). Cada módulo es solo
 una `<section class="modulo">` en `index.html` con dos variables CSS de acento —
 no hay código por módulo:
 
 | Módulo | Área | Token de color | Actividades |
 |---|---|---|---|
 | 🎯 Puntería y manos | Coordinación y motricidad | `--mod-coordinacion` (azul) | catch, connect-dots, tracing, coloring, piano-keys, builders |
-| 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
+| 📋 Mi día a día | Autonomía y hogar | `--mod-secuencia` (verde) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food |
+| 🚶 Salir a la calle | Movilidad y vida fuera de casa | `--mod-calle` (ocre) | street, shopping, shop, what-to-wear |
+| 💻 Actividades digitales | Uso seguro del móvil e internet | `--mod-digital` (índigo) | safe-chat, bullying-chat, post-or-not, social-safety, phishing-alert |
 | 🧠 Memoria y atención | Memoria y atención | `--mod-memoria` (naranja) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 💬 Lenguaje y comprensión | Lenguaje y comunicación | `--mod-lenguaje` (frambuesa) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
 | 💜 Emociones | Emociones y relaciones | `--mod-emocional` (morado) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
@@ -843,7 +845,7 @@ datos personales, una acción nueva de borrado en `settings/`, etc.).
 
 ## 10. Receta: añadir un módulo terapéutico nuevo
 
-Solo si el área no encaja en los 7 módulos existentes (comprobar la cobertura en
+Solo si el área no encaja en los 9 módulos existentes (comprobar la cobertura en
 [`equipo.md`](equipo.md)):
 
 1. Añadir el par de tokens en `assets/css/tokens.css`:

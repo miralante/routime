@@ -192,9 +192,9 @@
 }
   </script>
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=routime-vbb11c750">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="assets/css/components.css?v=routime-v962b12ea"><link rel="stylesheet" href="assets/css/locale-picker.css?v=routime-v75403dc2">  <link rel="stylesheet" href="styles.css?v=routime-vace2fec3">
+  <link rel="stylesheet" href="assets/css/components.css?v=routime-v962b12ea"><link rel="stylesheet" href="assets/css/locale-picker.css?v=routime-v75403dc2">  <link rel="stylesheet" href="styles.css?v=routime-v72346bcf">
 </head>
 <body>
   <div class="container suite-home">
@@ -217,6 +217,8 @@
 
     <nav class="anclas-modulo" aria-label="Ir a un módulo">
       <a href="#mod-secuencia" class="ancla-modulo" style="--acento: var(--mod-secuencia);"><span data-i18n="modSecuencia">📋 Mi día a día</span></a>
+      <a href="#mod-calle" class="ancla-modulo" style="--acento: var(--mod-calle);"><span data-i18n="modCalle">🚶 Salir a la calle</span></a>
+      <a href="#mod-digital" class="ancla-modulo" style="--acento: var(--mod-digital);"><span data-i18n="modDigital">💻 Actividades digitales</span></a>
       <a href="#mod-emocional" class="ancla-modulo" style="--acento: var(--mod-emocional);"><span data-i18n="modEmocional">💜 Emociones</span></a>
       <a href="#mod-memoria" class="ancla-modulo" style="--acento: var(--mod-memoria);"><span data-i18n="modMemoria">🧠 Memoria y atención</span></a>
       <a href="#mod-lenguaje" class="ancla-modulo" style="--acento: var(--mod-lenguaje);"><span data-i18n="modLenguaje">💬 Lenguaje y palabras</span></a>
@@ -227,7 +229,7 @@
     <main class="pila modulos">
 
       <!-- Módulo: Autonomía y hogar -->
-      <section class="modulo" id="mod-secuencia" style="--acento: var(--mod-secuencia); --acento-suave: var(--mod-secuencia-suave);">
+      <section class="modulo modulo-grupo" id="mod-secuencia" style="--acento: var(--mod-secuencia); --acento-suave: var(--mod-secuencia-suave);">
         <h2><span aria-hidden="true" data-i18n="modSecuencia">📋 Mi día a día</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/routines/" class="tarjeta">
@@ -244,31 +246,6 @@
             <span class="picto" aria-hidden="true">🤔</span>
             <span class="nombre" data-i18n="situations_nombre">Situaciones</span>
             <span class="detalle" data-i18n="situations_detalle">¿Qué harías tú?</span>
-          </a>
-          <a href="tools/safe-chat/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🛡️</span>
-            <span class="nombre" data-i18n="safechat_nombre">Chat Seguro</span>
-            <span class="detalle" data-i18n="safechat_detalle">Aprende a chatear con cuidado.</span>
-          </a>
-          <a href="tools/bullying-chat/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🧭</span>
-            <span class="nombre" data-i18n="bullyingchat_nombre">Chat Acoso</span>
-            <span class="detalle" data-i18n="bullyingchat_detalle">Reconoce el acoso y aprende qué hacer.</span>
-          </a>
-          <a href="tools/post-or-not/" class="tarjeta">
-            <span class="picto" aria-hidden="true">📱</span>
-            <span class="nombre" data-i18n="postornot_nombre">¿Lo publico?</span>
-            <span class="detalle" data-i18n="postornot_detalle">Peligros de las redes sociales.</span>
-          </a>
-          <a href="tools/social-safety/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🧩</span>
-            <span class="nombre" data-i18n="socialsafety_nombre">Redes, intimidad y ley</span>
-            <span class="detalle" data-i18n="socialsafety_detalle">Practica cómo reconocer la manipulación y pedir ayuda.</span>
-          </a>
-          <a href="tools/phishing-alert/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🚨</span>
-            <span class="nombre" data-i18n="phishing_nombre">Alerta Phishing</span>
-            <span class="detalle" data-i18n="phishing_detalle">Correos falsos, enlaces sospechosos y archivos adjuntos peligrosos.</span>
           </a>
           <a href="tools/what-first/" class="tarjeta">
             <span class="picto" aria-hidden="true">📝</span>
@@ -289,16 +266,6 @@
             <span class="picto" aria-hidden="true">📅</span>
             <span class="nombre" data-i18n="myAgendaName">Mi agenda</span>
             <span class="detalle" data-i18n="myAgendaDetail">Prepara tus citas y tareas.</span>
-          </a>
-          <a href="tools/what-to-wear/" class="tarjeta">
-            <span class="picto" aria-hidden="true">👕</span>
-            <span class="nombre" data-i18n="whattowear_nombre">¿Qué me pongo?</span>
-            <span class="detalle" data-i18n="whattowear_detalle">Viste según el tiempo que hace.</span>
-          </a>
-          <a href="tools/street/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🚸</span>
-            <span class="nombre" data-i18n="street_nombre">La Calle</span>
-            <span class="detalle" data-i18n="street_detalle">Cruza y muévete con seguridad.</span>
           </a>
           <a href="tools/emergencies/" class="tarjeta">
             <span class="picto" aria-hidden="true">🚨</span>
@@ -330,16 +297,6 @@
             <span class="nombre" data-i18n="mydetails_nombre">Mis Datos</span>
             <span class="detalle" data-i18n="mydetails_detalle">Repasa tu dirección y tu teléfono, y los de tu familia.</span>
           </a>
-          <a href="tools/shopping/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🛒</span>
-            <span class="nombre" data-i18n="shopping_nombre">La Compra</span>
-            <span class="detalle" data-i18n="shopping_detalle">Secciones del súper y tu lista.</span>
-          </a>
-          <a href="tools/shop/" class="tarjeta">
-            <span class="picto" aria-hidden="true">🏪</span>
-            <span class="nombre" data-i18n="shop_nombre">La Tienda</span>
-            <span class="detalle" data-i18n="shop_detalle">Compra de verdad con tu dinero.</span>
-          </a>
           <a href="tools/healthy-food/" class="tarjeta">
             <span class="picto" aria-hidden="true">🥗</span>
             <span class="nombre" data-i18n="healthyfood_nombre">Comida Sana</span>
@@ -353,8 +310,68 @@
         </div>
       </section>
 
+      <!-- Módulo: Salir a la calle -->
+      <section class="modulo modulo-grupo" id="mod-calle" style="--acento: var(--mod-calle); --acento-suave: var(--mod-calle-suave);">
+        <h2><span aria-hidden="true" data-i18n="modCalle">🚶 Salir a la calle</span></h2>
+        <div class="grid-tarjetas">
+          <a href="tools/street/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚸</span>
+            <span class="nombre" data-i18n="street_nombre">La Calle</span>
+            <span class="detalle" data-i18n="street_detalle">Cruza y muévete con seguridad.</span>
+          </a>
+          <a href="tools/shopping/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🛒</span>
+            <span class="nombre" data-i18n="shopping_nombre">La Compra</span>
+            <span class="detalle" data-i18n="shopping_detalle">Secciones del súper y tu lista.</span>
+          </a>
+          <a href="tools/shop/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🏪</span>
+            <span class="nombre" data-i18n="shop_nombre">La Tienda</span>
+            <span class="detalle" data-i18n="shop_detalle">Compra de verdad con tu dinero.</span>
+          </a>
+          <a href="tools/what-to-wear/" class="tarjeta">
+            <span class="picto" aria-hidden="true">👕</span>
+            <span class="nombre" data-i18n="whattowear_nombre">¿Qué me pongo?</span>
+            <span class="detalle" data-i18n="whattowear_detalle">Viste según el tiempo que hace.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Módulo: Actividades digitales -->
+      <section class="modulo modulo-grupo" id="mod-digital" style="--acento: var(--mod-digital); --acento-suave: var(--mod-digital-suave);">
+        <h2><span aria-hidden="true" data-i18n="modDigital">💻 Actividades digitales</span></h2>
+        <div class="grid-tarjetas">
+          <a href="tools/safe-chat/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🛡️</span>
+            <span class="nombre" data-i18n="safechat_nombre">Chat Seguro</span>
+            <span class="detalle" data-i18n="safechat_detalle">Aprende a chatear con cuidado.</span>
+          </a>
+          <a href="tools/bullying-chat/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧭</span>
+            <span class="nombre" data-i18n="bullyingchat_nombre">Chat Acoso</span>
+            <span class="detalle" data-i18n="bullyingchat_detalle">Reconoce el acoso y aprende qué hacer.</span>
+          </a>
+          <a href="tools/post-or-not/" class="tarjeta">
+            <span class="picto" aria-hidden="true">📱</span>
+            <span class="nombre" data-i18n="postornot_nombre">¿Lo publico?</span>
+            <span class="detalle" data-i18n="postornot_detalle">Peligros de las redes sociales.</span>
+          </a>
+          <a href="tools/social-safety/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🧩</span>
+            <span class="nombre" data-i18n="socialsafety_nombre">Redes, intimidad y ley</span>
+            <span class="detalle" data-i18n="socialsafety_detalle">Practica cómo reconocer la manipulación y pedir ayuda.</span>
+          </a>
+          <a href="tools/phishing-alert/" class="tarjeta">
+            <span class="picto" aria-hidden="true">🚨</span>
+            <span class="nombre" data-i18n="phishing_nombre">Alerta Phishing</span>
+            <span class="detalle" data-i18n="phishing_detalle">Correos falsos, enlaces sospechosos y archivos adjuntos peligrosos.</span>
+          </a>
+        </div>
+      </section>
+
+
       <!-- Módulo: Emociones -->
-      <section class="modulo" id="mod-emocional" style="--acento: var(--mod-emocional); --acento-suave: var(--mod-emocional-suave);">
+      <section class="modulo modulo-grupo" id="mod-emocional" style="--acento: var(--mod-emocional); --acento-suave: var(--mod-emocional-suave);">
         <h2><span aria-hidden="true" data-i18n="modEmocional">💜 Emociones</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/emotions/" class="tarjeta">
@@ -406,7 +423,7 @@
       </section>
 
       <!-- Módulo: Cuerpo y relaciones (educación afectivo-sexual) -->
-      <section hidden class="modulo" id="mod-cuerpo" style="--acento: var(--mod-cuerpo); --acento-suave: var(--mod-cuerpo-suave);">
+      <section hidden class="modulo modulo-grupo" id="mod-cuerpo" style="--acento: var(--mod-cuerpo); --acento-suave: var(--mod-cuerpo-suave);">
         <h2><span aria-hidden="true" data-i18n="modCuerpo">💗 Cuerpo y relaciones</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/sexual-health/" class="tarjeta">
@@ -418,7 +435,7 @@
       </section>
 
       <!-- Módulo: Lenguaje y comunicación (académico) -->
-      <section class="modulo" id="mod-lenguaje" style="--acento: var(--mod-lenguaje); --acento-suave: var(--mod-lenguaje-suave);">
+      <section class="modulo modulo-grupo" id="mod-lenguaje" style="--acento: var(--mod-lenguaje); --acento-suave: var(--mod-lenguaje-suave);">
         <h2><span aria-hidden="true" data-i18n="modLenguaje">💬 Lenguaje y comprensión</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/comedy-club/" class="tarjeta">
@@ -475,7 +492,7 @@
       </section>
 
       <!-- Módulo: Memoria y atención (académico) -->
-      <section class="modulo" id="mod-memoria" style="--acento: var(--mod-memoria); --acento-suave: var(--mod-memoria-suave);">
+      <section class="modulo modulo-grupo" id="mod-memoria" style="--acento: var(--mod-memoria); --acento-suave: var(--mod-memoria-suave);">
         <h2><span aria-hidden="true" data-i18n="modMemoria">🧠 Memoria y atención</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/pairs/" class="tarjeta">
@@ -532,7 +549,7 @@
       </section>
 
       <!-- Módulo: Coordinación y motricidad (dificultades motoras) -->
-      <section class="modulo" id="mod-coordinacion" style="--acento: var(--mod-coordinacion); --acento-suave: var(--mod-coordinacion-suave);">
+      <section class="modulo modulo-grupo" id="mod-coordinacion" style="--acento: var(--mod-coordinacion); --acento-suave: var(--mod-coordinacion-suave);">
         <h2><span aria-hidden="true" data-i18n="modCoordinacion">🎯 Puntería y manos</span></h2>
         <div class="grid-tarjetas">
           <a href="tools/catch/" class="tarjeta">
@@ -575,8 +592,8 @@
   <script src="assets/js/utils.js?v=routime-v32a47fbd"></script>
   <script src="assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="assets/js/storage.js?v=routime-veaa669aa"></script>
-  <script src="strings.es.js?v=routime-v792439f4"></script>
-  <script src="strings.en.js?v=routime-v31591419"></script>
+  <script src="strings.es.js?v=routime-vf73d53ff"></script>
+  <script src="strings.en.js?v=routime-vb0d7d879"></script>
   <script>
     (function () {
       'use strict';

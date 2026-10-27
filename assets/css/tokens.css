@@ -26,6 +26,10 @@
   --mod-lenguaje-suave: #F7E8EE;
   --mod-cuerpo: #A6432C;         /* terracotta */
   --mod-cuerpo-suave: #F8E9E3;
+  --mod-digital: #3949AB;        /* indigo */
+  --mod-digital-suave: #E8EAF6;
+  --mod-calle: #8A6100;          /* ochre */
+  --mod-calle-suave: #FFF4D6;
 
   /* Feedback */
   --color-acierto: #2E7D32;
@@ -115,6 +119,10 @@
   --mod-lenguaje-suave: #3A2430;
   --mod-cuerpo: #EFA189;
   --mod-cuerpo-suave: #3A2820;
+  --mod-digital: #9FA8DA;
+  --mod-digital-suave: #1A1F3A;
+  --mod-calle: #F5C36B;
+  --mod-calle-suave: #3A2F12;
 
   --color-acierto: #7BD389;
   --color-acierto-suave: #1E3D24;
@@ -165,6 +173,10 @@
   --mod-lenguaje-suave: #000000;
   --mod-cuerpo: #FFAA88;
   --mod-cuerpo-suave: #000000;
+  --mod-digital: #8C9EFF;
+  --mod-digital-suave: #000000;
+  --mod-calle: #FFD54F;
+  --mod-calle-suave: #000000;
 
   --color-acierto: #00FF66;
   --color-acierto-suave: #000000;

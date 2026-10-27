@@ -276,6 +276,20 @@ Las capacidades que el producto no pretende cubrir y sus motivos se definen en
 
 ---
 
+### Salir a la calle
+
+- Cruzar la calle, transporte público y qué hacer si uno se pierde (*La Calle*).
+- Hacer la compra y usar dinero real en una tienda (*La Compra*, *La Tienda*).
+- Elegir la ropa según el tiempo que hace (*¿Qué me pongo?*).
+→ **Módulo 8: Salir a la calle**
+
+### Uso seguro del móvil e internet
+
+- Responder a manipulaciones en chats y reconocer el acoso (*Chat Seguro*, *Chat Acoso*).
+- Decidir qué es seguro publicar y cuidar la intimidad en redes (*¿Lo publico?*, *Redes, intimidad y ley*).
+- Detectar correos y enlaces falsos (*Alerta Phishing*).
+→ **Módulo 9: Actividades digitales**
+
 ## Resolver problemas comunes
 
 ### El usuario se frustra

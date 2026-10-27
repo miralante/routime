@@ -275,6 +275,20 @@ defined in [`SPEC.md`](SPEC.md) §6.
 
 ---
 
+### Going out
+
+- Crossing the street, public transport and what to do if you get lost (*The Street*).
+- Doing the shopping and using real money in a shop (*The Shopping*, *The Shop*).
+- Choosing clothes for the weather (*What Do I Wear?*).
+→ **Module 8: Going out**
+
+### Safe use of the phone and internet
+
+- Responding to manipulation in chats and recognising bullying (*Safe Chat*, *Bullying Chat*).
+- Deciding what is safe to publish and protecting privacy on social networks (*Should I Post It?*, *Social media, intimacy and law*).
+- Spotting fake emails and links (*Phishing Alert*).
+→ **Module 9: Digital activities**
+
 ## Solving common problems
 
 ### The user gets frustrated

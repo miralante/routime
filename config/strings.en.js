@@ -31,6 +31,8 @@
     module5: '🧠 Memory and attention',
     module6: '🎯 Aiming and hands',
     module7: '💗 Body and relationships',
+    moduleCalle: '🚶 Going out',
+    moduleDigital: '💻 Digital activities',
 
     activity: {
       'catch': 'Catch It', 'connect-dots': 'Connect the Dots', 'piano-keys': 'Piano',

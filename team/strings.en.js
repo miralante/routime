@@ -68,6 +68,10 @@
     "module6Intro": 'Eye-hand coordination, fine motor skills, graphomotor skills, writing and copying.',
     "module7Title": '💗 Body and relationships',
     "module7Intro": 'Non-graphic affective-sexual education, always pointing to trusted people or health professionals.',
+    "moduleCalleTitle": '🚶 Going out',
+    "moduleCalleIntro": 'Going out safely: crossing the street, getting around town, shopping and dressing for the weather.',
+    "moduleDigitalTitle": '💻 Digital activities',
+    "moduleDigitalIntro": 'Safe use of the phone and the internet: chats, social networks, fake messages and online risks.',
     activity: {
       "catch": {
         "name": 'Catch It',

@@ -15,10 +15,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **My Routines** | Reviews the typical routines of a home: morning, personal care, meals, household tasks, pets, afternoon, leaving home and night. Also lets the person build and save their own free-form lists to practise list-making |
 | **The House** | Two screens: first, pick household tasks from a list and put them in your own order; then, open each task and put its steps in the right order (setting the table, sweeping, mopping, making the bed, taking out the trash, watering plants, caring for pets, getting dressed, going out, coming home, charging the phone…). The person can also add their own tasks to the list (session only). |
 | **Situations** | What do you do if something happens? Learn to respond to everyday problems |
-| **Safe Chat** | Practice how to respond if someone manipulates you online |
-| **Bullying Chat** | Recognize bullying situations among peers and how to act |
 | **Should I Post It?** | Decide what is safe to post on social media |
-| **Social media, intimacy and law** | Practise handling sexual manipulation, intimate images, pornography, threats and legal consequences |
 | **Signs** | Recognize danger, bathroom, prohibited, exit signs... |
 | **Times of Day** | Classify activities by morning, afternoon or night |
 | **What Do I Do First?** | Learn to prioritize: if several things happen, what to do first |
@@ -26,15 +23,11 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **Where Do I Keep It?** | Learn where things are stored at home |
 | **Task List** | Put daily tasks in the correct order. Level 3 teaches and trains planning: create, save, open and delete several of your own lists, adding, reordering, marking and removing tasks in each one |
 | **My Schedule** | Prepare for an appointment or task: order, materials and timing |
-| **What Do I Wear?** | Choose appropriate clothing based on the weather |
-| **The Street** | Crossing the street, public transport, what to do if you get lost |
 | **Emergencies** | Recognize real emergencies, practice calling 112, and what to do and what to say if you get stuck in the lift |
 | **While Help Is on Its Way** | What to do after calling 112, while waiting for the ambulance, firefighters or police: leave, do not move the injured, press the wound, recovery position |
 | **Before the Emergency** | Prepare at home with the family what to have ready: 112 written down, address visible, smoke detector, pills out of reach, gas and electricity shut-off |
 | **Important Phone Numbers** | Learn that 112 is the number for police, firefighters and medical emergencies |
 | **My Details** | Review your address and phone number, and your family's (set up beforehand by whoever helps you) |
-| **The Shopping** | Learn supermarket sections and the shopping list |
-| **The Shop** | Use real money in shopping: pay, receive change, manage expenses |
 | **Healthy Food** | Sort foods into "every day" or "now and then" and discover how they make you feel |
 | **I Tell the Doctor** | Practise putting a body symptom into simple first-person words so a doctor can understand (location, type, since when) |
 | **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted person or call 112 |
@@ -132,6 +125,37 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 ---
 
+## Module 8: 🚶 Going out
+
+**Module color:** Ochre
+
+**What it works on?** Moving safely outside the home: crossing, transport, shopping and dressing for the weather.
+
+| Activity | Description |
+|----------|-------------|
+| **The Street** | Crossing the street, public transport, what to do if you get lost |
+| **The Shopping** | Learn supermarket sections and the shopping list |
+| **The Shop** | Use real money in shopping: pay, receive change, manage expenses |
+| **What Do I Wear?** | Choose appropriate clothing based on the weather |
+
+---
+
+## Module 9: 💻 Digital activities
+
+**Module color:** Indigo
+
+**What it works on?** Safe use of the phone and the internet: chats, social networks, fake messages and online risks.
+
+| Activity | Description |
+|----------|-------------|
+| **Safe Chat** | Practice how to respond if someone manipulates you online |
+| **Bullying Chat** | Recognize bullying situations among peers and how to act |
+| **Should I Post It?** | Decide what is safe to publish on social networks |
+| **Social media, intimacy and law** | Practise handling sexual manipulation, intimate images, pornography, threats and legal consequences |
+| **Phishing Alert** | Fake emails, suspicious links and dangerous attachments |
+
+---
+
 ## Summary table
 
 | Module | Nº activities | Color |
@@ -142,6 +166,8 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | 💬 Language and comprehension | 11 | Raspberry |
 | 🎯 Coordination and motor skills | 6 | Blue |
 | 💗 Body and relationships | 1 | Terracotta |
+| 🚶 Going out | 4 | Ochre |
+| 💻 Digital activities | 5 | Indigo |
 
 **Total: 62 activities**
 

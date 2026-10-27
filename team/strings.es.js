@@ -68,6 +68,10 @@
     "module6Intro": 'Coordinación ojo-mano, motricidad fina, grafomotricidad, escritura y copia.',
     "module7Title": '💗 Cuerpo y relaciones',
     "module7Intro": 'Educación afectivo-sexual no gráfica, siempre derivando a personas de confianza o profesionales de la salud.',
+    "moduleCalleTitle": '🚶 Salir a la calle',
+    "moduleCalleIntro": 'Salir de casa con seguridad: cruzar la calle, moverse por la ciudad, comprar y vestirse según el tiempo.',
+    "moduleDigitalTitle": '💻 Actividades digitales',
+    "moduleDigitalIntro": 'Uso seguro del móvil e internet: chats, redes sociales, mensajes falsos y peligros en línea.',
     activity: {
       "catch": {
         "name": 'Atrapa',

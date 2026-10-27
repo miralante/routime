@@ -18,6 +18,8 @@
     "modMemoria": "🧠 Memory and attention",
     "modLenguaje": "💬 Language and comprehension",
     "modEmocional": "💜 Feelings",
+    "modCalle": "🚶 Going out",
+    "modDigital": "💻 Digital activities",
     "otraAppLinkHint": "Opens another app, in a new tab.",
     "catch_nombre": "Catch",
     "catch_detalle": "Touch the picture that moves.",

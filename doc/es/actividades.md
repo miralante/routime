@@ -15,10 +15,6 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Mis Rutinas** | Repasa las rutinas típicas de la casa: mañana, cuidado personal, comidas, tareas del hogar, mascotas, tarde, salida y noche. También permite crear y guardar listas libres propias para practicar a hacer listas |
 | **La Casa** | Dos pantallas: primero eliges tareas del hogar de una lista y las pones en tu orden; luego, al abrir cada tarea, ordenas sus pasos (poner la mesa, barrer, fregar, hacer la cama, sacar la basura, regar, cuidar mascotas, vestirse, salir, volver, cargar el móvil…). También puedes añadir tareas propias a la lista (solo en esta sesión). |
 | **Situaciones** | ¿Qué haces si pasa algo? Aprende a responder ante problemas cotidianos |
-| **Chat Seguro** | Practica cómo responder si alguien te manipula por internet |
-| **Chat Acoso** | Reconoce situaciones de acoso entre compañeros y cómo actuar |
-| **¿Lo publico?** | Decide qué es seguro publicar en redes sociales |
-| **Redes, intimidad y ley** | Practica ante manipulación sexual, imágenes íntimas, pornografía, amenazas y consecuencias legales |
 | **Señales** | Reconoce señales de peligro, baño, prohibido, salidas... |
 | **Partes del Día** | Clasifica actividades según sean de mañana, tarde o noche |
 | **¿Qué hago primero?** | Aprende a priorizar: si pasan varias cosas, qué hacer antes |
@@ -26,15 +22,11 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **¿Dónde lo guardo?** | Aprende dónde se guardan las cosas en casa |
 | **Lista de Tareas** | Ordena tareas del día en el orden correcto. El nivel 3 enseña y entrena a planificarse: crea, guarda, abre y borra varias listas propias, añadiendo, reordenando, marcando y quitando tareas en cada una |
 | **Mi agenda** | Prepara una cita o tarea: orden, materiales y momento adecuado |
-| **¿Qué me pongo?** | Elige la ropa adecuada según el tiempo que hace |
-| **La Calle** | Cruzar la calle, transporte público, qué hacer si te pierdes |
 | **Emergencias** | Reconoce emergencias reales, practica llamar al 112 y qué hacer y qué decir si te quedas encerrado en el ascensor |
 | **Mientras Llega la Ayuda** | Qué hacer tras llamar al 112 mientras llega la ambulancia, los bomberos o la policía: salir, no mover al herido, presionar la herida, posición lateral |
 | **Antes de la Emergencia** | Prepara en casa con la familia lo que tiene que estar listo: 112 escrito, dirección visible, detector de humo, pastillas fuera de alcance, llaves de luz y gas |
 | **Teléfonos Importantes** | Aprende que el 112 sirve para policía, bomberos y emergencia médica |
 | **Mis Datos** | Repasa tu dirección y tu teléfono, y los de tu familia (configurados antes por quien te ayuda) |
-| **La Compra** | Aprende las secciones del supermercado y la lista de la compra |
-| **La Tienda** | Usa dinero real en una compra: pagar, recibir cambio, controlar gastos |
 | **Comida Sana** | Clasifica alimentos en "cada día" o "de vez en cuando" y descubre cómo te sientan |
 | **Se lo Cuento al Médico** | Practica poner en palabras sencillas en primera persona un síntoma del cuerpo (dónde, qué, desde cuándo) para que el médico lo entienda |
 | **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a una persona de confianza o llamar al 112 |
@@ -132,6 +124,37 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 
 ---
 
+## Módulo 8: 🚶 Salir a la calle
+
+**Color del módulo:** Ocre
+
+**¿Qué trabaja?** Moverse con seguridad fuera de casa: cruzar, transporte, comprar y vestirse según el tiempo.
+
+| Actividad | Descripción |
+|-----------|-------------|
+| **La Calle** | Cruzar la calle, transporte público, qué hacer si te pierdes |
+| **La Compra** | Aprende las secciones del supermercado y la lista de la compra |
+| **La Tienda** | Usa dinero real en una compra: pagar, recibir cambio, controlar gastos |
+| **¿Qué me pongo?** | Elige la ropa adecuada según el tiempo que hace |
+
+---
+
+## Módulo 9: 💻 Actividades digitales
+
+**Color del módulo:** Índigo
+
+**¿Qué trabaja?** Uso seguro del móvil e internet: chats, redes sociales, mensajes falsos y peligros en línea.
+
+| Actividad | Descripción |
+|-----------|-------------|
+| **Chat Seguro** | Practica cómo responder si alguien te manipula por internet |
+| **Chat Acoso** | Reconoce situaciones de acoso entre compañeros y cómo actuar |
+| **¿Lo publico?** | Decide qué es seguro publicar en redes sociales |
+| **Redes, intimidad y ley** | Practica ante manipulación sexual, imágenes íntimas, pornografía, amenazas y consecuencias legales |
+| **Alerta Phishing** | Correos falsos, enlaces sospechosos y archivos adjuntos peligrosos. |
+
+---
+
 ## Tabla resumen
 
 | Módulo | Nº actividades | Color |
@@ -142,6 +165,8 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | 💬 Lenguaje y comprensión | 11 | Frambuesa |
 | 🎯 Puntería y manos | 6 | Azul |
 | 💗 Cuerpo y relaciones | 1 | Terracota |
+| 🚶 Salir a la calle | 4 | Ocre |
+| 💻 Actividades digitales | 5 | Índigo |
 
 **Total: 62 actividades**
 

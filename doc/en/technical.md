@@ -137,7 +137,7 @@ The project has **three levels of modularity**:
 ```
 Routime/
 ├── index.html             # Level 0: redirect to index.html
-├── index.html        # Level 0: landing = activity menu (7 modules)
+├── index.html        # Level 0: landing = activity menu (9 modules)
 ├── assets/                # Level 1: SHARED CORE
 │   ├── css/tokens.css     #   design variables (colors, typography, touch)
 │   ├── css/base.css       #   reset, visible focus, prefers-reduced-motion
@@ -174,14 +174,16 @@ anatomy in §4.
 
 ### 2.2 Level 2 — Therapeutic modules (landing grouping)
 
-Activities are grouped in **7 modules** (therapeutic areas). Each module is just
+Activities are grouped in **9 modules** (therapeutic areas). Each module is just
 a `<section class="modulo">` in `index.html` with two CSS accent variables —
 no code per module:
 
 | Module | Area | Color token | Activities |
 |---|---|---|---|
 | 🎯 Aiming and hands | Coordination and motor skills | `--mod-coordinacion` (blue) | catch, connect-dots, tracing, coloring, piano-keys, builders |
-| 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, safe-chat, bullying-chat, post-or-not, social-safety, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, what-to-wear, street, emergencies, phone-numbers, my-details, shopping, shop, healthy-food |
+| 📋 My daily routine | Autonomy and home | `--mod-secuencia` (green) | routines, house, situations, signs, times-of-day, what-first, what-do-i-need, where-to-store, task-list, my-agenda, emergencies, phone-numbers, my-details, healthy-food |
+| 🚶 Going out | Mobility and life outside the home | `--mod-calle` (ochre) | street, shopping, shop, what-to-wear |
+| 💻 Digital activities | Safe use of phone and internet | `--mod-digital` (indigo) | safe-chat, bullying-chat, post-or-not, social-safety, phishing-alert |
 | 🧠 Memory and attention | Memory and attention | `--mod-memoria` (orange) | pairs, differences, whats-missing, ecos, turns-mirrors, blocks, where-is, path, fit, theatre |
 | 💬 Language and comprehension | Language and communication | `--mod-lenguaje` (raspberry) | comedy-club, idioms, double-meaning, categories, sentence, words, vocabulary, dictionary, spelling, colored-spelling, word-search |
 | 💜 Emotions | Emotions and relationships | `--mod-emocional` (purple) | emotions, calm, friends, my-body, good-manners, education-norms, self-esteem, resilience, trust-circle |
@@ -820,7 +822,7 @@ reset action, etc.).
 
 ## 10. Recipe: adding a new therapeutic module (area)
 
-Only if the area does not fit the 7 existing modules (check coverage in
+Only if the area does not fit the 9 existing modules (check coverage in
 [`team.md`](team.md)):
 
 1. Add the token pair in `assets/css/tokens.css`:

@@ -94,6 +94,21 @@
   margin-bottom: var(--espacio);
 }
 
+/* Cada grupo es una tarjeta que contiene sus tarjetas de actividad */
+.modulo-grupo {
+  padding: var(--espacio);
+  background: var(--acento-suave);
+  border: 3px solid var(--acento);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra);
+}
+
+.modulo-grupo h2 { margin-bottom: var(--espacio-grande); }
+
+@media (min-width: 600px) {
+  .modulo-grupo { padding: var(--espacio-grande); }
+}
+
 .tarjeta {
   display: flex;
   flex-direction: column;

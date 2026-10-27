@@ -31,6 +31,8 @@
     module5: '🧠 Memoria y atención',
     module6: '🎯 Puntería y manos',
     module7: '💗 Cuerpo y relaciones',
+    moduleCalle: '🚶 Salir a la calle',
+    moduleDigital: '💻 Actividades digitales',
 
     activity: {
       'catch': 'Atrapa', 'connect-dots': 'Une los Puntos', 'piano-keys': 'Piano',
