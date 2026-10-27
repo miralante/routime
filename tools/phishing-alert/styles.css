@@ -32,6 +32,7 @@
 .consejo-seguro { background: var(--color-acierto-suave); border-color: var(--color-acierto); }
 .regla-final { display: flex; flex-direction: column; gap: var(--espacio); padding: var(--espacio-grande); text-align: center; background: var(--color-acierto-suave); border: 3px solid var(--color-acierto); border-radius: var(--radio); }
 .regla-final h3 { color: var(--color-acierto); }
+.nota-segura { font-weight: 700; }
 .regla-final p { font-size: var(--texto-grande); font-weight: 700; }
 .norma { display: flex; align-items: center; gap: var(--espacio); padding: var(--espacio); background: var(--color-superficie); border: 3px solid var(--color-borde); border-radius: var(--radio); }
 .norma p { flex: 1; font-weight: 700; }

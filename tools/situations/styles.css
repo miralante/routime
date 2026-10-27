@@ -21,4 +21,20 @@
 .lista-situaciones { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .lista-situaciones li { padding: 10px 12px; background: var(--color-superficie); border: 2px solid var(--mod-secuencia-suave); border-radius: var(--radio); overflow-wrap: anywhere; }
 .lista-picto { font-size: 1.4em; margin-right: 4px; }
+.nivel-bloque { display: flex; flex-direction: column; gap: var(--espacio); text-align: left; }
+.nivel-bloque h2 { color: var(--mod-secuencia); margin: var(--espacio-grande) 0 0; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--espacio); }
+.tarjeta-actividad {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; min-height: 160px; padding: var(--espacio-grande);
+  background: var(--color-superficie); border: 3px solid var(--color-borde);
+  border-radius: var(--radio); box-shadow: var(--sombra);
+  font-family: inherit; color: var(--color-text); cursor: pointer;
+}
+.tarjeta-actividad:hover { border-color: var(--mod-secuencia); }
+.tarjeta-actividad .picto { font-size: 48px; }
+.tarjeta-actividad .name { font-weight: 800; font-size: var(--texto-base); }
+.tarjeta-actividad .detalle { font-size: var(--texto-pequeno); color: var(--color-texto-suave); text-align: center; }
+.tarjeta-actividad .marca { position: absolute; top: 10px; right: 14px; color: var(--color-estrella); font-weight: 700; }
 @media (max-width: 640px) { .situacion-text { font-size: var(--texto-base); } .picto-situacion { font-size: 52px; } #endScreen .btn { min-width: 240px; } }

@@ -17,6 +17,11 @@
   var PANTALLAS = ['menuScreen', 'pantallaNormas', 'pantallaChat'];
   var DELAY = App.utils.reducedMotion() ? 0 : 700;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
+  /* Icono y etiqueta de cada tipo de conversación (la etiqueta va en strings). */
+  var TIPOS = {
+    correo: { icono: '📧', etiqueta: 'tipoCorreo' },
+    mensaje: { icono: '💬', etiqueta: 'tipoMensaje' }
+  };
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -107,7 +112,9 @@
     escenario = { id: esc.id, contacto: v.contacto, tipo: v.tipo, steps: v.steps, regla: v.regla };
     idx = 0;
     $('#chatAlias').textContent = v.contacto;
-    $('#chatTipo').textContent = v.tipo === 'correo' ? '📧 Correo electrónico' : (v.tipo === 'mensaje' ? '💬 Mensaje de texto' : '📱 Chat');
+    var tipo = TIPOS[v.tipo] || TIPOS.mensaje;
+    $('#chatAvatar').textContent = tipo.icono;
+    $('#chatTipo').textContent = tipo.icono + ' ' + App.i18n.t(tipo.etiqueta);
     $('#chatMensajes').innerHTML = '';
     $('#reglaFinal').classList.add('hidden');
     limpiarZonaRespuesta();
@@ -170,7 +177,10 @@
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage($('#feedback'));
-      $('#consejoTexto').textContent = op.pista || op.aviso || App.i18n.t('pista');
+      /* Socratic: the first mistake gets a hint; the second explains the danger. */
+      $('#consejoTexto').textContent = attempts > 1
+        ? (op.aviso || op.pista || App.i18n.t('pista'))
+        : (op.pista || op.aviso || App.i18n.t('pista'));
       $('#consejo').classList.remove('hidden');
       App.feedback.lockUntilAck($$('#chatOpciones .btn-opcion'), $('#consejo'));
     }
@@ -205,6 +215,7 @@
       renderStars();
     }
     $('#reglaTexto').textContent = esc.regla;
+    $('#notaSegura').textContent = App.i18n.t('safetyNote');
     $('#reglaFinal').classList.remove('hidden');
     App.feedback.celebrate(App.i18n.t('chatSuperado'));
   }

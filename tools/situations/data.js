@@ -1,19 +1,17 @@
 /* ============================================================
    Datos: Situaciones (autonomía — ¿qué haces si...?).
    Formato: DATA.es / DATA.en, cada uno con:
-   { porRonda, niveles: [{ id, name, descripcion, estrellas,
+   { niveles: [{ id, name, descripcion, estrellas,
      grupos: { <grupo>: <nombre de la subactividad> },
      items: [{ grupo, situacion, picto, options: string[3], correcta }] }] }
-   Orden: los items de cada nivel van agrupados por subactividad y
-   en orden didáctico. app.js los recorre en secuencia (sin barajar),
-   así cada ronda avanza por la lista y no aparecen al azar.
+   Cada grupo de un nivel es una subactividad del menú. Sus items van en
+   orden didáctico; app.js los recorre en secuencia (sin barajar).
    Para ampliar: añadir items al grupo correspondiente de ambos
    idiomas (paridad es/en) y respetar el orden de los grupos.
    app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 const DATA = {
   es: {
-    porRonda: 8,
     niveles: [
       {
         id: 1,
@@ -173,7 +171,6 @@ const DATA = {
   },
 
   en: {
-    porRonda: 8,
     niveles: [
       {
         id: 1,

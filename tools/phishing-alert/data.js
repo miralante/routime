@@ -21,7 +21,7 @@ var DATA = {
             tipo: 'correo',
             steps: [
               { tipo: 'msg', text: 'Asunto: Su cuenta ha sido bloqueada. Urgente.' },
-              { tipo: 'msg', text: 'Estimado cliente, hemo detectado actividad sospechosa en su cuenta. Para evitar el bloqueo definitivo, haga clic en el siguiente enlace e introduzca sus datos: https://banco-seguro.net/acceso' },
+              { tipo: 'msg', text: 'Estimado cliente, hemos detectado actividad sospechosa en su cuenta. Para evitar el bloqueo definitivo, haga clic en el siguiente enlace e introduzca sus datos: https://banco-seguro.net/acceso' },
               { tipo: 'eleccion', options: [
                 { text: 'No hago clic. Llamo a mi banco con el número oficial.', segura: true,
                   avisoSeguro: 'Los bancos nunca piden datos por enlace en un correo. El número oficial está en la tarjeta o en la web oficial.' },
@@ -40,7 +40,7 @@ var DATA = {
                   avisoSeguro: 'Correcto. Nadie debe pediros datos así, ni siquiera por teléfono si no habéis llamado vosotros antes.' },
                 { text: 'Como ya estoy dentro, pongo los datos.',
                   segura: false,
-                  pista: '¿De verdad: si ya es phishing, poner más datos solo da más información a los Ladrones?',
+                  pista: '¿De verdad: si ya es phishing, poner más datos solo da más información a los ladrones?',
                   aviso: 'Es phishing. Poner más datos entrega más información a los ladrones.' }
               ] },
               { tipo: 'accion', text: '🚫 Eliminar correo y bloquear remitente',
@@ -69,7 +69,7 @@ var DATA = {
               { tipo: 'msg', text: 'Haga clic para confirmar su identidad y evitar el cargo de 450 €.' },
               { tipo: 'eleccion', options: [
                 { text: 'Esto es mentira. Entro en Amazon desde la app para verificar.', segura: true,
-                  avisoSeguro: 'Los Ladrones copian el estilo de Amazon para engañar. La app oficial es el camino seguro.' },
+                  avisoSeguro: 'Los ladrones copian el estilo de Amazon para engañar. La app oficial es el camino seguro.' },
                 { text: '450 euros es mucho. Voy a verificar los datos.',
                   segura: false,
                   pista: '¿De verdad: el miedo al dinero es otra trampa. Entra en Amazon desde la app?',
@@ -85,7 +85,7 @@ var DATA = {
             tipo: 'correo',
             steps: [
               { tipo: 'msg', text: 'Asunto: Su paquete no ha podido ser entregado.' },
-              { tipo: 'msg', text: 'Hola, no hemo podido entregar su paquete. Para reprogramar la entrega, haga clic aquí y pague 2,99 € de gastos: dhl-redir.com/paquete' },
+              { tipo: 'msg', text: 'Hola, no hemos podido entregar su paquete. Para reprogramar la entrega, haga clic aquí y pague 2,99 € de gastos: dhl-redir.com/paquete' },
               { tipo: 'eleccion', options: [
                 { text: 'No pago nada. Llamo a DHL o voy al punto de recogida oficial.', segura: true,
                   avisoSeguro: 'DHL no cobra gastos por reenganchar un envío por enlace. Si hay un paquete real, puedes gestionarlo en un punto oficial.' },
@@ -423,7 +423,7 @@ var DATA = {
       { picto: '📎', text: 'No abras archivos adjuntos de correos de desconocidos, sobre todo si son .exe, .zip o .scr.' },
       { picto: '🔐', text: 'Las contraseñas se escriben solo en la web oficial, nunca en enlaces de correos.' },
       { picto: '📱', text: 'Si alguien te pide datos personales por chat, es motivo para desconfiar.' },
-      { picto: '⏰', text: 'La urgencia es una herramienta de los Ladrones para que actúes sin pensar.' },
+      { picto: '⏰', text: 'La urgencia es una herramienta de los ladrones para que actúes sin pensar.' },
       { picto: '✅', text: 'Ante la duda, pregunta a una persona de confianza antes de hacer clic.' }
     ]
   },

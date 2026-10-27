@@ -1,9 +1,13 @@
-/* Routime — Situaciones: elegir una respuesta segura. */
+/* Routime — Situaciones: elegir una respuesta segura.
+   Menú de subactividades (un grupo de situaciones de un nivel); cada una
+   se juega en orden, sin barajar, y su progreso se guarda por separado. */
 (function () {
   'use strict';
 
   var TOOL_ID = 'situaciones';
   var $ = App.utils.$;
+  var menuScreen = $('#menuScreen');
+  var menuNiveles = $('#menuNiveles');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var levelEl = $('#level');
@@ -25,7 +29,8 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-  var roundStart = 0;
+
+  var current = null;
   var items = [];
   var index = 0;
   var hits = 0;
@@ -35,40 +40,92 @@
   function save() { App.storage.set(TOOL_ID, progress); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  function keyOf(level, grupo) { return level.id + ':' + grupo; }
 
-  // Un único recorrido por todas las situaciones: nivel 1, nivel 2 y
-  // nivel 3, cada uno en su orden por subactividad. Cada entrada guarda
-  // su nivel para mostrarlo al pasar de un nivel a otro dentro de la ronda.
-  function catalog() {
+  // Situaciones de una subactividad, en su orden didáctico. Cada entrada
+  // guarda su nivel para mostrarlo en la cabecera del juego.
+  function itemsOf(level, grupo) {
     var out = [];
-    bank().niveles.forEach(function (level) {
-      level.items.forEach(function (item) { out.push({ level: level, item: item }); });
+    level.items.forEach(function (item) {
+      if (item.grupo === grupo) out.push({ level: level, item: item });
     });
     return out;
   }
 
-  // Cada ronda continúa donde terminó la anterior y da la vuelta al final.
-  function roundEntries(all, start) {
-    var out = [];
-    for (var i = 0; i < bank().porRonda; i++) {
-      out.push(all[(start + i) % all.length]);
-    }
-    return out;
+  function showScreen(screen) {
+    [menuScreen, gameScreen, endScreen, listScreen].forEach(function (s) {
+      s.classList.toggle('hidden', s !== screen);
+    });
   }
 
-  function startGame() {
-    var all = catalog();
-    roundStart = (progress.position || 0) % all.length;
-    items = roundEntries(all, roundStart);
+  // Menú: una sección por nivel, con una tarjeta por subactividad.
+  function renderMenu() {
+    menuNiveles.innerHTML = '';
+    bank().niveles.forEach(function (level) {
+      var bloque = document.createElement('div');
+      bloque.className = 'nivel-bloque';
+
+      var heading = document.createElement('h2');
+      heading.textContent = level.name + ' · ' + level.descripcion;
+      bloque.appendChild(heading);
+
+      var grid = document.createElement('div');
+      grid.className = 'cards-grid';
+      Object.keys(level.grupos).forEach(function (grupo) {
+        var entries = itemsOf(level, grupo);
+        var done = progress.completed[keyOf(level, grupo)] || 0;
+
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'tarjeta-actividad';
+
+        var picto = document.createElement('span');
+        picto.className = 'picto';
+        picto.setAttribute('aria-hidden', 'true');
+        picto.textContent = entries[0].item.picto;
+
+        var name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = level.grupos[grupo];
+
+        var detalle = document.createElement('span');
+        detalle.className = 'detalle';
+        detalle.textContent = App.i18n.t('numSituaciones').replace('{n}', entries.length);
+
+        var marca = document.createElement('span');
+        marca.className = 'marca';
+        marca.textContent = done ? '✅ ' + done : '';
+
+        card.appendChild(picto);
+        card.appendChild(name);
+        card.appendChild(detalle);
+        card.appendChild(marca);
+        card.addEventListener('click', function () { startGame(level, grupo); });
+        grid.appendChild(card);
+      });
+      bloque.appendChild(grid);
+      menuNiveles.appendChild(bloque);
+    });
+  }
+
+  function showMenu() {
+    renderMenu();
+    showScreen(menuScreen);
+    renderStars();
+    window.scrollTo(0, 0);
+  }
+
+  function startGame(level, grupo) {
+    current = { level: level, grupo: grupo, key: keyOf(level, grupo) };
+    items = itemsOf(level, grupo);
     index = 0;
     hits = 0;
-    endScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
+    showScreen(gameScreen);
     render();
   }
 
   function renderProgress() {
-    var total = items.length || bank().porRonda;
+    var total = items.length;
     progressFill.style.width = ((index / total) * 100) + '%';
     progressText.textContent = (index + 1) + ' / ' + total;
   }
@@ -151,12 +208,9 @@
 
   function endRound() {
     progress.roundsCompleted += 1;
-    progress.position = (roundStart + items.length) % catalog().length;
-    var levelId = items[0].level.id;
-    progress.completed[levelId] = (progress.completed[levelId] || 0) + 1;
+    progress.completed[current.key] = (progress.completed[current.key] || 0) + 1;
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    showScreen(endScreen);
     $('#endSummary').textContent = App.i18n.t('roundSummary')
       .replace('{hits}', hits).replace('{total}', items.length);
     App.feedback.celebrate(App.i18n.t('roundComplete'));
@@ -193,29 +247,24 @@
   }
 
   function showList() {
-    lastScreen = gameScreen.classList.contains('hidden') ? endScreen : gameScreen;
-    gameScreen.classList.add('hidden');
-    endScreen.classList.add('hidden');
+    lastScreen = endScreen.classList.contains('hidden') ? gameScreen : endScreen;
     renderList();
-    listScreen.classList.remove('hidden');
+    showScreen(listScreen);
     window.scrollTo(0, 0);
   }
 
   function hideList() {
-    listScreen.classList.add('hidden');
-    lastScreen.classList.remove('hidden');
+    showScreen(lastScreen);
   }
 
   btnNext.addEventListener('click', next);
   $('#btnVerTodas').addEventListener('click', showList);
   $('#btnVerTodasFin').addEventListener('click', showList);
   $('#btnVolverJugar').addEventListener('click', hideList);
-  $('#repeatBtn').addEventListener('click', startGame);
-  $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
-  });
+  $('#btnMenuJuego').addEventListener('click', showMenu);
+  $('#btnMenuFin').addEventListener('click', showMenu);
+  $('#repeatBtn').addEventListener('click', function () { startGame(current.level, current.grupo); });
 
   renderStars();
-  // Iniciar directamente la actividad
-  startGame();
+  showMenu();
 })();

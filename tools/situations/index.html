@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-vbb11c750">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-vae23ec54">
+  <link rel="stylesheet" href="styles.css?v=routime-v0483548e">
 </head>
 <body>
   <div class="container">
@@ -18,13 +18,9 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
-    <section id="startScreen" class="hidden pila centered">
-      <div class="row centered-row">
-        <p class="instruccion" data-i18n="instruccion">Pulsa Jugar para empezar.</p>
-      </div>
-      <button type="button" class="btn btn-principal" id="btnPlay">
-        <span data-i18n="btnJugar">Jugar!</span>
-      </button>
+    <section id="menuScreen" class="hidden pila">
+      <p class="instruccion centered" data-i18n="instruccion">Elige una subactividad para practicar.</p>
+      <div id="menuNiveles" class="pila"></div>
     </section>
 
     <section id="gameScreen" class="hidden pila centered">
@@ -45,6 +41,7 @@
       </div>
       <button type="button" class="btn hidden" id="btnNext">Siguiente &#8594;</button>
       <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todas las situaciones</button>
+      <button type="button" class="btn btn-secondary" id="btnMenuJuego" data-i18n="btnMenu">Volver al menú</button>
     </section>
 
       <section id="endScreen" class="hidden centered pila" aria-live="polite">
@@ -53,7 +50,7 @@
         <p id="endSummary"></p>
         <button type="button" class="btn" id="repeatBtn">Jugar otra vez</button>
         <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todas las situaciones</button>
-        <button type="button" class="btn btn-secondary" id="btnMenu">Volver al inicio</button>
+        <button type="button" class="btn btn-secondary" id="btnMenuFin" data-i18n="btnMenu">Volver al menú</button>
       </section>
 
       <section id="listScreen" class="hidden pila" aria-live="polite">
@@ -70,10 +67,10 @@
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
   <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
-  <script src="strings.es.js?v=routime-vb0fc4154"></script>
-  <script src="strings.en.js?v=routime-v092edb66"></script>
-  <script src="data.js?v=routime-v56e5e744"></script>
-  <script src="app.js?v=routime-veda324ad"></script>
+  <script src="strings.es.js?v=routime-vbb8b601d"></script>
+  <script src="strings.en.js?v=routime-v6277000b"></script>
+  <script src="data.js?v=routime-v03ea9049"></script>
+  <script src="app.js?v=routime-vb821edc5"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});
