@@ -41,6 +41,19 @@
   function renderMenu() {
     var cont = $('#listaChats');
     cont.innerHTML = '';
+    /* "My rules" is the first card, in place of a button below the list */
+    var normas = document.createElement('button');
+    normas.type = 'button';
+    normas.className = 'tarjeta-chat';
+    normas.innerHTML =
+      '<span class="picto" aria-hidden="true">📜</span>' +
+      '<span class="name">' + App.i18n.t('normasTitulo') + '</span>' +
+      '<span class="done"></span>';
+    normas.addEventListener('click', function () {
+      pintarNormas();
+      showScreen('pantallaNormas');
+    });
+    cont.appendChild(normas);
     DATOS.escenarios.forEach(function (esc) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -211,10 +224,6 @@
   }
 
   /* ---------- Events ---------- */
-  $('#btnNormas').addEventListener('click', function () {
-    pintarNormas();
-    showScreen('pantallaNormas');
-  });
   $('#btnVolverDeNormas').addEventListener('click', irMenu);
   $('#btnSalirChat').addEventListener('click', irMenu);
   $('#btnBackToMenu').addEventListener('click', irMenu);

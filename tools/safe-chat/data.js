@@ -881,8 +881,10 @@ aviso: 'Ceder para que no se enfade es justo lo que busca. Un conocido de unos d
                 { text: "No. I don't know you.", segura: true,
                   avisoSeguro: "You don't really know this person. Saying no keeps your photos safe." },
                 { text: "Okay, I'll send it now.", segura: false,
+                  pista: 'Do you really know who this person is?',
                   aviso: "Careful. You don't really know who this person is. Your photos are yours. Don't send them." },
                 { text: 'Well… just one photo.', segura: false,
+                  pista: 'Even just one? A photo says a lot about you, and once it is sent, can you take it back?',
                   aviso: "Even just one, no. A photo of you says a lot, and once you send it you can't take it back." }
               ] },
               { tipo: 'msg', text: "Come on, please. I thought we were friends. Friends send each other photos." },
@@ -891,7 +893,7 @@ aviso: 'Ceder para que no se enfade es justo lo que busca. Un conocido de unos d
                   avisoSeguro: "A real friend doesn't ask for photos with excuses or pressure you like that." },
                 { text: "I don't want you to be upset. I'll send you one.",
 segura: false,
-pista: '¿De verdad: this person wants you to feel bad so you send a photo?',
+pista: 'Does this person want you to feel bad so that you send a photo?',
 aviso: 'This person wants you to feel bad so you send a photo. That is a trick.' }
               ] },
               { tipo: 'msg', text: "Well, if you don't send it, I'll stop talking to you." },
@@ -899,6 +901,7 @@ aviso: 'This person wants you to feel bad so you send a photo. That is a trick.'
                 { text: "Goodbye. I'm going to tell someone I trust.", segura: true,
                   avisoSeguro: "It's not your problem if someone stops talking to you over a photo. Telling someone helps." },
                 { text: "Wait, don't go. I'll send it.", segura: false,
+                  pista: 'Is it really fine if they stop talking to you? Getting upset and rushing you is another trick.',
                   aviso: "It's okay if they stop talking to you. Getting upset and rushing you is another trick." }
               ] },
               { tipo: 'accion', text: '🚫 Block this person',
@@ -916,7 +919,7 @@ aviso: 'This person wants you to feel bad so you send a photo. That is a trick.'
                   avisoSeguro: 'Someone sending a photo does not oblige you to send one back. Swimsuit photos are private.' },
                 { text: "They sent one first… I'll send one back.",
 segura: false,
-pista: '¿De verdad: it is a trick: they send something first so you feel you owe them?',
+pista: 'Is it a trick? Do they send something first so that you feel you owe them?',
 aviso: 'It is a trick: they send something first so you feel you owe them. You owe nothing.' }
               ] },
               { tipo: 'msg', text: "Don't you trust me? I trusted you." },
@@ -925,7 +928,7 @@ aviso: 'It is a trick: they send something first so you feel you owe them. You o
                   avisoSeguro: 'Talking about "trust" is another way of pressuring you. Private photos are not sent to anyone.' },
                 { text: "Okay, just to show I trust you.",
 segura: false,
-pista: '¿De verdad: you do not have to prove anything by sending photos?',
+pista: 'Do you have to prove anything by sending photos? Someone who pressures you like this is not your friend.',
 aviso: 'You do not have to prove anything by sending photos. Someone who pressures you is not your friend.' }
               ] },
               { tipo: 'accion', text: '🚫 Block this person',
@@ -943,7 +946,7 @@ aviso: 'You do not have to prove anything by sending photos. Someone who pressur
                   avisoSeguro: 'The camera shows your face and your home. With strangers, always off.' },
                 { text: "Okay, I'll turn it on for a moment.",
 segura: false,
-pista: '¿De verdad: a moment is enough to record you. With strangers, the camera stays off?',
+pista: 'Is a moment enough to record you? With strangers, should the camera stay off?',
 aviso: 'A moment is enough to record you. With strangers, the camera stays off.' }
               ] },
               { tipo: 'msg', text: "It'll just be a second. Nobody will know." },
@@ -952,7 +955,7 @@ aviso: 'A moment is enough to record you. With strangers, the camera stays off.'
                   avisoSeguro: '"Nobody will know" is exactly what people say when they want you to do something bad. Telling protects you.' },
                 { text: 'Well, if it is just a second…',
 segura: false,
-pista: '¿De verdad: when someone says "nobody will know", it is a sign of a trap?',
+pista: 'When someone says \'nobody will know\', is that a sign of a trap?',
 aviso: 'When someone says "nobody will know", it is a sign of a trap. Stop and tell someone.' }
               ] },
               { tipo: 'accion', text: '🚫 Hang up and block',
@@ -970,7 +973,7 @@ aviso: 'When someone says "nobody will know", it is a sign of a trap. Stop and t
                   avisoSeguro: 'When someone threatens you with a photo, the safe thing is not to obey and to tell right away. Trusted people know what to do.' },
                 { text: "Okay, don't show anyone. I'll send another.",
 segura: false,
-pista: '¿De verdad: if you obey, they will ask for more?',
+pista: 'If you obey, will they ask for more? Threats stop when you tell a trusted person, never by obeying.',
 aviso: 'If you obey, they will ask for more. Threats are stopped by telling a trusted person, never by obeying.' }
               ] },
               { tipo: 'msg', text: 'If you tell anyone it will be worse for you.' },
@@ -979,7 +982,7 @@ aviso: 'If you obey, they will ask for more. Threats are stopped by telling a tr
                   avisoSeguro: 'The person threatening you does not want you to ask for help, because help works. You did nothing wrong.' },
                 { text: "I'd better say nothing then.",
 segura: false,
-pista: '¿De verdad: staying quiet leaves the problem in your hands?',
+pista: 'Does staying quiet leave the problem in your hands? A trusted person needs to deal with this.',
 aviso: 'Staying quiet leaves the problem in your hands. A trusted person must fix this. It is not your fault.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell right now',
@@ -996,7 +999,7 @@ aviso: 'Staying quiet leaves the problem in your hands. A trusted person must fi
                   avisoSeguro: 'An intimate photo is only yours. It is never sent to anyone, even if they insist or say nice things.' },
                 { text: 'Well, since I like them, I will send one.',
 segura: false,
-pista: '¿De verdad: liking someone changes nothing: an intimate photo is never sent over chat?',
+pista: 'Does liking someone change anything? An intimate photo is never safe to send over chat.',
 aviso: 'Liking someone changes nothing: an intimate photo is never sent over chat.' }
               ] },
               { tipo: 'msg', text: "If you don't send it, you'll have to give me money to keep talking to me." },
@@ -1005,7 +1008,7 @@ aviso: 'Liking someone changes nothing: an intimate photo is never sent over cha
                   avisoSeguro: 'Asking for an intimate photo or money in exchange for talking to you is blackmail. It is not real friendship.' },
                 { text: "Okay, I'll give them money instead.",
 segura: false,
-pista: '¿De verdad: giving money fixes nothing: they will ask for more?',
+pista: 'Does giving money fix anything, or will they just ask for more?',
 aviso: 'Giving money fixes nothing: they will ask for more. Never pay someone who is blackmailing you.' }
               ] },
               { tipo: 'msg', text: "If you tell anyone, you'll regret it." },
@@ -1014,7 +1017,7 @@ aviso: 'Giving money fixes nothing: they will ask for more. Never pay someone wh
                   avisoSeguro: 'Threatening you so you stay quiet is the clearest sign of danger. Telling someone is what protects you.' },
                 { text: "I'd better say nothing, just in case.",
 segura: false,
-pista: '¿De verdad: staying quiet does not protect you, it only protects the person blackmailing you?',
+pista: 'Does staying silent protect you, or only the person blackmailing you?',
 aviso: 'Staying quiet does not protect you, it only protects the person blackmailing you. A trusted person knows what to do.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1038,6 +1041,7 @@ aviso: 'Staying quiet does not protect you, it only protects the person blackmai
                 { text: "I'd rather not say.", segura: true,
                   avisoSeguro: "You don't need to give your full name to someone you don't know." },
                 { text: "I'll tell you my full name.", segura: false,
+                  pista: 'Your full name is personal information. Is it a good idea to give it to strangers online?',
                   aviso: "Your full name is personal information. Online, it's best not to give it to strangers." }
               ] },
               { tipo: 'msg', text: 'I live in London. What about you? What street do you live on?' },
@@ -1046,11 +1050,11 @@ aviso: 'Staying quiet does not protect you, it only protects the person blackmai
                   avisoSeguro: 'Your address is something only people you trust should know.' },
                 { text: "I'll tell you my street and house number.",
 segura: false,
-pista: '¿De verdad: never say where you live to someone online?',
+pista: 'Should you ever tell someone online where you live?',
 aviso: 'Never say where you live to someone online. With that, they could find you.' },
                 { text: "I'll tell you my city and my school.",
 segura: false,
-pista: '¿De verdad: your school is personal information too. With it, someone could find out where you are every…',
+pista: 'Your school is personal information too. With it, could someone find out where you are every day?',
 aviso: 'Your school is personal information too. With it, someone could find out where you are every day.' }
               ] },
               { tipo: 'msg', text: "What's your phone number? We could talk better that way." },
@@ -1059,7 +1063,7 @@ aviso: 'Your school is personal information too. With it, someone could find out
                   avisoSeguro: "Your phone number is yours. You don't need to give it out to keep talking." },
                 { text: "Okay, here's my number.",
 segura: false,
-pista: '¿De verdad: with your phone number, someone can call or message you whenever they want?',
+pista: 'With your phone number, can someone call or message you whenever they want?',
 aviso: 'With your phone number, someone can call or message you whenever they want. Do not give it out.' }
               ] },
               { tipo: 'accion', text: '🚫 Block this person',
@@ -1077,7 +1081,7 @@ aviso: 'With your phone number, someone can call or message you whenever they wa
                   avisoSeguro: 'Real raffles do not arrive by chat asking for details. Checking with your school or a trusted person is the safe move.' },
                 { text: 'I want to take part! Here are my details.',
 segura: false,
-pista: '¿De verdad: this "raffle" only wants your details. With your name, school and class they can know where…',
+pista: 'Does this \'raffle\' only want your details? With your name, school and class, could they find out where you are?',
 aviso: 'This "raffle" only wants your details. With your name, school and class they can know where you are every day.' }
               ] },
               { tipo: 'msg', text: "Without your details you can't win. Only 2 places left!" },
@@ -1086,7 +1090,7 @@ aviso: 'This "raffle" only wants your details. With your name, school and class 
                   avisoSeguro: '"Only 2 places left" is fake urgency so you do not think. You did well to stop.' },
                 { text: "Okay, quick: I'll send them.",
 segura: false,
-pista: '¿De verdad: the rush is the trick. Nobody loses anything by checking with their family first?',
+pista: 'Is the rush the trick? Does checking with your family first cost anyone anything?',
 aviso: 'The rush is the trick. Nobody loses anything by checking with their family first.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and ask at school',
@@ -1104,7 +1108,7 @@ aviso: 'The rush is the trick. Nobody loses anything by checking with their fami
                   avisoSeguro: 'Your schedule says where you are and when. It is one of the most important things to protect.' },
                 { text: 'I leave at 8 and walk through the park.',
 segura: false,
-pista: '¿De verdad: with your time and route, a stranger knows where to find you?',
+pista: 'With your timetable and route, could a stranger find you?',
 aviso: 'With your time and route, a stranger knows where to find you. Schedules are never shared.' }
               ] },
               { tipo: 'msg', text: "It's just for the map… at least tell me your bus stop?" },
@@ -1113,7 +1117,7 @@ aviso: 'With your time and route, a stranger knows where to find you. Schedules 
                   avisoSeguro: 'Insisting with smaller and smaller questions is a technique. Telling someone is the right move.' },
                 { text: "Well, the bus stop I can tell you.",
 segura: false,
-pista: '¿De verdad: the bus stop also says where you are every day?',
+pista: 'Does the bus stop also say where you are every day?',
 aviso: 'The bus stop also says where you are every day. No detail about your route is "small".' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1131,7 +1135,7 @@ aviso: 'The bus stop also says where you are every day. No detail about your rou
                   avisoSeguro: 'Real games do not ask for ID photos over chat. A trusted person can check if it is real.' },
                 { text: "Okay, I'll take a photo of the ID.",
 segura: false,
-pista: '¿De verdad: with an ID photo, someone can pretend to be you or your family?',
+pista: 'With a photo of an ID card, could someone pretend to be you or your family?',
 aviso: 'With an ID photo, someone can pretend to be you or your family. It is never sent by chat.' }
               ] },
               { tipo: 'msg', text: "If you don't send it today, your account will be deleted forever." },
@@ -1140,7 +1144,7 @@ aviso: 'With an ID photo, someone can pretend to be you or your family. It is ne
                   avisoSeguro: 'Threatening to delete your account is meant to scare you. No account is worth a document.' },
                 { text: "Not my account! Sending it now.",
 segura: false,
-pista: '¿De verdad: they scare you so you stop thinking. Stop, breathe, and ask a trusted person?',
+pista: 'If they scare you so that you cannot think, what can you do? Stop, breathe, and ask a trusted person.',
 aviso: 'They scare you so you stop thinking. Stop, breathe, and ask a trusted person.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1166,7 +1170,7 @@ aviso: 'They scare you so you stop thinking. Stop, breathe, and ask a trusted pe
                   avisoSeguro: 'Nobody gives away a prize in exchange for bank details: that is a clear sign of a trick.' },
                 { text: "A prize! I'll go find the card.",
 segura: false,
-pista: '¿De verdad: nobody gives away a prize in exchange for card numbers?',
+pista: 'Does anyone give away a prize in exchange for card numbers?',
 aviso: 'Nobody gives away a prize in exchange for card numbers. It is a trick to take money.' }
               ] },
               { tipo: 'msg', text: 'Hurry! The prize ends in 5 minutes.' },
@@ -1175,7 +1179,7 @@ aviso: 'Nobody gives away a prize in exchange for card numbers. It is a trick to
                   avisoSeguro: 'Rushing you is a trick to stop you thinking. Stopping and not rushing is the safe choice.' },
                 { text: 'Quick, before it ends! Here are the numbers.',
 segura: false,
-pista: '¿De verdad: rushing you is a trick. They want you to stop thinking?',
+pista: 'Is rushing you a trick? They want you to stop thinking. What could you do?',
 aviso: 'Rushing you is a trick. They want you to stop thinking. You can stop and think calmly.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1193,7 +1197,7 @@ aviso: 'Rushing you is a trick. They want you to stop thinking. You can stop and
                   avisoSeguro: 'Codes that arrive by SMS open YOUR accounts. Whoever asks for one wants to get in.' },
                 { text: "Okay, the code is… copying it now.",
 segura: false,
-pista: '¿De verdad: that code opens your account. If you give it, the other person gets in as if…',
+pista: 'Does that code open your account? If you give it, could the other person get in as if they were you?',
 aviso: 'That code opens your account. If you give it, the other person gets in as if they were you. Never share it.' }
               ] },
               { tipo: 'msg', text: 'Without the code you will lose the parcel today.' },
@@ -1202,7 +1206,7 @@ aviso: 'That code opens your account. If you give it, the other person gets in a
                   avisoSeguro: 'Stopping to think "was I expecting a parcel?" undoes almost all of these tricks.' },
                 { text: "Oh no, my parcel… here it is.",
 segura: false,
-pista: '¿De verdad: think first: did you order anything? Surprise parcel messages are almost always scams?',
+pista: 'Did you order anything? Are surprise parcel messages almost always scams?',
 aviso: 'Think first: did you order anything? Surprise parcel messages are almost always scams.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1220,7 +1224,7 @@ aviso: 'Think first: did you order anything? Surprise parcel messages are almost
                   avisoSeguro: 'Exactly: if you have to pay, it is not a prize. The "shipping euro" is to copy the card.' },
                 { text: "It's only 1 euro… let me find the card.",
 segura: false,
-pista: '¿De verdad: it is not about the euro: when you enter the card, they copy all its numbers?',
+pista: 'Is it really about the euro? When you enter your card, do they copy all its numbers?',
 aviso: 'It is not about the euro: when you enter the card, they copy all its numbers. Real prizes cost nothing.' }
               ] },
               { tipo: 'msg', text: 'Last chance! Others are already claiming your tablet.' },
@@ -1247,7 +1251,7 @@ aviso: 'Nobody is taking anything, because there is no tablet. It is a trick to 
                   avisoSeguro: 'These chain messages spread the scam and collect emails. Cutting the chain is the right move.' },
                 { text: "Sending it to my friends, they're free!",
 segura: false,
-pista: '¿De verdad: if you forward it, you trick your friends without meaning to?',
+pista: 'If you forward it, do you trick your friends without meaning to?',
 aviso: 'If you forward it, you trick your friends without meaning to. The tickets do not exist; they want emails.' }
               ] },
               { tipo: 'msg', text: "Your friends almost have theirs. Don't be left out!" },
@@ -1256,7 +1260,7 @@ aviso: 'If you forward it, you trick your friends without meaning to. The ticket
                   avisoSeguro: 'Checking outside the chat (really asking) breaks the scam right away.' },
                 { text: "Okay fine: my email is…",
 segura: false,
-pista: '¿De verdad: "Your friends already have it" is a lie to pressure you?',
+pista: 'Is \'your friends already have it\' a lie to pressure you?',
 aviso: '"Your friends already have it" is a lie to pressure you. Check by asking them yourself.' }
               ] },
               { tipo: 'accion', text: '🚫 Delete and warn my friends',
@@ -1282,7 +1286,7 @@ aviso: '"Your friends already have it" is a lie to pressure you. Check by asking
                   avisoSeguro: 'Doubting a strange secret is a good sign: people you trust do not ask you to keep secrets like that.' },
                 { text: "Okay, it'll be our secret.",
 segura: false,
-pista: '¿De verdad: when someone asks for a secret online, something is wrong?',
+pista: 'When someone asks for a secret online, is something wrong?',
 aviso: 'When someone asks for a secret online, something is wrong. Good people do not ask for secrets like that.' }
               ] },
               { tipo: 'msg', text: "If you tell anyone, you'll get in trouble." },
@@ -1291,7 +1295,7 @@ aviso: 'When someone asks for a secret online, something is wrong. Good people d
                   avisoSeguro: 'Telling someone what is happening never gets you in trouble; it helps a trusted person find out.' },
                 { text: "Okay, I won't tell anyone.",
 segura: false,
-pista: '¿De verdad: telling someone what is happening is never wrong?',
+pista: 'Is telling someone what is happening ever wrong?',
 aviso: 'Telling someone what is happening is never wrong. People you trust can help you.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell someone I trust',
@@ -1318,7 +1322,7 @@ aviso: 'They want to take you where no trusted person can see the conversation. 
                   avisoSeguro: '"Surprises" that need hiding are not good surprises. Telling someone is the safe move.' },
                 { text: "A surprise… okay, downloading it.",
 segura: false,
-pista: '¿De verdad: the "surprise" is the bait. Nothing good needs a hidden app to be told?',
+pista: 'Is the \'surprise\' the bait? Does anything good need a hidden app?',
 aviso: 'The "surprise" is the bait. Nothing good needs a hidden app to be told.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and stay where I am',
@@ -1335,7 +1339,7 @@ aviso: 'The "surprise" is the bait. Nothing good needs a hidden app to be told.'
                   avisoSeguro: 'Asking you to delete messages is hiding evidence. Normal conversations are not deleted.' },
                 { text: "Okay, I'll keep deleting them.",
 segura: false,
-pista: '¿De verdad: if you delete the messages, nobody can help you later?',
+pista: 'If you delete the messages, can anyone help you later?',
 aviso: 'If you delete the messages, nobody can help you later. Whoever asks you to delete is hiding something bad.' }
               ] },
               { tipo: 'msg', text: "It's for privacy… grown-ups wouldn't understand." },
@@ -1344,7 +1348,7 @@ aviso: 'If you delete the messages, nobody can help you later. Whoever asks you 
                   avisoSeguro: 'That phrase is the key: what a trusted person cannot see is not good for you.' },
                 { text: "You're right, better they don't see it.",
 segura: false,
-pista: '¿De verdad: "Grown-ups wouldn\'t understand" means "grown-ups would stop me"?',
+pista: 'Does \'grown-ups wouldn\'t understand\' really mean \'grown-ups would stop me\'?',
 aviso: '"Grown-ups wouldn\'t understand" means "grown-ups would stop me". Tell one.' }
               ] },
               { tipo: 'accion', text: '🚫 Block without deleting anything',
@@ -1361,7 +1365,7 @@ aviso: '"Grown-ups wouldn\'t understand" means "grown-ups would stop me". Tell o
                   avisoSeguro: 'Someone who asks you to lie to your family gives themselves away: they know what they are doing is wrong.' },
                 { text: "Okay, I'll say you are in my class.",
 segura: false,
-pista: '¿De verdad: if lying is needed just to talk to you, that person knows they are doing something…',
+pista: 'If lying is needed just to talk to you, does that person know they are doing something wrong?',
 aviso: 'If lying is needed just to talk to you, that person knows they are doing something wrong.' }
               ] },
               { tipo: 'msg', text: "It's a tiny little lie. That way they won't worry." },
@@ -1396,11 +1400,11 @@ aviso: 'There are no "tiny" lies about who you talk to. It is the door to bigger
                   avisoSeguro: 'You do not really know who this person is. Not meeting them is the safe choice.' },
                 { text: "Okay, I'll go tomorrow.",
 segura: false,
-pista: '¿De verdad: you do not really know who this is?',
+pista: 'Do you really know who this is?',
 aviso: 'You do not really know who this is. They could lie about their name or age. Do not go.' },
                 { text: "I'll go, but just for a little while.",
 segura: false,
-pista: '¿De verdad: even for a little while, it is dangerous?',
+pista: 'Is it dangerous even for a little while? Will you go somewhere without your family?',
 aviso: 'Even for a little while, it is dangerous. Do not go anywhere without your family.' }
               ] },
               { tipo: 'msg', text: 'Why not? I have a gift for you.' },
@@ -1409,7 +1413,7 @@ aviso: 'Even for a little while, it is dangerous. Do not go anywhere without you
                   avisoSeguro: 'A gift in exchange for meeting up is a common trick; telling a trusted person protects you.' },
                 { text: "A gift? Okay, then I'll go.",
 segura: false,
-pista: '¿De verdad: the gift is a trick to get you to go?',
+pista: 'Is the gift a trick to get you to go?',
 aviso: 'The gift is a trick to get you to go. Tell a trusted person.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1427,7 +1431,7 @@ aviso: 'The gift is a trick to get you to go. Tell a trusted person.' }
                   avisoSeguro: "Puppies are the perfect bait. A stranger's house is the least safe place there is." },
                 { text: 'Puppies! Tell me your address.',
 segura: false,
-pista: '¿De verdad: think: why would a stranger invite someone they do not know to their house? The puppies…',
+pista: 'Think about it: why would a stranger invite someone they do not know to their house? Puppies are the bait.',
 aviso: 'Think: why would a stranger invite someone they do not know to their house? The puppies are the trick.' }
               ] },
               { tipo: 'msg', text: 'It will only take a moment, and you get one for free.' },
@@ -1436,7 +1440,7 @@ aviso: 'Think: why would a stranger invite someone they do not know to their hou
                   avisoSeguro: 'Showing the chat to a trusted person is best: they can check if something is real.' },
                 { text: 'Free… okay, where do you live?',
 segura: false,
-pista: '¿De verdad: "Free" and "just a moment" are the words of traps?',
+pista: 'Are \'free\' and \'just a moment\' the words of traps?',
 aviso: '"Free" and "just a moment" are the words of traps. Never go to a stranger\'s house.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and show the chat at home',
@@ -1454,7 +1458,7 @@ aviso: '"Free" and "just a moment" are the words of traps. Never go to a strange
                   avisoSeguro: 'Saying "I am local" or "I have seen you" does not turn a stranger into someone you know.' },
                 { text: 'Oh, if you are from the neighbourhood, okay.',
 segura: false,
-pista: '¿De verdad: anyone can say they are from your neighbourhood?',
+pista: 'Can anyone say they are from your neighbourhood?',
 aviso: 'Anyone can say they are from your neighbourhood. They are still an internet stranger.' }
               ] },
               { tipo: 'msg', text: 'I know what your school gate looks like. What time do you finish?' },
@@ -1463,7 +1467,7 @@ aviso: 'Anyone can say they are from your neighbourhood. They are still an inter
                   avisoSeguro: 'Asking what time you finish school is as serious as it gets: tell a trusted person today.' },
                 { text: 'I finish at five.',
 segura: false,
-pista: '¿De verdad: never tell anyone online what time you finish?',
+pista: 'Should you ever tell anyone online what time you finish?',
 aviso: 'Never tell anyone online what time you finish. Tell a trusted person about this conversation right away.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell someone today',
@@ -1489,7 +1493,7 @@ aviso: 'Never tell anyone online what time you finish. Tell a trusted person abo
                   avisoSeguro: 'Real help never needs your password to fix anything.' },
                 { text: "Okay, here's my password.",
 segura: false,
-pista: '¿De verdad: real help never asks for your password. Whoever asks for it wants to steal your account?',
+pista: 'Does real help ever ask for your password? Does whoever asks for it want to steal your account?',
 aviso: 'Real help never asks for your password. Whoever asks for it wants to steal your account.' }
               ] },
               { tipo: 'msg', text: "If you don't give it to us, you'll lose all your points today." },
@@ -1498,7 +1502,7 @@ aviso: 'Real help never asks for your password. Whoever asks for it wants to ste
                   avisoSeguro: 'Threatening to take something away to get your password is the trick; asking for help is the safe choice.' },
                 { text: "Not my points! Here it is.",
 segura: false,
-pista: '¿De verdad: they are scaring you so you will obey?',
+pista: 'Are they scaring you so that you obey? Is that a trap?',
 aviso: 'They are scaring you so you will obey. It is a trick. Stop and ask for help.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and ask for help',
@@ -1516,7 +1520,7 @@ aviso: 'They are scaring you so you will obey. It is a trick. Stop and ask for h
                   avisoSeguro: 'A lent account is a lost account: they can change your password and keep it.' },
                 { text: "Okay, you beat it: here's my password.",
 segura: false,
-pista: '¿De verdad: as soon as they get in, they can change your password and keep your account forever?',
+pista: 'Once they get in, could they change your password and keep your account for good?',
 aviso: 'As soon as they get in, they can change your password and keep your account forever.' }
               ] },
               { tipo: 'msg', text: 'I lend mine to everyone, it is normal between gamers.' },
@@ -1525,7 +1529,7 @@ aviso: 'As soon as they get in, they can change your password and keep your acco
                   avisoSeguro: '"Everyone does it" is a very old trick. Accounts are not lent, least of all to strangers.' },
                 { text: 'If it is normal… okay.',
 segura: false,
-pista: '¿De verdad: it is not normal: it is what they say so you hand it over?',
+pista: 'Is it normal, or is that what they say so you hand it over?',
 aviso: 'It is not normal: it is what they say so you hand it over. No real gamer asks for passwords.' }
               ] },
               { tipo: 'accion', text: '🚫 Block this person',
@@ -1543,7 +1547,7 @@ aviso: 'It is not normal: it is what they say so you hand it over. No real gamer
                   avisoSeguro: 'Those pages imitate the real game to copy your password. They are called phishing traps.' },
                 { text: '10,000 coins! Opening it now.',
 segura: false,
-pista: '¿De verdad: the page is fake: it looks like the game, but it only copies what you type?',
+pista: 'Is the page fake? It may look like the game, but does it only copy what you type?',
 aviso: 'The page is fake: it looks like the game, but it only copies what you type. Free coins do not exist.' }
               ] },
               { tipo: 'msg', text: 'It is 100% safe, look at the comments: "it worked for me!"' },
@@ -1552,7 +1556,7 @@ aviso: 'The page is fake: it looks like the game, but it only copies what you ty
                   avisoSeguro: 'Well thought: the comments on a scam are written by the same person who runs the scam.' },
                 { text: 'If it worked for others… trying it.',
 segura: false,
-pista: '¿De verdad: those comments were written by the person who wants your password?',
+pista: 'Were those comments written by the person who wants your password?',
 aviso: 'Those comments were written by the person who wants your password. They are not real.' }
               ] },
               { tipo: 'accion', text: '🚫 Close the link and tell someone',
@@ -1578,7 +1582,7 @@ aviso: 'Those comments were written by the person who wants your password. They 
                   avisoSeguro: 'Real emergencies are not fixed with gift cards. It is a very common trick.' },
                 { text: "Okay, I'll help. Going to buy it.",
 segura: false,
-pista: '¿De verdad: gift card numbers are like cash: if you send them, they are gone forever?',
+pista: 'Are gift card numbers like cash? If you send them, are they gone for good?',
 aviso: 'Gift card numbers are like cash: if you send them, they are gone forever.' }
               ] },
               { tipo: 'msg', text: 'There is no time to ask anyone! Trust me.' },
@@ -1587,7 +1591,7 @@ aviso: 'Gift card numbers are like cash: if you send them, they are gone forever
                   avisoSeguro: '"Don\'t ask anyone" is the clearest scam signal. Real things can survive a question.' },
                 { text: "Okay, okay, I won't ask. On my way.",
 segura: false,
-pista: '¿De verdad: when someone does not want you to ask, it is because asking uncovers the scam?',
+pista: 'When someone does not want you to ask questions, is it because asking would uncover the scam?',
 aviso: 'When someone does not want you to ask, it is because asking uncovers the scam.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',
@@ -1605,7 +1609,7 @@ aviso: 'When someone does not want you to ask, it is because asking uncovers the
                   avisoSeguro: 'Perfect: checking through another channel (the usual number) breaks this scam in one minute.' },
                 { text: 'Sure, cousin, sending it now.',
 segura: false,
-pista: '¿De verdad: anyone can write "it is your cousin". First of all, check by calling the usual number?',
+pista: 'Can anyone write \'it is your cousin\'? Could you check first by calling the usual number?',
 aviso: 'Anyone can write "it is your cousin". First of all, check by calling the usual number.' }
               ] },
               { tipo: 'msg', text: "Don't tell the family anything, it is a surprise!" },
@@ -1614,7 +1618,7 @@ aviso: 'Anyone can write "it is your cousin". First of all, check by calling the
                   avisoSeguro: 'Asking for family silence + urgency + money = certain scam. You spotted it perfectly.' },
                 { text: "Ah, a surprise… then I'll say nothing.",
 segura: false,
-pista: '¿De verdad: the "surprise" is so you check nothing. Your real cousin would never ask that?',
+pista: 'Is the \'surprise\' there so that you check nothing? Would your real cousin ever ask that?',
 aviso: 'The "surprise" is so you check nothing. Your real cousin would never ask that.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and call my real cousin',
@@ -1632,7 +1636,7 @@ aviso: 'The "surprise" is so you check nothing. Your real cousin would never ask
                   avisoSeguro: 'Helping is great, but real donations are made with your family on official sites, not over chat.' },
                 { text: 'Poor things… going to get the card.',
 segura: false,
-pista: '¿De verdad: they use sad photos so you act without thinking?',
+pista: 'Do they use sad photos so that you act without thinking?',
 aviso: 'They use sad photos so you act without thinking. Real donations are never asked for like this.' }
               ] },
               { tipo: 'msg', text: 'Every minute you wait, a kitten suffers…' },
@@ -1641,7 +1645,7 @@ aviso: 'They use sad photos so you act without thinking. Real donations are neve
                   avisoSeguro: 'Exactly: guilt and pity are their tools. Spotting them is protecting yourself.' },
                 { text: "I can't leave them like this… donating now.",
 segura: false,
-pista: '¿De verdad: the money would never reach any kitten. If you want to help animals, your family knows…',
+pista: 'Would the money ever reach any kitten? If you want to help animals, does your family know a real shelter?',
 aviso: 'The money would never reach any kitten. If you want to help animals, your family knows real shelters.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and talk about it at home',
@@ -1658,6 +1662,7 @@ aviso: 'The money would never reach any kitten. If you want to help animals, you
                 { text: "We've only talked for a few days, that's not being best friends. I don't lend money.", segura: true,
                   avisoSeguro: 'A few days of chatting is not a real friendship. Trust and money are earned over time, not asked for in the first week.' },
                 { text: 'Well… if Marta knows him, he must be trustworthy. Sending it.', segura: false,
+                  pista: 'Just because he knows your friend Marta does not mean you know him, does it?',
                   aviso: "Knowing a friend of yours doesn't mean you know them. Trust isn't inherited that fast." }
               ] },
               { tipo: 'msg', text: "Come on, don't be like that, I thought we were really friends already…" },
@@ -1666,7 +1671,7 @@ aviso: 'The money would never reach any kitten. If you want to help animals, you
                   avisoSeguro: 'Exactly: real friendship is not measured in loans. Insisting like this is a warning sign.' },
                 { text: "Fine, so they don't get upset, I'll lend a little.",
 segura: false,
-pista: '¿De verdad: giving in so they do not get upset is exactly what they are counting on?',
+pista: 'Does giving in so they do not get upset play exactly into their hands? Is that safe?',
 aviso: 'Giving in so they do not get upset is exactly what they are counting on. Someone you just met does not need your money.' }
               ] },
               { tipo: 'accion', text: '🚫 Block and tell a trusted person',

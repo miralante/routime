@@ -76,7 +76,7 @@ var DATA = {
                   aviso: 'El miedo al dinero es otra trampa. No entres por el enlace; usa la app.' }
               ] },
               { tipo: 'accion', text: '🚫 Eliminar correo y denunciar como phishing',
-                confirmacion: 'Has eliminado el correo falso. ¡Laapp de Amazon te habría confirmado que no había ningún problema!' }
+                confirmacion: 'Has eliminado el correo falso. ¡La app de Amazon te habría confirmado que no había ningún problema!' }
             ],
             regla: 'Amazon y otras tiendas comunican problemas solo desde su app o web. Nunca desde enlaces de correos.'
           },
@@ -140,7 +140,7 @@ var DATA = {
                   aviso: 'La amenaza de perder datos es para asustarte. Entra desde la dirección oficial.' }
               ] },
               { tipo: 'accion', text: '🚫 Eliminar correo y renovar desde microsoft.com',
-                confirmacion: 'Has eliminado el correo falso. Tu suscripción real sigue activa mientras la gestines desde microsoft.com.' }
+                confirmacion: 'Has eliminado el correo falso. Tu suscripción real sigue activa mientras la gestiones desde microsoft.com.' }
             ],
             regla: 'Microsoft, Google y otras empresas nunca te piden renovar desde un enlace de correo. Entra siempre desde la dirección oficial.'
           }
@@ -152,97 +152,97 @@ var DATA = {
         picto: '🔗',
         variantes: [
           {
-            contacto: '未知',
+            contacto: 'Desconocido',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: '陌生号码发来消息: "看看这张照片有你吗？" + 链接: bit.ly/photo-album-2024' },
+              { tipo: 'msg', text: 'Mensaje de un número desconocido: "¿Mira si sales en esta foto?" + enlace: bit.ly/photo-album-2024' },
               { tipo: 'eleccion', options: [
-                { text: '不点击陌生链接。和信任的人说说这条消息。', segura: true,
-                  avisoSeguro: '不认识的人发来的链接很可能有危险。不要点击，要和信任的人商量。' },
-                { text: '点开看看有没有我的照片。',
+                { text: 'No hago clic en enlaces de desconocidos. Se lo cuento a una persona de confianza.', segura: true,
+                  avisoSeguro: 'Los enlaces de personas desconocidas pueden ser peligrosos. No hagas clic y coméntalo con alguien de confianza.' },
+                { text: 'Hago clic para ver si hay una foto mía.',
                   segura: false,
-                  pista: '陌生人的链接可能是病毒，或者窃取个人信息。不要点击！',
-                  aviso: '陌生人发的链接可能是陷阱。不要点击，直接和信任的人说。' },
-                { text: '既然有我的照片，我就点开看看。',
+                  pista: '¿De verdad: un enlace de un desconocido puede tener virus o robar tus datos? ¡No hagas clic!',
+                  aviso: 'Un enlace que envía un desconocido puede ser una trampa. No hagas clic y cuéntaselo a alguien de confianza.' },
+                { text: 'Como dice que salgo yo, lo abro.',
                   segura: false,
-                  pista: '诱骗你点击是常见手段。即使说有你认识的人，也不要点击陌生链接。',
-                  aviso: '这很可能是诱骗。不要点击陌生链接。和信任的人商量。' }
+                  pista: '¿De verdad: que mencionen a alguien que conoces hace seguro el enlace? Es un engaño habitual. No hagas clic.',
+                  aviso: 'Probablemente es un engaño. No hagas clic en enlaces de desconocidos. Consúltalo con alguien de confianza.' }
               ] },
-              { tipo: 'msg', text: '点开就能看到照片了。快来看看！' },
+              { tipo: 'msg', text: 'Ábrelo y verás la foto. ¡Mira ya!' },
               { tipo: 'eleccion', options: [
-                { text: '我不打开。和家人或信任的人说这件事。', segura: true,
-                  avisoSeguro: '不打开是对的。陌生人发的链接可能含有病毒，或者引导到假冒网站。' },
-                { text: '点开看一下就关掉。',
+                { text: 'No lo abro. Se lo cuento a mi familia o a alguien de confianza.', segura: true,
+                  avisoSeguro: 'No abrirlo es lo correcto. Los enlaces de desconocidos pueden tener virus o llevar a webs falsas.' },
+                { text: 'Lo abro y lo cierro enseguida.',
                   segura: false,
-                  pista: '打开链接的瞬间，你的设备可能已经被入侵。绝对不要打开！',
-                  aviso: '打开链接的瞬间你的设备就可能被入侵了。立刻删除这条消息。' }
+                  pista: '¿De verdad: abrir el enlace puede infectar tu dispositivo en ese mismo instante? ¡Nunca lo abras!',
+                  aviso: 'Al abrir el enlace, tu dispositivo puede infectarse en ese momento. Borra este mensaje.' }
               ] },
-              { tipo: 'accion', text: '🚫 不打开链接，告诉家人或信任的人',
-                confirmacion: '你没有打开链接。好样的！陌生人发来的链接不要点击。' }
+              { tipo: 'accion', text: '🚫 No abrir el enlace y avisar a alguien de confianza',
+                confirmacion: 'No has abierto el enlace. ¡Muy bien! No hagas clic en enlaces de desconocidos.' }
             ],
-            regla: '陌生人发来的链接很危险。不要点击，要和信任的人商量。'
+            regla: 'Los enlaces de desconocidos son peligrosos. No hagas clic y consúltalo con alguien de confianza.'
           },
           {
-            contacto: '未知',
+            contacto: 'Desconocido',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: '来自陌生号码: "你有一张未领取的包裹。" + 链接: tinyurl.com/paq-pending' },
+              { tipo: 'msg', text: 'De un número desconocido: "Tienes un paquete sin recoger." + enlace: tinyurl.com/paq-pending' },
               { tipo: 'eleccion', options: [
-                { text: '未知链接不点击。去快递公司官网查看。', segura: true,
-                  avisoSeguro: '快递公司不会通过陌生号码发链接给你。去官网或应用查看物流信息。' },
-                { text: '点开看看是不是真的有包裹。',
+                { text: 'No hago clic en enlaces desconocidos. Miro en la web de la empresa de paquetería.', segura: true,
+                  avisoSeguro: 'Las empresas de paquetería no te envían enlaces desde números desconocidos. Consulta el envío en su web o en su app.' },
+                { text: 'Lo abro para ver si de verdad hay un paquete.',
                   segura: false,
-                  pista: '快递公司不会通过短信发链接。点击之前要三思。',
-                  aviso: '快递公司不用这种方式发链接。这是诱骗点击的陷阱。' },
-                { text: '反正只是查一下包裹，点开看看。',
+                  pista: '¿De verdad: una empresa de paquetería envía enlaces por SMS? Piénsalo antes de hacer clic.',
+                  aviso: 'Las empresas de paquetería no envían enlaces así. Es una trampa para que hagas clic.' },
+                { text: 'Solo es mirar un paquete. Lo abro.',
                   segura: false,
-                  pista: '点击链接可能导致病毒或虚假页面。永远不要点击陌生人发的链接。',
-                  aviso: '这类链接通常会导致病毒或窃取信息。不要点击！' }
+                  pista: '¿De verdad: un clic puede llevarte a un virus o a una página falsa? Nunca hagas clic en enlaces de desconocidos.',
+                  aviso: 'Este tipo de enlace suele llevar a un virus o a robar información. ¡No hagas clic!' }
               ] },
-              { tipo: 'msg', text: '只剩24小时来认领包裹了！点击这里：tinyurl.com/paq-pending' },
+              { tipo: 'msg', text: '¡Solo quedan 24 horas para recoger tu paquete! Haz clic aquí: tinyurl.com/paq-pending' },
               { tipo: 'eleccion', options: [
-                { text: '这是催促我行动。肯定是骗子。和信任的人说。', segura: true,
-                  avisoSeguro: '紧急催促是骗子常用手段。快递公司不会这样催促你。' },
-                { text: '只剩下一天了！赶紧点击！',
+                { text: 'Esto me presiona para actuar. Seguro que es un estafador. Se lo cuento a alguien de confianza.', segura: true,
+                  avisoSeguro: 'Meter prisa es un truco habitual de los estafadores. Las empresas de paquetería no presionan así.' },
+                { text: '¡Solo queda un día! ¡Hago clic ya!',
                   segura: false,
-                  pista: '紧急感是让你失去判断力的手段。深呼吸，思考后再行动。',
-                  aviso: '紧急感是让你快速行动不思考的陷阱。不要点击！' }
+                  pista: '¿De verdad: la prisa es para que no pienses? Respira y piensa antes de actuar.',
+                  aviso: 'La prisa es una trampa para que actúes sin pensar. ¡No hagas clic!' }
               ] },
-              { tipo: 'accion', text: '🚫 不点击，去官网查物流',
-                confirmacion: '你没有点击链接。去快递公司官网查物流是正确的做法。' }
+              { tipo: 'accion', text: '🚫 No hacer clic y mirar el envío en la web oficial',
+                confirmacion: 'No has hecho clic en el enlace. Mirar el envío en la web oficial de la empresa es lo correcto.' }
             ],
-            regla: '快递公司不会通过陌生短信发链接。永远去官网或应用查物流。'
+            regla: 'Las empresas de paquetería no envían enlaces por SMS de desconocidos. Consulta siempre el envío en su web o en su app.'
           },
           {
-            contacto: '微信好友',
+            contacto: 'Amigo en WeChat',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: '好友发来消息: "这是我新开的店，点击帮忙投票！" + 链接: goo.gl/vote2024' },
+              { tipo: 'msg', text: 'Mensaje de un amigo: "¡Es mi nueva tienda, haz clic para votarme!" + enlace: goo.gl/vote2024' },
               { tipo: 'eleccion', options: [
-                { text: '先问朋友是不是真的。', segura: true,
-                  avisoSeguro: '即使是朋友发的链接，也可能是骗子盗用了他的账号。先确认一下。' },
-                { text: '朋友发的链接肯定没问题，直接点开。',
+                { text: 'Primero pregunto a mi amigo si es verdad.', segura: true,
+                  avisoSeguro: 'Incluso los enlaces de un amigo pueden venir de un estafador que ha robado su cuenta. Confírmalo primero.' },
+                { text: 'El enlace de un amigo seguro que no tiene problema. Lo abro directamente.',
                   segura: false,
-                  pista: '骗子可以盗取朋友的账号。不要因为是朋友发的就放松警惕。',
-                  aviso: '骗子的手段包括盗取账号。即使是朋友发的也要先确认。' },
-                { text: '帮朋友投票是小事，点开投一下。',
+                  pista: '¿De verdad: un amigo podría tener la cuenta robada? No bajes la guardia por ser de un amigo.',
+                  aviso: 'Los estafadores roban cuentas. Incluso los enlaces de amigos hay que confirmarlos primero.' },
+                { text: 'Votar por un amigo es poca cosa. Lo abro y voto.',
                   segura: false,
-                  pista: '投票网站可能收集个人信息，或者带有病毒。要先确认真实性。',
-                  aviso: '投票网站可能收集个人信息或带有病毒。先和朋友确认。' }
+                  pista: '¿De verdad: una web de votaciones puede recoger tus datos o tener un virus? Hay que comprobar que es real.',
+                  aviso: 'Las webs de votación pueden recoger datos personales o tener virus. Confírmalo primero con tu amigo.' }
               ] },
-              { tipo: 'msg', text: '快点开！今天就结束了！' },
+              { tipo: 'msg', text: '¡Ábrelo ya! ¡Hoy es el último día!' },
               { tipo: 'eleccion', options: [
-                { text: '打电话给朋友确认是不是真的。', segura: true,
-                  avisoSeguro: '打电话确认是最安全的方法。如果朋友说没发过，就不要点击。' },
-                { text: '朋友都催了，赶紧点开投。',
+                { text: 'Llamo a mi amigo para confirmar que es verdad.', segura: true,
+                  avisoSeguro: 'Llamar para confirmar es el método más seguro. Si tu amigo dice que no lo envió, no hagas clic.' },
+                { text: 'Mi amigo me presiona, así que lo abro y voto ya.',
                   segura: false,
-                  pista: '催促你是为了让你不思考就行动。再等一下，确认后再决定。',
-                  aviso: '催促你行动是常见陷阱。先确认真实性。' }
+                  pista: '¿De verdad: la prisa de tu amigo es para que no pienses? Espera y confirma antes de decidir.',
+                  aviso: 'Presionarte para actuar es una trampa habitual. Confírmalo primero.' }
               ] },
-              { tipo: 'accion', text: '🚫 不点击，先电话确认',
-                confirmacion: '你先确认了朋友是否真的发了这条消息。好做法！' }
+              { tipo: 'accion', text: '🚫 No hacer clic y llamar primero para confirmar',
+                confirmacion: 'Has confirmado primero si tu amigo envió este mensaje. ¡Buena idea!' }
             ],
-            regla: '即使是朋友发的链接，也要先确认真实性。打电话或发消息确认是最安全的做法。'
+            regla: 'Incluso los enlaces de amigos hay que verificarlos. Llamar o escribir para confirmar es lo más seguro.'
           }
         ]
       },
@@ -252,98 +252,98 @@ var DATA = {
         picto: '📎',
         variantes: [
           {
-            contacto: '未知发件人',
+            contacto: 'Remitente desconocido',
             tipo: 'correo',
             steps: [
-              { tipo: 'msg', text: '发件人: invoice-pdf@company-billing.net' },
-              { tipo: 'msg', text: '主题: 您有一张待支付发票。附件：invoice_March_2024.pdf.exe' },
+              { tipo: 'msg', text: 'De: invoice-pdf@company-billing.net' },
+              { tipo: 'msg', text: 'Asunto: Tiene una factura pendiente de pago. Adjunto: invoice_March_2024.pdf.exe' },
               { tipo: 'eleccion', options: [
-                { text: '不打开。带exe的pdf文件是病毒。删除并举报。', segura: true,
-                  avisoSeguro: 'pdf.exe 是一个典型的病毒文件。真正的发票不会是exe格式。' },
-                { text: '看起来像发票，打开看看。',
+                { text: 'No lo abro. Un pdf con .exe es un virus. Lo borro y lo denuncio.', segura: true,
+                  avisoSeguro: 'invoice.pdf.exe es un archivo de virus típico. Las facturas reales nunca son .exe.' },
+                { text: 'Parece una factura. La abro para ver.',
                   segura: false,
-                  pista: '文件名带有exe后缀的文件不是PDF，而是程序。永远不要打开！',
-                  aviso: '文件名invoice.pdf.exe表示这是一个程序，不是文档。不要打开！' },
-                { text: '只要小心一点，打开应该没问题。',
+                  pista: '¿De verdad: un archivo que acaba en .exe es un PDF? No es un documento, es un programa. ¡Nunca lo abras!',
+                  aviso: 'El nombre invoice.pdf.exe indica que es un programa, no un documento. ¡No lo abras!' },
+                { text: 'Con cuidado no pasa nada. La abro.',
                   segura: false,
-                  pista: '打开exe文件会在你不知情的情况下在电脑上安装恶意程序。绝对不要打开！',
-                  aviso: 'exe文件可以在你不知情的情况下安装病毒。永远不要打开邮件中的exe文件。' }
+                  pista: '¿De verdad: abrir un .exe puede instalar un programa malicioso sin que lo notes? ¡Nunca lo abras!',
+                  aviso: 'Un archivo .exe puede instalar un virus sin que lo notes. Nunca abras archivos .exe de correos.' }
               ] },
-              { tipo: 'msg', text: '您的电脑已被扫描。点击这里下载防病毒软件。' },
+              { tipo: 'msg', text: 'Su equipo ha sido escaneado. Haga clic aquí para descargar un antivirus.' },
               { tipo: 'eleccion', options: [
-                { text: '这是骗子的新花招。立刻断网，向信任的人求助。', segura: true,
-                  avisoSeguro: '骗子会继续尝试欺骗你。断网并向信任的人求助是正确的做法。' },
-                { text: '按照提示下载防病毒软件。',
+                { text: 'Es un truco nuevo de los estafadores. Desconéctate de internet y pide ayuda a alguien de confianza.', segura: true,
+                  avisoSeguro: 'Los estafadores seguirán intentando engañarte. Desconectarse y pedir ayuda es lo correcto.' },
+                { text: 'Sigo las instrucciones y descargo el antivirus.',
                   segura: false,
-                  pista: '骗子让你下载的"防病毒软件"实际上是更多的病毒。不要相信！',
-                  aviso: '骗子让你下载的软件实际上是病毒。不要下载！' }
+                  pista: '¿De verdad: el "antivirus" que te piden descargar es en realidad más virus? ¡No te fíes!',
+                  aviso: 'El software que te piden descargar es en realidad más virus. ¡No lo descargues!' }
               ] },
-              { tipo: 'accion', text: '🚫 删除邮件，运行电脑安全扫描',
-                confirmacion: '你没有打开附件。删除邮件并运行安全扫描是正确的做法！' }
+              { tipo: 'accion', text: '🚫 Borrar el correo y ejecutar un análisis de seguridad del equipo',
+                confirmacion: 'No has abierto el adjunto. ¡Borrar el correo y analizar el equipo es lo correcto!' }
             ],
-            regla: '邮件中的exe文件和其他可执行文件是病毒。不要打开，直接删除。'
+            regla: 'Los archivos .exe y otros ejecutables de un correo son virus. No los abras; bórralos directamente.'
           },
           {
             contacto: 'info@celebrity-news-daily.com',
             tipo: 'correo',
             steps: [
-              { tipo: 'msg', text: '主题: 独家！名人私密照片泄露！点击查看：celebrity-photos.zip' },
+              { tipo: 'msg', text: 'Asunto: ¡Exclusiva! ¡Se filtran fotos privadas de un famoso! Haga clic para ver: celebrity-photos.zip' },
               { tipo: 'eleccion', options: [
-                { text: '不点击。这类邮件是诱骗你下载病毒的。删除。', segura: true,
-                  avisoSeguro: '名人照片的诱饵是常见的病毒传播手段。不要点击或下载任何附件。' },
-                { text: '名人的照片，点开看看。',
+                { text: 'No hago clic. Este tipo de correos son trampas para descargar virus. Lo borro.', segura: true,
+                  avisoSeguro: 'Las fotos de famosos como gancho son una forma habitual de propagar virus. No hagas clic ni descargues ningún adjunto.' },
+                { text: 'Fotos de un famoso. Lo abro a ver.',
                   segura: false,
-                  pista: '诱饵内容是骗子传播病毒的常用手段。不要被好奇心驱使！',
-                  aviso: '名人照片诱饵是传播病毒的常见手段。好奇心会被利用。' },
-                { text: '压缩文件应该没事，解压看看。',
+                  pista: '¿De verdad: el gancho es la forma habitual de los estafadores de propagar virus? ¡No dejes que la curiosidad te gane!',
+                  aviso: 'El gancho de fotos de famosos es una forma habitual de propagar virus. La curiosidad se usa en tu contra.' },
+                { text: 'Un archivo comprimido no pasa nada. Lo descomprimo.',
                   segura: false,
-                  pista: 'zip文件可以包含病毒程序。解压的同时病毒就会运行。',
-                  aviso: 'zip文件可以包含病毒。永远不要打开陌生人邮件中的压缩附件。' }
+                  pista: '¿De verdad: un archivo .zip puede contener un virus? El virus se ejecuta al descomprimirlo.',
+                  aviso: 'Un .zip puede contener virus. Nunca abras archivos comprimidos de correos de desconocidos.' }
               ] },
-              { tipo: 'msg', text: '立即查看！限时下载！名人私密照片！' },
+              { tipo: 'msg', text: '¡Míralo ya! ¡Descarga por tiempo limitado! ¡Fotos privadas de famosos!' },
               { tipo: 'eleccion', options: [
-                { text: '这是利用好奇心引诱我。绝对不打开。', segura: true,
-                  avisoSeguro: '诱惑性标题是骗子让人失去判断力的手段。删除邮件是最安全的做法。' },
-                { text: '限时下载很诱人，但还是点开看看。',
+                { text: 'Esto usa mi curiosidad para engañarme. No lo abro de ninguna manera.', segura: true,
+                  avisoSeguro: 'Los títulos tentadores son la forma en que los estafadores hacen perder el juicio. Borrar el correo es lo más seguro.' },
+                { text: 'La descarga por tiempo limitado es tentadora, pero la abro a ver.',
                   segura: false,
-                  pista: '"限时"是为了让你快速行动不思考。这是骗子的心理战术。',
-                  aviso: '限时是心理战术，让你失去判断力。不要被诱惑！' }
+                  pista: '¿De verdad: el "tiempo limitado" es para que actúes sin pensar? Es una táctica psicológica de los estafadores.',
+                  aviso: 'El tiempo limitado es una táctica psicológica para que pierdas el juicio. ¡No caigas!' }
               ] },
-              { tipo: 'accion', text: '🚫 删除邮件，不回复',
-                confirmacion: '你没有打开附件。好样的！好奇心会被利用，保持警惕。' }
+              { tipo: 'accion', text: '🚫 Borrar el correo, sin responder',
+                confirmacion: 'No has abierto el adjunto. ¡Muy bien! La curiosidad se puede usar en tu contra. Mantente alerta.' }
             ],
-            regla: '邮件中诱惑性内容的附件几乎都是病毒。不要被好奇心驱使，保持警惕。'
+            regla: 'Los adjuntos con contenido tentador en correos de desconocidos suelen ser virus. No dejes que la curiosidad te gane. Mantente alerta.'
           },
           {
             contacto: 'hr@company-payroll.net',
             tipo: 'correo',
             steps: [
-              { tipo: 'msg', text: '主题: 您的工资单明细 - 附件：salary-March-2024.xlsx.exe' },
+              { tipo: 'msg', text: 'Asunto: Detalle de su nómina - Adjunto: salary-March-2024.xlsx.exe' },
               { tipo: 'eleccion', options: [
-                { text: '不打开。公司不会发带exe的工资单文件。向HR确认。', segura: true,
-                  avisoSeguro: '公司财务部门不会发送exe格式的文件。工资单通常是pdf或纸质文件。' },
-                { text: '是工资单，应该没问题，打开看看。',
+                { text: 'No lo abro. Las empresas no envían nóminas en archivos .exe. Lo consulto con RR. HH.', segura: true,
+                  avisoSeguro: 'Los departamentos financieros nunca envían archivos .exe. Las nóminas suelen ser PDF o documentos en papel.' },
+                { text: 'Es una nómina, no pasa nada. La abro.',
                   segura: false,
-                  pista: '工资单文件是exe格式是极其可疑的。正常工资单不会是可执行文件。',
-                  aviso: '工资单不会是exe文件。这是典型的伪装病毒。' },
-                { text: '公司邮箱发的，应该没问题吧。',
+                  pista: '¿De verdad: una nómina en formato .exe es normal? Las nóminas normales nunca son archivos ejecutables.',
+                  aviso: 'Una nómina nunca es un .exe. Es un disfraz típico de virus.' },
+                { text: 'Viene del correo de la empresa, así que no pasa nada.',
                   segura: false,
-                  pista: '骗子的邮箱可以伪装成公司邮箱。不要因为发件人邮箱看起来正式就放松警惕。',
-                  aviso: '骗子可以伪造邮箱地址。即使看起来是公司邮箱也要警惕。' }
+                  pista: '¿De verdad: un correo de la empresa siempre es de la empresa? Los estafadores pueden falsear el remitente. No bajes la guardia.',
+                  aviso: 'Los estafadores pueden falsificar direcciones de correo. Aunque parezca de la empresa, mantente alerta.' }
               ] },
-              { tipo: 'msg', text: '请尽快查收您的工资单。如有疑问请联系HR部门。' },
+              { tipo: 'msg', text: 'Por favor, revise su nómina cuanto antes. Si tiene dudas, contacte con el departamento de RR. HH.' },
               { tipo: 'eleccion', options: [
-                { text: '直接去HR问有没有发过这个邮件。', segura: true,
-                  avisoSeguro: '亲自去HR确认是最安全的方法。不要通过邮件中的联系方式。' },
-                { text: '按照邮箱地址回复问一下。',
+                { text: 'Voy en persona a RR. HH. a preguntar si enviaron este correo.', segura: true,
+                  avisoSeguro: 'Ir en persona a RR. HH. es lo más seguro. No uses los datos de contacto del correo.' },
+                { text: 'Respondo al correo para preguntar.',
                   segura: false,
-                  pista: '回复邮件地址可能也是骗子控制的。亲自去HR办公室确认。',
-                  aviso: '邮件回复地址可能也是骗子控制的。亲自去确认。' }
+                  pista: '¿De verdad: la dirección de respuesta también puede estar controlada por estafadores? Ve en persona a la oficina de RR. HH.',
+                  aviso: 'La dirección de respuesta también puede estar controlada por estafadores. Ve en persona a confirmarlo.' }
               ] },
-              { tipo: 'accion', text: '🚫 不打开附件，去HR办公室确认',
-                confirmacion: '你去HR确认后，他们说没有发过这个邮件。好险！' }
+              { tipo: 'accion', text: '🚫 No abrir el adjunto e ir a RR. HH. a confirmarlo',
+                confirmacion: 'Cuando preguntaste en RR. HH., dijeron que nunca enviaron este correo. ¡Menos mal!' }
             ],
-            regla: '公司文件不会通过exe格式发送。亲自去相关部门确认是最安全的做法。'
+            regla: 'Los documentos de la empresa nunca se envían en formato .exe. Ir en persona al departamento correspondiente es lo más seguro.'
           }
         ]
       },
@@ -353,66 +353,66 @@ var DATA = {
         picto: '🔐',
         variantes: [
           {
-            contacto: '未知',
+            contacto: 'Desconocido',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: '收到短信: "您的Netflix账户已被暂停。请点击链接重新激活：netflix.com.verify-login.com' },
+              { tipo: 'msg', text: 'Mensaje de texto recibido: "Su cuenta de Netflix ha sido suspendida. Haga clic en el enlace para reactivarla: netflix.com.verify-login.com"' },
               { tipo: 'eleccion', options: [
-                { text: '不在链接里输入密码。去Netflix应用确认账户状态。', segura: true,
-                  avisoSeguro: 'Netflix不会通过短信要求你重新登录。直接打开Netflix应用或官网确认。' },
-                { text: '赶紧点击重新激活，不然看不了剧了。',
+                { text: 'No introduzco contraseñas en un enlace. Miro el estado de mi cuenta en la app de Netflix.', segura: true,
+                  avisoSeguro: 'Netflix no te pide volver a iniciar sesión por SMS. Abre la app o la web oficial de Netflix para comprobarlo.' },
+                { text: 'Hago clic ya para reactivarla, o no podré ver series.',
                   segura: false,
-                  pista: '紧迫感是骗子让你快速行动的手段。永远从官方应用或网站登录。',
-                  aviso: '紧迫感是骗子常用的手段。从官方应用登录Netflix。' },
-                { text: '在链接里输入Netflix的邮箱和密码。',
+                  pista: '¿De verdad: la prisa es un truco de los estafadores para que actúes rápido? Entra siempre desde la app o la web oficial.',
+                  aviso: 'La prisa es un truco habitual de los estafadores. Entra en Netflix desde la app oficial.' },
+                { text: 'Escribo mi correo y contraseña de Netflix en el enlace.',
                   segura: false,
-                  pista: '这个链接不是Netflix官方网站。你在向骗子提供密码！',
-                  aviso: 'netflix.com.verify-login.com不是Netflix的网站。你在向骗子提供账户信息！' }
+                  pista: '¿De verdad: este enlace es la web oficial de Netflix? ¡Le estarías dando tu contraseña a estafadores!',
+                  aviso: 'netflix.com.verify-login.com no es la web de Netflix. ¡Le estarías dando los datos de tu cuenta a estafadores!' }
               ] },
-              { tipo: 'msg', text: '请输入您的邮箱和密码以重新激活账户。' },
+              { tipo: 'msg', text: 'Introduzca su correo y contraseña para reactivar la cuenta.' },
               { tipo: 'eleccion', options: [
-                { text: '不在非官方网站输入密码。打开Netflix应用确认。', segura: true,
-                  avisoSeguro: '永远从官方应用或网站登录。骗子可以创建一个看起来像Netflix的假网站。' },
-                { text: '输入邮箱和一次性密码试试。',
+                { text: 'No introduzco contraseñas en webs no oficiales. Abro la app de Netflix para comprobarlo.', segura: true,
+                  avisoSeguro: 'Entra siempre desde la app o la web oficial. Los estafadores pueden crear una web falsa que parezca Netflix.' },
+                { text: 'Pruebo a escribir mi correo y una contraseña de un solo uso.',
                   segura: false,
-                  pista: '即使是临时密码也不要输入。骗子可以使用它来访问你的真实账户。',
-                  aviso: '一次性密码也是密码。不要在任何非官方网站输入任何密码。' }
+                  pista: '¿De verdad: una contraseña temporal es segura en una web no oficial? Los estafadores pueden usarla para entrar en tu cuenta real.',
+                  aviso: 'Una contraseña de un solo uso también es una contraseña. No escribas ninguna en webs no oficiales.' }
               ] },
-              { tipo: 'accion', text: '🚫 不输入密码，打开Netflix应用确认',
-                confirmacion: '你在Netflix应用中确认，账户一切正常。那条短信是诈骗！' }
+              { tipo: 'accion', text: '🚫 No escribir la contraseña y abrir la app de Netflix para comprobarlo',
+                confirmacion: 'Lo has comprobado en la app de Netflix y tu cuenta está bien. ¡Ese SMS era una estafa!' }
             ],
-            regla: '永远从官方应用或网站登录账户。不要通过短信或邮件中的链接登录。'
+            regla: 'Entra siempre en tus cuentas desde la app o la web oficial. No inicies sesión desde enlaces de SMS o correos.'
           },
           {
-            contacto: '未知',
+            contacto: 'Desconocido',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: '收到邮件: "您的Apple ID已被锁定。请点击链接验证身份：appleid-security.net/verify' },
+              { tipo: 'msg', text: 'Correo recibido: "Su Apple ID ha sido bloqueado. Haga clic en el enlace para verificar su identidad: appleid-security.net/verify"' },
               { tipo: 'eleccion', options: [
-                { text: '不在邮件链接里输入Apple ID密码。去苹果官网确认。', segura: true,
-                  avisoSeguro: '苹果不会通过邮件要求你验证密码。去苹果官网或手机设置中的Apple ID确认。' },
-                { text: 'Apple ID被锁定很严重，赶紧点击验证。',
+                { text: 'No introduzco la contraseña de mi Apple ID en un enlace de correo. Lo compruebo en la web oficial de Apple.', segura: true,
+                  avisoSeguro: 'Apple no te pide verificar la contraseña por correo. Compruébalo en la web de Apple o en los ajustes de tu Apple ID en el móvil.' },
+                { text: 'Que mi Apple ID esté bloqueado es grave. Hago clic ya para verificarlo.',
                   segura: false,
-                  pista: '骗子利用恐惧心理让你快速行动。苹果不会通过邮件要求验证密码。',
-                  aviso: '骗子利用恐惧心理。苹果从不通过邮件要求输入密码。' },
-                { text: '输入Apple ID和密码验证身份。',
+                  pista: '¿De verdad: los estafadores usan el miedo para que actúes rápido? Apple nunca pide verificar la contraseña por correo.',
+                  aviso: 'Los estafadores usan el miedo. Apple nunca pide contraseñas por correo.' },
+                { text: 'Escribo mi Apple ID y contraseña para verificarlo.',
                   segura: false,
-                  pista: 'appleid-security.net不是苹果的网站。你在向骗子提供Apple ID！',
-                  aviso: '这个链接是假的。苹果的网站是apple.com。永远不要在非苹果网站输入Apple ID。' }
+                  pista: '¿De verdad: appleid-security.net es una web de Apple? ¡Le estarías dando tu Apple ID a estafadores!',
+                  aviso: 'Este enlace es falso. La web de Apple es apple.com. Nunca escribas tu Apple ID en webs que no sean de Apple.' }
               ] },
-              { tipo: 'msg', text: '您的Apple ID将永久停用。点击立即验证。' },
+              { tipo: 'msg', text: 'Su Apple ID será desactivado de forma permanente. Haga clic para verificarlo ahora.' },
               { tipo: 'eleccion', options: [
-                { text: '不点击。去手机设置里查看Apple ID状态。', segura: true,
-                  avisoSeguro: '手机设置里的Apple ID是确认账户状态的最安全方式。骗子无法伪造它。' },
-                { text: '永久停用太可怕了，赶紧点击！',
+                { text: 'No hago clic. Miro el estado de mi Apple ID en los ajustes del móvil.', segura: true,
+                  avisoSeguro: 'Mirar el Apple ID en los ajustes del móvil es la forma más segura de comprobar la cuenta. Los estafadores no pueden falsificarlo.' },
+                { text: '¡Desactivarlo para siempre da mucho miedo! ¡Hago clic ya!',
                   segura: false,
-                  pista: '恐惧让你失去判断力。骗子就是利用这种心理。深呼吸，去设置里确认。',
-                  aviso: '恐惧是骗子的武器。去手机设置里确认Apple ID状态。' }
+                  pista: '¿De verdad: el miedo es para que pierdas el juicio? Respira y compruébalo en los ajustes.',
+                  aviso: 'El miedo es el arma de los estafadores. Comprueba el estado de tu Apple ID en los ajustes del móvil.' }
               ] },
-              { tipo: 'accion', text: '🚫 不点击，去手机设置确认Apple ID',
-                confirmacion: '你检查了手机设置，Apple ID状态正常。那封邮件是钓鱼邮件！' }
+              { tipo: 'accion', text: '🚫 No hacer clic y comprobar el Apple ID en los ajustes del móvil',
+                confirmacion: 'Has comprobado los ajustes del móvil y tu Apple ID está bien. ¡Ese correo era phishing!' }
             ],
-            regla: '苹果、谷歌、微软都不会通过邮件要求你输入密码。去官方应用或网站确认。'
+            regla: 'Apple, Google y Microsoft nunca te piden contraseñas por correo. Compruébalo en su app o web oficial.'
           }
         ]
       }
@@ -775,7 +775,7 @@ var DATA = {
             contacto: 'Unknown',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: 'Text message received: "Your Netflix account has been suspended. Click to reactivate: netflix.com.verify-login.com' },
+              { tipo: 'msg', text: 'Text message received: "Your Netflix account has been suspended. Click to reactivate: netflix.com.verify-login.com"' },
               { tipo: 'eleccion', options: [
                 { text: 'I do not enter passwords in a link. I open the Netflix app to check account status.', segura: true,
                   avisoSeguro: 'Netflix does not ask you to re-login via text messages. Open the Netflix app or official website to check.' },
@@ -786,7 +786,7 @@ var DATA = {
                 { text: 'I enter my Netflix email and password in the link.',
                   segura: false,
                   pista: 'This link is not the official Netflix website. You are giving your password to scammers!',
-                  aviso: 'netflix.com.verify-login.com is not Netflixs website. You are giving your account info to scammers!' }
+                  aviso: "netflix.com.verify-login.com is not Netflix's website. You are giving your account info to scammers!" }
               ] },
               { tipo: 'msg', text: 'Please enter your email and password to reactivate your account.' },
               { tipo: 'eleccion', options: [
@@ -806,7 +806,7 @@ var DATA = {
             contacto: 'Unknown',
             tipo: 'mensaje',
             steps: [
-              { tipo: 'msg', text: 'Email received: "Your Apple ID has been locked. Click to verify your identity: appleid-security.net/verify' },
+              { tipo: 'msg', text: 'Email received: "Your Apple ID has been locked. Click to verify your identity: appleid-security.net/verify"' },
               { tipo: 'eleccion', options: [
                 { text: 'I do not enter my Apple ID password in an email link. I check on the Apple website.', segura: true,
                   avisoSeguro: 'Apple does not ask you to verify passwords via email. Check on the Apple website or in your phone settings.' },
@@ -817,7 +817,7 @@ var DATA = {
                 { text: 'I enter my Apple ID and password to verify.',
                   segura: false,
                   pista: 'appleid-security.net is not an Apple website. You are giving your Apple ID to scammers!',
-                  aviso: 'This link is fake. Apples website is apple.com. Never enter your Apple ID on a non-Apple website.' }
+                  aviso: "This link is fake. Apple's website is apple.com. Never enter your Apple ID on a non-Apple website." }
               ] },
               { tipo: 'msg', text: 'Your Apple ID will be permanently deactivated. Click to verify immediately.' },
               { tipo: 'eleccion', options: [
@@ -825,7 +825,7 @@ var DATA = {
                   avisoSeguro: 'Checking Apple ID status in phone settings is the safest way. Scammers cannot forge it.' },
                 { text: 'Permanent deactivation is scary, I will click now!',
                   segura: false,
-                  pista: 'Fear makes you lose judgment. Scammers use exactly this心理. Take a breath and check your settings.',
+                  pista: 'Fear makes you lose judgment. Scammers use exactly this psychology. Take a breath and check your settings.',
                   aviso: 'Fear is a scammer weapon. Check your Apple ID status in phone settings.' }
               ] },
               { tipo: 'accion', text: '🚫 Do not click, check Apple ID in phone settings',

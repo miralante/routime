@@ -256,7 +256,7 @@ La diferencia operativa entre los dos vehículos:
 | Vehículo preferente | Sí — el producto prefiere simular siempre que el objetivo terapéutico lo permita | Válido, no equivalente; ocupa un segundo plano justificado |
 | Estímulo que es contexto | Una escena reconocible | El propio estímulo (piano, cuadrícula, piezas, secuencia) **es** el contexto |
 | Cuándo se prioriza | Cuando hay una decisión cotidiana que entrenar | Cuando el objetivo es la habilidad (memoria, motricidad, lógica) sin una decisión cotidiana plausible |
-| Contrato | Completo: `contexto` + `instruccion` + `pista` + `explicacion` + `transferencia` + feedback + cableado socrático | Relajado: `contexto` y `transferencia` cuando aporten; `pista` y `explicacion` cuando aporten; **feedback** (`success` + `encourage`) **siempre**; entrada priorizada como tal en `team/index.html` |
+| Contrato | Completo: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + cableado socrático | Relajado: `contexto` y `transferencia` cuando aporten; `pistas` y `explicacion` cuando aporten; **feedback** (`success` + `encourage`) **siempre**; entrada priorizada como tal en `team/index.html` |
 | Justificación documental | Cobertura por defecto | Decisión de diseño priorizada (no "excepción") |
 
 Actividades del catálogo que aplican este vehículo: `blocks`,

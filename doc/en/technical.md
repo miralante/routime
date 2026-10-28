@@ -345,7 +345,7 @@ per activity. Typical example: `{ estrellas: 3, completado: { nivel1: true }, op
 | `acierto` | `([zone]) → string` | Random positive message + soft sound. Writes to `zone` (element with `aria-live="polite"`) and adds `.acierto` class |
 | `animo` | `([zone]) → string` | Encouragement message after failure (never punitive) + neutral tone. Class `.animo` |
 | `celebrar` | `(message, [after])` | Fullscreen celebration layer ≤ 2s (1.2s with reduced motion); calls `after` when hidden |
-| `lockUntilAck` | `(buttons, zone, [onConfirm])` | After a wrong answer, locks the round's not-yet-tried option buttons and shows a "Got it" button (auto-focused) inside `zone` that re-enables them when tapped — a Socratic reading pause (rule 12), never a retry cap |
+| `lockUntilAck` | `(buttons, zone, [onConfirm])` | After a wrong answer, hides the round's option buttons while the hint shows, locks the not-yet-tried ones, and shows a "Got it" button (auto-focused) inside `zone`; tapping it brings the options back and hides the hint — a Socratic reading pause (rule 12), never a retry cap |
 
 Sounds: generated with Web Audio (no files), fail silently.
 
@@ -637,13 +637,14 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
 - **Error never punishes**: don't subtract stars or progress; failure produces
   `animo()` and can be retried without limit.
 - **Reading pause after a mistake**: in every multiple-choice activity, a wrong
-  answer must lock the remaining untried options for that round with
-  `App.feedback.lockUntilAck()` until the person taps "Got it"; already-tried
-  options stay disabled as today. Retries remain unlimited — this is a Socratic
-  reading pause (rule 12), never a punishment or a progress block. Documented
-  exception: `safe-chat` and `bullying-chat` apply the lock but don't yet have a
-  two-stage hint/explanation (only a single warning) — a content gap, not a gap
-  in this contract.
+  answer must hide the round's options while the hint shows, through
+  `App.feedback.lockUntilAck()`, until the person taps "Got it"; the options
+  come back and the hint hides then. Untried options are locked meanwhile and
+  already-tried options stay disabled as today. Retries remain unlimited — this is a Socratic
+  reading pause (rule 12), never a punishment or a progress block.
+  Chat activities (`bullying-chat`, `safe-chat`, `phishing-alert`) apply the same lock
+  with the hint of each risky option (see "Hint per option" below).
+- **Hint per option**: the first-mistake hint explains why *that* option does not fit and points toward the right one. There are two shapes, depending on how the options are written: (a) *quiz*: `pistas: string[n]` aligned with `opciones`/`options`, with `''` at the correct option and text at each wrong one (`post-or-not`, `friends`, `trust-circle`, `social-safety`); (b) *chat*: each wrong option carries its own `pista` (and `aviso` where relevant), and the safe option carries no hint, though it may carry `avisoSeguro` (`bullying-chat`, `safe-chat`, `phishing-alert`). On the second mistake, quiz activities show their explanation: `explicacion` per case in `trust-circle` and `social-safety`, and the generic i18n explanation in `post-or-not` and `friends`. Chat activities have no second stage in the current app. No wrong option may be left without a hint in either locale.
 - **No visible timers**: measuring times internally is allowed (data in storage),
   showing them as pressure isn't.
 - **UI texts**: Spain's Spanish and English, Easy Reading in both, no clinical
@@ -671,7 +672,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
   second). When the therapeutic goal is to train a pure skill (memory, fine
   motor, logic, puzzles, perception) the activity follows the
   **pure-skill vehicle** (per [`SPEC.md` §3.6.b](SPEC.md)): `contexto` and
-  `transferencia` are required when they add value, `pista` / `explicacion`
+  `transferencia` are required when they add value, `pistas` (one per wrong option) / `explicacion`
   are required when they add value, `App.feedback.success` and
   `App.feedback.encourage` are **always** required, and the decision is
   documented in `team/index.html` as a **prioritised design decision**, not
@@ -800,7 +801,8 @@ reset action, etc.).
    structure and script footer from an existing activity in the same module.
 3. **`data.js`**: `var DATA = {...}` — data only, with its format documented in a
    header comment. No logic or UI text. A quiz has at most 3 options, one
-   explanation per option and a first-failure hint. If there are levels, each
+   explanation for the second mistake and a hint per wrong option (`pistas`
+   format, §7). If there are levels, each
    changes only one difficulty variable (§5).
 4. **`strings.es.js` and `strings.en.js`**: register one dictionary per file with
    `App.i18n.register(dict, 'es' | 'en')`. Both must have the same keys (§6).

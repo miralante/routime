@@ -5,8 +5,9 @@
    Mechanic: read a situation and choose the correct answer among
    3 options. Levels 1-2 classify the relationship; levels 3-4
    pick the healthy response to a manipulation attempt. Each item
-   carries its own pista/explicacion (Socratic: hint on the first
-   mistake, explanation on the second, same as social-safety).
+   carries pistas, one hint per option (Socratic: the hint for the
+   option chosen on the first mistake), and its own explicacion,
+   shown on the second mistake, same as social-safety.
    Round of 8. No punishment for a wrong answer.
    Un único recorrido por todas las situaciones: nivel 1 a 5, cada uno
    en su orden. Las rondas continúan donde terminó la anterior.
@@ -113,7 +114,7 @@
     optionsEl.innerHTML = '';
 
     var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, isCorrect: i === item.correcta };
+      return { texto: opt, isCorrect: i === item.correcta, index: i };
     }));
 
     opciones.forEach(function (op) {
@@ -121,7 +122,7 @@
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.texto;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item, op.index); });
       optionsEl.appendChild(btn);
     });
 
@@ -129,11 +130,10 @@
     renderStars();
   }
 
-  /* Each item carries its own pista/explicacion (unlike a generic
-     reused string): the hint and explanation are specific to the
-     relationship or manipulation case being shown. */
-  function showHint(item) {
-    explicacionEl.textContent = item.pista;
+  /* Socratic hint for the option chosen (item.pistas[index]): why it
+     does not fit this case, with a clue toward the right one. */
+  function showHint(item, index) {
+    explicacionEl.textContent = '🤔 ' + item.pistas[index];
     explicacionWrap.classList.remove('hidden');
   }
 
@@ -142,7 +142,7 @@
     explicacionWrap.classList.remove('hidden');
   }
 
-  function answer(btn, isCorrect, item) {
+  function answer(btn, isCorrect, item, index) {
     if (solved) return;
     if (isCorrect) {
       showExplanation(item);
@@ -160,7 +160,7 @@
     } else {
       attempts += 1;
       var respuestaTrasPista = attempts > 1;
-      showHint(item);
+      showHint(item, index);
       /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;

@@ -1,7 +1,7 @@
 /* Social Safety — preventive simulations about intimacy, manipulation and law.
-   Un único recorrido por todos los casos: tema 1, tema 2 y tema 3, cada
-   uno agrupado por subactividad. Las rondas continúan donde terminó la
-   anterior y dan la vuelta al final. */
+   Cada tema (nivel) es una subactividad con su propio recorrido: se elige
+   desde el menú de temas y sus rondas continúan donde terminó la anterior
+   de ese mismo tema, dando la vuelta al final. */
 (function () {
   'use strict';
 
@@ -12,32 +12,32 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
   if (!progress.completed) progress.completed = {};
+  if (!progress.positions) progress.positions = {};
 
+  var topic = null;
   var roundStart = 0;
   var cases = [];
   var index = 0;
   var solved = false;
   var attempts = 0;
-  var lastScreen = 'caseScreen';
+  var visibleScreen = 'menuScreen';
+  var lastScreen = 'menuScreen';
 
   function save() { App.storage.set(TOOL_ID, progress); }
   function paintStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
-    ['caseScreen', 'endScreen'].forEach(function (screenId) {
+    if (id) visibleScreen = id;
+    ['menuScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
       $('#' + screenId).classList.toggle('hidden', screenId !== id);
     });
   }
 
-  function catalog() {
-    var out = [];
-    bank.niveles.forEach(function (level) {
-      level.casos.forEach(function (item) { out.push({ level: level, item: item }); });
-    });
-    return out;
+  function topicCatalog(level) {
+    return level.casos.map(function (item) { return { level: level, item: item }; });
   }
 
-  // Cada ronda toma los casos seguidos desde donde quedó la anterior.
+  // Cada ronda toma los casos seguidos desde donde quedó la anterior del tema.
   function roundEntries(all, start) {
     var out = [];
     for (var i = 0; i < bank.porRonda; i++) {
@@ -46,9 +46,31 @@
     return out;
   }
 
-  function startGame() {
-    var all = catalog();
-    roundStart = (progress.position || 0) % all.length;
+  /* ---------- Menu de temas ---------- */
+  function renderMenu() {
+    var cont = $('#listaTemas');
+    cont.innerHTML = '';
+    bank.niveles.forEach(function (level) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn-nivel';
+      var done = progress.completed[level.id] ? ' ⭐' : '';
+      b.textContent = level.name + ' · ' + level.descripcion + done;
+      b.addEventListener('click', function () { startTopic(level); });
+      cont.appendChild(b);
+    });
+    paintStars();
+  }
+
+  function goToMenu() {
+    renderMenu();
+    showScreen('menuScreen');
+  }
+
+  function startTopic(level) {
+    topic = level;
+    var all = topicCatalog(level);
+    roundStart = (progress.positions[level.id] || 0) % all.length;
     cases = roundEntries(all, roundStart);
     index = 0;
     showScreen('caseScreen');
@@ -72,13 +94,13 @@
     $('#progressText').textContent = (index + 1) + ' / ' + cases.length;
 
     App.utils.shuffle(item.options.map(function (text, optionIndex) {
-      return { text: text, correct: optionIndex === item.correcta };
+      return { text: text, correct: optionIndex === item.correcta, index: optionIndex };
     })).forEach(function (option) {
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'btn-opcion';
       button.textContent = option.text;
-      button.addEventListener('click', function () { answer(button, option.correct, item); });
+      button.addEventListener('click', function () { answer(button, option.correct, item, option.index); });
       $('#options').appendChild(button);
     });
   }
@@ -88,7 +110,9 @@
     $('#explanationWrap').classList.remove('hidden');
   }
 
-  function answer(button, correct, item) {
+  // Socratic hint for the option chosen (item.pistas[index]): why it does
+  // not fit this case, with a clue toward the right one.
+  function answer(button, correct, item, index) {
     if (solved) return;
     if (!correct) {
       attempts += 1;
@@ -96,7 +120,7 @@
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
-      showExplanation(item.pista);
+      showExplanation('🤔 ' + item.pistas[index]);
       App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
         if (respuestaTrasPista) showExplanation(item.explicacion);
       });
@@ -122,26 +146,21 @@
   }
 
   function endRound() {
-    // Cada tema da estrellas la primera vez que aparece en una ronda.
-    var touched = {};
-    cases.forEach(function (entry) {
-      var id = entry.level.id;
-      if (touched[id]) return;
-      touched[id] = true;
-      if (!progress.completed[id]) {
-        progress.completed[id] = true;
-        progress.stars += entry.level.estrellas || 1;
-      }
-    });
-    var total = catalog().length;
-    progress.position = (roundStart + cases.length) % total;
+    // El tema da estrellas la primera vez que se practica.
+    if (!progress.completed[topic.id]) {
+      progress.completed[topic.id] = true;
+      progress.stars += topic.estrellas || 1;
+    }
+    var total = topic.casos.length;
+    var position = (roundStart + cases.length) % total;
+    progress.positions[topic.id] = position;
     progress.roundsCompleted += 1;
     save();
     paintStars();
     $('#endText').textContent = App.i18n.t('endText');
     $('#resumenFinal').textContent = App.i18n.t('siguienteRonda')
-      .replace('{desde}', progress.position + 1)
-      .replace('{hasta}', Math.min(progress.position + cases.length, total))
+      .replace('{desde}', position + 1)
+      .replace('{hasta}', Math.min(position + cases.length, total))
       .replace('{total}', total);
     $('#transferencia').textContent = App.i18n.t('transferencia');
     showScreen('endScreen');
@@ -179,7 +198,7 @@
   }
 
   function showList() {
-    lastScreen = $('#caseScreen').classList.contains('hidden') ? 'endScreen' : 'caseScreen';
+    lastScreen = visibleScreen;
     showScreen('');
     renderList();
     $('#listScreen').classList.remove('hidden');
@@ -195,8 +214,8 @@
   $('#btnVerTodas').addEventListener('click', showList);
   $('#btnVerTodasFin').addEventListener('click', showList);
   $('#btnVolverJugar').addEventListener('click', hideList);
-  $('#btnRepeat').addEventListener('click', startGame);
-  paintStars();
-  // Iniciar directamente la actividad
-  startGame();
+  $('#btnRepeat').addEventListener('click', function () { startTopic(topic); });
+  $('#btnOtroTemaCaso').addEventListener('click', goToMenu);
+  $('#btnOtroTemaFin').addEventListener('click', goToMenu);
+  goToMenu();
 })();

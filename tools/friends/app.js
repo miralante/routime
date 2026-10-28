@@ -108,7 +108,7 @@ function renderProgress() {
     optionsEl.innerHTML = '';
 
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { text: opt, isCorrect: i === item.correcta };
+      return { text: opt, isCorrect: i === item.correcta, index: i };
     }));
 
     options.forEach(function (op) {
@@ -116,7 +116,7 @@ function renderProgress() {
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.text;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item, op.index); });
       optionsEl.appendChild(btn);
     });
 
@@ -132,16 +132,18 @@ function renderProgress() {
     explicacionWrap.classList.remove('hidden');
   }
 
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is pointed back to the situation already on screen.
-     Only on the second mistake is the correct answer explained
+  /* Socratic method: on the first mistake the answer isn't given. The
+     hint is specific to the option chosen (item.pistas[index]): why it
+     does not fit the situation and a clue toward the right one. Only
+     on the second mistake is the correct answer explained
      (showExplanation). */
-  function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
+  function showHint(item, index) {
+    var pista = item.pistas[index];
+    explicacionEl.textContent = pista ? '🤔 ' + pista : App.i18n.t('pista');
     explicacionWrap.classList.remove('hidden');
   }
 
-  function answer(btn, isCorrect, item) {
+  function answer(btn, isCorrect, item, index) {
     if (solved) return;
     if (isCorrect) {
       showExplanation(isCorrect, item);
@@ -159,7 +161,7 @@ function renderProgress() {
     } else {
       attempts += 1;
       var respuestaTrasPista = attempts > 1;
-      showHint(item);
+      showHint(item, index);
       /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;

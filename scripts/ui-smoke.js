@@ -953,14 +953,14 @@ async function exerciseRoutimeSafeChat(page) {
         await hintZone.waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
         assert.ok((await page.locator('#consejoTexto').innerText()).trim(),
           'Un fallo debe mostrar una pista socrática');
-        assert.equal(await safeButton.isEnabled(), false,
-          'La respuesta segura debe quedar bloqueada hasta pulsar «Entendido»');
-        assert.equal(await wrongButton.isEnabled(), false,
-          'La respuesta ya probada debe seguir bloqueada');
+        assert.equal(await page.locator('#chatOpciones .btn-opcion:visible').count(), 0,
+          'Mientras se ve la pista, las respuestas deben quedar ocultas');
         await hintZone.locator('.btn-entendido').click({ timeout: 3000 });
         await hintZone.waitFor({ state: 'hidden', timeout: NAV_TIMEOUT });
         assert.equal(await safeButton.isEnabled(), true,
-          '«Entendido» debe reactivar la respuesta segura');
+          '«Entendido» debe volver a mostrar y reactivar la respuesta segura');
+        assert.equal(await wrongButton.isEnabled(), false,
+          'La respuesta ya probada debe seguir bloqueada');
         validatedSocraticPause = true;
       }
       await page.locator('#chatOpciones .btn-opcion:visible').filter({ hasText: answers.safe })

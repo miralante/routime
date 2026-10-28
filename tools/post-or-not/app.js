@@ -75,13 +75,13 @@
     optionsEl.innerHTML = '';
 
     App.utils.shuffle(item.options.map(function (text, i) {
-      return { text: text, isCorrect: i === item.correcta };
+      return { text: text, isCorrect: i === item.correcta, index: i };
     })).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.text;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
+      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item, op.index); });
       optionsEl.appendChild(btn);
     });
     renderProgress();
@@ -96,12 +96,15 @@
     explanationWrap.classList.remove('hidden');
   }
 
-  function showHint(item) {
-    explanationEl.textContent = App.i18n.t('pista') + ' "' + item.situacion + '"';
+  /* Socratic hint for the option chosen: why it is not right and a clue
+     toward the right one (item.pistas[index]). */
+  function showHint(item, index) {
+    var pista = item.pistas[index];
+    explanationEl.textContent = pista ? '🤔 ' + pista : App.i18n.t('pista');
     explanationWrap.classList.remove('hidden');
   }
 
-  function answer(btn, isCorrect, item) {
+  function answer(btn, isCorrect, item, index) {
     if (solved) return;
     if (isCorrect) {
       showExplanation(true, item);
@@ -121,7 +124,7 @@
 
     attempts += 1;
     var respuestaTrasPista = attempts > 1;
-    showHint(item);
+    showHint(item, index);
     btn.classList.add('animo');
     btn.disabled = true;
     App.feedback.encourage(feedbackEl);

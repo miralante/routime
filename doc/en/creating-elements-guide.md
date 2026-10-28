@@ -105,7 +105,7 @@ the screen and breaks accessibility rule 10 (maximum visible options).
 
 Every round — whether simulation or pure skill — must honour, when they
 add value, the 1-5 points of the anatomy below. The Case B contract only
-relaxes `pista` and `explicacion` when the activity has no "correct
+relaxes `pistas` and `explicacion` when the activity has no "correct
 answer" to explain (e.g. `builders` or `piano-keys` in free mode).
 
 Every round must follow this 5-step anatomy:
@@ -255,7 +255,7 @@ which one was harder, and they will get frustrated.
 ### Step 6 · Write the texts (`strings.<locale>.js`)
 
 - Sentences of **max 12 words** in `instruccion`.
-- One idea per sentence in `pista` and `explicacion`.
+- One idea per sentence in each `pistas[i]` and in `explicacion`.
 - Warm tone, second person ("Tap", "Look", "Find").
 - Avoid negative imperatives ("Don't tap here").
 - Emojis only when they **accompany** text that also makes sense
@@ -347,7 +347,7 @@ The Socratic method in Routime has three levels:
 
 | Moment | What the app shows | Implicit message |
 |---|---|---|
-| First mistake | `pista` (a question that re-orients thinking) | "You can do it; think again". |
+| First mistake | `pistas[i]` of the option chosen (a question that re-orients thinking) | "You can do it; think again". |
 | Second mistake | `explicacion` with the answer and why | "Now you see it; next time you'll do it alone". |
 | Correct answer | `explicacionCorrecta` celebrating | "You thought well; that is what matters". |
 
@@ -356,8 +356,9 @@ The Socratic method in Routime has three levels:
 > ("Look at the picture; which group does it belong to?" instead
 > of "That is not the right box").
 
-> Mandatory mechanic: any mistake locks the remaining untried options with
-> `App.feedback.lockUntilAck(buttons, zone)` until the person taps "Got it".
+> Mandatory mechanic: any mistake hides the round's options while the hint
+> shows, through `App.feedback.lockUntilAck(buttons, zone)`, until the person
+> taps "Got it".
 > This forces reading the hint or explanation before trying again — without
 > limiting retries — and prevents guessing by elimination instead of thinking.
 
@@ -568,7 +569,7 @@ honour these four **meaningful-learning anchors**:
 
 ## 7. Templates
 
-### 7.1 `pista` template (1 positive sentence)
+### 7.1 `pistas` template (1 positive sentence per wrong option)
 
 ```
 🤔 Look at the picture. Which group does {word} belong to?
@@ -674,7 +675,7 @@ Good examples in the catalogue: `tools/situations/`, `tools/emergencies/`,
 | Mistake | Why it is a problem | Solution |
 |---|---|---|
 | Saying "incorrect" | Clashes with `SPEC.md` §3.1 | Use `App.feedback.encourage()`. |
-| Giving the answer on the first mistake | Breaks rule 12 and the Socratic method | Show `pista` first. |
+| Giving the answer on the first mistake | Breaks rule 12 and the Socratic method | Show the `pistas[i]` of the option chosen first. |
 | Leaving the other options active after a mistake | Lets people guess by elimination instead of thinking | Call `App.feedback.lockUntilAck()` on every mistake. |
 | Changing two variables between levels | Breaks rule 13 and frustrates | Change **only one**. |
 | Condescending tone ("Great job, champ!") | Infantalises | Close but dignified tone: "You did very well!". |
@@ -724,15 +725,15 @@ guide):
       no exploitative loss aversion (forbidden list in
       [`SPEC.md` §3.7](SPEC.md)). Engagement comes from the design,
       not from pressure.
-- [ ] `pista` and `explicacion` exist in `strings.es.js` **and**
-      `strings.en.js`.
+- [ ] Each wrong option has a non-empty `pistas[i]`, and `explicacion`
+      exists, in `data.js` for `es` **and** `en`, with the same number of entries.
 - [ ] `App.tts.speak()` is called when entering each game screen.
 - [ ] `App.feedback.success()` and `App.feedback.encourage()` are
       wired.
 - [ ] First mistake → `mostrarPista()`; second →
       `mostrarExplicacion()`.
-- [ ] Every mistake calls `App.feedback.lockUntilAck()` (locks the
-      untried options until "Got it" is tapped).
+- [ ] Every mistake calls `App.feedback.lockUntilAck()` (hides the
+      options until "Got it" is tapped).
 - [ ] Persistence: only `estrellas` and `completados` in
       `localStorage`.
 - [ ] Buttons ≥ 64×64 px, gap ≥ 16 px (rule 2).

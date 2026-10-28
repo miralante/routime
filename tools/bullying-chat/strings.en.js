@@ -9,7 +9,6 @@
   App.i18n.register({
     "title": "🧭 Bullying Chat",
     "instruccion": "These chats are pretend. They are for practice. Choose a chat and answer with care.",
-    "btnNormas": "📜 My rules",
     "volverChats": "← Chats",
     "normasTitulo": "My rules",
     "instruccionNormas": "These rules help you recognize bullying and know what to do.",

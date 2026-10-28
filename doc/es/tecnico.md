@@ -353,7 +353,7 @@ actividad. Ejemplo típico: `{ estrellas: 3, completado: { nivel1: true }, opcio
 | `acierto` | `([zona]) → string` | Mensaje positivo aleatorio + sonido suave. Escribe en `zona` (elemento con `aria-live="polite"`) y le pone clase `.acierto` |
 | `animo` | `([zona]) → string` | Mensaje de ánimo tras fallo (nunca punitivo) + tono neutro. Clase `.animo` |
 | `celebrar` | `(mensaje, [despues])` | Capa de celebración a pantalla completa ≤ 2 s (1,2 s con reduced motion); llama a `despues` al ocultarse |
-| `lockUntilAck` | `(botones, zona, [alConfirmar])` | Tras un fallo, bloquea las opciones de la ronda sin probar y muestra un botón "Entendido" (con foco automático) dentro de `zona` que las reactiva al pulsarlo — pausa de lectura del método socrático (regla 12), nunca limita los reintentos |
+| `lockUntilAck` | `(botones, zona, [alConfirmar])` | Tras un fallo, oculta las opciones de la ronda mientras se ve la pista, bloquea las que no se han probado y muestra un botón "Entendido" (con foco automático) dentro de `zona`; al pulsarlo vuelven las opciones y la pista se oculta — pausa de lectura del método socrático (regla 12), nunca limita los reintentos |
 
 Sonidos: generados con Web Audio (sin archivos), fallan en silencio.
 
@@ -651,13 +651,15 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
 - **El error nunca castiga**: no restar estrellas ni progreso; el fallo produce
   `animo()` y se puede reintentar sin límite.
 - **Pausa de lectura tras un fallo**: en toda actividad de opción múltiple, un fallo
-  debe bloquear las demás opciones sin probar de esa ronda con
-  `App.feedback.lockUntilAck()` hasta que la persona pulse "Entendido"; las
-  opciones ya probadas siguen deshabilitadas como hoy. El reintento sigue siendo
+  debe ocultar las opciones de esa ronda mientras se ve la pista, con
+  `App.feedback.lockUntilAck()`, hasta que la persona pulse "Entendido"; las
+  opciones vuelven entonces y la pista se oculta. Mientras tanto, las opciones
+  sin probar quedan bloqueadas, y las ya probadas siguen deshabilitadas como hoy. El reintento sigue siendo
   ilimitado — es una pausa de lectura del método socrático (regla 12), nunca un
-  castigo ni un bloqueo del progreso. Excepción documentada: `safe-chat` y
-  `bullying-chat` aplican el bloqueo pero aún no tienen pista/explicación en dos
-  fases (solo un aviso), una brecha pendiente de contenido, no de este contrato.
+  castigo ni un bloqueo del progreso. Las actividades de chat
+  (`bullying-chat`, `safe-chat`, `phishing-alert`) aplican el mismo bloqueo con la pista de cada
+  opción arriesgada (ver «Pista por opción» abajo).
+- **Pista por opción**: la pista del primer fallo explica por qué *esa* opción no encaja y apunta hacia la correcta. Hay dos formas, según cómo estén escritas las opciones: (a) *quiz*: `pistas: string[n]` alineado con `opciones`/`options`, con `''` en la correcta y texto en cada incorrecta (`post-or-not`, `friends`, `trust-circle`, `social-safety`); (b) *chat*: cada opción incorrecta lleva su propia `pista` (y `aviso` si procede), y la opción segura no lleva pista, aunque puede llevar `avisoSeguro` (`bullying-chat`, `safe-chat`, `phishing-alert`). En el segundo fallo, las actividades de quiz muestran su explicación: `explicacion` por caso en `trust-circle` y `social-safety`, y la explicación genérica de i18n en `post-or-not` y `friends`. Las de chat no tienen segunda fase en la app actual. Ninguna opción incorrecta puede quedar sin pista en ningún idioma.
 - **Sin cronómetros visibles**: medir tiempos internamente está permitido (dato en
   storage), mostrarlos como presión no.
 - **Textos de la UI**: español de España e inglés, Lectura Fácil en los dos, sin
@@ -687,7 +689,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
   terapéutico es entrenar una habilidad pura (memoria, motricidad fina,
   lógica, puzzles, percepción), la actividad sigue el **vehículo de
   habilidad pura** (según [`SPEC.md` §3.6.b](SPEC.md)): `contexto` y
-  `transferencia` se exigen cuando aporten, `pista` / `explicacion` se
+  `transferencia` se exigen cuando aporten, `pistas` (una por opción incorrecta) / `explicacion` se
   exigen cuando aporten, `App.feedback.success` y `App.feedback.encourage`
   se exigen **siempre**, y la decisión se documenta en `team/index.html`
   como **decisión de diseño priorizada**, no como excepción. Los cuatro
@@ -822,8 +824,8 @@ datos personales, una acción nueva de borrado en `settings/`, etc.).
    HTML y el pie de scripts de una actividad existente del mismo módulo.
 3. **`data.js`**: `var DATA = {...}` — solo datos, con el formato documentado en un
    comentario de cabecera. Sin lógica ni textos de interfaz. En un quiz debe haber
-   como máximo 3 opciones, una explicación por opción y una pista para el primer
-   fallo. Si hay niveles, cada uno cambia una sola variable de dificultad (§5).
+   como máximo 3 opciones, una explicación para el segundo fallo y una pista por
+   opción incorrecta (formato `pistas`, §7). Si hay niveles, cada uno cambia una sola variable de dificultad (§5).
 4. **`strings.es.js` y `strings.en.js`**: registrar un diccionario por archivo con
    `App.i18n.register(dict, 'es' | 'en')`. Ambos deben tener las mismas claves (§6).
 5. **`app.js`**: IIFE con `'use strict'`. Leer y guardar con

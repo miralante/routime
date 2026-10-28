@@ -9,7 +9,6 @@
   App.i18n.register({
     "title": "🧭 Chat Acoso",
     "instruccion": "Estos chats son de mentira. Sirven para practicar. Elige un chat y responde con cuidado.",
-    "btnNormas": "📜 Mis normas",
     "volverChats": "← Chats",
     "normasTitulo": "Mis normas",
     "instruccionNormas": "Estas normas te ayudan a reconocer el acoso y a saber qué hacer.",

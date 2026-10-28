@@ -166,11 +166,12 @@
   }
 
   /**
-   * Locks every not-yet-tried option button after a wrong answer (rule 12:
-   * a reading pause, never a punishment). Buttons already disabled from an
-   * earlier wrong try in this round are left as-is. Shows/reuses an
-   * "Entendido" button inside `zona`, focuses it; clicking it re-enables
-   * the buttons this call locked. Retries stay unlimited.
+   * Pauses the round after a wrong answer (rule 12: a reading pause, never a
+   * punishment). While the hint is shown the round's option buttons are
+   * hidden; buttons already disabled from an earlier wrong try in this round
+   * are left as-is. Shows/reuses an "Entendido" button inside `zona` and
+   * focuses it; tapping it shows the options again, hides the hint and
+   * re-enables the buttons this call locked. Retries stay unlimited.
    * @param {Element|Element[]|NodeList} buttons - option buttons of the current round
    * @param {Element} zona - wrap holding the pista/explanation (or consejo) text
    * @param {function} [alConfirmar] - called after the person taps Entendido
@@ -197,6 +198,11 @@
     });
     if (!zona) return;
     colocarZonaAntesDeOpciones(opciones, zona);
+    /* The answers are hidden while the hint shows, not only disabled */
+    var ocultas = Array.prototype.filter.call(opciones, function (b) {
+      return b && !b.classList.contains('hidden');
+    });
+    ocultas.forEach(function (b) { b.classList.add('hidden'); });
     var boton = zona.querySelector('.btn-entendido');
     if (!boton) {
       boton = document.createElement('button');
@@ -214,6 +220,7 @@
         b.removeAttribute('aria-disabled');
         b.classList.remove('bloqueada');
       });
+      ocultas.forEach(function (b) { b.classList.remove('hidden'); });
       boton.classList.add('hidden');
       zona.classList.add('hidden');
       if (alConfirmar) alConfirmar();

@@ -255,7 +255,7 @@ Operational difference between the two vehicles:
 | Preferred vehicle | Yes — the product prefers simulation whenever the therapeutic goal allows it | Valid, not equivalent; occupies a justified second plane |
 | Stimulus that **is** the context | A recognisable scene | The stimulus itself (piano, grid, pieces, sequence) **is** the context |
 | When prioritised | When there is a daily-life decision worth training | When the goal **is** the skill (memory, motor, logic) without a plausible daily-life decision |
-| Contract | Complete: `contexto` + `instruccion` + `pista` + `explicacion` + `transferencia` + feedback + Socratic wiring | Relaxed: `contexto` and `transferencia` when they add value; `pista` and `explicacion` when they add value; **feedback** (`success` + `encourage`) **always**; documented as a prioritised decision in `team/index.html` |
+| Contract | Complete: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + Socratic wiring | Relaxed: `contexto` and `transferencia` when they add value; `pistas` and `explicacion` when they add value; **feedback** (`success` + `encourage`) **always**; documented as a prioritised decision in `team/index.html` |
 | Documented as | Default coverage | Prioritised design decision (not "exception") |
 
 Activities in the catalogue that use this vehicle: `blocks`, `builders`,

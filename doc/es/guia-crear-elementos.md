@@ -102,7 +102,7 @@ pantalla y rompe la regla 10 de las 13 de accesibilidad.
 
 Cada ronda — sea de simulación o de habilidad pura — debe respetar, cuando
 aporten, los puntos 1-5 de la anatomía que sigue; el contrato del Caso B
-relaja `pista` y `explicacion` solo cuando la actividad no tiene una
+relaja `pistas` y `explicacion` solo cuando la actividad no tiene una
 "respuesta correcta" que explicar (p. ej. `builders` o `piano-keys` en
 modo libre).
 
@@ -256,7 +256,7 @@ costado más y se frustra.
 ### Paso 6 · Escribir los textos (`strings.<locale>.js`)
 
 - Frases de **máximo 12 palabras** en la `instruccion`.
-- Una sola idea por frase en `pista` y `explicacion`.
+- Una sola idea por frase en cada `pistas[i]` y en `explicacion`.
 - Tono cálido, segunda persona ("Toca", "Mira", "Busca").
 - Evitar imperativos negativos ("No pulses aquí").
 - Emojis solo cuando **acompañan** un texto que también se entiende sin
@@ -348,7 +348,7 @@ El método socrático en Routime tiene tres niveles:
 
 | Momento | Lo que muestra la app | Mensaje implícito |
 |---|---|---|
-| Primer fallo | `pista` (pregunta que reorienta el pensamiento) | "Tú puedes; vuelve a pensarlo". |
+| Primer fallo | `pistas[i]` de la opción elegida (pregunta que reorienta el pensamiento) | "Tú puedes; vuelve a pensarlo". |
 | Segundo fallo | `explicacion` con la respuesta y por qué | "Ahora ya lo ves; a la próxima lo harás solo/a". |
 | Acierto | `explicacionCorrecta` celebrando | "Has pensado bien; eso es lo que importa". |
 
@@ -357,8 +357,8 @@ El método socrático en Routime tiene tres niveles:
 > ("Mira el dibujo; ¿a qué grupo pertenece?" en vez de "Esa no es la
 > caja correcta").
 
-> Mecánica obligatoria: cualquier fallo bloquea el resto de opciones sin probar
-> con `App.feedback.lockUntilAck(botones, zona)` hasta que la persona pulse
+> Mecánica obligatoria: cualquier fallo oculta las opciones de la ronda mientras
+> se ve la pista, con `App.feedback.lockUntilAck(botones, zona)`, hasta que la persona pulse
 > "Entendido". Esto obliga a leer la pista o la explicación antes de volver a
 > intentarlo — sin limitar los reintentos — y evita que se acierte por
 > eliminación en vez de pensando.
@@ -570,7 +570,7 @@ estos cuatro **anclajes del aprendizaje significativo**:
 
 ## 7. Plantillas
 
-### 7.1 Plantilla de `pista` (1 frase, positiva)
+### 7.1 Plantilla de `pistas` (1 frase por opción incorrecta, positiva)
 
 ```
 🤔 Mira el dibujo. ¿A qué grupo pertenece {palabra}?
@@ -676,7 +676,7 @@ Buenos ejemplos en el catálogo: `tools/situations/`, `tools/emergencies/`,
 | Error | Por qué es un problema | Solución |
 |---|---|---|
 | Decir "incorrecto" | Choca con `SPEC.md` §3.1 | Usar `App.feedback.encourage()`. |
-| Dar la respuesta en el primer fallo | Rompe la regla 12 y el método socrático | Mostrar `pista` primero. |
+| Dar la respuesta en el primer fallo | Rompe la regla 12 y el método socrático | Mostrar primero la `pistas[i]` de la opción elegida. |
 | Dejar activas las demás opciones tras un fallo | Permite adivinar por eliminación en vez de pensar | Llamar a `App.feedback.lockUntilAck()` en cada fallo. |
 | Cambiar dos variables entre niveles | Rompe la regla 13 y frustra | Cambiar **una sola**. |
 | Tono condescendiente ("¡Muy bien, campeón!") | Infantiliza | Tono cercano pero digno: "¡Lo has hecho muy bien!". |
@@ -725,12 +725,12 @@ Checklist final (combina [`tecnico.md` §9](tecnico.md) con esta guía):
       ni FOMO / "no pierdas tu racha", ni dark patterns, ni aversión
       explotadora a la pérdida (lista en [`SPEC.md` §3.7](SPEC.md)).
       El enganche nace del diseño, no de la presión.
-- [ ] `pista` y `explicacion` existen en `strings.es.js` **y** `strings.en.js`.
+- [ ] Cada opción incorrecta tiene su `pistas[i]` no vacía, y `explicacion` existe, en `data.js` de `es` **y** de `en`, con el mismo número de entradas.
 - [ ] `App.tts.speak()` se llama al entrar en cada pantalla de juego.
 - [ ] `App.feedback.success()` y `App.feedback.encourage()` están conectados.
 - [ ] Primer fallo → `mostrarPista()`; segundo → `mostrarExplicacion()`.
-- [ ] Cada fallo llama a `App.feedback.lockUntilAck()` (bloquea las opciones sin
-      probar hasta pulsar "Entendido").
+- [ ] Cada fallo llama a `App.feedback.lockUntilAck()` (oculta las opciones
+      mientras se ve la pista, hasta pulsar "Entendido").
 - [ ] Persistencia: solo `estrellas` y `completados` en `localStorage`.
 - [ ] Botones ≥ 64×64 px, separación ≥ 16 px (regla 2).
 - [ ] ≤ 6 opciones por pantalla; ≤ 3 en quiz (reglas 10–11).

@@ -18,6 +18,12 @@
       <span class="stars" id="stars">⭐ 0</span>
     </header>
 
+    <!-- Menu: one subactivity per topic, so each run stays short -->
+    <section id="menuScreen" class="pila">
+      <p class="instruccion centered" data-i18n="instruction">Practica cómo protegerte ante situaciones difíciles en redes sociales.</p>
+      <div class="pila" id="listaTemas"></div>
+    </section>
+
     <section id="caseScreen" class="hidden pila">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div><span class="progress-text" id="progressText">1 / 5</span></div>
       <span class="dificultad" id="grupoCaso" aria-live="polite"></span>
@@ -33,6 +39,7 @@
       </div>
       <button type="button" class="btn hidden" id="nextButton" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
       <button type="button" class="btn btn-secondary" id="btnVerTodas" data-i18n="verTodas">Ver todos los casos</button>
+      <button type="button" class="btn btn-secondary" id="btnOtroTemaCaso" data-i18n="anotherTopic">Elegir otro tema</button>
     </section>
 
     <section id="endScreen" class="hidden centered pila" aria-live="polite">
@@ -46,6 +53,7 @@
       <p id="endText"></p>
       <p id="resumenFinal"></p>
       <button type="button" class="btn" id="btnRepeat" data-i18n="repeat">Practicar otra vez</button>
+      <button type="button" class="btn btn-secondary" id="btnOtroTemaFin" data-i18n="anotherTopic">Elegir otro tema</button>
       <button type="button" class="btn btn-secondary" id="btnVerTodasFin" data-i18n="verTodas">Ver todos los casos</button>
       <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
@@ -63,11 +71,11 @@
   <script src="../../assets/js/utils.js?v=routime-v32a47fbd"></script>
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
   <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
-  <script src="../../assets/js/feedback.js?v=routime-v93b35d8d"></script>
+  <script src="../../assets/js/feedback.js?v=routime-v306d9b8a"></script>
   <script src="strings.es.js?v=routime-v15ec4d8e"></script>
   <script src="strings.en.js?v=routime-vf6641d36"></script>
-  <script src="data.js?v=routime-vf700fedb"></script>
-  <script src="app.js?v=routime-vc834f553"></script>
+  <script src="data.js?v=routime-vcd59778b"></script>
+  <script src="app.js?v=routime-v77c16ce4"></script>
   <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('../../sw.js').catch(function () {});</script>
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
 </body>

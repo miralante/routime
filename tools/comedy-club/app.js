@@ -1,5 +1,5 @@
 /* ============================================================
-   Routime — Club de la Comedia (lógica)
+   Routime — Chistes (lógica)
    Datos en data.js (const DATA). Módulos compartidos en assets/js/.
    Mecánica: ronda de 10 preguntas con opción múltiple.
    El error nunca se castiga: se anima a reintentar.
@@ -68,7 +68,7 @@
     var item = items[idx];
     solved = false;
     attempts = 0;
-    textEl.textContent = item.textContent;
+    textEl.textContent = item.text;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     explicacionWrap.classList.add('hidden');
@@ -84,7 +84,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
-      btn.textContent = op.textContent;
+      btn.textContent = op.text;
       btn.addEventListener('click', function () {
         answer(btn, op.isCorrect, item);
       });
@@ -109,7 +109,7 @@
      on the second mistake is the correct answer explained
      (showExplanation). */
   function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.textContent + '"';
+    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.text + '"';
     explicacionWrap.classList.remove('hidden');
   }
 
@@ -159,7 +159,7 @@
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     resumenFinal.textContent = '';
-$('#transferencia').textContent = '';
+    $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -169,5 +169,6 @@ $('#transferencia').textContent = '';
   });
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', startRound);
+  startRound();
 })();
 

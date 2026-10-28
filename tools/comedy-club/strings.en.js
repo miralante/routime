@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    "title": "🎭 Comedy Club",
+    "title": "🎭 Jokes",
     "instruccion": "Read the joke. Then choose why it is funny.",
     "pregunta": "Why is it funny?",
     "resumenFinal": "You won {n} stars. You now have {total} stars.",

@@ -7,7 +7,7 @@
   'use strict';
 
   App.i18n.register({
-    "title": "🎭 Club de la Comedia",
+    "title": "🎭 Chistes",
     "instruccion": "Lee el chiste. Después elige por qué es gracioso.",
     "pregunta": "¿Por qué es gracioso?",
     "resumenFinal": "Has ganado {n} estrellas. Ahora tienes {total} estrellas.",
