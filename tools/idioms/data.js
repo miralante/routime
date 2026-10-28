@@ -349,6 +349,230 @@ const DATA = {
         "",
         "¿Las mañas son siempre malas? Piensa en qué quiere decir la palabra 'maña' aquí."
       ]
+    },
+    {
+      text: "Al pan, pan, y al vino, vino",
+      options: [
+        "Hay que llamar a las cosas por su nombre",
+        "Hay que comer pan con vino",
+        "El pan y el vino son lo mismo"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Hay que comer pan con vino? Piensa en lo que el dicho dice sobre las palabras.",
+        "¿Son lo mismo el pan y el vino? Piensa en lo que el dicho distingue."
+      ]
+    },
+    {
+      text: "Ojo por ojo y diente por diente",
+      options: [
+        "Pagar el mal con el mismo mal",
+        "Mirar con atención para no perder nada",
+        "Ir al dentista cada año"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Hay que mirar con atención? Piensa en lo que el dicho habla de devolver.",
+        "¿Es un consejo sobre el dentista? Piensa en lo que devuelve el dicho."
+      ]
+    },
+    {
+      text: "Cuando el río suena, agua lleva",
+      options: [
+        "Los ríos suenan cuando llevan agua",
+        "Cuando hay rumores, algo de verdad suele haber",
+        "El agua de los ríos siempre suena"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es lo que dice el dicho? Piensa en lo que se oye antes de confirmar algo.",
+        "",
+        "¿El agua suena siempre? Piensa en el sentido de 'suena' en el dicho."
+      ]
+    },
+    {
+      text: "Más vale prevenir que curar",
+      options: [
+        "Es mejor evitar un problema que arreglarlo después",
+        "Curar es más barato que prevenir",
+        "Hay que curarse antes de enfermar"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Curar es más barato? Piensa en lo que vale evitar algo antes de que pase.",
+        "¿Hay que curarse antes de enfermar? Piensa en lo que se gana si el problema no llega."
+      ]
+    },
+    {
+      text: "Hablando del rey de Roma, por la puerta asoma",
+      options: [
+        "Los reyes siempre entran por la puerta",
+        "Justo al hablar de alguien, aparece",
+        "Hay que hablar de los reyes con respeto"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Los reyes entran siempre por la puerta? Piensa en lo que pasa cuando hablas de alguien.",
+        "",
+        "¿Hay que hablar con respeto de los reyes? Piensa en qué pasa justo cuando se nombra a alguien."
+      ]
+    },
+    {
+      text: "Donde menos se piensa, salta la liebre",
+      options: [
+        "Las liebres saltan en el campo",
+        "Hay que pensar mucho antes de actuar",
+        "Lo inesperado aparece cuando menos lo esperas"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Las liebres saltan en el campo? Piensa en lo que el dicho dice de la sorpresa.",
+        "¿Hay que pensar mucho antes de actuar? Piensa en cuándo aparece la liebre.",
+        ""
+      ]
+    },
+    {
+      text: "Estar en las nubes",
+      options: [
+        "Viajar en avión",
+        "Estar distraído y soñando despierto",
+        "Tener mucho dinero"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es viajar en avión? Piensa en quien mira al cielo sin ver lo que tiene delante.",
+        "",
+        "¿Es tener dinero? Piensa en lo que hace alguien que está distraído."
+      ]
+    },
+    {
+      text: "Tener mano izquierda",
+      options: [
+        "Escribir con la mano izquierda",
+        "Saber tratar a la gente con habilidad y tacto",
+        "Tener muy mala suerte"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es escribir con la izquierda? Piensa en lo que se necesita para tratar bien a la gente.",
+        "",
+        "¿Es mala suerte? Piensa en lo que se usa al tratar con personas."
+      ]
+    },
+    {
+      text: "Dar en el clavo",
+      options: [
+        "Clavar algo con un martillo",
+        "Acertar de lleno",
+        "Hacer daño a alguien"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es clavar con un martillo? Piensa en lo que se acierta al decir algo.",
+        "",
+        "¿Es hacer daño? Piensa en lo que pasa cuando la respuesta es exacta."
+      ]
+    },
+    {
+      text: "Tirar la casa por la ventana",
+      options: [
+        "Gastar mucho dinero sin pensarlo",
+        "Abrir todas las ventanas de casa",
+        "Cambiar de casa cada año"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Es abrir las ventanas? Piensa en lo que se gasta sin medida.",
+        "¿Es cambiar de casa? Piensa en el dinero que se gasta sin control."
+      ]
+    },
+    {
+      text: "Hacer de tripas corazón",
+      options: [
+        "Cocinar con tripas",
+        "Armarse de valor para algo difícil",
+        "Llorar con el corazón en la mano"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es cocinar? Piensa en lo que hay que reunir para algo que cuesta.",
+        "",
+        "¿Es llorar? Piensa en lo que se hace cuando algo da miedo o asco."
+      ]
+    },
+    {
+      text: "A buen árbol se arrima, buena sombra le cobija",
+      options: [
+        "Quien se junta con buenas personas se beneficia",
+        "Hay que sentarse a la sombra de los árboles",
+        "Los árboles dan buena sombra siempre"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Es sentarse a la sombra? Piensa en quién recibe la protección.",
+        "¿Dan siempre buena sombra los árboles? Piensa en lo que se arrima."
+      ]
+    },
+    {
+      text: "Cría cuervos y te sacarán los ojos",
+      options: [
+        "Criar animales es peligroso",
+        "Quien ayuda a un ingrato acaba mal",
+        "Los cuervos son muy listos"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Es peligroso criar animales? Piensa en quién te paga con daño lo que haces por él.",
+        "",
+        "¿Son listos los cuervos? Piensa en lo que hace el ingrato."
+      ]
+    },
+    {
+      text: "Nunca es tarde si la dicha es buena",
+      options: [
+        "Nunca es tarde para algo bueno",
+        "La suerte siempre llega tarde",
+        "Hay que tener suerte para ser feliz"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿La suerte siempre llega tarde? Piensa en lo que el dicho dice de lo bueno.",
+        "¿Hay que tener suerte para ser feliz? Piensa en la palabra 'dicha'."
+      ]
+    },
+    {
+      text: "Perro que ladra no muerde",
+      options: [
+        "Los perros que ladran son peligrosos",
+        "Quien amenaza mucho suele hacer poco",
+        "Hay que tener cuidado con los perros"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Son peligrosos los perros que ladran? Piensa en lo que dice el dicho del que ladra.",
+        "",
+        "¿Hay que tener cuidado con los perros? Piensa en lo que hace quien ladra mucho."
+      ]
+    },
+    {
+      text: "En todas partes cuecen habas",
+      options: [
+        "En todas las cocinas se cocinan habas",
+        "Los problemas ocurren en todas partes",
+        "Las habas son comida de todos los lugares"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Se cocinan habas en todas las cocinas? Piensa en lo que el dicho quiere decir de los problemas.",
+        "",
+        "¿Son las habas comida de todos los sitios? Piensa en lo que se repite en todas partes."
+      ]
     }
   ],
   en: [
@@ -686,6 +910,230 @@ const DATA = {
         "Is it about someone very bad? Think about the joke in the phrase.",
         "",
         "Is it about volume? Think about what happens right after the talk."
+      ]
+    },
+    {
+      text: "Hit the nail on the head",
+      options: [
+        "Be exactly right about something",
+        "Hammer a nail into wood",
+        "Hurt someone by accident"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about carpentry? Think about what a precise answer does.",
+        "Is it about hurting someone? Think about what it means to be right."
+      ]
+    },
+    {
+      text: "Let sleeping dogs lie",
+      options: [
+        "Put a dog to sleep",
+        "Leave a situation alone so it stays calm",
+        "Feed the dog before bed"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it about putting a dog to sleep? Think about what 'let lie' means.",
+        "",
+        "Is it about feeding a dog? Think about the calm the phrase protects."
+      ]
+    },
+    {
+      text: "Hit the books",
+      options: [
+        "Throw books at someone",
+        "Read in a library every day",
+        "Start studying seriously"
+      ],
+      correct: 2,
+      pistas: [
+        "Is it about throwing books? Think about what 'hit' means when studying.",
+        "Reading in a library is only part of it. Think about the effort the phrase means.",
+        ""
+      ]
+    },
+    {
+      text: "Chip on your shoulder",
+      options: [
+        "Be angry or resentful about something from the past",
+        "Carry something heavy on your shoulder",
+        "Be proud of your achievements"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about carrying something? Think about the feeling the phrase describes.",
+        "Is it about pride? Think about how a grudge feels."
+      ]
+    },
+    {
+      text: "A dime a dozen",
+      options: [
+        "Very expensive and rare",
+        "Very common and easy to find",
+        "Sold only in shops that use dimes"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it expensive? Think about the word 'dime', which is a small coin.",
+        "",
+        "Is it about shops and coins? Think about what 'a dozen' means."
+      ]
+    },
+    {
+      text: "Cut to the chase",
+      options: [
+        "Run after someone quickly",
+        "Start a car race",
+        "Get straight to the main point"
+      ],
+      correct: 2,
+      pistas: [
+        "Is it about running? Think about a conversation that skips the details.",
+        "Is it about cars? Think about how the phrase moves forward.",
+        ""
+      ]
+    },
+    {
+      text: "Under the table",
+      options: [
+        "Done secretly or illegally",
+        "Lying on the floor",
+        "Hidden in a drawer"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about the floor? Think about where money is passed in secret.",
+        "Is it about a drawer? Think about what is hidden but not against the law."
+      ]
+    },
+    {
+      text: "Bite the hand that feeds you",
+      options: [
+        "Eat with your hands",
+        "Harm the person who helps you",
+        "Be hungry all day"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it about eating with your hands? Think about who helps you.",
+        "",
+        "Is it about hunger? Think about how someone repays help."
+      ]
+    },
+    {
+      text: "Rain cats and dogs",
+      options: [
+        "Rain very heavily",
+        "Have pets in the rain",
+        "Be afraid of storms"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about pets? Think about the image of the phrase, not real animals.",
+        "Is it about fear? Think about how much water falls."
+      ]
+    },
+    {
+      text: "Once bitten, twice shy",
+      options: [
+        "Dogs that bite are dangerous",
+        "Do not trust bites",
+        "After a bad experience you become more careful"
+      ],
+      correct: 2,
+      pistas: [
+        "Are dogs dangerous? Think about the person, not the dog.",
+        "Is it about bites? Think about the word 'shy'.",
+        ""
+      ]
+    },
+    {
+      text: "Go the extra mile",
+      options: [
+        "Walk a long distance",
+        "Make extra effort to help or succeed",
+        "Travel by car every day"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it about a long walk? Think about the effort the phrase praises.",
+        "",
+        "Is it about travelling? Think about what the word 'extra' adds."
+      ]
+    },
+    {
+      text: "Pay through the nose",
+      options: [
+        "Pay far too much money",
+        "Pay with your nose",
+        "Pay for medicine"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about the nose? Think about how much money it costs.",
+        "Is it about medicine? Think about what the phrase means: paying a lot."
+      ]
+    },
+    {
+      text: "Smell a rat",
+      options: [
+        "Catch a rat at home",
+        "Find a bad smell",
+        "Suspect that something is wrong"
+      ],
+      correct: 2,
+      pistas: [
+        "Is it about a rat at home? Think about the word 'smell'.",
+        "Is it about a bad smell? Think about what the phrase describes: a feeling.",
+        ""
+      ]
+    },
+    {
+      text: "Spill your guts",
+      options: [
+        "Get hurt badly",
+        "Tell everything, especially secrets or feelings",
+        "Eat too much food"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it about an injury? Think about what the phrase says about talking.",
+        "",
+        "Is it about food? Think about speaking openly."
+      ]
+    },
+    {
+      text: "On cloud nine",
+      options: [
+        "Be extremely happy",
+        "Be sitting high in the clouds",
+        "Be very tired"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is it about being high up? Think about the feeling of being happy.",
+        "Is it about tiredness? Think about the joy in the phrase."
+      ]
+    },
+    {
+      text: "Speak your mind",
+      options: [
+        "Read someone's thoughts",
+        "Say honestly what you think",
+        "Talk quietly to yourself"
+      ],
+      correct: 1,
+      pistas: [
+        "Is it about reading minds? Think about who is speaking.",
+        "",
+        "Is it about talking quietly? Think about the word 'mind'."
       ]
     }
   ]

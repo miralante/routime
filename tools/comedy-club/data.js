@@ -305,6 +305,76 @@ const DATA = {
         "¿Están siempre de mal humor los químicos? Piensa en lo que dice la frase.",
         "¿Usan ácidos para despedirse? Fíjate en el sonido de la palabra 'ácido'."
       ]
+    },
+    {
+      text: "¿Por qué los peces no usan el móvil? Porque tienen miedo a la red.",
+      options: [
+        "Los peces no saben usar el móvil",
+        "Juego de palabras: 'red' es la de pescar y también la de internet",
+        "Los peces prefieren el agua al aire"
+      ],
+      correct: 1,
+      pistas: [
+        "¿No saben los peces usar el móvil? Piensa en lo que de verdad temen.",
+        "",
+        "¿Prefieren el agua al aire? Piensa en la palabra 'red' de la frase."
+      ]
+    },
+    {
+      text: "Pepito pregunta: —Papá, ¿qué es la inflación? —Hijo, es cuando todo sube menos tu sueldo.",
+      options: [
+        "Es un globo que sube al cielo",
+        "Humor de la vida real: los precios suben y el sueldo no",
+        "Es el nombre de un banco"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Tiene que ver un globo con los precios? Piensa en la palabra 'sube' de la respuesta.",
+        "",
+        "¿Qué banco tiene que ver con los precios? Piensa en lo que le pasa a tu sueldo."
+      ]
+    },
+    {
+      text: "¿Qué le dice el 3 al 30? Sin mí no vales nada.",
+      options: [
+        "Los números se pelean por el valor",
+        "Juego con el cero: el cero da valor al 3 y lo convierte en 30",
+        "El 3 es mejor número que el 30"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Los números se pelean? Piensa en lo que hace el cero en el número 30.",
+        "",
+        "¿Es mejor el 3 que el 30? Piensa en lo que añade el cero."
+      ]
+    },
+    {
+      text: "¿Qué hace un libro cuando tiene hambre? Se come sus palabras.",
+      options: [
+        "Los libros comen papel",
+        "Juego con 'comerse las palabras' (retractarse) y las palabras del libro",
+        "Los libros tienen mucha hambre"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Comen papel los libros? Piensa en lo que significa 'comerse' aquí.",
+        "",
+        "¿Tienen hambre los libros? Piensa en la expresión 'comerse las palabras'."
+      ]
+    },
+    {
+      text: "¿Qué le dice el ajo a la cebolla? Te quiero, pero me haces llorar.",
+      options: [
+        "Las verduras se quieren mucho",
+        "Humor: la cebolla hace llorar al cortarla",
+        "El ajo es un llorón"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Se quieren mucho las verduras? Piensa en lo que pasa al cortar una de ellas.",
+        "",
+        "¿Llora el ajo? Piensa en quién hace llorar en la frase."
+      ]
     }
   ],
   en: [
@@ -586,6 +656,230 @@ const DATA = {
         "Do computers get sick in winter? Think about what 'virus' means for a computer.",
         "",
         "Are computers afraid of doctors? Think about why the computer goes to the doctor."
+      ]
+    },
+    {
+      text: "Why did the coffee file a police report? It got mugged.",
+      options: [
+        "The coffee was too hot",
+        "Pun: 'mugged' means robbed, and a mug is a coffee cup",
+        "Coffee cannot write"
+      ],
+      correct: 1,
+      pistas: [
+        "Was the coffee too hot? Think about what 'filed a report' means.",
+        "",
+        "Can coffee not write? Think about what a police report needs."
+      ]
+    },
+    {
+      text: "What do you call a dog that does magic tricks? A labracadabrador.",
+      options: [
+        "A dog that sleeps all day",
+        "A dog that loves to swim",
+        "Pun: 'labracadabrador' mixes 'abracadabra' and 'labrador', a dog breed"
+      ],
+      correct: 2,
+      pistas: [
+        "Does the dog sleep all day? Think about what the word 'magic' points to.",
+        "Does it love swimming? Listen to the start of the word.",
+        ""
+      ]
+    },
+    {
+      text: "Why do cows wear bells? Because their horns don't work.",
+      options: [
+        "Cows like music",
+        "Twist: the cows' horns 'don't work', so they wear bells instead",
+        "Cows need to be warned about bees"
+      ],
+      correct: 1,
+      pistas: [
+        "Do cows like music? Think about what the bell is for.",
+        "",
+        "Do cows fear bees? Think about the word 'horns' in the joke."
+      ]
+    },
+    {
+      text: "How do you make a tissue dance? Put a little boogie in it.",
+      options: [
+        "Pun: 'boogie' means dancing, and 'boogers' are what tissues are for",
+        "Tissues are very shy",
+        "Dancing is bad for paper"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Are tissues shy? Think about what a tissue is used for.",
+        "Is dancing bad for paper? Think about the word 'boogie'."
+      ]
+    },
+    {
+      text: "Why was the broom late? It overswept.",
+      options: [
+        "Brooms are slow",
+        "Brooms cannot tell the time",
+        "Pun: 'overswept' sounds like 'overslept', and a broom sweeps"
+      ],
+      correct: 2,
+      pistas: [
+        "Are brooms slow? Think about the sound of the joke.",
+        "Can brooms tell the time? Listen to the word 'overswept'.",
+        ""
+      ]
+    },
+    {
+      text: "What do you call a belt made of watches? A waist of time.",
+      options: [
+        "Pun: 'waist' sounds like 'waste', and a belt goes round the waist",
+        "Watches are very expensive",
+        "Belts are for telling the time"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Are watches expensive? Think about what the joke plays with: a belt and time.",
+        "Do belts tell the time? Think about what a belt is made of."
+      ]
+    },
+    {
+      text: "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+      options: [
+        "Golfers wear many trousers",
+        "Pun: 'hole in one' is a golf term, and a hole can also appear in trousers",
+        "Golf is cold in winter"
+      ],
+      correct: 1,
+      pistas: [
+        "Do golfers wear many trousers? Think about what the joke is about: a hole.",
+        "",
+        "Is golf cold? Think about why someone needs two pairs."
+      ]
+    },
+    {
+      text: "What do you call an alligator in a vest? An investigator.",
+      options: [
+        "A crocodile who loves clothes",
+        "An alligator that works in a shop",
+        "Pun: 'investigator' sounds like 'in a vest' plus 'alligator'"
+      ],
+      correct: 2,
+      pistas: [
+        "Does an alligator love clothes? Think about the word 'vest'.",
+        "Does it work in a shop? Listen to the sounds in 'investigator'.",
+        ""
+      ]
+    },
+    {
+      text: "What do you call a sleeping bull? A bulldozer.",
+      options: [
+        "Pun: 'bulldozer' sounds like 'bull that dozes', a sleeping bull",
+        "A bull that is very tired",
+        "A bull that can't wake up"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is a bull tired? Think about why the name sounds like a machine.",
+        "Can a bull not wake up? Think about the name 'bulldozer'."
+      ]
+    },
+    {
+      text: "Why did the cookie go to the doctor? Because it felt crummy.",
+      options: [
+        "Cookies get sick easily",
+        "Pun: 'crummy' means feeling ill, and cookies leave crumbs",
+        "The doctor likes cookies"
+      ],
+      correct: 1,
+      pistas: [
+        "Do cookies get sick easily? Think about what 'felt' is saying.",
+        "",
+        "Does the doctor like cookies? Think about the word 'crummy'."
+      ]
+    },
+    {
+      text: "How do you organize a space party? You planet.",
+      options: [
+        "Parties are held in space",
+        "Planets like to dance",
+        "Pun: 'plan it' sounds like 'planet'"
+      ],
+      correct: 2,
+      pistas: [
+        "Are parties held in space? Think about the word 'organize'.",
+        "Do planets dance? Think about the sound of the joke.",
+        ""
+      ]
+    },
+    {
+      text: "What's orange and sounds like a parrot? A carrot.",
+      options: [
+        "Pun: 'carrot' sounds like 'parrot'",
+        "An orange parrot",
+        "A parrot that eats carrots"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is there an orange parrot? Think about what the riddle is asking.",
+        "Do parrots eat carrots? Listen to the sound of the answer."
+      ]
+    },
+    {
+      text: "Why did the picture go to jail? Because it was framed.",
+      options: [
+        "Pictures commit crimes",
+        "Pun: 'framed' means set up to look guilty, and a picture has a frame",
+        "Jails are full of pictures"
+      ],
+      correct: 1,
+      pistas: [
+        "Do pictures commit crimes? Think about what 'framed' means.",
+        "",
+        "Are jails full of pictures? Think about the word 'framed'."
+      ]
+    },
+    {
+      text: "What's a tree's favourite drink? Root beer.",
+      options: [
+        "Trees drink water",
+        "Trees like lemonade",
+        "Pun: 'root beer' is a drink, and trees have roots"
+      ],
+      correct: 2,
+      pistas: [
+        "Do trees drink water? Think about what 'favourite' means for a drink.",
+        "Do trees like lemonade? Think about the word 'root'.",
+        ""
+      ]
+    },
+    {
+      text: "Why did the student eat his homework? Because the teacher said it was a piece of cake.",
+      options: [
+        "Pun: 'piece of cake' means easy, and the student took it literally",
+        "Students like cake",
+        "Homework is tasty"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Do students like cake? Think about what the teacher meant by 'piece of cake'.",
+        "Is homework tasty? Think about why he ate it."
+      ]
+    },
+    {
+      text: "What do you call a snake that works for the government? A civil serpent.",
+      options: [
+        "A snake that loves the government",
+        "A snake with a uniform",
+        "Pun: 'civil serpent' sounds like 'civil servant'"
+      ],
+      correct: 2,
+      pistas: [
+        "Does a snake love the government? Think about what a civil servant does.",
+        "Does it wear a uniform? Listen to 'civil serpent'.",
+        ""
       ]
     }
   ]

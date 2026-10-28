@@ -166,6 +166,50 @@ const DATA = {
         "El pirata tiene un ojo y sí ve. Piensa en lo que la adivinanza dice que no hace."
       ],
       explicacion: "✅ Es la aguja: tiene un ojo para el hilo, pero no ve nada."
+    },
+    {
+      text: "Tengo ciudades y no tengo casas; tengo montañas y no tengo árboles.",
+      options: ["El mapa", "La luna", "El libro"],
+      correct: 0,
+      pistas: [
+        "",
+        "La luna tiene cráteres, no ciudades. ¿Qué tiene ciudades dibujadas?",
+        "El libro tiene palabras, no montañas. Piensa en algo que se dibuja plano."
+      ],
+      explicacion: "✅ Es el mapa: dibuja ciudades y montañas, pero no son reales."
+    },
+    {
+      text: "Lo uso para escribir, y cuanto más escribo, más me gasto.",
+      options: ["El lápiz", "La goma de borrar", "La regla"],
+      correct: 0,
+      pistas: [
+        "",
+        "La goma se gasta al borrar, no al escribir. ¿Qué se gasta al escribir?",
+        "La regla no se gasta al escribir. Piensa en un objeto que sí se acorta."
+      ],
+      explicacion: "✅ Es el lápiz: se va gastando a medida que escribes."
+    },
+    {
+      text: "Miro de cerca y hago grande lo pequeño.",
+      options: ["El telescopio", "La lupa", "El espejo"],
+      correct: 1,
+      pistas: [
+        "El telescopio sirve para ver lejos, no de cerca. ¿Qué se usa de cerca?",
+        "",
+        "El espejo refleja la imagen, pero no la agranda. Piensa en un cristal de aumento."
+      ],
+      explicacion: "✅ Es la lupa: hace grandes las cosas pequeñas que miras de cerca."
+    },
+    {
+      text: "Tiene cuentas y sirve para contar, pero no es un collar.",
+      options: ["La calculadora", "El collar", "El ábaco"],
+      correct: 2,
+      pistas: [
+        "La calculadora calcula con pantalla, no con cuentas. ¿Tiene cuentas?",
+        "El collar tiene cuentas, pero no sirve para contar. Piensa en otra cosa.",
+        ""
+      ],
+      explicacion: "✅ Es el ábaco: tiene cuentas que se mueven para contar."
     }
   ],
   en: [
@@ -322,6 +366,127 @@ const DATA = {
         "A person has legs and walks. Think about furniture."
       ],
       explicacion: "✅ A table: it has four legs, but it stays where it is."
+    },
+    {
+      text: "What can travel around the world while staying in a corner?",
+      options: ["A stamp", "A cat", "A map"],
+      correct: 0,
+      pistas: [
+        "",
+        "A cat moves around, but it does not travel the world while staying in a corner.",
+        "A map shows the world, but it does not travel. Think about post."
+      ],
+      explicacion: "✅ A stamp: it travels round the world on letters, and stays in the corner of the envelope."
+    },
+    {
+      text: "What has four wheels and flies?",
+      options: ["A bus", "A garbage truck", "A bicycle"],
+      correct: 1,
+      pistas: [
+        "A bus has four wheels too, but does it fly? Think about what the riddle says it does.",
+        "",
+        "A bicycle has two wheels, not four. Think about the count in the riddle."
+      ],
+      explicacion: "✅ A garbage truck: it has four wheels, and flies buzz around the rubbish it carries."
+    },
+    {
+      text: "What has a mouth but never eats?",
+      options: ["A river", "A cave", "A fish"],
+      correct: 0,
+      pistas: [
+        "",
+        "A cave has an opening, but is it a mouth? Think about water.",
+        "A fish eats food. Think about what flows and never eats."
+      ],
+      explicacion: "✅ A river: it has a mouth where it meets the sea, but it never eats."
+    },
+    {
+      text: "What comes down but never goes up?",
+      options: ["Rain", "The sun", "A bird"],
+      correct: 0,
+      pistas: [
+        "",
+        "The sun rises and sets, so it goes up too. Think about what falls from the sky.",
+        "A bird flies up and down. Think about what falls only once."
+      ],
+      explicacion: "✅ Rain: it falls from the sky and never goes back up."
+    },
+    {
+      text: "What has a face and two hands but no arms or legs?",
+      options: ["A clock", "A dog", "A cat"],
+      correct: 0,
+      pistas: [
+        "",
+        "A dog has legs, so it does not fit what the riddle says it has not got.",
+        "A cat has legs and walks. Think about what has a face and hands but cannot walk."
+      ],
+      explicacion: "✅ A clock: it has a face and hands, but no arms or legs."
+    },
+    {
+      text: "What has a spine but no bones?",
+      options: ["A book", "A fish", "A snake"],
+      correct: 0,
+      pistas: [
+        "",
+        "A fish has a spine and bones. Think about what has a spine but is not alive.",
+        "A snake has bones. Think about what is made of paper."
+      ],
+      explicacion: "✅ A book: it has a spine, but it has no bones."
+    },
+    {
+      text: "What has to be caught but never thrown?",
+      options: ["A cold", "A ball", "A frisbee"],
+      correct: 0,
+      pistas: [
+        "",
+        "A ball is thrown and caught. Think about what you catch but never throw.",
+        "A frisbee is thrown. Think about an illness you can catch."
+      ],
+      explicacion: "✅ A cold: you catch it, but you cannot throw it."
+    },
+    {
+      text: "What is black when you buy it, red when you use it, and grey when you throw it away?",
+      options: ["Charcoal", "A tomato", "A stove"],
+      correct: 0,
+      pistas: [
+        "",
+        "A tomato is red, but it is not black when bought. Think about barbecues.",
+        "A stove is always the same colour. Think about what you burn outdoors."
+      ],
+      explicacion: "✅ Charcoal: black when bought, red while it burns, and grey ash when thrown away."
+    },
+    {
+      text: "What can fill a room but takes up no space?",
+      options: ["Light", "A bed", "A chair"],
+      correct: 0,
+      pistas: [
+        "",
+        "A bed takes up a lot of space. Think about something that fills a room but weighs nothing.",
+        "A chair takes up space too. Think about what you can switch on."
+      ],
+      explicacion: "✅ Light: it fills a room, but it takes up no space."
+    },
+    {
+      text: "What has a bottom at the top?",
+      options: ["A bottle", "Your legs", "A hat"],
+      correct: 1,
+      pistas: [
+        "A bottle's bottom is at the bottom. Think about your own body.",
+        "",
+        "A hat's top is at the top. Think about what you sit on."
+      ],
+      explicacion: "✅ Your legs: you sit on your bottom, which is at the top of them."
+    },
+    {
+      text: "What is always in front of you but can't be seen?",
+      options: ["The future", "The past", "Your shadow"],
+      correct: 0,
+      pistas: [
+        "",
+        "The past is behind you. Think about what is ahead.",
+        "A shadow can be seen. Think about the words 'cannot be seen'."
+      ],
+      explicacion: "✅ The future: it is always in front of you, but you cannot see it yet."
     }
   ]
 };
