@@ -1,4 +1,4 @@
-/* Comedy Club — tool-specific styles. Shared styles live in assets/css/. */
+/* Chistes — tool-specific styles. Shared styles live in assets/css/. */
 
 .tool-header h1 { color: var(--mod-lenguaje); }
 
@@ -26,11 +26,11 @@ main { margin-top: var(--espacio-grande); }
 
 #endScreen { padding-top: 48px; }
 
-#endScreen .btn { align-self: center; min-width: 280px; 
+#endScreen .btn { align-self: center; min-width: 280px; }
+
 #endScreen .transferencia {
   margin: 8px auto 24px;
   font-size: 1.1rem;
   color: var(--color-texto-suave, #555);
   max-width: 480px;
-}
 }

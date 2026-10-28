@@ -24,12 +24,12 @@
 
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
-      <span class="progress-text" id="progressText">0 / 10</span>
+      <span class="progress-text" id="progressText">0 / 8</span>
     </div>
 
     <main id="gameScreen" class="pila">
       <div class="card centered pila">
-        <p class="text-principal" id="textoPregunta" data-i18n="core.loading">Cargando…</p>      </div>
+        <p class="text-principal" id="textoPregunta"></p>      </div>
       <h2 class="pregunta centered" data-i18n="pregunta">¿Qué significa?</h2>
       <div class="pila" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
@@ -56,8 +56,8 @@
   <script src="../../assets/js/feedback.js?v=routime-v306d9b8a"></script>
   <script src="strings.es.js?v=routime-v2b200a99"></script>
   <script src="strings.en.js?v=routime-v4a5a5335"></script>
-  <script src="data.js?v=routime-v7bd5786f"></script>
-  <script src="app.js?v=routime-v702fd564"></script>
+  <script src="data.js?v=routime-vcc5f9d40"></script>
+  <script src="app.js?v=routime-v9e57e048"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});

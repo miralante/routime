@@ -83,9 +83,10 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 | Activity | Description |
 |----------|-------------|
-| **Comedy Club** | Read jokes and understand why they're funny |
+| **Jokes** | Read jokes and understand why they're funny |
 | **Idioms** | Learn figurative expressions and their meaning |
 | **Double Meaning** | Detect whether a word in the phrase can mean one thing or two |
+| **Riddles** | Read a riddle and choose what it is, with a hint for each wrong answer |
 | **Categories** | Classify words into groups (animals, fruits...) |
 | **The Sentence** | Complete sentences by saying who, what or where |
 | **Topic Vocabulary** | Learn adult vocabulary by blocks (independent living, health, social) and difficulty levels |
@@ -213,7 +214,7 @@ From easier to harder:
 → **Module 4**: The Coin Purse, The Clock, Numbers, Quantities, Math Tables, Roman Numerals, The Goose Game
 
 ### If you want to learn more words
-→ **Module 5**: Categories, Topic Vocabulary, Dictionary, Complete the Word, Word Search, Idioms, Double Meaning, Comedy Club
+→ **Module 5**: Categories, Topic Vocabulary, Dictionary, Complete the Word, Word Search, Idioms, Double Meaning, Riddles, Jokes
 
 ### If you want to practice hand movements
 → **Module 6**: Catch It, Connect the Dots, Traces, Coloring, Piano, Builders

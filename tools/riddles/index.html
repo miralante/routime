@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" data-i18n-title="title">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adivinanzas | Routime</title>
+  <meta name="theme-color" content="#FAF7F2">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
+  <link rel="stylesheet" href="styles.css?v=routime-vb5fe92f5">
+</head>
+<body>
+  <div class="container">
+    <header class="tool-header">
+      <a href="../../" class="back-link" data-i18n="core.back">← Volver</a>
+      <h1 data-i18n="title">🧩 Adivinanzas</h1>
+      <span class="stars" id="stars">⭐ 0</span>
+    </header>
+
+    <div class="row">
+      <p class="instruccion" id="instruccion" data-i18n="instruccion">Lee la adivinanza. Después elige qué es.</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+      <span class="progress-text" id="progressText">0 / 7</span>
+    </div>
+
+    <main id="gameScreen" class="pila">
+      <div class="card centered pila">
+        <p class="text-principal" id="textoPregunta"></p>      </div>
+      <h2 class="pregunta centered" data-i18n="pregunta">¿Qué es?</h2>
+      <div class="pila" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="row explicacion hidden" id="explicacionWrap">
+        <p id="explicacion" aria-live="polite"></p>
+      </div>
+      <button type="button" class="btn hidden" id="btnNext" data-i18n="core.next" data-i18n-aria="core.nextAria">→</button>
+    </main>
+
+    <section id="endScreen" class="hidden centered pila" aria-live="polite">
+      <div class="emoji-grande" aria-hidden="true">🎉</div>
+      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
+      <p id="resumenFinal"></p>
+      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
+      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
+    </section>
+    <footer data-pie-app data-pie-base="../../" data-pie-class="pie-app"></footer>
+  </div>
+
+  <script src="../../assets/js/utils.js?v=routime-v32a47fbd"></script>
+  <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
+  <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
+  <script src="../../assets/js/feedback.js?v=routime-v306d9b8a"></script>
+  <script src="strings.es.js?v=routime-vb43f3705"></script>
+  <script src="strings.en.js?v=routime-v7a80809d"></script>
+  <script src="data.js?v=routime-vd1252383"></script>
+  <script src="app.js?v=routime-v03f1609a"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../../sw.js').catch(function () {});
+    }
+  </script>
+<script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
+</body>
+</html>
+

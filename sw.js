@@ -6,7 +6,7 @@
    When adding new files: add them to ARCHIVOS and bump VERSION (the
    precache still needs the list for offline use).
    ============================================================ */
-var VERSION = 'routime-v76';
+var VERSION = 'routime-v77';
 
 var ARCHIVOS = [
   './',
@@ -116,6 +116,12 @@ var ARCHIVOS = [
   './tools/double-meaning/strings.es.js',
   './tools/double-meaning/strings.en.js',
   './tools/double-meaning/styles.css',
+  './tools/riddles/',
+  './tools/riddles/app.js',
+  './tools/riddles/data.js',
+  './tools/riddles/strings.es.js',
+  './tools/riddles/strings.en.js',
+  './tools/riddles/styles.css',
   './tools/differences/',
   './tools/differences/app.js',
   './tools/differences/data.js',

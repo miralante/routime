@@ -50,7 +50,7 @@
       'pairs': 'Parejas', 'differences': 'Diferencias', 'whats-missing': '¿Qué falta?',
       'ecos': 'Ecos', 'turns-mirrors': 'Giros y Espejos', 'colored-spelling': 'Ortografía en Colores', 'vocabulary': 'Vocabulario por tema', 'blocks': 'Los Bloques',
       'where-is': '¿Dónde está?', 'path': 'El Camino', 'fit': 'Encaja la Pieza', 'theatre': 'El Teatro',
-      'comedy-club': 'Chistes', 'idioms': 'Dichos', 'double-meaning': 'Doble Sentido', 'categories': 'Categorías',
+      'comedy-club': 'Chistes', 'idioms': 'Dichos', 'double-meaning': 'Doble Sentido', 'riddles': 'Adivinanzas', 'categories': 'Categorías',
       'sentence': 'La Frase', 'dictionary': 'Diccionario', 'spelling': 'Completa la Palabra',
       'word-search': 'Sopa de Letras',
       'emotions': '¿Cómo me siento?', 'calm': 'Calma', 'friends': 'Entre Amigos', 'my-body': 'Mi Cuerpo Me Avisa', 'good-manners': 'Buenos Modales', 'education-norms': 'Normas de Educación',

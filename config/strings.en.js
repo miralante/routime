@@ -50,7 +50,7 @@
       'pairs': 'Pairs', 'differences': 'Spot the Difference', 'whats-missing': 'What Is Missing?',
       'ecos': 'Echoes', 'turns-mirrors': 'Turns and Mirrors', 'colored-spelling': 'Colored Spelling', 'vocabulary': 'Topic Vocabulary', 'blocks': 'The Blocks',
       'where-is': 'Where Is It?', 'path': 'The Path', 'fit': 'Fit the Piece', 'theatre': 'The Theatre',
-      'comedy-club': 'Comedy Club', 'idioms': 'Idioms', 'double-meaning': 'Double Meaning', 'categories': 'Categories',
+      'comedy-club': 'Jokes', 'idioms': 'Idioms', 'double-meaning': 'Double Meaning', 'riddles': 'Riddles', 'categories': 'Categories',
       'sentence': 'The Sentence', 'dictionary': 'Dictionary', 'spelling': 'Complete the Word',
       'word-search': 'Word Search',
       'emotions': 'How Do I Feel?', 'calm': 'Calm', 'friends': 'Among Friends', 'my-body': 'My Body Tells Me', 'good-manners': 'Good Manners', 'education-norms': 'Education and Good Manners',

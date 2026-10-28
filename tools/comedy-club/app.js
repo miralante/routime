@@ -1,7 +1,9 @@
 /* ============================================================
    Routime — Chistes (lógica)
    Datos en data.js (const DATA). Módulos compartidos en assets/js/.
-   Mecánica: ronda de 10 preguntas con opción múltiple.
+   Mecánica: ronda de 8 chistes con opción múltiple. La pista del
+   primer fallo es la de la opción elegida (item.pistas[index]); la
+   explicación solo aparece al acertar o tras el segundo fallo.
    El error nunca se castiga: se anima a reintentar.
    ============================================================ */
 (function () {
@@ -9,7 +11,7 @@
 
   var CONFIG = {
     toolId: 'comedy-club',
-    porRonda: 10
+    porRonda: 8
   };
 
   var $ = App.utils.$;
@@ -20,7 +22,6 @@
   var feedbackEl = $('#feedback');
   var explicacionWrap = $('#explicacionWrap');
   var explicacionEl = $('#explicacion');
-  var btnListen = $('#btnListen');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -34,7 +35,7 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
-  /* Current round state */
+  /* Estado de la ronda actual */
   var items = [];
   var idx = 0;
   var roundHits = 0;
@@ -51,7 +52,7 @@
 
   function renderProgress() {
     progressFill.style.width = ((idx / CONFIG.porRonda) * 100) + '%';
-    progressText.textContent = '';
+    progressText.textContent = (idx + 1) + ' / ' + CONFIG.porRonda;
   }
 
   function startRound() {
@@ -77,7 +78,7 @@
     optionsEl.innerHTML = '';
 
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { text: opt, isCorrect: i === item.correct };
+      return { text: opt, isCorrect: i === item.correct, index: i };
     }));
 
     options.forEach(function (op) {
@@ -86,7 +87,7 @@
       btn.className = 'btn-opcion';
       btn.textContent = op.text;
       btn.addEventListener('click', function () {
-        answer(btn, op.isCorrect, item);
+        answer(btn, op.isCorrect, item, op.index);
       });
       optionsEl.appendChild(btn);
     });
@@ -104,19 +105,18 @@
     explicacionWrap.classList.remove('hidden');
   }
 
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is pointed back to the hint already on screen. Only
-     on the second mistake is the correct answer explained
-     (showExplanation). */
-  function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.text + '"';
+  /* Método socrático: en el primer fallo no se da la respuesta. La pista
+     es la de la opción elegida: por qué esa opción no hace gracia y una
+     pista hacia la correcta. */
+  function showHint(item, index) {
+    explicacionEl.textContent = '🤔 ' + item.pistas[index];
     explicacionWrap.classList.remove('hidden');
   }
 
-  function answer(btn, isCorrect, item) {
+  function answer(btn, isCorrect, item, index) {
     if (solved) return;
     if (isCorrect) {
-      showExplanation(isCorrect, item);
+      showExplanation(true, item);
       solved = true;
       btn.classList.add('correcta');
       App.utils.$$('#options .btn-opcion').forEach(function (b) {
@@ -131,15 +131,17 @@
       btnNext.classList.remove('hidden');
       btnNext.focus();
     } else {
-      /* Encouragement, never punishment: can try again */
+      /* Ánimo, nunca castigo: se puede volver a intentar */
       attempts += 1;
       var respuestaTrasPista = attempts > 1;
-      showHint(item);
-      /* Reveal the explanation only after the hint is acknowledged. */
+      showHint(item, index);
+      /* La explicación aparece solo después de leer la pista. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
+      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explicacionWrap, function () {
+        if (respuestaTrasPista) showExplanation(false, item);
+      });
     }
   }
 
@@ -158,17 +160,15 @@
     renderProgress();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    resumenFinal.textContent = '';
-    $('#transferencia').textContent = '';
+    resumenFinal.textContent = App.i18n.t('resumenFinal')
+      .replace('{n}', roundHits).replace('{total}', progress.stars);
+    $('#transferencia').textContent = App.i18n.t('transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
-  /* Events */
-  if (btnListen) btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].textContent);
-  });
+  /* Eventos */
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', startRound);
+  renderStars();
   startRound();
 })();
-

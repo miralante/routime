@@ -116,7 +116,7 @@ is rebalanced, this is the document to read first.
 
 | Activity | Slug (`tools/`) | Didactic objective | Key vocabulary |
 |---|---|---|---|
-| Comedy Club | `comedy-club/` | Reading jokes and understanding why they're funny. | chiste, doble sentido, sorpresa, humor. |
+| Jokes | `comedy-club/` | Reading jokes and understanding why they're funny. | chiste, doble sentido, sorpresa, humor. |
 | Idioms | `idioms/` | Learning figurative expressions and their meaning. | frase hecha, significado, expresión, sentido. |
 | Double Meaning | `double-meaning/` | Detecting whether a word can mean one thing or another. | doble sentido, palabra, contexto, ironía. |
 | Categories | `categories/` | Classifying words into groups (animals, fruits…). | categoría, clasificar, grupo, común. |
@@ -159,7 +159,7 @@ coverage.
 
 - Reading simple instructions.
 - Following short stories.
-- Recognising joke structure (Comedy Club).
+- Recognising joke structure (Jokes).
 - Detecting double meanings and figurative language (Idioms,
   Double Meaning).
 

@@ -85,6 +85,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Chistes** | Lee chistes y entiende por qué dan risa |
 | **Dichos** | Aprende expresiones figuradas y su significado |
 | **Doble Sentido** | Detecta si una palabra de la frase puede significar una cosa o dos |
+| **Adivinanzas** | Lee una adivinanza y elige qué es, con una pista por cada respuesta equivocada |
 | **Categorías** | Clasifica palabras en grupos (animales, frutas...) |
 | **La Frase** | Completa frases diciendo quién, qué o dónde |
 | **Vocabulario por tema** | Aprende vocabulario adulto por bloques (vida autónoma, salud, social) y niveles de dificultad |
@@ -210,7 +211,7 @@ De más sencillas a más difíciles:
 → **Módulo 4**: El Monedero, El Reloj, Los Números, Cantidades, Las Tablas, Números Romanos, La Oca
 
 ### Si quieres aprender más palabras
-→ **Módulo 5**: Categorías, Vocabulario por tema, Diccionario, Completa la Palabra, Sopa de Letras, Dichos, Doble Sentido, Chistes
+→ **Módulo 5**: Categorías, Vocabulario por tema, Diccionario, Completa la Palabra, Sopa de Letras, Dichos, Doble Sentido, Adivinanzas, Chistes
 
 ### Si quieres practicar movimientos con las manos
 → **Módulo 6**: Atrapa, Une los Puntos, Trazos, Colorear, Piano, Constructores

@@ -331,8 +331,14 @@
         "works": 'Depth and planes (background / foreground), in-front-of/behind vocabulary, understanding spatial instructions.',
         "daily": 'Act out real scenes with toys: "put the bear in front of the box."'
       },
+      "riddles": {
+        "name": 'Riddles',
+        "does": 'Reads a riddle and chooses what it is. Each clue brings you closer to the answer, without giving it away.',
+        "works": 'Selective attention and reasoning from clues: noticing each detail before answering.',
+        "daily": 'Make up riddles at home or in the car, and give a clue before saying the answer.'
+      },
       "comedy-club": {
-        "name": 'Comedy Club',
+        "name": 'Jokes',
         "does": 'Reads or listens to a joke and answers why it is funny.',
         "works": 'Understanding humor, double meaning, theory of mind.',
         "daily": 'Tell jokes as a family and ask them why they are funny.'

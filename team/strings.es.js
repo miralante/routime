@@ -331,6 +331,12 @@
         "works": 'Profundidad y planos (fondo / primer plano), vocabulario delante/detrás, comprensión de consignas espaciales.',
         "daily": 'Montad escenas reales con muñecos: "pon el oso delante de la caja".'
       },
+      "riddles": {
+        "name": 'Adivinanzas',
+        "does": 'Lee una adivinanza y elige qué es. Cada pista te acerca a la respuesta, sin decirla.',
+        "works": 'Atención selectiva y razonamiento por pistas: fijarse en cada detalle antes de responder.',
+        "daily": 'Inventad adivinanzas en casa o en el coche, y que cada uno dé una pista antes de decir la respuesta.'
+      },
       "comedy-club": {
         "name": 'Chistes',
         "does": 'Lee o escucha un chiste y responde por qué es gracioso.',

@@ -194,7 +194,7 @@ identify gaps and choose an activity for a support goal. See
 | Advanced vocabulary and meaningful learning | ✔ | Dictionary, Topic Vocabulary |
 | Spelling | ✔ | Complete the Word, Colored Spelling |
 | Language comprehension | ✔ | The Sentence |
-| Idioms, sayings and jokes | ✔ | Idioms, Comedy Club |
+| Idioms, sayings and jokes | ✔ | Idioms, Jokes, Riddles |
 | Lexical ambiguity and context comprehension | ✔ | Double Meaning |
 | Spelling and writing | ✔ | Traces |
 | Feelings and social conflicts | ✔ | How do I feel?, Situations, Among Friends |

@@ -122,6 +122,8 @@
     "idioms_detalle": "¿Qué significa?",
     "doublemeaning_nombre": "Doble Sentido",
     "doublemeaning_detalle": "¿Puede significar dos cosas?",
+    "riddles_nombre": "Adivinanzas",
+    "riddles_detalle": "¿Qué es? Pista a pista.",
     "categories_nombre": "Categorías",
     "categories_detalle": "¿En qué grupo va?",
     "sentence_nombre": "La Frase",

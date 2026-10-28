@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
-  <link rel="stylesheet" href="styles.css?v=routime-vb43f3e58">
+  <link rel="stylesheet" href="styles.css?v=routime-vfbf9d878">
 </head>
 <body>
   <div class="container">
@@ -24,12 +24,12 @@
 
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
-      <span class="progress-text" id="progressText">0 / 10</span>
+      <span class="progress-text" id="progressText">0 / 8</span>
     </div>
 
     <main id="gameScreen" class="pila">
       <div class="card centered pila">
-        <p class="text-principal" id="textoPregunta" data-i18n="core.loading">Cargando…</p>      </div>
+        <p class="text-principal" id="textoPregunta"></p>      </div>
       <h2 class="pregunta centered" data-i18n="pregunta">¿Por qué es gracioso?</h2>
       <div class="pila" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
@@ -56,8 +56,8 @@
   <script src="../../assets/js/feedback.js?v=routime-v306d9b8a"></script>
   <script src="strings.es.js?v=routime-v91499a27"></script>
   <script src="strings.en.js?v=routime-vdf7636c7"></script>
-  <script src="data.js?v=routime-v652cb17b"></script>
-  <script src="app.js?v=routime-vaad75fb9"></script>
+  <script src="data.js?v=routime-vea8fd21c"></script>
+  <script src="app.js?v=routime-v7c12897f"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});

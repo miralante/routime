@@ -122,6 +122,8 @@
     "idioms_detalle": "What does it mean?",
     "doublemeaning_nombre": "Double Meaning",
     "doublemeaning_detalle": "Can it mean two things?",
+    "riddles_nombre": "Riddles",
+    "riddles_detalle": "What is it? Clue by clue.",
     "categories_nombre": "Categories",
     "categories_detalle": "Which group does it belong to?",
     "sentence_nombre": "The Sentence",

@@ -105,14 +105,14 @@
     optionsEl.innerHTML = '';
 
     [
-      { label: t('optionYes'), value: true },
-      { label: t('optionNo'), value: false }
+      { label: t('optionYes'), value: true, index: 0 },
+      { label: t('optionNo'), value: false, index: 1 }
     ].forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.label;
-      btn.addEventListener('click', function () { answer(btn, op.value === item.hasDouble, item); });
+      btn.addEventListener('click', function () { answer(btn, op.value === item.hasDouble, item, op.index); });
       optionsEl.appendChild(btn);
     });
 
@@ -120,7 +120,10 @@
     paintStars();
   }
 
-  function answer(btn, isCorrect, item) {
+  /* Método socrático: en el primer fallo la pista es la del botón elegido
+     (item.pistas[index]); la explicación de los significados llega tras
+     el segundo fallo o al acertar. */
+  function answer(btn, isCorrect, item, index) {
     if (resolved) return;
     if (isCorrect) {
       explanationEl.textContent = explanationFor(item);
@@ -138,7 +141,7 @@
     } else {
       attempts += 1;
       var respuestaTrasPista = attempts > 1;
-      explanationEl.textContent = t('hint');
+      explanationEl.textContent = '🤔 ' + item.pistas[index];
       explanationWrap.classList.remove('hidden');
       if (false && App.tts && App.tts.speak) App.tts.speak(item.sentence);
       btn.classList.add('animo');
@@ -169,7 +172,7 @@
     $('#finalSummary').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
       .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
-    $('#transferencia').textContent = '';
+    $('#transferencia').textContent = App.i18n.t('transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 

@@ -1,1733 +1,592 @@
 /* ============================================================
-   Datos: chistes (es) y jokes en inglés (en) para comprensión del humor.
-   Formato: { text: string, options: string[3], correct: indice }
-   options[correct] es la explicación correcta de por qué el chiste es
-   gracioso; se reutiliza como text de la explicación al responder.
-   Para ampliar: añadir objetos al array del idioma correspondiente.
-   'correct' apunta a options. app.js usa DATA[App.i18n.locale()].
+   Datos: chistes (es) y jokes (en) para entender el humor.
+   Formato: DATA.es / DATA.en = [{ text, options: string[3], correct,
+     pistas: string[3] }]
+   - options[correct] es la explicación de por qué el chiste es gracioso.
+     Se muestra al acertar y tras el segundo fallo.
+   - pistas tiene una pista por cada opción, en su mismo orden. La de la
+     opción correcta va vacía. La pista del primer fallo explica por qué
+     esa opción no hace gracia y apunta hacia la correcta, sin decirla.
+   Cada idioma tiene sus propios chistes: no son traducciones unos de
+   otros (I18N.md §3). app.js usa DATA[App.i18n.locale()] || DATA.es.
    ============================================================ */
 const DATA = {
   es: [
     {
-        text: "¿Qué le dice un jaguar a otro jaguar? Jaguar que te pillo.",
-        options: [
-            "Juego de palabras entre 'jaguar' y 'cazar'",
-            "Los jaguares se persiguen entre sí",
-            "Es una expresión de cariño entre animales"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace una abeja en el gimnasio? Zumba-bzzz... ¡Zumba-bzzz!",
-        options: [
-            "La abeja zumba cuando hace ejercicio",
-            "La abeja está aprendiendo a hablar",
-            "Las palabras con 'bz' son graciosas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el libro de matemáticas estaba triste? Porque tenía muchos problemas.",
-        options: [
-            "Doble sentido entre problemas matemáticos y emocionales",
-            "Los libros también sienten",
-            "Las matemáticas son aburridas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-Camarero, este bistec tiene un nervio muy grande. -No se preocupe, es de la res que corrió la maratón.",
-        options: [
-            "Juego con 'nervio' (valor) y 'corrió' (escapó)",
-            "Los camareros son mentirosos",
-            "Los animales hacen deporte"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una pared junto a otra pared? Le hace la paré.",
-        options: [
-            "Juego de palabras entre 'pared' y 'parecer'",
-            "Las paredes se hablan entre sí",
-            "Es un chiste sobre arquitectura"
-        ],
-        correct: 0
-    },
-    {
-        text: "-Papá, me pueden suspender por ir a clase de baile. -¿Qué tienes? -Metástasis.",
-        options: [
-            "Doble sentido de 'metástasis' como movimiento de baile y enfermedad",
-            "Los padres no entienden a sus hijos",
-            "El baile es peligroso"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué es un terapeuta? Seiscientos cuarenta y ocho euros.",
-        options: [
-            "Seiscientos cuarenta y ocho euros es el precio de muchas sesiones",
-            "Los terapeutas cobran demasiado",
-            "Un terapeuta tiene muchas monedas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un techo a otro techo? Techo de menos.",
-        options: [
-            "Juego con 'techo' y 'tengo' (techo/techo de menos)",
-            "Los techos se comunican entre sí",
-            "Los techos tienen sentimientos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los pájaros no van al bar? Porque ya tienen su propio trino-bar.",
-        options: [
-            "Juego de palabras: 'trino' (canto del pájaro) y 'bar'",
-            "Los pájaros son más modernos",
-            "El bar es para humanos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace una araña en el mercado? Compra una telaraña.",
-        options: [
-            "Juego de palabras: 'tela' y 'araña' forman 'telaraña' (telaraña)",
-            "Las arañas van de compras",
-            "Los mercados venden cosas de arañas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una abeja en la lavadora? ¡Zum-bailando!",
-        options: [
-            "Juego de palabras: 'zumbido' + 'bailando'",
-            "Las abejas pueden sobrevivir a todo",
-            "Los españoles les gustan las abejitas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-Doctor, doctor, me duele aquí. -No es nada, es el codo. -¡Vaya, creía que era el pie!",
-        options: [
-            "Confusión humorística entre partes del cuerpo mencionadas",
-            "Los doctores exageran sus respuestas",
-            "Los doctores no escuchan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el padre del niño listo lo llevó al oftalmólogo? Porque era muy listo, pero no veía bien.",
-        options: [
-            "Doble sentido: ser listo (inteligente) y ver bien (con buena vista)",
-            "Los niños listos tienen mala vista",
-            "La inteligencia afecta la visión"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama cuando está contento? Dice: ¡Qué lama-ravilla!",
-        options: [
-            "Juego con 'lama' (monje budista) y 'maravilla'",
-            "Los monjes hacen ejercicio",
-            "Los lamas son masajistas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué le dice un gusano a otro gusano? Voy a ir a dar una vuelta a la manzana.",
-        options: [
-            "Doble sentido: 'dar una vuelta a la manzana' (pasear/cuerpo de gusano)",
-            "Los gusanos son activos",
-            "Los gusanos van al parque"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Por qué eres tan pequeño? -Porque soy astronauta. -¿Y eso qué tiene que ver? -Nada, siempre lo digo.",
-        options: [
-            "Humor absurdo: la explicación no tiene relación con la pregunta",
-            "Los astronautas son bajos",
-            "Algunas personas dicen tonterías"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una jirafa en un ascensor? Estirar las piernas.",
-        options: [
-            "Doble sentido: 'estirar las piernas' (caminar/estirar el cuello)",
-            "Las jirafas usan ascensores",
-            "Los animales altos tienen que agacharse"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un jaguar a otro jaguar? -Jaguar te sientes bien.",
-        options: [
-            "Juego de palabras: 'jaguar' + canción famosa española",
-            "Los jaguares son positivos",
-            "Los felinos se animan entre sí"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los pájaros no van al médico? Porque ya tienen el curandero.",
-        options: [
-            "Juego de palabras: 'curandero' suena como el pájaro",
-            "Los pájaros son más tradicionales",
-            "El médico es para humanos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-Doctor, doctor, ¿puedo operarme yo mismo? -¡Ni se le ocurra! -¿Por qué? -Porque me quedaré sin trabajo.",
-        options: [
-            "Humor negro: el doctor prioriza su trabajo",
-            "Los doctores son egoístas",
-            "Los doctores exageran"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un pez en el Sahara? Nadar.",
-        options: [
-            "Humor absurdo: los peces siempre nadan aunque estén en el desierto",
-            "Los peces pueden vivir en cualquier sitio",
-            "El Sahara tiene agua"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un payaso en el dentista? Sentarse en la butaca, ¿y usted?",
-        options: [
-            "Confusión humorística con la pregunta del dentista",
-            "Los payasos tienen miedo al dentista",
-            "Los payasos van al médico"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los cerdos no van al mercado? Porque ya tienen su propia charcutería.",
-        options: [
-            "Juego de palabras: 'cerdo' y 'charcutería'",
-            "Los cerdos son privados",
-            "El mercado es para humanos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un techo a un suelo? Techo, mírame.",
-        options: [
-            "Juego de palabras: 'techo' y 'te echo de menos'",
-            "Los techos y suelos se comunican",
-            "Los techos miran hacia abajo"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama con un cortaúñas? Se da un lamazo.",
-        options: [
-            "Juego con 'lama' (monje) y 'lamazo' (corte/drama)",
-            "Los lamas se cuidan las uñas",
-            "Los monjes budistas usan herramientas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace una rata en una verbena? Se pone a bailar el tang-rat-tán.",
-        options: [
-            "Juego de palabras: 'tango' y 'rata'",
-            "Las ratas van a fiestas",
-            "Los roedores son bailarines"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el tomate enrojeció? Porque vio la ensalada sin ropa.",
-        options: [
-            "Humor absurdo e infantil sobre verduras",
-            "Los tomates son tímidos",
-            "Las ensaladas están desnudas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un día a otro? Buenos días.",
-        options: [
-            "Juego de palabras: 'Buenos días' y la forma de saludar",
-            "Los días hablan entre sí",
-            "Los días son bilingües"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un camello en el Polo Norte? Soportar el frío camellón.",
-        options: [
-            "Juego con 'camello' y 'camellón' (joroba + conducción)",
-            "Los camellos son resistentes",
-            "El Polo Norte es frío"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace una vela en el dentista? Arder de miedo.",
-        options: [
-            "Juego con 'arder' (arder de miedo/tener miedo intenso) y 'vela' (cera)",
-            "Las velas tienen miedo al dentista",
-            "Los dentistas usan velas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama con una calculadora? Cuenta los lamas.",
-        options: [
-            "Juego con 'lama' (monje) y 'lama' (animal sudamericano)",
-            "Los lamas hacen matemáticas",
-            "Los monjes cuentan sus posesiones"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un calamar a otro calamar? Vamos a secarnos.",
-        options: [
-            "Juego con 'secarse' (morir) y el calamar",
-            "Los calamares hablan",
-            "Los calamares se animan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el pescado no fue a la fiesta? Porque era tímido y quería pasar desapercibido, no quería que lo pescaran.",
-        options: [
-            "Doble sentido: 'pescado' (animal) y 'pescar' (cazar)",
-            "Los peces son introvertidos",
-            "Las fiestas son peligrosas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace una abuela en el dentista? Abrir la boca y decir: ¡Ay, ay, ay!",
-        options: [
-            "Humor sobre las abuelas quejumbrosas",
-            "Las abuelas van mucho al médico",
-            "Los dentistas dan miedo"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama en la playa? Busca el lama-nte perfecto.",
-        options: [
-            "Juego con 'lama' y 'amante' (persona a la que se ama)",
-            "Los lamas buscan la perfección",
-            "Los monjes van a playas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un sombrero a otro? Quédate en tu sitio, que yo voy a otro lado.",
-        options: [
-            "Juego con 'sitio' y 'sombrero'",
-            "Los sombreros viajan mucho",
-            "Los accesorios se despiden"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué las focas miran al cielo? Porque quieren ver las estrellas del mar.",
-        options: [
-            "Juego de palabras: 'estrellas de mar' y 'estrellas del mar'",
-            "Las focas son curiosas",
-            "Los animales miran el cielo"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un 7 a un 8? Bonito cinturón.",
-        options: [
-            "Humor con la forma de los números y la frase 'bonito cinturón'",
-            "Los números tienen modales",
-            "Los números se complimentan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una hormiga en un templo budista? Una hormi-ga-zén.",
-        options: [
-            "Juego con 'hormiga', 'ga' y 'zen' (meditación budista)",
-            "Las hormigas meditan",
-            "Los templos atraen insectos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama al nadar en el mar? Practica su lama-riposa.",
-        options: [
-            "Juego con 'lama' y 'mariposa' (estilo de natación)",
-            "Los lamas nadan muy rápido",
-            "Los monjes practican deporte"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el libro de historia estaba siempre triste? Porque siempre hablaba del pasado.",
-        options: [
-            "Doble sentido: 'pasado' (tiempo histórico/dolor emocional)",
-            "La historia es aburrida",
-            "Los libros tienen sentimientos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un pez muerto en el váter? Nada, está flotando.",
-        options: [
-            "Humor con 'nadar' y 'flotar' para un pez muerto",
-            "Los peces muertos flotan",
-            "Los peces no pueden escapar"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué le dice un gato de un ojo a un gato tuerto? Ojos que ves, amigo que tienes.",
-        options: [
-            "Refrán adaptado: 'ojos que no ves, corazón que no sientes'",
-            "Los gatos se hacen amigos",
-            "Los gatos tuerto son sociables"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama con un plátano? Se lo come con lama-ña.",
-        options: [
-            "Juego con 'lama' (monje) y 'maña' (habilidad)",
-            "Los lamas comen plátanos",
-            "Los monjes son creativos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los Simpson no van al médico? Porque ya tienen al doctor Hibbert.",
-        options: [
-            "Referencia humorística a los personajes de los Simpson",
-            "Los Simpson se curan solos",
-            "Los Simpson odian a los médicos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un muro a otro muro? Nos vemos en la esqui-na.",
-        options: [
-            "Juego con 'muro', 'esquina' y 'arena'",
-            "Los muros se encuentran",
-            "Los muros son sociales"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una gallina en un minigolf? Pone un hoyo en uno.",
-        options: [
-            "Doble sentido: 'hueco' (golf) y 'huevo' (gallina)",
-            "Las gallinas juegan al golf",
-            "Los animales van al minigolf"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un payaso a otro payaso? Estamos a tangos.",
-        options: [
-            "Juego con 'tangos' (baile argentino) y una expresión española",
-            "Los payasos hablan de danza",
-            "Los payasos son argentinos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los pájaros no van al bar de copas? Porque ya tienen su propio pío-bar.",
-        options: [
-            "Juego con 'pío' (sonido de pájaro) y un bar",
-            "Los pájaros son tecnológicos",
-            "Los pájaros tienen locales propios"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en un ascensor? Presiona el botón de la lama-da.",
-        options: [
-            "Juego con 'lama' (monje) y 'llamada' (botón de llamada)",
-            "Los lamas usan tecnología",
-            "Los monjes son modernos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una araña con un coche? Teje una tela de araña.",
-        options: [
-            "Doble sentido con 'tela' (tejido) y 'tela de araña' (web)",
-            "Las arañas conducen",
-            "Los animales usan vehículos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un vaso a otro vaso? Yo tengo sed, ¿y tú?",
-        options: [
-            "Humor absurdo: los vasos hablan y tienen sed",
-            "Los vasos se comunican",
-            "Los vasos son perezosos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el ordenador fue al médico? Porque tenía un virus.",
-        options: [
-            "Doble sentido: virus informáticos y virus biológicos",
-            "Los ordenadores enferman",
-            "La tecnología necesita doctores"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama con un espejo? Se mira y dice: lama-g-nífico.",
-        options: [
-            "Juego con 'lama' y 'magnífico'",
-            "Los lamas son vanidosos",
-            "Los monjes se cuidan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una persona tímida en el supermercado? Comprar el paquete de ositos.",
-        options: [
-            "Juego con 'tímido' y 'tacos' (comida)",
-            "Los tímidos comen en público",
-            "Las personas tímidas evitan la atención"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un calamar a otro calamar? Vamos a jugar con tinta.",
-        options: [
-            "Juego con 'tinta' (del calamar) y 'tinta' (explosivo)",
-            "Los calamares juegan",
-            "Los calamares son juguetones"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los cerdos no van al instituto? Porque ya tienen su propio cochin-clase.",
-        options: [
-            "Juego con 'cochino' (cerdo) y 'instituto'",
-            "Los cerdos son tecnológicos",
-            "Los cerdos son listos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en una biblioteca? Lee libros de autoayuda.",
-        options: [
-            "Humor sobre los monjes y su búsqueda de sabiduría",
-            "Los lamas leen mucho",
-            "Los monjes buscan mejorarse"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un pez en una maratón? Nada hasta la meta.",
-        options: [
-            "Humor con la expresión 'nadar' y la maratón",
-            "Los peces participan en carreras",
-            "Los peces son rápidos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un día lluvioso a otro día lluvioso? Estamos en la misma situación.",
-        options: [
-            "Humor absurdo: los días tienen conversaciones",
-            "El tiempo es predecible",
-            "Los días son repetitivos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué el tomate enrojeció? Porque se puso celoso de la mahonesa.",
-        options: [
-            "Humor sobre la relación tomate-salsa",
-            "Los tomates son celosos",
-            "Las salsas son populares"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en un concurso de belleza? Se presenta como 'lama-dmirable'.",
-        options: [
-            "Juego con 'lama' y 'admirable'",
-            "Los lamas participan en certámenes",
-            "Los monjes son competitivos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un murciélago en un banco? Saca sangre de su cuenta.",
-        options: [
-            "Doble sentido: 'sangre' (del murciélago) y 'sacar dinero'",
-            "Los murciélagos van a bancos",
-            "Los animales usan servicios financieros"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un techo a una pared? Te echo de menos.",
-        options: [
-            "Juego con 'techo' y 'te echo de menos'",
-            "Los edificios tienen sentimientos",
-            "Los techos y paredes se separan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué la gallina cruzó la carretera? Para demostrar que no era cobarde, aunque tampoco era valiente, simplemente tenía que llegar al otro lado.",
-        options: [
-            "Humor con la respuesta clásica simplificada con ironía",
-            "Las gallinas son valientes",
-            "Las gallinas tienen personalidad"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama con un telescopio? Mira el cielo y dice: lama-ginación.",
-        options: [
-            "Juego con 'lama' e 'imaginación'",
-            "Los lamas astronomía",
-            "Los monjes buscan el cosmos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una rana en un taller mecánico? Sale croac-tivado.",
-        options: [
-            "Juego con 'croac' (sonido de rana) y 'desactivado'",
-            "Las ranas trabajan en mecánica",
-            "Los animales van a talleres"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un libro de matemáticas a un libro de historia? Respóndeme, no me vengas con historias.",
-        options: [
-            "Juego con 'historia' y la frase 'vienes con historias'",
-            "Los libros discuten entre sí",
-            "Los libros tienen personalidad"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los vampiros no pueden ir al médico? Porque les chupa mucha sangre.",
-        options: [
-            "Juego con 'chupar' (médico/involucrarse) y 'sangre' (vampiros)",
-            "Los vampiros son adictos",
-            "Los médicos son peligrosos para vampiros"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en una fiesta de cumpleaños? Sopla las velas y pide un deseo lama-ravilloso.",
-        options: [
-            "Juego con 'lama' y 'maravilloso'",
-            "Los lamas celebran cumpleaños",
-            "Los monjes van a fiestas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una araña con ocho patas? Tic-tic-tic-tic-tic-tic-tic-tic.",
-        options: [
-            "Humor con el sonido de las patas de araña",
-            "Las arañas hacen ruido",
-            "Las arañas son ruidosas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un pez a otro pez? Nada, simplemente te electrocuto.",
-        options: [
-            "Humor con 'nada' (verbo/ninguna cosa) y 'nadar'",
-            "Los peces eléctricos son agresivos",
-            "Los peces dan descargas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los pingüinos no vuelan? Porque ya tienen bastante con caminar.",
-        options: [
-            "Humor con la justificación absurda",
-            "Los pingüinos son perezosos",
-            "Los pingüinos son realistas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en un barco? Navega por la lama-r.",
-        options: [
-            "Juego con 'lama' y 'la mar' (el mar)",
-            "Los lamas son capitanes",
-            "Los monjes navegan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué le dice un gato a otro gato? ¡Miau-presentes!",
-        options: [
-            "Juego con 'mis presentes' y el sonido 'miau' (suena a 'miau-presentes')",
-            "Los gatos se llaman por su nombre",
-            "Los gatos van al colegio"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un robot a otro robot? No me anualices, tengo sentimientos.",
-        options: [
-            "Juego con 'anualizar' y 'lloriqueos' (lamentos)",
-            "Los robots tienen sentimientos",
-            "Los robots son sensibles"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los mapaches siempre llevan máscara? Porque son aseados pero no lavados.",
-        options: [
-            "Humor con 'lavados' (agua) y 'enmascarados' (máscara)",
-            "Los mapaches son misteriosos",
-            "Los mapaches se disfrazan"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en un cine? Ve lama-películas.",
-        options: [
-            "Juego con 'lama', 'películas' y 'llamas'",
-            "Los lamas van al cine",
-            "Los monjes son cinéfilos"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un koala en una oficina? Cuelga de la rama mientras otros trabajan.",
-        options: [
-            "Humor con la vida perezosa del koala",
-            "Los koalas trabajan",
-            "Los koalas son perezosos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un ninja a otro ninja? No me toques, tengo shuriken.",
-        options: [
-            "Juego con 'tocar' y 'shuriken' (estrella ninja)",
-            "Los ninjas se protegen",
-            "Los ninjas son territoriales"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Por qué los zombis nunca ganan en los deportes? Porque siempre están muertos de cansancio.",
-        options: [
-            "Doble sentido: 'muerto de cansancio' (literal/figurativo)",
-            "Los zombis son perezosos",
-            "Los zombis no pueden competir"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en la playa? Busca lama-sombra.",
-        options: [
-            "Juego con 'lama' y 'sombra'",
-            "Los lamas buscan sombra",
-            "Los monjes van a playas"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama en un concierto? Oye lama-sónica.",
-        options: [
-            "Juego con 'lama' y 'sónica'",
-            "Los lamas disfrutan música",
-            "Los monjes van a conciertos"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en la oficina de empleo? Busca lama-trabajo.",
-        options: [
-            "Juego con 'lama' y 'trabajo'",
-            "Los lamas buscan empleo",
-            "Los monjes trabajan"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama con un ordenador? Navega por lama-red.",
-        options: [
-            "Juego con 'lama' e 'internet'",
-            "Los lamas usan tecnología",
-            "Los monjes navegan"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en la cola del autobús? Espera lama-turno.",
-        options: [
-            "Juego con 'lama' y 'turno'",
-            "Los lamas esperan transporte",
-            "Los monjes usan autobús"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama en la panadería? Compra lama-pan.",
-        options: [
-            "Juego con 'lama' y 'pan'",
-            "Los lamas comen pan",
-            "Los monjes van a la panadería"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en el dentista? Abre la boca y dice: Lama-ay.",
-        options: [
-            "Juego con 'lama' y 'ay' (dolor)",
-            "Los lamas van al dentista",
-            "Los monjes sienten dolor"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama cuando hace frío? Se pone lama-abrigo.",
-        options: [
-            "Juego con 'lama' y 'abrigo'",
-            "Los lamas se abrigan",
-            "Los monjes sienten frío"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en el mercado? Busca lama-ofertas.",
-        options: [
-            "Juego con 'lama' y 'ofertas'",
-            "Los lamas buscan gangas",
-            "Los monjes van de compras"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace un lama cuando llueve? Busca lama-refugio.",
-        options: [
-            "Juego con 'lama' y 'refugio'",
-            "Los lamas buscan cobijo",
-            "Los monjes protegen del agua"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué le dice un lama a una llama? ¡Lama, soy tu primo!",
-        options: [
-            "Juego con 'lama' (monje) y 'llama' (animal)",
-            "Los lamas y las llamas son primos",
-            "Los monjes reconocen animales"
-        ],
-        correct: 0
-    },
-    {
-        text: "¿Qué hace una hormiga en un templo? Ora-lama-ga-zén.",
-        options: [
-            "Juego con 'hormiga', 'oración' y 'zen'",
-            "Las hormigas rezan",
-            "Los templos atraen hormigas"
-        ],
-        correct: 0
-    },
-    {
-        text: "-¿Qué hace un lama en un supermercado? Compra lama-súper.",
-        options: [
-            "Juego con 'lama' (monje) y 'supermercado'",
-            "Los lamas van de compras",
-            "Los monjes son modernos"
-        ],
-        correct: 0
+      text: "¿Cuál es el café más peligroso? El ex-preso.",
+      options: [
+        "Los cafés se escapan de la cafetera",
+        "Juego de palabras: 'expreso' (café) suena como 'ex-preso' (alguien que estuvo en la cárcel)",
+        "El café es peligroso porque tiene mucha cafeína"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Puede un café escaparse de la cafetera? Piensa en el nombre de la bebida.",
+        "",
+        "¿Solo importa la cafeína? Fíjate en cómo suena el nombre del café."
+      ]
+    },
+    {
+      text: "¿Qué hace una abeja en el gimnasio? ¡Zumba!",
+      options: [
+        "Juego de palabras: 'zumba' es un baile de gimnasio y también el sonido de la abeja",
+        "Las abejas hacen ejercicio para producir miel",
+        "Las abejas no pueden entrar en el gimnasio"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Hace la abeja ejercicio para producir miel? Piensa en el sonido que hace al volar.",
+        "¿Está prohibido que entren abejas? Fíjate en la palabra que dice la abeja."
+      ]
+    },
+    {
+      text: "¿Por qué el libro de historia estaba triste? Porque tenía demasiado pasado.",
+      options: [
+        "Los libros de historia son aburridos",
+        "Doble sentido: 'pasado' como tiempo antiguo y como cosas dolorosas",
+        "Los libros se entristecen cuando nadie los lee"
+      ],
+      correct: 1,
+      pistas: [
+        "¿La historia es aburrida, o hay una palabra con dos sentidos? Mira la palabra 'pasado'.",
+        "",
+        "¿Los libros sienten algo cuando nadie los lee? Fíjate en la palabra 'pasado'."
+      ]
+    },
+    {
+      text: "¿Qué le dijo el cero al ocho? Bonito cinturón.",
+      options: [
+        "Los números tienen buenos modales",
+        "Los ceros se ponen cinturones",
+        "Juego con la forma: el 8 tiene una parte estrecha en el medio, como un cinturón"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Los números tienen modales? Piensa en lo que se dice de alguien bien vestido.",
+        "¿Los ceros se ponen cinturón? Fíjate en la forma del cero, no en lo que lleva.",
+        ""
+      ]
+    },
+    {
+      text: "¿Cuál es el colmo de un jardinero? Que su novia lo deje plantado.",
+      options: [
+        "Plantar flores es lo que más le gusta",
+        "Doble sentido de 'plantado': plantar flores y dejar a alguien esperando",
+        "Los jardineros se enfadan con sus plantas"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Lo que más le gusta a un jardinero es plantar? Piensa en otra forma de usar 'plantado'.",
+        "",
+        "¿Se enfada el jardinero con sus plantas? Fíjate en la palabra 'plantado' de la frase."
+      ]
+    },
+    {
+      text: "¿Qué le dice un semáforo a otro? No me mires, que me estoy cambiando.",
+      options: [
+        "Los semáforos se cambian de ropa",
+        "Los semáforos no quieren que los miren los coches",
+        "Juego con 'cambiar': el semáforo cambia de color, y suena a cambiarse de ropa"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Los semáforos llevan ropa? Piensa en lo que cambia un semáforo cuando funciona.",
+        "¿Los coches miran a los semáforos? Piensa en la palabra 'cambiando'.",
+        ""
+      ]
+    },
+    {
+      text: "Doctor, doctor, siempre me siento invisible. —Siguiente.",
+      options: [
+        "El médico no sabe escuchar bien",
+        "Humor: el médico ni lo mira y dice 'siguiente' como si no existiera",
+        "Los pacientes invisibles no pagan"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Un buen médico escucha bien? Piensa en lo que hace el médico al final.",
+        "",
+        "¿Pagar o no pagar cambia algo? Fíjate en lo que dice el médico."
+      ]
+    },
+    {
+      text: "—¿Qué le dice una iguana a su hermana gemela? —Somos iguanas.",
+      options: [
+        "Las iguanas se parecen mucho",
+        "Juego de palabras: 'iguanas' suena como 'iguales' (somos iguales)",
+        "Las iguanas viven en el mismo sitio"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Solo se parecen? Piensa en cómo suena la palabra 'iguanas'.",
+        "",
+        "¿Dónde viven las iguanas? Piensa en el sonido de la palabra, no en el lugar."
+      ]
+    },
+    {
+      text: "¿Qué le dice un techo a otro techo? Techo de menos.",
+      options: [
+        "Los techos se hablan entre sí",
+        "Juego de palabras: 'techo de menos' suena como 'te echo de menos'",
+        "Los techos son muy altos"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Los techos hablan? Piensa en lo que se dice cuando alguien nos falta.",
+        "",
+        "¿Qué tiene de especial la altura? Escucha bien la frase: ¿suena igual a otra?"
+      ]
+    },
+    {
+      text: "¿Por qué el tomate se puso rojo? Porque vio la ensalada sin ropa.",
+      options: [
+        "El tomate tenía calor",
+        "Humor absurdo: el tomate se pone rojo de vergüenza al ver la ensalada desnuda",
+        "Las ensaladas se visten de rojo"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Tiene calor un tomate? Piensa en por qué se pone rojo una persona.",
+        "",
+        "¿Se visten de rojo las ensaladas? Piensa en lo que sentimos al ver algo que no esperamos."
+      ]
+    },
+    {
+      text: "¿Cuál es el animal más antiguo? La cebra, porque está en blanco y negro.",
+      options: [
+        "Las cebras viven muchos años",
+        "Juego: las fotos antiguas eran en blanco y negro, igual que la cebra",
+        "La cebra es la más vieja de la sabana"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Viven mucho las cebras? Piensa en qué significa 'antiguo' en la pregunta.",
+        "",
+        "¿Es la más vieja de la sabana? Fíjate en lo que dice la frase sobre los colores."
+      ]
+    },
+    {
+      text: "¿Por qué el pescado no fue a la fiesta? Porque era tímido y no quería que lo pescaran.",
+      options: [
+        "Los peces son muy tímidos",
+        "Doble sentido: 'pescar' como sacar del agua y como atrapar a alguien",
+        "Las fiestas son peligrosas para los peces"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Los peces son tímidos de verdad? Piensa en la palabra 'pescar' de la frase.",
+        "",
+        "¿Es peligrosa la fiesta? Fíjate en la palabra 'pescaran' y en lo que quiere decir."
+      ]
+    },
+    {
+      text: "¿Por qué los huevos no cuentan chistes? Porque se pueden romper de risa.",
+      options: [
+        "Juego de palabras: 'romperse de risa' (reírse mucho) y romperse como un huevo",
+        "A los huevos no les gusta reír",
+        "Los chistes son peligrosos para los huevos"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿A los huevos les gusta reír? Piensa en la palabra 'romper'.",
+        "¿Son peligrosos los chistes? Fíjate en lo que puede romperse en la frase."
+      ]
+    },
+    {
+      text: "¿Cuál es el colmo de un electricista? Que su mujer se llame Luz y lo deje a oscuras.",
+      options: [
+        "Los electricistas trabajan de noche",
+        "Su mujer le da calor en casa",
+        "Juego con 'Luz' (nombre y electricidad) y quedarse a oscuras"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Trabajan de noche los electricistas? Piensa en qué significa el nombre de la mujer.",
+        "¿Le da calor una mujer? Fíjate en lo que es la palabra 'Luz'.",
+        ""
+      ]
+    },
+    {
+      text: "¿Cuál es el colmo de un panadero? Tener una masa de amigos.",
+      options: [
+        "Juego de palabras: 'masa' (pan) y 'masa' (mucha gente)",
+        "Los panaderos tienen muchos amigos",
+        "A los panaderos les gusta mucho el pan"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Tienen muchos amigos los panaderos? Piensa en otra forma de decir 'masa'.",
+        "¿Les gusta el pan a los panaderos? Fíjate en la palabra 'masa'."
+      ]
+    },
+    {
+      text: "¿Qué le dice una impresora a otra? ¿Esa hoja es tuya o es impresión mía?",
+      options: [
+        "Las impresoras se enfadan cuando se atascan",
+        "Juego de palabras: 'impresión' como papel impreso y como opinión",
+        "Las impresoras hablan en voz alta"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Se enfadan las impresoras? Piensa en la palabra 'impresión'.",
+        "",
+        "¿Hablan en voz alta? Mira qué significa 'impresión' en la frase."
+      ]
+    },
+    {
+      text: "¿Qué le dice el agua al hielo? Me das frío.",
+      options: [
+        "El agua y el hielo son amigos",
+        "El hielo moja mucho",
+        "Juego de palabras: 'dar frío' como incomodar, y el frío del hielo"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Son amigos el agua y el hielo? Piensa en qué pasa cuando el agua se congela.",
+        "¿El hielo moja? Piensa en lo que hace el hielo cuando se derrite.",
+        ""
+      ]
+    },
+    {
+      text: "¿Qué le dice un jaguar a otro jaguar? Jaguar, ya te pillo.",
+      options: [
+        "Juego de palabras: 'jaguar' (animal y marca de coche) y 'ya te pillo'",
+        "Los jaguares son muy rápidos",
+        "Los jaguares juegan al escondite"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Son rápidos los jaguares? Piensa en la palabra 'jaguar' de la frase.",
+        "¿Juegan al escondite? Fíjate en la frase 'ya te pillo'."
+      ]
+    },
+    {
+      text: "¿Qué le dice un gusano a otro? Nos vemos en la manzana.",
+      options: [
+        "Los gusanos viven en las manzanas",
+        "Los gusanos son muy sociables",
+        "Juego de palabras: 'manzana' (fruta) y 'manzana' (calle de la ciudad)"
+      ],
+      correct: 2,
+      pistas: [
+        "¿Viven los gusanos en las manzanas? Piensa en por qué se lo dice el gusano.",
+        "¿Son sociables los gusanos? Fíjate en la palabra 'manzana' y lo que puede significar.",
+        ""
+      ]
+    },
+    {
+      text: "¿Qué le dice un cero a otro cero? Nada.",
+      options: [
+        "Los ceros no valen nada",
+        "Juego de palabras: 'nada' significa cero y también no decir nada",
+        "Los ceros se llevan mal con los demás números"
+      ],
+      correct: 1,
+      pistas: [
+        "¿Valen algo los ceros? Piensa en lo que vale un número cero.",
+        "",
+        "¿Se llevan mal los números? Fíjate en la palabra 'nada' de la respuesta."
+      ]
+    },
+    {
+      text: "¿Cómo se despiden los químicos? Ácido un placer.",
+      options: [
+        "Juego de palabras: 'ácido' suena como 'a gusto' (encantado de conocerte)",
+        "Los químicos siempre están de mal humor",
+        "Los químicos usan ácidos para despedirse"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "¿Están siempre de mal humor los químicos? Piensa en lo que dice la frase.",
+        "¿Usan ácidos para despedirse? Fíjate en el sonido de la palabra 'ácido'."
+      ]
     }
   ],
   en: [
     {
-        text: "Why did the bicycle fall over? Because it was two-tired.",
-        options: [
-            "Play on words between 'two-tired' and 'too tired'",
-            "Bicycles cannot stand up by themselves",
-            "The wheels were broken"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a fish with no eyes? A fsh.",
-        options: [
-            "Play on words: remove the letter 'i' (eye) from 'fish'",
-            "Fish without eyes cannot see",
-            "It is a rare kind of fish"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the scarecrow win an award? Because he was outstanding in his field.",
-        options: [
-            "Play on words: 'outstanding in his field' means great, and also standing in a farm field",
-            "Scarecrows are good at sports",
-            "The field gave out awards"
-        ],
-        correct: 0
-    },
-    {
-        text: "Knock knock. Who's there? Lettuce. Lettuce who? Lettuce in, it's cold out here!",
-        options: [
-            "Play on words between 'lettuce' and 'let us'",
-            "Vegetables like to visit houses",
-            "Lettuce is a common name"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why can't you give Elsa a balloon? Because she will let it go.",
-        options: [
-            "Reference to the song 'Let It Go' from the movie Frozen",
-            "Elsa does not like balloons",
-            "Balloons float away in the cold"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a bear with no teeth? A gummy bear.",
-        options: [
-            "Play on words: 'gummy' (no teeth) and 'gummy bear' (the candy)",
-            "Bears without teeth eat gum",
-            "Old bears lose their teeth"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the math book look so sad? Because it had too many problems.",
-        options: [
-            "Double meaning of 'problems': maths exercises and personal troubles",
-            "Books can feel emotions",
-            "Maths is boring"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call cheese that isn't yours? Nacho cheese.",
-        options: [
-            "Play on words between 'not yours' and 'nacho'",
-            "Nacho cheese belongs to everyone",
-            "Cheese can have owners"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the golfer bring two pairs of trousers? In case he got a hole in one.",
-        options: [
-            "Double meaning of 'hole in one': a golf shot and a hole in his trousers",
-            "Golfers always carry spare clothes",
-            "The golfer was clumsy"
-        ],
-        correct: 0
-    },
-    {
-        text: "What did the ocean say to the beach? Nothing, it just waved.",
-        options: [
-            "Play on words: 'wave' as a greeting and as the movement of the sea",
-            "The ocean and the beach are friends",
-            "Beaches always answer the ocean"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the cookie go to the doctor? Because it felt crummy.",
-        options: [
-            "Play on words: 'crummy' (feeling unwell) and 'crumbs' (bits of cookie)",
-            "Cookies get sick often",
-            "Doctors treat cookies too"
-        ],
-        correct: 0
-    },
-    {
-        text: "Knock knock. Who's there? Boo. Boo who? Don't cry, it's just a joke!",
-        options: [
-            "Play on words between 'boo hoo' (crying sound) and the name 'Boo'",
-            "Ghosts say 'boo' to scare people",
-            "The joke is about Halloween"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a dinosaur that crashes his car? Tyrannosaurus wrecks.",
-        options: [
-            "Play on words between 'Tyrannosaurus rex' and 'wrecks'",
-            "Dinosaurs cannot drive cars",
-            "Old dinosaurs have bad eyesight"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why don't eggs tell jokes? Because they might crack up.",
-        options: [
-            "Double meaning of 'crack up': to laugh a lot and to break an eggshell",
-            "Eggs cannot speak",
-            "Eggs are fragile"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a sleeping dinosaur? A dino-snore.",
-        options: [
-            "Play on words between 'dinosaur' and 'snore'",
-            "Dinosaurs sleep a lot",
-            "Sleeping animals make noise"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the tomato turn red? Because it saw the salad dressing.",
-        options: [
-            "Play on words: 'dressing' means getting dressed and also salad sauce",
-            "Tomatoes are shy",
-            "Salad makes vegetables blush"
-        ],
-        correct: 0
-    },
-    {
-        text: "What did one wall say to the other wall? I'll meet you at the corner.",
-        options: [
-            "Absurd humour: walls having a normal conversation",
-            "Walls can move around a building",
-            "Corners are meeting points for walls"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the student eat his homework? Because the teacher said it was a piece of cake.",
-        options: [
-            "Play on words: 'a piece of cake' means very easy, and also a real food",
-            "The homework was made of cake",
-            "Hungry students eat anything"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a can opener that doesn't work? A can't opener.",
-        options: [
-            "Play on words between 'can' and 'can't'",
-            "Broken tools have funny names",
-            "The can opener is very old"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the picture go to jail? Because it was framed.",
-        options: [
-            "Double meaning of 'framed': put in a picture frame, and blamed for a crime",
-            "Pictures can be criminals",
-            "Jails have many pictures"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a fake noodle? An impasta.",
-        options: [
-            "Play on words between 'impostor' and 'pasta'",
-            "Fake food tastes like noodles",
-            "Noodles can pretend to be other food"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the banana go to the doctor? Because it wasn't peeling well.",
-        options: [
-            "Play on words between 'peeling' (banana skin) and 'feeling'",
-            "Bananas get sick in autumn",
-            "Doctors treat fruit too"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a bear with no ears? B.",
-        options: [
-            "Play on words: remove 'ear' from 'bear' and you get 'B'",
-            "Bears without ears cannot hear",
-            "B is a nickname for bears"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the coffee file a police report? It got mugged.",
-        options: [
-            "Play on words between 'mugged' (robbed) and 'mug' (coffee cup)",
-            "Coffee shops have many robberies",
-            "Coffee cups can be stolen"
-        ],
-        correct: 0
-    },
-    {
-        text: "Knock knock. Who's there? Owl. Owl who? Owl always love you.",
-        options: [
-            "Play on words between 'owl' and 'I'll'",
-            "Owls say 'who' at night",
-            "It is a joke about birds in love"
-        ],
-        correct: 0
-    },
-    {
-        text: "What did the janitor say when he jumped out of the closet? Supplies!",
-        options: [
-            "Play on words between 'supplies' (cleaning items) and 'surprise'",
-            "Janitors like to scare people",
-            "Closets are full of surprises"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the computer go to the doctor? Because it had a virus.",
-        options: [
-            "Double meaning of 'virus': computer problem and illness",
-            "Computers can catch colds",
-            "Doctors fix electronics too"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a pig that does karate? A pork chop.",
-        options: [
-            "Play on words between 'chop' (karate move) and 'pork chop' (food)",
-            "Pigs are good at martial arts",
-            "Karate is a popular sport for animals"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the belt get arrested? Because it held up a pair of trousers.",
-        options: [
-            "Play on words: 'held up' means to rob, and also to hold something in place",
-            "Belts can be criminals",
-            "Trousers need police protection"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a group of musical whales? An orca-stra.",
-        options: [
-            "Play on words between 'orca' and 'orchestra'",
-            "Whales like to make music together",
-            "Orchestras are found in the ocean"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the frog take the bus to work? His car got toad away.",
-        options: [
-            "Play on words between 'toad' and 'towed'",
-            "Frogs do not know how to drive",
-            "Buses are cheaper than cars for frogs"
-        ],
-        correct: 0
-    },
-    {
-        text: "What is a vampire's favourite fruit? A blood orange.",
-        options: [
-            "Play on words between 'blood orange' (a real fruit) and vampires drinking blood",
-            "Vampires only eat oranges",
-            "Blood oranges are scary fruit"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why couldn't the leopard play hide and seek? Because he was always spotted.",
-        options: [
-            "Play on words between 'spotted' (has spots) and 'spotted' (found)",
-            "Leopards are bad at games",
-            "Spots make animals slow"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a dog that can do magic tricks? A labracadabrador.",
-        options: [
-            "Play on words between 'Labrador' and 'abracadabra'",
-            "Dogs love magic shows",
-            "Magicians train dogs to help them"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the astronaut break up with his girlfriend? He needed space.",
-        options: [
-            "Double meaning of 'space': outer space and personal space",
-            "Astronauts cannot have relationships",
-            "Space is very far from Earth"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call cheese that is sad? Blue cheese.",
-        options: [
-            "Play on words between 'blue' (a colour and cheese type) and feeling sad",
-            "Sad cheese turns blue",
-            "Blue is the colour of every cheese"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the skeleton not go to the party? Because he had no body to go with.",
-        options: [
-            "Play on words between 'no body' and 'nobody'",
-            "Skeletons do not like parties",
-            "Parties need many guests"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a factory that makes okay products? A satisfactory.",
-        options: [
-            "Play on words between 'satisfactory' and 'satisfy a factory'",
-            "Factories make only okay things",
-            "Products need approval"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the cow win an award? Because she was outstanding in her field.",
-        options: [
-            "Play on words: 'outstanding in her field' means excellent, and also standing in a farm field",
-            "Cows love awards",
-            "Fields give prizes to animals"
-        ],
-        correct: 0
-    },
-    {
-        text: "What did one plate say to the other plate? Dinner is on me!",
-        options: [
-            "Play on words between 'dinner is on me' (I'll pay) and food literally on a plate",
-            "Plates like to talk during meals",
-            "Plates are generous with money"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why don't scientists trust atoms? Because they make up everything.",
-        options: [
-            "Play on words: 'make up everything' means to lie, and atoms form all matter",
-            "Atoms are dishonest",
-            "Scientists dislike small things"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call an alligator in a vest? An investigator.",
-        options: [
-            "Play on words between 'in vest' and 'investigator'",
-            "Alligators like to wear clothes",
-            "Detectives often dress as alligators"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the bicycle need a doctor? It kept spinning out of control.",
-        options: [
-            "Play on words: 'spinning out of control' describes wheels and also feeling dizzy",
-            "Bicycles need medical checkups",
-            "Doctors fix broken wheels"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call an elephant that never washes? A smelly-fant.",
-        options: [
-            "Play on words between 'smelly' and 'elephant'",
-            "Elephants never take baths",
-            "Big animals always smell bad"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the cookie cry? Because its mum was a wafer so long.",
-        options: [
-            "Play on words between 'a wafer so long' and 'away for so long'",
-            "Cookies miss their families",
-            "Wafers make cookies sad"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a snowman in the summer? A puddle.",
-        options: [
-            "Logical joke: heat melts a snowman into water",
-            "Snowmen turn into animals",
-            "Summer is dangerous for everyone"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the teddy bear say no to dessert? Because she was already stuffed.",
-        options: [
-            "Play on words: 'stuffed' means full of food, and teddy bears are stuffed with cotton",
-            "Teddy bears cannot eat dessert",
-            "Bears prefer savoury food"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a fish wearing a crown? A king fish.",
-        options: [
-            "Play on words between 'kingfish' (a real fish) and a fish wearing a crown",
-            "Fish like to wear jewellery",
-            "Crowns float in water"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why is it hard to explain puns to a kleptomaniac? Because they always take things literally.",
-        options: [
-            "Play on words: 'take things literally' means to misunderstand, and also to steal",
-            "Kleptomaniacs love wordplay",
-            "Puns are always about stealing"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very small witch? A witch-let.",
-        options: [
-            "Play on words with the diminutive suffix '-let' meaning small",
-            "Small witches have less magic",
-            "Witches shrink over time"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why don't oysters share their pearls? Because they are shellfish.",
-        options: [
-            "Play on words between 'shellfish' and 'selfish'",
-            "Oysters do not like sharing food",
-            "Pearls are too valuable to share"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a boomerang that doesn't come back? A stick.",
-        options: [
-            "Logical joke: a boomerang that doesn't return is just an ordinary stick",
-            "Boomerangs are made of stone",
-            "Sticks always come back"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the stadium get hot after the game? Because all the fans left.",
-        options: [
-            "Play on words between 'fans' (supporters) and 'fans' (machines that cool the air)",
-            "Games always make stadiums hot",
-            "Football fans dislike heat"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a can of soup that doesn't work? Broken broth.",
-        options: [
-            "Alliteration joke: 'broken broth' sounds funny together",
-            "Soup cans have machine parts",
-            "Broth spoils quickly"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the golfer bring an extra sock? In case he got a hole in one.",
-        options: [
-            "Double meaning of 'hole in one': a golf shot and a hole in his sock",
-            "Golfers always pack spare clothes",
-            "Socks rip easily on a golf course"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very happy cowboy? A jolly rancher.",
-        options: [
-            "Play on words between 'jolly rancher' (a happy farmer, and also a candy brand)",
-            "Cowboys are always cheerful",
-            "Ranchers like sweets"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the orange stop rolling down the hill? Because it ran out of juice.",
-        options: [
-            "Play on words: 'run out of juice' means to lose energy, and oranges have juice inside",
-            "Oranges only roll when full",
-            "Hills stop fruit from moving"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a pile of cats? A meow-ntain.",
-        options: [
-            "Play on words between 'meow' and 'mountain'",
-            "Cats like to climb high places",
-            "Mountains are full of cats"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the calendar feel nervous? Because its days were numbered.",
-        options: [
-            "Play on words: 'days are numbered' means limited time, and calendars have numbered days",
-            "Calendars can feel worried",
-            "Every calendar has only a few days"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a droid that takes the long way round? R2 detour.",
-        options: [
-            "Play on words between 'R2-D2' and 'detour'",
-            "Robots always take the fastest way",
-            "Droids get lost easily"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the smartphone need glasses? It lost all its contacts.",
-        options: [
-            "Play on words: 'contacts' means phone numbers, and also lenses for the eyes",
-            "Phones can see with a screen",
-            "Old phones need repairs"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a sad strawberry? A blueberry.",
-        options: [
-            "Play on words: sad makes you 'blue', and blueberries are a different fruit",
-            "Strawberries turn blue when sad",
-            "All red fruit becomes blue eventually"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the volcano go to school? Because it wanted to be a little more erupt.",
-        options: [
-            "Play on words between 'erupt' and 'abrupt'",
-            "Volcanoes go to school to learn manners",
-            "Schools teach volcanoes to explode"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call two birds in love? Tweethearts.",
-        options: [
-            "Play on words between 'tweet' (bird sound) and 'sweethearts'",
-            "Birds get married in nests",
-            "Love makes birds sing more"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the clock in the cafeteria run slow? It always went back four seconds.",
-        options: [
-            "Play on words between 'four seconds' and 'for seconds' (a second helping of food)",
-            "Cafeteria clocks are always broken",
-            "Slow clocks help you eat more"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a laughing motorcycle? A Yamaha-ha-ha.",
-        options: [
-            "Play on words between the brand 'Yamaha' and the sound 'ha-ha'",
-            "Motorcycles make funny noises",
-            "Yamaha only builds happy vehicles"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the gym close down? It just didn't work out.",
-        options: [
-            "Play on words: 'work out' means exercise, and also to succeed as a business",
-            "Gyms need lots of equipment",
-            "Exercise is unpopular now"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a nosy pepper? Jalapeño business.",
-        options: [
-            "Play on palabras between 'jalapeño' and 'none of your business'",
-            "Peppers like to gossip",
-            "Spicy food makes you curious"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the music teacher need a ladder? To reach the high notes.",
-        options: [
-            "Double meaning of 'high notes': musical pitch and physical height",
-            "Music teachers are usually short",
-            "Notes are written high on a wall"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a dog magician? A labracadabrador.",
-        options: [
-            "Play on words between 'Labrador' and 'abracadabra'",
-            "Dogs can perform real magic",
-            "Magicians always own dogs"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the tree go to the dentist? Because it needed a root canal.",
-        options: [
-            "Play on words: 'root canal' is dental work, and trees have roots",
-            "Trees have teeth hidden underground",
-            "Dentists also treat plants"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a fish that needs help with music? Auto-tuna.",
-        options: [
-            "Play on words between 'tuna' and 'auto-tune'",
-            "Fish cannot sing well",
-            "Music studios use fish sounds"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the football coach go to the bank? To get his quarterback.",
-        options: [
-            "Play on words between 'quarterback' (a player position) and 'quarter back' (getting change)",
-            "Coaches always need money",
-            "Banks train football players"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a dinosaur with a large vocabulary? A thesaurus.",
-        options: [
-            "Play on words between 'thesaurus' (a word book) and dinosaur names",
-            "Dinosaurs invented language",
-            "Big animals know more words"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the baker stop making doughnuts? He got tired of the hole business.",
-        options: [
-            "Play on words between 'hole' (doughnut hole) and 'whole' (entire business)",
-            "Bakers dislike doughnuts",
-            "Doughnut shops always close"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call an ant that fights crime? A vigilANT.",
-        options: [
-            "Play on words: the word 'vigilant' contains 'ant'",
-            "Ants are natural crime fighters",
-            "Insects can wear capes"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the light bulb fail its test? It wasn't very bright that day.",
-        options: [
-            "Play on words: 'bright' means intelligent, and also a lot of light",
-            "Light bulbs go to school",
-            "Bulbs get tired during exams"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very polite iceberg? A cool customer.",
-        options: [
-            "Play on words: 'cool customer' means calm and polite, and icebergs are literally cool",
-            "Icebergs like good manners",
-            "Cold weather makes people polite"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the melon jump into the lake? It wanted to be a watermelon.",
-        options: [
-            "Play on words: 'water' plus 'melon' equals 'watermelon'",
-            "Melons like swimming",
-            "Fruit changes type in water"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call an octopus that makes you laugh? A comedi-an with eight arms.",
-        options: [
-            "Play on words between 'comedian' and having eight arms",
-            "Octopuses are natural comedians",
-            "Sea animals love jokes"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the shoe stay home? Because it lost its sole.",
-        options: [
-            "Play on words between 'sole' (bottom of a shoe) and 'soul'",
-            "Shoes need rest sometimes",
-            "Old shoes cannot walk far"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a lazy kangaroo? A pouch potato.",
-        options: [
-            "Play on words between 'couch potato' and a kangaroo's 'pouch'",
-            "Kangaroos are always tired",
-            "Potatoes grow inside pouches"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the burglar hang up his coat? Because he wanted to make a clean getaway.",
-        options: [
-            "Play on words: 'clean getaway' means a neat escape, and also being tidy",
-            "Burglars care about their clothes",
-            "Coats help you run faster"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very tired kangaroo? Out of hop-tions.",
-        options: [
-            "Play on words between 'hop' (how kangaroos move) and 'options'",
-            "Kangaroos never get tired",
-            "There are no more kangaroos left"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the man put his money in the freezer? He wanted cold, hard cash.",
-        options: [
-            "Play on words between 'cold, hard cash' (a saying for real money) and something literally frozen",
-            "Freezers are the safest place for money",
-            "Cold money is worth more"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very small violin playing sad music? The world's smallest violin.",
-        options: [
-            "Common expression used to make fun of a tiny complaint",
-            "Small violins sound sadder",
-            "Every orchestra has one tiny violin"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the barber win the race? Because he knew all the shortcuts.",
-        options: [
-            "Play on words: 'shortcuts' means quick routes, and also short haircuts",
-            "Barbers are fast runners",
-            "Hair grows faster after a race"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a fly without wings? A walk.",
-        options: [
-            "Logical joke: a fly that cannot fly can only walk",
-            "Flies without wings are rare",
-            "Insects walk faster than they fly"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why was the broom late? It overswept.",
-        options: [
-            "Play on words between 'overswept' and 'overslept'",
-            "Brooms need to rest at night",
-            "Sweeping takes a long time"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a very organised owl? A wise guy with a to-do list.",
-        options: [
-            "Owls are seen as wise in stories, so this jokes plays with the idea of an owl planning its day",
-            "Owls really do write lists",
-            "Wise animals never forget anything"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the tomato blush? Because it saw the ketchup coming.",
-        options: [
-            "Play on words: blushing (turning red) and tomatoes already being red like ketchup",
-            "Ketchup is embarrassing for tomatoes",
-            "Vegetables turn red when scared"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a rabbit that tells good jokes? A funny bunny.",
-        options: [
-            "Rhyming play on words between 'funny' and 'bunny'",
-            "Rabbits love telling stories",
-            "Bunnies are naturally comedians"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the baseball player bring string to the game? To tie the score.",
-        options: [
-            "Play on words between 'tie the score' (equal points) and tying a knot with string",
-            "String helps players run faster",
-            "Baseball games always end in a tie"
-        ],
-        correct: 0
-    },
-    {
-        text: "What do you call a snail on a ship? A snailor.",
-        options: [
-            "Play on words between 'snail' and 'sailor'",
-            "Snails love the sea",
-            "Ships are full of snails"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the students eat their homework? The teacher said it was a piece of cake.",
-        options: [
-            "Play on words: 'a piece of cake' means very easy, and also real food",
-            "Homework tastes like cake",
-            "Hungry students always eat paper"
-        ],
-        correct: 0
-    },
-    {
-        text: "What did the calculator say to the student? You can count on me.",
-        options: [
-            "Play on words between 'count on me' (to trust someone) and counting numbers",
-            "Calculators like to talk",
-            "Maths class is always fun"
-        ],
-        correct: 0
-    },
-    {
-        text: "Why did the ghost go into the bakery? For the boo-berry muffins.",
-        options: [
-            "Play on words between 'boo' (ghost sound) and 'blueberry'",
-            "Ghosts love muffins more than any other food",
-            "Bakeries are always haunted"
-        ],
-        correct: 0
+      text: "Why don't skeletons fight each other? They don't have the guts.",
+      options: [
+        "Skeletons are too tired to fight",
+        "Pun: 'guts' means both courage and insides, and skeletons have neither",
+        "Skeletons are always friends"
+      ],
+      correct: 1,
+      pistas: [
+        "Are skeletons too tired to fight? Think about what the joke is playing with.",
+        "",
+        "Are skeletons always friends? Think about what a skeleton is made of."
+      ]
+    },
+    {
+      text: "What do you call cheese that isn't yours? Nacho cheese.",
+      options: [
+        "Cheese that tastes spicy",
+        "Cheese that is too old",
+        "Pun: 'nacho' sounds like 'not yo', which means 'not yours'"
+      ],
+      correct: 2,
+      pistas: [
+        "Does the cheese taste spicy? Think about what the joke does with the word 'nacho'.",
+        "Is the cheese too old? Listen to the sounds in the question.",
+        ""
+      ]
+    },
+    {
+      text: "Why was the scarecrow given an award? Because he was outstanding in his field.",
+      options: [
+        "Pun: 'outstanding in his field' means excellent, and he stands in a field",
+        "Scarecrows never win prizes",
+        "A scarecrow can talk to birds"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Do scarecrows never win prizes? Think about what a scarecrow does all day.",
+        "Can a scarecrow talk to birds? Think about the words 'outstanding in his field'."
+      ]
+    },
+    {
+      text: "What do you call a bear with no teeth? A gummy bear.",
+      options: [
+        "A bear that lost its teeth in a fight",
+        "A bear that only eats honey",
+        "Pun: a gummy bear is a sweet you can eat even without teeth"
+      ],
+      correct: 2,
+      pistas: [
+        "Does a bear lose its teeth in a fight? Think about what the joke means by 'no teeth'.",
+        "Does a bear only eat honey? Think about the word 'gummy'.",
+        ""
+      ]
+    },
+    {
+      text: "What do you call a sleeping dinosaur? A dino-snore.",
+      options: [
+        "A dinosaur that is very tired",
+        "Pun: 'dino-snore' sounds like 'dinosaur', and a sleeping dinosaur snores",
+        "A dinosaur that is afraid of the dark"
+      ],
+      correct: 1,
+      pistas: [
+        "Is a dinosaur tired? Think about what the joke is describing.",
+        "",
+        "Is a dinosaur afraid of the dark? Listen to the sounds in the name 'dino-snore'."
+      ]
+    },
+    {
+      text: "Why don't eggs tell jokes? They'd crack each other up.",
+      options: [
+        "Pun: 'crack up' means to laugh a lot, and eggs crack",
+        "Eggs are too shy to speak",
+        "Jokes are dangerous for eggs"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Are eggs too shy to speak? Think about what happens to an egg when it breaks.",
+        "Are jokes dangerous? Think about the words 'crack each other up'."
+      ]
+    },
+    {
+      text: "Why did the bicycle fall over? It was two tired.",
+      options: [
+        "Bicycles need rest every day",
+        "Bicycles fall when the road is wet",
+        "Pun: 'two tired' sounds like 'too tired', and a bicycle has two wheels"
+      ],
+      correct: 2,
+      pistas: [
+        "Do bicycles need rest? Listen to the words 'two tired' in the joke.",
+        "Does a wet road make bicycles fall? Look at the word 'tired'.",
+        ""
+      ]
+    },
+    {
+      text: "I used to be a banker, but I lost interest.",
+      options: [
+        "A banker can lose money",
+        "Pun: 'lost interest' means stopped caring, and banks pay interest",
+        "Bankers are always bored"
+      ],
+      correct: 1,
+      pistas: [
+        "Can a banker lose money? Think about what 'interest' means in a bank.",
+        "",
+        "Are bankers always bored? Think about the word 'interest' again."
+      ]
+    },
+    {
+      text: "Did you hear about the restaurant on the moon? Great food, no atmosphere.",
+      options: [
+        "The moon has many restaurants",
+        "The food on the moon is cold",
+        "Pun: 'atmosphere' means the air around a planet, and also the mood of a place"
+      ],
+      correct: 2,
+      pistas: [
+        "Are there many restaurants on the moon? Think about why the joke says 'no atmosphere'.",
+        "Is the food cold on the moon? Think about what 'great food' is saying.",
+        ""
+      ]
+    },
+    {
+      text: "How does a penguin build its house? Igloos it together.",
+      options: [
+        "Pun: 'igloo it together' sounds like 'glue it together', and penguins live in cold places",
+        "Penguins build houses out of wood",
+        "Penguins never build houses"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Do penguins build houses out of wood? Think about where penguins live.",
+        "Do penguins never build houses? Listen to the word 'igloos'."
+      ]
+    },
+    {
+      text: "I'm reading a book about anti-gravity. It's impossible to put down.",
+      options: [
+        "Anti-gravity books are very heavy",
+        "Pun: 'impossible to put down' means it is so good you can't stop reading, and gravity pulls things down",
+        "Books cannot be read upside down"
+      ],
+      correct: 1,
+      pistas: [
+        "Are anti-gravity books heavy? Think about what 'anti-gravity' means.",
+        "",
+        "Can books not be read upside down? Think about the phrase 'put down'."
+      ]
+    },
+    {
+      text: "Why did the math book look sad? Because it had too many problems.",
+      options: [
+        "Pun: 'problems' means maths exercises and also personal troubles",
+        "Maths books are boring",
+        "Books can feel sad"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Are maths books boring? Think about the word 'problems' in the joke.",
+        "Can books feel sad? Think about what the joke says about the book."
+      ]
+    },
+    {
+      text: "What do you call a fake noodle? An impasta.",
+      options: [
+        "A noodle that is very long",
+        "A noodle from Italy",
+        "Pun: 'impasta' sounds like 'impostor' (a fake), and pasta is a noodle"
+      ],
+      correct: 2,
+      pistas: [
+        "Is it long? Think about the word 'fake' in the question.",
+        "Is it from Italy? Listen to the sounds in the answer.",
+        ""
+      ]
+    },
+    {
+      text: "Why can't you trust atoms? They make up everything.",
+      options: [
+        "Atoms are so small that nobody can see them",
+        "Pun: 'make up' means to invent a story, and also to form something",
+        "Atoms are always lying"
+      ],
+      correct: 1,
+      pistas: [
+        "Are atoms too small to see? Think about the phrase 'make up'.",
+        "",
+        "Do atoms lie? Think about the phrase 'make up everything'."
+      ]
+    },
+    {
+      text: "What did the ocean say to the beach? Nothing, it just waved.",
+      options: [
+        "The ocean is very loud",
+        "The beach cannot hear",
+        "Pun: 'waved' means moved the water, and also said hello with a hand"
+      ],
+      correct: 2,
+      pistas: [
+        "Is the ocean loud? Think about what the ocean does to the beach.",
+        "Can the beach hear? Think about the word 'waved'.",
+        ""
+      ]
+    },
+    {
+      text: "Why did the tomato turn red? Because it saw the salad dressing.",
+      options: [
+        "Tomatoes turn red when they are hot",
+        "Pun: the tomato blushed, like someone embarrassed, when it saw the salad dressing",
+        "Salad dressing is red"
+      ],
+      correct: 1,
+      pistas: [
+        "Do tomatoes turn red when they are hot? Think about why a person turns red.",
+        "",
+        "Is salad dressing red? Think about what 'turn red' means in the joke."
+      ]
+    },
+    {
+      text: "What do you call a boomerang that doesn't come back? A stick.",
+      options: [
+        "Pun: a boomerang that does not return is just a stick",
+        "A boomerang is always lost",
+        "Sticks can fly"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Is a boomerang always lost? Think about what a boomerang is supposed to do.",
+        "Can sticks fly? Think about what the joke says the object is."
+      ]
+    },
+    {
+      text: "Why don't scientists trust stairs? Because they're always up to something.",
+      options: [
+        "Stairs are dangerous to climb",
+        "Scientists are afraid of heights",
+        "Pun: 'up to something' means plotting something, and stairs go up"
+      ],
+      correct: 2,
+      pistas: [
+        "Are stairs dangerous? Think about what 'up to something' means in English.",
+        "Are scientists afraid of heights? Think about the word 'up' in the joke.",
+        ""
+      ]
+    },
+    {
+      text: "I'm on a seafood diet. I see food and I eat it.",
+      options: [
+        "Pun: a seafood diet means eating anything you see, and seafood is food from the sea",
+        "A seafood diet means eating only fish",
+        "People on diets cannot see food"
+      ],
+      correct: 0,
+      pistas: [
+        "",
+        "Does a seafood diet mean eating only fish? Think about what 'I eat it' means in the joke.",
+        "Can people on diets not see food? Think about the phrase 'I see food'."
+      ]
+    },
+    {
+      text: "Why did the computer go to the doctor? It had a virus.",
+      options: [
+        "Computers get sick in winter",
+        "Pun: a computer virus is a program that harms it, and a virus is also an illness",
+        "Computers are afraid of doctors"
+      ],
+      correct: 1,
+      pistas: [
+        "Do computers get sick in winter? Think about what 'virus' means for a computer.",
+        "",
+        "Are computers afraid of doctors? Think about why the computer goes to the doctor."
+      ]
     }
   ]
 };
