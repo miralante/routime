@@ -204,8 +204,10 @@
     'hint.class_attention': 'What helps you learn more: the phone or paying attention?',
 
     // Generic feedback
-    'feedback.correct': 'Very good! You picked what cares for people and the place.',
-    'feedback.explanation': 'That is good manners: it cares for others and the place so everyone can be well.',
+    feedback: {
+      correct: 'Very good! You picked what cares for people and the place.',
+      explanation: 'That is good manners: it cares for others and the place so everyone can be well.'
+    },
 
     // Completion
     'roundEnd': 'Round finished. Very good.',

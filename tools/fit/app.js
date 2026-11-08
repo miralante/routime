@@ -22,16 +22,16 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var tableroEl = $('#tablero');
+  var boardEl = $('#tablero');
   var estadoEl = $('#status');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
+  var explanationWrap = $('#explanationWrap');
+  var explanationEl = $('#explanation');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
-  var levelEl = $('#dificultad');
+  var levelEl = $('#level');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -41,42 +41,43 @@
 
   /* Estado de la partida */
   var currentLevel = null;
-  var idxPieza = 0;
+  var idxPiece = 0;
   var roundHits = 0;
   var llenas = [];          /* filled row*columns+col indexes */
-  var hueco = [];           /* indexes the piece must occupy */
-  var clavePieza = '';
+  var gap = [];           /* indexes the piece must occupy */
+  var keyPiece = '';
   var orientacion = 0;
-  var piezaX = 0;
+  var pieceX = 0;
   var attempts = 0;
-  var enJuego = false;
+  var insideGame = false;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-  function cols() { return banco().columnas; }
-  function fils() { return banco().filas; }
-  function orientaciones() { return banco().piezas[clavePieza]; }
-  function celdasPieza() { return orientaciones()[orientacion]; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return bank().niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
+  function cols() { return bank().columnas; }
+  function fils() { return bank().filas; }
+  function orientaciones() { return bank().piezas[keyPiece]; }
+  function cellsPiece() { return orientaciones()[orientacion]; }
 
-  function anchura(celdas) {
+  function anchura(cells) {
     var max = 0;
-    celdas.forEach(function (c) { if (c[0] > max) max = c[0]; });
+    cells.forEach(function (c) { if (c[0] > max) max = c[0]; });
     return max + 1;
   }
 
-  function altura(celdas) {
+  function altura(cells) {
     var max = 0;
-    celdas.forEach(function (c) { if (c[1] > max) max = c[1]; });
+    cells.forEach(function (c) { if (c[1] > max) max = c[1]; });
     return max + 1;
   }
 
   /* Determina el nivel según el progress: cada ronda completada,
      sube un nivel (regla 13: un solo cambio por nivel). */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idx];
-  }
 
   /* Muestra la dificultad current (número de piezas en el nivel). */
   function renderLevel() {
@@ -88,54 +89,54 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-    idxPieza = 0;
+    idxPiece = 0;
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
-    nuevaPieza();
+    newerPiece();
   }
 
   function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idxPieza / porRonda) * 100) + '%';
+    var perRound = bank().porRonda;
+    progressFill.style.width = ((idxPiece / perRound) * 100) + '%';
     progressText.textContent = '';
   }
 
   /* ---- Generation: hueco = footprint of the piece resting on the floor ---- */
-  function nuevaPieza() {
-    clavePieza = App.utils.shuffle(currentLevel.piezas)[0];
-    var ors = banco().piezas[clavePieza];
+  function newerPiece() {
+    keyPiece = App.utils.shuffle(currentLevel.piezas)[0];
+    var ors = bank().piezas[keyPiece];
     var orFinal = Math.floor(Math.random() * ors.length);
-    var celdas = ors[orFinal];
-    var xFinal = Math.floor(Math.random() * (cols() - anchura(celdas) + 1));
-    var offsetY = fils() - altura(celdas);
+    var cells = ors[orFinal];
+    var xFinal = Math.floor(Math.random() * (cols() - anchura(cells) + 1));
+    var offsetY = fils() - altura(cells);
 
-    hueco = celdas.map(function (c) {
+    gap = cells.map(function (c) {
       return (offsetY + c[1]) * cols() + (xFinal + c[0]);
     });
 
     /* Fill in the rest of the rows the gap touches */
     llenas = [];
-    var filasHueco = {};
-    hueco.forEach(function (i) { filasHueco[Math.floor(i / cols())] = true; });
-    Object.keys(filasHueco).forEach(function (f) {
+    var rowsGap = {};
+    gap.forEach(function (i) { rowsGap[Math.floor(i / cols())] = true; });
+    Object.keys(rowsGap).forEach(function (f) {
       for (var c = 0; c < cols(); c++) {
         var i = Number(f) * cols() + c;
-        if (hueco.indexOf(i) === -1) llenas.push(i);
+        if (gap.indexOf(i) === -1) llenas.push(i);
       }
     });
 
     /* The piece appears at the top, in a random orientation (may
        need rotating) and a centered starting column */
     orientacion = Math.floor(Math.random() * ors.length);
-    piezaX = Math.min(2, cols() - anchura(celdasPieza()));
+    pieceX = Math.min(2, cols() - anchura(cellsPiece()));
     attempts = 0;
-    enJuego = true;
+    insideGame = true;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
     btnNext.classList.add('hidden');
     estadoEl.textContent = App.i18n.t('enJuego');
     renderBoard();
@@ -143,63 +144,63 @@
     renderStars();
   }
 
-  function indicesPiezaArriba() {
-    return celdasPieza().map(function (c) {
-      return c[1] * cols() + (piezaX + c[0]);
+  function indicesPieceUp() {
+    return cellsPiece().map(function (c) {
+      return c[1] * cols() + (pieceX + c[0]);
     });
   }
 
   function renderBoard(extra) {
     extra = extra || {};
-    tableroEl.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
-    tableroEl.innerHTML = '';
-    var arriba = enJuego ? indicesPiezaArriba() : [];
+    boardEl.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
+    boardEl.innerHTML = '';
+    var up = insideGame ? indicesPieceUp() : [];
     var total = fils() * cols();
     for (var i = 0; i < total; i++) {
       var div = document.createElement('div');
       div.className = 'celda';
       if (llenas.indexOf(i) !== -1) div.classList.add('llena');
-      if (arriba.indexOf(i) !== -1) { div.classList.add('pieza'); div.classList.add('t-' + clavePieza); }
-      if (extra.marcarHueco && hueco.indexOf(i) !== -1) div.classList.add('sugerida');
-      if (extra.encajada && hueco.indexOf(i) !== -1) { div.classList.add('encajada'); div.classList.add('t-' + clavePieza); }
-      tableroEl.appendChild(div);
+      if (up.indexOf(i) !== -1) { div.classList.add('pieza'); div.classList.add('t-' + keyPiece); }
+      if (extra.marcarHueco && gap.indexOf(i) !== -1) div.classList.add('sugerida');
+      if (extra.encajada && gap.indexOf(i) !== -1) { div.classList.add('encajada'); div.classList.add('t-' + keyPiece); }
+      boardEl.appendChild(div);
     }
   }
 
   /* ---- Controles ---- */
-  function mover(dx) {
-    if (!enJuego) return;
-    var nueva = piezaX + dx;
-    if (nueva < 0 || nueva + anchura(celdasPieza()) > cols()) return;
-    piezaX = nueva;
+  function move(dx) {
+    if (!insideGame) return;
+    var newer = pieceX + dx;
+    if (newer < 0 || newer + anchura(cellsPiece()) > cols()) return;
+    pieceX = newer;
     renderBoard(attempts >= 2 ? { marcarHueco: true } : {});
   }
 
   function girar() {
-    if (!enJuego) return;
+    if (!insideGame) return;
     orientacion = (orientacion + 1) % orientaciones().length;
-    if (piezaX + anchura(celdasPieza()) > cols()) {
-      piezaX = cols() - anchura(celdasPieza());
+    if (pieceX + anchura(cellsPiece()) > cols()) {
+      pieceX = cols() - anchura(cellsPiece());
     }
     renderBoard(attempts >= 2 ? { marcarHueco: true } : {});
   }
 
   /* Deja caer la pieza: baja hasta chocar con relleno o suelo */
   function calcularAterrizaje() {
-    var celdas = celdasPieza();
+    var cells = cellsPiece();
     var offset = 0;
     function cabe(o) {
-      for (var i = 0; i < celdas.length; i++) {
-        var f = o + celdas[i][1];
-        var c = piezaX + celdas[i][0];
+      for (var i = 0; i < cells.length; i++) {
+        var f = o + cells[i][1];
+        var c = pieceX + cells[i][0];
         if (f >= fils()) return false;
         if (llenas.indexOf(f * cols() + c) !== -1) return false;
       }
       return true;
     }
     while (cabe(offset + 1)) offset += 1;
-    return celdas.map(function (c) {
-      return (offset + c[1]) * cols() + (piezaX + c[0]);
+    return cells.map(function (c) {
+      return (offset + c[1]) * cols() + (pieceX + c[0]);
     });
   }
 
@@ -210,36 +211,36 @@
   }
 
   function bajar() {
-    if (!enJuego) return;
+    if (!insideGame) return;
     var aterrizaje = calcularAterrizaje();
-    if (mismoConjunto(aterrizaje, hueco)) {
+    if (mismoConjunto(aterrizaje, gap)) {
       encajar(false);
     } else {
       attempts += 1;
       App.feedback.encourage(feedbackEl);
       if (attempts === 1) {
         /* Rule 12: first mistake → hint, never the solution */
-        explicacionEl.textContent = App.i18n.t('pistaForma');
-        explicacionWrap.classList.remove('hidden');
+        explanationEl.textContent = App.i18n.t('pistaForma');
+        explanationWrap.classList.remove('hidden');
         renderBoard();
       } else if (attempts === 2) {
-        explicacionEl.textContent = App.i18n.t('huecoMarcado');
-        explicacionWrap.classList.remove('hidden');
+        explanationEl.textContent = App.i18n.t('huecoMarcado');
+        explanationWrap.classList.remove('hidden');
         renderBoard({ marcarHueco: true });
       } else {
         /* Tercer fallo → se encaja sola (nadie se queda atascado) */
-        explicacionEl.textContent = App.i18n.t('autoEncaje');
-        explicacionWrap.classList.remove('hidden');
+        explanationEl.textContent = App.i18n.t('autoEncaje');
+        explanationWrap.classList.remove('hidden');
         encajar(true);
       }
     }
   }
 
   function encajar(automatico) {
-    enJuego = false;
-    hueco.forEach(function (i) { llenas.push(i); });
+    insideGame = false;
+    gap.forEach(function (i) { llenas.push(i); });
     renderBoard({ encajada: true });
-    idxPieza += 1;
+    idxPiece += 1;
     roundHits += 1;
     progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -250,7 +251,7 @@
     if (!automatico) {
       feedbackEl.textContent = '';
       feedbackEl.className = 'feedback';
-      explicacionWrap.classList.add('hidden');
+      explanationWrap.classList.add('hidden');
       App.feedback.success(feedbackEl);
     }
     App.feedback.celebrate(App.i18n.t('encajada'));
@@ -259,10 +260,10 @@
   }
 
   function next() {
-    if (idxPieza >= banco().porRonda) {
+    if (idxPiece >= bank().porRonda) {
       endRound();
     } else {
-      nuevaPieza();
+      newerPiece();
     }
   }
 
@@ -272,27 +273,27 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-$('#transferencia').textContent = '';
+    $('#endSummary').textContent = '';
+    $('#endSummary').textContent += '\n' + App.i18n.t('proximoNivel')
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
+if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
-  $('#btnIzquierda').addEventListener('click', function () { mover(-1); });
-  $('#btnDerecha').addEventListener('click', function () { mover(1); });
+  $('#btnIzquierda').addEventListener('click', function () { move(-1); });
+  $('#btnDerecha').addEventListener('click', function () { move(1); });
   $('#btnGirar').addEventListener('click', girar);
   $('#btnMoveDown').addEventListener('click', bajar);
   document.addEventListener('keydown', function (ev) {
-    if (!enJuego || gameScreen.classList.contains('hidden')) return;
-    if (ev.key === 'ArrowLeft') { ev.preventDefault(); mover(-1); }
-    else if (ev.key === 'ArrowRight') { ev.preventDefault(); mover(1); }
+    if (!insideGame || gameScreen.classList.contains('hidden')) return;
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); move(-1); }
+    else if (ev.key === 'ArrowRight') { ev.preventDefault(); move(1); }
     else if (ev.key === 'ArrowUp') { ev.preventDefault(); girar(); }
     else if (ev.key === 'ArrowDown') { ev.preventDefault(); bajar(); }
   });
   btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });

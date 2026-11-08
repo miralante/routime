@@ -17,9 +17,9 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var modelEl = $('#modelGrid');
-  var boardEl = $('#userGrid');
-  var paletteEl = $('#palette');
+  var modelEl = $('#gridModelo');
+  var boardEl = $('#gridTuyo');
+  var paletteEl = $('#paleta');
   var feedbackEl = $('#feedback');
   var explanationWrap = $('#explanationWrap');
   var explanationEl = $('#explanation');
@@ -46,9 +46,14 @@
   var cellAttempts = {};   /* idx -> number of mistakes (rule 12) */
   var completed = false;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return bank().niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
@@ -69,10 +74,6 @@
   }
 
   /* Determines the level based on progress: each completed round raises one level. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, bank().niveles.length - 1);
-    return bank().niveles[idxN];
-  }
 
   /* Shows the current difficulty (level label). */
   function renderLevel() {
@@ -259,14 +260,14 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#summary').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
+    $('#endSummary').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
     App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* Events */
   btnNext.addEventListener('click', next);
-  var btnRepeat = $('#btnRepeat');
+  var btnRepeat = $('#repeatBtn');
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startGame(); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
@@ -278,4 +279,7 @@
   renderLevels();
   // Iniciar directamente la actividad
   startGame();
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
+    window.location.href = '../../';
+  });
 })();

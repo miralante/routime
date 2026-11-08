@@ -10,20 +10,24 @@
   var TOOL_ID = 'emociones';
   var $ = App.utils.$;
 
-  var selectionScreen = $('#selectionScreen');
-  var responseScreen = $('#responseScreen');
-  var breathingScreen = $('#breathingScreen');
-  var weekScreen = $('#weekScreen');
+  var selectionScreen = $('#pantallaSeleccion');
+  var responseScreen = $('#pantallaRespuesta');
+  var breathingScreen = $('#pantallaRespiracion');
+  var weekScreen = $('#pantallaSemana');
 
   /* Progreso: historial de emociones [{fecha, id}] */
   var progress = App.storage.get(TOOL_ID);
   if (!Array.isArray(progress.historial)) progress.historial = [];
 
-  var emocionActual = null;
+  var emotionCurrent = null;
   var respiracionTimer = null;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; }
+  });
+  var save = glue.save;
 
   function showScreen(screen) {
     [selectionScreen, responseScreen, breathingScreen, weekScreen]
@@ -50,7 +54,7 @@
   }
 
   function select(emo) {
-    emocionActual = emo;
+    emotionCurrent = emo;
 
     /* Log it (one entry per day: the last one chosen) */
     var hoy = App.utils.hoy();
@@ -71,11 +75,11 @@
     $('#respuestaSugerencia').textContent = '';
     document.body.style.background = emo.colorSuave;
 
-    var btnRespirar = $('#btnRespirar');
+    var btnBreathe = $('#btnRespirar');
     if (emo.sugerencia.tipo === 'respiracion') {
-      btnRespirar.classList.remove('hidden');
+      btnBreathe.classList.remove('hidden');
     } else {
-      btnRespirar.classList.add('hidden');
+      btnBreathe.classList.add('hidden');
     }
 
     showScreen(responseScreen);
@@ -83,19 +87,19 @@
   }
 
   /* ---- Breathing exercise (3 cycles) ---- */
-  function respirar() {
+  function breathe() {
     showScreen(breathingScreen);
     var circulo = $('#circuloRespiracion');
     var text = $('#textoRespiracion');
     var ciclosEl = $('#ciclosRespiracion');
     var ciclo = 0;
-    var TOTAL = 3;
+    var total = 3;
 
     /* Start small so the first "coge aire" truly animates from nothing */
     circulo.className = 'encoger';
 
-    function paso(inhalar) {
-      if (ciclo >= TOTAL) {
+    function step(inhalar) {
+      if (ciclo >= total) {
         text.textContent = App.i18n.t('respiracionFinal');
         ciclosEl.textContent = '';
         if (App.tts && App.tts.speak) App.tts.speak(App.i18n.t('respiracionFinal'));
@@ -113,10 +117,10 @@
         circulo.className = 'encoger';
         ciclo += 1;
       }
-      respiracionTimer = setTimeout(function () { paso(!inhalar); }, 4000);
+      respiracionTimer = setTimeout(function () { step(!inhalar); }, 4000);
     }
 
-    paso(true);
+    step(true);
   }
 
   function salirRespiracion() {
@@ -125,7 +129,7 @@
   }
 
   /* ---- Mi semana ---- */
-  function verSemana() {
+  function seeWeek() {
     var cont = $('#listaSemana');
     cont.innerHTML = '';
     var hoyDate = new Date();
@@ -133,21 +137,21 @@
     for (var i = 6; i >= 0; i--) {
       var d = new Date(hoyDate);
       d.setDate(hoyDate.getDate() - i);
-      var clave = d.getFullYear() + '-' +
+      var key = d.getFullYear() + '-' +
         String(d.getMonth() + 1).padStart(2, '0') + '-' +
         String(d.getDate()).padStart(2, '0');
 
       var registro = null;
       for (var j = 0; j < progress.historial.length; j++) {
-        if (progress.historial[j].fecha === clave) registro = progress.historial[j];
+        if (progress.historial[j].fecha === key) registro = progress.historial[j];
       }
       var emo = registro ? DATOS.emociones.filter(function (e) { return e.id === registro.id; })[0] : null;
 
       var row = document.createElement('div');
       row.className = 'dia-semana card';
-      var nombreDia = (i === 0) ? App.i18n.t('hoy') : DATOS.dias[d.getDay()];
+      var nameDay = (i === 0) ? App.i18n.t('hoy') : DATOS.dias[d.getDay()];
       row.innerHTML =
-        '<span class="dia">' + nombreDia + '</span>' +
+        '<span class="dia">' + nameDay + '</span>' +
         '<span class="picto" aria-hidden="true">' + (emo ? emo.picto : '·') + '</span>' +
         '<span class="name">' + (emo ? emo.name : App.i18n.t('sinRegistro')) + '</span>';
       cont.appendChild(row);
@@ -155,7 +159,7 @@
     showScreen(weekScreen);
   }
 
-  function volverSeleccion() {
+  function backSelection() {
     document.body.style.background = '';
     showScreen(selectionScreen);
   }
@@ -165,13 +169,13 @@
     if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('pregunta'));
   });
   $('#btnOirRespuesta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(emocionActual.mensaje + ' ' + emocionActual.sugerencia.textContent);
+    if (false && App.tts && App.tts.speak) App.tts.speak(emotionCurrent.mensaje + ' ' + emotionCurrent.sugerencia.textContent);
   });
-  $('#btnRespirar').addEventListener('click', respirar);
+  $('#btnRespirar').addEventListener('click', breathe);
   $('#btnSalirRespiracion').addEventListener('click', salirRespiracion);
-  $('#btnVolverSeleccion').addEventListener('click', volverSeleccion);
-  $('#btnSemana').addEventListener('click', verSemana);
-  $('#btnVolverDeSemana').addEventListener('click', volverSeleccion);
+  $('#btnVolverSeleccion').addEventListener('click', backSelection);
+  $('#btnSemana').addEventListener('click', seeWeek);
+  $('#btnVolverDeSemana').addEventListener('click', backSelection);
 
   renderEmotions();
 })();

@@ -37,10 +37,11 @@
   }
 
   /* ---------- Nivel según progress ---------- */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, bank.levels.length - 1);
-    return bank.levels[idx];
-  }
+  var glue = App.activityGlue({
+    progress: function () { return progress; },
+    levels: function () { return bank.levels; }
+  });
+  var levelBasedOnProgress = glue.levelFromProgress;
 
   function renderLevel() {
     var el = $('#dificultad');
@@ -98,13 +99,13 @@
 
     if (!choice.correct) {
       attempts += 1;
-      var respuestaTrasPista = attempts > 1;
+      var answerAfterHint = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
       showExplanation('hintLabel', currentCase.hint);
       App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
-        if (respuestaTrasPista) showExplanation('explanationLabel', choice.explanation);
+        if (answerAfterHint) showExplanation('explanationLabel', choice.explanation);
       });
       return;
     }

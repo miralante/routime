@@ -19,8 +19,9 @@
   function loadProgress() {
     var saved = App.storage.get('good-manners');
     if (saved) {
-      state.accumulatedStars = saved.stars || 0;
-      state.completedRounds = saved.completed || {};
+      /* Same keys that saveProgress writes. */
+      state.accumulatedStars = saved.estrellas || 0;
+      state.completedRounds = saved.completados || 0;
     }
   }
 
@@ -130,7 +131,7 @@
     var audioBtn = document.createElement('button');
     audioBtn.className = 'btn-audio';
     audioBtn.setAttribute('aria-label', App.i18n.t('core.listen'));
-    audioBtn.textContent = '🔊 ' + App.i18n.t('core.listen');
+    audioBtn.textContent = App.i18n.t('core.listen');
     audioBtn.onclick = function () {
       if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.mensaje));
     };
@@ -143,8 +144,8 @@
     var questionEl = document.createElement('div');
     questionEl.className = 'pregunta';
     var p = document.createElement('p');
-    p.textContent = '¿Qué dices?';
-    p.setAttribute('data-i18n', 'instruction');
+    p.textContent = App.i18n.t('queDices');
+    p.setAttribute('data-i18n', 'queDices');
     questionEl.appendChild(p);
     app.appendChild(questionEl);
 
@@ -184,8 +185,10 @@
     state.selectedAnswer = optionKey;
     state.showingFeedback = true;
 
+    /* The acknowledgement hides the feedback zone, so each new answer shows it again. */
     var feedbackZone = App.utils.$('#feedback');
-    var optionBtns = App.utils.$$('.opcion-btn', App.utils.$('#app'));
+    feedbackZone.classList.remove('hidden');
+    var optionBtns = App.utils.$$('.btn-opcion', App.utils.$('#app'));
     var isCorrect = optionKey === state.currentSituation.correcta;
 
     if (isCorrect) {
@@ -219,12 +222,12 @@
       // Second attempt: show explanation and correct answer
       btnEl.classList.add('error');
       App.feedback.encourage(feedbackZone);
-      var explanation = 'La respuesta correcta es: ' + App.i18n.t(state.currentSituation.correcta);
       feedbackZone.textContent = App.i18n.t('pista');
-      optionBtns.forEach(function (b) { b.disabled = true; });
       App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
+        var explanation = App.i18n.t('respuestaCorrecta') + ' ' + App.i18n.t(state.currentSituation.correcta);
         feedbackZone.textContent = explanation;
-        App.feedback.lockUntilAck([], feedbackZone, function () {
+        feedbackZone.classList.remove('hidden');
+        App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
           state.completedRounds++;
           saveProgress();
 
@@ -248,7 +251,7 @@
 
     var heading = document.createElement('h1');
     heading.className = 'titulo-celebracion';
-    heading.textContent = '¡Ronda terminada!';
+    heading.textContent = App.i18n.t('rondaTerminada');
     app.appendChild(heading);
 
     var starsEl = document.createElement('div');
@@ -263,7 +266,8 @@
     app.appendChild(starsEl);
 
     var text = document.createElement('p');
-    text.textContent = 'Total: ' + state.accumulatedStars + ' estrellas';
+    var palabraEstrellas = App.i18n.t(state.accumulatedStars === 1 ? 'estrella' : 'estrellas');
+    text.textContent = App.i18n.t('total') + ' ' + state.accumulatedStars + ' ' + palabraEstrellas;
     app.appendChild(text);
 
     var btns = document.createElement('div');
@@ -271,7 +275,7 @@
 
     var btnRepeat = document.createElement('button');
     btnRepeat.className = 'btn';
-    btnRepeat.textContent = 'Jugar otra vez';
+    btnRepeat.textContent = App.i18n.t('core.playAgain');
     btnRepeat.onclick = function () {
       state.completedRounds = 0;
       showLevelSelector();
@@ -280,7 +284,7 @@
 
     var btnMenu = document.createElement('button');
     btnMenu.className = 'btn btn-secundario';
-    btnMenu.textContent = 'Volver al menú';
+    btnMenu.textContent = App.i18n.t('core.backToMenu');
     btnMenu.onclick = function () {
       window.location.href = '../../';
     };
@@ -289,7 +293,7 @@
     app.appendChild(btns);
 
     saveProgress();
-    App.feedback.celebrar('¡Excelente!');
+    App.feedback.celebrate(App.i18n.t('excelente'));
   }
 
   function saveProgress() {

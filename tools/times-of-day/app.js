@@ -2,215 +2,122 @@
    Routime — Partes del Día (autonomía: organizar tareas diarias)
    Datos en data.js (DATA.niveles, DATA.momentos). Módulos
    compartidos en assets/js/. Mecánica: aparece una tarea con picto
-   y hay que tocar la caja del timeOfDay del día al que pertenece
+   y hay que tocar la caja del momento del día al que pertenece
    (Mañana, Tarde, Noche). Cada acierto se añade a la lista visual
    de esa caja, que se va construyendo durante toda la ronda.
    Ronda de 9 tareas por nivel. El error nunca se castiga.
+   La ronda la lleva App.activityPlay (assets/js/activity-play.js): esta
+   página dibuja las tres columnas, la tarea y comunica cada intento.
    ============================================================ */
 (function () {
   'use strict';
 
-  var TOOL_ID = 'partes-del-dia';
   var $ = App.utils.$;
-
-  var gameScreen = $('#gameScreen');
-  var endScreen = $('#endScreen');
   var levelEl = $('#level');
   var itemPictoEl = $('#itemPicto');
-  var itemTareaEl = $('#itemTarea');
-  var listasDiaEl = $('#listasDia');
-  var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnListen = $('#btnListen');
-  var btnNext = $('#btnNext');
-  var progressFill = $('#progressFill');
-  var progressText = $('#progressText');
-  var starsEl = $('#stars');
-
-  /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (!progress.completed) progress.completed = {};
-  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
-  /* Round state */
+  var itemTaskEl = $('#itemTarea');
+  var listsDayEl = $('#listasDia');
   var currentLevel = null;
-  var items = [];
-  var idx = 0;
-  var roundHits = 0;
-  var solved = false;
-  var attempts = 0;
-  var listasEl = {}; /* timeOfDay -> <ul> donde se acumulan los aciertos */
+  var currentItem = null;
+  var playApi = null;
+  var listsEl = {}; /* timeOfDay -> <ul> donde se acumulan los aciertos */
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  /* The level follows the rounds completed: each completed round moves up one level. */
+  function levelFor(progress) {
+    var levels = bank().niveles;
+    return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
+  }
 
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-
-
-  /* Builds the 3 empty columns (header + list) once per
-     round; they fill in with each correct answer, without resetting
-     between tasks (unlike the rest of the game screen). */
-  function pintarColumnasVacias() {
-    listasDiaEl.innerHTML = '';
-    listasEl = {};
-    banco().momentos.forEach(function (timeOfDay) {
+  /* Builds the 3 empty columns (header + list) once per round; they fill in with
+     each correct answer, without resetting between tasks. */
+  function paintColumnsEmpty() {
+    listsDayEl.innerHTML = '';
+    listsEl = {};
+    bank().momentos.forEach(function (timeOfDay) {
       var column = document.createElement('div');
       column.className = 'column-dia';
 
-      var btnCaja = document.createElement('button');
-      btnCaja.type = 'button';
-      btnCaja.className = 'btn caja';
-      btnCaja.textContent = timeOfDay;
-      btnCaja.addEventListener('click', function () {
-        answer(btnCaja, timeOfDay === items[idx].timeOfDay, items[idx], timeOfDay);
-      });
+      var btnBox = document.createElement('button');
+      btnBox.type = 'button';
+      btnBox.className = 'btn caja';
+      btnBox.textContent = timeOfDay;
+      btnBox.addEventListener('click', function () { answer(btnBox, timeOfDay); });
 
-      var lista = document.createElement('ul');
-      lista.className = 'tasks-list';
+      var list = document.createElement('ul');
+      list.className = 'tasks-list';
 
-      column.appendChild(btnCaja);
-      column.appendChild(lista);
-      listasDiaEl.appendChild(column);
-      listasEl[timeOfDay] = { lista: lista, boton: btnCaja };
+      column.appendChild(btnBox);
+      column.appendChild(list);
+      listsDayEl.appendChild(column);
+      listsEl[timeOfDay] = { lista: list, boton: btnBox };
     });
   }
 
-    /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
-  }
-
-  /* Muestra la dificultad current (etiqueta del nivel). */
-  function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.name;
-    }
-  }
-
-  function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
-    idx = 0;
-    roundHits = 0;
-    endScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    pintarColumnasVacias();
-    renderLevel();
-    render();
-  }
-
-  function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = '';
-  }
-
-  function render() {
-    var item = items[idx];
-    if (!item) return endRound();
-    solved = false;
-    attempts = 0;
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
-    btnNext.classList.add('hidden');
-
-    itemPictoEl.textContent = item.picto;
-    itemTareaEl.textContent = item.tarea;
-    App.utils.$$('.btn.caja', listasDiaEl).forEach(function (b) {
-      b.disabled = false;
-      b.classList.remove('animo', 'correcta');
+  function answer(btn, momentoElegido) {
+    var item = currentItem;
+    var isCorrect = momentoElegido === item.timeOfDay;
+    if (isCorrect) addAList(item);
+    playApi.attempt(isCorrect, {
+      control: btn,
+      hint: App.i18n.t('pista'),
+      explanation: isCorrect
+        ? App.i18n.t('explicacionCorrecta')
+        : App.i18n.t('explicacionIncorrectaA') + item.timeOfDay + '.'
     });
-
-    renderProgress();
-    renderStars();
   }
 
-  function showExplanation(isCorrect, item) {
-    var text = isCorrect
-      ? App.i18n.t('explicacionCorrecta')
-      : App.i18n.t('explicacionIncorrectaA') + item.timeOfDay + '.';
-    explicacionEl.textContent = text;
-    explicacionWrap.classList.remove('hidden');
-  }
-
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is encouraged to think again. Only on the second
-     mistake is the correct time of day stated (showExplanation). */
-  function showHint() {
-    explicacionEl.textContent = App.i18n.t('pista');
-    explicacionWrap.classList.remove('hidden');
-  }
-
-  function anadirALista(item) {
-    var destino = listasEl[item.timeOfDay];
+  function addAList(item) {
+    var destino = listsEl[item.timeOfDay];
     var li = document.createElement('li');
     li.textContent = item.picto + ' ' + item.tarea;
     destino.lista.appendChild(li);
   }
 
-  function answer(btn, isCorrect, item, momentoElegido) {
-    if (solved) return;
-    if (isCorrect) {
-      showExplanation(isCorrect, item);
-      solved = true;
-      anadirALista(item);
-      App.utils.$$('.btn.caja', listasDiaEl).forEach(function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      progress.stars += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-      roundHits += 1;
-      save();
-      renderStars();
-      btnNext.classList.remove('hidden');
-      btnNext.focus();
-    } else {
-      attempts += 1;
-      var respuestaTrasPista = attempts > 1;
-      showHint();
-      btn.classList.add('animo');
-      btn.disabled = true;
-      App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('.btn.caja', listasDiaEl), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
+  App.activityPlay({
+    toolId: 'partes-del-dia',
+    roundsKey: 'roundsCompleted',
+    ui: {
+      game: '#gameScreen',
+      end: '#endScreen',
+      feedback: '#feedback',
+      explanationWrap: '#explanationWrap',
+      explanation: '#explanation',
+      btnNext: '#btnNext',
+      progressFill: '#progressFill',
+      progressText: '#progressText',
+      stars: '#stars',
+      btnRepeat: '#repeatBtn'
+    },
+    items: function (progress) {
+      if (!progress.completed) progress.completed = {};
+      currentLevel = levelFor(progress);
+      levelEl.textContent = currentLevel.name;
+      paintColumnsEmpty();
+      return App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
+    },
+    mount: function (item, play) {
+      playApi = play;
+      currentItem = item;
+      itemPictoEl.textContent = item.picto;
+      itemTaskEl.textContent = item.tarea;
+      var boxes = App.utils.$$('.btn.caja', listsDayEl);
+      boxes.forEach(function (b) {
+        b.disabled = false;
+        b.classList.remove('animo', 'correcta');
+      });
+      return boxes;
+    },
+    onEnd: function (play) {
+      play.progress.completed[currentLevel.id] = (play.progress.completed[currentLevel.id] || 0) + 1;
+      play.save();
+      var transferEl = $('#transferencia');
+      if (transferEl) transferEl.textContent = '';
     }
-  }
-
-  function next() {
-    idx += 1;
-    if (idx >= banco().porRonda) {
-      endRound();
-    } else {
-      render();
-    }
-  }
-
-  function endRound() {
-    progress.roundsCompleted += 1;
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
-    save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    if ($('#transferencia')) $('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-  }
-
-  /* Events */
-  btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].tarea);
   });
-  btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnOtherLevel').addEventListener('click', function () {
+
+  $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
-
-  renderStars();
-  // Iniciar directamente la actividad
-  startGame();
 })();

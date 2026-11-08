@@ -13,7 +13,7 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var tableroEl = $('#tablero');
+  var boardEl = $('#tablero');
   var counterEl = $('#contador');
   var levelEl = $('#dificultad');
   var feedbackEl = $('#feedback');
@@ -30,11 +30,16 @@
   var primera = null;      /* primera carta destapada */
   var bloqueado = false;   /* mientras se muestran 2 cartas */
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return bank().niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   function renderCounter() {
     counterEl.textContent = '';
@@ -42,10 +47,6 @@
 
   /* Determina el nivel según el progress: cada partida completada,
      sube un nivel (0→facil con 3, 1→medio con 4, 2→dificil con 6) */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idx];
-  }
 
   /* Muestra la dificultad current (número de parejas) */
   function renderLevel() {
@@ -65,11 +66,11 @@
     feedbackEl.className = 'feedback';
 
     /* Pick random symbols and duplicate them (pictograms, language-agnostic) */
-    var simbolos = App.utils.shuffle(banco().simbolos).slice(0, currentLevel.parejas);
+    var simbolos = App.utils.shuffle(bank().simbolos).slice(0, currentLevel.parejas);
     var cartas = App.utils.shuffle(simbolos.concat(simbolos));
 
-    tableroEl.style.gridTemplateColumns = 'repeat(' + currentLevel.columnas + ', 1fr)';
-    tableroEl.innerHTML = '';
+    boardEl.style.gridTemplateColumns = 'repeat(' + currentLevel.columnas + ', 1fr)';
+    boardEl.innerHTML = '';
     cartas.forEach(function (simbolo) {
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -78,7 +79,7 @@
       btn.dataset.simbolo = simbolo;
       btn.textContent = '❓';
       btn.addEventListener('click', function () { reveal(btn); });
-      tableroEl.appendChild(btn);
+      boardEl.appendChild(btn);
     });
     renderCounter();
     renderLevel();
@@ -135,7 +136,7 @@
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('celebrarTexto'));
   }

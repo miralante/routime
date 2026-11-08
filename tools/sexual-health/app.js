@@ -20,7 +20,12 @@
   var solved = false;
   var attempts = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    levels: function () { return bank.niveles; }
+  });
+  var save = glue.save, levelBasedOnProgress = glue.levelFromProgress;
   function paintStars() { $('#stars').textContent = ''; }
 
   function showScreen(id) {
@@ -30,10 +35,6 @@
   }
 
   /* ---------- Nivel según progress ---------- */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, bank.niveles.length - 1);
-    return bank.niveles[idx];
-  }
 
   function renderLevel() {
     var el = $('#dificultad');
@@ -87,13 +88,13 @@
     if (solved) return;
     if (!correct) {
       attempts += 1;
-      var respuestaTrasPista = attempts > 1;
+      var answerAfterHint = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
       showExplanation(item.pista);
       App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
-        if (respuestaTrasPista) showExplanation(item.explicacion);
+        if (answerAfterHint) showExplanation(item.explicacion);
       });
       return;
     }

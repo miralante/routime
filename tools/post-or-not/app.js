@@ -1,163 +1,91 @@
-/* Routime — ¿Lo publico? */
+/* ============================================================
+   Routime — ¿Lo publico? (autonomía: privacidad en redes)
+   Mecánica: leer una situación de redes y elegir entre 3 opciones
+   lo que hay que hacer. Ronda de 8 por nivel; el error nunca se castiga.
+   La ronda la lleva App.activityPlay (assets/js/activity-play.js): esta
+   página elige el nivel, dibuja la situación y comunica cada intento.
+   ============================================================ */
 (function () {
   'use strict';
 
-  var TOOL_ID = 'lo-publico';
   var $ = App.utils.$;
-  var gameScreen = $('#gameScreen');
-  var endScreen = $('#endScreen');
   var levelEl = $('#level');
-  var situacionPictoEl = $('#situacionPicto');
-  var situacionTextoEl = $('#situacionTexto');
+  var situationPictoEl = $('#situacionPicto');
+  var situationTextEl = $('#situacionTexto');
   var optionsEl = $('#options');
-  var feedbackEl = $('#feedback');
-  var explanationWrap = $('#explanationWrap');
-  var explanationEl = $('#explanation');
-  var btnNext = $('#btnNext');
-  var progressFill = $('#progressFill');
-  var progressText = $('#progressText');
-  var starsEl = $('#stars');
-
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (!progress.completed) progress.completed = {};
-  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
   var currentLevel = null;
-  var items = [];
-  var idx = 0;
-  var roundHits = 0;
-  var solved = false;
-  var attempts = 0;
+  var roundSize = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function levelBasedOnProgress() {
-    var levelIndex = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[levelIndex];
+  /* The level follows the rounds completed: each completed round moves up one level. */
+  function levelFor(progress) {
+    var levels = bank().niveles;
+    return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
-  function renderLevel() {
-    levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
-  }
-
-  function renderProgress() {
-    var total = items.length || banco().porRonda;
-    progressFill.style.width = ((idx / total) * 100) + '%';
-    progressText.textContent = (idx + 1) + ' / ' + total;
-  }
-
-  function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
-    idx = 0;
-    roundHits = 0;
-    endScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    renderLevel();
-    render();
-  }
-
-  function render() {
-    var item = items[idx];
-    if (!item) return endRound();
-    solved = false;
-    attempts = 0;
-    situacionPictoEl.textContent = item.picto;
-    situacionTextoEl.textContent = item.situacion;
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    explanationWrap.classList.add('hidden');
-    explanationEl.textContent = '';
-    btnNext.classList.add('hidden');
-    optionsEl.innerHTML = '';
-
-    App.utils.shuffle(item.options.map(function (text, i) {
-      return { text: text, isCorrect: i === item.correcta, index: i };
-    })).forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.text;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item, op.index); });
-      optionsEl.appendChild(btn);
-    });
-    renderProgress();
-    renderStars();
-  }
-
-  function showExplanation(isCorrect, item) {
-    var text = isCorrect
-      ? App.i18n.t('explicacionCorrecta')
-      : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
-    explanationEl.textContent = text;
-    explanationWrap.classList.remove('hidden');
-  }
-
-  /* Socratic hint for the option chosen: why it is not right and a clue
-     toward the right one (item.pistas[index]). */
-  function showHint(item, index) {
-    var pista = item.pistas[index];
-    explanationEl.textContent = pista ? '🤔 ' + pista : App.i18n.t('pista');
-    explanationWrap.classList.remove('hidden');
-  }
-
-  function answer(btn, isCorrect, item, index) {
-    if (solved) return;
-    if (isCorrect) {
-      showExplanation(true, item);
-      solved = true;
-      btn.classList.add('correcta');
-      Array.prototype.forEach.call(optionsEl.querySelectorAll('.btn-opcion'), function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      progress.stars += 1;
-      roundHits += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-      save();
-      renderStars();
-      btnNext.classList.remove('hidden');
-      btnNext.focus();
-      return;
+  App.activityPlay({
+    toolId: 'lo-publico',
+    roundsKey: 'roundsCompleted',
+    ui: {
+      game: '#gameScreen',
+      end: '#endScreen',
+      feedback: '#feedback',
+      explanationWrap: '#explanationWrap',
+      explanation: '#explanation',
+      btnNext: '#btnNext',
+      progressFill: '#progressFill',
+      progressText: '#progressText',
+      stars: '#stars',
+      summary: '#endSummary',
+      btnRepeat: '#repeatBtn'
+    },
+    items: function (progress) {
+      if (!progress.completed) progress.completed = {};
+      currentLevel = levelFor(progress);
+      levelEl.textContent = currentLevel.name + ' · ' + currentLevel.descripcion;
+      var entries = App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
+      roundSize = entries.length;
+      return entries;
+    },
+    mount: function (item, play) {
+      situationPictoEl.textContent = item.picto;
+      situationTextEl.textContent = item.situacion;
+      optionsEl.innerHTML = '';
+      var buttons = [];
+      App.utils.shuffle(item.options.map(function (text, i) {
+        return { text: text, isCorrect: i === item.correcta, index: i };
+      })).forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-opcion';
+        btn.textContent = op.text;
+        btn.addEventListener('click', function () {
+          /* Socratic hint for the option chosen: why it is not right and a clue toward the right one. */
+          var hint = item.pistas[op.index];
+          play.attempt(op.isCorrect, {
+            control: btn,
+            hint: hint ? '🤔 ' + hint : App.i18n.t('pista'),
+            explanation: op.isCorrect
+              ? App.i18n.t('explicacionCorrecta')
+              : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.'
+          });
+        });
+        optionsEl.appendChild(btn);
+        buttons.push(btn);
+      });
+      return buttons;
+    },
+    summary: function (hits) {
+      return App.i18n.t('roundSummary').replace('{hits}', hits).replace('{total}', roundSize);
+    },
+    onEnd: function (play) {
+      play.progress.completed[currentLevel.id] = (play.progress.completed[currentLevel.id] || 0) + 1;
+      play.save();
     }
+  });
 
-    attempts += 1;
-    var respuestaTrasPista = attempts > 1;
-    showHint(item, index);
-    btn.classList.add('animo');
-    btn.disabled = true;
-    App.feedback.encourage(feedbackEl);
-    App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap, function () {
-      if (respuestaTrasPista) showExplanation(false, item);
-    });
-  }
-
-  function next() {
-    idx += 1;
-    if (idx >= items.length) endRound();
-    else render();
-  }
-
-  function endRound() {
-    progress.roundsCompleted += 1;
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
-    save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
-    $('#endSummary').textContent = App.i18n.t('roundSummary')
-      .replace('{hits}', roundHits).replace('{total}', items.length);
-    App.feedback.celebrate(App.i18n.t('roundComplete'));
-    renderStars();
-  }
-
-  btnNext.addEventListener('click', next);
-  $('#repeatBtn').addEventListener('click', startGame);
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
-
-  renderStars();
-  // Iniciar directamente la actividad
-  startGame();
 })();

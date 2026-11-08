@@ -395,6 +395,28 @@ slugs.forEach(function (slug) {
   }
 });
 
+/* --- 8b. Shared activity glue (assets/js/activity-glue.js).
+   save() and the star count are the same in every activity: they come from
+   App.activityGlue, not from a local copy. An activity that calls
+   App.activityGlue must load the file in its index.html. */
+slugs.forEach(function (slug) {
+  var appFile = path.join(toolsDir, slug, 'app.js');
+  var htmlFile = path.join(toolsDir, slug, 'index.html');
+  if (!fs.existsSync(appFile) || !fs.existsSync(htmlFile)) return;
+  checks += 1;
+  var appTxt = fs.readFileSync(appFile, 'utf8');
+  var htmlTxt = fs.readFileSync(htmlFile, 'utf8');
+  if (/function\s+save\s*\(\)\s*\{\s*App\.storage\.set\(TOOL_ID,\s*progress\);?\s*\}/.test(appTxt)) {
+    fallos.push('tools/' + slug + '/app.js: define su propio save(). Usar App.activityGlue (assets/js/activity-glue.js): var glue = App.activityGlue({...}); var save = glue.save;');
+  }
+  if (/function\s+renderStars\s*\(\)\s*\{\s*[^}]*\.textContent = '⭐ ' \+ progress\.stars;\s*\}/.test(appTxt)) {
+    fallos.push('tools/' + slug + '/app.js: define su propio renderStars(). Usar glue.paintStars de App.activityGlue');
+  }
+  if (/App\.activityGlue\(/.test(appTxt) && !/activity-glue\.js/.test(htmlTxt)) {
+    fallos.push('tools/' + slug + '/index.html: usa App.activityGlue pero no carga assets/js/activity-glue.js');
+  }
+});
+
 /* --- 9. Catalog parity lock.
    The set of activity slugs must match between:
      - tools/ folders on disk (source of truth)

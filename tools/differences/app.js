@@ -15,9 +15,9 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var escenaTituloEl = $('#escenaTitulo');
-  var rejillaIzqEl = $('#rejillaIzquierda');
-  var rejillaDerEl = $('#rejillaDerecha');
+  var sceneTitleEl = $('#escenaTitulo');
+  var gridLeftEl = $('#rejillaIzquierda');
+  var gridRightEl = $('#rejillaDerecha');
   var counterEl = $('#contador');
   var feedbackEl = $('#feedback');
   var btnNext = $('#btnNext');
@@ -32,93 +32,97 @@
 
   /* Round state */
   var escenas = [];
-  var escenaIdx = 0;
-  var porRonda = 3;
-  var diferenciasMapa = {};   /* celda -> pictoDerecha */
+  var sceneIdx = 0;
+  var perRound = 3;
+  var differencesMap = {};   /* celda -> pictoDerecha */
   var encontradas = {};       /* celda -> true */
-  var totalDiferencias = 0;
+  var totalDifferences = 0;
   var fallosSeguidos = 0;
   var ayudaTimeout = null;
   var roundHits = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function startRound() {
-    var banco = DATA[App.i18n.locale()] || DATA.es;
-    escenas = App.utils.shuffle(banco.escenas).slice(0, banco.porRonda);
-    porRonda = banco.porRonda;
-    escenaIdx = 0;
+    var bank = DATA[App.i18n.locale()] || DATA.es;
+    escenas = App.utils.shuffle(bank.escenas).slice(0, bank.porRonda);
+    perRound = bank.porRonda;
+    sceneIdx = 0;
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    pintarEscena();
+    paintScene();
   }
 
-  function pintarProgresoGlobal() {
-    progressFill.style.width = ((escenaIdx / porRonda) * 100) + '%';
+  function paintProgressGlobal() {
+    progressFill.style.width = ((sceneIdx / perRound) * 100) + '%';
     progressText.textContent = '';
   }
 
-  function crearRejilla(contenedor) {
-    contenedor.innerHTML = '';
+  function createGrid(container) {
+    container.innerHTML = '';
     var celdas = [];
     for (var i = 0; i < CELDAS; i++) {
       var div = document.createElement('div');
       div.className = 'celda';
-      contenedor.appendChild(div);
+      container.appendChild(div);
       celdas.push(div);
     }
     return celdas;
   }
 
-  function pintarEscena() {
+  function paintScene() {
     if (ayudaTimeout) { clearTimeout(ayudaTimeout); ayudaTimeout = null; }
-    var escena = escenas[escenaIdx];
-    escenaTituloEl.textContent = App.i18n.t(escena.nombreKey);
+    var scene = escenas[sceneIdx];
+    sceneTitleEl.textContent = App.i18n.t(scene.nombreKey);
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     btnNext.classList.add('hidden');
     fallosSeguidos = 0;
     encontradas = {};
-    diferenciasMapa = {};
-    escena.diferencias.forEach(function (d) { diferenciasMapa[d.celda] = d.pictoDerecha; });
-    totalDiferencias = escena.diferencias.length;
+    differencesMap = {};
+    scene.diferencias.forEach(function (d) { differencesMap[d.celda] = d.pictoDerecha; });
+    totalDifferences = scene.diferencias.length;
 
-    var celdasIzq = crearRejilla(rejillaIzqEl);
-    var celdasDer = crearRejilla(rejillaDerEl);
+    var cellsLeft = createGrid(gridLeftEl);
+    var cellsRight = createGrid(gridRightEl);
 
-    escena.objetos.forEach(function (obj) {
-      celdasIzq[obj.celda].textContent = obj.picto;
-      celdasIzq[obj.celda].setAttribute('aria-hidden', 'true');
+    scene.objetos.forEach(function (obj) {
+      cellsLeft[obj.celda].textContent = obj.picto;
+      cellsLeft[obj.celda].setAttribute('aria-hidden', 'true');
 
-      var picto = diferenciasMapa.hasOwnProperty(obj.celda) ? diferenciasMapa[obj.celda] : obj.picto;
+      var picto = differencesMap.hasOwnProperty(obj.celda) ? differencesMap[obj.celda] : obj.picto;
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'objeto-btn';
       btn.textContent = picto;
       btn.setAttribute('aria-label', App.i18n.t('ariaDibujo'));
       btn.dataset.celda = obj.celda;
-      btn.addEventListener('click', function () { tocar(obj.celda, btn); });
-      celdasDer[obj.celda].appendChild(btn);
+      btn.addEventListener('click', function () { tap(obj.celda, btn); });
+      cellsRight[obj.celda].appendChild(btn);
     });
 
-    pintarProgresoGlobal();
-    pintarContadorDiferencias();
+    paintProgressGlobal();
+    paintCounterDifferences();
     renderStars();
   }
 
-  function pintarContadorDiferencias() {
+  function paintCounterDifferences() {
     var n = Object.keys(encontradas).length;
     counterEl.textContent = '';
   }
 
-  function tocar(celda, btn) {
-    if (encontradas[celda]) return;
+  function tap(cell, btn) {
+    if (encontradas[cell]) return;
 
-    if (diferenciasMapa.hasOwnProperty(celda)) {
-      encontradas[celda] = true;
+    if (differencesMap.hasOwnProperty(cell)) {
+      encontradas[cell] = true;
       btn.classList.add('encontrada');
       btn.disabled = true;
       fallosSeguidos = 0;
@@ -128,9 +132,9 @@
       roundHits += 1;
       save();
       renderStars();
-      pintarContadorDiferencias();
-      if (Object.keys(encontradas).length >= totalDiferencias) {
-        terminarEscena();
+      paintCounterDifferences();
+      if (Object.keys(encontradas).length >= totalDifferences) {
+        finishScene();
       }
     } else {
       fallosSeguidos += 1;
@@ -144,21 +148,21 @@
 
   /* Ayuda sin castigo: parpadeo suave en una diferencia sin encontrar */
   function showHelp() {
-    var pendientes = Object.keys(diferenciasMapa).filter(function (celda) {
-      return !encontradas[celda];
+    var pendientes = Object.keys(differencesMap).filter(function (cell) {
+      return !encontradas[cell];
     });
     if (!pendientes.length) return;
-    var celda = pendientes[Math.floor(Math.random() * pendientes.length)];
-    var btn = rejillaDerEl.querySelector('[data-celda="' + celda + '"]');
+    var cell = pendientes[Math.floor(Math.random() * pendientes.length)];
+    var btn = gridRightEl.querySelector('[data-celda="' + cell + '"]');
     if (!btn) return;
     btn.classList.add('help');
     if (ayudaTimeout) clearTimeout(ayudaTimeout);
     ayudaTimeout = setTimeout(function () { btn.classList.remove('help'); }, 2500);
   }
 
-  function terminarEscena() {
+  function finishScene() {
     btnNext.classList.remove('hidden');
-    if (escenaIdx >= porRonda - 1) {
+    if (sceneIdx >= perRound - 1) {
       btnNext.textContent = App.i18n.t('verResultado');
     } else {
       btnNext.textContent = App.i18n.t('siguienteEscena');
@@ -167,11 +171,11 @@
   }
 
   function nextScene() {
-    escenaIdx += 1;
-    if (escenaIdx >= porRonda) {
+    sceneIdx += 1;
+    if (sceneIdx >= perRound) {
       endRound();
     } else {
-      pintarEscena();
+      paintScene();
     }
   }
 
@@ -180,7 +184,7 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#summary').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
+    $('#resumenFinal').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
     App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }

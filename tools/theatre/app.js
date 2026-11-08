@@ -23,10 +23,10 @@
   var endScreen = $('#endScreen');
   var consignaEl = $('#consigna');
   var personajeEl = $('#personajeActual');
-  var escenarioEl = $('#escenario');
+  var scenarioEl = $('#escenario');
   var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
+  var explanationWrap = $('#explicacionWrap');
+  var explanationEl = $('#explicacion');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -40,25 +40,26 @@
 
   /* Round state */
   var currentLevel = null;  /* nivel selected según progress */
-  var idxEscena = 0;
+  var idxScene = 0;
   var roundHits = 0;
   var slots = [];           /* 8 posiciones (row*COLS+col): {picto, name} | null */
   var ordenes = [];         /* [{ personaje, ref, refCol, rel }] */
-  var idxOrden = 0;
+  var idxOrder = 0;
   var attempts = 0;
-  var enEscena = false;
+  var insideScene = false;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return bank().niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   /* Determina el nivel según el progress: cada 3 rondas completadas,
      sube un nivel (0=nivel1 con 2, 1=nivel2 con 3, 2=nivel3 con 4) */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idx];
-  }
 
   /* Muestra la dificultad current (número de personajes) */
   function renderLevel() {
@@ -70,26 +71,26 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-    idxEscena = 0;
+    idxScene = 0;
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
     renderLevel();
-    nuevaEscena();
+    newerScene();
   }
 
   function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idxEscena / porRonda) * 100) + '%';
+    var perRound = bank().porRonda;
+    progressFill.style.width = ((idxScene / perRound) * 100) + '%';
     progressText.textContent = '';
   }
 
   /* ---- Montar la escena: 1 referencia por column, row al azar;
      las órdenes usan columnas distintas ---- */
-  function nuevaEscena() {
-    var refs = App.utils.shuffle(banco().referencias).slice(0, COLS);
-    var personajes = App.utils.shuffle(banco().personajes).slice(0, currentLevel.ordenes);
-    var columnasOrden = App.utils.shuffle([0, 1, 2, 3]).slice(0, currentLevel.ordenes);
+  function newerScene() {
+    var refs = App.utils.shuffle(bank().referencias).slice(0, COLS);
+    var personajes = App.utils.shuffle(bank().personajes).slice(0, currentLevel.ordenes);
+    var columnsOrder = App.utils.shuffle([0, 1, 2, 3]).slice(0, currentLevel.ordenes);
 
     slots = new Array(2 * COLS).fill(null);
     ordenes = [];
@@ -97,7 +98,7 @@
       var row = Math.random() < 0.5 ? 0 : 1;
       slots[row * COLS + col] = { picto: ref.picto, name: ref.el, ref: ref, row: row };
     });
-    columnasOrden.forEach(function (col, i) {
+    columnsOrder.forEach(function (col, i) {
       var refSlot = slots[col] ? slots[col] : slots[COLS + col];
       /* If the reference is in the back (row 0), the character goes
          in front; if it's in front (row 1), it goes behind. */
@@ -105,24 +106,24 @@
       ordenes.push({ personaje: personajes[i], ref: refSlot.ref, refCol: col, rel: rel });
     });
 
-    idxOrden = 0;
+    idxOrder = 0;
     attempts = 0;
-    enEscena = true;
+    insideScene = true;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
+    explanationWrap.classList.add('hidden');
+    explanationEl.textContent = '';
     btnNext.classList.add('hidden');
-    pintarEscenario();
-    pintarOrden();
+    paintScenario();
+    paintOrder();
     renderProgress();
     renderStars();
   }
 
-  function slotObjetivo() {
-    var o = ordenes[idxOrden];
-    var filaObjetivo = o.rel === 'delante' ? 1 : 0;
-    return filaObjetivo * COLS + o.refCol;
+  function slotGoal() {
+    var o = ordenes[idxOrder];
+    var rowGoal = o.rel === 'delante' ? 1 : 0;
+    return rowGoal * COLS + o.refCol;
   }
 
   function ariaSlot(i) {
@@ -134,8 +135,8 @@
     return App.i18n.t(row === 0 ? 'ariaSitioFondo' : 'ariaSitioDelante').replace('{c}', col);
   }
 
-  function pintarEscenario(marcarObjetivo) {
-    escenarioEl.innerHTML = '';
+  function paintScenario(markGoal) {
+    scenarioEl.innerHTML = '';
     for (var row = 0; row < 2; row++) {
       var banda = document.createElement('div');
       banda.className = row === 0 ? 'banda fondo' : 'banda delante';
@@ -145,81 +146,81 @@
         btn.type = 'button';
         btn.className = 'sitio' + (slots[i] ? ' ocupado' : '');
         btn.textContent = slots[i] ? slots[i].picto : '';
-        btn.disabled = !enEscena || slots[i] !== null;
+        btn.disabled = !insideScene || slots[i] !== null;
         btn.setAttribute('aria-label', ariaSlot(i));
-        if (marcarObjetivo && i === slotObjetivo()) btn.classList.add('sugerida');
+        if (markGoal && i === slotGoal()) btn.classList.add('sugerida');
         (function (idx, b) {
-          b.addEventListener('click', function () { tocarSitio(idx); });
+          b.addEventListener('click', function () { tapPlace(idx); });
         })(i, btn);
         banda.appendChild(btn);
       }
-      escenarioEl.appendChild(banda);
+      scenarioEl.appendChild(banda);
     }
   }
 
   function textoConsigna() {
-    var o = ordenes[idxOrden];
+    var o = ordenes[idxOrder];
     return App.i18n.t('consigna')
       .replace('{pers}', o.personaje.el)
       .replace('{rel}', App.i18n.t('rel_' + o.rel))
       .replace('{ref}', o.ref.del);
   }
 
-  function pintarOrden() {
+  function paintOrder() {
     attempts = 0;
-    var o = ordenes[idxOrden];
+    var o = ordenes[idxOrder];
     personajeEl.textContent = o.personaje.picto;
     consignaEl.textContent = textoConsigna();
   }
 
-  function tocarSitio(i) {
-    if (!enEscena || slots[i] !== null) return;
-    var o = ordenes[idxOrden];
-    if (i === slotObjetivo()) {
+  function tapPlace(i) {
+    if (!insideScene || slots[i] !== null) return;
+    var o = ordenes[idxOrder];
+    if (i === slotGoal()) {
       slots[i] = { picto: o.personaje.picto, name: o.personaje.el };
       App.feedback.success(feedbackEl);
-      explicacionEl.textContent = App.i18n.t('okSitio')
+      explanationEl.textContent = App.i18n.t('okSitio')
         .replace('{pers}', cap(o.personaje.el))
         .replace('{rel}', App.i18n.t('rel_' + o.rel))
         .replace('{ref}', o.ref.del);
-      explicacionWrap.classList.remove('hidden');
-      idxOrden += 1;
-      if (idxOrden >= ordenes.length) {
+      explanationWrap.classList.remove('hidden');
+      idxOrder += 1;
+      if (idxOrder >= ordenes.length) {
         completarEscena();
       } else {
-        pintarEscenario();
-        pintarOrden();
+        paintScenario();
+        paintOrder();
       }
     } else {
       attempts += 1;
       App.feedback.encourage(feedbackEl);
       if (attempts === 1) {
         /* Rule 12: first failure → shows which row is front/back */
-        explicacionEl.textContent = App.i18n
+        explanationEl.textContent = App.i18n
           .t(o.rel === 'delante' ? 'pistaDelante' : 'pistaDetras')
           .replace('{ref}', o.ref.el);
-        pintarEscenario();
+        paintScenario();
       } else {
         /* Segundo fallo → se marca el sitio correct */
-        explicacionEl.textContent = App.i18n.t('malSitio')
+        explanationEl.textContent = App.i18n.t('malSitio')
           .replace('{rel}', App.i18n.t('rel_' + o.rel))
           .replace('{ref}', o.ref.del);
-        pintarEscenario(true);
+        paintScenario(true);
       }
-      explicacionWrap.classList.remove('hidden');
+      explanationWrap.classList.remove('hidden');
     }
   }
 
   function completarEscena() {
-    enEscena = false;
-    idxEscena += 1;
+    insideScene = false;
+    idxScene += 1;
     roundHits += 1;
     progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
     save();
     renderStars();
     renderProgress();
-    pintarEscenario();
+    paintScenario();
     personajeEl.textContent = '';
     consignaEl.textContent = App.i18n.t('escenaCompletada');
     App.feedback.celebrate(App.i18n.t('escenaCompletada'));
@@ -228,10 +229,10 @@
   }
 
   function next() {
-    if (idxEscena >= banco().porRonda) {
+    if (idxScene >= bank().porRonda) {
       endRound();
     } else {
-      nuevaEscena();
+      newerScene();
     }
   }
 
@@ -242,7 +243,7 @@
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
+      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }

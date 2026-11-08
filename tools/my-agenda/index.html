@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi agenda | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
-  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
-  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v0621c865">
+  <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v3615648a">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v962b12ea">
   <link rel="stylesheet" href="styles.css?v=routime-v1972d125">
 </head>
@@ -19,7 +19,7 @@
     </header>
 
     <main>
-      <section id="startScreen" class="pila centered">
+      <section id="startScreen" class="hidden pila centered">
         <div class="row centered-row">
           <p class="instruction" id="instruction" data-i18n="instruction">Elige el plan que está bien preparado.</p>
         </div>
@@ -66,21 +66,22 @@
 
   <script src="../../assets/js/utils.js?v=routime-v32a47fbd"></script>
   <script src="../../assets/js/i18n.js?v=routime-v729f90fb"></script>
-  <script src="../../assets/js/storage.js?v=routime-veaa669aa"></script>
-  <script src="../../assets/js/feedback.js?v=routime-v306d9b8a"></script>
+  <script src="../../assets/js/storage.js?v=routime-v5a07cc2a"></script>
+  <script src="../../assets/js/feedback.js?v=routime-vabee13e2"></script>
   <script>
     (function () {
       var locale = window.App.i18n.locale();
       document.write('<script src="strings.' + locale + '.js?v=' + Date.now() + '"><\/script>');
     })();
   </script>
-  <script src="data.js?v=routime-v84d5421a"></script>
-  <script src="app.js?v=routime-v2f65dcc6"></script>
+  <script src="data.js?v=routime-v82fcfc39"></script>
+  <script src="../../assets/js/activity-glue.js?v=routime-v05f27e1d"></script>
+  <script src="app.js?v=routime-vccb5c575"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});
     }
   </script>
-<script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
+<script src="../../assets/js/sw-update.js?v=routime-v3f9b562c" defer></script>
 </body>
 </html>

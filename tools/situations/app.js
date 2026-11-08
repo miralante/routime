@@ -7,7 +7,7 @@
   var TOOL_ID = 'situaciones';
   var $ = App.utils.$;
   var menuScreen = $('#menuScreen');
-  var menuNiveles = $('#menuNiveles');
+  var menuLevels = $('#menuNiveles');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var levelEl = $('#level');
@@ -37,17 +37,21 @@
   var solved = false;
   var attempts = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function keyOf(level, grupo) { return level.id + ':' + grupo; }
+  function keyOf(level, group) { return level.id + ':' + group; }
 
   // Situaciones de una subactividad, en su orden didáctico. Cada entrada
   // guarda su nivel para mostrarlo en la cabecera del juego.
-  function itemsOf(level, grupo) {
+  function itemsOf(level, group) {
     var out = [];
     level.items.forEach(function (item) {
-      if (item.grupo === grupo) out.push({ level: level, item: item });
+      if (item.grupo === group) out.push({ level: level, item: item });
     });
     return out;
   }
@@ -60,20 +64,20 @@
 
   // Menú: una sección por nivel, con una tarjeta por subactividad.
   function renderMenu() {
-    menuNiveles.innerHTML = '';
+    menuLevels.innerHTML = '';
     bank().niveles.forEach(function (level) {
-      var bloque = document.createElement('div');
-      bloque.className = 'nivel-bloque';
+      var block = document.createElement('div');
+      block.className = 'nivel-bloque';
 
       var heading = document.createElement('h2');
       heading.textContent = level.name + ' · ' + level.descripcion;
-      bloque.appendChild(heading);
+      block.appendChild(heading);
 
       var grid = document.createElement('div');
       grid.className = 'cards-grid';
-      Object.keys(level.grupos).forEach(function (grupo) {
-        var entries = itemsOf(level, grupo);
-        var done = progress.completed[keyOf(level, grupo)] || 0;
+      Object.keys(level.grupos).forEach(function (group) {
+        var entries = itemsOf(level, group);
+        var done = progress.completed[keyOf(level, group)] || 0;
 
         var card = document.createElement('button');
         card.type = 'button';
@@ -86,7 +90,7 @@
 
         var name = document.createElement('span');
         name.className = 'name';
-        name.textContent = level.grupos[grupo];
+        name.textContent = level.grupos[group];
 
         var detalle = document.createElement('span');
         detalle.className = 'detalle';
@@ -100,11 +104,11 @@
         card.appendChild(name);
         card.appendChild(detalle);
         card.appendChild(marca);
-        card.addEventListener('click', function () { startGame(level, grupo); });
+        card.addEventListener('click', function () { startGame(level, group); });
         grid.appendChild(card);
       });
-      bloque.appendChild(grid);
-      menuNiveles.appendChild(bloque);
+      block.appendChild(grid);
+      menuLevels.appendChild(block);
     });
   }
 
@@ -115,9 +119,9 @@
     window.scrollTo(0, 0);
   }
 
-  function startGame(level, grupo) {
-    current = { level: level, grupo: grupo, key: keyOf(level, grupo) };
-    items = itemsOf(level, grupo);
+  function startGame(level, group) {
+    current = { level: level, grupo: group, key: keyOf(level, group) };
+    items = itemsOf(level, group);
     index = 0;
     hits = 0;
     showScreen(gameScreen);
@@ -171,14 +175,14 @@
     if (solved) return;
     if (!correct) {
       attempts += 1;
-      var respuestaTrasPista = attempts > 1;
+      var answerAfterHint = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage(feedbackEl);
       explanationEl.textContent = App.i18n.t('pista') + ' "' + item.situacion + '"';
       explanationWrap.classList.remove('hidden');
       App.feedback.lockUntilAck(optionsEl.querySelectorAll('.btn-opcion'), explanationWrap, function () {
-        if (respuestaTrasPista) {
+        if (answerAfterHint) {
           explanationEl.textContent = App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
           explanationWrap.classList.remove('hidden');
         }
@@ -225,12 +229,12 @@
       var heading = document.createElement('h2');
       heading.textContent = level.name + ' · ' + level.descripcion;
       listEl.appendChild(heading);
-      Object.keys(level.grupos).forEach(function (grupo) {
+      Object.keys(level.grupos).forEach(function (group) {
         var subheading = document.createElement('h3');
-        subheading.textContent = level.grupos[grupo];
+        subheading.textContent = level.grupos[group];
         var ul = document.createElement('ul');
         ul.className = 'lista-situaciones';
-        level.items.filter(function (item) { return item.grupo === grupo; }).forEach(function (item) {
+        level.items.filter(function (item) { return item.grupo === group; }).forEach(function (item) {
           var li = document.createElement('li');
           var picto = document.createElement('span');
           picto.className = 'lista-picto';

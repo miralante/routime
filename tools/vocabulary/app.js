@@ -23,7 +23,7 @@
   var cardsScreen = $('#cardsScreen');
   var quizScreen = $('#quizScreen');
   var endScreen = $('#endScreen');
-  var bloquesEl = $('#bloques');
+  var blocksEl = $('#bloques');
   var tiersEl = $('#tiers');
   var roundsTitle = $('#roundsTitle');
   var roundsEl = $('#rounds');
@@ -56,8 +56,13 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (!progress.completed) progress.completed = {};
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save;
+  var paintStars = glue.paintStars;
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA; }
   function locale() { return App.i18n.locale() || 'es'; }
@@ -98,9 +103,9 @@
   }
 
   function paintBlocks() {
-    bloquesEl.innerHTML = '';
+    blocksEl.innerHTML = '';
     bank().bloques.forEach(function (bloque) {
-      var countRondas = roundsOf(bloque).length;
+      var countRounds = roundsOf(bloque).length;
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-block' + (selectedBlockId === bloque.id ? ' selected' : '');
@@ -108,7 +113,7 @@
       btn.innerHTML =
         '<span class="bloque-id">' + bloque.id + '</span> ' +
         '<span class="bloque-nombre">' + nameInLocale(bloque.nombre) + '</span>' +
-        '<span class="bloque-meta">' + countRondas + ' ' + t('roundsCount') + '</span>';
+        '<span class="bloque-meta">' + countRounds + ' ' + t('roundsCount') + '</span>';
       btn.addEventListener('click', function () {
         selectedBlockId = bloque.id;
         selectedTier = null;
@@ -116,12 +121,12 @@
         paintTiers();
         paintRounds();
       });
-      bloquesEl.appendChild(btn);
+      blocksEl.appendChild(btn);
     });
   }
 
-  function tiersInBloque(bloqueId) {
-    var bloque = bank().bloques.filter(function (b) { return b.id === bloqueId; })[0];
+  function tiersInBloque(blockId) {
+    var bloque = bank().bloques.filter(function (b) { return b.id === blockId; })[0];
     if (!bloque) return [];
     var set = {};
      roundsOf(bloque).forEach(function (r) { set[roundTier(r)] = true; });
@@ -329,13 +334,13 @@
       quizNextBtn.focus();
     } else {
       attempts += 1;
-      var respuestaTrasPista = attempts > 1;
+      var answerAfterHint = attempts > 1;
       showHint(item);
       /* Reveal the explanation only after the hint is acknowledged. */
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap, function () { if (respuestaTrasPista) showExplanation(item, false); });
+      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap, function () { if (answerAfterHint) showExplanation(item, false); });
     }
   }
 

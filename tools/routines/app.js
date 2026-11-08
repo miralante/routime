@@ -47,7 +47,12 @@
 
   var currentRoutine = null;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
 
   function escapeHtml(texto) {
     return String(texto).replace(/[&<>"']/g, function (c) {
@@ -55,7 +60,6 @@
     });
   }
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function doneOf(rutina) {
     if (!progress.done[rutina.id]) {
@@ -98,8 +102,8 @@
 
     /* Subsecciones por timeOfDay: "Pasos" (marcar paso a paso) y "Ordenar"
        (secuenciar la rutina). Cada timeOfDay tiene su propia lista de
-       rutinas en cada subsección; así separamos "hacer la tarea" de
-       "ordenar la tarea" sin mezclarlas en la misma tarjeta. */
+       rutinas en cada subsección; así separamos "make la task" de
+       "ordenar la task" sin mezclarlas en la misma tarjeta. */
     function createCard(rutina, modo) {
       var done = countDone(rutina);
       var total = rutina.steps.length;
@@ -236,7 +240,7 @@
     }
   }
 
-  /* Tarjeta de entrada a "Crea tu lista": no viene del catálogo DATA,
+  /* Tarjeta de entrada a "Crea tu list": no viene del catálogo DATA,
      así que se construye aparte, con el mismo estilo visual de tarjeta. */
   function crearSeccionListasLibres() {
     var section = document.createElement('section');
@@ -369,14 +373,14 @@
   }
 
   /* ---- Pantalla "Ordena la rutina" ----
-     Patrón "La Casa": dos columnas. Izquierda = "Tu orden" (slots
+     Patrón "La house": dos columnas. Izquierda = "Tu order" (slots
      numerados 1..N que la persona va rellenando). Derecha = "Pasos"
      disponibles (los pictogramas mezclados que toca para colocar).
      Tocar un slot ocupado devuelve su paso a la column derecha.
      Una pareja de flechas ↑/↓ permite mover el slot selected
      a una posición contigua sin tener que devolver y recolocar.
      Patrón Socrático: 1.er error → pista (primer paso correct);
-                        2.º error → "Ver solución".
+                        2.º error → "see solución".
      Reglas: nunca castigo (App.feedback.encourage), +1⭐ al acertar,
      progress persistente de orden (no se reinicia cada día). */
   var currentOrder = null;
@@ -580,7 +584,7 @@
          2+ error → pista agotada, resolver habilitado. */
     btnHint.disabled = !(currentOrder.attempts >= 1 && !currentOrder.hintUsed);
     btnResolve.disabled = !(currentOrder.attempts >= 2);
-    /* Si se ha usado "Ver solución", el comprobar no concede estrella. */
+    /* Si se ha usado "see solución", el comprobar no concede estrella. */
     btnCheck.disabled = currentOrder.solved;
   }
 
@@ -668,7 +672,7 @@
       currentOrder.hintUsed = false;
       save();
       App.feedback.encourage(orderFeedback);
-      /* Sin contador "X de Y steps en su sitio": feedback cualitativo. */
+      /* Sin contador "X de Y steps inside su place": feedback cualitativo. */
       orderFeedback.textContent = App.i18n.t('ordenIncorrecto');
       updateSocraticButtons();
     }
@@ -678,7 +682,7 @@
     /* Busca el primer slot mal colocado y lo marca visualmente.
        Si el slot 0 ya está bien, busca el primer índice cuyo paso
        correct NO esté ya en su sitio. Eso da una pista útil y
-       evita decir "pon primero X" cuando X ya está bien colocado. */
+       evita decir "pon first X" cuando X ya está bien colocado. */
     var steps = currentOrder.rutina.steps;
     var slotToMark = -1;
     for (var i = 0; i < currentOrder.slots.length; i++) {
@@ -713,11 +717,11 @@
     orderFeedback.textContent = App.i18n.t('resolveOrder');
   }
 
-  /* ---- Pantalla "Crea tu lista" ----
+  /* ---- Pantalla "Crea tu list" ----
      Patrón "Compositor" de piano-keys: la persona escribe elementos
      libres, forma un borrador, le pone name en un panel propio
      (nunca window.prompt: rompe Lectura Fácil/TTS) y lo guarda.
-     Sin Socrático (pista/explicación): no hay "respuesta correcta"
+     Sin Socrático (pista/explicación): no hay "answer correct"
      que explicar, igual que el modo libre de piano-keys o builders.
      Gana 1⭐ cada lista guardada (regla: solo se suma, nunca se resta). */
   /* editando: referencia directa al objeto dentro de progress.myLists
@@ -822,7 +826,7 @@
   }
 
   /* ---- Editar una lista guardada ----
-     Carga sus elementos en el mismo editor que "Crea tu lista": añadir,
+     Carga sus elementos en el mismo editor que "Crea tu list": añadir,
      quitar y reordenar funcionan igual. Al save se actualiza la lista
      en lugar de crear una nueva y no se concede estrella extra (evita
      "cultivar" estrellas editando una y otra vez). */

@@ -8,75 +8,26 @@
    la estrategia (busca la referencia, luego mira hacia el lado);
    segundo fallo → se marca el objetivo y se explica (reglas 11/12).
    Ronda de 8. El error nunca se castiga.
+   La ronda la lleva App.activityPlay (assets/js/activity-play.js): esta
+   página genera cada escena y comunica cada intento.
    ============================================================ */
 (function () {
   'use strict';
 
-  var TOOL_ID = 'donde-esta';
   var $ = App.utils.$;
-
-  var gameScreen = $('#gameScreen');
-  var endScreen = $('#endScreen');
   var consignaEl = $('#prompt');
-  var escenaEl = $('#escena');
-  var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnNext = $('#btnNext');
-  var progressFill = $('#progressFill');
-  var progressText = $('#progressText');
-  var starsEl = $('#stars');
-  var levelEl = $('#dificultad');
-
-  /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (!progress.completed) progress.completed = {};
-  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
-  /* Round state */
+  var sceneEl = $('#escena');
+  var levelEl = $('#level');
   var currentLevel = null;
-  var idx = 0;
-  var roundHits = 0;
-  var solved = false;
-  var attempts = 0;
-  var item = null;          /* { rel, ref, objetivo, distractor, eje } */
   var botonObjetivo = null;
 
-  function guardar() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
-  /* Determina el nivel según el progress: cada ronda completada,
-     sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
-  }
-
-  /* Muestra la dificultad actual (eje del nivel: horizontal/vertical). */
-  function renderLevel() {
-    if (levelEl) {
-      levelEl.textContent = currentLevel.relaciones.length + ' ' +
-        App.i18n.t(currentLevel.relaciones.length === 1 ? 'relacion' : 'relaciones');
-    }
-  }
-
-  function startGame() {
-    currentLevel = levelBasedOnProgress();
-    idx = 0;
-    roundHits = 0;
-    endScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    renderLevel();
-    render();
-  }
-
-  function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = '';
+  /* The level follows the rounds completed: each completed round moves up one level. */
+  function levelFor(progress) {
+    var levels = bank().niveles;
+    return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
   /* Generates an item: the level's relation + 3 distinct objects.
@@ -85,128 +36,100 @@
   function generarItem() {
     var rel = App.utils.shuffle(currentLevel.relaciones)[0];
     var eje = (rel === 'izq' || rel === 'der') ? 'fila' : 'columna';
-    var tres = App.utils.shuffle(banco().objetos).slice(0, 3);
+    var tres = App.utils.shuffle(bank().objetos).slice(0, 3);
     return { rel: rel, eje: eje, ref: tres[0], objetivo: tres[1], distractor: tres[2] };
   }
 
-  /* Orden visual: fila → izquierda-centro-derecha; columna → arriba-
-     centro-abajo. 'izq' y 'enc' ponen el objetivo primero. */
-  function ordenVisual() {
-    var primero = (item.rel === 'izq' || item.rel === 'enc');
-    return primero
+  /* Visual order: row → left-center-right; column → top-center-bottom.
+     'izq' and 'enc' put the target first. */
+  function orderVisual(item) {
+    var first = (item.rel === 'izq' || item.rel === 'enc');
+    return first
       ? [item.objetivo, item.ref, item.distractor]
       : [item.distractor, item.ref, item.objetivo];
   }
 
-  function render() {
-    item = generarItem();
-    solved = false;
-    attempts = 0;
-    botonObjetivo = null;
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
-    btnNext.classList.add('hidden');
-
-    var consigna = App.i18n.t('consigna')
-      .replace('{rel}', App.i18n.t('rel_' + item.rel))
-      .replace('{ref}', item.ref.del);
-    consignaEl.textContent = consigna;
-
-    escenaEl.className = 'escena ' + (item.eje === 'fila' ? 'en-fila' : 'en-columna');
-    escenaEl.innerHTML = '';
-    ordenVisual().forEach(function (obj) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'objeto';
-      btn.textContent = obj.picto;
-      btn.setAttribute('aria-label', App.i18n.t('ariaObjeto').replace('{objeto}', obj.el));
-      if (obj === item.objetivo) botonObjetivo = btn;
-      btn.addEventListener('click', function () { answer(btn, obj === item.objetivo); });
-      escenaEl.appendChild(btn);
-    });
-
-    renderProgress();
-    renderStars();
-  }
-
-  function answer(btn, isCorrect) {
-    if (solved) return;
-    if (isCorrect) {
-      solved = true;
-      btn.classList.add('correcta');
-      App.utils.$$('.objeto', escenaEl).forEach(function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      explicacionEl.textContent = App.i18n.t('okRelacion')
-        .replace('{objeto}', cap(item.objetivo.el))
+  App.activityPlay({
+    toolId: 'donde-esta',
+    roundsKey: 'roundsCompleted',
+    ui: {
+      game: '#gameScreen',
+      end: '#endScreen',
+      feedback: '#feedback',
+      explanationWrap: '#explanationWrap',
+      explanation: '#explanation',
+      btnNext: '#btnNext',
+      progressFill: '#progressFill',
+      progressText: '#progressText',
+      stars: '#stars',
+      btnRepeat: '#repeatBtn'
+    },
+    items: function (progress) {
+      if (!progress.completed) progress.completed = {};
+      currentLevel = levelFor(progress);
+      levelEl.textContent = currentLevel.relaciones.length + ' ' +
+        App.i18n.t(currentLevel.relaciones.length === 1 ? 'relacion' : 'relaciones');
+      var out = [];
+      for (var i = 0; i < bank().porRonda; i++) out.push(generarItem());
+      return out;
+    },
+    mount: function (item, play) {
+      var tries = 0;
+      botonObjetivo = null;
+      consignaEl.textContent = App.i18n.t('consigna')
         .replace('{rel}', App.i18n.t('rel_' + item.rel))
         .replace('{ref}', item.ref.del);
-      explicacionWrap.classList.remove('hidden');
-      progress.stars += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-      roundHits += 1;
-      guardar();
-      renderStars();
-      btnNext.classList.remove('hidden');
-      btnNext.focus();
-    } else {
-      attempts += 1;
-      btn.classList.add('animo');
-      btn.disabled = true;
-      App.feedback.encourage(feedbackEl);
-      if (attempts === 1) {
-        /* Regla 12: primer fallo → estrategia, nunca la respuesta */
-        explicacionEl.textContent = App.i18n.t('pista')
-          .replace('{ref}', item.ref.el)
-          .replace('{mira}', App.i18n.t('mira_' + item.rel));
-      } else {
-        /* Segundo fallo → se marca el objetivo y se explica */
-        explicacionEl.textContent = App.i18n.t('malRelacion')
-          .replace('{Rel}', cap(App.i18n.t('rel_' + item.rel)))
-          .replace('{ref}', item.ref.del)
-          .replace('{objeto}', item.objetivo.el);
-        if (botonObjetivo) botonObjetivo.classList.add('sugerida');
-      }
-      explicacionWrap.classList.remove('hidden');
-      App.feedback.lockUntilAck(App.utils.$$('.objeto', escenaEl), explicacionWrap);
+      sceneEl.className = 'escena ' + (item.eje === 'fila' ? 'en-fila' : 'en-columna');
+      sceneEl.innerHTML = '';
+      var buttons = [];
+      orderVisual(item).forEach(function (obj) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'objeto';
+        btn.textContent = obj.picto;
+        btn.setAttribute('aria-label', App.i18n.t('ariaObjeto').replace('{objeto}', obj.el));
+        if (obj === item.objetivo) botonObjetivo = btn;
+        btn.addEventListener('click', function () {
+          var isCorrect = obj === item.objetivo;
+          if (!isCorrect) {
+            tries += 1;
+            /* Second miss: the target is marked, as before. */
+            if (tries >= 2 && botonObjetivo) botonObjetivo.classList.add('sugerida');
+          }
+          play.attempt(isCorrect, {
+            control: btn,
+            /* The first miss gives the strategy, never the answer. */
+            hint: App.i18n.t('pista')
+              .replace('{ref}', item.ref.el)
+              .replace('{mira}', App.i18n.t('mira_' + item.rel)),
+            explanation: isCorrect
+              ? App.i18n.t('okRelacion')
+                  .replace('{objeto}', cap(item.objetivo.el))
+                  .replace('{rel}', App.i18n.t('rel_' + item.rel))
+                  .replace('{ref}', item.ref.del)
+              : App.i18n.t('malRelacion')
+                  .replace('{Rel}', cap(App.i18n.t('rel_' + item.rel)))
+                  .replace('{ref}', item.ref.del)
+                  .replace('{objeto}', item.objetivo.el)
+          });
+        });
+        sceneEl.appendChild(btn);
+        buttons.push(btn);
+      });
+      return buttons;
+    },
+    onEnd: function (play) {
+      play.progress.completed[currentLevel.id] = (play.progress.completed[currentLevel.id] || 0) + 1;
+      play.save();
+      $('#endSummary').textContent = '\n' + App.i18n.t('proximoNivel')
+        .replace('{n}', Math.min(play.progress.roundsCompleted + 1, bank().niveles.length));
     }
-  }
+  });
 
-  function next() {
-    idx += 1;
-    if (idx >= banco().porRonda) {
-      endRound();
-    } else {
-      render();
-    }
-  }
-
-  function endRound() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
-    progress.roundsCompleted += 1;
-    guardar();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-$('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-  }
-
-  /* Events */
-  btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
   $('#btnConsigna').addEventListener('click', function () {
     if (false && App.tts && App.tts.speak) App.tts.speak(consignaEl.textContent);
   });
-
-  renderStars();
-  // Iniciar directamente la actividad
-  startGame();
 })();
-

@@ -32,9 +32,13 @@
   var currentDrawing = null;
   var currentColor = colors[0];
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function renderDrawingCards() {
     var container = $('#drawings');

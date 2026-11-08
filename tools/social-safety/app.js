@@ -23,8 +23,13 @@
   var visibleScreen = 'menuScreen';
   var lastScreen = 'menuScreen';
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return $('#stars'); }
+  });
+  var save = glue.save;
+  var paintStars = glue.paintStars;
 
   function showScreen(id) {
     if (id) visibleScreen = id;
@@ -116,13 +121,13 @@
     if (solved) return;
     if (!correct) {
       attempts += 1;
-      var respuestaTrasPista = attempts > 1;
+      var answerAfterHint = attempts > 1;
       button.classList.add('animo');
       button.disabled = true;
       App.feedback.encourage($('#feedback'));
       showExplanation('🤔 ' + item.pistas[index]);
       App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
-        if (respuestaTrasPista) showExplanation(item.explicacion);
+        if (answerAfterHint) showExplanation(item.explicacion);
       });
       return;
     }
@@ -176,12 +181,12 @@
       var heading = document.createElement('h2');
       heading.textContent = level.name + ' · ' + level.descripcion;
       listEl.appendChild(heading);
-      Object.keys(level.grupos).forEach(function (grupo) {
+      Object.keys(level.grupos).forEach(function (group) {
         var subheading = document.createElement('h3');
-        subheading.textContent = level.grupos[grupo];
+        subheading.textContent = level.grupos[group];
         var ul = document.createElement('ul');
         ul.className = 'lista-casos';
-        level.casos.filter(function (item) { return item.grupo === grupo; }).forEach(function (item) {
+        level.casos.filter(function (item) { return item.grupo === group; }).forEach(function (item) {
           var li = document.createElement('li');
           var picto = document.createElement('span');
           picto.className = 'lista-picto';

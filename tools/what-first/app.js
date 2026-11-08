@@ -2,189 +2,88 @@
    Routime — ¿Qué hago primero? (autonomía: priorización)
    Datos en data.js (DATA.niveles). Módulos compartidos en assets/js/.
    Mecánica: leer una situación con dos o más cosas posibles que
-   hacer y select cuál es la más urgente o necesaria entre 3
+   hacer y elegir cuál es la más urgente o necesaria entre 3
    opciones. Ronda de 8. El error nunca se castiga.
+   La ronda la lleva App.activityPlay (assets/js/activity-play.js): esta
+   página elige el nivel, dibuja la situación y comunica cada intento.
    ============================================================ */
 (function () {
   'use strict';
 
-  var TOOL_ID = 'que-primero';
   var $ = App.utils.$;
-
-  var gameScreen = $('#gameScreen');
-  var endScreen = $('#endScreen');
-  var situacionPictoEl = $('#situacionPicto');
-  var situacionTextoEl = $('#situacionTexto');
-  var optionsEl = $('#opciones');
-  var feedbackEl = $('#feedback');
-  var explicacionWrap = $('#explicacionWrap');
-  var explicacionEl = $('#explicacion');
-  var btnListen = $('#btnListen');
-  var btnNext = $('#btnNext');
-  var progressFill = $('#progressFill');
-  var progressText = $('#progressText');
-  var starsEl = $('#stars');
-  var levelEl = $('#dificultad');
-
-  /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (!progress.completed) progress.completed = {};
-  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
-  /* Round state */
+  var situationPictoEl = $('#situacionPicto');
+  var situationTextEl = $('#situacionTexto');
+  var optionsEl = $('#options');
+  var levelEl = $('#level');
   var currentLevel = null;
-  var items = [];
-  var idx = 0;
-  var roundHits = 0;
-  var solved = false;
-  var attempts = 0;
 
-  function guardar() { App.storage.set(TOOL_ID, progress); }
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
-
-  /* Determina el nivel según el progress: cada ronda completada,
-     sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, banco().niveles.length - 1);
-    return banco().niveles[idxN];
+  /* The level follows the rounds completed: each completed round moves up one level. */
+  function levelFor(progress) {
+    var levels = bank().niveles;
+    return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
-  /* Muestra la dificultad actual (etiqueta del nivel). */
-  function renderLevel() {
-    if (levelEl) {
+  App.activityPlay({
+    toolId: 'que-primero',
+    roundsKey: 'roundsCompleted',
+    ui: {
+      game: '#gameScreen',
+      end: '#endScreen',
+      feedback: '#feedback',
+      explanationWrap: '#explanationWrap',
+      explanation: '#explanation',
+      btnNext: '#btnNext',
+      progressFill: '#progressFill',
+      progressText: '#progressText',
+      stars: '#stars',
+      btnRepeat: '#repeatBtn'
+    },
+    items: function (progress) {
+      if (!progress.completed) progress.completed = {};
+      currentLevel = levelFor(progress);
       levelEl.textContent = currentLevel.nombre;
+      return App.utils.shuffle(currentLevel.items).slice(0, bank().porRonda);
+    },
+    mount: function (item, play) {
+      situationPictoEl.textContent = item.picto;
+      situationTextEl.textContent = item.situacion;
+      optionsEl.innerHTML = '';
+      var buttons = [];
+      App.utils.shuffle(item.opciones.map(function (opt, i) {
+        return { texto: opt, isCorrect: i === item.correcta };
+      })).forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-opcion';
+        btn.textContent = op.texto;
+        btn.addEventListener('click', function () {
+          /* The hint points back to the situation already on screen. */
+          play.attempt(op.isCorrect, {
+            control: btn,
+            hint: App.i18n.t('pista') + '"' + item.situacion + '"',
+            explanation: op.isCorrect
+              ? App.i18n.t('explicacionCorrecta')
+              : App.i18n.t('explicacionIncorrectaA') + item.opciones[item.correcta] + '.'
+          });
+        });
+        optionsEl.appendChild(btn);
+        buttons.push(btn);
+      });
+      return buttons;
+    },
+    onEnd: function (play) {
+      play.progress.completed[currentLevel.id] = (play.progress.completed[currentLevel.id] || 0) + 1;
+      play.save();
+      $('#endSummary').textContent = '\n' + App.i18n.t('proximoNivel')
+        .replace('{n}', Math.min(play.progress.roundsCompleted + 1, bank().niveles.length));
+      var transferEl = $('#transferencia');
+      if (transferEl) transferEl.textContent = '';
     }
-  }
-
-  function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items).slice(0, banco().porRonda);
-    idx = 0;
-    roundHits = 0;
-    endScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    renderLevel();
-    render();
-  }
-
-  function renderProgress() {
-    var porRonda = banco().porRonda;
-    progressFill.style.width = ((idx / porRonda) * 100) + '%';
-    progressText.textContent = '';
-  }
-
-  function render() {
-    var item = items[idx];
-    solved = false;
-    attempts = 0;
-    situacionPictoEl.textContent = item.picto;
-    situacionTextoEl.textContent = item.situacion;
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    explicacionWrap.classList.add('hidden');
-    explicacionEl.textContent = '';
-    btnNext.classList.add('hidden');
-    optionsEl.innerHTML = '';
-
-    var opciones = App.utils.shuffle(item.opciones.map(function (opt, i) {
-      return { texto: opt, isCorrect: i === item.correcta };
-    }));
-
-    opciones.forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.texto;
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect, item); });
-      optionsEl.appendChild(btn);
-    });
-
-    renderProgress();
-    renderStars();
-  }
-
-  function showExplanation(isCorrect, item) {
-    var texto = isCorrect
-      ? App.i18n.t('explicacionCorrecta')
-      : App.i18n.t('explicacionIncorrectaA') + item.opciones[item.correcta] + '.';
-    explicacionEl.textContent = texto;
-    explicacionWrap.classList.remove('hidden');
-  }
-
-  /* Socratic method: on the first mistake the answer isn't given,
-     the person is pointed back to the situation already on screen.
-     Only on the second mistake is the correct answer explained
-     (showExplanation). */
-  function showHint(item) {
-    explicacionEl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
-    explicacionWrap.classList.remove('hidden');
-  }
-
-  function answer(btn, isCorrect, item) {
-    if (solved) return;
-    if (isCorrect) {
-      showExplanation(isCorrect, item);
-      solved = true;
-      btn.classList.add('correcta');
-      App.utils.$$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      progress.stars += 1;
-      if (App.feedback && App.feedback.star) App.feedback.star();
-      roundHits += 1;
-      guardar();
-      renderStars();
-      btnNext.classList.remove('hidden');
-      btnNext.focus();
-    } else {
-      attempts += 1;
-      var respuestaTrasPista = attempts > 1;
-      showHint(item);
-      /* Reveal the explanation only after the hint is acknowledged. */
-      btn.classList.add('animo');
-      btn.disabled = true;
-      App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opciones .btn-opcion'), explicacionWrap, function () { if (respuestaTrasPista) showExplanation(isCorrect, item); });
-    }
-  }
-
-  function next() {
-    idx += 1;
-    if (idx >= banco().porRonda) {
-      endRound();
-    } else {
-      render();
-    }
-  }
-
-  function endRound() {
-    progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
-    progress.roundsCompleted += 1;
-    guardar();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, banco().niveles.length));
-$('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-  }
-
-  /* Events */
-  btnListen.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].situacion);
   });
-  btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
+
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
-
-  renderStars();
-  // Iniciar directamente la actividad
-  startGame();
 })();
-

@@ -22,13 +22,13 @@
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
   var gameScreen = $('#gameScreen');
-  var pantallaCrear = $('#pantallaCrear');
+  var screenCreate = $('#createScreen');
   var endScreen = $('#endScreen');
-  var listaTituloEl = $('#listaTitulo');
-  var secuenciaEl = $('#secuencia');
+  var listTitleEl = $('#listaTitulo');
+  var sequenceEl = $('#secuencia');
   var disponiblesEl = $('#disponibles');
   var feedbackEl = $('#feedback');
-  var feedbackCrearEl = $('#feedbackCrear');
+  var feedbackCreateEl = $('#feedbackCrear');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
@@ -46,19 +46,24 @@
 
   /* Round state */
   var currentLevel = null;
-  var listas = [];
+  var lists = [];
   var idx = 0;
   var roundHits = 0;
   var nextExpected = 0;
   var slots = [];
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return DATOS.niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
   function itemText(item) { return item && (item.textContent || item.text) || ''; }
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function showScreen(id) {
-    [gameScreen, pantallaCrear, endScreen].forEach(function (p) {
+    [gameScreen, screenCreate, endScreen].forEach(function (p) {
       if (p) p.classList.add('hidden');
     });
     var dest = $('#' + id);
@@ -66,10 +71,6 @@
   }
 
   /* Determina el nivel según el progress: cada ronda completada, sube un nivel. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, DATOS.niveles.length - 1);
-    return DATOS.niveles[idxN];
-  }
 
   /* Muestra la dificultad current (etiqueta del nivel). */
   function renderLevel() {
@@ -82,7 +83,7 @@
       abrirPantallaCrear();
       return;
     }
-    listas = App.utils.shuffle(currentLevel.listas).slice(0, DATOS.porRonda);
+    lists = App.utils.shuffle(currentLevel.listas).slice(0, DATOS.porRonda);
     idx = 0;
     roundHits = 0;
     showScreen('gameScreen');
@@ -90,13 +91,13 @@
     render();
   }
 
-  function iniciarNivel(n) {
+  function startLevel(n) {
     currentLevel = n;
     if (n.listasLibres) {
       abrirPantallaCrear();
       return;
     }
-    listas = App.utils.shuffle(currentLevel.listas).slice(0, DATOS.porRonda);
+    lists = App.utils.shuffle(currentLevel.listas).slice(0, DATOS.porRonda);
     idx = 0;
     roundHits = 0;
     showScreen('gameScreen');
@@ -109,19 +110,19 @@
   }
 
   function render() {
-    var lista = listas[idx];
+    var list = lists[idx];
     nextExpected = 0;
-    slots = new Array(lista.items.length).fill(null);
+    slots = new Array(list.items.length).fill(null);
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     btnNext.classList.add('hidden');
-    listaTituloEl.textContent = lista.name;
+    listTitleEl.textContent = list.name;
 
-    pintarSlots();
+    paintSlots();
 
     disponiblesEl.innerHTML = '';
-    App.utils.shuffle(lista.items.map(function (item, orden) {
-      return { item: item, orden: orden };
+    App.utils.shuffle(list.items.map(function (item, order) {
+      return { item: item, orden: order };
     })).forEach(function (p) {
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -129,7 +130,7 @@
       btn.innerHTML = '<span class="task-picto" aria-hidden="true">' + p.item.picto + '</span>' +
         '<span class="tarea-text">' + itemText(p.item) + '</span>';
       btn.setAttribute('aria-label', App.i18n.t('ariaTarea') + ': ' + itemText(p.item));
-      btn.addEventListener('click', function () { tocar(p.orden, btn); });
+      btn.addEventListener('click', function () { tap(p.orden, btn); });
       disponiblesEl.appendChild(btn);
     });
 
@@ -137,9 +138,9 @@
     renderStars();
   }
 
-  function pintarSlots() {
-    secuenciaEl.innerHTML = '';
-    var lista = listas[idx];
+  function paintSlots() {
+    sequenceEl.innerHTML = '';
+    var list = lists[idx];
     slots.forEach(function (item, i) {
       var div = document.createElement('div');
       div.className = 'slot' + (item ? ' filled' : '');
@@ -149,28 +150,28 @@
       } else {
         div.textContent = String(i + 1);
       }
-      secuenciaEl.appendChild(div);
+      sequenceEl.appendChild(div);
     });
   }
 
-  function tocar(orden, btn) {
-    var lista = listas[idx];
-    if (orden === nextExpected) {
-      slots[orden] = lista.items[orden];
-      pintarSlots();
+  function tap(order, btn) {
+    var list = lists[idx];
+    if (order === nextExpected) {
+      slots[order] = list.items[order];
+      paintSlots();
       btn.disabled = true;
       btn.classList.add('colocada');
       App.feedback.success(feedbackEl);
       nextExpected += 1;
-      if (nextExpected >= lista.items.length) {
-        terminarTarea();
+      if (nextExpected >= list.items.length) {
+        finishTask();
       }
     } else {
       App.feedback.encourage(feedbackEl);
     }
   }
 
-  function terminarTarea() {
+  function finishTask() {
     progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
     roundHits += 1;
@@ -193,8 +194,8 @@
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     showScreen('endScreen');
-    $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
+    $('#endSummary').textContent = '';
+    if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
@@ -218,60 +219,60 @@
      tools/builders). Gana 1⭐ solo al save una lista por
      primera vez (regla: solo se suma, nunca se resta).
      ============================================================ */
-  var listaCrear = { name: '', items: [], selected: -1 };
+  var listCreate = { name: '', items: [], selected: -1 };
 
   function abrirPantallaCrear() {
-    listaCrear = { name: '', items: [], selected: -1 };
+    listCreate = { name: '', items: [], selected: -1 };
     showScreen('pantallaCrear');
     $('#panelNombre').classList.remove('hidden');
     $('#panelEditor').classList.add('hidden');
-    var inputNombre = $('#inputNombreListaCrear');
-    inputNombre.value = '';
-    inputNombre.placeholder = App.i18n.t('promptListNameDefault');
-    feedbackCrearEl.textContent = '';
-    feedbackCrearEl.className = 'feedback';
+    var inputName = $('#inputNombreListaCrear');
+    inputName.value = '';
+    inputName.placeholder = App.i18n.t('promptListNameDefault');
+    feedbackCreateEl.textContent = '';
+    feedbackCreateEl.className = 'feedback';
     renderSavedLists();
     renderStars();
-    inputNombre.focus();
+    inputName.focus();
   }
 
   function confirmarNombreLista() {
-    var inputNombre = $('#inputNombreListaCrear');
-    var name = inputNombre.value.trim().slice(0, 30);
+    var inputName = $('#inputNombreListaCrear');
+    var name = inputName.value.trim().slice(0, 30);
     if (!name) {
-      feedbackCrearEl.textContent = App.i18n.t('nombreRequerido');
-      feedbackCrearEl.className = 'feedback animo';
-      App.feedback.encourage(feedbackCrearEl);
-      inputNombre.focus();
+      feedbackCreateEl.textContent = App.i18n.t('nombreRequerido');
+      feedbackCreateEl.className = 'feedback animo';
+      App.feedback.encourage(feedbackCreateEl);
+      inputName.focus();
       return;
     }
-    listaCrear.name = name;
+    listCreate.name = name;
     $('#panelNombre').classList.add('hidden');
     $('#panelEditor').classList.remove('hidden');
-    $('#tituloListaCrear').textContent = '';
+    if ($('#tituloListaCrear')) $('#tituloListaCrear').textContent = '';
     var inputItem = $('#inputNuevoItemCrear');
     inputItem.placeholder = App.i18n.t('placeholderInputItem');
     inputItem.setAttribute('aria-label', App.i18n.t('ariaInputItem'));
-    pintarItemsCrear();
-    feedbackCrearEl.textContent = '';
-    feedbackCrearEl.className = 'feedback';
+    paintItemsCreate();
+    feedbackCreateEl.textContent = '';
+    feedbackCreateEl.className = 'feedback';
     inputItem.focus();
   }
 
-  function pintarItemsCrear() {
+  function paintItemsCreate() {
     var el = $('#itemsListaCrear');
     el.innerHTML = '';
-    if (listaCrear.items.length === 0) {
+    if (listCreate.items.length === 0) {
       var p = document.createElement('li');
       p.className = 'item-vacio';
       p.textContent = App.i18n.t('currentListEmpty');
       el.appendChild(p);
     } else {
-      listaCrear.items.forEach(function (it, i) {
+      listCreate.items.forEach(function (it, i) {
         var li = document.createElement('li');
         li.className = 'item-crear' +
           (it.done ? ' done' : '') +
-          (i === listaCrear.selected ? ' selected' : '');
+          (i === listCreate.selected ? ' selected' : '');
 
         var pos = document.createElement('span');
         pos.className = 'item-pos';
@@ -305,7 +306,7 @@
         sel.textContent = '↕';
         sel.addEventListener('click', function (e) {
           e.stopPropagation();
-          seleccionarItem(i);
+          selectItem(i);
         });
 
         var quitar = document.createElement('button');
@@ -315,7 +316,7 @@
         quitar.setAttribute('aria-label', App.i18n.t('ariaRemoveItem').replace('{text}', itemText(it)));
         quitar.addEventListener('click', function (e) {
           e.stopPropagation();
-          quitarItemCrear(i);
+          removeItemCreate(i);
         });
 
         li.appendChild(pos);
@@ -324,13 +325,13 @@
         li.appendChild(sel);
         li.appendChild(quitar);
 
-        li.addEventListener('click', function () { seleccionarItem(i); });
+        li.addEventListener('click', function () { selectItem(i); });
         el.appendChild(li);
       });
     }
 
-    var done = listaCrear.items.filter(function (x) { return x.done; }).length;
-    var total = listaCrear.items.length;
+    var done = listCreate.items.filter(function (x) { return x.done; }).length;
+    var total = listCreate.items.length;
     var progEl = $('#progresoListaCrear');
     if (total === 0) {
       progEl.textContent = '';
@@ -340,102 +341,102 @@
       progEl.textContent = '';
     }
 
-    $('#btnGuardarListaCrear').disabled = listaCrear.items.length === 0;
+    $('#btnGuardarListaCrear').disabled = listCreate.items.length === 0;
 
-    var sel = listaCrear.selected;
+    var sel = listCreate.selected;
     var btnMoveUp = $('#btnSubirItemCrear');
     var btnMoveDown = $('#btnBajarItemCrear');
-    btnMoveUp.disabled = !(sel > 0 && listaCrear.items.length > 0);
-    btnMoveDown.disabled = !(sel >= 0 && sel < listaCrear.items.length - 1);
+    btnMoveUp.disabled = !(sel > 0 && listCreate.items.length > 0);
+    btnMoveDown.disabled = !(sel >= 0 && sel < listCreate.items.length - 1);
   }
 
-  function seleccionarItem(i) {
-    listaCrear.selected = (listaCrear.selected === i) ? -1 : i;
-    pintarItemsCrear();
-    if (listaCrear.selected === -1) {
-      feedbackCrearEl.textContent = App.i18n.t('selectorVacio');
-      feedbackCrearEl.className = 'feedback';
+  function selectItem(i) {
+    listCreate.selected = (listCreate.selected === i) ? -1 : i;
+    paintItemsCreate();
+    if (listCreate.selected === -1) {
+      feedbackCreateEl.textContent = App.i18n.t('selectorVacio');
+      feedbackCreateEl.className = 'feedback';
     } else {
-      feedbackCrearEl.textContent = App.i18n.t('seleccionaParaMover');
-      feedbackCrearEl.className = 'feedback';
+      feedbackCreateEl.textContent = App.i18n.t('seleccionaParaMover');
+      feedbackCreateEl.className = 'feedback';
     }
   }
 
-  function moverItemCrear(dir) {
-    var sel = listaCrear.selected;
+  function moveItemCreate(dir) {
+    var sel = listCreate.selected;
     if (sel < 0) {
-      feedbackCrearEl.textContent = App.i18n.t('selectorVacio');
-      feedbackCrearEl.className = 'feedback';
+      feedbackCreateEl.textContent = App.i18n.t('selectorVacio');
+      feedbackCreateEl.className = 'feedback';
       return;
     }
     var j = sel + dir;
-    if (j < 0 || j >= listaCrear.items.length) return;
-    var tmp = listaCrear.items[sel];
-    listaCrear.items[sel] = listaCrear.items[j];
-    listaCrear.items[j] = tmp;
-    listaCrear.selected = j;
-    App.feedback.success(feedbackCrearEl);
-    feedbackCrearEl.textContent = '';
-    pintarItemsCrear();
+    if (j < 0 || j >= listCreate.items.length) return;
+    var tmp = listCreate.items[sel];
+    listCreate.items[sel] = listCreate.items[j];
+    listCreate.items[j] = tmp;
+    listCreate.selected = j;
+    App.feedback.success(feedbackCreateEl);
+    feedbackCreateEl.textContent = '';
+    paintItemsCreate();
   }
 
-  function anadirItemCrear() {
+  function addItemCreate() {
     var input = $('#inputNuevoItemCrear');
     var text = input.value.trim();
     if (!text) return;
-    listaCrear.items.push({ text: text.slice(0, 60), done: false });
+    listCreate.items.push({ text: text.slice(0, 60), done: false });
     input.value = '';
-    App.feedback.success(feedbackCrearEl);
-    feedbackCrearEl.textContent = '';
+    App.feedback.success(feedbackCreateEl);
+    feedbackCreateEl.textContent = '';
     input.focus();
-    pintarItemsCrear();
+    paintItemsCreate();
   }
 
-  function quitarItemCrear(i) {
-    var text = listaCrear.items[i].textContent;
-    listaCrear.items.splice(i, 1);
-    if (listaCrear.selected === i) listaCrear.selected = -1;
-    else if (listaCrear.selected > i) listaCrear.selected -= 1;
-    feedbackCrearEl.className = 'feedback';
-    App.feedback.encourage(feedbackCrearEl);
-    feedbackCrearEl.textContent = '';
-    pintarItemsCrear();
+  function removeItemCreate(i) {
+    var text = listCreate.items[i].textContent;
+    listCreate.items.splice(i, 1);
+    if (listCreate.selected === i) listCreate.selected = -1;
+    else if (listCreate.selected > i) listCreate.selected -= 1;
+    feedbackCreateEl.className = 'feedback';
+    App.feedback.encourage(feedbackCreateEl);
+    feedbackCreateEl.textContent = '';
+    paintItemsCreate();
   }
 
   function toggleHecho(i) {
-    var it = listaCrear.items[i];
+    var it = listCreate.items[i];
     it.done = !it.done;
     if (it.done) {
-      App.feedback.success(feedbackCrearEl);
-      feedbackCrearEl.textContent = '';
+      App.feedback.success(feedbackCreateEl);
+      feedbackCreateEl.textContent = '';
     } else {
-      feedbackCrearEl.textContent = '';
+      feedbackCreateEl.textContent = '';
     }
-    pintarItemsCrear();
+    paintItemsCreate();
   }
 
-  function vaciarListaCrear() {
-    listaCrear.items = [];
-    listaCrear.selected = -1;
-    feedbackCrearEl.textContent = App.i18n.t('listDeletedFeedback');
-    feedbackCrearEl.className = 'feedback';
-    pintarItemsCrear();
+  function emptyListCreate() {
+    listCreate.items = [];
+    listCreate.selected = -1;
+    feedbackCreateEl.textContent = App.i18n.t('listDeletedFeedback');
+    feedbackCreateEl.className = 'feedback';
+    paintItemsCreate();
   }
 
-  function guardarListaCrear() {
-    if (listaCrear.items.length === 0) return;
-    var entradas = listaCrear.items.map(function (it) {
+  function saveListCreate() {
+    if (listCreate.items.length === 0) return;
+    var entradas = listCreate.items.map(function (it) {
       return { text: itemText(it), done: Boolean(it.done) };
     });
     /* Si la lista ya existía (mismo name), actualizamos en vez de duplicar. */
     var idxExistente = -1;
     for (var i = 0; i < progress.myLists.length; i++) {
-      if (progress.myLists[i].name === listaCrear.name) { idxExistente = i; break; }
+      if (progress.myLists[i].name === listCreate.name) { idxExistente = i; break; }
     }
     var esNueva = idxExistente === -1;
     if (esNueva) {
       progress.myLists.push({
-        name: listaCrear.name,
+        name: listCreate.name,
         items: entradas,
         guardada: App.utils.hoy()
       });
@@ -447,8 +448,8 @@
     }
     save();
     renderStars();
-    App.feedback.success(feedbackCrearEl);
-    feedbackCrearEl.textContent = App.i18n.t('listSavedFeedback');
+    App.feedback.success(feedbackCreateEl);
+    feedbackCreateEl.textContent = App.i18n.t('listSavedFeedback');
     renderSavedLists();
   }
 
@@ -462,7 +463,7 @@
     h3.textContent = App.i18n.t('yourLists');
     el.appendChild(h3);
 
-    progress.myLists.forEach(function (lista, i) {
+    progress.myLists.forEach(function (list, i) {
       var wrap = document.createElement('div');
       wrap.className = 'saved-list';
 
@@ -473,10 +474,10 @@
       info.type = 'button';
       info.className = 'saved-list-info';
       info.setAttribute('aria-expanded', 'false');
-      info.setAttribute('aria-label', App.i18n.t('ariaViewList').replace('{name}', lista.name));
+      info.setAttribute('aria-label', App.i18n.t('ariaViewList').replace('{name}', list.name));
       var name = document.createElement('span');
       name.className = 'name';
-      name.textContent = lista.name;
+      name.textContent = list.name;
       var count = document.createElement('span');
       count.className = 'count';
       count.textContent = '';
@@ -489,19 +490,19 @@
       var btnListen = document.createElement('button');
       btnListen.type = 'button';
       btnListen.textContent = '🔊';
-      btnListen.setAttribute('aria-label', App.i18n.t('ariaListenList').replace('{name}', lista.name));
+      btnListen.setAttribute('aria-label', App.i18n.t('ariaListenList').replace('{name}', list.name));
       btnListen.addEventListener('click', function (e) {
         e.stopPropagation();
-        var done = lista.items.filter(function (x) { return x.done; }).length;
-        if (false && App.tts && App.tts.speak) App.tts.speak(lista.name + '. ' + lista.items.length + ' ' +
-          App.i18n.t('elementosCount').replace('{n}', lista.items.length) + '. ' +
-          lista.items.map(itemText).join(', '));
+        var done = list.items.filter(function (x) { return x.done; }).length;
+        if (false && App.tts && App.tts.speak) App.tts.speak(list.name + '. ' + list.items.length + ' ' +
+          App.i18n.t('elementosCount').replace('{n}', list.items.length) + '. ' +
+          list.items.map(itemText).join(', '));
       });
 
       var btnAbrir = document.createElement('button');
       btnAbrir.type = 'button';
       btnAbrir.textContent = '✏️';
-      btnAbrir.setAttribute('aria-label', App.i18n.t('ariaAbrirLista').replace('{name}', lista.name));
+      btnAbrir.setAttribute('aria-label', App.i18n.t('ariaAbrirLista').replace('{name}', list.name));
       btnAbrir.addEventListener('click', function (e) {
         e.stopPropagation();
         abrirListaGuardada(i);
@@ -510,14 +511,14 @@
       var btnErase = document.createElement('button');
       btnErase.type = 'button';
       btnErase.textContent = '🗑️';
-      btnErase.setAttribute('aria-label', App.i18n.t('ariaDeleteList').replace('{name}', lista.name));
+      btnErase.setAttribute('aria-label', App.i18n.t('ariaDeleteList').replace('{name}', list.name));
       btnErase.addEventListener('click', function (e) {
         e.stopPropagation();
         progress.myLists.splice(i, 1);
         save();
         renderSavedLists();
-        feedbackCrearEl.className = 'feedback';
-        feedbackCrearEl.textContent = App.i18n.t('listDeletedFeedback');
+        feedbackCreateEl.className = 'feedback';
+        feedbackCreateEl.textContent = App.i18n.t('listDeletedFeedback');
       });
 
       acciones.appendChild(btnListen);
@@ -530,7 +531,7 @@
 
       var itemsEl = document.createElement('ul');
       itemsEl.className = 'saved-list-items hidden';
-      lista.items.forEach(function (it) {
+      list.items.forEach(function (it) {
         var li = document.createElement('li');
         li.className = it.done ? 'done' : '';
         li.textContent = (it.done ? '✔ ' : '○ ') + itemText(it);
@@ -555,69 +556,69 @@
   function volverAMisListas() {
     $('#panelEditor').classList.add('hidden');
     $('#panelNombre').classList.remove('hidden');
-    var inputNombre = $('#inputNombreListaCrear');
-    inputNombre.value = '';
-    inputNombre.placeholder = App.i18n.t('promptListNameDefault');
-    feedbackCrearEl.textContent = '';
-    feedbackCrearEl.className = 'feedback';
+    var inputName = $('#inputNombreListaCrear');
+    inputName.value = '';
+    inputName.placeholder = App.i18n.t('promptListNameDefault');
+    feedbackCreateEl.textContent = '';
+    feedbackCreateEl.className = 'feedback';
     renderSavedLists();
     renderStars();
-    inputNombre.focus();
+    inputName.focus();
   }
 
   function abrirListaGuardada(i) {
-    var lista = progress.myLists[i];
-    if (!lista) return;
-    listaCrear = {
-      name: lista.name,
-      items: lista.items.map(function (x) { return { text: itemText(x), done: Boolean(x.done) }; }),
+    var list = progress.myLists[i];
+    if (!list) return;
+    listCreate = {
+      name: list.name,
+      items: list.items.map(function (x) { return { text: itemText(x), done: Boolean(x.done) }; }),
       selected: -1
     };
     $('#panelNombre').classList.add('hidden');
     $('#panelEditor').classList.remove('hidden');
-    $('#tituloListaCrear').textContent = '';
+    if ($('#tituloListaCrear')) $('#tituloListaCrear').textContent = '';
     var inputItem = $('#inputNuevoItemCrear');
     inputItem.value = '';
     inputItem.placeholder = App.i18n.t('placeholderInputItem');
     inputItem.setAttribute('aria-label', App.i18n.t('ariaInputItem'));
-    feedbackCrearEl.textContent = '';
-    feedbackCrearEl.className = 'feedback';
-    pintarItemsCrear();
+    feedbackCreateEl.textContent = '';
+    feedbackCreateEl.className = 'feedback';
+    paintItemsCreate();
     inputItem.focus();
   }
 
   /* Events */
   btnNext.addEventListener('click', next);
-  if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
     window.location.href = '../../';
   });
 
   /* Eventos del Nivel 3 — "Crea tu lista". */
-  var btnEmpezarCrear = $('#btnEmpezarCrear');
-  if (btnEmpezarCrear) btnEmpezarCrear.addEventListener('click', confirmarNombreLista);
-  var inputNombreListaCrear = $('#inputNombreListaCrear');
-  if (inputNombreListaCrear) inputNombreListaCrear.addEventListener('keydown', function (e) {
+  var btnStartCreate = $('#btnEmpezarCrear');
+  if (btnStartCreate) btnStartCreate.addEventListener('click', confirmarNombreLista);
+  var inputNameListCreate = $('#inputNombreListaCrear');
+  if (inputNameListCreate) inputNameListCreate.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') { e.preventDefault(); confirmarNombreLista(); }
   });
-  var btnAnadirItemCrear = $('#btnAnadirItemCrear');
-  if (btnAnadirItemCrear) btnAnadirItemCrear.addEventListener('click', anadirItemCrear);
+  var btnAddItemCreate = $('#btnAnadirItemCrear');
+  if (btnAddItemCreate) btnAddItemCreate.addEventListener('click', addItemCreate);
   var inputNuevoItemCrear = $('#inputNuevoItemCrear');
   if (inputNuevoItemCrear) inputNuevoItemCrear.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') { e.preventDefault(); anadirItemCrear(); }
+    if (e.key === 'Enter') { e.preventDefault(); addItemCreate(); }
   });
-  var btnVaciarListaCrear = $('#btnVaciarListaCrear');
-  if (btnVaciarListaCrear) btnVaciarListaCrear.addEventListener('click', vaciarListaCrear);
-  if ($('#btnGuardarListaCrear')) $('#btnGuardarListaCrear').addEventListener('click', guardarListaCrear);
-  if ($('#btnSubirItemCrear')) $('#btnSubirItemCrear').addEventListener('click', function () { moverItemCrear(-1); });
-  if ($('#btnBajarItemCrear')) $('#btnBajarItemCrear').addEventListener('click', function () { moverItemCrear(1); });
+  var btnEmptyListCreate = $('#btnVaciarListaCrear');
+  if (btnEmptyListCreate) btnEmptyListCreate.addEventListener('click', emptyListCreate);
+  if ($('#btnGuardarListaCrear')) $('#btnGuardarListaCrear').addEventListener('click', saveListCreate);
+  if ($('#btnSubirItemCrear')) $('#btnSubirItemCrear').addEventListener('click', function () { moveItemCreate(-1); });
+  if ($('#btnBajarItemCrear')) $('#btnBajarItemCrear').addEventListener('click', function () { moveItemCreate(1); });
   if ($('#btnMisListas')) $('#btnMisListas').addEventListener('click', volverAMisListas);
 
   /* "Volver" contextual: si la persona está en medio de "Crea tu
      lista", la primera pulsación la lleva al menú de niveles
      (no al sitio), igual que en routines (btnBack). */
   if ($('#btnBack')) $('#btnBack').addEventListener('click', function (e) {
-    if (!pantallaCrear.classList.contains('hidden')) {
+    if (!screenCreate.classList.contains('hidden')) {
       e.preventDefault();
       window.location.href = '../../';
     }

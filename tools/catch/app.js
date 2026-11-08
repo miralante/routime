@@ -29,12 +29,16 @@
   var taps = 0;
   var prevPos = { x: 0.5, y: 0.5 };
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
   var tapsPerRound = DATA.tapsPerRound || DATA.toquesPorRonda;
   var targetSize = DATA.size || DATA.tamano;
   var targets = DATA.targets || DATA.objetivos || [];
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   function renderProgress() {
     progressFill.style.width = ((taps / tapsPerRound) * 100) + '%';

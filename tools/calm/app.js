@@ -11,7 +11,7 @@
   var TOOL_ID = 'calma';
   var $ = App.utils.$;
 
-  var sessionScreen = $('#sessionScreen');
+  var sessionScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var circle = $('#breathingCircle');
   var textEl = $('#breathingText');
@@ -30,9 +30,13 @@
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   /* Renders the level selection buttons. */
   function renderLevels() {
@@ -92,7 +96,7 @@
     renderStars();
     sessionScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = App.i18n.t('resumenFinal', {
+    $('#endSummary').textContent = App.i18n.t('resumenFinal', {
       n: progress.stars,
       palabra: progress.stars === 1 ? App.i18n.t('estrellaSingular') : App.i18n.t('estrellaPlural')
     });
@@ -108,7 +112,7 @@
   /* Events */
   var btnEndSession = $('#btnEndSession');
   if (btnEndSession) btnEndSession.addEventListener('click', stopEarly);
-  var btnRepeat = $('#btnRepeat');
+  var btnRepeat = $('#repeatBtn');
   if (btnRepeat) btnRepeat.addEventListener('click', function () { startSession(currentLevel || bank().niveles[0]); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
@@ -120,4 +124,7 @@
   renderLevels();
   // Iniciar directamente la actividad
   startSession(bank().niveles[0]);
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
+    window.location.href = '../../';
+  });
 })();

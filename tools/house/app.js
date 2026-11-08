@@ -71,7 +71,11 @@
   if (!progress.done || typeof progress.done !== 'object' || Array.isArray(progress.done)) {
     progress.done = {};
   }
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; }
+  });
+  var save = glue.save;
 
   /* ---- Available-task bank: built-in + user-added (session only) ---- */
   /* Built-in tasks come from DATA.<locale>.tareas. They are immutable here. */
@@ -129,11 +133,11 @@
   /* Lista de solo lectura con todas las tareas, agrupadas por tema. */
   function renderAll() {
     allList.innerHTML = '';
-    Object.keys(DATOS.themes).forEach(function (tema) {
-      var tareas = catalogTasks.filter(function (t) { return t.tema === tema; });
+    Object.keys(DATOS.themes).forEach(function (topic) {
+      var tareas = catalogTasks.filter(function (t) { return t.tema === topic; });
       if (!tareas.length) return;
       var h = document.createElement('h3');
-      h.textContent = DATOS.themes[tema];
+      h.textContent = DATOS.themes[topic];
       allList.appendChild(h);
       var ul = document.createElement('ul');
       ul.className = 'lista-tareas';
@@ -175,12 +179,12 @@
     }
     /* Agrupadas por tema, en el orden de DATA.<locale>.themes. Las tareas
        añadidas por la persona van al final, en su propio grupo. */
-    var grupos = Object.keys(DATOS.themes).map(function (tema) {
-      return { nombre: DATOS.themes[tema], tareas: available.filter(function (t) { return t.tema === tema; }) };
+    var groups = Object.keys(DATOS.themes).map(function (topic) {
+      return { nombre: DATOS.themes[topic], tareas: available.filter(function (t) { return t.tema === topic; }) };
     });
     var sinTema = available.filter(function (t) { return !t.tema || !DATOS.themes[t.tema]; });
-    if (sinTema.length) grupos.push({ nombre: App.i18n.t('themeUser'), tareas: sinTema });
-    grupos.forEach(function (g) {
+    if (sinTema.length) groups.push({ nombre: App.i18n.t('themeUser'), tareas: sinTema });
+    groups.forEach(function (g) {
       if (!g.tareas.length) return;
       var cabecera = document.createElement('li');
       cabecera.className = 'theme-title';

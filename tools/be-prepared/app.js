@@ -26,8 +26,8 @@
   var $ = App.utils.$;
 
   var menuScreen = $('#menuScreen');
-  var pantallaSaber = $('#pantallaSaber');
-  var pantallaChecklist = $('#pantallaChecklist');
+  var screenKnowledge = $('#pantallaSaber');
+  var screenChecklist = $('#pantallaChecklist');
   var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
@@ -38,20 +38,24 @@
   if (!progress.completadoChecklist) progress.completadoChecklist = 0;
   if (!progress.checklistMarcado) progress.checklistMarcado = {};
 
-  var actividadActual = null; /* 'saber' | 'checklist' */
+  var activityCurrent = null; /* 'saber' | 'checklist' */
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function ocultarTodas() {
-    [menuScreen, pantallaSaber, pantallaChecklist, endScreen].forEach(function (p) {
+  function hideAll() {
+    [menuScreen, screenKnowledge, screenChecklist, endScreen].forEach(function (p) {
       p.classList.add('hidden');
     });
   }
 
   function irMenu() {
-    ocultarTodas();
+    hideAll();
     renderMenu();
     menuScreen.classList.remove('hidden');
   }
@@ -63,50 +67,50 @@
   }
 
   /* ================= Actividad 1: ¿Lo tengo ya? ================= */
-  var itemsSaber = [];
+  var itemsKnowledge = [];
   var idxS = 0;
-  var aciertosS = 0;
+  var hitsS = 0;
   var resueltoS = false;
-  var intentosS = 0;
+  var attemptsS = 0;
 
-  var saberPictoEl = $('#saberPicto');
-  var saberTextoEl = $('#saberTexto');
-  var opcionesSEl = $('#opcionesSaber');
+  var knowledgePictoEl = $('#saberPicto');
+  var knowledgeTextEl = $('#saberTexto');
+  var optionsSEl = $('#opcionesSaber');
   var feedbackSEl = $('#feedbackSaber');
-  var explicacionSWrap = $('#explicacionSaberWrap');
-  var explicacionSEl = $('#explicacionSaber');
+  var explanationSWrap = $('#explicacionSaberWrap');
+  var explanationSEl = $('#explicacionSaber');
   var progressSFill = $('#progressSaberFill');
   var progressSText = $('#progressSaberText');
   var btnNextKnow = $('#btnSiguienteSaber');
 
-  function iniciarSaber() {
-    actividadActual = 'saber';
-    itemsSaber = App.utils.shuffle(banco().saber).slice(0, banco().porRonda);
+  function startKnowledge() {
+    activityCurrent = 'saber';
+    itemsKnowledge = App.utils.shuffle(bank().saber).slice(0, bank().porRonda);
     idxS = 0;
-    aciertosS = 0;
-    ocultarTodas();
-    pantallaSaber.classList.remove('hidden');
-    renderSaber();
+    hitsS = 0;
+    hideAll();
+    screenKnowledge.classList.remove('hidden');
+    renderKnowledge();
   }
 
-  function pintarProgresoS() {
-    var porRonda = banco().porRonda;
-    progressSFill.style.width = ((idxS / porRonda) * 100) + '%';
+  function paintProgressS() {
+    var perRound = bank().porRonda;
+    progressSFill.style.width = ((idxS / perRound) * 100) + '%';
     progressSText.textContent = '';
   }
 
-  function renderSaber() {
-    var item = itemsSaber[idxS];
+  function renderKnowledge() {
+    var item = itemsKnowledge[idxS];
     resueltoS = false;
-    intentosS = 0;
-    saberPictoEl.textContent = item.picto;
-    saberTextoEl.textContent = item.pregunta;
+    attemptsS = 0;
+    knowledgePictoEl.textContent = item.picto;
+    knowledgeTextEl.textContent = item.pregunta;
     feedbackSEl.textContent = '';
     feedbackSEl.className = 'feedback';
-    explicacionSWrap.classList.add('hidden');
-    explicacionSEl.textContent = '';
+    explanationSWrap.classList.add('hidden');
+    explanationSEl.textContent = '';
     btnNextKnow.classList.add('hidden');
-    opcionesSEl.innerHTML = '';
+    optionsSEl.innerHTML = '';
 
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
       return { text: opt, isCorrect: i === item.correcta };
@@ -116,62 +120,62 @@
       btn.type = 'button';
       btn.className = 'btn-opcion';
       btn.textContent = op.text;
-      btn.addEventListener('click', function () { responderSaber(btn, op.isCorrect, item); });
-      opcionesSEl.appendChild(btn);
+      btn.addEventListener('click', function () { answerKnowledge(btn, op.isCorrect, item); });
+      optionsSEl.appendChild(btn);
     });
 
-    pintarProgresoS();
+    paintProgressS();
     renderStars();
   }
 
-  function mostrarExplicacionS(isCorrect, item) {
+  function showExplanationS(isCorrect, item) {
     var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.options[item.correcta] + '.';
-    explicacionSEl.textContent = text;
-    explicacionSWrap.classList.remove('hidden');
+    explanationSEl.textContent = text;
+    explanationSWrap.classList.remove('hidden');
   }
 
-  function responderSaber(btn, isCorrect, item) {
+  function answerKnowledge(btn, isCorrect, item) {
     if (resueltoS) return;
     if (isCorrect) {
-      mostrarExplicacionS(isCorrect, item);
+      showExplanationS(isCorrect, item);
       resueltoS = true;
       btn.classList.add('correcta');
       App.utils.$$('#opcionesSaber .btn-opcion').forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosS += 1;
+      hitsS += 1;
       save();
       renderStars();
       btnNextKnow.classList.remove('hidden');
       btnNextKnow.focus();
     } else {
-      intentosS += 1;
-      var respuestaTrasPista = intentosS > 1;
-      explicacionSEl.textContent = App.i18n.t('pista') + '"' + item.pregunta + '"';
-        explicacionSWrap.classList.remove('hidden');
+      attemptsS += 1;
+      var answerAfterHint = attemptsS > 1;
+      explanationSEl.textContent = App.i18n.t('pista') + '"' + item.pregunta + '"';
+        explanationSWrap.classList.remove('hidden');
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explicacionSWrap, function () { if (respuestaTrasPista) mostrarExplicacionS(isCorrect, item); });
+      App.feedback.lockUntilAck(App.utils.$$('#opcionesSaber .btn-opcion'), explanationSWrap, function () { if (answerAfterHint) showExplanationS(isCorrect, item); });
     }
   }
 
   function nextKnow() {
     idxS += 1;
-    if (idxS >= banco().porRonda) {
-      terminarSaber();
+    if (idxS >= bank().porRonda) {
+      finishKnowledge();
     } else {
-      renderSaber();
+      renderKnowledge();
     }
   }
 
-  function terminarSaber() {
+  function finishKnowledge() {
     progress.completadoSaber += 1;
     save();
-    ocultarTodas();
+    hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#transferencia').textContent = '';
@@ -181,27 +185,27 @@
   /* ================= Actividad 2: mi lista en casa (checklist) ================= */
   var itemsChecklist = [];
   var idxC = 0;
-  var aciertosC = 0;
+  var hitsC = 0;
   var checklistEl = $('#checklist');
   var feedbackCEl = $('#feedbackChecklist');
   var progressCFill = $('#progressChecklistFill');
   var progressCText = $('#progressChecklistText');
-  var checklistTituloEl = $('#checklistTitulo');
+  var checklistTitleEl = $('#checklistTitulo');
 
-  function iniciarChecklist() {
-    actividadActual = 'checklist';
+  function startChecklist() {
+    activityCurrent = 'checklist';
     /* Deep-clone so we don't mutate the catalogue */
-    itemsChecklist = banco().checklist.map(function (it) {
+    itemsChecklist = bank().checklist.map(function (it) {
       return { id: it.id, picto: it.picto, name: it.name, marcado: !!progress.checklistMarcado[it.id] };
     });
     idxC = 0;
-    aciertosC = 0;
-    ocultarTodas();
-    pantallaChecklist.classList.remove('hidden');
+    hitsC = 0;
+    hideAll();
+    screenChecklist.classList.remove('hidden');
     renderChecklist();
   }
 
-  function pintarProgresoC() {
+  function paintProgressC() {
     var total = itemsChecklist.length;
     progressCFill.style.width = ((idxC / total) * 100) + '%';
     progressCText.textContent = '';
@@ -210,7 +214,7 @@
   function renderChecklist() {
     feedbackCEl.textContent = '';
     feedbackCEl.className = 'feedback';
-    checklistTituloEl.textContent = App.i18n.t('checklistTitulo');
+    checklistTitleEl.textContent = App.i18n.t('checklistTitulo');
 
     checklistEl.innerHTML = '';
     itemsChecklist.forEach(function (it) {
@@ -225,7 +229,7 @@
       checklistEl.appendChild(btn);
     });
 
-    pintarProgresoC();
+    paintProgressC();
     renderStars();
   }
 
@@ -235,7 +239,7 @@
     if (item.marcado) {
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
-      aciertosC += 1;
+      hitsC += 1;
       App.feedback.success(feedbackCEl);
     } else {
       /* No se resta, pero sí se actualiza el contador de progress */
@@ -250,39 +254,39 @@
     /* Count "checked" items as completed rounds */
     var marcados = itemsChecklist.filter(function (x) { return x.marcado; }).length;
     idxC = Math.min(marcados, itemsChecklist.length);
-    pintarProgresoC();
+    paintProgressC();
     renderStars();
     if (marcados >= itemsChecklist.length) {
-      setTimeout(terminarChecklist, 700);
+      setTimeout(finishChecklist, 700);
     }
   }
 
-  function terminarChecklist() {
+  function finishChecklist() {
     progress.completadoChecklist += 1;
     save();
-    ocultarTodas();
+    hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---- Eventos ---- */
-  $('#tarjetaSaber').addEventListener('click', iniciarSaber);
-  $('#tarjetaChecklist').addEventListener('click', iniciarChecklist);
+  $('#tarjetaSaber').addEventListener('click', startKnowledge);
+  $('#tarjetaChecklist').addEventListener('click', startChecklist);
   $('#btnVolverSaber').addEventListener('click', irMenu);
   $('#btnVolverChecklist').addEventListener('click', irMenu);
   btnNextKnow.addEventListener('click', nextKnow);
-  var btnEscucharExplicacionSaber = $('#btnEscucharExplicacionSaber');
-  if (btnEscucharExplicacionSaber) btnEscucharExplicacionSaber.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(explicacionSEl.textContent);
+  var btnListenExplanationKnowledge = $('#btnEscucharExplicacionSaber');
+  if (btnListenExplanationKnowledge) btnListenExplanationKnowledge.addEventListener('click', function () {
+    if (false && App.tts && App.tts.speak) App.tts.speak(explanationSEl.textContent);
   });
-  var btnEscucharSaber = $('#btnEscucharSaber');
-  if (btnEscucharSaber) btnEscucharSaber.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(itemsSaber[idxS].pregunta);
+  var btnListenKnowledge = $('#btnEscucharSaber');
+  if (btnListenKnowledge) btnListenKnowledge.addEventListener('click', function () {
+    if (false && App.tts && App.tts.speak) App.tts.speak(itemsKnowledge[idxS].pregunta);
   });
   $('#btnRepeat').addEventListener('click', function () {
-    if (actividadActual === 'saber') iniciarSaber();
-    else iniciarChecklist();
+    if (activityCurrent === 'saber') startKnowledge();
+    else startChecklist();
   });
   $('#btnVolverMenuFinal').addEventListener('click', irMenu);
 

@@ -36,8 +36,13 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save;
+  var paintStars = glue.paintStars;
   function t(key) { return App.i18n.t(key); }
 
   function fill(key, values) {

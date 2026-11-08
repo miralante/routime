@@ -39,8 +39,13 @@
   var hintWord = -1;
   var hintLetters = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save;
+  var paintStars = glue.paintStars;
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function t(key) { return App.i18n.t(key); }
 

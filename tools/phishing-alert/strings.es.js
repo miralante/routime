@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   App.i18n.register({
+    "pista": "🤔 Piensa: ¿qué te pide el mensaje y quién te lo pide?",
     title: '🚨 Alerta Phishing',
     instruccion: 'Estos correos y mensajes son de mentira. Sirven para practicar cómo detectar trampas: phishing, enlaces sospechosos y archivos adjuntos peligrosos.',
     safetyNote: 'Si algo así te ocurre, no tienes la culpa. Pide ayuda a una persona de confianza.',

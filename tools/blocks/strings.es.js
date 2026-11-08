@@ -7,6 +7,10 @@
   'use strict';
 
   App.i18n.register({
+    "pickColor": "Elige {color}.",
+    "wrongEmpty": "Ese cuadro está vacío. Elige primero un color.",
+    "wrongColor": "Ese cuadro no va así. Mira el modelo: aquí va {color}.",
+    "buildComplete": "¡Lo has copiado entero!",
     "title": "🧱 Los Bloques",
     "instruccion": "Copia el modelo. Elige un color y toca las casillas para pintarlas igual.",
     "instruccionNivel": " Primero elige el nivel.",

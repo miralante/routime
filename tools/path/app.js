@@ -25,8 +25,8 @@
 
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var boardEl = $('#board');
-  var statusEl = $('#status');
+  var boardEl = $('#pathGrid');
+  var statusEl = $('#promptText');
   var feedbackEl = $('#feedback');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
@@ -53,14 +53,15 @@
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
   function rows() { return bank().filas; }
   function cols() { return bank().columnas; }
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return bank().niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
 
   /* Determines the level based on progress: each completed round raises one level. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, bank().niveles.length - 1);
-    return bank().niveles[idxN];
-  }
 
   /* Shows the current difficulty (level label). */
   function renderLevel() {
@@ -221,7 +222,7 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    $('#summary').textContent = App.i18n.t('summary', {
+    $('#endSummary').textContent = App.i18n.t('summary', {
       n: roundHits,
       total: progress.stars
     });
@@ -248,7 +249,7 @@
     if (dir) { ev.preventDefault(); move(dir); }
   });
   btnNext.addEventListener('click', next);
-  if ($('#btnRepeat')) $('#btnRepeat').addEventListener('click', function () { startGame(); });
+  if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     renderLevels();
@@ -259,4 +260,7 @@
   renderLevels();
   // Iniciar directamente la actividad
   startGame();
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
+    window.location.href = '../../';
+  });
 })();

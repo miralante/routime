@@ -50,8 +50,14 @@
   if (typeof progress.stars !== 'number') progress.stars = 0;
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    levels: function () { return bank(); },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, levelBasedOnProgress = glue.levelFromProgress;
+  var paintStars = glue.paintStars;
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
@@ -62,10 +68,6 @@
   }
 
   /* ---------- Nivel según progress ---------- */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, bank().length - 1);
-    return bank()[idx];
-  }
 
   function renderLevel() {
     if (levelEl) {

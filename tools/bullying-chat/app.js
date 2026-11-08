@@ -14,7 +14,7 @@
   var TOOL_ID = 'chat-acoso';
   var $ = App.utils.$;
   var $$ = App.utils.$$;
-  var PANTALLAS = ['menuScreen', 'pantallaNormas', 'pantallaChat'];
+  var SCREENS = ['menuScreen', 'pantallaNormas', 'pantallaChat'];
   var DELAY = App.utils.reducedMotion() ? 0 : 700;
   var DATOS = DATA[App.i18n.locale()] || DATA.es;
 
@@ -24,15 +24,19 @@
   if (!progress.completed) progress.completed = {};
 
   /* Chat in progress */
-  var escenario = null;
+  var scenario = null;
   var idx = 0;
   var attempts = 0;   /* Socratic counter per option (rule 12) */
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { $('#stars').textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return $('#stars'); }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
 
   function showScreen(id) {
-    PANTALLAS.forEach(function (p) {
+    SCREENS.forEach(function (p) {
       document.getElementById(p).classList.toggle('hidden', p !== id);
     });
   }
@@ -42,18 +46,18 @@
     var cont = $('#listaChats');
     cont.innerHTML = '';
     /* "My rules" is the first card, in place of a button below the list */
-    var normas = document.createElement('button');
-    normas.type = 'button';
-    normas.className = 'tarjeta-chat';
-    normas.innerHTML =
+    var rules = document.createElement('button');
+    rules.type = 'button';
+    rules.className = 'tarjeta-chat';
+    rules.innerHTML =
       '<span class="picto" aria-hidden="true">📜</span>' +
       '<span class="name">' + App.i18n.t('normasTitulo') + '</span>' +
       '<span class="done"></span>';
-    normas.addEventListener('click', function () {
-      pintarNormas();
+    rules.addEventListener('click', function () {
+      paintRules();
       showScreen('pantallaNormas');
     });
-    cont.appendChild(normas);
+    cont.appendChild(rules);
     DATOS.escenarios.forEach(function (esc) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -70,13 +74,13 @@
   }
 
   function irMenu() {
-    escenario = null;
+    scenario = null;
     renderMenu();
     showScreen('menuScreen');
   }
 
   /* ---------- Rules ---------- */
-  function pintarNormas() {
+  function paintRules() {
     var cont = $('#listaNormas');
     cont.innerHTML = '';
     DATOS.normas.forEach(function (n) {
@@ -101,7 +105,7 @@
     row.scrollIntoView({ block: 'nearest' });
   }
 
-  function limpiarZonaRespuesta() {
+  function clearZoneAnswer() {
     $('#chatOpciones').innerHTML = '';
     $('#chatPregunta').classList.add('hidden');
     $('#consejo').classList.add('hidden');
@@ -117,44 +121,44 @@
        (cases); ONE is played at random so the script can't be
        memorized. The star (progress.completed) is still per group. */
     var v = esc.variantes[Math.floor(Math.random() * esc.variantes.length)];
-    escenario = { id: esc.id, contacto: v.contacto, relacion: v.relacion, steps: v.steps, regla: v.regla };
+    scenario = { id: esc.id, contacto: v.contacto, relacion: v.relacion, steps: v.steps, regla: v.regla };
     idx = 0;
     $('#chatAlias').textContent = v.contacto;
     $('#chatBadge').textContent = v.relacion;
     $('#chatMensajes').innerHTML = '';
     $('#reglaFinal').classList.add('hidden');
-    limpiarZonaRespuesta();
+    clearZoneAnswer();
     showScreen('pantallaChat');
     nextStep();
   }
 
   function nextStep() {
-    if (!escenario) return;
-    if (idx >= escenario.steps.length) {
-      terminarChat();
+    if (!scenario) return;
+    if (idx >= scenario.steps.length) {
+      finishChat();
       return;
     }
-    var paso = escenario.steps[idx];
+    var step = scenario.steps[idx];
     idx += 1;
-    if (paso.tipo === 'msg') {
+    if (step.tipo === 'msg') {
       setTimeout(function () {
-        if (!escenario) return;
-        burbuja('ellos', paso.text);
+        if (!scenario) return;
+        burbuja('ellos', step.text);
         nextStep();
       }, DELAY);
-    } else if (paso.tipo === 'eleccion') {
-      pintarEleccion(paso);
-    } else if (paso.tipo === 'accion') {
-      pintarAccion(paso);
+    } else if (step.tipo === 'eleccion') {
+      paintChoice(step);
+    } else if (step.tipo === 'accion') {
+      paintAction(step);
     }
   }
 
-  function pintarEleccion(paso) {
-    limpiarZonaRespuesta();
+  function paintChoice(step) {
+    clearZoneAnswer();
     attempts = 0;
     $('#chatPregunta').classList.remove('hidden');
     var cont = $('#chatOpciones');
-    App.utils.shuffle(paso.options).forEach(function (op) {
+    App.utils.shuffle(step.options).forEach(function (op) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-opcion';
@@ -175,7 +179,7 @@
         $('#consejoSeguro').classList.remove('hidden');
       }
       setTimeout(function () {
-        limpiarZonaRespuesta();
+        clearZoneAnswer();
         nextStep();
       }, DELAY + 2600);
     } else {
@@ -189,18 +193,18 @@
     }
   }
 
-  function pintarAccion(paso) {
-    limpiarZonaRespuesta();
+  function paintAction(step) {
+    clearZoneAnswer();
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'btn btn-block';
-    btn.textContent = paso.text;
+    btn.textContent = step.text;
     btn.addEventListener('click', function () {
       btn.disabled = true;
-      burbuja('sistema', paso.confirmacion);
+      burbuja('sistema', step.confirmacion);
       App.feedback.success($('#feedback'));
       setTimeout(function () {
-        limpiarZonaRespuesta();
+        clearZoneAnswer();
         nextStep();
       }, DELAY + 500);
     });
@@ -208,8 +212,8 @@
     btn.focus();
   }
 
-  function terminarChat() {
-    var esc = escenario;
+  function finishChat() {
+    var esc = scenario;
     if (!progress.completed[esc.id]) {
       progress.completed[esc.id] = true;
       progress.stars += 1;

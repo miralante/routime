@@ -514,6 +514,160 @@ Each file contains one language, and both keep the same keys:
 
 ---
 
+### 4.6 Shared skeleton: what every activity gets
+
+Routime's activities are independent: each one is a mechanic with its own
+rounds, and none of them goes through a shared «teach → real life → test»
+flow. What they share is the part that makes the code sturdier and easier to
+reuse:
+
+| Layer | What the activity gets | Where it lives |
+|---|---|---|
+| Storage and progress | `App.storage.get/set` under the activity's key; `save()`, the star count and the level from progress, from the shared glue | `assets/js/storage.js`, `assets/js/activity-glue.js` |
+| Feedback | `App.feedback.success / encourage / celebrate / lockUntilAck` (never punitive) | `assets/js/feedback.js` |
+| Error replay | `App.reinforce`: the items missed in a round are replayed in a mini-round (4.7) | `assets/js/feedback.js` |
+| Helpers | `App.utils` (`shuffle`, `$`, `$$`, `hoy`, …). A local copy of a shared name is forbidden | `assets/js/utils.js` |
+| Texts | `strings.<locale>.js` for both locales; no text in `app.js` | activity |
+| Data | `data.js`, locale-neutral layouts and content | activity |
+
+#### The activity glue: `App.activityGlue(host)`
+
+An activity asks for the progress helpers with one call and keeps its own
+variables. The host passes getters, not values, because an activity may
+reassign its progress object:
+
+```js
+var glue = App.activityGlue({
+  toolId: TOOL_ID,
+  progress: function () { return progress; },
+  starsEl: function () { return starsEl; },
+  levels: function () { return bank().niveles; }   /* only for levelFromProgress */
+});
+var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
+```
+
+- `save()` stores the progress under `toolId`.
+- `paintStars()` writes `⭐ n` into the element `starsEl()` returns.
+- `levelFromProgress()` returns `levels()[min(progress.roundsCompleted, last)]`.
+  The field is `roundsCompleted` unless `roundsKey` says otherwise.
+
+The validator (`scripts/check.js`, section 8b) forbids a local `save()` or
+`renderStars()` with the same body, and requires `activity-glue.js` in the
+`index.html` of any activity that calls `App.activityGlue`.
+
+### 4.7 Family of play, and the error-replay loop
+
+Routime's activities are all *play* activities: a mechanic (choose, tap, drag,
+order), a round of items, and feedback after each try. The rules that all of
+them follow, and that the shared code already supports:
+
+1. **No punishment.** A wrong answer gets a hint and a retry. Never a
+   counter of failures on screen, a timer, or a «game over».
+2. **Stars only add.** `save()` and `paintStars()` from the glue.
+3. **Errors come back.** The activity calls `App.reinforce.add(key, payload)`
+   for each item the person missed. When the round ends it calls
+   `App.reinforce.consume()`: if there are misses, the mini-round starts with
+   them, and the callback given to `App.reinforce.start(cb)` runs it. When the
+   mini-round ends it calls `App.reinforce.clear()`.
+4. **One closing screen, one button.** The end of a round shows the summary
+   and one primary button back to the start.
+
+`App.reinforce` only coordinates *what* is replayed and *when*. The mini-round
+itself is drawn by the activity, with its own options and feedback. The key of
+`add` must be stable (the item's identity, not its position on screen), so an
+item that is missed twice is replayed once.
+
+#### 4.7.1 The play loop (`assets/js/activity-play.js`)
+
+`App.activityPlay(config)` runs the round of a play activity. The activity
+draws each item and reports each try; the loop does the rest: the items in
+order, the progress bar, the hint and the explanation, the stars, the saved
+progress, the replay of the misses and the closing screen.
+
+```js
+App.activityPlay({
+  toolId: 'riddles', roundsKey: 'rounds', reinforce: true,
+  ui: { game: '#gameScreen', end: '#endScreen', feedback: '#feedback',
+        explanationWrap: '#explicacionWrap', explanation: '#explicacion',
+        btnNext: '#btnNext', progressFill: '#progressFill', progressText: '#progressText',
+        stars: '#stars', summary: '#resumenFinal', btnRepeat: '#btnRepeat' },
+  items: function (progress) { return App.utils.shuffle(bank).slice(0, 7); },
+  mount: function (item, play) {          /* draws one item, returns the controls to lock */
+    /* ... */
+    btn.addEventListener('click', function () {
+      play.attempt(isCorrect, { control: btn, hint: hintText, explanation: explanationText });
+    });
+    return buttons;
+  }
+});
+```
+
+- `items(progress)` returns the items of the round, already shuffled and cut.
+  The progress lets an activity pick its level (`street` does).
+- `mount(item, play, info)` draws the item. `info` tells whether it is a replay.
+  It returns the controls to lock while a hint is read.
+- `play.attempt(correct, info)` reports a try. A right try: the `correcta`
+  class, the success message, a star, the explanation, and the next button. A
+  wrong try: the `animo` class, the encouragement, the hint at once, the other
+  controls locked until «Understood»; the explanation comes after the hint only
+  from the second wrong try (`secondMissAt`).
+- `reinforce: true` keeps the misses (`App.reinforce.add`); at the end of the
+  round they come back in a mini-round, then the closing screen.
+- `roundsKey` names the progress field that counts the rounds (`rounds` in
+  riddles, `roundsCompleted` by default).
+- `autoStart: false` shows the page's own start screen first (`ui.start`), and
+  `ui.play` begins the round (`street`, `trust-circle`).
+- `summary(hits, stars)` and `onEnd(play)` let the activity word its closing
+  screen and keep what is its own (for example, the completed levels).
+- The round starts after `DOMContentLoaded`, so `App.i18n` has translated the
+  page before the first item is drawn.
+
+Adopted by 23 choice activities: `riddles`, `street`, `categories`,
+`comedy-club`, `doctor-visit`, `first-aid-kit`, `friends`, `self-esteem`,
+`resilience`, `my-body`, `what-first`, `what-to-wear`, `what-do-i-need`,
+`trust-circle`, `where-to-store`, `where-is`, `post-or-not`, `sentence`, `signs`,
+`times-of-day`, `healthy-food`, `idioms` and `double-meaning`. The rest keep
+their own code: the ones with a menu of sub-activities or a chat (`be-prepared`,
+`situations`, `emergencies`, `while-help-arrives`, `phishing-alert`,
+`bullying-chat`, `social-safety`, `phone-numbers`, `safe-chat`), the memory and
+sort mechanics (`whats-missing`, `turns-mirrors`), and the rest, which have a
+different mechanic or are not yet reviewed.
+
+### 4.8 Splitting a large activity (`model.js`)
+
+When `app.js` grows past a few hundred lines and part of it does not touch the
+page (the question generators, the drawings as HTML text, the level rules), the
+activity splits in two. The non-DOM part goes to `model.js`, which only
+publishes its names as `App.<name>Model` and can be checked in Node. `app.js`
+keeps the page and reads the model's names through aliases at the top of the
+file. The model file is added to the validator's list of extra modules when the split is first used (calculia's `EXTRA_MODULES` in `scripts/check.js` is the reference), and to
+`sw.js`, and loaded by `index.html` before `app.js`. Routime has no activity
+split this way yet; it is the convention for the first one that needs it.
+
+### 4.9 Status of the shared skeleton, and its exceptions
+
+- **Glue**: `save`, `paintStars` and `levelFromProgress` come from
+  `App.activityGlue` in every activity that keeps the common shape. The
+  exceptions keep their own code on purpose: `my-agenda` stores only a part of
+  its progress and shows no count, `sexual-health` shows no star count, and
+  `house` draws its stars with a different glyph.
+- **Error replay**: `clock` keeps its misses in `App.reinforce` (4.7). The rest
+  of the play activities do not replay errors yet; adding it is a per-activity
+  choice, because the replay has to draw the item again.
+- **Progress and feedback helpers** (`showHint`, `showExplanation`, `endRound`,
+  `renderProgress`): each activity writes its own text, its own screens and its
+  own progress fields, so the bodies differ even when the shape is the same. They
+  are not shared yet, on purpose.
+- **Shared play loop**: `App.activityPlay` (4.7.1) runs the round for 23 choice
+  activities (listed in 4.7.1). The other choice activities keep their own round
+  code and can move over one by one.
+- **Identifiers in English** (rule B.2): a glossary renamer converted the
+  identifiers whose every word is in its glossary.
+  The glossary check still finds 58 declared identifiers with a Spanish word,
+  mostly compound names with a part missing from the glossary
+  (`respuestaTrasPista`, `pantallaChecklist`). Each one needs its glossary entry, and
+  then the same checks and the UI test.
+
 ## 5. Accessibility rules
 
 When creating new activities, follow these **13 mandatory rules**:

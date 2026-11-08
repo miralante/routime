@@ -9,42 +9,25 @@
    haya fallado antes.
    Progresión automática: empieza con el grupo fácil y sube según
    el progress guardado, sin mostrar selección de nivel.
+   La ronda la lleva App.activityPlay (assets/js/activity-play.js): esta
+   página elige el grupo, dibuja la frase y comunica cada intento.
    ============================================================ */
 (function () {
   'use strict';
 
-  var TOOL_ID = 'double-meaning';
   var $ = App.utils.$;
-
-  var quizScreen = $('#quizScreen');
-  var endScreen = $('#endScreen');
-  var starsEl = $('#stars');
   var levelEl = $('#dificultad');
-
-  var progressFill = $('#progressFill');
-  var progressText = $('#progressText');
   var sentenceText = $('#sentenceText');
-  var listenBtn = $('#listenBtn');
   var optionsEl = $('#options');
-  var feedbackEl = $('#feedback');
-  var explanationWrap = $('#explanationWrap');
-  var explanationEl = $('#explanation');
-  var nextBtn = $('#nextBtn');
+  var currentLevel = null;
 
-  /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
-  if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
-
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function paintStars() { starsEl.textContent = '⭐ ' + progress.stars; }
   function t(key) { return App.i18n.t(key); }
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function show(screen) {
-    [quizScreen, endScreen].forEach(function (s) {
-      s.classList.toggle('hidden', s !== screen);
-    });
+  /* The group follows the rounds completed: each completed round moves up one group. */
+  function levelFor(progress) {
+    var levels = bank();
+    return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
   function explanationFor(item) {
@@ -54,149 +37,56 @@
     return t('singleExplanation').replace('{m1}', item.meanings[0]);
   }
 
-  /* ---------- Nivel según progress ---------- */
-  function levelBasedOnProgress() {
-    var idx = Math.min(progress.roundsCompleted, bank().length - 1);
-    return bank()[idx];
-  }
-
-  function renderLevel() {
-    if (levelEl) {
+  App.activityPlay({
+    toolId: 'double-meaning',
+    roundsKey: 'roundsCompleted',
+    ui: {
+      game: '#quizScreen',
+      end: '#endScreen',
+      feedback: '#feedback',
+      explanationWrap: '#explanationWrap',
+      explanation: '#explanation',
+      btnNext: '#nextBtn',
+      progressFill: '#progressFill',
+      progressText: '#progressText',
+      stars: '#stars',
+      btnRepeat: '#btnRepeat'
+    },
+    items: function (progress) {
+      currentLevel = levelFor(progress);
       var count = currentLevel.items.length;
       levelEl.textContent = count + ' ' + (count === 1 ? t('frase') : t('frases'));
-    }
-  }
-
-  /* ---------- Pantalla inicial ---------- */
-  function startGame() {
-    currentLevel = levelBasedOnProgress();
-    items = App.utils.shuffle(currentLevel.items);
-    idx = 0;
-    correctCount = 0;
-    show(quizScreen);
-    renderLevel();
-    render();
-  }
-
-  /* ---------- Ronda de quiz ---------- */
-  var currentLevel = null;
-  var items = [];
-  var idx = 0;
-  var correctCount = 0;
-  var resolved = false;
-  var attempts = 0;   /* Socratic counter per item (rule 12) */
-
-  function paintProgress() {
-    var total = items.length;
-    progressFill.style.width = ((idx / total) * 100) + '%';
-    progressText.textContent = '';
-  }
-
-  function render() {
-    var item = items[idx];
-    resolved = false;
-    attempts = 0;
-    sentenceText.textContent = item.sentence;
-    feedbackEl.textContent = '';
-    feedbackEl.className = 'feedback';
-    explanationWrap.classList.add('hidden');
-    explanationEl.textContent = '';
-    nextBtn.classList.add('hidden');
-    optionsEl.innerHTML = '';
-
-    [
-      { label: t('optionYes'), value: true, index: 0 },
-      { label: t('optionNo'), value: false, index: 1 }
-    ].forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.label;
-      btn.addEventListener('click', function () { answer(btn, op.value === item.hasDouble, item, op.index); });
-      optionsEl.appendChild(btn);
-    });
-
-    paintProgress();
-    paintStars();
-  }
-
-  /* Método socrático: en el primer fallo la pista es la del botón elegido
-     (item.pistas[index]); la explicación de los significados llega tras
-     el segundo fallo o al acertar. */
-  function answer(btn, isCorrect, item, index) {
-    if (resolved) return;
-    if (isCorrect) {
-      explanationEl.textContent = explanationFor(item);
-      explanationWrap.classList.remove('hidden');
-      resolved = true;
-      btn.classList.add('correcta');
-      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
-      App.feedback.success(feedbackEl);
-      progress.stars += 1;
-      correctCount += 1;
-      save();
-      paintStars();
-      nextBtn.classList.remove('hidden');
-      nextBtn.focus();
-    } else {
-      attempts += 1;
-      var respuestaTrasPista = attempts > 1;
-      explanationEl.textContent = '🤔 ' + item.pistas[index];
-      explanationWrap.classList.remove('hidden');
-      if (false && App.tts && App.tts.speak) App.tts.speak(item.sentence);
-      btn.classList.add('animo');
-      btn.disabled = true;
-      App.feedback.encourage(feedbackEl);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), explanationWrap, function () {
-        if (respuestaTrasPista) {
-          explanationEl.textContent = explanationFor(item);
-          explanationWrap.classList.remove('hidden');
-        }
+      return App.utils.shuffle(currentLevel.items);
+    },
+    mount: function (item, play) {
+      sentenceText.textContent = item.sentence;
+      optionsEl.innerHTML = '';
+      var buttons = [];
+      [
+        { label: t('optionYes'), value: true, index: 0 },
+        { label: t('optionNo'), value: false, index: 1 }
+      ].forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-opcion';
+        btn.textContent = op.label;
+        btn.addEventListener('click', function () {
+          play.attempt(op.value === item.hasDouble, {
+            control: btn,
+            hint: '🤔 ' + item.pistas[op.index],
+            explanation: explanationFor(item)
+          });
+        });
+        optionsEl.appendChild(btn);
+        buttons.push(btn);
       });
+      return buttons;
+    },
+    onEnd: function (play) {
+      $('#resumenFinal').textContent = t('proximoNivel')
+        .replace('{n}', Math.min(play.progress.roundsCompleted + 1, bank().length));
+      var transferEl = $('#transferencia');
+      if (transferEl) transferEl.textContent = t('transferencia');
     }
-  }
-
-  function next() {
-    idx += 1;
-    if (idx >= items.length) {
-      finish();
-    } else {
-      render();
-    }
-  }
-
-  function finish() {
-    progress.roundsCompleted += 1;
-    save();
-    show(endScreen);
-    $('#finalSummary').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
-    $('#transferencia').textContent = App.i18n.t('transferencia');
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
-  }
-
-  /* ---------- Eventos ---------- */
-
-  if (listenBtn) listenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].sentence);
   });
-  var explanationListenBtn = $('#explanationListenBtn');
-  if (explanationListenBtn) explanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
-  });
-  nextBtn.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
-  });
-
-  function init() {
-    App.i18n.apply();
-    paintStars();
-    // Iniciar directamente la actividad
-    startGame();
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
 })();

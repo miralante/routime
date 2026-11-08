@@ -983,7 +983,203 @@ async function exerciseRoutimeSafeChat(page) {
   assert.fail('Chat Seguro no completa un escenario hasta la regla final');
 }
 
+/* Routime activities played to their closing screen. Each entry lists, per round,
+   the clicks that open the round from the page's menu (none when it starts by itself). */
+const ROUTIME_ROUNDS = [
+  ['riddles', [[]]], ['street', [[]]], ['categories', [[]]], ['comedy-club', [[]]],
+  ['doctor-visit', [[]]], ['first-aid-kit', [[]]], ['friends', [[]]], ['self-esteem', [[]]],
+  ['resilience', [[]]], ['my-body', [[]]], ['what-first', [[]]], ['what-to-wear', [[]]],
+  ['what-do-i-need', [[]]], ['trust-circle', [[]]], ['where-to-store', [[]]],
+  ['post-or-not', [[]]], ['sentence', [[]]], ['signs', [[]]], ['times-of-day', [[]]],
+  ['healthy-food', [[]]], ['idioms', [[]]], ['double-meaning', [[]]], ['where-is', [[]]],
+  ['be-prepared', [['#tarjetaSaber']]],
+  ['situations', [['#menuNiveles .tarjeta-actividad']]],
+  ['emergencies', [['#tarjetaReconocer']]],
+  ['social-safety', [['#listaTemas button']]],
+  ['while-help-arrives', [['#tarjetaQueHago']]],
+  ['phone-numbers', [[]]],
+  ['shop', [['[data-actividad="quedame"]', '#niveles button'],
+    ['[data-actividad="tienda"]', '#niveles button']]],
+  ['shopping', [['#tarjetaSecciones']]],
+  ['turns-mirrors', [[]]], ['whats-missing', [[]]],
+  ['clock', [['#modos .btn-modo', '#niveles .btn-nivel']]],
+  ['spelling', [[]]], ['dictionary', [[]]],
+  ['bullying-chat', [['#listaChats .tarjeta-chat:not(:first-child)']]],
+  ['phishing-alert', [['#listaChats .tarjeta-chat:not(:first-child)']]],
+  ['good-manners', [['#app .btn-nivel']]],
+  ['education-norms', [['#app .btn-level']]],
+];
+
+async function clickFirstEnabled(page, selector) {
+  const locators = page.locator(selector);
+  const count = await locators.count();
+  for (let i = 0; i < count; i += 1) {
+    const locator = locators.nth(i);
+    if (!await locator.isVisible().catch(() => false)) continue;
+    if (!await locator.isEnabled().catch(() => false)) continue;
+    await locator.click({ timeout: 3000 });
+    return true;
+  }
+  return false;
+}
+
+/* Stars shown by the activity (0 when the activity has no #stars counter). */
+async function starsCount(page) {
+  if (!await page.locator('#stars').count()) return 0;
+  const match = (await page.locator('#stars').innerText()).match(/\d+/);
+  return match ? Number(match[0]) : 0;
+}
+
+/* Plays one round to its closing screen. Every wrong answer must be acknowledged
+   («Entendido») before the next try, as a learner would do. A purchase (La Tienda)
+   is paid by moving every coin to the counter first. The journey fails if the
+   round stops moving. */
+async function exerciseRoutimeRound(page, menuPicks) {
+  await page.reload({ waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
+  await waitForApp(page);
+  for (const selector of menuPicks || []) {
+    await page.locator(selector).first().waitFor({ state: 'visible', timeout: NAV_TIMEOUT });
+    assert.ok(await clickFirstEnabled(page, selector), 'No se puede abrir ' + selector);
+    await page.waitForTimeout(SETTLE_MS);
+  }
+  /* Closing screens: the common end screen, the closing rule of a chat, or the
+     celebration title of the pages that finish inside #app. */
+  const END = [
+    '#endScreen:not(.hidden)', '#reglaFinal:not(.hidden)', '.titulo-celebracion', '.celebration-title',
+  ].join(', ');
+  const endVisible = () => page.locator(END).first().isVisible().catch(() => false);
+  /* The last situation's timer swaps the round for its closing screen while a click
+     is still waiting for an option, so that click can time out. If the round has
+     ended, that is not a failure: the next pass of the loop sees the closing screen. */
+  const safeClick = (selector) => clickFirstEnabled(page, selector).catch(async (error) => {
+    if (await endVisible()) return false;
+    throw error;
+  });
+  const ANSWERS = [
+    '#options .btn-opcion', '#options .caja', '#options .opcion-figura', '#options .pad',
+    '#opciones .btn-opcion', '#opciones .caja', '#cajas .caja', '#listasDia .caja',
+    '#cajasSecciones .caja', '#opcionesQueHago .btn-opcion', '#opcionesSaber .btn-opcion',
+    '#opcionesReconocer .btn-opcion', '#quizOptions .btn-opcion', '#escena .objeto',
+    '#optionsQuiz .btn-opcion', '#accionesTienda .btn-opcion', '#chatOpciones .btn-opcion',
+    '#app .btn-option', '#app .btn-opcion', '#chatOpciones button',
+  ].join(', ');
+  const NEXTS = [
+    '#btnNext', '#btnNextQuiz', '#nextButton', '#nextBtn', '#nextCardBtn', '#btnContinuarTienda',
+    '#btnSiguienteSecciones', '#btnSiguienteSaber', '#btnSiguienteReconocer', '#btnSiguienteQueHago',
+    '#quizNextBtn', '#startQuizBtn', '#btnListo',
+  ].join(', ');
+  const PAY = '#accionesTienda .btn:not(.btn-opcion)';
+  let answered = 0;
+  let stalled = 0;
+  const starsBefore = await starsCount(page);
+  for (let step = 0; step < 400; step += 1) {
+    if (await endVisible()) {
+      assert.ok(answered >= 1, 'La ronda terminó sin que se respondiera ninguna pregunta');
+      /* A star is earned only for a right answer on the first try. The driver always
+         takes the first enabled option, so a round can end with none; the check is
+         that the stars never go down. */
+      assert.ok(await starsCount(page) >= starsBefore, 'Las estrellas no pueden bajar durante una ronda');
+      return 1;
+    }
+    let label = '';
+    if (await safeClick('.btn-entendido')) label = 'ack';
+    else if (await safeClick('#btnPlay, #btnContinuarIntro')) label = 'start';
+    else if (await safeClick(NEXTS)) label = 'next';
+    else if (await page.locator(PAY).first().isVisible().catch(() => false)) {
+      for (let coin = 0; coin < 20 && await safeClick('#mesaTienda button'); coin += 1) {
+        await page.waitForTimeout(SETTLE_MS);
+      }
+      await safeClick(PAY);
+      label = 'pay';
+    } else if (await safeClick(ANSWERS)) { answered += 1; label = 'answer'; }
+    if (label) {
+      if (process.env.UI_SMOKE_TRACE) process.stdout.write(' ' + label);
+      stalled = 0;
+      await page.waitForTimeout(SETTLE_MS);
+      continue;
+    }
+    stalled += 1;
+    assert.ok(stalled < 40, 'La ronda se queda parada: no hay ni respuesta, ni «Entendido», ni «Siguiente»');
+    await page.waitForTimeout(150);
+  }
+  assert.fail('La ronda no llega a su pantalla final en 400 pasos');
+}
+
+/* Ecos: a sequence of pads. The game plays the sequence back on its own (pads
+   disabled, one lit at a time) and then waits for the same sequence. An observer
+   installed before the page scripts counts each finished playback and keeps its
+   lit order; the driver repeats that order, round after round, until the closing
+   screen shows. */
+const ECOS_RECORDER = `(() => {
+  window.__ecosPlaybacks = 0;
+  window.__ecosLastSeq = [];
+  window.__ecosScans = 0;
+  let current = [];
+  let playing = false;
+  let lastLit = -1;
+  const scan = () => {
+    window.__ecosScans += 1;
+    const pads = [...document.querySelectorAll('.pad')];
+    if (!pads.length) return;
+    const now = pads.some(p => p.disabled);
+    if (now && !playing) current = [];
+    if (!now && playing) { window.__ecosLastSeq = current.slice(); window.__ecosPlaybacks += 1; }
+    playing = now;
+    const lit = pads.findIndex(p => p.classList.contains('activo'));
+    if (now && lit >= 0 && lit !== lastLit) current.push(lit);
+    lastLit = now ? lit : -1;
+  };
+  new MutationObserver(scan).observe(document, {
+    subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'disabled'],
+  });
+})();`;
+
+async function exerciseEcos(page) {
+  await page.addInitScript(ECOS_RECORDER);
+  await page.reload({ waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
+  await waitForApp(page);
+  const END = '#endScreen:not(.hidden)';
+  let seen = 0;
+  let rounds = 0;
+  for (let guard = 0; guard < 80; guard += 1) {
+    if (await page.locator(END).isVisible().catch(() => false)) break;
+    let waited = 0;
+    while (waited < 20000) {
+      const ready = await page.evaluate(n => window.__ecosPlaybacks > n ||
+        !!document.querySelector('#endScreen:not(.hidden)'), seen);
+      if (ready) break;
+      await page.waitForTimeout(100);
+      waited += 100;
+    }
+    assert.ok(waited < 20000, 'Ecos no vuelve a reproducir la secuencia');
+    const played = await page.evaluate(() => ({ count: window.__ecosPlaybacks, seq: window.__ecosLastSeq }));
+    if (await page.locator(END).isVisible().catch(() => false)) break;
+    seen = played.count;
+    assert.ok(played.seq.length, 'Ecos no reproduce ninguna secuencia');
+    for (const index of played.seq) {
+      await page.locator('.pad').nth(index).click({ timeout: 3000 });
+      await page.waitForTimeout(160);
+    }
+    /* The game then waits for «Siguiente» before the next playback. */
+    await page.waitForTimeout(300);
+    await clickFirstEnabled(page, '#btnNext');
+    rounds += 1;
+  }
+  assert.ok(await page.locator(END).isVisible().catch(() => false),
+    'Ecos no llega a su pantalla final');
+  return rounds ? 1 : 0;
+}
+
 async function exerciseFullFunctionality(page, route) {
+  if (APP === 'routime' && route.includes('/tools/ecos/')) return exerciseEcos(page);
+  if (APP === 'routime') {
+    const plan = ROUTIME_ROUNDS.find(([slug]) => route.includes('/tools/' + slug + '/'));
+    if (plan) {
+      let rounds = 0;
+      for (const picks of plan[1]) rounds += await exerciseRoutimeRound(page, picks);
+      return rounds;
+    }
+  }
   if (APP === 'apptonomia' && route.includes('/project/')) {
     return exerciseApptonomiaProject(page);
   }

@@ -28,15 +28,15 @@
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
-  var cuadricula = $('#cuadricula');
-  var bloquesEl = $('#bloques');
+  var grid = $('#cuadricula');
+  var blocksEl = $('#bloques');
   var feedbackEl = $('#feedback');
   var starsEl = $('#stars');
-  var contadorBloques = $('#contadorBloques');
-  var construccionTitulo = $('#construccionTitulo');
-  var selectorPlantilla = $('#selectorPlantilla');
-  var selectorTamano = $('#selectorTamano');
-  var vistaMiniatura = $('#vistaMiniatura');
+  var counterBlocks = $('#contadorBloques');
+  var buildTitle = $('#construccionTitulo');
+  var selectorTemplate = $('#selectorPlantilla');
+  var selectorSize = $('#selectorTamano');
+  var viewThumb = $('#vistaMiniatura');
   var btnLimpiarTodo = $('#btnLimpiarTodo');
 
   /* Persistent progress */
@@ -45,32 +45,36 @@
   if (typeof progress.construcciones !== 'number') progress.construcciones = 0;
 
   /* Estado del juego */
-  var modoActual = 'libre';        /* 'libre' o 'plantilla' */
-  var plantillaActual = null;
-  var tamanoActual = DATA.tamanos[0];
-  var bloqueSeleccionado = null;
-  var modoBorrar = false;
-  var celdas = [];                 /* elementos .celda en orden row*cols+col */
+  var modeCurrent = 'libre';        /* 'libre' o 'plantilla' */
+  var templateCurrent = null;
+  var sizeCurrent = DATA.tamanos[0];
+  var blockSelected = null;
+  var modeErase = false;
+  var cells = [];                 /* elementos .celda en orden row*cols+col */
   var gridState = [];              /* matriz de null | id de bloque */
   var enPartida = false;
   var pistasListo = 0;             /* pulsaciones de ¡Listo! con modelo incompleto */
   var timeoutLimpiar = null;
   var confirmandoLimpiar = false;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
   function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
-  function nombreBloque(id) { return App.i18n.t('bloque' + capitalize(id)); }
+  function nameBlock(id) { return App.i18n.t('bloque' + capitalize(id)); }
 
-  function cols() { return plantillaActual ? plantillaActual.gridSize.cols : tamanoActual.cols; }
-  function rows() { return plantillaActual ? plantillaActual.gridSize.rows : tamanoActual.rows; }
+  function cols() { return templateCurrent ? templateCurrent.gridSize.cols : sizeCurrent.cols; }
+  function rows() { return templateCurrent ? templateCurrent.gridSize.rows : sizeCurrent.rows; }
 
   /* ------------------------------------------------------------
      PANTALLA DE INICIO: modo → tamaño (libre) o modelo (plantilla)
      ------------------------------------------------------------ */
-  function mostrarSelectorTamano() {
-    selectorPlantilla.classList.add('hidden');
-    selectorTamano.classList.remove('hidden');
+  function showSelectorSize() {
+    selectorTemplate.classList.add('hidden');
+    selectorSize.classList.remove('hidden');
     var cont = $('#tamanos');
     cont.innerHTML = '';
     DATA.tamanos.forEach(function (t) {
@@ -79,16 +83,16 @@
       btn.className = 'btn btn-modo';
       btn.textContent = App.i18n.t('tam' + capitalize(t.id)) + ' · ' + t.cols + '×' + t.rows;
       btn.addEventListener('click', function () {
-        tamanoActual = t;
-        empezarJuegoLibre();
+        sizeCurrent = t;
+        startGameFree();
       });
       cont.appendChild(btn);
     });
   }
 
-  function mostrarSelectorPlantilla() {
-    selectorTamano.classList.add('hidden');
-    selectorPlantilla.classList.remove('hidden');
+  function showSelectorTemplate() {
+    selectorSize.classList.add('hidden');
+    selectorTemplate.classList.remove('hidden');
     var cont = $('#plantillas');
     cont.innerHTML = '';
 
@@ -107,10 +111,10 @@
       preview.style.height = Math.round(96 * p.gridSize.rows / p.gridSize.cols) + 'px';
       for (var i = 0; i < p.gridSize.rows; i++) {
         for (var j = 0; j < p.gridSize.cols; j++) {
-          var celda = document.createElement('div');
-          celda.className = 'celda';
-          if (p.matriz[i] && p.matriz[i][j]) celda.classList.add('bloque-' + p.matriz[i][j]);
-          preview.appendChild(celda);
+          var cell = document.createElement('div');
+          cell.className = 'celda';
+          if (p.matriz[i] && p.matriz[i][j]) cell.classList.add('bloque-' + p.matriz[i][j]);
+          preview.appendChild(cell);
         }
       }
 
@@ -120,104 +124,104 @@
 
       btn.appendChild(preview);
       btn.appendChild(name);
-      btn.addEventListener('click', function () { empezarJuegoConPlantilla(p); });
+      btn.addEventListener('click', function () { startGameAlongTemplate(p); });
       cont.appendChild(btn);
     });
   }
 
-  $('#btnModoLibre').addEventListener('click', mostrarSelectorTamano);
-  $('#btnModoPlantilla').addEventListener('click', mostrarSelectorPlantilla);
+  $('#btnModoLibre').addEventListener('click', showSelectorSize);
+  $('#btnModoPlantilla').addEventListener('click', showSelectorTemplate);
 
   /* ------------------------------------------------------------
      CUADRÍCULA
      ------------------------------------------------------------ */
-  function crearCuadricula() {
-    cuadricula.innerHTML = '';
-    cuadricula.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
+  function createGrid() {
+    grid.innerHTML = '';
+    grid.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
 
-    celdas = [];
+    cells = [];
     gridState = [];
 
     for (var i = 0; i < rows(); i++) {
       gridState[i] = [];
       for (var j = 0; j < cols(); j++) {
-        var celda = document.createElement('div');
-        celda.className = 'celda sin-bloque';
-        celda.setAttribute('role', 'gridcell');
-        celda.setAttribute('tabindex', '0');
-        celda.dataset.row = i;
-        celda.dataset.col = j;
+        var cell = document.createElement('div');
+        cell.className = 'celda sin-bloque';
+        cell.setAttribute('role', 'gridcell');
+        cell.setAttribute('tabindex', '0');
+        cell.dataset.row = i;
+        cell.dataset.col = j;
 
-        if (plantillaActual && plantillaActual.matriz[i] && plantillaActual.matriz[i][j]) {
-          celda.dataset.bloquePlantilla = plantillaActual.matriz[i][j];
+        if (templateCurrent && templateCurrent.matriz[i] && templateCurrent.matriz[i][j]) {
+          cell.dataset.bloquePlantilla = templateCurrent.matriz[i][j];
         }
 
-        celda.addEventListener('click', hacerClickCelda);
-        celda.addEventListener('keydown', function (e) {
+        cell.addEventListener('click', makeClickCell);
+        cell.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            hacerClickCelda.call(this, e);
+            makeClickCell.call(this, e);
           }
         });
 
-        celdas.push(celda);
+        cells.push(cell);
         gridState[i][j] = null;
-        cuadricula.appendChild(celda);
-        actualizarCeldaVisual(celda, null);
+        grid.appendChild(cell);
+        updateCellVisual(cell, null);
       }
     }
   }
 
-  function hacerClickCelda(e) {
-    var celda = e.currentTarget || e.target;
-    var row = parseInt(celda.dataset.row, 10);
-    var col = parseInt(celda.dataset.col, 10);
+  function makeClickCell(e) {
+    var cell = e.currentTarget || e.target;
+    var row = parseInt(cell.dataset.row, 10);
+    var col = parseInt(cell.dataset.col, 10);
 
-    if (modoBorrar) {
+    if (modeErase) {
       if (gridState[row][col]) {
         gridState[row][col] = null;
-        actualizarCeldaVisual(celda, null);
+        updateCellVisual(cell, null);
         despuesDeCambiar();
       }
-    } else if (bloqueSeleccionado) {
-      gridState[row][col] = bloqueSeleccionado.id;
-      actualizarCeldaVisual(celda, bloqueSeleccionado.id);
-      celda.style.transform = 'scale(1.15)';
-      setTimeout(function () { celda.style.transform = ''; }, 100);
+    } else if (blockSelected) {
+      gridState[row][col] = blockSelected.id;
+      updateCellVisual(cell, blockSelected.id);
+      cell.style.transform = 'scale(1.15)';
+      setTimeout(function () { cell.style.transform = ''; }, 100);
       despuesDeCambiar();
     }
   }
 
-  function actualizarCeldaVisual(celda, bloqueId) {
-    celda.className = 'celda';
-    if (bloqueId) {
-      celda.classList.add('con-bloque', 'bloque-' + bloqueId);
-      celda.setAttribute('aria-label',
-        App.i18n.t('celdaConBloque').replace('{bloque}', nombreBloque(bloqueId)));
-    } else if (celda.dataset.bloquePlantilla) {
+  function updateCellVisual(cell, blockId) {
+    cell.className = 'celda';
+    if (blockId) {
+      cell.classList.add('con-bloque', 'bloque-' + blockId);
+      cell.setAttribute('aria-label',
+        App.i18n.t('celdaConBloque').replace('{bloque}', nameBlock(blockId)));
+    } else if (cell.dataset.bloquePlantilla) {
       /* Ghost: the target block dimmed, to show which one goes here */
-      celda.classList.add('fantasma', 'bloque-' + celda.dataset.bloquePlantilla);
-      celda.setAttribute('aria-label',
-        App.i18n.t('celdaFantasma').replace('{bloque}', nombreBloque(celda.dataset.bloquePlantilla)));
+      cell.classList.add('fantasma', 'bloque-' + cell.dataset.bloquePlantilla);
+      cell.setAttribute('aria-label',
+        App.i18n.t('celdaFantasma').replace('{bloque}', nameBlock(cell.dataset.bloquePlantilla)));
     } else {
-      celda.classList.add('sin-bloque');
-      celda.setAttribute('aria-label', App.i18n.t('celdaVacia'));
+      cell.classList.add('sin-bloque');
+      cell.setAttribute('aria-label', App.i18n.t('celdaVacia'));
     }
   }
 
   function despuesDeCambiar() {
-    actualizarContador();
-    if (modoActual === 'plantilla') comprobarPlantilla();
+    updateCounter();
+    if (modeCurrent === 'plantilla') checkTemplate();
   }
 
-  function actualizarContador() {
+  function updateCounter() {
     var count = 0;
     for (var i = 0; i < gridState.length; i++) {
       for (var j = 0; j < gridState[i].length; j++) {
         if (gridState[i][j]) count++;
       }
     }
-    contadorBloques.textContent = count;
+    counterBlocks.textContent = count;
   }
 
   /* ------------------------------------------------------------
@@ -227,48 +231,48 @@
     var faltan = [];
     for (var i = 0; i < rows(); i++) {
       for (var j = 0; j < cols(); j++) {
-        var objetivo = plantillaActual.matriz[i] && plantillaActual.matriz[i][j];
-        if (objetivo && gridState[i][j] !== objetivo) {
-          faltan.push(celdas[i * cols() + j]);
+        var goal = templateCurrent.matriz[i] && templateCurrent.matriz[i][j];
+        if (goal && gridState[i][j] !== goal) {
+          faltan.push(cells[i * cols() + j]);
         }
       }
     }
     return faltan;
   }
 
-  function comprobarPlantilla() {
+  function checkTemplate() {
     if (!enPartida) return;
     if (casillasQueFaltan().length === 0) {
       enPartida = false;
       /* Short pause so the last placed block can be seen */
-      setTimeout(function () { terminarConstruccion(); }, 600);
+      setTimeout(function () { finishBuild(); }, 600);
     }
   }
 
   /* ------------------------------------------------------------
      PALETA DE BLOQUES (siempre los 8)
      ------------------------------------------------------------ */
-  function crearPaletaBloques() {
-    bloquesEl.innerHTML = '';
-    DATA.bloques.forEach(function (bloque) {
+  function createPaletteBlocks() {
+    blocksEl.innerHTML = '';
+    DATA.bloques.forEach(function (block) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'bloque-btn bloque-' + bloque.id;
-      btn.dataset.bloqueId = bloque.id;
-      btn.setAttribute('aria-label', nombreBloque(bloque.id));
+      btn.className = 'bloque-btn bloque-' + block.id;
+      btn.dataset.bloqueId = block.id;
+      btn.setAttribute('aria-label', nameBlock(block.id));
       btn.setAttribute('role', 'radio');
       btn.setAttribute('aria-checked', 'false');
-      btn.addEventListener('click', function () { seleccionarBloque(bloque, btn); });
-      bloquesEl.appendChild(btn);
+      btn.addEventListener('click', function () { selectBlock(block, btn); });
+      blocksEl.appendChild(btn);
     });
-    seleccionarBloque(DATA.bloques[0], bloquesEl.querySelector('.bloque-btn'));
+    selectBlock(DATA.bloques[0], blocksEl.querySelector('.bloque-btn'));
   }
 
-  function seleccionarBloque(bloque, btn) {
-    bloqueSeleccionado = bloque;
-    modoBorrar = false;
+  function selectBlock(block, btn) {
+    blockSelected = block;
+    modeErase = false;
     $('#btnErase').classList.remove('modo-borrar-activo');
-    var botones = bloquesEl.querySelectorAll('.bloque-btn');
+    var botones = blocksEl.querySelectorAll('.bloque-btn');
     botones.forEach(function (b) {
       b.classList.remove('selected');
       b.setAttribute('aria-checked', 'false');
@@ -281,11 +285,11 @@
      HERRAMIENTAS
      ------------------------------------------------------------ */
   $('#btnErase').addEventListener('click', function () {
-    modoBorrar = !modoBorrar;
-    if (modoBorrar) {
-      bloqueSeleccionado = null;
+    modeErase = !modeErase;
+    if (modeErase) {
+      blockSelected = null;
       $('#btnErase').classList.add('modo-borrar-activo');
-      var botones = bloquesEl.querySelectorAll('.bloque-btn');
+      var botones = blocksEl.querySelectorAll('.bloque-btn');
       botones.forEach(function (b) {
         b.classList.remove('selected');
         b.setAttribute('aria-checked', 'false');
@@ -311,34 +315,34 @@
     clearTimeout(timeoutLimpiar);
     confirmandoLimpiar = false;
     btnLimpiarTodo.textContent = App.i18n.t('btnLimpiarTodo');
-    limpiarCuadricula();
+    clearGrid();
   });
 
-  function limpiarCuadricula() {
+  function clearGrid() {
     for (var i = 0; i < rows(); i++) {
       for (var j = 0; j < cols(); j++) {
         gridState[i][j] = null;
-        actualizarCeldaVisual(celdas[i * cols() + j], null);
+        updateCellVisual(cells[i * cols() + j], null);
       }
     }
-    actualizarContador();
+    updateCounter();
   }
 
   /* ------------------------------------------------------------
      INICIO DEL JUEGO
      ------------------------------------------------------------ */
-  function empezarJuegoLibre() {
-    modoActual = 'libre';
-    plantillaActual = null;
-    construccionTitulo.textContent = App.i18n.t('construccionLibre');
+  function startGameFree() {
+    modeCurrent = 'libre';
+    templateCurrent = null;
+    buildTitle.textContent = App.i18n.t('construccionLibre');
     startGame();
   }
 
-  function empezarJuegoConPlantilla(plantilla) {
-    modoActual = 'plantilla';
-    plantillaActual = plantilla;
-    construccionTitulo.textContent =
-      App.i18n.t('plantillaActiva').replace('{name}', App.i18n.t(plantilla.name));
+  function startGameAlongTemplate(template) {
+    modeCurrent = 'plantilla';
+    templateCurrent = template;
+    buildTitle.textContent =
+      App.i18n.t('plantillaActiva').replace('{name}', App.i18n.t(template.name));
     startGame();
   }
 
@@ -350,29 +354,29 @@
     startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
-    selectorPlantilla.classList.add('hidden');
-    selectorTamano.classList.add('hidden');
+    selectorTemplate.classList.add('hidden');
+    selectorSize.classList.add('hidden');
 
-    crearCuadricula();
-    crearPaletaBloques();
-    actualizarContador();
+    createGrid();
+    createPaletteBlocks();
+    updateCounter();
   }
 
   /* ------------------------------------------------------------
      FINALIZAR Y CELEBRAR
      ------------------------------------------------------------ */
   $('#btnTerminado').addEventListener('click', function () {
-    var numBloques = parseInt(contadorBloques.textContent, 10);
+    var numBlocks = parseInt(counterBlocks.textContent, 10);
 
     /* La rama "no has puesto nada" es solo del modo libre: en modo
        modelo la pista de la plantilla (más abajo) es más útil que la
        instrucción genérica, aunque haya 0 bloques. */
-    if (numBloques === 0 && modoActual !== 'plantilla') {
+    if (numBlocks === 0 && modeCurrent !== 'plantilla') {
       App.feedback.encourage(feedbackEl);
       return;
     }
 
-    if (modoActual === 'plantilla') {
+    if (modeCurrent === 'plantilla') {
       var faltan = casillasQueFaltan();
       if (faltan.length > 0) {
         /* Modelo sin finish: pista, nunca reproche. 1ª vez text;
@@ -392,11 +396,11 @@
       enPartida = false;
     }
 
-    terminarConstruccion();
+    finishBuild();
   });
 
-  function terminarConstruccion() {
-    var numBloques = parseInt(contadorBloques.textContent, 10);
+  function finishBuild() {
+    var numBlocks = parseInt(counterBlocks.textContent, 10);
 
     progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -404,11 +408,11 @@
     save();
     renderStars();
 
-    crearVistaMinatura();
+    createViewThumb();
 
-    var resumen = modoActual === 'plantilla'
-      ? App.i18n.t('resumenPlantilla').replace('{n}', numBloques)
-      : App.i18n.t('resumenLibre').replace('{n}', numBloques);
+    var summary = modeCurrent === 'plantilla'
+      ? App.i18n.t('resumenPlantilla').replace('{n}', numBlocks)
+      : App.i18n.t('resumenLibre').replace('{n}', numBlocks);
     $('#resumenFinal').textContent = '';
 $('#transferencia').textContent = '';
 
@@ -419,21 +423,21 @@ $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('finalTitulo'));
   }
 
-  function crearVistaMinatura() {
-    vistaMiniatura.innerHTML = '';
-    vistaMiniatura.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
-    vistaMiniatura.style.width = '160px';
-    vistaMiniatura.style.height = Math.round(160 * rows() / cols()) + 'px';
+  function createViewThumb() {
+    viewThumb.innerHTML = '';
+    viewThumb.style.gridTemplateColumns = 'repeat(' + cols() + ', 1fr)';
+    viewThumb.style.width = '160px';
+    viewThumb.style.height = Math.round(160 * rows() / cols()) + 'px';
     for (var i = 0; i < rows(); i++) {
       for (var j = 0; j < cols(); j++) {
-        var miniCelda = document.createElement('div');
-        miniCelda.className = 'celda';
+        var miniCell = document.createElement('div');
+        miniCell.className = 'celda';
         if (gridState[i][j]) {
-          miniCelda.classList.add('bloque-' + gridState[i][j]);
+          miniCell.classList.add('bloque-' + gridState[i][j]);
         } else {
-          miniCelda.classList.add('sin-bloque');
+          miniCell.classList.add('sin-bloque');
         }
-        vistaMiniatura.appendChild(miniCelda);
+        viewThumb.appendChild(miniCell);
       }
     }
   }
@@ -442,17 +446,17 @@ $('#transferencia').textContent = '';
      NAVEGACIÓN DESDE LA PANTALLA FINAL
      ------------------------------------------------------------ */
   $('#btnSeguirCreando').addEventListener('click', function () {
-    if (modoActual === 'plantilla' && plantillaActual) {
-      empezarJuegoConPlantilla(plantillaActual);
+    if (modeCurrent === 'plantilla' && templateCurrent) {
+      startGameAlongTemplate(templateCurrent);
     } else {
-      empezarJuegoLibre();
+      startGameFree();
     }
   });
 
   $('#btnCambiarPlantilla').addEventListener('click', function () {
     endScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');
-    mostrarSelectorPlantilla();
+    showSelectorTemplate();
   });
 
   /* ------------------------------------------------------------

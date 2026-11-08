@@ -228,6 +228,69 @@
     boton.focus();
   }
 
+  /* Failure reinforcement at the end of the round. Shared pattern
+     used by every activity that wants to replay, in a mini-round,
+     the items the person failed in the normal round.
+
+     Design:
+       - start(onReinforce) — the activity calls this when starting
+         the normal round. It receives a callback that is invoked
+         when the mini-round needs to be launched, with the list of
+         payloads of the failed items.
+       - add(key, payload?) — the activity calls this when an item
+         fails. The key must be stable across renders (the activity
+         decides what counts as a "signature": idx+levelId,
+         mode+roman, etc.). The optional payload is what the activity
+         will need to render the item in the mini-round (question
+         object, entry, etc.).
+       - consume() — the activity calls this in its next(), right
+         before finish(). If there are items, fires onReinforce(pay-
+         loads) and returns the list. If not, returns [].
+       - clear() — the activity calls this when closing the mini-
+         round to reset the state.
+
+     State lives only for the session (not in localStorage): like
+     sessionRounds, this is a contextual learning aid, not a long-
+     term marker.
+
+     The mini-round itself is rendered by the activity (each has its
+     own options structure, feedback and end-screen). The core only
+     coordinates "what is reinforced" and "when the reinforcement
+     starts and ends". */
+  function makeReinforce() {
+    var entries = [];
+    var seen = new Set();
+    var onReinforce = null;
+
+    function start(callback) {
+      entries = [];
+      seen.clear();
+      onReinforce = callback || null;
+    }
+
+    function add(key, payload) {
+      if (seen.has(key)) return;
+      seen.add(key);
+      entries.push({ key: key, payload: payload });
+    }
+
+    function consume() {
+      if (entries.length === 0) return [];
+      var list = entries.slice();
+      if (onReinforce) onReinforce(list);
+      return list;
+    }
+
+    function clear() {
+      entries = [];
+      seen.clear();
+    }
+
+    return { start: start, add: add, consume: consume, clear: clear };
+  }
+
+  window.App.reinforce = makeReinforce();
+
   window.App.feedback = {
     success: success,
     encourage: encourage,

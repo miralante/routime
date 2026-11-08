@@ -1,6 +1,6 @@
 /* ============================================================
    Routime — Education Norms (good manners and civic education)
-   Data in data.js (DATA.niveles + DATA.situaciones).
+   Data in data.js (DATA.levels + DATA.situations; the Spanish names are read as fallback).
    Shared core in assets/js/.
    Mechanic: read / hear a daily-life or social situation, choose the
    good-manners response that fits (3 options). Error never punishes:
@@ -263,15 +263,15 @@
       btn.classList.add('error');
       App.feedback.encourage(feedbackZone);
       var explanation = App.i18n.t('feedback.explanation') + ' ' +
-        App.i18n.t(state.currentSituation.correcta) + '.';
+        App.i18n.t(state.currentSituation.correcta || state.currentSituation.correct) + '.';
       feedbackZone.textContent = explanation;
       optionBtns.forEach(function (b) { b.disabled = true; });
       App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
         state.completedRounds++;
         saveProgress();
 
-        var lvl = DATA.niveles[state.currentLevel];
-        if (state.completedRounds >= lvl.maxSituaciones) {
+        var lvl = (DATA.niveles || DATA.levels || [])[state.currentLevel];
+        if (state.completedRounds >= (lvl.maxSituaciones || lvl.maxSituations)) {
           showCompletion();
         } else {
           state.attempts = 0;
@@ -293,7 +293,7 @@
     app.appendChild(heading);
 
     // Progressive stars: 1 / 2 / 3 by level (rule 5.3, never subtracted)
-    var lvl = DATA.niveles[state.currentLevel];
+    var lvl = (DATA.niveles || DATA.levels || [])[state.currentLevel];
     var starsEarned = 1 + state.currentLevel;
     state.accumulatedStars += starsEarned;
 

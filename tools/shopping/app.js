@@ -12,8 +12,9 @@
   var $ = App.utils.$;
 
   var startScreen = $('#startScreen');
-  var pantallaJuegoSecciones = $('#pantallaJuegoSecciones');
-  var pantallaJuegoLista = $('#pantallaJuegoLista');
+  var gameScreen = $('#gameScreen');
+  var screenGameSections = $('#pantallaJuegoSecciones');
+  var screenGameList = $('#pantallaJuegoLista');
   var endScreen = $('#endScreen');
   var starsEl = $('#stars');
 
@@ -23,70 +24,74 @@
   if (!progress.roundsCompletedSecciones) progress.roundsCompletedSecciones = 0;
   if (!progress.roundsCompletedLista) progress.roundsCompletedLista = 0;
 
-  function save() { App.storage.set(TOOL_ID, progress); }
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
-  function banco() { return DATA[App.i18n.locale()] || DATA.es; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, renderStars = glue.paintStars;
+  function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  function ocultarTodas() {
-    [startScreen, pantallaJuegoSecciones, pantallaJuegoLista, endScreen].forEach(function (p) {
+  function hideAll() {
+    [startScreen, gameScreen, screenGameSections, screenGameList, endScreen].forEach(function (p) {
       if (p) p.classList.add('hidden');
     });
   }
 
   /* ================= Activity 1: Which section? ================= */
-  var nivelS = null;
+  var levelS = null;
   var itemsS = [];
   var idxS = 0;
   var resueltoS = false;
-  var intentosS = 0;
+  var attemptsS = 0;
 
   var itemPictoSEl = $('#itemPictoSecciones');
-  var itemPalabraSEl = $('#itemPalabraSecciones');
-  var cajasSEl = $('#cajasSecciones');
+  var itemWordSEl = $('#itemPalabraSecciones');
+  var boxesSEl = $('#cajasSecciones');
   var feedbackSEl = $('#feedbackSecciones');
-  var explicacionSWrap = $('#explanationSeccionesWrap');
-  var explicacionSEl = $('#explanationSecciones');
+  var explanationSWrap = $('#explanationSeccionesWrap');
+  var explanationSEl = $('#explanationSecciones');
   var progressSFill = $('#progressSeccionesFill');
   var progressSText = $('#progressSeccionesText');
   var btnNextSections = $('#btnSiguienteSecciones');
 
   function nivelSegunProgresoS() {
-    var niveles = banco().secciones.niveles;
-    var idx = Math.min(progress.roundsCompletedSecciones, niveles.length - 1);
-    return niveles[idx];
+    var levels = bank().secciones.niveles;
+    var idx = Math.min(progress.roundsCompletedSecciones, levels.length - 1);
+    return levels[idx];
   }
 
-  function iniciarSecciones() {
-    nivelS = nivelSegunProgresoS();
-    itemsS = App.utils.shuffle(nivelS.items).slice(0, banco().secciones.porRonda);
+  function startSections() {
+    levelS = nivelSegunProgresoS();
+    itemsS = App.utils.shuffle(levelS.items).slice(0, bank().secciones.porRonda);
     idxS = 0;
     resueltoS = false;
-    ocultarTodas();
-    pantallaJuegoSecciones.classList.remove('hidden');
-    renderSecciones();
+    hideAll();
+    gameScreen.classList.remove('hidden'); screenGameSections.classList.remove('hidden');
+    renderSections();
   }
 
-  function pintarProgresoS() {
-    var porRonda = banco().secciones.porRonda;
-    progressSFill.style.width = ((idxS / porRonda) * 100) + '%';
+  function paintProgressS() {
+    var perRound = bank().secciones.porRonda;
+    progressSFill.style.width = ((idxS / perRound) * 100) + '%';
     progressSText.textContent = '';
   }
 
-  function renderSecciones() {
+  function renderSections() {
     var item = itemsS[idxS];
     resueltoS = false;
-    intentosS = 0;
+    attemptsS = 0;
     feedbackSEl.textContent = '';
     feedbackSEl.className = 'feedback';
-    explicacionSWrap.classList.add('hidden');
-    explicacionSEl.textContent = '';
+    explanationSWrap.classList.add('hidden');
+    explanationSEl.textContent = '';
     if (btnNextSections) btnNextSections.classList.add('hidden');
 
     itemPictoSEl.textContent = item.picto;
-    itemPalabraSEl.textContent = item.palabra;
+    itemWordSEl.textContent = item.palabra;
 
-    cajasSEl.innerHTML = '';
-    App.utils.shuffle(nivelS.categorias).forEach(function (categoria) {
+    boxesSEl.innerHTML = '';
+    App.utils.shuffle(levelS.categorias).forEach(function (categoria) {
       var row = document.createElement('div');
       row.className = 'row-caja';
 
@@ -94,7 +99,7 @@
       btn.type = 'button';
       btn.className = 'btn caja';
       btn.textContent = categoria;
-      btn.addEventListener('click', function () { responderSecciones(btn, categoria === item.categoria, item); });
+      btn.addEventListener('click', function () { answerSections(btn, categoria === item.categoria, item); });
 
       var btnAudio = document.createElement('button');
       btnAudio.type = 'button';
@@ -105,28 +110,28 @@
 
       row.appendChild(btn);
       row.appendChild(btnAudio);
-      cajasSEl.appendChild(row);
+      boxesSEl.appendChild(row);
     });
 
-    pintarProgresoS();
+    paintProgressS();
     renderStars();
   }
 
-  function mostrarExplicacionS(isCorrect, item) {
+  function showExplanationS(isCorrect, item) {
     var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.categoria + '.';
-    explicacionSEl.textContent = text;
-    explicacionSWrap.classList.remove('hidden');
+    explanationSEl.textContent = text;
+    explanationSWrap.classList.remove('hidden');
   }
 
-  function responderSecciones(btn, isCorrect, item) {
+  function answerSections(btn, isCorrect, item) {
     if (resueltoS) return;
     if (isCorrect) {
-      mostrarExplicacionS(isCorrect, item);
+      showExplanationS(isCorrect, item);
       resueltoS = true;
       btn.classList.add('correcta');
-      App.utils.$$('.caja', cajasSEl).forEach(function (b) { b.disabled = true; });
+      App.utils.$$('.caja', boxesSEl).forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackSEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -137,75 +142,75 @@
         btnNextSections.focus();
       }
     } else {
-      intentosS += 1;
-      var respuestaTrasPista = intentosS > 1;
-      explicacionSEl.textContent = App.i18n.t('pista');
-        explicacionSWrap.classList.remove('hidden');
+      attemptsS += 1;
+      var answerAfterHint = attemptsS > 1;
+      explanationSEl.textContent = App.i18n.t('pista');
+        explanationSWrap.classList.remove('hidden');
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackSEl);
-      App.feedback.lockUntilAck(App.utils.$$('.caja', cajasSEl), explicacionSWrap, function () { if (respuestaTrasPista) mostrarExplicacionS(isCorrect, item); });
+      App.feedback.lockUntilAck(App.utils.$$('.caja', boxesSEl), explanationSWrap, function () { if (answerAfterHint) showExplanationS(isCorrect, item); });
     }
   }
 
   function nextSections() {
     idxS += 1;
-    if (idxS >= banco().secciones.porRonda) {
-      terminarSecciones();
+    if (idxS >= bank().secciones.porRonda) {
+      finishSections();
     } else {
-      renderSecciones();
+      renderSections();
     }
   }
 
-  function terminarSecciones() {
+  function finishSections() {
     progress.roundsCompletedSecciones += 1;
     save();
-    ocultarTodas();
+    hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompletedSecciones + 1, banco().secciones.niveles.length));
+      .replace('{n}', Math.min(progress.roundsCompletedSecciones + 1, bank().secciones.niveles.length));
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ================= Activity 2: mi lista de la compra ================= */
-  var nivelL = null;
+  var levelL = null;
   var itemsL = [];
   var idxL = 0;
   var resueltoL = false;
-  var intentosL = 0;
-  var listasEl = {};
+  var attemptsL = 0;
+  var listsEl = {};
 
   var itemPictoLEl = $('#itemPictoLista');
-  var itemPalabraLEl = $('#itemPalabraLista');
-  var listasDiaEl = $('#listasDia');
+  var itemWordLEl = $('#itemPalabraLista');
+  var listsDayEl = $('#listasDia');
   var feedbackLEl = $('#feedbackLista');
-  var explicacionLWrap = $('#explanationListaWrap');
-  var explicacionLEl = $('#explanationLista');
+  var explanationLWrap = $('#explanationListaWrap');
+  var explanationLEl = $('#explanationLista');
   var progressLFill = $('#progressListaFill');
   var progressLText = $('#progressListaText');
   var btnNextList = $('#btnSiguienteLista');
 
   function nivelSegunProgresoL() {
-    var niveles = banco().lista.niveles;
-    var idx = Math.min(progress.roundsCompletedLista, niveles.length - 1);
-    return niveles[idx];
+    var levels = bank().lista.niveles;
+    var idx = Math.min(progress.roundsCompletedLista, levels.length - 1);
+    return levels[idx];
   }
 
-  function pintarColumnasVacias() {
-    listasDiaEl.innerHTML = '';
-    listasEl = {};
-    banco().lista.momentos.forEach(function (timeOfDay) {
+  function paintColumnsEmpty() {
+    listsDayEl.innerHTML = '';
+    listsEl = {};
+    bank().lista.momentos.forEach(function (timeOfDay) {
       var column = document.createElement('div');
       column.className = 'column-dia';
 
-      var btnCaja = document.createElement('button');
-      btnCaja.type = 'button';
-      btnCaja.className = 'btn caja';
-      btnCaja.textContent = timeOfDay;
-      btnCaja.addEventListener('click', function () {
-        responderLista(btnCaja, timeOfDay === itemsL[idxL].timeOfDay, itemsL[idxL]);
+      var btnBox = document.createElement('button');
+      btnBox.type = 'button';
+      btnBox.className = 'btn caja';
+      btnBox.textContent = timeOfDay;
+      btnBox.addEventListener('click', function () {
+        answerList(btnBox, timeOfDay === itemsL[idxL].timeOfDay, itemsL[idxL]);
       });
 
       var btnAudio = document.createElement('button');
@@ -217,80 +222,80 @@
 
       var row = document.createElement('div');
       row.className = 'row-caja';
-      row.appendChild(btnCaja);
+      row.appendChild(btnBox);
       row.appendChild(btnAudio);
 
-      var lista = document.createElement('ul');
-      lista.className = 'tasks-list';
+      var list = document.createElement('ul');
+      list.className = 'tasks-list';
 
       column.appendChild(row);
-      column.appendChild(lista);
-      listasDiaEl.appendChild(column);
-      listasEl[timeOfDay] = { lista: lista, boton: btnCaja };
+      column.appendChild(list);
+      listsDayEl.appendChild(column);
+      listsEl[timeOfDay] = { lista: list, boton: btnBox };
     });
   }
 
-  function iniciarLista() {
-    nivelL = nivelSegunProgresoL();
-    itemsL = App.utils.shuffle(nivelL.items).slice(0, banco().lista.porRonda);
+  function startList() {
+    levelL = nivelSegunProgresoL();
+    itemsL = App.utils.shuffle(levelL.items).slice(0, bank().lista.porRonda);
     idxL = 0;
     resueltoL = false;
-    ocultarTodas();
-    pantallaJuegoLista.classList.remove('hidden');
-    pintarColumnasVacias();
-    renderLista();
+    hideAll();
+    gameScreen.classList.remove('hidden'); screenGameList.classList.remove('hidden');
+    paintColumnsEmpty();
+    renderList();
   }
 
-  function pintarProgresoL() {
-    var porRonda = banco().lista.porRonda;
-    progressLFill.style.width = ((idxL / porRonda) * 100) + '%';
+  function paintProgressL() {
+    var perRound = bank().lista.porRonda;
+    progressLFill.style.width = ((idxL / perRound) * 100) + '%';
     progressLText.textContent = '';
   }
 
-  function renderLista() {
+  function renderList() {
     var item = itemsL[idxL];
     resueltoL = false;
-    intentosL = 0;
+    attemptsL = 0;
     feedbackLEl.textContent = '';
     feedbackLEl.className = 'feedback';
-    explicacionLWrap.classList.add('hidden');
-    explicacionLEl.textContent = '';
+    explanationLWrap.classList.add('hidden');
+    explanationLEl.textContent = '';
     if (btnNextList) btnNextList.classList.add('hidden');
 
     itemPictoLEl.textContent = item.picto;
-    itemPalabraLEl.textContent = item.palabra;
-    App.utils.$$('.btn.caja', listasDiaEl).forEach(function (b) {
+    itemWordLEl.textContent = item.palabra;
+    App.utils.$$('.btn.caja', listsDayEl).forEach(function (b) {
       b.disabled = false;
       b.classList.remove('animo', 'correcta');
     });
 
     if (false && App.tts && App.tts.speak) App.tts.speak(item.palabra);
-    pintarProgresoL();
+    paintProgressL();
     renderStars();
   }
 
-  function mostrarExplicacionL(isCorrect, item) {
+  function showExplanationL(isCorrect, item) {
     var text = isCorrect
       ? App.i18n.t('explicacionCorrecta')
       : App.i18n.t('explicacionIncorrectaA') + item.timeOfDay + '.';
-    explicacionLEl.textContent = text;
-    explicacionLWrap.classList.remove('hidden');
+    explanationLEl.textContent = text;
+    explanationLWrap.classList.remove('hidden');
   }
 
-  function anadirALista(item) {
-    var destino = listasEl[item.timeOfDay];
+  function addAList(item) {
+    var destino = listsEl[item.timeOfDay];
     var li = document.createElement('li');
     li.textContent = item.picto + ' ' + item.palabra;
     destino.lista.appendChild(li);
   }
 
-  function responderLista(btn, isCorrect, item) {
+  function answerList(btn, isCorrect, item) {
     if (resueltoL) return;
     if (isCorrect) {
-      mostrarExplicacionL(isCorrect, item);
+      showExplanationL(isCorrect, item);
       resueltoL = true;
-      anadirALista(item);
-      App.utils.$$('.btn.caja', listasDiaEl).forEach(function (b) { b.disabled = true; });
+      addAList(item);
+      App.utils.$$('.btn.caja', listsDayEl).forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackLEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -301,58 +306,58 @@
         btnNextList.focus();
       }
     } else {
-      intentosL += 1;
-      var respuestaTrasPista = intentosL > 1;
-      explicacionLEl.textContent = App.i18n.t('pista');
-        explicacionLWrap.classList.remove('hidden');
+      attemptsL += 1;
+      var answerAfterHint = attemptsL > 1;
+      explanationLEl.textContent = App.i18n.t('pista');
+        explanationLWrap.classList.remove('hidden');
       btn.classList.add('animo');
       btn.disabled = true;
       App.feedback.encourage(feedbackLEl);
-      App.feedback.lockUntilAck(App.utils.$$('.btn.caja', listasDiaEl), explicacionLWrap, function () { if (respuestaTrasPista) mostrarExplicacionL(isCorrect, item); });
+      App.feedback.lockUntilAck(App.utils.$$('.btn.caja', listsDayEl), explanationLWrap, function () { if (answerAfterHint) showExplanationL(isCorrect, item); });
     }
   }
 
   function nextList() {
     idxL += 1;
-    if (idxL >= banco().lista.porRonda) {
-      terminarLista();
+    if (idxL >= bank().lista.porRonda) {
+      finishList();
     } else {
-      renderLista();
+      renderList();
     }
   }
 
-  function terminarLista() {
+  function finishList() {
     progress.roundsCompletedLista += 1;
     save();
-    ocultarTodas();
+    hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompletedLista + 1, banco().lista.niveles.length));
+      .replace('{n}', Math.min(progress.roundsCompletedLista + 1, bank().lista.niveles.length));
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 
   /* ---- Eventos ---- */
   // Start screen: two sub-activity cards
-  $('#tarjetaSecciones').addEventListener('click', iniciarSecciones);
-  $('#tarjetaLista').addEventListener('click', iniciarLista);
+  $('#tarjetaSecciones').addEventListener('click', startSections);
+  $('#tarjetaLista').addEventListener('click', startList);
 
   if (btnNextSections) btnNextSections.addEventListener('click', nextSections);
   if (btnNextList) btnNextList.addEventListener('click', nextList);
 
   $('#btnRepeat').addEventListener('click', function () {
     // repeats the last activity
-    if (actividadActual === 'secciones') iniciarSecciones();
-    else iniciarLista();
+    if (activityCurrent === 'secciones') startSections();
+    else startList();
   });
 
   $('#btnMenu').addEventListener('click', function () {
-    ocultarTodas();
+    hideAll();
     startScreen.classList.remove('hidden');
     renderStars();
   });
 
-  var actividadActual = null;
+  var activityCurrent = null;
 
   renderStars();
   startScreen.classList.remove('hidden');

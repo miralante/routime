@@ -84,8 +84,12 @@
   if (typeof state.ownPhone !== 'string') state.ownPhone = '';
   if (!Array.isArray(state.familyContacts)) state.familyContacts = [];
 
-  function save() { App.storage.set(TOOL_ID, state); }
-  function paintStars() { starsEl.textContent = '⭐ ' + state.stars; }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return state; },
+    starsEl: function () { return starsEl; }
+  });
+  var save = glue.save, paintStars = glue.paintStars;
   function t(key) { return App.i18n.t(key); }
 
   function show(screen) {
@@ -517,7 +521,8 @@
       show(emptyScreen);
       if (false && App.tts && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
       return;
-    }artCards();
+    }
+    startCards();
   }
 
   document.addEventListener('DOMContentLoaded', init);

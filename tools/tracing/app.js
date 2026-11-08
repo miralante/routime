@@ -19,20 +19,20 @@
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
   var selectionScreen = $('#selectionScreen');
-  var formaTituloEl = $('#formaTitulo');
-  var lienzo = $('#lienzo');
+  var shapeTitleEl = $('#formaTitulo');
+  var lienzo = $('#canvas');
   var guiaPath = $('#guia');
   var trazoPath = $('#trazoUsuario');
   var feedbackEl = $('#feedback');
   var btnErase = $('#btnErase');
-  var btnCheck = $('#btnCheck');
+  var btnCheck = $('#btnComprobar');
   var btnNext = $('#btnNext');
   var progressFill = $('#progressFill');
   var progressText = $('#progressText');
   var starsEl = $('#stars');
   var rejillaMayus = $('#rejillaMayus');
   var rejillaMinus = $('#rejillaMinus');
-  var seleccionResumen = $('#seleccionResumen');
+  var selectionSummary = $('#seleccionResumen');
 
   /* Persistent progress */
   var progress = App.storage.get(TOOL_ID);
@@ -42,11 +42,11 @@
 
   /* Round state */
   var currentLevel = null;
-  var modo = 'guiado';      /* 'guiado' (niveles 1-5) o 'libre' (abecedario) */
-  var formas = [];
+  var mode = 'guiado';      /* 'guiado' (niveles 1-5) o 'libre' (abecedario) */
+  var shapes = [];
   var idx = 0;
   var roundHits = 0;
-  var totalRonda = 0;       /* dinámico: porRonda o porRondaLibre */
+  var totalRound = 0;       /* dinámico: porRonda o porRondaLibre */
   var solved = false;
   var trazos = [];       /* array de trazos; cada uno, array de [x,y] */
   var dibujando = false;
@@ -58,56 +58,61 @@
   /* Resuelve la geometría (puntos) de una forma: admite tanto
      el nuevo formato { ref } como el antiguo { puntos } directo,
      para que scripts anteriores o ampliaciones no rompan. */
-  function puntosDeForma(forma) {
-    if (Array.isArray(forma.puntos)) return forma.puntos;
-    if (forma.ref && FORMAS_COMUNES && FORMAS_COMUNES[forma.ref]) {
-      return FORMAS_COMUNES[forma.ref].puntos;
+  function pointsOfShape(shape) {
+    if (Array.isArray(shape.puntos)) return shape.puntos;
+    if (shape.ref && FORMAS_COMUNES && FORMAS_COMUNES[shape.ref]) {
+      return FORMAS_COMUNES[shape.ref].puntos;
     }
     return [];
   }
 
-  function save() { App.storage.set(TOOL_ID, progress); }
+  var glue = App.activityGlue({
+    toolId: TOOL_ID,
+    progress: function () { return progress; },
+    starsEl: function () { return starsEl; },
+    levels: function () { return DATOS.niveles; }
+  });
+  var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
 
-  function renderStars() { starsEl.textContent = '⭐ ' + progress.stars; }
 
   /* ---- Modo libre: selección de letters ---- */
 
   /* Pinta las dos rejillas (mayúsculas y minúsculas). Cada letra
      es un botón con status presionado/no-presionado. La etiqueta
      accesible anuncia el name de la letra y si está elegida. */
-  function pintarRejillaLetras() {
+  function paintGridLetters() {
     rejillaMayus.innerHTML = '';
     rejillaMinus.innerHTML = '';
-    pintarGrupoLetras(rejillaMayus, DATOS.alfabeto.mayusculas, 'Mayúscula');
-    pintarGrupoLetras(rejillaMinus, DATOS.alfabeto.minusculas, 'Minúscula');
+    paintGroupLetters(rejillaMayus, DATOS.alfabeto.mayusculas, 'Mayúscula');
+    paintGroupLetters(rejillaMinus, DATOS.alfabeto.minusculas, 'Minúscula');
     /* Restaura selección visual al volver a abrir la pantalla. */
-    marcarSeleccionActual();
+    markSelectionCurrent();
   }
 
-  function pintarGrupoLetras(contenedor, grupo, etiquetaGrupo) {
-    grupo.forEach(function (letra) {
+  function paintGroupLetters(container, group, etiquetaGrupo) {
+    group.forEach(function (letter) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn-letra';
-      btn.textContent = letra.id;
-      btn.dataset.id = letra.id;
-      btn.dataset.ref = letra.ref;
+      btn.textContent = letter.id;
+      btn.dataset.id = letter.id;
+      btn.dataset.ref = letter.ref;
       btn.dataset.grupo = etiquetaGrupo;
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-label',
-        etiquetaGrupo + ' ' + letra.id +
+        etiquetaGrupo + ' ' + letter.id +
         '. ' + (App.i18n.t('ariaNoSeleccionada') || ''));
-      btn.addEventListener('click', function () { toggleLetra(letra, btn); });
-      contenedor.appendChild(btn);
+      btn.addEventListener('click', function () { toggleLetter(letter, btn); });
+      container.appendChild(btn);
     });
   }
 
-  function toggleLetra(letra, btn) {
+  function toggleLetter(letter, btn) {
     var i = letrasSeleccionadas.findIndex(function (l) {
-      return l.id === letra.id && l.ref === letra.ref;
+      return l.id === letter.id && l.ref === letter.ref;
     });
     if (i === -1) {
-      letrasSeleccionadas.push(letra);
+      letrasSeleccionadas.push(letter);
       btn.classList.add('seleccionada');
       btn.setAttribute('aria-pressed', 'true');
     } else {
@@ -115,19 +120,19 @@
       btn.classList.remove('seleccionada');
       btn.setAttribute('aria-pressed', 'false');
     }
-    pintarResumenSeleccion();
+    paintSummarySelection();
   }
 
-  function seleccionarGrupo(grupo, valor) {
-    var cont = grupo === 'mayusculas' ? rejillaMayus : rejillaMinus;
-    var items = grupo === 'mayusculas'
+  function selectGroup(group, valor) {
+    var cont = group === 'mayusculas' ? rejillaMayus : rejillaMinus;
+    var items = group === 'mayusculas'
       ? DATOS.alfabeto.mayusculas
       : DATOS.alfabeto.minusculas;
-    items.forEach(function (letra) {
+    items.forEach(function (letter) {
       var idx2 = letrasSeleccionadas.findIndex(function (l) {
-        return l.id === letra.id && l.ref === letra.ref;
+        return l.id === letter.id && l.ref === letter.ref;
       });
-      if (valor && idx2 === -1) letrasSeleccionadas.push(letra);
+      if (valor && idx2 === -1) letrasSeleccionadas.push(letter);
       if (!valor && idx2 !== -1) letrasSeleccionadas.splice(idx2, 1);
     });
     /* Refresca marcas visuales */
@@ -140,7 +145,7 @@
     });
   }
 
-  function marcarSeleccionActual() {
+  function markSelectionCurrent() {
     [['mayusculas', rejillaMayus], ['minusculas', rejillaMinus]].forEach(
       function (par) {
         Array.prototype.forEach.call(par[1].children, function (btn) {
@@ -154,17 +159,13 @@
     );
   }
 
-  function pintarResumenSeleccion() {
+  function paintSummarySelection() {
     var n = letrasSeleccionadas.length;
-    var plantilla = App.i18n.t('seleccionResumen') || '{n} letters';
-    seleccionResumen.textContent = plantilla.replace('{n}', n);
+    var template = App.i18n.t('seleccionResumen') || '{n} letters';
+    selectionSummary.textContent = template.replace('{n}', n);
   }
 
   /* Determina el nivel según el progreso y prepara una ronda guiada. */
-  function levelBasedOnProgress() {
-    var idxN = Math.min(progress.roundsCompleted, DATOS.niveles.length - 1);
-    return DATOS.niveles[idxN];
-  }
 
   function renderLevel() {
     var levelEl = $('#level');
@@ -173,9 +174,9 @@
 
   function startGame() {
     currentLevel = levelBasedOnProgress();
-    modo = 'guiado';
-    formas = App.utils.shuffle(currentLevel.formas).slice(0, DATOS.porRonda);
-    totalRonda = formas.length;
+    mode = 'guiado';
+    shapes = App.utils.shuffle(currentLevel.formas).slice(0, DATOS.porRonda);
+    totalRound = shapes.length;
     idx = 0;
     roundHits = 0;
     selectionScreen.classList.add('hidden');
@@ -185,18 +186,18 @@
     render();
   }
 
-  function iniciarPracticaLibre(seleccion) {
-    if (!seleccion || !seleccion.length) return;
+  function startPracticeFree(selection) {
+    if (!selection || !selection.length) return;
     currentLevel = null;
-    modo = 'libre';
+    mode = 'libre';
     /* Construimos formas a partir de las letters elegidas. Como
        pueden repetirse entre ronda y ronda, las barajamos y nos
        quedamos con porRondaLibre (o menos si hay pocas letters). */
-    var tam = Math.min(DATOS.porRondaLibre, seleccion.length);
-    formas = App.utils.shuffle(seleccion).slice(0, tam).map(function (it) {
+    var tam = Math.min(DATOS.porRondaLibre, selection.length);
+    shapes = App.utils.shuffle(selection).slice(0, tam).map(function (it) {
       return { name: it.id, ref: it.ref };
     });
-    totalRonda = formas.length;
+    totalRound = shapes.length;
     idx = 0;
     roundHits = 0;
     selectionScreen.classList.add('hidden');
@@ -206,23 +207,23 @@
   }
 
   function renderProgress() {
-    progressFill.style.width = ((idx / totalRonda) * 100) + '%';
+    progressFill.style.width = ((idx / totalRound) * 100) + '%';
     progressText.textContent = '';
   }
 
-  function cadenaDesdePuntos(puntos) {
-    return 'M ' + puntos.map(function (p) { return p[0] + ',' + p[1]; }).join(' L ');
+  function cadenaDesdePuntos(points) {
+    return 'M ' + points.map(function (p) { return p[0] + ',' + p[1]; }).join(' L ');
   }
 
   function render() {
-    var forma = formas[idx];
+    var shape = shapes[idx];
     solved = false;
     trazos = [];
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     btnNext.classList.add('hidden');
-    formaTituloEl.textContent = forma.name;
-    guiaPath.setAttribute('d', cadenaDesdePuntos(puntosDeForma(forma)));
+    shapeTitleEl.textContent = shape.name;
+    guiaPath.setAttribute('d', cadenaDesdePuntos(pointsOfShape(shape)));
     trazoPath.setAttribute('d', '');
 
     renderProgress();
@@ -245,7 +246,7 @@
     trazoPath.setAttribute('d', d);
   }
 
-  function iniciarTrazo(evt) {
+  function startStroke(evt) {
     if (solved) return;
     evt.preventDefault();
     dibujando = true;
@@ -260,15 +261,15 @@
     pintarTrazoUsuario();
   }
 
-  function terminarTrazo() {
+  function finishStroke() {
     dibujando = false;
   }
 
   /* ---- Coverage check ---- */
-  function puntosFinos(puntos, steps) {
+  function puntosFinos(points, steps) {
     var finos = [];
-    for (var i = 0; i < puntos.length - 1; i++) {
-      var a = puntos[i], b = puntos[i + 1];
+    for (var i = 0; i < points.length - 1; i++) {
+      var a = points[i], b = points[i + 1];
       for (var j = 0; j <= steps; j++) {
         finos.push([
           a[0] + ((b[0] - a[0]) * j) / steps,
@@ -283,10 +284,10 @@
     return Math.hypot(p1[0] - p2[0], p1[1] - p2[1]);
   }
 
-  function comprobar() {
+  function check() {
     if (solved) return;
-    var forma = formas[idx];
-    var objetivo = puntosFinos(puntosDeForma(forma), 6);
+    var shape = shapes[idx];
+    var goal = puntosFinos(pointsOfShape(shape), 6);
     var dibujados = trazos.reduce(function (acc, t) { return acc.concat(t); }, []);
 
     if (!dibujados.length) {
@@ -294,10 +295,10 @@
       return;
     }
 
-    var cubiertos = objetivo.filter(function (obj) {
+    var cubiertos = goal.filter(function (obj) {
       return dibujados.some(function (d) { return distancia(obj, d) <= DATOS.tolerancia; });
     }).length;
-    var porcentaje = cubiertos / objetivo.length;
+    var porcentaje = cubiertos / goal.length;
 
     if (porcentaje >= 0.75) {
       solved = true;
@@ -314,7 +315,7 @@
     }
   }
 
-  function borrar() {
+  function erase() {
     if (solved) return;
     trazos = [];
     trazoPath.setAttribute('d', '');
@@ -324,7 +325,7 @@
 
   function next() {
     idx += 1;
-    if (idx >= totalRonda) {
+    if (idx >= totalRound) {
       endRound();
     } else {
       render();
@@ -338,23 +339,23 @@
     save();
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
-    var plantilla = App.i18n.t('resumenFinal');
-    $('#resumenFinal').textContent = '';
-    $('#transferencia').textContent = '';
+    var template = App.i18n.t('resumenFinal');
+    $('#endSummary').textContent = '';
+    if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('finalTitulo'));
   }
 
   /* Events */
-  lienzo.addEventListener('pointerdown', iniciarTrazo);
+  lienzo.addEventListener('pointerdown', startStroke);
   lienzo.addEventListener('pointermove', continuarTrazo);
-  lienzo.addEventListener('pointerup', terminarTrazo);
-  lienzo.addEventListener('pointercancel', terminarTrazo);
-  btnErase.addEventListener('click', borrar);
-  btnCheck.addEventListener('click', comprobar);
+  lienzo.addEventListener('pointerup', finishStroke);
+  lienzo.addEventListener('pointercancel', finishStroke);
+  btnErase.addEventListener('click', erase);
+  btnCheck.addEventListener('click', check);
   if (btnNext) btnNext.addEventListener('click', next);
-  $('#btnRepeat').addEventListener('click', function () {
-    if (modo === 'libre') {
-      iniciarPracticaLibre(letrasSeleccionadas);
+  $('#repeatBtn').addEventListener('click', function () {
+    if (mode === 'libre') {
+      startPracticeFree(letrasSeleccionadas);
     } else if (currentLevel) {
       startGame();
     }
@@ -363,43 +364,46 @@
     window.location.href = '../../';
   });
   $('#btnModoLibre').addEventListener('click', function () {
-    pintarRejillaLetras();
-    pintarResumenSeleccion();
+    paintGridLetters();
+    paintSummarySelection();
     selectionScreen.classList.remove('hidden');
   });
   if ($('#btnVolverInicio')) $('#btnVolverInicio').addEventListener('click', function () {
     window.location.href = '../../';
   });
   $('#btnSeleccionarMayus').addEventListener('click', function () {
-    seleccionarGrupo('mayusculas', true);
-    pintarResumenSeleccion();
+    selectGroup('mayusculas', true);
+    paintSummarySelection();
   });
   $('#btnSeleccionarMinus').addEventListener('click', function () {
-    seleccionarGrupo('minusculas', true);
-    pintarResumenSeleccion();
+    selectGroup('minusculas', true);
+    paintSummarySelection();
   });
   $('#btnSeleccionarTodo').addEventListener('click', function () {
-    seleccionarGrupo('mayusculas', true);
-    seleccionarGrupo('minusculas', true);
-    pintarResumenSeleccion();
+    selectGroup('mayusculas', true);
+    selectGroup('minusculas', true);
+    paintSummarySelection();
   });
   $('#btnSeleccionarNada').addEventListener('click', function () {
-    seleccionarGrupo('mayusculas', false);
-    seleccionarGrupo('minusculas', false);
-    pintarResumenSeleccion();
+    selectGroup('mayusculas', false);
+    selectGroup('minusculas', false);
+    paintSummarySelection();
   });
   $('#btnIniciarPractica').addEventListener('click', function () {
-    var seleccion = letrasSeleccionadas.filter(function (l) {
+    var selection = letrasSeleccionadas.filter(function (l) {
       return FORMAS_COMUNES && FORMAS_COMUNES[l.ref];
     });
-    if (!seleccion.length) {
+    if (!selection.length) {
       App.feedback.encourage(feedbackEl);
       return;
     }
-    iniciarPracticaLibre(seleccion);
+    startPracticeFree(selection);
   });
 
   renderStars();
   // Iniciar directamente la actividad
   startGame();
+  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
+    window.location.href = '../../';
+  });
 })();

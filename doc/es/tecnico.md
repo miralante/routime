@@ -523,6 +523,164 @@ Cada archivo contiene un solo idioma y ambos mantienen las mismas claves:
 
 ---
 
+### 4.6 Esqueleto compartido: lo que recibe cada actividad
+
+Las actividades de Routime son independientes: cada una es una mecánica con
+sus propias rondas, y ninguna pasa por un flujo común de «enseñar → vida real
+→ test». Lo que comparten es la parte que hace el código más sólido y más fácil
+de reutilizar:
+
+| Capa | Qué recibe la actividad | Dónde vive |
+|---|---|---|
+| Almacenamiento y progreso | `App.storage.get/set` bajo la clave de la actividad; `save()`, el recuento de estrellas y el nivel según el progreso, desde la ayuda común | `assets/js/storage.js`, `assets/js/activity-glue.js` |
+| Retroalimentación | `App.feedback.success / encourage / celebrate / lockUntilAck` (nunca punitiva) | `assets/js/feedback.js` |
+| Repetición de errores | `App.reinforce`: los elementos fallados de una ronda se repiten en una mini-ronda (4.7) | `assets/js/feedback.js` |
+| Ayudas | `App.utils` (`shuffle`, `$`, `$$`, `hoy`, …). Está prohibida una copia local de un nombre compartido | `assets/js/utils.js` |
+| Textos | `strings.<locale>.js` en ambos idiomas; ningún texto en `app.js` | actividad |
+| Datos | `data.js`, disposiciones y contenido independientes del idioma | actividad |
+
+#### La ayuda común: `App.activityGlue(host)`
+
+Una actividad pide los ayudantes de progreso con una sola llamada y conserva sus
+propias variables. El host pasa funciones que devuelven el valor, no los valores,
+porque una actividad puede reasignar su objeto de progreso:
+
+```js
+var glue = App.activityGlue({
+  toolId: TOOL_ID,
+  progress: function () { return progress; },
+  starsEl: function () { return starsEl; },
+  levels: function () { return bank().niveles; }   /* solo para levelFromProgress */
+});
+var save = glue.save, renderStars = glue.paintStars, levelBasedOnProgress = glue.levelFromProgress;
+```
+
+- `save()` guarda el progreso bajo `toolId`.
+- `paintStars()` escribe `⭐ n` en el elemento que devuelve `starsEl()`.
+- `levelFromProgress()` devuelve `levels()[min(progress.roundsCompleted, último)]`.
+  El campo es `roundsCompleted`, salvo que `roundsKey` indique otro.
+
+El validador (`scripts/check.js`, sección 8b) prohíbe un `save()` o un
+`renderStars()` locales con el mismo cuerpo, y exige que `activity-glue.js` esté
+en el `index.html` de toda actividad que llame a `App.activityGlue`.
+
+### 4.7 Familia de juego y bucle de repetición de errores
+
+Las actividades de Routime son todas actividades de *juego*: una mecánica
+(elegir, tocar, arrastrar, ordenar), una ronda de elementos y retroalimentación
+tras cada intento. Las reglas que todas siguen, y que el código compartido ya
+soporta:
+
+1. **Sin castigo.** Una respuesta equivocada da una pista y otro intento. Nunca
+   un contador de fallos en pantalla, ni un temporizador, ni un «fin del juego».
+2. **Las estrellas solo suman.** `save()` y `paintStars()` de la ayuda común.
+3. **Los errores vuelven.** La actividad llama a `App.reinforce.add(clave, carga)`
+   por cada elemento que la persona falló. Al terminar la ronda llama a
+   `App.reinforce.consume()`: si hay fallos, la mini-ronda empieza con ellos, y
+   el callback dado a `App.reinforce.start(cb)` la lanza. Cuando la mini-ronda
+   termina llama a `App.reinforce.clear()`.
+4. **Una pantalla final, un botón.** Al final de la ronda se muestra el resumen
+   y un único botón principal de vuelta al inicio.
+
+`App.reinforce` solo coordina *qué* se repite y *cuándo*. La mini-ronda la dibuja
+la propia actividad, con sus opciones y su retroalimentación. La clave de `add`
+debe ser estable (la identidad del elemento, no su posición en pantalla), para
+que un elemento fallado dos veces se repita una sola vez.
+
+#### 4.7.1 El bucle de juego (`assets/js/activity-play.js`)
+
+`App.activityPlay(config)` lleva la ronda de una actividad de juego. La
+actividad dibuja cada elemento y comunica cada intento; el bucle hace el resto:
+los elementos en orden, la barra de progreso, la pista y la explicación, las
+estrellas, el progreso guardado, la repetición de los fallos y la pantalla final.
+
+```js
+App.activityPlay({
+  toolId: 'riddles', roundsKey: 'rounds', reinforce: true,
+  ui: { game: '#gameScreen', end: '#endScreen', feedback: '#feedback',
+        explanationWrap: '#explicacionWrap', explanation: '#explicacion',
+        btnNext: '#btnNext', progressFill: '#progressFill', progressText: '#progressText',
+        stars: '#stars', summary: '#resumenFinal', btnRepeat: '#btnRepeat' },
+  items: function (progress) { return App.utils.shuffle(bank).slice(0, 7); },
+  mount: function (item, play) {          /* dibuja un elemento, devuelve los controles a bloquear */
+    /* ... */
+    btn.addEventListener('click', function () {
+      play.attempt(isCorrect, { control: btn, hint: textoPista, explanation: textoExplicacion });
+    });
+    return buttons;
+  }
+});
+```
+
+- `items(progress)` devuelve los elementos de la ronda, ya barajados y
+  recortados. El progreso permite a la actividad elegir su nivel (lo hace `street`).
+- `mount(item, play, info)` dibuja el elemento. `info` dice si es una repetición.
+  Devuelve los controles que se bloquean mientras se lee una pista.
+- `play.attempt(correcto, info)` comunica un intento. Intento acertado: la clase
+  `correcta`, el mensaje de acierto, una estrella, la explicación y el botón
+  siguiente. Intento fallado: la clase `animo`, el ánimo, la pista de inmediato,
+  y los demás controles bloqueados hasta «Entendido»; la explicación llega tras
+  la pista solo desde el segundo fallo (`secondMissAt`).
+- `reinforce: true` guarda los fallos (`App.reinforce.add`); al terminar la ronda
+  vuelven en una mini-ronda, y después la pantalla final.
+- `roundsKey` nombra el campo del progreso que cuenta las rondas (`rounds` en
+  adivinanzas; por defecto `roundsCompleted`).
+- `autoStart: false` muestra primero la pantalla de inicio de la página
+  (`ui.start`), y `ui.play` empieza la ronda (lo usan `street` y `trust-circle`).
+- `summary(aciertos, estrellas)` y `onEnd(play)` permiten redactar la pantalla
+  final y guardar lo propio de la actividad (por ejemplo, los niveles completados).
+- La ronda empieza tras `DOMContentLoaded`, así que `App.i18n` ya ha traducido la
+  página antes de dibujar el primer elemento.
+
+Lo adoptan 23 actividades de elegir: `riddles`, `street`, `categories`,
+`comedy-club`, `doctor-visit`, `first-aid-kit`, `friends`, `self-esteem`,
+`resilience`, `my-body`, `what-first`, `what-to-wear`, `what-do-i-need`,
+`trust-circle`, `where-to-store`, `where-is`, `post-or-not`, `sentence`, `signs`,
+`times-of-day`, `healthy-food`, `idioms` y `double-meaning`. El resto conserva su
+código: las que tienen un menú de subactividades o un chat (`be-prepared`,
+`situations`, `emergencies`, `while-help-arrives`, `phishing-alert`,
+`bullying-chat`, `social-safety`, `phone-numbers`, `safe-chat`), las mecánicas de
+memoria y de ordenar (`whats-missing`, `turns-mirrors`), y las demás, que tienen
+otra mecánica o aún no están revisadas.
+
+### 4.8 Partir una actividad grande (`model.js`)
+
+Cuando `app.js` pasa de unas pocas cientos de líneas y parte de él no toca la
+página (los generadores de preguntas, los dibujos como texto HTML, las reglas de
+nivel), la actividad se parte en dos. La parte sin DOM va a `model.js`, que solo
+publica sus nombres como `App.<nombre>Model` y se puede comprobar en Node.
+`app.js` conserva la página y lee los nombres del modelo mediante alias al
+principio del fichero. El fichero del modelo se añade a la lista de módulos extra
+del validador cuando se usa la división por primera vez (la referencia es
+`EXTRA_MODULES` en `scripts/check.js` de calculia), y a `sw.js`, y lo carga
+`index.html` antes de `app.js`. Routime todavía no tiene ninguna actividad partida
+así; es la convención para la primera que la necesite.
+
+### 4.9 Estado del esqueleto compartido y sus excepciones
+
+- **Ayuda común**: `save`, `paintStars` y `levelFromProgress` vienen de
+  `App.activityGlue` en toda actividad con la forma común. Las excepciones
+  conservan su código a propósito: `my-agenda` guarda solo una parte de su
+  progreso y no muestra recuento, `sexual-health` no muestra estrellas, y
+  `house` dibuja las estrellas con otro símbolo.
+- **Repetición de errores**: `clock` guarda sus fallos en `App.reinforce`
+  (4.7). El resto de actividades de juego todavía no repite los errores; añadirlo
+  es una decisión por actividad, porque la repetición tiene que volver a dibujar
+  el elemento.
+- **Ayudas de progreso y de retroalimentación** (`showHint`, `showExplanation`,
+  `endRound`, `renderProgress`): cada actividad escribe su propio texto, sus
+  propias pantallas y sus propios campos de progreso, así que los cuerpos difieren
+  aunque la forma sea la misma. No se comparten todavía, a propósito.
+- **Bucle común de juego**: `App.activityPlay` (4.7.1) lleva la ronda de 23
+  actividades de elegir (listadas en 4.7.1). Las demás siguen con su propio código
+  de ronda y pueden pasar una a una.
+- **Identificadores en inglés** (regla B.2): un renombrado por glosario convirtió
+  los identificadores cuyas palabras están todas en el glosario. La comprobación
+  por glosario todavía encuentra 58 identificadores declarados con una palabra
+  española, sobre todo nombres compuestos con una parte que falta en el glosario
+  (`respuestaTrasPista`, `pantallaChecklist`). Cada uno necesita su entrada en el
+  glosario, y después las mismas comprobaciones y la prueba de interfaz.
+
 ## 5. Reglas de accesibilidad
 
 Al crear actividades nuevas, seguir estas **13 reglas obligatorias**:

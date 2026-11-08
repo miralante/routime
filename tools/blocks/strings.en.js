@@ -7,6 +7,10 @@
   'use strict';
 
   App.i18n.register({
+    "pickColor": "Pick {color}.",
+    "wrongEmpty": "That square is empty. Pick a colour first.",
+    "wrongColor": "That square is not right. Look at the model: it should be {color}.",
+    "buildComplete": "You copied the whole model!",
     "title": "🧱 The Blocks",
     "instruccion": "Copy the model. Choose a colour and touch the squares to paint them the same.",
     "instruccionNivel": " First, choose the level.",

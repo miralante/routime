@@ -204,8 +204,10 @@
     'hint.class_attention': '¿Qué ayuda más a aprender: el móvil o prestar atención?',
 
     // Generic feedback
-    'feedback.correct': '¡Muy bien! Has elegido lo que cuida a las personas y al sitio.',
-    'feedback.explanation': 'Esa es la buena educación: cuida de los demás y del lugar para que todos estemos bien.',
+    feedback: {
+      correct: '¡Muy bien! Has elegido lo que cuida a las personas y al sitio.',
+      explanation: 'Esa es la buena educación: cuida de los demás y del lugar para que todos estemos bien.'
+    },
 
     // Completion
     'roundEnd': 'Ronda terminada. Muy bien.',
