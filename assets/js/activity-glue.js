@@ -30,7 +30,14 @@
     }
 
     function paintStars() {
-      host.starsEl().textContent = '⭐ ' + host.progress().stars;
+      var el = host.starsEl();
+      var stars = host.progress().stars;
+      el.textContent = '⭐ ' + stars;
+      // Achievements (every 10) and the next goal (ends in 5): one engine for the suite.
+      window.MiralanteStars.goal(el, stars, {
+        reached: App.i18n.t('starsReached'),
+        goal: App.i18n.t('starsGoal')
+      });
     }
 
     /* The level of the rounds completed so far, the last one once they run out. */

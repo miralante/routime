@@ -66,7 +66,13 @@
     function save() { App.storage.set(toolId, progress); }
 
     function paintStars() {
-      if (el.stars) el.stars.textContent = '⭐ ' + progress.stars;
+      if (!el.stars) return;
+      el.stars.textContent = '⭐ ' + progress.stars;
+      // Achievements (every 10) and the next goal (ends in 5): one engine for the suite.
+      window.MiralanteStars.goal(el.stars, progress.stars, {
+        reached: App.i18n.t('starsReached'),
+        goal: App.i18n.t('starsGoal')
+      });
     }
 
     function paintProgress() {
