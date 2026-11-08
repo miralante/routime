@@ -74,14 +74,13 @@
     onEnd: function (play) {
       play.progress.completed[currentLevel.id] = (play.progress.completed[currentLevel.id] || 0) + 1;
       play.save();
-      $('#endSummary').textContent = '\n' + App.i18n.t('proximoNivel')
-        .replace('{n}', Math.min(play.progress.roundsCompleted + 1, bank().niveles.length));
+      $('#endSummary').textContent = '\n' + App.i18n.t('proximoNivel', { n: Math.min(play.progress.roundsCompleted + 1, bank().niveles.length) });
       var transferEl = $('#transferencia');
       if (transferEl) transferEl.textContent = '';
     }
   });
 
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 })();

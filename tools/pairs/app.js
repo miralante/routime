@@ -20,8 +20,7 @@
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Estado de la partida */
@@ -135,8 +134,7 @@
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().niveles.length) });
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('celebrarTexto'));
   }
@@ -144,7 +142,7 @@
   /* Events */
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   renderStars();

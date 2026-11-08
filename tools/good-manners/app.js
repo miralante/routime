@@ -133,7 +133,7 @@
     audioBtn.setAttribute('aria-label', App.i18n.t('core.listen'));
     audioBtn.textContent = App.i18n.t('core.listen');
     audioBtn.onclick = function () {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.mensaje));
+      if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.mensaje));
     };
     message.appendChild(audioBtn);
 
@@ -286,7 +286,7 @@
     btnMenu.className = 'btn btn-secundario';
     btnMenu.textContent = App.i18n.t('core.backToMenu');
     btnMenu.onclick = function () {
-      window.location.href = '../../';
+      App.utils.goMenu();
     };
     btns.appendChild(btnMenu);
 

@@ -19,8 +19,7 @@
   var starsEl = $('#stars');
 
   /* Progreso persistente (un contador de estrellas compartido) */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.roundsCompletedSecciones) progress.roundsCompletedSecciones = 0;
   if (!progress.roundsCompletedLista) progress.roundsCompletedLista = 0;
 
@@ -106,7 +105,7 @@
       btnAudio.className = 'btn btn-audio';
       btnAudio.textContent = '🔊';
       btnAudio.setAttribute('aria-label', App.i18n.t('escucharCategoria').replace('{categoria}', categoria));
-      btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(categoria); });
+      btnAudio.addEventListener('click', function () { if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(categoria); });
 
       row.appendChild(btn);
       row.appendChild(btnAudio);
@@ -168,8 +167,7 @@
     hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompletedSecciones + 1, bank().secciones.niveles.length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompletedSecciones + 1, bank().secciones.niveles.length) });
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -218,7 +216,7 @@
       btnAudio.className = 'btn btn-audio';
       btnAudio.textContent = '🔊';
       btnAudio.setAttribute('aria-label', App.i18n.t('escucharMomento').replace('{timeOfDay}', timeOfDay));
-      btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(timeOfDay); });
+      btnAudio.addEventListener('click', function () { if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(timeOfDay); });
 
       var row = document.createElement('div');
       row.className = 'row-caja';
@@ -269,7 +267,7 @@
       b.classList.remove('animo', 'correcta');
     });
 
-    if (false && App.tts && App.tts.speak) App.tts.speak(item.palabra);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(item.palabra);
     paintProgressL();
     renderStars();
   }
@@ -332,8 +330,7 @@
     hideAll();
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompletedLista + 1, bank().lista.niveles.length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompletedLista + 1, bank().lista.niveles.length) });
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
 

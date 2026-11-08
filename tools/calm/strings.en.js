@@ -4,6 +4,7 @@ App.i18n.register({
     "sueltaAire": "Breathe out… slowly",
     "estrellaSingular": "star",
     "estrellaPlural": "stars",
+    "resumenFinal": "You now have {n} {palabra}.",
     "celebrarMsg": "Well done! You breathed calmly.",
   "title": "Calm",
   "instruccion": "Press Play to start.",

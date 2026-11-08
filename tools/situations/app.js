@@ -25,8 +25,7 @@
   var listEl = $('#listaTodas');
   var lastScreen = gameScreen;
 
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 

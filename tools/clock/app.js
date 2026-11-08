@@ -36,8 +36,7 @@
   var estrellasEl = $('#estrellas');
 
   /* Progreso persistente */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
 
   /* Estado de la ronda */
   var mode = null;
@@ -511,8 +510,7 @@
 
   function endRound() {
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    App.utils.showEnd(gameScreen, endScreen);
     $('#endSummary').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -522,7 +520,7 @@
   $('#repeatBtn').addEventListener('click', function () { startRound(lvl); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
   function backAModes() {
     endScreen.classList.add('hidden');
@@ -536,7 +534,7 @@
   if (btnListen) {
     btnListen.addEventListener('click', function () {
       var t = textQuestionEl.textContent || '';
-      if (t) if (false && App.tts && App.tts.speak) App.tts.speak(t);
+      if (t) if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t);
     });
   }
 

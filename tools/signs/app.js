@@ -82,6 +82,6 @@
   });
 
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 })();

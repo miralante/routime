@@ -170,7 +170,7 @@
     audioBtn.setAttribute('aria-label', App.i18n.t('core.listen'));
     audioBtn.textContent = '\uD83D\uDD0A ' + App.i18n.t('core.listen');
     audioBtn.onclick = function () {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.message));
+      if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t(state.currentSituation.message));
     };
     message.appendChild(audioBtn);
 
@@ -251,9 +251,7 @@
       btn.classList.add('error');
       btn.disabled = true;
       App.feedback.encourage(feedbackZone);
-      var hint = state.currentSituation.pista
-        ? App.i18n.t(state.currentSituation.pista)
-        : App.i18n.t('hint');
+      var hint = App.i18n.t(state.currentSituation.hint);
       feedbackZone.textContent = hint;
       App.feedback.lockUntilAck(optionBtns, feedbackZone, function () {
         state.showingFeedback = false;
@@ -335,7 +333,7 @@
     btnMenu.setAttribute('data-i18n', 'core.backToMenu');
     btnMenu.textContent = App.i18n.t('core.backToMenu');
     btnMenu.onclick = function () {
-      window.location.href = '../../';
+      App.utils.goMenu();
     };
     btns.appendChild(btnMenu);
 

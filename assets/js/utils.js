@@ -180,12 +180,35 @@
     });
   }
 
+  /* Shared end-of-round switch: hides the game screen and shows the end screen.
+     Each activity still fills its own summary and celebrates with its own key. */
+  function showEnd(gameEl, endEl) {
+    gameEl.classList.add('hidden');
+    endEl.classList.remove('hidden');
+  }
+
+  /* Shows the screen whose id is activeId and hides the other ids in the list. */
+  function showOnly(ids, activeId) {
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden', id !== activeId);
+    });
+  }
+
+  /* Back to the activities menu. Every activity lives two levels below the root. */
+  function goMenu() {
+    window.location.href = '../../';
+  }
+
   window.App.utils = {
     shuffle: shuffle,
     $: $,
     $$: $$,
     hoy: hoy,
     reducedMotion: reducedMotion,
-    inyectarPie: inyectarPie
+    inyectarPie: inyectarPie,
+    showEnd: showEnd,
+    showOnly: showOnly,
+    goMenu: goMenu
   };
 })();

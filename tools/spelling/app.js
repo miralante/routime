@@ -33,8 +33,7 @@
   var nextBtn = $('#nextBtn');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   var glue = App.activityGlue({
@@ -185,8 +184,7 @@
     save();
     show(endScreen);
     $('#finalSummary').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().length) });
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -194,16 +192,16 @@
   /* ---------- Eventos ---------- */
 
   if (listenBtn) listenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(items[idx].word);
   });
   var explanationListenBtn = $('#explanationListenBtn');
   if (explanationListenBtn) explanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(explanationEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(explanationEl.textContent);
   });
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   function init() {

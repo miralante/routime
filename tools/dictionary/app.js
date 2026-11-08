@@ -46,8 +46,7 @@
   var quizNextBtn = $('#quizNextBtn');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   var glue = App.activityGlue({
@@ -209,8 +208,7 @@
     save();
     show(endScreen);
     $('#finalSummary').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().length) });
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -219,19 +217,19 @@
 
   nextCardBtn.addEventListener('click', nextCard);
   if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(currentLevel.words[cardIdx]));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(cardSpeech(currentLevel.words[cardIdx]));
   });
   if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(quizItems[quizIdx].word + '. ' + t('quizQuestion'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(quizItems[quizIdx].word + '. ' + t('quizQuestion'));
   });
   if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   function init() {

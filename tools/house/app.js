@@ -66,8 +66,7 @@
   var starsEl          = $('#stars');
 
   /* ---- Persistent progress (only stars + done flag, per activity contract) ---- */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.done || typeof progress.done !== 'object' || Array.isArray(progress.done)) {
     progress.done = {};
   }
@@ -544,8 +543,7 @@
   }
 
   function endRound() {
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    App.utils.showEnd(gameScreen, endScreen);
     $('#resumenFinal').textContent = App.i18n.t('core.roundComplete');
     $('#transferencia').textContent = App.i18n.t('transferencia');
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));

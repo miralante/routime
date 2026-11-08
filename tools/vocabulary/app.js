@@ -52,8 +52,7 @@
   var quizNextBtn = $('#quizNextBtn');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
 
   var glue = App.activityGlue({
@@ -383,15 +382,15 @@
   /* ---------- Wire events ---------- */
 
   if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word + '. ' + items[idx].definition);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(items[idx].word + '. ' + items[idx].definition);
   });
   nextCardBtn.addEventListener('click', nextCard);
   if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(items[idx].word);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(items[idx].word);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
   if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   $('#replayBtn').addEventListener('click', function () {
     if (currentRound) startRound(currentRound);

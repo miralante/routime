@@ -388,7 +388,7 @@
     typedNextBtn.classList.add('hidden');
     typedCheckBtn.classList.remove('hidden');
 
-    if (false && App.tts && App.tts.speak) App.tts.speak(t(item.questionKey));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t(item.questionKey));
     paintStars();
     setTimeout(function () { typedInput.focus(); }, 50);
   }
@@ -481,22 +481,22 @@
   });
   if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
     var card = cards[cardIdx];
-    if (false && App.tts && App.tts.speak) App.tts.speak(card.label + '. ' + card.value);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(card.label + '. ' + card.value);
   });
 
   if (choiceListenBtn) choiceListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(t(choiceItems[choiceIdx].questionKey));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t(choiceItems[choiceIdx].questionKey));
   });
   if (choiceExplanationListenBtn) choiceExplanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(choiceExplanation.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(choiceExplanation.textContent);
   });
   choiceNextBtn.addEventListener('click', nextChoice);
 
   if (typedListenBtn) typedListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(t(typedItems[typedIdx].questionKey));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t(typedItems[typedIdx].questionKey));
   });
   if (typedExplanationListenBtn) typedExplanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(typedExplanation.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(typedExplanation.textContent);
   });
   typedCheckBtn.addEventListener('click', checkTyped);
   typedInput.addEventListener('keydown', function (ev) {
@@ -511,7 +511,7 @@
 
   var emptyListenBtn = $('#emptyListenBtn');
   if (emptyListenBtn) emptyListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
   });
 
   function init() {
@@ -519,7 +519,7 @@
     paintStars();
     if (!state.ownAddress && !state.ownPhone) {
       show(emptyScreen);
-      if (false && App.tts && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
+      if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(t('emptyTitle') + '. ' + t('emptyText'));
       return;
     }
     startCards();

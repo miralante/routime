@@ -13,8 +13,7 @@
   var solved = false;
   var attempts = 0;
 
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
   if (!progress.completed || typeof progress.completed !== 'object') progress.completed = {};
 
@@ -31,9 +30,7 @@
   }
 
   function showScreen(screenId) {
-    ['caseScreen', 'endScreen'].forEach(function (id) {
-      $('#' + id).classList.toggle('hidden', id !== screenId);
-    });
+    App.utils.showOnly(['caseScreen', 'endScreen'], screenId);
   }
 
   /* ---------- Nivel según progress ---------- */
@@ -133,8 +130,7 @@
     paintStars();
     $('#endText').textContent = '';
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank.levels.length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank.levels.length) });
     $('#transferencia').textContent = '';
     showScreen('endScreen');
     $('#endHeading').focus();
@@ -154,7 +150,7 @@
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   paintStars();

@@ -69,6 +69,9 @@
   window.App.tts = {
     speak: speak,
     stop: stop,
-    disponible: disponible
+    disponible: disponible,
+    /* Suite-wide off switch. Activities read text aloud only when this is
+       true. Keep it false while the feature is parked; set true to re-enable. */
+    enabled: false
   };
 })();

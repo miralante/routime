@@ -25,8 +25,7 @@
   var colors = DATA.colors || DATA.colores || [];
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.drawingsPainted !== 'number') progress.drawingsPainted = 0;
 
   var currentDrawing = null;

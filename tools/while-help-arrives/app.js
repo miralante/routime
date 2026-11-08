@@ -31,8 +31,7 @@
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completadoQueHago) progress.completadoQueHago = 0;
   if (!progress.completadoOrdenar) progress.completadoOrdenar = 0;
 
@@ -301,10 +300,10 @@
   $('#btnVolverOrdenar').addEventListener('click', irMenu);
   btnNextWhatToDo.addEventListener('click', nextWhatToDo);
   if ($('#btnEscucharExplicacionQueHago')) $('#btnEscucharExplicacionQueHago').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(explanationQEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(explanationQEl.textContent);
   });
   if ($('#btnEscucharQueHago')) $('#btnEscucharQueHago').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(itemsQueHago[idxQ].situacion);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(itemsQueHago[idxQ].situacion);
   });
   $('#btnRepeat').addEventListener('click', function () {
     if (activityCurrent === 'queHago') iniciarQueHago();

@@ -4,6 +4,7 @@ App.i18n.register({
     "sueltaAire": "Suelta el aire… despacio",
     "estrellaSingular": "estrella",
     "estrellaPlural": "estrellas",
+    "resumenFinal": "Ya tienes {n} {palabra}.",
     "celebrarMsg": "¡Muy bien! Has respirado con calma.",
   "title": "Calm",
   "instruccion": "Pulsa Jugar para empezar.",

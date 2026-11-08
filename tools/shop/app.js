@@ -29,8 +29,7 @@
   var descomponer = App.dinero.descomponer;
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   ['completadosTienda', 'completadosQuedame', 'completadosMucho', 'completadosPaga', 'completadosFiar']
     .forEach(function (key) { if (!progress[key]) progress[key] = {}; });
 
@@ -818,7 +817,7 @@ if ($('#transferencia')) $('#transferencia').textContent = '';
   btnNextQuiz.addEventListener('click', nextQuiz);
   var btnEnunciadoQuiz = $('#btnEnunciadoQuiz');
   if (btnEnunciadoQuiz) btnEnunciadoQuiz.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoQuizEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(enunciadoQuizEl.textContent);
   });
 
   btnContinuarTienda.addEventListener('click', function () {
@@ -828,7 +827,7 @@ if ($('#transferencia')) $('#transferencia').textContent = '';
   });
   var btnEnunciadoTienda = $('#btnEnunciadoTienda');
   if (btnEnunciadoTienda) btnEnunciadoTienda.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(enunciadoTiendaEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(enunciadoTiendaEl.textContent);
   });
 
   $('#repeatBtn').addEventListener('click', function () {

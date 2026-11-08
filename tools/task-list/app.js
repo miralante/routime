@@ -36,8 +36,7 @@
   var levelEl = $('#level');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
   /* Listas de práctica del nivel "Crea tu lista". Se persisten en
@@ -494,7 +493,7 @@
       btnListen.addEventListener('click', function (e) {
         e.stopPropagation();
         var done = list.items.filter(function (x) { return x.done; }).length;
-        if (false && App.tts && App.tts.speak) App.tts.speak(list.name + '. ' + list.items.length + ' ' +
+        if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(list.name + '. ' + list.items.length + ' ' +
           App.i18n.t('elementosCount').replace('{n}', list.items.length) + '. ' +
           list.items.map(itemText).join(', '));
       });
@@ -591,7 +590,7 @@
   btnNext.addEventListener('click', next);
   if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   /* Eventos del Nivel 3 — "Crea tu lista". */
@@ -620,7 +619,7 @@
   if ($('#btnBack')) $('#btnBack').addEventListener('click', function (e) {
     if (!screenCreate.classList.contains('hidden')) {
       e.preventDefault();
-      window.location.href = '../../';
+      App.utils.goMenu();
     }
   });
 

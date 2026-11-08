@@ -178,8 +178,16 @@
     return out;
   }
 
+  /* get() plus the default star count that every activity needs. */
+  function getWithStars(toolId) {
+    var progress = get(toolId);
+    if (typeof progress.stars !== 'number') progress.stars = 0;
+    return progress;
+  }
+
   window.App.storage = {
     get: get,
+    getWithStars: getWithStars,
     set: set,
     remove: remove,
     totalStars: totalStars,

@@ -8,8 +8,7 @@
   var TOOL_ID = 'social-safety';
   var $ = App.utils.$;
   var bank = DATA[App.i18n.locale()] || DATA.es;
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
   if (!progress.completed) progress.completed = {};
   if (!progress.positions) progress.positions = {};
@@ -33,9 +32,7 @@
 
   function showScreen(id) {
     if (id) visibleScreen = id;
-    ['menuScreen', 'caseScreen', 'endScreen'].forEach(function (screenId) {
-      $('#' + screenId).classList.toggle('hidden', screenId !== id);
-    });
+    App.utils.showOnly(['menuScreen', 'caseScreen', 'endScreen'], id);
   }
 
   function topicCatalog(level) {

@@ -26,8 +26,7 @@
   var finalSummaryEl = $('#finalSummary');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Game state */
@@ -74,7 +73,7 @@
       btn.innerHTML = '<span aria-hidden="true">' + tp.picto + '</span> ' + tp.name;
       btn.addEventListener('click', function () {
         topic = tp;
-        if (false && App.tts && App.tts.speak) App.tts.speak(tp.name);
+        if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(tp.name);
         /* Auto-select level based on progress */
         var lvlIdx = progress.roundsCompleted % DATA.levels.length;
         level = DATA.levels[lvlIdx];
@@ -179,7 +178,7 @@
       chip.className = 'chip' + (w.found ? ' found' : '');
       chip.textContent = w.textContent;
       chip.setAttribute('aria-label', t('listenWord').replace('{word}', w.textContent));
-      chip.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(w.textContent); });
+      chip.addEventListener('click', function () { if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(w.textContent); });
       wordListEl.appendChild(chip);
     });
   }
@@ -339,7 +338,7 @@
     var summary = t('finalSummary').replace('{n}', earned).replace('{total}', progress.stars);
     finalSummaryEl.textContent = summary;
     $('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.pick('feedback.success'), function () {
+    App.feedback.celebrate(App.i18n.t('core.roundComplete'), function () {
       show(endScreen);
     });
   }

@@ -109,7 +109,7 @@
         btnAudio.className = 'btn btn-audio';
         btnAudio.textContent = '🔊';
         btnAudio.setAttribute('aria-label', App.i18n.t('escucharCategoria').replace('{categoria}', categoria));
-        btnAudio.addEventListener('click', function () { if (false && App.tts && App.tts.speak) App.tts.speak(categoria); });
+        btnAudio.addEventListener('click', function () { if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(categoria); });
 
         row.appendChild(btn);
         row.appendChild(btnAudio);
@@ -177,6 +177,6 @@
   $('#btnVerTodasFin').addEventListener('click', showAll);
   $('#btnVolverTodas').addEventListener('click', hideAll);
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 })();

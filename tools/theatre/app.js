@@ -34,8 +34,7 @@
   var levelEl = $('#dificultad');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
   /* Round state */
@@ -239,11 +238,9 @@
   function endRound() {
     progress.roundsCompleted += 1;
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    App.utils.showEnd(gameScreen, endScreen);
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
+    $('#resumenFinal').textContent += '\n' + App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().niveles.length) });
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -252,10 +249,10 @@
   btnNext.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
   $('#btnConsigna').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(consignaEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(consignaEl.textContent);
   });
 
   renderStars();

@@ -24,8 +24,7 @@
   };
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
 
   /* Chat en curso */
@@ -41,9 +40,7 @@
   var save = glue.save, renderStars = glue.paintStars;
 
   function showScreen(id) {
-    SCREENS.forEach(function (p) {
-      document.getElementById(p).classList.toggle('hidden', p !== id);
-    });
+    App.utils.showOnly(SCREENS, id);
   }
 
   /* ---------- Menu ---------- */

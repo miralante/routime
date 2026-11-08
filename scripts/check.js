@@ -294,6 +294,87 @@ slugs.forEach(function (slug) {
   }
 });
 
+/* --- 4c. i18n keys used by a tool must resolve (nested lookup).
+   A flat dotted key ('nivel.nivel1': ...) is registered but never resolves:
+   the lookup walks nested objects, so the raw key is shown instead. This
+   checks the keys written in strings.*.js and every dotted literal in
+   app.js / data.js (core.* keys belong to assets/js/i18n.js and are skipped). --- */
+var NO_ES_CLAVE = /\.(png|jpe?g|gif|svg|webp|mp3|wav|ogg|json|js|css|html|txt|md)$/i;
+var CLAVE_DOTTED = /^[A-Za-z][A-Za-z0-9_]*(\.[A-Za-z][A-Za-z0-9_]*)+$/;
+
+function resuelveClave(dict, clave) {
+  var nodo = dict;
+  var partes = clave.split('.');
+  for (var i = 0; i < partes.length; i++) {
+    if (nodo === null || typeof nodo !== 'object' || !(partes[i] in nodo)) return false;
+    nodo = nodo[partes[i]];
+  }
+  return typeof nodo === 'string' || Array.isArray(nodo);
+}
+
+function resumenLista(lista) {
+  return lista.slice(0, 6).join(', ') + (lista.length > 6 ? ' … (+' + (lista.length - 6) + ')' : '');
+}
+
+function quitarComentarios(texto) {
+  return texto.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:\\])\/\/.*$/gm, '$1');
+}
+
+/* Every key given to App.i18n.t(...) or App.i18n.pick(...) as a literal, dotted or not. */
+function clavesTUsadas(texto) {
+  var out = [];
+  /* A literal followed by + is a prefix of a key built at run time: not checked. */
+  var re = /i18n\.(?:t|pick)\(\s*['"]([^'"]+)['"](\s*\+)?/g;
+  var codigo = quitarComentarios(texto);
+  var m;
+  while ((m = re.exec(codigo)) !== null) {
+    if (!m[2] && m[1].indexOf('core.') !== 0) out.push(m[1]);
+  }
+  return out;
+}
+
+function clavesDottedUsadas(texto) {
+  var out = [];
+  /* Comments may cite keys as examples; only code and strings count. */
+  var codigo = texto.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:\\])\/\/.*$/gm, '$1');
+  var re = /['"]([A-Za-z][A-Za-z0-9_.]*)['"]/g;
+  var m;
+  while ((m = re.exec(codigo)) !== null) {
+    var c = m[1];
+    if (CLAVE_DOTTED.test(c) && !NO_ES_CLAVE.test(c) && c.indexOf('core.') !== 0) out.push(c);
+  }
+  return out;
+}
+
+slugs.forEach(function (slug) {
+  var archivoEs = path.join(toolsDir, slug, 'strings.es.js');
+  var archivoEn = path.join(toolsDir, slug, 'strings.en.js');
+  if (!fs.existsSync(archivoEs) || !fs.existsSync(archivoEn)) return;
+  var dictEs = extraerDictDeStrings(archivoEs, 'es');
+  var dictEn = extraerDictDeStrings(archivoEn, 'en');
+  if (!dictEs || !dictEn) return; // already reported by section 4
+  checks += 1;
+  var planas = Object.keys(dictEs).filter(function (k) { return k.indexOf('.') !== -1; });
+  var usadas = [];
+  ['app.js', 'data.js'].forEach(function (f) {
+    var p = path.join(toolsDir, slug, f);
+    if (fs.existsSync(p)) {
+      var fuente = fs.readFileSync(p, 'utf8');
+      usadas = usadas.concat(clavesDottedUsadas(fuente), clavesTUsadas(fuente));
+    }
+  });
+  usadas = usadas.filter(function (c, i) { return usadas.indexOf(c) === i; });
+  var sinResolver = usadas.filter(function (c) {
+    return !resuelveClave(dictEs, c) || !resuelveClave(dictEn, c);
+  });
+  if (planas.length || sinResolver.length) {
+    var detalle = [];
+    if (planas.length) detalle.push('claves planas con punto (no se resuelven, ' + planas.length + '): ' + resumenLista(planas));
+    if (sinResolver.length) detalle.push('claves usadas sin resolver en es/en (' + sinResolver.length + '): ' + resumenLista(sinResolver));
+    fallos.push('tools/' + slug + '/: ' + detalle.join('; '));
+  }
+});
+
 /* --- 5. Catalog parity with index.html --- */
 checks += 1;
 var portadaHtml = fs.readFileSync(path.join(RAIZ, 'index.html'), 'utf8');

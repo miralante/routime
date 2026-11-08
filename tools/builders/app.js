@@ -40,8 +40,7 @@
   var btnLimpiarTodo = $('#btnLimpiarTodo');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.construcciones !== 'number') progress.construcciones = 0;
 
   /* Estado del juego */

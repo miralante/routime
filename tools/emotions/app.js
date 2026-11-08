@@ -166,10 +166,10 @@
 
   /* Events */
   $('#btnPregunta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('pregunta'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('pregunta'));
   });
   $('#btnOirRespuesta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(emotionCurrent.mensaje + ' ' + emotionCurrent.sugerencia.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(emotionCurrent.mensaje + ' ' + emotionCurrent.sugerencia.textContent);
   });
   $('#btnRespirar').addEventListener('click', breathe);
   $('#btnSalirRespiracion').addEventListener('click', salirRespiracion);

@@ -50,8 +50,7 @@
   var quizNextBtn = $('#quizNextBtn');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completedRounds) progress.completedRounds = 0;
 
   var glue = App.activityGlue({
@@ -92,7 +91,7 @@
     cardSituation.textContent = t('card.' + card.id + '.situation');
     cardNumber.textContent = t('numberLabel') + ' ' + DATA.number;
     paintCardProgress();
-    if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(card));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(cardSpeech(card));
   }
 
   function startCards() {
@@ -236,17 +235,17 @@ $('#transferencia').textContent = '';
   /* ---------- Eventos ---------- */
   nextCardBtn.addEventListener('click', nextCard);
   if (cardListenBtn) cardListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(cardSpeech(DATA.cards[cardIdx]));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(cardSpeech(DATA.cards[cardIdx]));
   });
   if (summaryListenBtn) summaryListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(summarySpeech());
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(summarySpeech());
   });
   startQuizBtn.addEventListener('click', startQuiz);
   if (quizListenBtn) quizListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(quizItems[quizIdx].situacion);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(quizItems[quizIdx].situacion);
   });
   if (quizExplanationListenBtn) quizExplanationListenBtn.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(quizExplanation.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(quizExplanation.textContent);
   });
   quizNextBtn.addEventListener('click', nextQuiz);
 

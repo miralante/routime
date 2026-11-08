@@ -32,8 +32,7 @@
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completadoSaber) progress.completadoSaber = 0;
   if (!progress.completadoChecklist) progress.completadoChecklist = 0;
   if (!progress.checklistMarcado) progress.checklistMarcado = {};
@@ -278,11 +277,11 @@
   btnNextKnow.addEventListener('click', nextKnow);
   var btnListenExplanationKnowledge = $('#btnEscucharExplicacionSaber');
   if (btnListenExplanationKnowledge) btnListenExplanationKnowledge.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(explanationSEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(explanationSEl.textContent);
   });
   var btnListenKnowledge = $('#btnEscucharSaber');
   if (btnListenKnowledge) btnListenKnowledge.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(itemsKnowledge[idxS].pregunta);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(itemsKnowledge[idxS].pregunta);
   });
   $('#btnRepeat').addEventListener('click', function () {
     if (activityCurrent === 'saber') startKnowledge();

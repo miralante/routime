@@ -26,8 +26,7 @@
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.rounds !== 'number') progress.rounds = 0;
 
   /* Round state */
@@ -182,9 +181,8 @@
   function endRound() {
     progress.rounds += 1;
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
-    $('#resumenFinal').textContent = App.i18n.t('summary', { n: roundHits, total: progress.stars });
+    App.utils.showEnd(gameScreen, endScreen);
+    $('#resumenFinal').textContent = App.i18n.t('resumenFinal', { n: roundHits, total: progress.stars });
     App.i18n.applyTo('#transferencia');
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
   }

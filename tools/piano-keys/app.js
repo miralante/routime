@@ -249,22 +249,22 @@
   /* ---------- Octava ---------- */
   $('#btnOctavaMas').addEventListener('click', function () {
     if (state.octava >= 1) {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMaxima'));
+      if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('octavaMaxima'));
       return;
     }
     state.octava += 1;
     save();
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMasTTS'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('octavaMasTTS'));
   });
 
   $('#btnOctavaMenos').addEventListener('click', function () {
     if (state.octava <= -1) {
-      if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMinima'));
+      if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('octavaMinima'));
       return;
     }
     state.octava -= 1;
     save();
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('octavaMenosTTS'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('octavaMenosTTS'));
   });
 
   /* ---------- Recording ---------- */
@@ -296,7 +296,7 @@
   });
 
   $('#btnExplicarLibre').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('explicarLibreTTS'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('explicarLibreTTS'));
   });
 
   /* ---------- Simon says ---------- */
@@ -720,7 +720,7 @@
   });
 
   $('#btnLeerNombre').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(App.i18n.t('escribeNombreTTS'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(App.i18n.t('escribeNombreTTS'));
   });
 
   /* ---------- Menu ---------- */
@@ -739,7 +739,7 @@
   });
 
   $('#btnLeerSaludo').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak($('#saludo').textContent + App.i18n.t('elegirModoTTS'));
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak($('#saludo').textContent + App.i18n.t('elegirModoTTS'));
   });
 
   $('#btnCambiarNombre').addEventListener('click', irNombre);

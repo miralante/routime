@@ -9,8 +9,7 @@
   var TOOL_ID = 'cuerpo-relaciones';
   var $ = App.utils.$;
   var bank = DATA[App.i18n.locale()] || DATA.es;
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
   if (!progress.completed) progress.completed = {};
 
@@ -29,9 +28,7 @@
   function paintStars() { $('#stars').textContent = ''; }
 
   function showScreen(id) {
-    ['caseScreen', 'endScreen'].forEach(function (screenId) {
-      $('#' + screenId).classList.toggle('hidden', screenId !== id);
-    });
+    App.utils.showOnly(['caseScreen', 'endScreen'], id);
   }
 
   /* ---------- Nivel según progress ---------- */
@@ -124,8 +121,7 @@
     paintStars();
     $('#endText').textContent = '';
     $('#resumenFinal').textContent = '';
-    $('#resumenFinal').textContent = App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank.niveles.length));
+    $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank.niveles.length) });
     $('#transferencia').textContent = '';
     showScreen('endScreen');
     App.feedback.celebrate(App.i18n.t('roundComplete'));
@@ -135,7 +131,7 @@
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 
   paintStars();

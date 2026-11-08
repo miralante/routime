@@ -33,8 +33,7 @@
   var starsEl = $('#stars');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completadoReconocer) progress.completadoReconocer = 0;
   if (!progress.completadoLlamada) progress.completadoLlamada = 0;
   if (!progress.completadoAscensor) progress.completadoAscensor = 0;
@@ -448,7 +447,7 @@ $('#transferencia').textContent = '';
   });
   var btnListenRecognize = $('#btnEscucharReconocer');
   if (btnListenRecognize) btnListenRecognize.addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(itemsRecognize[idxR].situacion);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(itemsRecognize[idxR].situacion);
   });
   $('#btnRepeat').addEventListener('click', function () {
     if (activityCurrent === 'reconocer') startRecognize();

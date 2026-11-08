@@ -34,8 +34,7 @@
   var levelEl = $('#level');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
@@ -199,11 +198,9 @@
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     progress.roundsCompleted += 1;
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    App.utils.showEnd(gameScreen, endScreen);
     $('#endSummary').textContent = '';
-    $('#endSummary').textContent += '\n' + App.i18n.t('proximoNivel')
-      .replace('{n}', Math.min(progress.roundsCompleted + 1, bank().niveles.length));
+    $('#endSummary').textContent += '\n' + App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().niveles.length) });
 if ($('#transferencia')) $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
   }
@@ -212,10 +209,10 @@ if ($('#transferencia')) $('#transferencia').textContent = '';
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', function () { startGame(); });
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
   $('#btnPregunta').addEventListener('click', function () {
-    if (false && App.tts && App.tts.speak) App.tts.speak(questionEl.textContent);
+    if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(questionEl.textContent);
   });
 
   renderStars();

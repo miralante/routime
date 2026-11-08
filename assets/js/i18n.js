@@ -194,10 +194,17 @@
     return valor;
   }
 
-  function t(key) {
+  /* params (optional): replaces each {name} placeholder with params.name.
+     Placeholders without a value are left as they are. */
+  function t(key, params) {
     var valor = resolver(key);
     if (valor === undefined) return key;
-    if (Array.isArray(valor)) return valor.join(', ');
+    if (Array.isArray(valor)) valor = valor.join(', ');
+    if (params) {
+      valor = valor.replace(/\{(\w+)\}/g, function (marca, nombre) {
+        return params[nombre] !== undefined ? String(params[nombre]) : marca;
+      });
+    }
     return valor;
   }
 

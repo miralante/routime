@@ -160,6 +160,6 @@
   $('#btnVerTodasFin').addEventListener('click', showList);
   $('#btnVolverJugar').addEventListener('click', hideList);
   $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 })();

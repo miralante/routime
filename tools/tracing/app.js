@@ -35,8 +35,7 @@
   var selectionSummary = $('#seleccionResumen');
 
   /* Persistent progress */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (!progress.completed) progress.completed = {};
   if (typeof progress.roundsCompleted !== 'number') progress.roundsCompleted = 0;
 
@@ -337,8 +336,7 @@
       progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     }
     save();
-    gameScreen.classList.add('hidden');
-    endScreen.classList.remove('hidden');
+    App.utils.showEnd(gameScreen, endScreen);
     var template = App.i18n.t('resumenFinal');
     $('#endSummary').textContent = '';
     if ($('#transferencia')) $('#transferencia').textContent = '';
@@ -361,7 +359,7 @@
     }
   });
   if ($('#btnOtherLevel')) $('#btnOtherLevel').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
   $('#btnModoLibre').addEventListener('click', function () {
     paintGridLetters();
@@ -369,7 +367,7 @@
     selectionScreen.classList.remove('hidden');
   });
   if ($('#btnVolverInicio')) $('#btnVolverInicio').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
   $('#btnSeleccionarMayus').addEventListener('click', function () {
     selectGroup('mayusculas', true);
@@ -404,6 +402,6 @@
   // Iniciar directamente la actividad
   startGame();
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    window.location.href = '../../';
+    App.utils.goMenu();
   });
 })();

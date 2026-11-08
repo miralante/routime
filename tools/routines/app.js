@@ -30,8 +30,7 @@
   var suppressDragClick = false;
 
   /* Progreso persistente. Si la fecha guardada no es hoy, se reinicia. */
-  var progress = App.storage.get(TOOL_ID);
-  if (typeof progress.stars !== 'number') progress.stars = 0;
+  var progress = App.storage.getWithStars(TOOL_ID);
   if (progress.fecha !== App.utils.hoy() || !progress.done) {
     progress.fecha = App.utils.hoy();
     progress.done = {}; /* { idRutina: [true, false, ...] } */
