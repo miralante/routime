@@ -68,11 +68,20 @@
     function paintStars() {
       if (!el.stars) return;
       el.stars.textContent = '⭐ ' + progress.stars;
-      // Achievements (every 10) and the next goal (ends in 5): one engine for the suite.
-      window.MiralanteStars.goal(el.stars, progress.stars, {
+    }
+
+    /* "Ya tienes X estrellas · A por las Y estrellas" (stars-engine.js), added to the
+       star message on screen when a star is earned, not to the header. */
+    function paintStarLine(zone) {
+      var old = zone.querySelector('.stars-goal');
+      if (old) old.remove();
+      var span = document.createElement('span');
+      span.className = 'stars-goal';
+      span.textContent = window.MiralanteStars.line(progress.stars, {
         reached: App.i18n.t('starsReached'),
         goal: App.i18n.t('starsGoal')
       });
+      zone.appendChild(span);
     }
 
     function paintProgress() {
@@ -135,6 +144,7 @@
         roundHits += 1;
         save();
         paintStars();
+        if (el.feedback) paintStarLine(el.feedback);
         showExplanation(info.explanation || '');
         if (el.btnNext) { el.btnNext.classList.remove('hidden'); el.btnNext.focus(); }
         return;
