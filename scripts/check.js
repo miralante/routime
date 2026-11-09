@@ -395,22 +395,10 @@ while ((mh = reHref.exec(portadaHtml)) !== null) {
   slugsEnPortada.push(mh[1]);
 }
 
-/* Activities kept off the landing and shown only on dev/index.html (WI-001).
-   They must still have a card on the dev page. */
-var SOLO_EN_DEV = ['signs', 'times-of-day', 'clock', 'task-list'];
-var devHtml = fs.readFileSync(path.join(RAIZ, 'dev', 'index.html'), 'utf8');
+/* Todas las actividades de tools/ tienen tarjeta en la portada (index.html). */
 slugs.forEach(function (slug) {
-  if (SOLO_EN_DEV.indexOf(slug) !== -1) return;
   if (slugsEnPortada.indexOf(slug) === -1) {
     fallos.push('index.html: falta la tarjeta de tools/' + slug + '/');
-  }
-});
-SOLO_EN_DEV.forEach(function (slug) {
-  if (slugsEnPortada.indexOf(slug) !== -1) {
-    fallos.push('index.html: tools/' + slug + '/ debe estar solo en dev/index.html');
-  }
-  if (devHtml.indexOf('href="../tools/' + slug + '/"') === -1) {
-    fallos.push('dev/index.html: falta la tarjeta de tools/' + slug + '/');
   }
 });
 slugsEnPortada.forEach(function (slug) {
