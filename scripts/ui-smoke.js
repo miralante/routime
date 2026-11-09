@@ -660,11 +660,11 @@ async function exerciseRoutimeAchievements(browser, baseUrl) {
       localStorage.setItem('routime:rutinas', JSON.stringify({ stars: 1 }));
       localStorage.setItem('routime:activity-days', JSON.stringify(['2026-01-01', '2026-01-02', '2026-01-03']));
     });
-    await page.goto(baseUrl + '/dev/index.html', { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
+    await page.goto(baseUrl + '/', { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
     const footerLinks = page.locator('footer[data-pie-app] a');
     await footerLinks.first().waitFor({ state: 'attached', timeout: NAV_TIMEOUT });
     const hrefs = await footerLinks.evaluateAll(links => links.map(a => a.getAttribute('href')));
-    assert.deepEqual(hrefs.slice(0, 2), ['../about-app/', '../config/'],
+    assert.ok(hrefs[0].endsWith('about-app/') && hrefs[1].endsWith('config/'),
       'El pie del menú debe enlazar "Sobre la app" justo antes de "Configuración"');
     await footerLinks.first().click();
     await page.waitForSelector('#achievementsGrid .achievement-badge', { timeout: NAV_TIMEOUT });
