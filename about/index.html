@@ -3,31 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Routime — Presentación del proyecto</title>
-  <!-- Hidden route: not linked from the main menu and should not be indexed.
-       Aimed at anyone who wants to know what Routime is: families,
-       professionals, journalists, funders or new contributors. -->
+  <title>Routime — Sobre la app</title>
+  <!-- Linked from the app footer as "Sobre la app". Describes what the app is and how it is used.
+       Structure follows the suite standard (Apptonomia about template). -->
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Routime: una aplicación de terapia ocupacional para que las personas con discapacidad intelectual practiquen por sí mismas.">
+  <meta name="description" content="Routime: una aplicación de terapia ocupacional para que cada persona practique por sí misma.">
   <meta name="theme-color" content="#FAF7F2">
-  <link rel="stylesheet" href="../assets/css/tokens.css?v=routime-v32fbcfdc">
-  <link rel="stylesheet" href="../assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="../assets/css/components.css?v=routime-vcb6b5f14">
-  <link rel="stylesheet" href="styles.css?v=routime-vab8041f0">
-  <link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-vcdcf216d">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=routime-v0621c865">
+  <link rel="stylesheet" href="../assets/css/base.css?v=routime-v3615648a">
+  <link rel="stylesheet" href="../assets/css/components.css?v=routime-v21627061">
+  <link rel="stylesheet" href="styles.css?v=routime-v368ce314">
+  <link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-v75403dc2">
 </head>
 <body>
   <div class="container about">
-    <header class="cabecera-about">
+    <header class="header-about">
       <div class="suite-controls">
         <div id="locale-picker"></div>
       </div>
-      <p class="aviso-ruta" data-i18n="routeNotice">Esta página no se enlaza desde la aplicación. Solo se llega
-        escribiendo la dirección.</p>
-      <img src="../assets/img/icono.svg?v=routime-va8882152" alt="" width="80" height="80" class="logo-about">
+      <img src="../assets/img/icono.svg?v=routime-vb2440e5d" alt="" width="80" height="80" class="logo-about">
       <h1>Routime</h1>
-      <p class="lema" data-i18n="tagline">Una aplicación para la autonomía.</p>
-      <p class="entradilla"><span data-i18n="lead1">Routime es una </span><strong data-i18n="leadStrong">aplicación web de terapia ocupacional</strong><span data-i18n="lead2"> pensada para que las personas con discapacidad intelectual practiquen por sí mismas
+      <p class="tagline" data-i18n="tagline">Una aplicación para la autonomía.</p>
+      <p class="lead"><span data-i18n="lead1">Routime es una </span><strong data-i18n="leadStrong">aplicación web de terapia ocupacional</strong><span data-i18n="lead2"> pensada para que cada persona practique por sí misma
         habilidades de la vida diaria, sin presión y con respeto a su privacidad.</span></p>
 
       <nav class="indice" aria-label="Índice de la presentación">
@@ -41,13 +38,13 @@
       </nav>
     </header>
 
-    <main class="pila">
+    <main class="stack">
 
       <section id="origen" class="card">
         <h2 data-i18n="originTitle">El origen</h2>
         <p><span data-i18n="originP1a">Routime nace de una pregunta que se repite al final de cada sesión de
           terapia ocupacional: </span><em data-i18n="originP1em">¿qué pasa entre una sesión y la siguiente?</em></p>
-        <p data-i18n="originP2">La persona con discapacidad intelectual practica con su terapeuta en consulta, pero
+        <p data-i18n="originP2">La persona practica con su terapeuta en consulta, pero
           después está sola en casa, en el colegio o en su tiempo libre. Queríamos una
           herramienta que respetase esa autonomía, que diese seguridad a las familias y que
           sirviese a la terapeuta como complemento entre sesiones, no como sustituto.</p>
@@ -56,7 +53,7 @@
           propio ritmo.</p>
       </section>
 
-      <section id="principios" class="pila">
+      <section id="principios" class="stack">
         <h2 data-i18n="principlesTitle">Los principios que no negociamos</h2>
         <p data-i18n="principlesIntro">Estas ideas están escritas primero en el código y después en los textos. Si una
           decisión las rompe, esa decisión está mal.</p>
@@ -173,6 +170,38 @@
           itinerario: cada persona hace su propio camino.</span></p>
       </section>
 
+      <section id="temas" class="card">
+        <h2 data-i18n="topicsTitle">Temas</h2>
+        <ul class="lista">
+          <li data-i18n="topicCoordination">🎯 Puntería y manos</li>
+          <li data-i18n="topicBody">💗 Cuerpo y relaciones</li>
+          <li data-i18n="topicDailyLife">📋 Mi día a día</li>
+          <li data-i18n="topicMemory">🧠 Memoria y atención</li>
+          <li data-i18n="topicLanguage">💬 Lenguaje y comprensión</li>
+          <li data-i18n="topicEmotions">💜 Emociones</li>
+          <li data-i18n="topicStreet">🚶 Salir a la calle</li>
+          <li data-i18n="topicDigital">💻 Actividades digitales</li>
+        </ul>
+      </section>
+
+      <section id="como-se-usa" class="card">
+        <h2 data-i18n="howTitle">Cómo se usa</h2>
+        <ol class="pasos">
+          <li>
+            <h3 data-i18n="step1Title">Elige un tema</h3>
+            <p data-i18n="step1Text">Mira los temas del menú y abre el que quieras practicar.</p>
+          </li>
+          <li>
+            <h3 data-i18n="step2Title">Haz la actividad</h3>
+            <p data-i18n="step2Text">Cada actividad va paso a paso. Puedes hacerla con calma y repetirla.</p>
+          </li>
+          <li>
+            <h3 data-i18n="step3Title">Gana estrellas</h3>
+            <p data-i18n="step3Text">Las estrellas se guardan en este dispositivo.</p>
+          </li>
+        </ol>
+      </section>
+
       <section id="hermanos" class="card">
         <h2 data-i18n="siblingsTitle">Proyectos hermanos</h2>
         <p data-i18n="siblingsIntro">Routime es el proyecto principal de un pequeño grupo de proyectos
@@ -223,8 +252,7 @@
         <h2 data-i18n="authorshipTitle">Quiénes la hacen</h2>
         <p><span data-i18n="authorshipP1a">Routime es una iniciativa de </span><strong>The Naked Frame</strong><span data-i18n="authorshipP1b">, un estudio
           independiente que trabaja en proyectos abiertos con impacto social y educativo.</span></p>
-        <p data-i18n="authorshipP2">La aplicación se construye con la participación de personas con discapacidad
-          intelectual, familias, terapeutas ocupacionales y profesorado, que prueban cada
+        <p data-i18n="authorshipP2">La aplicación se construye con la participación de personas que la usan, familias, terapeutas ocupacionales y profesorado, que prueban cada
           cambio y revisan el contenido antes de que llegue a producción.</p>
         <p data-i18n="authorshipP3">El código, el texto y las decisiones se publican en abierto para que cualquier
           persona o equipo pueda auditarlos, aprender de ellos y adaptarlos a otros
@@ -255,9 +283,7 @@
             y centros no saben que hay herramientas como esta hasta que alguien se la
             enseña.</span></li>
         </ul>
-        <p><span data-i18n="collaborateOutro1">Toda la documentación necesaria para empezar está en la</span>
-          <a href="../team/" data-i18n="collaborateOutroLink">guía para el equipo de apoyo</a>
-          <span data-i18n="collaborateOutro2">y en los archivos</span>
+        <p><span data-i18n="collaborateOutro1">Toda la documentación necesaria para empezar está en los archivos</span>
           <code>CLAUDE.md</code> <span data-i18n="collaborateOutro3">y</span> <code>doc/</code>
           <span data-i18n="collaborateOutro4">del repositorio.</span></p>
       </section>
@@ -266,15 +292,14 @@
 
     <footer class="pie-about">
       <a class="btn btn-secondary" href="../" data-i18n="footerActivities">Ir a las actividades</a>
-      <a class="btn btn-secondary" href="../team/" data-i18n="footerTeamGuide">Guía para el equipo de apoyo</a>
       <a class="btn btn-secondary" href="../legal/" data-i18n="core.dataProtection">Protección de datos</a>
     </footer>
   </div>
 
-  <script src="../assets/js/utils.js?v=routime-v394090e5"></script>
+  <script src="../assets/js/utils.js?v=routime-v049aa8f0"></script>
   <script src="../assets/js/i18n.js?v=routime-v3208a1ba"></script>
-  <script src="strings.es.js?v=routime-ve3402656"></script>
-  <script src="strings.en.js?v=routime-v93f700b2"></script>
+  <script src="strings.es.js?v=routime-vcedae6ee"></script>
+  <script src="strings.en.js?v=routime-ve2b2de9f"></script>
   <script>
     /* Register the SW from this entry point so it is active for any later
        navigation, matching what the tools and site/ pages already do. */
@@ -285,8 +310,8 @@
 <!-- Controles compartidos con la pantalla principal: el desplegable de idioma
      y el ⚙️ de la cabecera, con su cajón de accesibilidad. Mismo ?v= que la
      portada, para que las dos páginas compartan la copia en caché. -->
-<script src="../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
-<script src="../assets/js/locale-picker.js?v=routime-ve42a2c16" defer></script>
-<script src="../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
+<script src="../assets/js/locale-picker-config.js?v=routime-v990ce0ce"></script>
+<script src="../assets/js/locale-picker.js?v=routime-v8b6a4103" defer></script>
+<script src="../assets/js/sw-update.js?v=routime-v3f9b562c" defer></script>
 </body>
 </html>

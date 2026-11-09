@@ -7,12 +7,11 @@
   'use strict';
 
   App.i18n.register({
-    "pageTitle": 'Presentación del proyecto',
-    "routeNotice": 'Esta página no se enlaza desde la aplicación. Solo se llega escribiendo la dirección.',
+    "pageTitle": 'Sobre la app',
     "tagline": 'Una aplicación para la autonomía.',
     "lead1": 'Routime es una ',
     "leadStrong": 'aplicación web de terapia ocupacional',
-    "lead2": ' pensada para que las personas con discapacidad intelectual practiquen por sí mismas habilidades de la vida diaria, sin presión y con respeto a su privacidad.',
+    "lead2": ' pensada para que cada persona practique por sí misma habilidades de la vida diaria, sin presión y con respeto a su privacidad.',
     "navOrigin": 'El origen',
     "navPrinciples": 'Los principios',
     "navTech": 'Cómo está hecha',
@@ -23,7 +22,7 @@
     "originTitle": 'El origen',
     "originP1a": 'Routime nace de una pregunta que se repite al final de cada sesión de terapia ocupacional: ',
     "originP1em": '¿qué pasa entre una sesión y la siguiente?',
-    "originP2": 'La persona con discapacidad intelectual practica con su terapeuta en consulta, pero después está sola en casa, en el colegio o en su tiempo libre. Queríamos una herramienta que respetase esa autonomía, que diese seguridad a las familias y que sirviese a la terapeuta como complemento entre sesiones, no como sustituto.',
+    "originP2": 'La persona practica con su terapeuta en consulta, pero después está sola en casa, en el colegio o en su tiempo libre. Queríamos una herramienta que respetase esa autonomía, que diese seguridad a las familias y que sirviese a la terapeuta como complemento entre sesiones, no como sustituto.',
     "originP3": 'Esta aplicación es el resultado: 66 actividades autónomas, todas en Lectura Fácil, todas accesibles, todas pensadas para que la persona usuaria pueda usarlas a su propio ritmo.',
     "principlesTitle": 'Los principios que no negociamos',
     "principlesIntro": 'Estas ideas están escritas primero en el código y después en los textos. Si una decisión las rompe, esa decisión está mal.',
@@ -95,7 +94,7 @@
     "authorshipTitle": 'Quiénes la hacen',
     "authorshipP1a": 'Routime es una iniciativa de ',
     "authorshipP1b": ', un estudio independiente que trabaja en proyectos abiertos con impacto social y educativo.',
-    "authorshipP2": 'La aplicación se construye con la participación de personas con discapacidad intelectual, familias, terapeutas ocupacionales y profesorado, que prueban cada cambio y revisan el contenido antes de que llegue a producción.',
+    "authorshipP2": 'La aplicación se construye con la participación de personas que la usan, familias, terapeutas ocupacionales y profesorado, que prueban cada cambio y revisan el contenido antes de que llegue a producción.',
     "authorshipP3": 'El código, el texto y las decisiones se publican en abierto para que cualquier persona o equipo pueda auditarlos, aprender de ellos y adaptarlos a otros contextos.',
     "collaborateTitle": 'Cómo ayudar',
     "collaborateIntro": 'Routime es un proyecto abierto. Hay formas de colaborar que no requieren programar:',
@@ -109,12 +108,26 @@
     "collaborateItem4Text": 'el repositorio es público. Cambios pequeños (un icono, una traducción, una corrección de estilo) y grandes (actividades nuevas, accesibilidad, soporte para más idiomas) se aceptan siempre que respeten los principios del proyecto.',
     "collaborateItem5Label": 'Difundir',
     "collaborateItem5Text": 'contar que existe. Muchas familias, profesionales y centros no saben que hay herramientas como esta hasta que alguien se la enseña.',
-    "collaborateOutro1": 'Toda la documentación necesaria para empezar está en la',
-    "collaborateOutroLink": 'guía para el equipo de apoyo',
-    "collaborateOutro2": 'y en los archivos',
+    "collaborateOutro1": 'Toda la documentación necesaria para empezar está en los archivos',
     "collaborateOutro3": 'y',
     "collaborateOutro4": 'del repositorio.',
     "footerActivities": 'Ir a las actividades',
-    "footerTeamGuide": 'Guía para el equipo de apoyo'
+
+    "topicsTitle": 'Temas',
+    "topicCoordination": '🎯 Puntería y manos',
+    "topicBody": '💗 Cuerpo y relaciones',
+    "topicDailyLife": '📋 Mi día a día',
+    "topicMemory": '🧠 Memoria y atención',
+    "topicLanguage": '💬 Lenguaje y comprensión',
+    "topicEmotions": '💜 Emociones',
+    "topicStreet": '🚶 Salir a la calle',
+    "topicDigital": '💻 Actividades digitales',
+    "howTitle": 'Cómo se usa',
+    "step1Title": 'Elige un tema',
+    "step1Text": 'Mira los temas del menú y abre el que quieras practicar.',
+    "step2Title": 'Haz la actividad',
+    "step2Text": 'Cada actividad va paso a paso. Puedes hacerla con calma y repetirla.',
+    "step3Title": 'Gana estrellas',
+    "step3Text": 'Las estrellas se guardan en este dispositivo.'
   }, 'es');
 })();
