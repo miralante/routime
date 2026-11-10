@@ -196,6 +196,7 @@
         App.feedback.paintReward(el.summary, progress.stars, summaryText);
       }
       App.feedback.celebrate(App.i18n.t('core.roundComplete'));
+      if (App.achievements) App.achievements.onActivityFinished();
       if (config.onEnd) config.onEnd(api);
     }
 

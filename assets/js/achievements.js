@@ -1,33 +1,58 @@
 /* ==========================================================================
-   Routime — Achievements catalog, unlock logic and badge grid
-   Exposes window.App.achievements.list / .unlocked() / .achieve(id) /
-   .evaluate() / .render(container).
+   Routime — achievements catalogue ("logros").
 
-   Achievements are derived from progress the app already saves
-   (each activity's 'stars' under 'routime:<toolId>'),
-   so people who already played get their badges the first time the
-   menu (site/) or the "About the app" page (about/) loads.
-   Unlocked badges are stored as { id: timestamp } under
-   'routime:achievements'. The settings page (config/) deletes both
-   keys when the whole app is reset.
+   The policy is the suite's (apptonomia/doc/es/spec.md §2.6): milestones
+   computed from saved progress, no streaks, no timers, no losses. A new one is
+   announced once, neutrally, when the activity that earns it is finished. The
+   mechanism lives in ./achievements-engine.js (identical in every app); this file
+   holds Routime's rules and texts. The About page shows none of them.
 
-   Texts come from App.i18n (keys achievement<Name>, achievement<Name>Desc,
-   achievementLocked, achievementUnlockedAt), registered by the page
-   that renders the grid (about/strings.<locale>.js).
-   Requires utils.js, i18n.js and storage.js.
+   Storage: 'routime:achievements' -> { <id>: <timestamp of first unlock> }.
+   Rules read only each activity's saved stars ('routime:<toolId>').
+
+   Public API (window.App.achievements):
+     list                    the catalogue
+     unlocked()              { id: timestamp }
+     sync()                  check every rule against the saved progress; saves the
+                             new ones silently and returns their ids
+     onActivityFinished()    sync() and announce the new ids in #achievement-notice
    ========================================================================== */
 (function () {
   'use strict';
 
   window.App = window.App || {};
 
-  var KEY = 'achievements';
+  App.i18n.register({
+    achievementNew: 'Nuevo logro: {name}',
+    achievementFirstStar: 'Primera estrella',
+    achievementFirstStarDesc: 'Consigue tu primera estrella.',
+    achievementTenStars: 'Diez estrellas',
+    achievementTenStarsDesc: 'Consigue diez estrellas en total.',
+    achievementTenActivities: 'Diez actividades',
+    achievementTenActivitiesDesc: 'Consigue alguna estrella en diez actividades distintas.',
+    achievementAllModules: 'Todos los módulos',
+    achievementAllModulesDesc: 'Haz al menos una actividad de cada módulo del menú.',
+    achievementRoutineStar: 'Mi rutina',
+    achievementRoutineStarDesc: 'Consigue una estrella en la actividad de rutinas.'
+  }, 'es');
+
+  App.i18n.register({
+    achievementNew: 'New achievement: {name}',
+    achievementFirstStar: 'First star',
+    achievementFirstStarDesc: 'Get your first star.',
+    achievementTenStars: 'Ten stars',
+    achievementTenStarsDesc: 'Get ten stars in total.',
+    achievementTenActivities: 'Ten activities',
+    achievementTenActivitiesDesc: 'Get a star in ten different activities.',
+    achievementAllModules: 'All modules',
+    achievementAllModulesDesc: 'Do at least one activity from every module on the menu.',
+    achievementRoutineStar: 'My routine',
+    achievementRoutineStarDesc: 'Get a star in the routines activity.'
+  }, 'en');
 
   /* Main menu modules (dev/index.html sections) -> activity storage ids
-     (the TOOL_ID each tools/<slug>/app.js saves under, which is not
-     always the folder name). Keep in sync when an activity is added.
-     The "Body and relationships" module (cuerpo-relaciones) is left out on
-     purpose: "Every group" must not require that activity. */
+     (the TOOL_ID each tools/<slug>/app.js saves under). Keep in sync when an
+     activity is added. "Body and relationships" is left out on purpose. */
   var MODULES = {
     secuencia: ['rutinas', 'la-casa', 'situaciones', 'chat-seguro', 'chat-acoso',
       'lo-publico', 'social-safety', 'senales', 'partes-del-dia', 'clock',
@@ -47,41 +72,30 @@
 
   var ROUTINES_ID = 'rutinas';
 
-  /* Each check receives the snapshot built by snapshot(). */
-  var LIST = [
-    { id: 'firstStar', icon: '⭐', key: 'achievementFirstStar',
-      check: function (s) { return s.totalStars >= 1; } },
-    { id: 'tenStars', icon: '🌟', key: 'achievementTenStars',
-      check: function (s) { return s.totalStars >= 10; } },
-    { id: 'tenActivities', icon: '🧩', key: 'achievementTenActivities',
-      check: function (s) { return s.toolsWithStars.length >= 10; } },
-    { id: 'allModules', icon: '🎓', key: 'achievementAllModules',
-      check: function (s) {
+  var CATALOG = [
+    { id: 'firstStar', icon: '⭐', nameKey: 'achievementFirstStar', descKey: 'achievementFirstStarDesc',
+      test: function (p) { return p.totalStars >= 1; } },
+    { id: 'tenStars', icon: '🌟', nameKey: 'achievementTenStars', descKey: 'achievementTenStarsDesc',
+      test: function (p) { return p.totalStars >= 10; } },
+    { id: 'tenActivities', icon: '🧩', nameKey: 'achievementTenActivities', descKey: 'achievementTenActivitiesDesc',
+      test: function (p) { return p.toolsWithStars.length >= 10; } },
+    { id: 'allModules', icon: '🎓', nameKey: 'achievementAllModules', descKey: 'achievementAllModulesDesc',
+      test: function (p) {
         return Object.keys(MODULES).every(function (mod) {
-          return MODULES[mod].some(function (id) { return s.toolsWithStars.indexOf(id) !== -1; });
+          return MODULES[mod].some(function (id) { return p.toolsWithStars.indexOf(id) !== -1; });
         });
       } },
-    { id: 'routineStar', icon: '🌅', key: 'achievementRoutineStar',
-      check: function (s) { return s.toolsWithStars.indexOf(ROUTINES_ID) !== -1; } }
+    { id: 'routineStar', icon: '🌅', nameKey: 'achievementRoutineStar', descKey: 'achievementRoutineStarDesc',
+      test: function (p) { return p.toolsWithStars.indexOf(ROUTINES_ID) !== -1; } }
   ];
 
-  /** Unlocked achievements as { id: timestamp }. */
-  function unlocked() {
-    var data = App.storage.get(KEY);
-    return (data && typeof data === 'object' && !Array.isArray(data)) ? data : {};
-  }
+  var board = window.MiralanteAchievements.create({
+    storageKey: 'routime:achievements',
+    catalog: CATALOG,
+    t: function (key) { return App.i18n.t(key); }
+  });
 
-  /** Unlocks one achievement. Idempotent: keeps the first unlock date. */
-  function achieve(id) {
-    var done = unlocked();
-    if (done[id]) return false;
-    done[id] = Date.now();
-    App.storage.set(KEY, done);
-    return true;
-  }
-
-  /* Reads the saved progress once: total stars and activities with at
-     least one star. */
+  /** Snapshot of the saved progress: total stars and activities with a star. */
   function snapshot() {
     var toolsWithStars = [];
     App.storage.listaToolIds().forEach(function (id) {
@@ -94,44 +108,31 @@
     };
   }
 
-  /** Unlocks every achievement whose condition is met. Returns the new ids. */
-  function evaluate() {
-    var s = snapshot();
-    var fresh = [];
-    LIST.forEach(function (a) {
-      if (a.check(s) && achieve(a.id)) fresh.push(a.id);
-    });
-    return fresh;
+  function sync() {
+    return board.evaluate(snapshot());
   }
 
-  /* The badge grid is the suite's shared one (achievements-engine.js):
-     this app only passes its catalogue and texts. Styles live once in
-     assets/css/components.css (.achievements-grid / .achievement-badge*). */
-  function render(container) {
-    if (!container || !window.MiralanteAchievements) return;
-    var board = window.MiralanteAchievements.create({
-      storageKey: 'routime:' + KEY,
-      catalog: LIST.map(function (a) {
-        return {
-          id: a.id,
-          icon: a.icon,
-          nameKey: a.key,
-          descKey: a.key + 'Desc',
-          test: function (progress) { return a.check(progress); }
-        };
-      }),
-      t: App.i18n.t,
-      locale: App.i18n.lang()
-    });
-    board.render(container);
+  /** Neutral notice. The element is created on first use. */
+  function announce(ids) {
+    if (!ids || !ids.length) return;
+    var el = document.getElementById('achievement-notice');
+    if (!el) {
+      el = document.createElement('p');
+      el.id = 'achievement-notice';
+      el.className = 'achievement-notice';
+      el.setAttribute('aria-live', 'polite');
+      document.body.appendChild(el);
+    }
+    board.notify(el, ids);
   }
 
   window.App.achievements = {
-    list: LIST,
-    modules: MODULES,
-    unlocked: unlocked,
-    achieve: achieve,
-    evaluate: evaluate,
-    render: render
+    list: CATALOG,
+    unlocked: board.unlocked,
+    sync: sync,
+    onActivityFinished: function () { announce(sync()); }
   };
+
+  /* Retroactive credit from progress saved before this page loaded: silent. */
+  try { sync(); } catch (err) { /* never block the page over a badge */ }
 })();
