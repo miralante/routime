@@ -316,7 +316,7 @@
       choiceExplanationWrap.classList.remove('hidden');
       choiceResolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#choiceOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#choiceOptions .btn-opcion'));
       App.feedback.success(choiceFeedback);
       state.stars += 1;
       choiceCorrectCount += 1;

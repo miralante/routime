@@ -322,7 +322,7 @@
     if (op.correct) {
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#quizOptions .btn-opcion'));
       App.feedback.success(quizFeedback);
       showExplanation(item, true);
       progress.stars += 1;

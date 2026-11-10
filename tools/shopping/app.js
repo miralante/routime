@@ -130,7 +130,7 @@
       showExplanationS(isCorrect, item);
       resueltoS = true;
       btn.classList.add('correcta');
-      App.utils.$$('.caja', boxesSEl).forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('.caja', boxesSEl));
       App.feedback.success(feedbackSEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();

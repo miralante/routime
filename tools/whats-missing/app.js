@@ -163,7 +163,7 @@
       showExplanation(isCorrect);
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opciones .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#opciones .btn-opcion'));
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();

@@ -6,7 +6,7 @@
    When adding new files: add them to ARCHIVOS and bump VERSION (the
    precache still needs the list for offline use).
    ============================================================ */
-var VERSION = 'routime-v117';
+var VERSION = 'routime-v118';
 
 var ARCHIVOS = [
   './',

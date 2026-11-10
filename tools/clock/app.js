@@ -461,6 +461,8 @@
         showExplanation(isCorrect, p);
       }
       solved = true;
+      App.feedback.markCorrect(btn, App.utils.$$('#options .btn-opcion, #options .btn-step'));
+      App.utils.$$('#btnConfirmarPoner').forEach(function (b) { b.disabled = true; });
       btn.classList.add('correcta');
       App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
         .forEach(function (b) { b.disabled = true; });

@@ -195,7 +195,7 @@
       // Correct answer
       btnEl.classList.add('correcta');
       App.feedback.success(feedbackZone);
-      optionBtns.forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btnEl, optionBtns);
 
       setTimeout(function () {
         state.completedRounds++;

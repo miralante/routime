@@ -109,9 +109,7 @@
 
     solved = true;
     button.classList.add('correcta');
-    App.utils.$$('#options .btn-opcion').forEach(function (option) {
-      option.disabled = true;
-    });
+    App.feedback.markCorrect(button, App.utils.$$('#options .btn-opcion'));
     App.feedback.success($('#feedback'));
     showExplanation('explanationLabel', choice.explanation);
     $('#nextButton').classList.remove('hidden');

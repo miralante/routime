@@ -137,7 +137,8 @@
       if (correct) {
         solved = true;
         if (info.control) info.control.classList.add('correcta');
-        controls.forEach(function (c) { c.disabled = true; });
+        if (info.control) App.feedback.markCorrect(info.control, controls);
+        else controls.forEach(function (c) { c.disabled = true; });
         if (el.feedback) App.feedback.success(el.feedback);
         if (App.feedback.star) App.feedback.star();
         progress.stars += 1;
@@ -192,6 +193,7 @@
         el.summary.textContent = config.summary
           ? config.summary(roundHits, progress.stars)
           : App.i18n.t('ui.roundDone').replace('{n}', roundHits).replace('{stars}', progress.stars);
+        App.feedback.paintReward(el.summary, progress.stars, summaryText);
       }
       App.feedback.celebrate(App.i18n.t('core.roundComplete'));
       if (config.onEnd) config.onEnd(api);

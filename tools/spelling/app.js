@@ -145,7 +145,7 @@
       explanationWrap.classList.remove('hidden');
       resolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#options .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#options .btn-opcion'));
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       correctCount += 1;

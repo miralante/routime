@@ -140,7 +140,7 @@
       showExplanationQ(isCorrect, item);
       resueltoQ = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opcionesQueHago .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#opcionesQueHago .btn-opcion'));
       App.feedback.success(feedbackQEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();

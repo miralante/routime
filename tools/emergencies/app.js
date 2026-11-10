@@ -143,7 +143,7 @@
       showExplanationR(isCorrect, item);
       resueltoR = true;
       btn.classList.add('correcta');
-      App.utils.$$('#opcionesReconocer .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#opcionesReconocer .btn-opcion'));
       App.feedback.success(feedbackREl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();
@@ -400,9 +400,7 @@ $('#transferencia').textContent = '';
 
   function answerA(btn, op) {
     if (op.correcta) {
-      Array.prototype.forEach.call(elevatorOptionsEl.querySelectorAll('.btn-opcion'), function (b) {
-        b.disabled = true;
-      });
+      App.feedback.markCorrect(btn, elevatorOptionsEl.querySelectorAll('.btn-opcion'));
       btn.classList.add('correcta');
       App.feedback.success(elevatorFeedbackEl);
       elevatorExplanationEl.textContent = op.explicacion;

@@ -174,7 +174,7 @@
 
   function answer(btn, op) {
     if (op.segura) {
-      $$('#chatOpciones .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, $$('#chatOpciones .btn-opcion'));
       btn.classList.add('correcta');
       App.feedback.success($('#feedback'));
       burbuja('yo', op.text);

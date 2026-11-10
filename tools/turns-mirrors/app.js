@@ -154,7 +154,7 @@
     if (isCorrect) {
       solved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#options .opcion-figura').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#options .opcion-figura'));
       App.feedback.success(feedbackEl);
       explanationEl.textContent = App.i18n.t(keyType('ok'));
       explanationWrap.classList.remove('hidden');

@@ -191,7 +191,7 @@
 
     solved = true;
     button.classList.add('correcta');
-    Array.prototype.forEach.call(optionsEl.querySelectorAll('.btn-opcion'), function (option) { option.disabled = true; });
+    App.feedback.markCorrect(button, optionsEl.querySelectorAll('.btn-opcion'));
     App.feedback.success(feedbackEl);
     showExplanation(true, item);
     progress.stars += 1;

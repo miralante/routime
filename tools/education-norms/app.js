@@ -227,7 +227,7 @@
       btn.classList.add('correct');
       App.feedback.success(feedbackZone);
       feedbackZone.textContent = App.i18n.t('feedback.correct');
-      optionBtns.forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, optionBtns);
 
       setTimeout(function () {
         state.completedRounds++;

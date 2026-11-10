@@ -191,7 +191,7 @@
       showQuizExplanation(item);
       quizResolved = true;
       btn.classList.add('correcta');
-      App.utils.$$('#quizOptions .btn-opcion').forEach(function (b) { b.disabled = true; });
+      App.feedback.markCorrect(btn, App.utils.$$('#quizOptions .btn-opcion'));
       App.feedback.success(quizFeedback);
       progress.stars += 1;
       quizCorrectCount += 1;
