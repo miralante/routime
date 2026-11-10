@@ -89,7 +89,7 @@
       test: function (p) { return p.toolsWithStars.indexOf(ROUTINES_ID) !== -1; } }
   ];
 
-  var board = window.MiralanteAchievements.create({
+  var board = window.ApptonomiaAchievements.create({
     storageKey: 'routime:achievements',
     catalog: CATALOG,
     t: function (key) { return App.i18n.t(key); }
