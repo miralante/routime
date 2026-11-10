@@ -1,5 +1,5 @@
 /* ============================================================
-   Miralante — Spanish Identifier Audit
+   Apptonomia — Spanish Identifier Audit
    Scans JS/HTML files for Spanish identifiers, protecting
    string literals and comments.
    ============================================================ */
@@ -248,7 +248,7 @@ function walk(dir) {
   }
 }
 
-console.log('=== Miralante Spanish Identifier Audit ===');
+console.log('=== Apptonomia Spanish Identifier Audit ===');
 console.log('Target: ' + TARGET);
 console.log('Scanning for ' + SPANISH_WORDS.length + ' Spanish terms...');
 console.log('');

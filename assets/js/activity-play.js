@@ -77,7 +77,7 @@
       if (old) old.remove();
       var span = document.createElement('span');
       span.className = 'stars-goal';
-      span.textContent = window.MiralanteStars.line(progress.stars, {
+      span.textContent = window.ApptonomiaStars.line(progress.stars, {
         reached: App.i18n.t('starsReached'),
         goal: App.i18n.t('starsGoal')
       });
