@@ -939,8 +939,8 @@ reset action, etc.).
 ### 8.5 `/about/`
 
 "About the app" page: what the app is and how it is used, following the
-suite About template (Apptonomia). It shows no achievements: the badge grid is
-a shared component, documented in the spec §8 (catalogue). It is linked from the menu footer (`site/`), right before "Configuración",
+suite About template (Apptonomia). It shows no achievements: the achievements grid is
+only a design artifact, documented in the spec §8 (catalogue). It is linked from the menu footer (`site/`), right before "Configuración",
 through the shared footer injector (`core.aboutApp` key, added by
 `App.utils.inyectarPie` when `data-pie-include-config="true"`).
 

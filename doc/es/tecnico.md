@@ -966,7 +966,7 @@ datos personales, una acción nueva de borrado en `settings/`, etc.).
 
 Página "Sobre la app": qué es la app y cómo se usa, con el esqueleto
 estándar de la suite (plantilla de Apptonomia). No muestra logros: la
-cuadrícula de logros es un componente compartido, documentado en la spec §8 (catálogo). Se enlaza desde el pie del menú (`site/`), justo antes de
+cuadrícula de logros es solo una pieza de diseño, documentada en la spec §8 (catálogo). Se enlaza desde el pie del menú (`site/`), justo antes de
 "Configuración", a través del inyector de pie compartido (clave
 `core.aboutApp`, que añade `App.utils.inyectarPie` cuando
 `data-pie-include-config="true"`).

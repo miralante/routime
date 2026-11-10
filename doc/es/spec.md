@@ -409,7 +409,7 @@ Para más informacion, consultar el mapa de toda la documentación | [`indice.md
 
 ## 8. Catálogo de logros
 
-Los logros son hitos calculados a partir del progreso guardado (política común de la suite, [`apptonomia/doc/es/spec.md` §2.6](../../apptonomia/doc/es/spec.md)). La cuadrícula de insignias es el componente compartido de la suite: el motor `assets/js/achievements-engine.js` dibuja la cuadrícula y los estilos viven una sola vez en `assets/css/components.css`. Ninguna página "Sobre la app" la muestra.
+Los logros son hitos calculados a partir del progreso guardado (política común de la suite, [`apptonomia/doc/es/spec.md` §2.6](../../apptonomia/doc/es/spec.md)). La cuadrícula de logros es una pieza de diseño: sirve para diseñar los logros y su catálogo. Ninguna página de la app la pinta, ni "Sobre la app" ni el menú.
 
 | Icono | Id | Nombre | Regla | Descripción |
 |-------|----|--------|-------|-------------|

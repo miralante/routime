@@ -418,7 +418,7 @@ Further information, see map of all documentation | [`index.md`](index.md) |
 
 ## 8. Achievements catalogue
 
-Achievements are milestones computed from saved progress (suite-wide policy, [`apptonomia/doc/en/spec.md` §2.6](../../apptonomia/doc/en/spec.md)). The badge grid is the suite's shared component: the engine `assets/js/achievements-engine.js` draws the grid and its styles live once in `assets/css/components.css`. No "About the app" page shows it.
+Achievements are milestones computed from saved progress (suite-wide policy, [`apptonomia/doc/en/spec.md` §2.6](../../apptonomia/doc/en/spec.md)). The achievements grid is a design artifact: it serves to design the achievements and their catalogue. No page of the app paints it, neither "About the app" nor the menu.
 
 | Icon | Id | Name | Rule | Description |
 |------|----|------|------|-------------|
