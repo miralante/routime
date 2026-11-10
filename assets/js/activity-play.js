@@ -190,7 +190,7 @@
       paintProgress();
       showEnd();
       if (el.summary) {
-        el.summary.textContent = config.summary
+        var summaryText = config.summary
           ? config.summary(roundHits, progress.stars)
           : App.i18n.t('ui.roundDone').replace('{n}', roundHits).replace('{stars}', progress.stars);
         App.feedback.paintReward(el.summary, progress.stars, summaryText);

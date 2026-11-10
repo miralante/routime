@@ -46,7 +46,7 @@ all times.
 **Occupational therapists and teachers:**
 - Select activities that fit specific therapeutic objectives
 - Use the application as a complement between sessions
-- Can view the usage guide at `team/`
+- Can read the usage guide in [`team.md`](team.md)
 
 ---
 
@@ -67,7 +67,7 @@ Routime works on **6 therapeutic areas** (modules):
 
 The complete catalog, area by area and activity by activity, is in
 [`activities.md`](activities.md). The specific therapeutic purpose of each
-activity is in `team/index.html`.
+activity is in [`team.md`](team.md).
 
 ### 2.2 UX goals
 
@@ -109,7 +109,7 @@ difficulty.
 - Short sentences, one idea per sentence
 - Everyday vocabulary (no technical jargon)
 - No clinical language in the interface ("patient", "therapy", "disability")
-- Clinical language is only allowed in `team/` and in repo documentation
+- Clinical language is only allowed in repo documentation
 - **The end user must never read anything in the app that labels them
   as "disabled", "with a disability" or similar.** The therapeutic
   goal (e.g. self-acceptance, responding to exclusion) is trained
@@ -239,7 +239,7 @@ anchors** when designing its content:
 
 Pure drills (no scene, no transfer, no anchors) are allowed only when the
 therapeutic goal makes the contextualisation impossible or confusing, and
-that exception must be justified in `team/index.html`.
+that exception must be justified in [`technical.md`](technical.md).
 
 #### 3.7.b Design decision: pure-skill training
 
@@ -255,7 +255,7 @@ Operational difference between the two vehicles:
 | Preferred vehicle | Yes — the product prefers simulation whenever the therapeutic goal allows it | Valid, not equivalent; occupies a justified second plane |
 | Stimulus that **is** the context | A recognisable scene | The stimulus itself (piano, grid, pieces, sequence) **is** the context |
 | When prioritised | When there is a daily-life decision worth training | When the goal **is** the skill (memory, motor, logic) without a plausible daily-life decision |
-| Contract | Complete: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + Socratic wiring | Relaxed: `contexto` and `transferencia` when they add value; `pistas` and `explicacion` when they add value; **feedback** (`success` + `encourage`) **always**; documented as a prioritised decision in `team/index.html` |
+| Contract | Complete: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + Socratic wiring | Relaxed: `contexto` and `transferencia` when they add value; `pistas` and `explicacion` when they add value; **feedback** (`success` + `encourage`) **always**; documented as a prioritised decision in [`technical.md`](technical.md) |
 | Documented as | Default coverage | Prioritised design decision (not "exception") |
 
 Activities in the catalogue that use this vehicle: `blocks`, `builders`,
@@ -413,3 +413,23 @@ This SPEC.md is the **product definition**: WHAT, FOR WHOM and WHY.
 The rest of the documentation covers the HOW:
 
 Further information, see map of all documentation | [`index.md`](index.md) |
+
+---
+
+## 8. Achievements catalogue
+
+Achievements are milestones computed from saved progress (suite-wide policy, [`apptonomia/doc/en/spec.md` §2.6](../../apptonomia/doc/en/spec.md)). The badge grid is the suite's shared component: the engine `assets/js/achievements-engine.js` draws the grid and its styles live once in `assets/css/components.css`. No "About the app" page shows it.
+
+| Icon | Id | Name | Rule | Description |
+|------|----|------|------|-------------|
+| ⭐ | `firstStar` | First star | At least 1 star | You have won your first star. |
+| 🌟 | `tenStars` | Ten stars | At least 10 stars | You have collected ten stars. |
+| 🧩 | `tenActivities` | Ten activities | Stars in 10 different activities | You have won stars in ten different activities. |
+| 🎓 | `allModules` | Every group | Stars in at least one activity of every menu group | You have won stars in every group of the menu. |
+| 🌅 | `routineStar` | Routine done | A star in the routines activity | You have completed the routines activity. |
+
+Notes:
+
+- "Every group" does not require the body and relationships activity: a design decision so the achievement does not depend on it.
+- Each achievement's texts (`achievement<Id>` and `achievement<Id>Desc`) must exist in `es` and `en` together (§B.2 of `CLAUDE.md`).
+- There are no streak achievements: the suite policy does not use day streaks (§2.6, point 3). The "three days in a row" achievement was removed for that reason.

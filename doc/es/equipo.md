@@ -325,7 +325,6 @@ Cuando sí hay botón 🔊 y el audio no se oye:
 - [Guía rápida de uso](guia-rapida.md) — Explicación para usuarios
 - [Catálogo de actividades](actividades.md) — Descripción de las 68 actividades
 - [Información técnica](tecnico.md) — Para desarrolladores
-- [Página del equipo](../../team/index.html) — Versión web interactiva
 
 ---
 

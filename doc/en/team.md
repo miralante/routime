@@ -324,7 +324,6 @@ When the 🔊 button is present and audio doesn't work:
 - [Quick guide](quick-guide.md) — Explanation for users
 - [Activity catalog](activities.md) — Description of all 68 activities
 - [Technical information](technical.md) — For developers
-- [Team page](../../team/index.html) — Interactive web version
 
 ---
 

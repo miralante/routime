@@ -464,8 +464,6 @@
       App.feedback.markCorrect(btn, App.utils.$$('#options .btn-opcion, #options .btn-step'));
       App.utils.$$('#btnConfirmarPoner').forEach(function (b) { b.disabled = true; });
       btn.classList.add('correcta');
-      App.utils.$$('#options .btn-opcion, #options .btn-step, #btnConfirmarPoner')
-        .forEach(function (b) { b.disabled = true; });
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();

@@ -128,7 +128,7 @@ Pure abstract drills (no scene, no `transferencia`, none of the four
 anchors) are allowed only when the goal makes contextualisation
 impossible or confusing. In that case the activity follows the
 **pure-skill vehicle** declared in [`SPEC.md` §3.6.b](SPEC.md) and is
-documented in `team/index.html` as a **prioritised design decision**, not
+documented in [`technical.md`](technical.md) as a **prioritised design decision**, not
 as an exception.
 
 ### 2.4 The activity communicates persuasively in service of learning
@@ -681,7 +681,7 @@ Good examples in the catalogue: `tools/situations/`, `tools/emergencies/`,
 | Condescending tone ("Great job, champ!") | Infantalises | Close but dignified tone: "You did very well!". |
 | Saturating the screen | Visual fatigue, worse learning | 3–6 elements, one idea. |
 | Visible timer | Breaks `SPEC.md` §3.2 | No clock on screen. |
-| Clinical text in UI | Breaks `SPEC.md` §3.3 | Only in `team/` and in `doc/`. |
+| Clinical text in UI | Breaks `SPEC.md` §3.3 | Only in `doc/`. |
 | Compromising `localStorage` with personal data | Breaks `SPEC.md` §3.4 | Only `estrellas` and `completados`. |
 | Forgetting TTS on `instruccion` | Breaks rule 4 | `App.tts.speak()` on entry. |
 | Forgetting `data-i18n` and hardcoding in HTML | Breaks language parity | Every string in `strings.<locale>.js`. |
@@ -705,7 +705,7 @@ guide):
       `transferencia` closing line ([`SPEC.md` §3.6](SPEC.md), §2.3 of
       this guide). If the activity is a pure-skill activity (memory,
       fine motor, logic, puzzles, perception), it is documented in
-      `team/index.html` as a **prioritised design decision** of the
+      [`technical.md`](technical.md) as a **prioritised design decision** of the
       product, not as an exception ([`SPEC.md` §3.6.b](SPEC.md)).
 - [ ] The activity also trains **meaningfully**: it uses everyday
       vocabulary from the person's environment, stimuli connected to

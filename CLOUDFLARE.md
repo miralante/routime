@@ -63,7 +63,7 @@ to enable the 404 fallback — keep it.
 | `.github/workflows/pages-deploy.yml` | Optional self-hosted fallback via Wrangler Action; no-op unless the two `CLOUDFLARE_*` secrets are set |
 
 Every section of the site (the root landing, `tools/<slug>/` for all
-activities, `team/`, `about/`, `config/`, `legal/`) ships its own
+activities, `about/`, `config/`, `legal/`) ships its own
 real `index.html`, so Cloudflare's implicit per-directory
 `index.html` lookup handles deep links (`/tools/pairs/` →
 `tools/pairs/index.html`) without any rewrite rule. A catch-all

@@ -46,7 +46,7 @@ de que un profesional esté presente en cada momento.
 **Terapeutas ocupacionales y profesores:**
 - Seleccionan actividades que se ajustan a objetivos terapéuticos concretos
 - Usan la aplicación como complemento entre sesiones
-- Pueden ver la guía de uso en `team/`
+- Pueden leer la guía de uso en [`equipo.md`](equipo.md)
 
 ---
 
@@ -67,7 +67,7 @@ Routime trabaja **6 áreas terapéuticas** (módulos):
 
 El catálogo completo, área por área y actividad por actividad, está en
 [`actividades.md`](actividades.md). El propósito terapéutico específico de cada
-actividad está en `team/index.html`.
+actividad está en [`equipo.md`](equipo.md).
 
 ### 2.2 Objetivos de UX
 
@@ -109,7 +109,7 @@ técnica expresada con dificultad.
 - Frases cortas, una idea por frase
 - Vocabulario cotidiano (sin tecnicismos)
 - Sin lenguaje clínico en la interfaz ("paciente", "terapia", "discapacidad")
-- El lenguaje clínico solo se permite en `team/` y en la documentación del repo
+- El lenguaje clínico solo se permite en la documentación del repo
 - **La persona usuaria nunca debe leer nada en la app que la etiquete
   como "discapacitada", "con discapacidad" o similar.** El objetivo
   terapéutico (p. ej. autoaceptación, respuesta a la exclusión) se
@@ -256,7 +256,7 @@ La diferencia operativa entre los dos vehículos:
 | Vehículo preferente | Sí — el producto prefiere simular siempre que el objetivo terapéutico lo permita | Válido, no equivalente; ocupa un segundo plano justificado |
 | Estímulo que es contexto | Una escena reconocible | El propio estímulo (piano, cuadrícula, piezas, secuencia) **es** el contexto |
 | Cuándo se prioriza | Cuando hay una decisión cotidiana que entrenar | Cuando el objetivo es la habilidad (memoria, motricidad, lógica) sin una decisión cotidiana plausible |
-| Contrato | Completo: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + cableado socrático | Relajado: `contexto` y `transferencia` cuando aporten; `pistas` y `explicacion` cuando aporten; **feedback** (`success` + `encourage`) **siempre**; entrada priorizada como tal en `team/index.html` |
+| Contrato | Completo: `contexto` + `instruccion` + `pistas` + `explicacion` + `transferencia` + feedback + cableado socrático | Relajado: `contexto` y `transferencia` cuando aporten; `pistas` y `explicacion` cuando aporten; **feedback** (`success` + `encourage`) **siempre**; entrada priorizada como tal en [`tecnico.md`](tecnico.md) |
 | Justificación documental | Cobertura por defecto | Decisión de diseño priorizada (no "excepción") |
 
 Actividades del catálogo que aplican este vehículo: `blocks`,
@@ -404,3 +404,23 @@ Este SPEC.md es la **definición del producto**: QUÉ, PARA QUIÉN y POR QUÉ.
 El resto de la documentación cubre el CÓMO:
 
 Para más informacion, consultar el mapa de toda la documentación | [`indice.md`](indice.md) |
+
+---
+
+## 8. Catálogo de logros
+
+Los logros son hitos calculados a partir del progreso guardado (política común de la suite, [`apptonomia/doc/es/spec.md` §2.6](../../apptonomia/doc/es/spec.md)). La cuadrícula de insignias es el componente compartido de la suite: el motor `assets/js/achievements-engine.js` dibuja la cuadrícula y los estilos viven una sola vez en `assets/css/components.css`. Ninguna página "Sobre la app" la muestra.
+
+| Icono | Id | Nombre | Regla | Descripción |
+|-------|----|--------|-------|-------------|
+| ⭐ | `firstStar` | Primera estrella | Al menos 1 estrella | Has ganado tu primera estrella. |
+| 🌟 | `tenStars` | Diez estrellas | Al menos 10 estrellas | Has reunido diez estrellas. |
+| 🧩 | `tenActivities` | Diez actividades | Estrellas en 10 actividades distintas | Has ganado estrellas en diez actividades distintas. |
+| 🎓 | `allModules` | Todos los grupos | Estrellas en al menos una actividad de cada grupo del menú | Has ganado estrellas en cada grupo del menú. |
+| 🌅 | `routineStar` | Rutina cumplida | Estrella en la actividad de rutinas | Has completado la actividad de rutinas. |
+
+Notas:
+
+- "Todos los grupos" no exige la actividad de cuerpo y relaciones: es una decisión de diseño para que el logro no dependa de esa actividad.
+- Los textos de cada logro (`achievement<Id>` y `achievement<Id>Desc`) deben existir en `es` y `en` a la vez (§B.2 de `CLAUDE.md`).
+- No hay logros de racha: la política de la suite no usa rachas de días (§2.6, punto 3). El logro "tres días seguidos" se retiró por ese motivo.

@@ -122,7 +122,6 @@
     confirmResetApp: '¿Seguro? Toca otra vez para borrar TODO. No se puede deshacer.',
     feedbackResetAppDone: 'Hecho. Se ha borrado todo. La aplicación queda como recién instalada.',
 
-    footerActivities: 'Ir a las actividades',
-    footerTeamGuide: 'Guía para el equipo de apoyo'
+    footerActivities: 'Ir a las actividades'
   }, 'es');
 })();

@@ -57,7 +57,6 @@
     "contactP3Link": 'repositorio de GitHub',
     "contactP3b": '.',
 
-    "footerActivities": 'Ir a las actividades',
-    "footerTeamGuide": 'Guía para el equipo de apoyo'
+    "footerActivities": 'Ir a las actividades'
   }, 'es');
 })();

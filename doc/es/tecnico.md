@@ -14,7 +14,6 @@ técnicas y de implementación.
 | `doc/<es\|en>/tecnico.md` (este) | Arquitectura, APIs del núcleo, contratos y recetas de desarrollo | Al desarrollar o modificar módulos |
 | Historial del proyecto | Sigue en Git (`git log`); sin hoja de ruta externa. |
 | `README.md` | Presentación breve, cómo ejecutar y desplegar | Primer contacto con el repo |
-| `team/index.html` | Guía para familias/profesionales (ruta oculta, ver §8) | Al añadir actividades: mantenerla al día |
 | `agent.md` | Puntero de compatibilidad hacia `CLAUDE.md` | No usar como fuente |
 
 Cada materia tiene una única fuente canónica: producto en `SPEC.md`, técnica
@@ -66,7 +65,7 @@ cosas:
   salida. No hay `npm install`, ni bundler, ni transformador.
 - **Sin `_redirects`, sin `wrangler.toml`, sin `functions/`.**
   Cloudflare Pages ya hace búsqueda implícita de `index.html` por
-  directorio, así que cada sección (`tools/<slug>/`, `team/`,
+  directorio, así que cada sección (`tools/<slug>/`,
   `settings/`, `about/`, `legal/`) incluye su propio `index.html` real
   y Cloudflare resuelve `/tools/pairs/` a `tools/pairs/index.html`
   automáticamente.
@@ -114,7 +113,7 @@ Reglas prácticas que se derivan de esto:
   y ofrece un fallback elegante.
 - **Registra el service worker desde cada punto de entrada**, no
   solo desde `index.html`. El `index.html` raíz, `about/`,
-  `settings/`, `team/`, `legal/` y cada `tools/<slug>/index.html`
+  `settings/`, `legal/` y cada `tools/<slug>/index.html`
   deben llamar a `navigator.serviceWorker.register(...)` con la ruta
   relativa correcta. Motivo: si el usuario llega directamente a una
   página (marcador, icono de pantalla de inicio, enlace externo,
@@ -203,12 +202,12 @@ no hay código por módulo:
 > escritura). En la landing aparece **una sola vez**, dentro de su **módulo
 > principal**: el que mejor representa su objetivo principal. Los módulos
 > terapéuticos sirven para navegar; las áreas se reflejan en la descripción de
-> cada actividad en `team/index.html`. El catálogo global se reconstruye a
+> cada actividad en [`equipo.md`](equipo.md). El catálogo global se reconstruye a
 > partir de los slugs reales en `tools/` (verificado por `scripts/check.js`).
 
 Cada token tiene su par suave: `--mod-<x>` y `--mod-<x>-suave` (fondos).
 El catálogo funcional está en [`actividades.md`](actividades.md) y el propósito
-terapéutico en [`equipo.md`](equipo.md) y `team/index.html`.
+terapéutico en [`equipo.md`](equipo.md).
 
 ### 2.3 Nivel 3 — Actividades (`tools/<slug>/`)
 
@@ -822,7 +821,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
   storage), mostrarlos como presión no.
 - **Textos de la UI**: español de España e inglés, Lectura Fácil en los dos, sin
   lenguaje clínico ("paciente", "terapia", "discapacidad"). El lenguaje clínico solo
-  se permite en `team/` y en la documentación del repo. Todo texto vive en
+  se permite en la documentación del repo. Todo texto vive en
   `strings.<locale>.js` (nunca hardcodeado en `app.js` ni como único contenido de un nodo HTML
   sin `data-i18n`).
 - **Sin etiquetas sobre la persona usuaria**: la persona nunca debe leer en la
@@ -849,7 +848,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
   habilidad pura** (según [`SPEC.md` §3.6.b](SPEC.md)): `contexto` y
   `transferencia` se exigen cuando aporten, `pistas` (una por opción incorrecta) / `explicacion` se
   exigen cuando aporten, `App.feedback.success` y `App.feedback.encourage`
-  se exigen **siempre**, y la decisión se documenta en `team/index.html`
+  se exigen **siempre**, y la decisión se documenta en este archivo
   como **decisión de diseño priorizada**, no como excepción. Los cuatro
   patrones mecánicos que el contrato reconoce hoy son: **escena +
   decisión**, **diálogo o chat seguro**, **rutina paso a paso** (ver
@@ -871,7 +870,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
   (nivel guardado) para que la landing reanude a la persona en el nivel
   alcanzado y no en uno aleatorio. Una actividad que cumple el contrato
   de simulación pero omite estos anclajes se considera "solo simulación"
-  y la omisión se documenta en `team/index.html` como decisión de diseño
+  y la omisión se documenta en este archivo como decisión de diseño
   priorizada, no como excepción.
 - **Contrato de comunicación persuasiva**: cada actividad debe comunicar
   bien, al servicio del aprendizaje, elevado a principio de producto en
@@ -904,12 +903,6 @@ producto donde se permite lenguaje clínico o de administración del dispositivo
 siguen el mismo patrón multiidioma que el resto del sitio (`strings.es.js` /
 `strings.en.js`, `data-i18n`, selector de idioma) — verificado por `scripts/check.js`
 igual que en `tools/`.
-
-### 8.1 `/team/`
-
-Guía para familias, terapeutas y profesorado + nota técnica para agentes de IA
-sobre el proyecto, el diseño y el catálogo de actividades. Mantenerla actualizada
-al añadir actividades o módulos, en los dos idiomas.
 
 ### 8.2 `/settings/`
 
@@ -957,7 +950,7 @@ Página de protección de datos: qué guarda Routime (solo `localStorage`
 `/settings/`) y cómo plantear una pregunta (el repositorio público de
 GitHub). Es la única excepción a las reglas de "ruta oculta" de arriba:
 **sí** está enlazada desde el pie de todas las demás páginas (la landing,
-`settings/`, `team/`, `about/` y todas las `tools/<slug>/`, mediante la
+`settings/`, `about/` y todas las `tools/<slug>/`, mediante la
 clave i18n compartida `core.dataProtection` en `assets/js/i18n.js` y los
 estilos `.pie-app`/`.enlace-legal` de `assets/css/components.css`), no
 lleva `noindex`, y su lenguaje se mantiene claro y accesible en vez de
@@ -969,10 +962,11 @@ Mantenerla actualizada, en los dos idiomas, cada vez que cambie lo que la
 aplicación guarda localmente (una herramienta nueva que pida un nombre o
 datos personales, una acción nueva de borrado en `settings/`, etc.).
 
-### 8.5 `/about-app/`
+### 8.5 `/about/`
 
-Página "Sobre la app" con los logros (insignias) guardados en este
-dispositivo. Se enlaza desde el pie del menú (`site/`), justo antes de
+Página "Sobre la app": qué es la app y cómo se usa, con el esqueleto
+estándar de la suite (plantilla de Apptonomia). No muestra logros: la
+cuadrícula de logros es un componente compartido, documentado en la spec §8 (catálogo). Se enlaza desde el pie del menú (`site/`), justo antes de
 "Configuración", a través del inyector de pie compartido (clave
 `core.aboutApp`, que añade `App.utils.inyectarPie` cuando
 `data-pie-include-config="true"`).
@@ -985,11 +979,12 @@ dispositivo. Se enlaza desde el pie del menú (`site/`), justo antes de
 - Los logros **se deducen del progreso guardado** (estrellas por
   actividad, actividades con estrellas, módulos del menú con estrellas),
   así que quien ya jugaba los recibe con efecto retroactivo. `evaluate()`
-  se ejecuta cada vez que carga `site/` o `about-app/`. Los ids
+  se ejecuta cada vez que carga `site/` o `about/`. Los ids
   desbloqueados se guardan como `{ id: timestamp }` en
   `routime:achievements` (idempotente: se conserva la primera fecha).
-- Racha: `App.storage.set()` apunta el día en `routime:activity-days`
-  (últimos 30 días) cada vez que suben las `stars` de una actividad.
+- `activity-days` es una clave heredada: versiones anteriores anotaban los días
+  con estrella para un logro de racha que se retiró (spec §8). Ahora nadie la
+  escribe ni la lee; el restablecimiento de ajustes sigue borrándola.
 - `MODULES` en `achievements.js` relaciona cada módulo del menú con los
   ids de guardado (`TOOL_ID`) de sus actividades: mantenlo al día al
   añadir una actividad. El módulo "Cuerpo y relaciones" queda fuera a
@@ -1025,7 +1020,7 @@ dispositivo. Se enlaza desde el pie del menú (`site/`), justo antes de
    - Tarjeta en `index.html` y claves correspondientes en
      `strings.es.js` / `strings.en.js`.
    - Los 6 archivos de la actividad en `ARCHIVOS` de `sw.js`, y subir `VERSION` (§11).
-   - Fila en `team/index.html` y entrada bilingüe en `actividades.md` / `activities.md`.
+   - Entrada bilingüe en `actividades.md` / `activities.md`.
 9. **Verificar** con los comandos y criterios de §12: estructura, ambos idiomas,
    persistencia, audio, teclado, objetivos táctiles y vista responsive.
 10. **Crear un commit** pequeño y coherente, con mensaje en inglés.
@@ -1044,7 +1039,7 @@ Solo si el área no encaja en los 9 módulos existentes (comprobar la cobertura 
    `style="--acento: var(--mod-<nombre>); --acento-suave: var(--mod-<nombre>-suave);"`,
    un `<h2>` con emoji + nombre en Lectura Fácil, y su `grid-tarjetas`.
 3. Documentar el módulo en `actividades.md` / `activities.md`, `equipo.md` /
-   `team.md`, `team/index.html` y §2.2 de esta documentación.
+   `team.md` y §2.2 de esta documentación.
 4. Crear la primera actividad del módulo (receta §9).
 
 ---

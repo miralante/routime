@@ -13,7 +13,6 @@ document is the canonical source for technical and implementation decisions.
 | `doc/<en\|es>/technical.md` (this) | Architecture, core APIs, contracts and development recipes | When developing or modifying modules |
 | Project history | Lives in Git (`git log`); no external roadmap is maintained. |
 | `README.md` | Brief intro, how to run and deploy | First contact with the repo |
-| `team/index.html` | Guide for families/professionals (hidden route, see §8) | When adding activities: keep it up to date |
 | `agent.md` | Compatibility pointer to `CLAUDE.md` | Don't use as source |
 
 Each subject has one canonical source: product in `SPEC.md`, technical matters
@@ -65,7 +64,7 @@ things suffice here:
   `npm install`, no bundler, no transformer.
 - **No `_redirects`, no `wrangler.toml`, no `functions/`.** Cloudflare
   Pages already provides implicit `index.html` lookup per directory,
-  so each section (`tools/<slug>/`, `team/`, `settings/`,
+  so each section (`tools/<slug>/`, `settings/`,
   `about/`, `legal/`) ships its own real `index.html` and Cloudflare
   resolves `/tools/pairs/` to `tools/pairs/index.html` automatically.
 - **Cache headers live in `_headers`** at the repo root. Cloudflare
@@ -109,7 +108,7 @@ Practical rules that follow from that:
   graceful fallback.
 - **Register the service worker from every entry point**, not only
   from `index.html`. The root `index.html`, `about/`, `settings/`,
-  `team/`, `legal/` and every `tools/<slug>/index.html` must call
+  `legal/` and every `tools/<slug>/index.html` must call
   `navigator.serviceWorker.register(...)` with the correct relative
   path. Rationale: if a user lands on a page directly (bookmark, home
   screen icon, external link, refresh) and the SW has not been
@@ -194,13 +193,13 @@ no code per module:
 > language and writing). In the landing it appears **once**, under its
 > **main module**: the one that best represents its primary goal. The
 > therapeutic modules exist for navigation; cross-area work is reflected
-> in the description of each activity in `team/index.html`. The global
+> in the description of each activity in [`team.md`](team.md). The global
 > catalog is rebuilt from the actual slugs in `tools/` (checked by
 > `scripts/check.js`).
 
 Each token has its soft pair: `--mod-<x>` and `--mod-<x>-suave` (backgrounds).
 The functional catalog is in [`activities.md`](activities.md), and therapeutic
-purpose is in [`team.md`](team.md) and `team/index.html`.
+purpose is in [`team.md`](team.md).
 
 ### 2.3 Level 3 — Activities (`tools/<slug>/`)
 
@@ -803,7 +802,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
   showing them as pressure isn't.
 - **UI texts**: Spain's Spanish and English, Easy Reading in both, no clinical
   language ("patient", "therapy", "disability"). Clinical language is only
-  allowed in `team/` and in repo documentation. All text lives in
+  allowed in repo documentation. All text lives in
   `strings.<locale>.js` (never hardcoded in `app.js` nor as sole content of an HTML node
   without `data-i18n`).
 - **No labels on the end user**: the person must never read anything in the app
@@ -829,7 +828,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
   `transferencia` are required when they add value, `pistas` (one per wrong option) / `explicacion`
   are required when they add value, `App.feedback.success` and
   `App.feedback.encourage` are **always** required, and the decision is
-  documented in `team/index.html` as a **prioritised design decision**, not
+  documented in this file as a **prioritised design decision**, not
   as an exception. The four mechanical patterns the contract recognises
   today are: **scene + decision**, **safe dialogue / chat**, **step-by-step
   routine** (see [`creating-activities-guide.md` §2.3](creating-activities-guide.md)),
@@ -848,7 +847,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
   `localStorage` (saved level) so the landing can resume the person at the
   level reached, not at a random one. Activities that satisfy the simulation
   contract but skip these anchors are considered "simulation only" and the
-  omission is documented in `team/index.html` as a prioritised design
+  omission is documented in this file as a prioritised design
   decision, not as an exception.
 - **Persuasive-communication contract**: every activity must communicate well,
   in service of learning, as elevated to a product principle in
@@ -879,12 +878,6 @@ pages where clinical or device-administration language is allowed, and they
 follow the same multi-language pattern as the rest of the site
 (`strings.es.js` / `strings.en.js`, `data-i18n`, language selector) — checked
 by `scripts/check.js` the same way as `tools/`.
-
-### 8.1 `/team/`
-
-Guide for families, therapists and teachers + technical note for AI agents
-about the project, design and activity catalog. Keep it up to date, in both
-languages, when adding activities or modules.
 
 ### 8.2 `/settings/`
 
@@ -931,7 +924,7 @@ Data protection page: what Routime stores (`localStorage` only — see
 §3.4/SPEC.md), where, why, how to see or delete it (link to `/settings/`),
 and how to raise a question (the public GitHub repository). It is the one
 exception to the "hidden route" rules above: it **is** linked from every
-other page's footer (`settings/`, `team/`, `about/` and all
+other page's footer (`settings/`, `about/` and all
 `tools/<slug>/`, via the shared `core.dataProtection` i18n key in
 `assets/js/i18n.js` and the `.pie-app`/`.enlace-legal` styles in
 `assets/css/components.css`), it carries no `noindex` meta, and its
@@ -943,10 +936,11 @@ Keep it up to date, in both languages, whenever what the app stores
 locally changes (new tool asking for a name/personal data, new `settings/`
 reset action, etc.).
 
-### 8.5 `/about-app/`
+### 8.5 `/about/`
 
-"About the app" page with the achievements (badges) saved on this device.
-It is linked from the menu footer (`site/`), right before "Configuración",
+"About the app" page: what the app is and how it is used, following the
+suite About template (Apptonomia). It shows no achievements: the badge grid is
+a shared component, documented in the spec §8 (catalogue). It is linked from the menu footer (`site/`), right before "Configuración",
 through the shared footer injector (`core.aboutApp` key, added by
 `App.utils.inyectarPie` when `data-pie-include-config="true"`).
 
@@ -957,11 +951,11 @@ through the shared footer injector (`core.aboutApp` key, added by
 - Achievements are **derived from saved progress** (stars per activity,
   activities with stars, menu modules with stars), so existing users get
   them retroactively. `evaluate()` runs every time `site/` or
-  `about-app/` loads. Unlocked ids are stored as `{ id: timestamp }` under
+  `about/` loads. Unlocked ids are stored as `{ id: timestamp }` under
   `routime:achievements` (idempotent: the first date is kept).
-- Streak: `App.storage.set()` records the day under
-  `routime:activity-days` (last 30 days) whenever an activity's `stars`
-  goes up.
+- `activity-days` is a legacy key: older versions recorded the days with a new
+  star for a streak achievement that was removed (spec §8). Nothing writes or
+  reads it now; the settings reset still removes it.
 - `MODULES` in `achievements.js` maps each menu module to the activities'
   storage ids (`TOOL_ID`): keep it in sync when an activity is added.
   The "Body and relationships" module is left out on purpose, so the
@@ -995,7 +989,7 @@ through the shared footer injector (`core.aboutApp` key, added by
    - Card in `index.html` and matching keys in
      `strings.es.js` / `strings.en.js`.
    - All 6 activity files in `sw.js`'s `ARCHIVOS`, and bump `VERSION` (§11).
-   - Row in `team/index.html` and bilingual entry in `activities.md`.
+   - Bilingual entry in `activities.md`.
 9. **Verify** with §12 commands and criteria: structure, both languages,
    persistence, audio, keyboard, touch targets and responsive view.
 10. **Create a small, coherent commit** with an English message.
@@ -1013,7 +1007,7 @@ Only if the area does not fit the 9 existing modules (check coverage in
 2. Add the `<section class="modulo">` in `index.html` with
    `style="--acento: var(--mod-<name>); --acento-suave: var(--mod-<name>-suave);"`,
    an `<h2>` with emoji + name in Easy Reading, and its `grid-tarjetas`.
-3. Document the module in `activities.md`, `team.md`, `team/index.html` and
+3. Document the module in `activities.md`, `team.md` and
    §2.2 of this document.
 4. Create the first activity of the module (recipe §9).
 

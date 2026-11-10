@@ -254,7 +254,7 @@
       App.storage.remove(id);
     });
     App.storage.remove('prefs');
-    /* Achievements and streak days are not in listaToolIds(). */
+    /* Achievements and the legacy streak-day record are not in listaToolIds(). */
     App.storage.remove('achievements');
     App.storage.remove('activity-days');
     var f = $('#feedbackApp');

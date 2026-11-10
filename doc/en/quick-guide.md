@@ -438,7 +438,6 @@ If you need more information:
 
 - [Activity catalog](activities.md) — Complete list of activities
 - [Technical information](technical.md) — For developers and professionals
-- [Team page](../team/index.html) — Guide for families and professionals
 
 ---
 

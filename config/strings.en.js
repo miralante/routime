@@ -122,7 +122,6 @@
     confirmResetApp: 'Are you sure? Tap again to delete EVERYTHING. This cannot be undone.',
     feedbackResetAppDone: 'Done. Everything has been deleted. The app is back to how it was on first install.',
 
-    footerActivities: 'Go to the activities',
-    footerTeamGuide: 'Guide for the support team'
+    footerActivities: 'Go to the activities'
   }, 'en');
 })();

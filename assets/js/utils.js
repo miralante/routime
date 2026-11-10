@@ -113,7 +113,7 @@
     * canonical content, using App.i18n.t() for the text. Replaces the
     * 70+ hand-maintained copies that used to live in every
     * tools/<slug>/index.html, the landing index.html, about/, config/,
-    * team/, legal/ — see scripts/check.js for the lint that enforces the
+    * legal/ — see scripts/check.js for the lint that enforces the
     * canonical marker shape.
     *
     * Marker attributes:
@@ -149,7 +149,7 @@
       var html = '';
       if (includeConfig) {
         /* "About the app" (achievements) goes right before Settings. */
-        html += '<a href="' + base + 'about/" class="enlace-legal" data-i18n="core.aboutApp"></a>';
+        html += '<a href="https://apptonomia.uk/about/" class="enlace-legal" data-i18n="core.aboutApp"></a>';
         html += '<a href="' + base + 'config/" class="enlace-legal" data-i18n="core.config"></a>';
       }
       html += '<a href="' + base + 'legal/index.html" class="enlace-legal" data-i18n="core.dataProtection"></a>';

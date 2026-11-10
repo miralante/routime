@@ -50,7 +50,7 @@ El resto de documentos del repositorio (`CLAUDE.md`, `LICENSE`,
 |---|---|
 | **Entender qué es Routime y para quién** | [`SPEC.md`](SPEC.md) |
 | **Abrir la app y usarla** (4 métodos: internet, ZIP, Python, Node) | [`guia-rapida.md`](guia-rapida.md) |
-| **Acompañar a una persona usuaria** (familia/terapeuta/profesorado) | [`equipo.md`](equipo.md) y la página [`team/`](../team/index.html) |
+| **Acompañar a una persona usuaria** (familia/terapeuta/profesorado) | [`equipo.md`](equipo.md) |
 | **Ver el catálogo completo de actividades** | [`actividades.md`](actividades.md) |
 | **Entender la arquitectura y recetas técnicas** | [`tecnico.md`](tecnico.md) |
 | **Crear una actividad nueva** (diseño + técnicas didácticas, gamificación, neuromarketing) | [`guia-crear-elementos.md`](guia-crear-elementos.md) |

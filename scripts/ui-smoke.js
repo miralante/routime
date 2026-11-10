@@ -641,8 +641,8 @@ async function exerciseNativeSettings(browser, baseUrl) {
 }
 
 /* Routime: the menu footer links "Sobre la app" (about/) right before
-   "Configuración". The About page describes the app and shows no achievements
-   (the suite decision: the About page carries no achievements). */
+   "Configuración". About pages describe the app and show no achievements
+   (suite template, see doc/en/technical.md §8.5). */
 async function exerciseRoutimeAboutPage(browser, baseUrl) {
   const context = await browser.newContext({
     locale: 'es-ES', serviceWorkers: 'block', viewport: { width: 375, height: 800 },
@@ -656,20 +656,17 @@ async function exerciseRoutimeAboutPage(browser, baseUrl) {
       sessionStorage.setItem('seeded', '1');
       localStorage.clear();
       localStorage.setItem('routime:locale', 'es');
+      localStorage.setItem('routime:parejas', JSON.stringify({ stars: 2 }));
+      localStorage.setItem('routime:rutinas', JSON.stringify({ stars: 1 }));
+      localStorage.setItem('routime:activity-days', JSON.stringify(['2026-01-01', '2026-01-02', '2026-01-03']));
     });
     await page.goto(baseUrl + '/', { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
     const footerLinks = page.locator('footer[data-pie-app] a');
     await footerLinks.first().waitFor({ state: 'attached', timeout: NAV_TIMEOUT });
     const hrefs = await footerLinks.evaluateAll(links => links.map(a => a.getAttribute('href')));
-    assert.ok(hrefs[0].endsWith('about/') && hrefs[1].endsWith('config/'),
-      'El pie del menú debe enlazar "Sobre la app" justo antes de "Configuración"');
-    await Promise.all([
-      page.waitForURL(/\/about\/$/, { timeout: NAV_TIMEOUT }),
-      footerLinks.first().click(),
-    ]);
-    assert.strictEqual(await page.locator('#achievementsGrid').count(), 0,
-      'La página About no muestra logros');
-    assert.deepEqual(errors, [], 'about/ no debe lanzar errores: ' + errors.join(' | '));
+    assert.ok(hrefs[0] === 'https://apptonomia.uk/about/' && hrefs[1].endsWith('config/'),
+      'El pie del menú debe enlazar "Sobre la app" (apptonomia.uk/about/) justo antes de "Configuración"');
+    assert.deepEqual(errors, [], 'el menú no debe lanzar errores: ' + errors.join(' | '));
   } finally {
     await page.close().catch(() => {});
     await context.close().catch(() => {});
@@ -1453,7 +1450,7 @@ async function main() {
     }
     if (APP === 'routime' && process.env.UI_SMOKE_SETTINGS_ONLY !== '1') {
       await exerciseRoutimeAboutPage(browser, baseUrl);
-      process.stdout.write('\n[' + APP + '] about OK');
+      process.stdout.write('\n[' + APP + '] achievements OK');
     }
     for (const route of (process.env.UI_SMOKE_SETTINGS_ONLY === '1' ? [] : routes)) {
       process.stdout.write('\n[' + APP + '] ' + route + ' ');

@@ -438,7 +438,6 @@ Si necesitas más información:
 
 - [Catálogo de actividades](actividades.md) — Lista completa de actividades
 - [Información técnica](tecnico.md) — Para desarrolladores y profesionales
-- [Página del equipo](../team/index.html) — Guía para familias y profesionales
 
 ---
 

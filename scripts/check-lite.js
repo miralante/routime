@@ -13,8 +13,6 @@
    4. es/en key parity between strings.es.js and strings.en.js.
    5. Catalog parity: every tools/<slug>/ has a card in
       index.html (href="tools/<slug>/") and vice versa.
-   6. Parity with team/: the cover name (index.html) of
-      each activity also appears in team/index.html.
    7. Synced counts: the "## Activities (N)" number in
       README.md (ES) and the "(N activities)" comment in
       doc/es/tecnico.md match the real number of folders in tools/.
@@ -100,7 +98,6 @@ var archivosJs = []
   .concat(listarJs(path.join(RAIZ, 'assets', 'js')))
   .concat(listarJs(path.join(RAIZ, 'config')))
   .concat(listarJs(path.join(RAIZ, 'about')))
-  .concat(listarJs(path.join(RAIZ, 'team')))
   .concat(listarJs(path.join(RAIZ, 'legal')));
 
 console.log('Lite: skipping node --check, archivo count = ' + archivosJs.length);
@@ -239,8 +236,8 @@ slugs.forEach(function (slug) {
 });
 
 /* --- 4b. es/en key parity for the hidden routes (config/, about/,
-   team/, legal/), which follow the same strings.<locale>.js pattern as tools/. --- */
-['config', 'about', 'team', 'legal'].forEach(function (ruta) {
+   legal/), which follow the same strings.<locale>.js pattern as tools/. --- */
+['config', 'about', 'legal'].forEach(function (ruta) {
   var archivoEs = path.join(RAIZ, ruta, 'strings.es.js');
   var archivoEn = path.join(RAIZ, ruta, 'strings.en.js');
   if (!fs.existsSync(archivoEs) || !fs.existsSync(archivoEn)) return;
@@ -286,19 +283,6 @@ slugsEnPortada.forEach(function (slug) {
     fallos.push('index.html: tiene tarjeta de tools/' + slug + '/ pero esa carpeta no existe');
   }
 });
-
-/* --- 6. Parity with team/: the cover name of each card
-   from index.html must also appear in team/index.html. */
-checks += 1;
-var teamHtml = fs.readFileSync(path.join(RAIZ, 'team', 'index.html'), 'utf8');
-var reTarjeta = /<a href="tools\/([^/]+)\/" class="tarjeta">[\s\S]*?<span class="nombre"[^>]*>([^<]+)<\/span>/g;
-var mt;
-while ((mt = reTarjeta.exec(portadaHtml)) !== null) {
-  var nombrePortada = mt[2].trim();
-  if (teamHtml.indexOf(nombrePortada) === -1) {
-    fallos.push('team/index.html: falta "' + nombrePortada + '" (tools/' + mt[1] + '), o el texto no coincide exactamente');
-  }
-}
 
 /* --- 7. Synced counts: doc/es/tecnico.md and doc/en/technical.md
    must state the real number of folders in tools/ (via

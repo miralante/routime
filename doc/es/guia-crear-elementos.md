@@ -127,7 +127,7 @@ Los ejercicios puramente abstractos (sin escena, sin `transferencia` ni
 los cuatro anclajes) solo se permiten cuando el objetivo hace la
 contextualización imposible o confusa. En ese caso la actividad sigue el
 **vehículo de habilidad pura** declarado en [`SPEC.md` §3.6.b](SPEC.md) y
-se documenta como **decisión de diseño priorizada** en `team/index.html`
+se documenta como **decisión de diseño priorizada** en [`tecnico.md`](tecnico.md)
 (no como excepción).
 
 ### 2.4 La actividad comunica persuasivamente al servicio del aprendizaje
@@ -682,7 +682,7 @@ Buenos ejemplos en el catálogo: `tools/situations/`, `tools/emergencies/`,
 | Tono condescendiente ("¡Muy bien, campeón!") | Infantiliza | Tono cercano pero digno: "¡Lo has hecho muy bien!". |
 | Saturar la pantalla | Cansancio visual, peor aprendizaje | 3–6 elementos, una idea. |
 | Cronómetro visible | Rompe `SPEC.md` §3.2 | Sin reloj en pantalla. |
-| Texto clínico en UI | Rompe `SPEC.md` §3.3 | Solo en `team/` y en `doc/`. |
+| Texto clínico en UI | Rompe `SPEC.md` §3.3 | Solo en `doc/`. |
 | Comprometer `localStorage` con datos personales | Rompe `SPEC.md` §3.4 | Solo `estrellas` y `completados`. |
 | Olvidar TTS en la `instruccion` | Rompe la regla 4 | `App.tts.speak()` al entrar. |
 | Olvidar `data-i18n` y hardcodear en HTML | Rompe la paridad de idiomas | Toda cadena va en `strings.<locale>.js`. |
@@ -703,7 +703,7 @@ Checklist final (combina [`tecnico.md` §9](tecnico.md) con esta guía):
       ayuda socrática y una línea `transferencia` al cierre
       ([`SPEC.md` §3.6](SPEC.md), §2.3 de esta guía). Si la actividad
       es de habilidad pura (memoria, motricidad fina, lógica,
-      puzzles, percepción), está declarada en `team/index.html`
+      puzzles, percepción), está declarada en [`tecnico.md`](tecnico.md)
       como **decisión de diseño priorizada** del producto, no como
       excepción ([`SPEC.md` §3.6.b](SPEC.md)).
 - [ ] La actividad también entrena **significativamente**: usa
