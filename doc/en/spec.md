@@ -422,11 +422,11 @@ Achievements are milestones computed from saved progress (suite-wide policy, [`a
 
 | Icon | Id | Name | Rule | Description |
 |------|----|------|------|-------------|
-| ⭐ | `firstStar` | First star | At least 1 star | You have won your first star. |
-| 🌟 | `tenStars` | Ten stars | At least 10 stars | You have collected ten stars. |
-| 🧩 | `tenActivities` | Ten activities | Stars in 10 different activities | You have won stars in ten different activities. |
-| 🎓 | `allModules` | Every group | Stars in at least one activity of every menu group | You have won stars in every group of the menu. |
-| 🌅 | `routineStar` | Routine done | A star in the routines activity | You have completed the routines activity. |
+| ⭐ | `firstStar` | First star | At least 1 star | Get your first star. |
+| 🌟 | `tenStars` | Ten stars | At least 10 stars | Get ten stars in total. |
+| 🧩 | `tenActivities` | Ten activities | Stars in 10 different activities | Get a star in ten different activities. |
+| 🎓 | `allModules` | All modules | Stars in at least one activity of every menu module | Do at least one activity from every module on the menu. |
+| 🌅 | `routineStar` | My routine | A star in the routines activity | Get a star in the routines activity. |
 
 Notes:
 

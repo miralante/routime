@@ -33,7 +33,9 @@
     achievementAllModules: 'Todos los módulos',
     achievementAllModulesDesc: 'Haz al menos una actividad de cada módulo del menú.',
     achievementRoutineStar: 'Mi rutina',
-    achievementRoutineStarDesc: 'Consigue una estrella en la actividad de rutinas.'
+    achievementRoutineStarDesc: 'Consigue una estrella en la actividad de rutinas.',
+    achievementLocked: 'Pendiente',
+    achievementUnlockedAt: 'Conseguido el {date}'
   }, 'es');
 
   App.i18n.register({
@@ -47,7 +49,9 @@
     achievementAllModules: 'All modules',
     achievementAllModulesDesc: 'Do at least one activity from every module on the menu.',
     achievementRoutineStar: 'My routine',
-    achievementRoutineStarDesc: 'Get a star in the routines activity.'
+    achievementRoutineStarDesc: 'Get a star in the routines activity.',
+    achievementLocked: 'Not yet',
+    achievementUnlockedAt: 'Earned on {date}'
   }, 'en');
 
   /* Main menu modules (dev/index.html sections) -> activity storage ids

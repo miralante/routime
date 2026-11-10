@@ -413,11 +413,11 @@ Los logros son hitos calculados a partir del progreso guardado (política común
 
 | Icono | Id | Nombre | Regla | Descripción |
 |-------|----|--------|-------|-------------|
-| ⭐ | `firstStar` | Primera estrella | Al menos 1 estrella | Has ganado tu primera estrella. |
-| 🌟 | `tenStars` | Diez estrellas | Al menos 10 estrellas | Has reunido diez estrellas. |
-| 🧩 | `tenActivities` | Diez actividades | Estrellas en 10 actividades distintas | Has ganado estrellas en diez actividades distintas. |
-| 🎓 | `allModules` | Todos los grupos | Estrellas en al menos una actividad de cada grupo del menú | Has ganado estrellas en cada grupo del menú. |
-| 🌅 | `routineStar` | Rutina cumplida | Estrella en la actividad de rutinas | Has completado la actividad de rutinas. |
+| ⭐ | `firstStar` | Primera estrella | Al menos 1 estrella | Consigue tu primera estrella. |
+| 🌟 | `tenStars` | Diez estrellas | Al menos 10 estrellas | Consigue diez estrellas en total. |
+| 🧩 | `tenActivities` | Diez actividades | Estrellas en 10 actividades distintas | Consigue alguna estrella en diez actividades distintas. |
+| 🎓 | `allModules` | Todos los módulos | Estrellas en al menos una actividad de cada módulo del menú | Haz al menos una actividad de cada módulo del menú. |
+| 🌅 | `routineStar` | Mi rutina | Estrella en la actividad de rutinas | Consigue una estrella en la actividad de rutinas. |
 
 Notas:
 
