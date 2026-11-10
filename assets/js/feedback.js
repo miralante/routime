@@ -23,7 +23,7 @@
   function sonidoCompartidoActivado(tipo) {
     if (window.LocalePickerConfig && window.LocalePickerConfig.soundSettings === false) return null;
     try {
-      var guardado = JSON.parse(localStorage.getItem('miralante:sounds') || 'null');
+      var guardado = JSON.parse(localStorage.getItem('apptonomia:sounds') || 'null');
       if (guardado && typeof guardado[tipo] === 'boolean') return guardado[tipo];
     } catch (e) { /* ignore */ }
     return null;
