@@ -661,11 +661,13 @@ async function exerciseRoutimeAboutPage(browser, baseUrl) {
       localStorage.setItem('routime:activity-days', JSON.stringify(['2026-01-01', '2026-01-02', '2026-01-03']));
     });
     await page.goto(baseUrl + '/', { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
-    const footerLinks = page.locator('footer[data-pie-app] a');
+    const footerLinks = page.locator('footer[data-suite-footer] a');
     await footerLinks.first().waitFor({ state: 'attached', timeout: NAV_TIMEOUT });
     const hrefs = await footerLinks.evaluateAll(links => links.map(a => a.getAttribute('href')));
-    assert.ok(hrefs[0] === 'https://apptonomia.uk/about/' && hrefs[1].endsWith('config/'),
-      'El pie del menú debe enlazar "Sobre la app" (apptonomia.uk/about/) justo antes de "Configuración"');
+    const aboutAt = hrefs.findIndex(h => h && h.endsWith('about/'));
+    const configAt = hrefs.findIndex(h => h && h.endsWith('config/'));
+    assert.ok(hrefs[0] === 'https://apptonomia.uk/' && aboutAt !== -1 && configAt > aboutAt,
+      'El pie compartido debe enlazar primero al portal y después "Sobre la app" antes de "Configuración"');
     assert.deepEqual(errors, [], 'el menú no debe lanzar errores: ' + errors.join(' | '));
   } finally {
     await page.close().catch(() => {});

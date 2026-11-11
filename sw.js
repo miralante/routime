@@ -6,7 +6,7 @@
    When adding new files: add them to ARCHIVOS and bump VERSION (the
    precache still needs the list for offline use).
    ============================================================ */
-var VERSION = 'routime-v130';
+var VERSION = 'routime-v131';
 
 var ARCHIVOS = [
   './',
@@ -37,6 +37,7 @@ var ARCHIVOS = [
   './assets/fonts/nunito-variable.woff2',
   './assets/js/utils.js',
   './assets/js/i18n.js',
+  './assets/js/suite-chrome.js',
   './assets/js/tts.js',
   './assets/js/storage.js',
   './assets/js/achievements-engine.js',

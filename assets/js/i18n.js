@@ -36,6 +36,7 @@
         loading: 'Cargando…',
         roundComplete: '¡Ronda completada!',
         rest: '¡Llevas un buen rato! Puedes descansar si quieres.',
+        chrome: { appName: 'Routime', portal: 'Volver al portal', about: 'Sobre la app', legal: 'Protección de datos', settings: 'Ajustes' },
         dataProtection: 'Routime no recolecta datos',
         aboutApp: 'Sobre la app',
         config: 'Configuración'
@@ -59,6 +60,7 @@
         loading: 'Loading…',
         roundComplete: 'Round complete!',
         rest: 'You have been playing a while! You can rest if you want.',
+        chrome: { appName: 'Routime', portal: 'Back to the portal', about: 'About the app', legal: 'Data protection', settings: 'Settings' },
         dataProtection: 'Routime does not collect data',
         aboutApp: 'About the app',
         config: 'Settings'
@@ -367,14 +369,6 @@
   function inicio() {
     document.documentElement.lang = locale();
     apply(document);
-    /* Inject the shared footer into every <footer data-pie-app> marker
-       on the page, then apply i18n to the newly inserted nodes. Safe
-       to call when no markers exist (no-op). App.utils.inyectarPie is
-       defined in utils.js, which loads before i18n.js per the standard
-       order documented in this file's header. */
-    if (window.App && window.App.utils && typeof window.App.utils.inyectarPie === 'function') {
-      window.App.utils.inyectarPie();
-    }
   }
 
   if (document.readyState === 'loading') {

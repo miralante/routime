@@ -8,16 +8,14 @@
   <meta name="theme-color" content="#FAF7F2">
   <link rel="stylesheet" href="../assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="../assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="../assets/css/components.css?v=routime-v5a9a7ad2">
+  <link rel="stylesheet" href="../assets/css/components.css?v=routime-v880df544">
   <link rel="stylesheet" href="styles.css?v=routime-v877fd086">
   <link rel="stylesheet" href="../assets/css/locale-picker.css?v=routime-vcdcf216d">
 </head>
 <body>
   <div class="container legal">
     <header class="header-legal">
-      <div class="suite-controls">
-        <div id="locale-picker"></div>
-      </div>
+      <div class="suite-controls" data-suite-header data-suite-brand="off"></div>
       <img src="../assets/img/icono.svg?v=routime-va8882152" alt="" width="72" height="72" class="logo-legal">
       <h1 data-i18n="pageTitle">Protección de datos</h1>
       <p class="tagline" data-i18n="tagline">Sin registro. Sin cookies. Sin analítica.</p>
@@ -69,13 +67,11 @@
 
     </main>
 
-    <footer class="pie-legal">
-      <a class="btn btn-secondary" href="../" data-i18n="footerActivities">Ir a las actividades</a>
-    </footer>
+    <footer data-suite-footer data-suite-base="../" data-suite-settings></footer>
   </div>
 
-  <script src="../assets/js/utils.js?v=routime-v7a2f4549"></script>
-  <script src="../assets/js/i18n.js?v=routime-v3208a1ba"></script>
+  <script src="../assets/js/utils.js?v=routime-v77352015"></script>
+  <script src="../assets/js/i18n.js?v=routime-v58c92aee"></script>
   <script src="strings.es.js?v=routime-v3c5ecb63"></script>
   <script src="strings.en.js?v=routime-v98e637c5"></script>
 <!-- Controles compartidos con la pantalla principal: el desplegable de idioma
@@ -83,5 +79,6 @@
      portada, para que las dos páginas compartan la copia en caché. -->
 <script src="../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
 <script src="../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
+  <script src="../assets/js/suite-chrome.js?v=routime-v4bcf8c03"></script>
 </body>
 </html>

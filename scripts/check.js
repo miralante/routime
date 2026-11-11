@@ -679,11 +679,11 @@ var fileSizeExcludedFiles = [
 })(RAIZ);
 
 /* --- 13. Shared footer marker: every tools/<slug>/index.html and
-    the landing index.html must declare the canonical <footer data-pie-app>
-    marker (no hand-written children). The injector in
-    assets/js/utils.js -> App.utils.inyectarPie() fills it in at
-    load time; this check prevents anyone from adding a one-off
-    footer that bypasses the shared source of truth. --- */
+    the landing index.html must declare the canonical shared footer
+    <footer data-suite-footer> (no hand-written children). The shared
+    component assets/js/suite-chrome.js fills it in at load time; this
+    check prevents anyone from adding a one-off footer that bypasses
+    the shared source of truth. --- */
 checks += 1;
 var RUTAS_PIE_CANONICO = ['index.html'].concat(
   slugs.map(function (s) { return path.join('tools', s, 'index.html'); })
@@ -692,12 +692,12 @@ RUTAS_PIE_CANONICO.forEach(function (relPath) {
   var absPath = path.join(RAIZ, relPath);
   if (!fs.existsSync(absPath)) return;
   var html = fs.readFileSync(absPath, 'utf8');
-  /* Match the marker exactly: <footer data-pie-app ...></footer>
+  /* Match the marker exactly: <footer data-suite-footer ...></footer>
      with no children between the tags. The marker may carry
-     data-pie-base, data-pie-class and data-pie-include-config. */
-  var m = html.match(/<footer\s+data-pie-app[^>]*><\/footer>/);
+     data-suite-base, data-suite-portal, data-suite-settings and data-suite-contact. */
+  var m = html.match(/<footer\s+data-suite-footer[^>]*><\/footer>/);
   if (!m) {
-    fallos.push(relPath + ': falta el marcador <footer data-pie-app> canónico (el inyector App.utils.inyectarPie no podrá rellenarlo).');
+    fallos.push(relPath + ': falta el marcador <footer data-suite-footer> canónico (suite-chrome.js no podrá rellenarlo).');
     return;
   }
   /* Reject any additional <footer> with a pie-app-ish class on the
