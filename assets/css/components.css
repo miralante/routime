@@ -251,26 +251,6 @@ button.bloqueada {
   gap: var(--espacio-grande);
 }
 
-/* ---- Legal footer link (present on every page) ---- */
-.pie-app {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: var(--espacio) 0 8px;
-  margin-top: var(--espacio);
-}
-
-.enlace-legal {
-  color: var(--color-texto-suave);
-  font-size: var(--texto-pequeno);
-  padding: 8px 12px;
-  text-decoration: underline;
-}
-
-.enlace-legal:hover, .enlace-legal:focus {
-  color: var(--color-texto);
-}
-
 /* Utilities */
 .centrado { text-align: center; }
 .hidden { display: none !important; }

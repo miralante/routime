@@ -870,7 +870,7 @@ Detailed recipe and considerations (numbers, hours, cultural content) in
 
 ## 8. Hidden routes
 
-Pages for adults (family/teachers/AI agent) who manage the device, not for the
+Administration pages (family/teachers/AI agent) who manage the device, not for the
 end user. Common rules to all: **never link them** from `index.html` or
 from activities (access only by known URL), they carry
 `<meta name="robots" content="noindex, nofollow">`, they're the only product
@@ -926,8 +926,8 @@ and how to raise a question (the public GitHub repository). It is the one
 exception to the "hidden route" rules above: it **is** linked from every
 other page's footer (`settings/`, `about/` and all
 `tools/<slug>/`, via the shared `core.dataProtection` i18n key in
-`assets/js/i18n.js` and the `.pie-app`/`.enlace-legal` styles in
-`assets/css/components.css`), it carries no `noindex` meta, and its
+`assets/js/i18n.js` and the shared footer in
+`assets/js/suite-chrome.js`), it carries no `noindex` meta, and its
 language stays plain and accessible rather than clinical, since anyone —
 including the end user — may land on it. Still follows the
 `strings.es.js`/`strings.en.js` pattern checked by `scripts/check.js`.
@@ -940,9 +940,8 @@ reset action, etc.).
 
 "About the app" page: what the app is and how it is used, following the
 suite About template (Apptonomia). It shows no achievements: the achievements grid is
-only a design artifact, documented in the spec §8 (catalogue). It is linked from the menu footer (`site/`), right before "Configuración",
-through the shared footer injector (`core.aboutApp` key, added by
-`App.utils.inyectarPie` when `data-pie-include-config="true"`).
+only a design artifact, documented in the spec §8 (catalogue). It is linked from the shared footer (`data-suite-footer`, `core.chrome.about` key),
+right before "Configuración".
 
 - Catalog, unlock rules and badge renderer: `assets/js/achievements.js`
   (`App.achievements.list` / `unlocked()` / `achieve(id)` / `evaluate()` /

@@ -895,7 +895,7 @@ Receta detallada y consideraciones (números, horas, contenido cultural) en
 
 ## 8. Rutas ocultas
 
-Páginas para adultos (familia/profesorado/agente IA) que gestionan el dispositivo,
+Páginas de administración (familia/profesorado/agente IA) que gestionan el dispositivo,
 no para la persona usuaria. Reglas comunes a todas: **no enlazarlas nunca** desde
 `index.html` ni desde las actividades (acceso solo por URL conocida), llevan
 `<meta name="robots" content="noindex, nofollow">`, son las únicas páginas del
@@ -951,8 +951,8 @@ Página de protección de datos: qué guarda Routime (solo `localStorage`
 GitHub). Es la única excepción a las reglas de "ruta oculta" de arriba:
 **sí** está enlazada desde el pie de todas las demás páginas (la landing,
 `settings/`, `about/` y todas las `tools/<slug>/`, mediante la
-clave i18n compartida `core.dataProtection` en `assets/js/i18n.js` y los
-estilos `.pie-app`/`.enlace-legal` de `assets/css/components.css`), no
+clave i18n compartida `core.dataProtection` en `assets/js/i18n.js` y el
+pie compartido de `assets/js/suite-chrome.js`), no
 lleva `noindex`, y su lenguaje se mantiene claro y accesible en vez de
 clínico, porque cualquiera —incluida la persona usuaria— puede llegar a
 ella. Sigue igualmente el patrón `strings.es.js`/`strings.en.js`
@@ -966,10 +966,8 @@ datos personales, una acción nueva de borrado en `settings/`, etc.).
 
 Página "Sobre la app": qué es la app y cómo se usa, con el esqueleto
 estándar de la suite (plantilla de Apptonomia). No muestra logros: la
-cuadrícula de logros es solo una pieza de diseño, documentada en la spec §8 (catálogo). Se enlaza desde el pie del menú (`site/`), justo antes de
-"Configuración", a través del inyector de pie compartido (clave
-`core.aboutApp`, que añade `App.utils.inyectarPie` cuando
-`data-pie-include-config="true"`).
+cuadrícula de logros es solo una pieza de diseño, documentada en la spec §8 (catálogo). Se enlaza desde el pie compartido (`data-suite-footer`, clave
+`core.chrome.about`), justo antes de "Configuración".
 
 - Catálogo, reglas de desbloqueo y dibujo de insignias:
   `assets/js/achievements.js` (`App.achievements.list` / `unlocked()` /
