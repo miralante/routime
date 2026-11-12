@@ -9,7 +9,7 @@
   App.i18n.register({
     suiteBy: 'An app by',
     "title": "Routime",
-    "saludo": "Hello. What do you want to do today?",
+    "saludo": "Hi. What do you want to do today?",
     "yourStars": "Your stars",
     "idioma": "Choose language",
     "modCoordinacion": "🎯 Aim and hands",

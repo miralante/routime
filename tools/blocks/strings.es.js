@@ -30,8 +30,8 @@
     "btnOtroNivel": "Elegir otro nivel",
     "btnMenu": "Volver al inicio",
     "ariaColor": "Elegir color {color}",
-    "ariaCeldaVacia": "Casilla sin pintar, row {f}, column {c}",
-    "ariaCeldaPintada": "Casilla {color}, row {f}, column {c}"
+    "ariaCellEmpty": "Casilla sin pintar, fila {f}, columna {c}",
+    "ariaCellPainted": "Casilla {color}, fila {f}, columna {c}"
   ,
   "transferencia": "Esto te ayuda a fijarte en cómo encajan las piezas cuando ordenas o montas cosas."
 }, 'es');

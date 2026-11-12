@@ -36,7 +36,7 @@
         loading: 'Cargando…',
         roundComplete: '¡Ronda completada!',
         rest: '¡Llevas un buen rato! Puedes descansar si quieres.',
-        chrome: { appName: 'Routime', portal: 'Volver al portal', about: 'Sobre la app', legal: 'Protección de datos', settings: 'Ajustes' },
+        chrome: { appName: 'Routime' },
         dataProtection: 'Routime no recolecta datos',
         aboutApp: 'Sobre la app',
         config: 'Configuración'
@@ -60,7 +60,7 @@
         loading: 'Loading…',
         roundComplete: 'Round complete!',
         rest: 'You have been playing a while! You can rest if you want.',
-        chrome: { appName: 'Routime', portal: 'Back to the portal', about: 'About the app', legal: 'Data protection', settings: 'Settings' },
+        chrome: { appName: 'Routime' },
         dataProtection: 'Routime does not collect data',
         aboutApp: 'About the app',
         config: 'Settings'

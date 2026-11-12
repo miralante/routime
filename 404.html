@@ -24,12 +24,14 @@
       min-height: 100vh;
       line-height: 1.5;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
       justify-content: center;
       padding: 24px;
       -webkit-font-smoothing: antialiased;
     }
     .card {
+      margin-inline: auto;
       max-width: 480px;
       width: 100%;
       background: var(--color-surface);
@@ -58,18 +60,25 @@
       border-radius: 4px;
     }
   </style>
+<link rel="stylesheet" href="/assets/css/components.css?v=routime-v0f3cf1d8">
+  <link rel="stylesheet" href="/assets/css/locale-picker.css?v=routime-vcdcf216d">
 </head>
 <body>
+  <div data-suite-header></div>
   <main class="card">
     <h1>Página no encontrada</h1>
     <p>La ruta que has visitado no existe. La página principal de Routime sigue disponible.</p>
     <a href="./">Volver a Routime</a>
   </main>
+  <footer data-suite-footer data-suite-base="/" data-suite-portal="https://apptonomia.uk/" data-suite-settings></footer>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(function () {});
     }
   </script>
 <script src="assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
+<script src="/assets/js/suite-chrome.js?v=routime-v40aa8123" defer></script>
+<script src="/assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
+<script src="/assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
 </body>
 </html>

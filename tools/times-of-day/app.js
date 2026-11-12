@@ -103,9 +103,14 @@
       itemPictoEl.textContent = item.picto;
       itemTaskEl.textContent = item.tarea;
       var boxes = App.utils.$$('.btn.caja', listsDayEl);
+      /* The boxes persist for the whole round. A correct answer on the previous
+         task hides the other boxes and marks the right one aria-disabled
+         (App.feedback.markCorrect), so reset all of that here, or the next
+         task can be left with no answer the learner can press. */
       boxes.forEach(function (b) {
         b.disabled = false;
-        b.classList.remove('animo', 'correcta');
+        b.removeAttribute('aria-disabled');
+        b.classList.remove('animo', 'correcta', 'hidden');
       });
       return boxes;
     },
