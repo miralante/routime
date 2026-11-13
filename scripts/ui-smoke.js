@@ -666,8 +666,9 @@ async function exerciseRoutimeAboutPage(browser, baseUrl) {
     const hrefs = await footerLinks.evaluateAll(links => links.map(a => a.getAttribute('href')));
     const aboutAt = hrefs.findIndex(h => h && h.endsWith('about/'));
     const configAt = hrefs.findIndex(h => h && h.endsWith('config/'));
-    assert.ok(hrefs[0] === 'https://apptonomia.uk/' && aboutAt !== -1 && configAt > aboutAt,
-      'El pie compartido debe enlazar primero al portal y después "Sobre la app" antes de "Configuración"');
+    // The shared footer no longer links to the portal (commit 87bf9d9): it starts with "Sobre la app".
+    assert.ok(aboutAt === 0 && configAt > aboutAt,
+      'El pie compartido debe enlazar primero a "Sobre la app" y después a "Configuración"');
     assert.deepEqual(errors, [], 'el menú no debe lanzar errores: ' + errors.join(' | '));
   } finally {
     await page.close().catch(() => {});
