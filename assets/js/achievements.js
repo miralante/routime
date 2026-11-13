@@ -54,7 +54,7 @@
     achievementUnlockedAt: 'Earned on {date}'
   }, 'en');
 
-  /* Main menu modules (dev/index.html sections) -> activity storage ids
+  /* Main menu modules (the menu sections on the landing) -> activity storage ids
      (the TOOL_ID each tools/<slug>/app.js saves under). Keep in sync when an
      activity is added. "Body and relationships" is left out on purpose. */
   var MODULES = {
