@@ -70,8 +70,8 @@
       el.stars.textContent = '⭐ ' + progress.stars;
     }
 
-    /* "Ya tienes X estrellas · A por las Y estrellas" (stars-engine.js), added to the
-       star message on screen when a star is earned, not to the header. */
+    /* "Ya tienes X estrellas · A por las Y estrellas" (stars-engine.js), added once to the
+       closing summary at the end of the round, not after each answer. */
     function paintStarLine(zone) {
       var old = zone.querySelector('.stars-goal');
       if (old) old.remove();
@@ -145,7 +145,6 @@
         roundHits += 1;
         save();
         paintStars();
-        if (el.feedback) paintStarLine(el.feedback);
         showExplanation(info.explanation || '');
         if (el.btnNext) { el.btnNext.classList.remove('hidden'); el.btnNext.focus(); }
         return;
@@ -219,3 +218,4 @@
     return api;
   };
 })();
+        paintStarLine(el.summary);
