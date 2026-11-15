@@ -15,6 +15,7 @@
   var levelsScreen = $('#levelsScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, [$('#topics')]);
   var topicsEl = $('#topics');
   var levelEl = $('#dificultad');
   var topicTitleEl = $('#topicTitle');
@@ -167,6 +168,7 @@
     paintWords();
     paintBoard();
     show(gameScreen);
+    pair.enter();
     renderLevel();
   }
 
@@ -339,6 +341,7 @@
     finalSummaryEl.textContent = summary;
     $('#transferencia').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'), function () {
+      pair.leave(false);
       show(endScreen);
     });
   }
@@ -350,6 +353,7 @@
   $('#btnRepeat').addEventListener('click', function () { start(); });
   var btnMenu = $('#btnMenu');
   if (btnMenu) btnMenu.addEventListener('click', function () {
+    pair.leave(true);
     show(startScreen);
     paintStars();
   });

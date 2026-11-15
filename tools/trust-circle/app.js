@@ -63,6 +63,7 @@
     toolId: 'trust-circle',
     roundsKey: 'roundsCompleted',
     autoStart: false,
+    pairedStart: true,
     ui: {
       start: '#pantallaIntro',
       play: '#btnContinuarIntro',

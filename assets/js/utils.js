@@ -149,6 +149,37 @@
     window.location.href = '../../';
   }
 
+  /* Explanation and practice side by side (design.md principle 13). Wraps the start screen (the
+     explanation, on the left) and the game screen (on the right) in one .flow-pair; from 768px they
+     share a row, below that they stack, the explanation first. Returns:
+       enter()            the round starts: the start screen stays on the left, its play button hides,
+                          and the pair is side by side. Call it where the activity hid the start screen.
+       leave(showStart)   the round ends or goes back: the pair is one column again. The start screen
+                          shows only when showStart is true. */
+  function pairStart(startEl, gameEl, playEl) {
+    if (!startEl || !gameEl || !startEl.parentNode) return { enter: function () {}, leave: function () {} };
+    /* playEl: the element, or a list of them, that is hidden while the round is played (the play button,
+       or the choices of a menu that starts the round). */
+    var hideEls = [].concat(playEl || []).filter(function (el) { return !!el; });
+    var pair = document.createElement('div');
+    pair.className = 'flow-pair';
+    startEl.parentNode.insertBefore(pair, startEl);
+    pair.appendChild(startEl);
+    pair.appendChild(gameEl);
+    return {
+      enter: function () {
+        startEl.classList.remove('hidden');
+        hideEls.forEach(function (el) { el.classList.add('hidden'); });
+        pair.classList.add('paired');
+      },
+      leave: function (showStart) {
+        startEl.classList.toggle('hidden', !showStart);
+        hideEls.forEach(function (el) { el.classList.remove('hidden'); });
+        pair.classList.remove('paired');
+      }
+    };
+  }
+
   window.App.utils = {
     shuffle: shuffle,
     $: $,
@@ -157,6 +188,7 @@
     reducedMotion: reducedMotion,
     showEnd: showEnd,
     showOnly: showOnly,
-    goMenu: goMenu
+    goMenu: goMenu,
+    pairStart: pairStart
   };
 })();

@@ -6,7 +6,11 @@ App.i18n.register({
   "etapaCompleta": "Well done! Next stage.",
   "rondaCompletadaTitulo": "Round completed!",
   "title": "Ecos",
-  "instruccion": "Press Play to start.",
+  "instruccion": "Listen to the sequence of sounds. Repeat it by touching the colours in the same order.",
+  "colorRojo": "Red",
+  "colorAzul": "Blue",
+  "colorVerde": "Green",
+  "colorAmarillo": "Yellow",
   "btnJugar": "Play!",
   "btnMenu": "Back to start",
 }, 'en');

@@ -30,6 +30,7 @@
    ============================================================ */
 (function () {
   'use strict';
+  var pair = App.utils.pairStart(document.getElementById('startScreen'), document.getElementById('quizScreen'), document.getElementById('btnPlay'));
 
   var TOOL_ID = 'colored-spelling';
   var $ = App.utils.$;
@@ -154,6 +155,7 @@
     items = App.utils.shuffle(currentLevel.sentences);
     idx = 0;
     show(quizScreen);
+    pair.enter();
     renderLevel();
     render();
   }
@@ -254,6 +256,7 @@
   function finish() {
     progress.roundsCompleted += 1;
     save();
+    pair.leave(false);
     show(endScreen);
     finalSummaryEl.textContent = t('finalSummary')
       .replace('{total}', progress.stars);
@@ -284,8 +287,9 @@
   function init() {
     App.i18n.apply();
     paintStars();
-    // Iniciar directamente la actividad
-    startGame();
+    // The start screen (the explanation) first; «play» starts the round.
+    $('#startScreen').classList.remove('hidden');
+    $('#btnPlay').addEventListener('click', function () { startGame(); });
   }
 
   document.addEventListener('DOMContentLoaded', init);

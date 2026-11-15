@@ -14,6 +14,8 @@
   var $ = App.utils.$;
 
   var gameScreen = $('#gameScreen');
+  var startScreen = $('#startScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, $('#btnEmpezar'));
   var endScreen = $('#endScreen');
   var sceneTitleEl = $('#escenaTitulo');
   var gridLeftEl = $('#rejillaIzquierda');
@@ -56,6 +58,7 @@
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
     paintScene();
   }
 
@@ -181,6 +184,7 @@
   function endRound() {
     progress.rounds += 1;
     save();
+    pair.leave(false);
     App.utils.showEnd(gameScreen, endScreen);
     $('#resumenFinal').textContent = App.i18n.t('resumenFinal', { n: roundHits, total: progress.stars });
     App.i18n.applyTo('#transferencia');
@@ -193,6 +197,7 @@
 
   renderStars();
   // Iniciar directamente la actividad
-  startRound();
+  startScreen.classList.remove('hidden');
+  $('#btnEmpezar').addEventListener('click', function () { startRound(); });
 })();
 

@@ -16,6 +16,8 @@
   var KEYS = ['R', 'B', 'Y'];
 
   var gameScreen = $('#gameScreen');
+  var startScreen = $('#startScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, $('#btnPlay'));
   var endScreen = $('#endScreen');
   var modelEl = $('#gridModelo');
   var boardEl = $('#gridTuyo');
@@ -92,6 +94,7 @@
     modelIdx = 0;
     roundHits = 0;
     gameScreen.classList.remove('hidden');
+    pair.enter();
     newModel();
   }
 
@@ -100,6 +103,7 @@
     modelIdx = 0;
     roundHits = 0;
     gameScreen.classList.remove('hidden');
+    pair.enter();
     newModel();
   }
 
@@ -257,6 +261,7 @@
     progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
+    pair.leave(false);
     App.utils.showEnd(gameScreen, endScreen);
     $('#endSummary').textContent = App.i18n.t('resumenFinal', { n: roundHits, total: progress.stars });
     App.i18n.applyTo('#transferencia');
@@ -276,7 +281,8 @@
   renderStars();
   renderLevels();
   // Iniciar directamente la actividad
-  startGame();
+  startScreen.classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
     App.utils.goMenu();
   });

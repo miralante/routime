@@ -22,6 +22,7 @@
   var startScreen = $('#startScreen');
   var cardsScreen = $('#cardsScreen');
   var quizScreen = $('#quizScreen');
+  var pair = App.utils.pairStart(cardsScreen, quizScreen, [$('#nextCardBtn'), $('#backLevelsBtnCards')]);
   var endScreen = $('#endScreen');
   var blocksEl = $('#bloques');
   var tiersEl = $('#tiers');
@@ -392,12 +393,14 @@
     for (var i = 0; i < items.length; i += BOARD_SIZE) quizBoards.push(items.slice(i, i + BOARD_SIZE));
     boardIdx = 0;
     showScreen('quiz');
+    pair.enter();
     renderQuiz();
   }
 
   function finishRound() {
     progress.completed[currentRound.id] = (progress.completed[currentRound.id] || 0) + 1;
     save();
+    pair.leave(false);
     showScreen('end');
     finalSummary.textContent = t('finalSummary')
       .replace('{n}', roundHits)

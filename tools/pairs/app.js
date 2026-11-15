@@ -12,6 +12,8 @@
   var $ = App.utils.$;
 
   var gameScreen = $('#gameScreen');
+  var startScreen = $('#startScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, $('#btnPlay'));
   var endScreen = $('#endScreen');
   var boardEl = $('#tablero');
   var counterEl = $('#contador');
@@ -61,6 +63,7 @@
     bloqueado = false;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
 
@@ -131,6 +134,7 @@
     progress.roundsCompleted += 1;
     save();
     renderStars();
+    pair.leave(false);
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
@@ -147,6 +151,7 @@
 
   renderStars();
   // Iniciar directamente la actividad
-  startGame();
+  startScreen.classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
 })();
 

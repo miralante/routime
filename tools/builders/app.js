@@ -28,6 +28,7 @@
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, [$('#btnModoLibre'), $('#btnModoPlantilla'), $('#selectorTamano'), $('#selectorPlantilla')]);
   var grid = $('#cuadricula');
   var blocksEl = $('#bloques');
   var feedbackEl = $('#feedback');
@@ -353,6 +354,7 @@
     startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
     selectorTemplate.classList.add('hidden');
     selectorSize.classList.add('hidden');
 
@@ -415,6 +417,8 @@
     $('#resumenFinal').textContent = '';
 $('#transferencia').textContent = '';
 
+    pair.leave(false);
+
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
 
@@ -454,6 +458,7 @@ $('#transferencia').textContent = '';
 
   $('#btnCambiarPlantilla').addEventListener('click', function () {
     endScreen.classList.add('hidden');
+    pair.leave(true);
     startScreen.classList.remove('hidden');
     showSelectorTemplate();
   });

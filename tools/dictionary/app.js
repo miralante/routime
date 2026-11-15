@@ -21,6 +21,7 @@
 
   var cardsScreen = $('#cardsScreen');
   var quizScreen = $('#quizScreen');
+  var pair = App.utils.pairStart(cardsScreen, quizScreen, $('#nextCardBtn'));
   var endScreen = $('#endScreen');
   var starsEl = $('#stars');
   var levelEl = $('#dificultad');
@@ -132,6 +133,7 @@
     quizIdx = 0;
     quizCorrectCount = 0;
     show(quizScreen);
+    pair.enter();
     renderQuiz();
   }
 
@@ -263,6 +265,7 @@
   function finishQuiz() {
     progress.roundsCompleted += 1;
     save();
+    pair.leave(false);
     show(endScreen);
     $('#finalSummary').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().length) });

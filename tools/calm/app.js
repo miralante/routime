@@ -13,6 +13,7 @@
 
   var sessionScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart($('#startScreen'), sessionScreen, $('#btnPlay'));
   var circle = $('#breathingCircle');
   var textEl = $('#breathingText');
   var cyclesEl = $('#breathingCycles');
@@ -55,6 +56,7 @@
     currentLevel = level;
     endScreen.classList.add('hidden');
     sessionScreen.classList.remove('hidden');
+    pair.enter();
     var cycle = 0;
     renderStars();
 
@@ -93,6 +95,7 @@
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     renderStars();
+    pair.leave(false);
     sessionScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     $('#endSummary').textContent = App.i18n.t('resumenFinal', {
@@ -122,7 +125,8 @@
   renderStars();
   renderLevels();
   // Iniciar directamente la actividad
-  startSession(bank().niveles[0]);
+  $('#startScreen').classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startSession(bank().niveles[0]); });
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
     App.utils.goMenu();
   });

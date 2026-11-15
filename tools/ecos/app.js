@@ -14,6 +14,8 @@
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
   var gameScreen = $('#gameScreen');
+  var startScreen = $('#startScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, $('#btnPlay'));
   var endScreen = $('#endScreen');
   var stageTextEl = $('#promptText');
   var padsEl = $('#options');
@@ -85,6 +87,7 @@
     roundHits = 0;
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
     paintPads();
     renderLevel();
     render();
@@ -199,6 +202,7 @@
   function endRound() {
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
+    pair.leave(false);
     App.utils.showEnd(gameScreen, endScreen);
     $('#endSummary').textContent = '';
     App.feedback.celebrate(App.i18n.t('rondaCompletadaTitulo'));
@@ -214,7 +218,8 @@
 
   renderStars();
   // Iniciar directamente la actividad
-  startGame();
+  startScreen.classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
   if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
     App.utils.goMenu();
   });

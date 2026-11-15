@@ -15,6 +15,7 @@
   var startScreen = $('#startScreen');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, [$('#drawings')]);
   var drawingTitleEl = $('#drawingTitle');
   var canvas = $('#canvas');
   var colorsEl = $('#colors');
@@ -79,6 +80,7 @@
     startScreen.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
 
     canvas.innerHTML = '';
     (drawing.zones || drawing.zonas || []).forEach(function (zone) {
@@ -112,6 +114,7 @@
     progress.drawingsPainted += 1;
     save();
     renderStars();
+    pair.leave(false);
     gameScreen.classList.add('hidden');
     endScreen.classList.remove('hidden');
     var paintedPart = progress.drawingsPainted === 1
@@ -126,6 +129,7 @@
   btnDone.addEventListener('click', finish);
   $('#btnAnotherDrawing').addEventListener('click', function () {
     endScreen.classList.add('hidden');
+    pair.leave(true);
     startScreen.classList.remove('hidden');
   });
 

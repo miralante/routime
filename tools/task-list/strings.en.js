@@ -22,7 +22,7 @@ App.i18n.register({
     "ariaAbrirLista": "Open the list {name}",
     "ariaDeleteList": "Delete the list {name}",
   "title": "Task List",
-  "instruccion": "Press Play to start.",
+  "instruccion": "Put the day's tasks in their logical order: first what comes first.",
   "btnJugar": "Play!",
   "btnMenu": "Back to start",
 }, 'en');

@@ -5,7 +5,7 @@ App.i18n.register({
     "resumenFinal": "Has trazado {n} letras.",
     "finalTitulo": "¡Trazo completado!",
   "title": "Tracing",
-  "instruccion": "Pulsa Jugar para empezar.",
+  "instruccion": "Repasa la forma con el dedo o con el ratón, sin salirte de la línea.",
   "btnJugar": "Jugar!",
   "btnMenu": "Volver al inicio",
 }, 'es');

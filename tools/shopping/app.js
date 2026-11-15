@@ -16,6 +16,7 @@
   var screenGameSections = $('#pantallaJuegoSecciones');
   var screenGameList = $('#pantallaJuegoLista');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, [$('#tarjetaSecciones'), $('#tarjetaLista')]);
   var starsEl = $('#stars');
 
   /* Progreso persistente (un contador de estrellas compartido) */
@@ -67,6 +68,7 @@
     resueltoS = false;
     hideAll();
     gameScreen.classList.remove('hidden'); screenGameSections.classList.remove('hidden');
+    pair.enter();
     renderSections();
   }
 
@@ -165,6 +167,7 @@
     progress.roundsCompletedSecciones += 1;
     save();
     hideAll();
+    pair.leave(false);
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompletedSecciones + 1, bank().secciones.niveles.length) });
@@ -240,6 +243,7 @@
     resueltoL = false;
     hideAll();
     gameScreen.classList.remove('hidden'); screenGameList.classList.remove('hidden');
+    pair.enter();
     paintColumnsEmpty();
     renderList();
   }
@@ -328,6 +332,7 @@
     progress.roundsCompletedLista += 1;
     save();
     hideAll();
+    pair.leave(false);
     endScreen.classList.remove('hidden');
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompletedLista + 1, bank().lista.niveles.length) });

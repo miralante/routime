@@ -23,6 +23,7 @@
   var screenLevels = $('#pantallaNiveles');
   var gameScreen = $('#gameScreen');
   var endScreen = $('#endScreen');
+  var pair = App.utils.pairStart(startScreen, gameScreen, $('#modos'));
   var zoneQuestionEl = $('#zonaPregunta');
   var textQuestionEl = $('#questionText');
   var optionsEl = $('#options');
@@ -237,6 +238,7 @@
     screenLevels.classList.add('hidden');
     endScreen.classList.add('hidden');
     gameScreen.classList.remove('hidden');
+    pair.enter();
     render();
   }
 
@@ -510,6 +512,7 @@
 
   function endRound() {
     save();
+    pair.leave(false);
     App.utils.showEnd(gameScreen, endScreen);
     $('#endSummary').textContent = '';
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
@@ -525,6 +528,7 @@
   function backAModes() {
     endScreen.classList.add('hidden');
     if (screenLevels) screenLevels.classList.add('hidden');
+    pair.leave(true);
     if (startScreen) startScreen.classList.remove('hidden');
   }
   var btnOtherMode = $('#btnOtroModo');

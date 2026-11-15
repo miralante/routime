@@ -5,7 +5,7 @@ App.i18n.register({
     "resumenFinal": "You traced {n} letters.",
     "finalTitulo": "Tracing complete!",
   "title": "Tracing",
-  "instruccion": "Press Play to start.",
+  "instruccion": "Trace the shape with your finger or mouse, without leaving the line.",
   "btnJugar": "Play!",
   "btnMenu": "Back to start",
 }, 'en');

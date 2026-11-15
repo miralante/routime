@@ -3,6 +3,7 @@
    el progress guardado, sin mostrar selección de nivel. */
 (function () {
   'use strict';
+  var pair = App.utils.pairStart(document.getElementById('startScreen'), document.getElementById('caseScreen'), document.getElementById('btnPlay'));
 
   var TOOL_ID = 'my-agenda';
   var $ = App.utils.$;
@@ -54,6 +55,7 @@
     cases = App.utils.shuffle(level.cases).slice(0, bank.roundSize);
     caseIndex = 0;
     showScreen('caseScreen');
+    pair.enter();
     renderLevel();
     renderCase();
   }
@@ -172,6 +174,7 @@
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank.levels.length) });
     $('#transferencia').textContent = '';
+    pair.leave(false);
     showScreen('endScreen');
     $('#endHeading').focus();
     App.feedback.celebrate(App.i18n.t('core.roundComplete'));
@@ -195,6 +198,6 @@
 
   paintStars();
   /* After DOMContentLoaded, so App.i18n has already translated the page (its own listener runs first). */
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startGame);
-  else startGame();
+  $('#startScreen').classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
 })();

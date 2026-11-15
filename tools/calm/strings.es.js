@@ -7,7 +7,7 @@ App.i18n.register({
     "resumenFinal": "Ya tienes {n} {palabra}.",
     "celebrarMsg": "¡Muy bien! Has respirado con calma.",
   "title": "Calm",
-  "instruccion": "Pulsa Jugar para empezar.",
+  "instruccion": "Sigue el ritmo del círculo: inhala cuando crezca y exhala cuando se encoja.",
   "btnJugar": "Jugar!",
   "btnMenu": "Volver al inicio",
 }, 'es');

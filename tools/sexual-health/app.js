@@ -5,6 +5,7 @@
    el progress guardado, sin mostrar selección de nivel. */
 (function () {
   'use strict';
+  var pair = App.utils.pairStart(document.getElementById('startScreen'), document.getElementById('caseScreen'), document.getElementById('btnPlay'));
 
   var TOOL_ID = 'cuerpo-relaciones';
   var $ = App.utils.$;
@@ -46,6 +47,7 @@
     cases = App.utils.shuffle(level.casos).slice(0, bank.porRonda);
     index = 0;
     showScreen('caseScreen');
+    pair.enter();
     renderLevel();
     renderCase();
   }
@@ -123,6 +125,7 @@
     $('#resumenFinal').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank.niveles.length) });
     $('#transferencia').textContent = '';
+    pair.leave(false);
     showScreen('endScreen');
     App.feedback.celebrate(App.i18n.t('roundComplete'));
   }
@@ -136,5 +139,6 @@
 
   paintStars();
   // Iniciar directamente la actividad
-  startGame();
+  $('#startScreen').classList.remove('hidden');
+  $('#btnPlay').addEventListener('click', function () { startGame(); });
 })();

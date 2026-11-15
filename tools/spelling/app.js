@@ -12,6 +12,7 @@
    ============================================================ */
 (function () {
   'use strict';
+  var pair = App.utils.pairStart(document.getElementById('startScreen'), document.getElementById('quizScreen'), document.getElementById('btnPlay'));
 
   var TOOL_ID = 'spelling';
   var $ = App.utils.$;
@@ -75,6 +76,7 @@
     idx = 0;
     correctCount = 0;
     show(quizScreen);
+    pair.enter();
     renderLevel();
     render();
   }
@@ -233,6 +235,7 @@
   function finish() {
     progress.roundsCompleted += 1;
     save();
+    pair.leave(false);
     show(endScreen);
     $('#finalSummary').textContent = '';
     $('#resumenFinal').textContent = App.i18n.t('proximoNivel', { n: Math.min(progress.roundsCompleted + 1, bank().length) });
@@ -258,8 +261,9 @@
   function init() {
     App.i18n.apply();
     paintStars();
-    // Iniciar directamente la actividad
-    startGame();
+    // The start screen (the explanation) first; «play» starts the round.
+    $('#startScreen').classList.remove('hidden');
+    $('#btnPlay').addEventListener('click', function () { startGame(); });
   }
 
   document.addEventListener('DOMContentLoaded', init);
