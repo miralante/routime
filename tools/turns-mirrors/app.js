@@ -212,9 +212,6 @@ if ($('#transferencia')) $('#transferencia').textContent = '';
   /* Events */
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
   $('#btnPregunta').addEventListener('click', function () {
     if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(questionEl.textContent);
   });

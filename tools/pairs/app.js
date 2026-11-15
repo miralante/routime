@@ -145,9 +145,6 @@
 
   /* Events */
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   renderStars();
   // Iniciar directamente la actividad

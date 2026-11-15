@@ -127,7 +127,4 @@
   // Iniciar directamente la actividad
   $('#startScreen').classList.remove('hidden');
   $('#btnPlay').addEventListener('click', function () { startSession(bank().niveles[0]); });
-  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 })();

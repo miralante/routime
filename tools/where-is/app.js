@@ -125,9 +125,6 @@
     }
   });
 
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
   $('#btnConsigna').addEventListener('click', function () {
     if (App.tts && App.tts.enabled && App.tts.speak) App.tts.speak(consignaEl.textContent);
   });

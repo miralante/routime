@@ -162,7 +162,4 @@
   $('#btnVerTodas').addEventListener('click', showList);
   $('#btnVerTodasFin').addEventListener('click', showList);
   $('#btnVolverJugar').addEventListener('click', hideList);
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 })();

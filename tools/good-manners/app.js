@@ -282,13 +282,6 @@
     };
     btns.appendChild(btnRepeat);
 
-    var btnMenu = document.createElement('button');
-    btnMenu.className = 'btn btn-secundario';
-    btnMenu.textContent = App.i18n.t('core.backToMenu');
-    btnMenu.onclick = function () {
-      App.utils.goMenu();
-    };
-    btns.appendChild(btnMenu);
 
     app.appendChild(btns);
 

@@ -191,10 +191,6 @@
 
   $('#nextButton').addEventListener('click', nextCase);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  var btnMenu = $('#btnMenu');
-  if (btnMenu) btnMenu.addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   paintStars();
   /* After DOMContentLoaded, so App.i18n has already translated the page (its own listener runs first). */

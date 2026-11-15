@@ -279,10 +279,6 @@
   });
   nextBtn.addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', startGame);
-  var btnMenu = $('#btnMenu');
-  if (btnMenu) btnMenu.addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   function init() {
     App.i18n.apply();

@@ -267,9 +267,6 @@
   btnReady.addEventListener('click', ocultarUno);
   btnNext.addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   renderStars();
   // Iniciar directamente la actividad

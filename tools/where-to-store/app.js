@@ -176,7 +176,4 @@
   $('#btnVerTodas').addEventListener('click', showAll);
   $('#btnVerTodasFin').addEventListener('click', showAll);
   $('#btnVolverTodas').addEventListener('click', hideAll);
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 })();

@@ -132,10 +132,6 @@
 
   $('#nextButton').addEventListener('click', next);
   $('#btnRepeat').addEventListener('click', function () { startGame(); });
-  var btnMenu = $('#btnMenu');
-  if (btnMenu) btnMenu.addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   paintStars();
   // Iniciar directamente la actividad

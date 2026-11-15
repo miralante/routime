@@ -594,9 +594,6 @@
   /* Events */
   btnNext.addEventListener('click', next);
   if ($('#repeatBtn')) $('#repeatBtn').addEventListener('click', function () { startGame(); });
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 
   /* Eventos del Nivel 3 — "Crea tu lista". */
   var btnStartCreate = $('#btnEmpezarCrear');

@@ -351,12 +351,6 @@
   hintBtn.addEventListener('click', giveHint);
   boardEl.addEventListener('keydown', onBoardKeydown);
   $('#btnRepeat').addEventListener('click', function () { start(); });
-  var btnMenu = $('#btnMenu');
-  if (btnMenu) btnMenu.addEventListener('click', function () {
-    pair.leave(true);
-    show(startScreen);
-    paintStars();
-  });
 
   function init() {
     App.i18n.apply();

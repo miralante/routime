@@ -26,7 +26,7 @@
     <section id="emptyScreen" class="hidden pila centered">
       <div class="big-emoji" aria-hidden="true">🏠</div>
       <h2 data-i18n="emptyTitle">Todavía no hay datos</h2>
-      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>      <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
+      <p data-i18n="emptyText">Pide a la persona que te ayuda que escriba tu dirección y tu teléfono en Ajustes.</p>      
     </section>
 
     <!-- Pantalla 1: fichas -->
@@ -35,7 +35,7 @@
         <p class="instruction" data-i18n="instruction">Repasa tu dirección y tu teléfono, y los de tu familia.</p>
       </div>
       <p class="privacy-note" id="privacyNote" data-i18n="privacyNote">🔒 Estos datos solo se guardan en este dispositivo. No se envían a internet.</p>
-      <div class="progress-bar">
+      <div class="progress-bar" data-suite-progress>
         <div class="progress-fill" id="cardsProgressFill"></div>
         <span class="progress-text" id="cardsProgressText">1 / 3</span>
       </div>
@@ -49,7 +49,7 @@
     <!-- Pantalla 2: test de options (con señuelos) -->
     <section id="choiceScreen" class="hidden pila">
       <p class="instruction" data-i18n="choiceInstruction">Elige la respuesta correcta.</p>
-      <div class="progress-bar">
+      <div class="progress-bar" data-suite-progress>
         <div class="progress-fill" id="choiceProgressFill"></div>
         <span class="progress-text" id="choiceProgressText">0 / 3</span>
       </div>
@@ -66,7 +66,7 @@
     <!-- Pantalla 3: test escrito con teclado -->
     <section id="typedScreen" class="hidden pila">
       <p class="instruction" data-i18n="typedInstruction">Ahora escríbelo tú, sin pistas en la pantalla.</p>
-      <div class="progress-bar">
+      <div class="progress-bar" data-suite-progress>
         <div class="progress-fill" id="typedProgressFill"></div>
         <span class="progress-text" id="typedProgressText">0 / 3</span>
       </div>
@@ -96,7 +96,6 @@
       <p id="finalSummary"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
       <button type="button" class="btn" id="replayBtn" data-i18n="core.playAgain">Jugar otra vez</button>
-      <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     </main>
     <footer data-suite-footer data-suite-base="../../" data-suite-settings></footer>
@@ -121,6 +120,6 @@
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
   <script src="../../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
   <script src="../../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
-  <script src="../../assets/js/suite-chrome.js?v=routime-v231fe1de"></script>
+  <script src="../../assets/js/suite-chrome.js?v=routime-v9ce0b348"></script>
 </body>
 </html>

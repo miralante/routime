@@ -521,10 +521,6 @@
   /* ---- Eventos ---- */
   $('#btnNext').addEventListener('click', next);
   $('#repeatBtn').addEventListener('click', function () { startRound(lvl); });
-  var btnMenu = $('#btnMenu');
-  if (btnMenu) btnMenu.addEventListener('click', function () {
-    App.utils.goMenu();
-  });
   function backAModes() {
     endScreen.classList.add('hidden');
     if (screenLevels) screenLevels.classList.add('hidden');

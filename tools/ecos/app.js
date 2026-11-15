@@ -220,7 +220,4 @@
   // Iniciar directamente la actividad
   startScreen.classList.remove('hidden');
   $('#btnPlay').addEventListener('click', function () { startGame(); });
-  if ($('#btnMenu')) $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 })();

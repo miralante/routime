@@ -45,7 +45,7 @@
 
       <!-- Secciones mode -->
       <div class="secciones-screen" id="pantallaJuegoSecciones">
-        <div class="progress-bar">
+        <div class="progress-bar" data-suite-progress>
           <div class="progress-fill" id="progressSeccionesFill"></div>
           <span class="progress-text" id="progressSeccionesText"></span>
         </div>
@@ -63,7 +63,7 @@
 
       <!-- Lista mode -->
       <div class="lista-screen" id="pantallaJuegoLista">
-        <div class="progress-bar">
+        <div class="progress-bar" data-suite-progress>
           <div class="progress-fill" id="progressListaFill"></div>
           <span class="progress-text" id="progressListaText"></span>
         </div>
@@ -86,8 +86,6 @@
       <p id="resumenFinal"></p>
       <p id="transferencia" class="transferencia" data-i18n="transferencia">Sigue praticando para aprender mas.</p>
       <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
-      <button type="button" class="btn btn-secondary" id="btnMenu" data-i18n="volverMenu">← Menú</button>
-      <a href="../../" class="btn btn-secondary" data-i18n="core.backToMenu">Volver al menú</a>
     </section>
     </main>
     <footer data-suite-footer data-suite-base="../../" data-suite-settings></footer>
@@ -103,7 +101,7 @@
   <script src="../../assets/js/stars-engine.js?v=routime-v8d4a7ee6"></script>
   <script src="../../assets/js/stars-strings.js?v=routime-v37bc0c34"></script>
   <script src="../../assets/js/activity-glue.js?v=routime-v688dd286"></script>
-  <script src="app.js?v=routime-vf1201c3b"></script>
+  <script src="app.js?v=routime-v615faf4c"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});
@@ -112,6 +110,6 @@
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
   <script src="../../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
   <script src="../../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
-  <script src="../../assets/js/suite-chrome.js?v=routime-v231fe1de"></script>
+  <script src="../../assets/js/suite-chrome.js?v=routime-v9ce0b348"></script>
 </body>
 </html>

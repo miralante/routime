@@ -353,11 +353,6 @@
     else startList();
   });
 
-  $('#btnMenu').addEventListener('click', function () {
-    hideAll();
-    startScreen.classList.remove('hidden');
-    renderStars();
-  });
 
   var activityCurrent = null;
 

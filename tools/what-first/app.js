@@ -133,7 +133,4 @@
     }
   });
 
-  $('#btnMenu').addEventListener('click', function () {
-    App.utils.goMenu();
-  });
 })();
