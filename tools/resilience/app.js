@@ -55,7 +55,7 @@
     levelEl.textContent = level.name + ' · ' + level.descripcion;
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'resilience',
     roundsKey: 'roundsCompleted',
     ui: {

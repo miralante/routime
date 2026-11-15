@@ -54,7 +54,7 @@
     levelEl.textContent = level.name + ' · ' + level.descripcion;
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'self-esteem',
     roundsKey: 'roundsCompleted',
     ui: {

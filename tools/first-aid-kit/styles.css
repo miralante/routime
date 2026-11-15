@@ -3,7 +3,7 @@
    emergencias, my-details y doctor-visit para mantener coherencia
    visual con salud/autonomía). */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);

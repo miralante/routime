@@ -18,9 +18,14 @@
     "proximoNivel": "Siguiente paso: {n}",
     "btnMenu": "Volver al inicio",
     "btnOtroNivel": "Elegir otro nivel",
-    "explicacionCorrecta": "✅ ¡Correcto! Eso es lo que hay que hacer primero.",
+    "explicacionOrden": "✅ ¡Muy bien! Este es el orden: {orden}.",
+    "explicacionIncorrectaPaso": "❌ Todavía no. Lo que va ahora es: ",
     "explicacionIncorrectaA": "❌ Eso no es lo primero. Lo primero es: ",
     "pista": "🤔 Prueba otra vez. Vuelve a pensar en la situación: ",
+    "fasePrimero": "Toca lo que harías primero.",
+    "faseDespues": "Ahora toca lo que harías después.",
+    "faseUltimo": "Por último, toca lo que queda.",
+    "colaItem": "{n}. {texto}",
   "transferencia": "Esto te servirá para decidir qué hacer primero cuando hay varias cosas a la vez: en casa, en el cole o cuando llega la hora de salir.",
   }, 'es');
 })();

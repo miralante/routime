@@ -1021,6 +1021,10 @@ async function exerciseRoutimeSafeChat(page) {
 
 /* Routime activities played to their closing screen. Each entry lists, per round,
    the clicks that open the round from the page's menu (none when it starts by itself). */
+/* Keypad activities: the number the child types. The emergency number is 112 in every
+   country the app covers, so the same digits answer every situation of the activity. */
+const ROUTIME_KEYPAD_ANSWERS = { 'phone-numbers': '112' };
+
 const ROUTIME_ROUNDS = [
   ['riddles', [[]]], ['street', [[]]], ['categories', [[]]], ['comedy-club', [[]]],
   ['doctor-visit', [[]]], ['first-aid-kit', [[]]], ['friends', [[]]], ['self-esteem', [[]]],
@@ -1046,17 +1050,64 @@ const ROUTIME_ROUNDS = [
   ['education-norms', [['#app .btn-level']]],
 ];
 
-async function clickFirstEnabled(page, selector) {
+/* Activates the first visible, enabled match. viaKeyboard focuses it and presses
+   Enter, the way a keyboard user activates a control; otherwise it clicks it. */
+async function clickFirstEnabled(page, selector, viaKeyboard = false) {
   const locators = page.locator(selector);
   const count = await locators.count();
   for (let i = 0; i < count; i += 1) {
     const locator = locators.nth(i);
     if (!await locator.isVisible().catch(() => false)) continue;
     if (!await locator.isEnabled().catch(() => false)) continue;
-    await locator.click({ timeout: 3000 });
+    if (viaKeyboard) {
+      await locator.focus({ timeout: 3000 });
+      await page.keyboard.press('Enter');
+    } else {
+      await locator.click({ timeout: 3000 });
+    }
     return true;
   }
   return false;
+}
+
+/* Tap-to-place and pairs: once a piece is picked («is-selected»), its partner is the
+   next enabled control in the same section that lies outside the picked piece's own
+   group (the other column of a pair, the gap of a tray). The cursor rotates through
+   the candidates, so every partner is tried in turn. Marks the partner and returns
+   how many candidates there were (0 when none). */
+async function markPartner(page, cursor) {
+  return page.evaluate((n) => {
+    document.querySelectorAll('[data-smoke-partner]').forEach(el => el.removeAttribute('data-smoke-partner'));
+    const visible = el => {
+      const style = getComputedStyle(el);
+      return el.getClientRects().length > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+    };
+    const picked = [...document.querySelectorAll('.is-selected')].find(visible);
+    if (!picked) return 0;
+    const scope = picked.closest('section, main, #app') || document.body;
+    const pool = [...scope.querySelectorAll('button, [role="button"][tabindex="0"]')].filter(el =>
+      el !== picked && visible(el) && !el.disabled && !el.classList.contains('is-selected') &&
+      !(picked.parentElement && picked.parentElement.contains(el)));
+    if (!pool.length) return 0;
+    pool[n % pool.length].setAttribute('data-smoke-partner', '1');
+    return pool.length;
+  }, cursor);
+}
+
+/* Keypad activities: the digits are typed with the keyboard (even turns) or with the
+   on-screen keys (odd turns), then checked with Enter or with the check key. */
+async function typeKeypad(page, digits, viaKeyboard) {
+  if (viaKeyboard) {
+    await page.keyboard.type(digits);
+    await page.keyboard.press('Enter');
+    return;
+  }
+  for (const digit of digits) {
+    const key = page.locator('.answer-pad .answer-key').filter({ hasText: new RegExp('^' + digit + '$') });
+    await key.first().click({ timeout: 3000 });
+    await page.waitForTimeout(40);
+  }
+  await clickFirstEnabled(page, '.answer-pad .answer-key-check');
 }
 
 /* Stars shown by the activity (0 when the activity has no #stars counter). */
@@ -1070,7 +1121,7 @@ async function starsCount(page) {
    («Entendido») before the next try, as a learner would do. A purchase (La Tienda)
    is paid by moving every coin to the counter first. The journey fails if the
    round stops moving. */
-async function exerciseRoutimeRound(page, menuPicks) {
+async function exerciseRoutimeRound(page, menuPicks, slug) {
   await page.reload({ waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
   await waitForApp(page);
   for (const selector of menuPicks || []) {
@@ -1084,17 +1135,28 @@ async function exerciseRoutimeRound(page, menuPicks) {
     '#endScreen:not(.hidden)', '#reglaFinal:not(.hidden)', '.titulo-celebracion', '.celebration-title',
   ].join(', ');
   const endVisible = () => page.locator(END).first().isVisible().catch(() => false);
+  /* Every third activation goes through the keyboard, so the round is played both
+     with the mouse and with the keyboard. */
+  let activations = 0;
+  const keyboardTurn = () => {
+    activations += 1;
+    return activations % 3 === 0;
+  };
   /* The last situation's timer swaps the round for its closing screen while a click
      is still waiting for an option, so that click can time out. If the round has
      ended, that is not a failure: the next pass of the loop sees the closing screen. */
-  const safeClick = (selector) => clickFirstEnabled(page, selector).catch(async (error) => {
+  const safeClick = (selector) => clickFirstEnabled(page, selector, keyboardTurn()).catch(async (error) => {
     if (await endVisible()) return false;
     throw error;
   });
+  const keypadDigits = ROUTIME_KEYPAD_ANSWERS[slug];
+  let keypadTurns = 0;
+  let cursor = 0;
   const ANSWERS = [
+    '.sign-tile', '.pareja-palabra', '.letter-opcion', '.opcion-picto',
     '#options .btn-opcion', '#options .caja', '#options .opcion-figura', '#options .pad',
     '#opciones .btn-opcion', '#opciones .caja', '#cajas .caja', '#listasDia .caja',
-    '#cajasSecciones .caja', '#opcionesQueHago .btn-opcion', '#opcionesSaber .btn-opcion',
+    '#cajasSecciones .caja', '#cajasReconocer .btn-opcion', '#opcionesQueHago .btn-opcion', '#opcionesSaber .btn-opcion',
     '#opcionesReconocer .btn-opcion', '#quizOptions .btn-opcion', '#escena .objeto',
     '#optionsQuiz .btn-opcion', '#accionesTienda .btn-opcion', '#chatOpciones .btn-opcion',
     '#app .btn-option', '#app .btn-opcion', '#chatOpciones button',
@@ -1127,6 +1189,17 @@ async function exerciseRoutimeRound(page, menuPicks) {
       }
       await safeClick(PAY);
       label = 'pay';
+    } else if (keypadDigits && await page.locator('.answer-pad .answer-key').first().isVisible().catch(() => false)) {
+      keypadTurns += 1;
+      await typeKeypad(page, keypadDigits, keypadTurns % 2 === 0);
+      answered += 1;
+      label = 'keypad';
+    } else if (await page.locator('.is-selected').first().isVisible().catch(() => false)) {
+      cursor += 1;
+      const candidates = await markPartner(page, cursor);
+      if (candidates && await clickFirstEnabled(page, '[data-smoke-partner="1"]', keyboardTurn())) {
+        label = 'partner';
+      }
     } else if (await safeClick(ANSWERS)) { answered += 1; label = 'answer'; }
     if (label) {
       if (process.env.UI_SMOKE_TRACE) process.stdout.write(' ' + label);
@@ -1135,6 +1208,13 @@ async function exerciseRoutimeRound(page, menuPicks) {
       continue;
     }
     stalled += 1;
+    if (stalled === 39 && process.env.UI_SMOKE_TRACE) {
+      const dump = await page.evaluate(() => ({
+        selected: [...document.querySelectorAll('.is-selected')].map(e => e.outerHTML.slice(0, 120)),
+        roles: [...document.querySelectorAll('[role="button"]')].map(e => e.outerHTML.slice(0, 120)),
+      }));
+      process.stdout.write('\nDIAGNOSTICO ' + JSON.stringify(dump) + '\n');
+    }
     assert.ok(stalled < 40, 'La ronda se queda parada: no hay ni respuesta, ni «Entendido», ni «Siguiente»');
     await page.waitForTimeout(150);
   }
@@ -1212,7 +1292,7 @@ async function exerciseFullFunctionality(page, route) {
     const plan = ROUTIME_ROUNDS.find(([slug]) => route.includes('/tools/' + slug + '/'));
     if (plan) {
       let rounds = 0;
-      for (const picks of plan[1]) rounds += await exerciseRoutimeRound(page, picks);
+      for (const picks of plan[1]) rounds += await exerciseRoutimeRound(page, picks, plan[0]);
       return rounds;
     }
   }

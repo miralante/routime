@@ -25,6 +25,10 @@
     "correctFull": "✅ Correct!",
     "wrongExplanationPrefix": "❌ The meaning is:",
     "hint": "🤔 Hint with the example:",
+    "matchInstruction": "Match each word with its meaning: tap a word and then its meaning.",
+    "matchPickMeaning": "Now tap the meaning of that word.",
+    "matchPickWordFirst": "First tap a word.",
+    "matchRight": "✅ Well done! That pair is right.",
     "chooseAnotherBlock": "Pick another block",
     "finalSummary": "You earned {n} stars this round. You now have {total} stars in total.",
     "transferencia": "Now you can remember words by topic better. It will help you talk about cooking, clothes, family and other everyday topics."

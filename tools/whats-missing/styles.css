@@ -1,6 +1,6 @@
 /* What's Missing? — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-memoria); }
+.suite-chrome-activity h1 { color: var(--mod-memoria); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-memoria);
@@ -67,4 +67,19 @@
   font-size: 1.1rem;
   color: var(--color-texto-suave, #555);
   max-width: 480px;
+}
+
+/* Tap-to-place: the chosen object in the tray and the gap that receives it. */
+.opcion-picto.is-selected {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
+}
+
+.objeto[role="button"] {
+  cursor: pointer;
+}
+
+.objeto[role="button"]:focus-visible {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
 }

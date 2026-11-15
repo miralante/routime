@@ -1,7 +1,7 @@
 /* Where Is It? — tool-specific styles. Shared styles live in assets/css/.
    Acento del módulo Memoria y atención (naranja --mod-memoria). */
 
-.tool-header h1 { color: var(--mod-memoria); }
+.suite-chrome-activity h1 { color: var(--mod-memoria); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-memoria);

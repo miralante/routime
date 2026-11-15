@@ -126,15 +126,19 @@
 
     optionsQuizEl.innerHTML = '';
     opcionBotones = [];
-    cfg.options(instanceQ).forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.text;
-      btn.addEventListener('click', function () { answerQuiz(btn, op); });
-      optionsQuizEl.appendChild(btn);
-      opcionBotones.push({ btn: btn, op: op });
-    });
+    if (cfg.keypad) {
+      buildKeypad();
+    } else {
+      cfg.options(instanceQ).forEach(function (op) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-opcion';
+        btn.textContent = op.text;
+        btn.addEventListener('click', function () { answerQuiz(btn, op); });
+        optionsQuizEl.appendChild(btn);
+        opcionBotones.push({ btn: btn, op: op });
+      });
+    }
 
     paintProgressQuiz();
     renderStars();
@@ -147,6 +151,7 @@
       par.btn.disabled = true;
       if (par.op.correcta) par.btn.classList.add('correcta');
     });
+    if (keypadDisplay) keypadKeys.forEach(function (key) { key.disabled = true; });
     showTextQuiz(cfg.explicacion(instanceQ, bien));
     btnNextQuiz.classList.remove('hidden');
     btnNextQuiz.focus();
@@ -178,6 +183,103 @@
     }
   }
 
+  /* ---------- Keypad (cfg.keypad): the child types the amount left. ----------
+     The digits fill the cents from the right, like a till: "3", "5", "0" is 3,50 €. */
+  var MAX_AMOUNT_DIGITS = 6;
+  var keypadTyped = '';
+  var keypadDisplay = null;
+  var keypadKeys = [];
+  var keypadCheck = null;
+
+  function buildKeypad() {
+    keypadTyped = '';
+    keypadKeys = [];
+    keypadDisplay = document.createElement('p');
+    keypadDisplay.className = 'answer-display';
+    keypadDisplay.setAttribute('aria-live', 'polite');
+    optionsQuizEl.appendChild(keypadDisplay);
+
+    var pad = document.createElement('div');
+    pad.className = 'answer-pad';
+    function addKey(label, aria, action, extra) {
+      var key = document.createElement('button');
+      key.type = 'button';
+      key.className = 'btn-opcion answer-key' + (extra ? ' ' + extra : '');
+      key.textContent = label;
+      if (aria) key.setAttribute('aria-label', aria);
+      key.addEventListener('click', action);
+      pad.appendChild(key);
+      keypadKeys.push(key);
+      return key;
+    }
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9'].forEach(function (d) {
+      addKey(d, null, function () { pressDigit(d); });
+    });
+    addKey('⌫', App.i18n.t('eraseDigit'), eraseDigit, 'answer-key-erase');
+    addKey('0', null, function () { pressDigit('0'); });
+    keypadCheck = addKey('✓', App.i18n.t('checkAmount'), checkKeypad, 'answer-key-check');
+    optionsQuizEl.appendChild(pad);
+    paintKeypad();
+  }
+
+  function paintKeypad() {
+    if (!keypadDisplay) return;
+    keypadDisplay.textContent = keypadTyped === '' ? '' : formatear(parseInt(keypadTyped, 10));
+  }
+
+  function pressDigit(digit) {
+    if (resueltoQ || keypadTyped.length >= MAX_AMOUNT_DIGITS) return;
+    keypadTyped = (keypadTyped + digit).replace(/^0+(?=\d)/, '');
+    paintKeypad();
+  }
+
+  function eraseDigit() {
+    if (resueltoQ) return;
+    keypadTyped = keypadTyped.slice(0, -1);
+    paintKeypad();
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (!cfgCurrent().keypad || resueltoQ || !keypadDisplay) return;
+    if (/^[0-9]$/.test(event.key)) { pressDigit(event.key); event.preventDefault(); }
+    else if (event.key === 'Backspace') { eraseDigit(); event.preventDefault(); }
+    else if (event.key === 'Enter') { checkKeypad(); event.preventDefault(); }
+  });
+
+  function checkKeypad() {
+    if (resueltoQ) return;
+    if (keypadTyped === '') {
+      feedbackQuizEl.className = 'feedback';
+      feedbackQuizEl.textContent = App.i18n.t('typeAmount');
+      return;
+    }
+    var typed = parseInt(keypadTyped, 10);
+    if (typed === cfgCurrent().correctCents(instanceQ)) {
+      if (attemptsQ === 0) {
+        hitsQ += 1;
+        progress.stars += 1;
+        if (App.feedback && App.feedback.star) App.feedback.star();
+        save();
+        renderStars();
+      }
+      App.feedback.success(feedbackQuizEl);
+      keypadDisplay.classList.add('correcta');
+      keypadCheck.classList.add('correcta');
+      solveQuiz(true);
+      return;
+    }
+    attemptsQ += 1;
+    keypadTyped = '';
+    paintKeypad();
+    App.feedback.encourage(feedbackQuizEl);
+    if (attemptsQ === 1) {
+      showTextQuiz(cfgCurrent().pista(instanceQ));
+      App.feedback.lockUntilAck(keypadKeys, explanationQuizWrap);
+    } else {
+      solveQuiz(false);
+    }
+  }
+
   function nextQuiz() {
     idxQ += 1;
     if (idxQ >= datos().porRonda) endRound(hitsQ, levelQ);
@@ -196,6 +298,9 @@
     /* --- "What's left?" — chained subtraction of real expenses --- */
     quedame: {
       esQuiz: true,
+      /* The amount left is typed on a keypad: the answer is built, not picked. */
+      keypad: true,
+      correctCents: function (instance) { return instance.queda; },
       instruccion: 'instruccionQuedame',
       progresoClave: 'completadosQuedame',
       resumen: 'resumenQuedame',

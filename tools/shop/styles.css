@@ -2,7 +2,7 @@
    (visual money lives in components.css + assets/js/dinero.js).
    Autonomy/home module accent (green --mod-secuencia). */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);
@@ -81,4 +81,40 @@
   color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
+}
+
+/* Keypad (the amount left is typed). */
+.answer-display {
+  min-height: 3.5rem;
+  margin: 0 auto;
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  border: 2px dashed var(--color-borde);
+  border-radius: 12px;
+  width: min(100%, 320px);
+  padding: 8px 12px;
+}
+
+.answer-display.correcta {
+  border-style: solid;
+  border-color: var(--color-acierto);
+}
+
+.answer-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: min(100%, 320px);
+  margin: 0 auto;
+}
+
+.answer-key {
+  min-height: 56px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.answer-key:disabled {
+  opacity: 0.6;
 }

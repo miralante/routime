@@ -16,21 +16,21 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **The House** | Two screens: first, pick household tasks from a list and put them in your own order; then, open each task and put its steps in the right order (setting the table, sweeping, mopping, making the bed, taking out the trash, watering plants, caring for pets, getting dressed, going out, coming home, charging the phone…). The person can also add their own tasks to the list (session only). |
 | **Situations** | What do you do if something happens? Learn to respond to everyday problems |
 | **Should I Post It?** | Decide what is safe to post on social media |
-| **Signs** | Recognize danger, bathroom, prohibited, exit signs... |
+| **Signs** | Match each danger, bathroom, prohibited or exit sign... with what it means, on boards of four mixed signs |
 | **Times of Day** | Classify activities by morning, afternoon or night |
-| **What Do I Do First?** | Learn to prioritize: if several things happen, what to do first |
-| **What Do I Need?** | Choose what tools are needed before a task |
+| **What Do I Do First?** | Learn to prioritize: if several things happen, tap first what must be done first, then put the rest in a numbered queue. Only the first tap is checked. |
+| **What Do I Need?** | Tap the tools a task needs and they go into your bag |
 | **Where Do I Keep It?** | Learn where things are stored at home |
 | **Task List** | Put daily tasks in the correct order. Level 3 teaches and trains planning: create, save, open and delete several of your own lists, adding, reordering, marking and removing tasks in each one |
 | **My Schedule** | Prepare for an appointment or task: order, materials and timing |
-| **Emergencies** | Recognize real emergencies, practice calling 112, and what to do and what to say if you get stuck in the lift |
+| **Emergencies** | Put each situation in its box (emergency, urgent or not an emergency), choose what you do, practise calling 112, and what to do and what to say if you get stuck in the lift |
 | **While Help Is on Its Way** | What to do after calling 112, while waiting for the ambulance, firefighters or police: leave, do not move the injured, press the wound, recovery position |
 | **Before the Emergency** | Prepare at home with the family what to have ready: 112 written down, address visible, smoke detector, pills out of reach, gas and electricity shut-off |
-| **Important Phone Numbers** | Learn that 112 is the number for police, firefighters and medical emergencies |
+| **Important Phone Numbers** | Learn that 112 is the number for police, firefighters and medical emergencies, and type it yourself with the keys |
 | **My Details** | Review your address and phone number, and your family's (set up beforehand by whoever helps you) |
 | **Healthy Food** | Sort foods into "every day" or "now and then" and discover how they make you feel |
 | **I Tell the Doctor** | Practise putting a body symptom into simple first-person words so a doctor can understand (location, type, since when) |
-| **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted person or call 112 |
+| **My First-Aid Kit** | Practise everyday self-care at home (washing, cold, plaster, rest) and learn when to ask a trusted person or call 112. Tap what you would do and it goes into your kit list |
 | **School Rules and Civics** | Practise the rules of the classroom, school and public places (asking to speak, queueing, recycling, crossing on green, switching off the lights, mediating an argument, including an excluded classmate) |
 
 ---
@@ -64,7 +64,7 @@ Routime has **68 activities** organized into **7 modules** according to the type
 |----------|-------------|
 | **Pairs** | Find the cards that are the same |
 | **Spot the Difference** | Find the differences between two almost identical images |
-| **What's missing?** | Look at a series of objects and guess which one is missing |
+| **What's missing?** | Look at a series of objects; when one disappears, pick it and put it back in its gap |
 | **Echoes** | Repeat sequences of sounds or colors like Simon says |
 | **Turns and Mirrors** | Identify rotated or reflected figures |
 | **The Blocks** | Copy a building model on a grid |
@@ -90,8 +90,8 @@ Routime has **68 activities** organized into **7 modules** according to the type
 | **Categories** | Classify words into groups (animals, fruits...) |
 | **The Sentence** | Complete sentences by saying who, what or where |
 | **Topic Vocabulary** | Learn adult vocabulary by blocks (independent living, health, social) and difficulty levels |
-| **Dictionary** | Learn hard words with a simple meaning and an example |
-| **Complete the Word** | Choose the missing letter to spell the word correctly |
+| **Dictionary** | Learn hard words with a simple meaning and an example, and match each word with its meaning |
+| **Complete the Word** | Pick the missing letter and place it in the gap to spell the word correctly |
 | **Colored Spelling** | Type the full sentence and watch each letter turn green, pink, or underlined depending on whether it is correct, misspelled, or missing |
 | **Word Search** | Find themed words hidden on a letter board, with levels and painted-letter hints |
 
@@ -134,10 +134,10 @@ Routime has **68 activities** organized into **7 modules** according to the type
 
 | Activity | Description |
 |----------|-------------|
-| **The Street** | Crossing the street, public transport, what to do if you get lost |
+| **The Street** | Crossing the street, public transport, what to do if you get lost. Tap the safest option and it goes into your list of what you would do |
 | **The Shopping** | Learn supermarket sections and the shopping list |
 | **The Shop** | Use real money in shopping: pay, receive change, manage expenses |
-| **What Do I Wear?** | Choose appropriate clothing based on the weather |
+| **What Do I Wear?** | Tap the clothing that suits the weather and it goes into your list of what you are wearing |
 
 ---
 

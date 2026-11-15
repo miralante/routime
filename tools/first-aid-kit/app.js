@@ -19,6 +19,7 @@
   var $ = App.utils.$;
   var textQuestionEl = $('#situacionTexto');
   var optionsEl = $('#options');
+  var mochilaEl = $('#mochila');
   var levelEl = $('#level');
   var currentLevel = null;
 
@@ -54,6 +55,16 @@
     mount: function (item, play) {
       textQuestionEl.textContent = item.text;
       optionsEl.innerHTML = '';
+      /* The kit of the round: the right things to do, as a list. */
+      mochilaEl.innerHTML = '';
+      var title = document.createElement('p');
+      title.className = 'mochila-titulo';
+      title.textContent = App.i18n.t('mochilaTitulo');
+      mochilaEl.appendChild(title);
+      var empty = document.createElement('p');
+      empty.className = 'mochila-vacia';
+      empty.textContent = App.i18n.t('mochilaVacia');
+      mochilaEl.appendChild(empty);
       var buttons = [];
       App.utils.shuffle(item.options.map(function (opt, i) {
         return { text: opt, isCorrect: i === item.correct };
@@ -64,6 +75,13 @@
         btn.textContent = op.text;
         btn.addEventListener('click', function () {
           /* The hint points back to the scene already on screen; the explanation names what was needed. */
+          if (op.isCorrect) {
+            empty.remove();
+            var chip = document.createElement('span');
+            chip.className = 'mochila-item';
+            chip.textContent = op.text;
+            mochilaEl.appendChild(chip);
+          }
           play.attempt(op.isCorrect, {
             control: btn,
             hint: App.i18n.t('pista') + '"' + item.text + '"',

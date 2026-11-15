@@ -8,7 +8,10 @@
 
   App.i18n.register({
     "title": "🔡 Completa la Palabra",
-    "instruction": "Mira la palabra y elige la letra que falta para escribirla bien.",
+    "instruction": "Mira la palabra, toca una letra y luego el hueco para colocarla.",
+    "placeHint": "Ahora toca el hueco de la palabra.",
+    "pickLetterFirst": "Primero toca una letra.",
+    "gapAria": "Hueco: toca para colocar la letra elegida",
     "btnJugar": "¡Jugar!",
     "palabra": "palabra",
     "palabras": "palabras",

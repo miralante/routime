@@ -5,7 +5,7 @@
    2 actividades — las cajas se escopan por contenedor (#cajasSecciones
    vs #listasDia) para que sus tamaños no choquen entre sí. */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);

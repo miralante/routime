@@ -1,7 +1,7 @@
 /* Complete the Word — tool-specific styles. Shared styles live in assets/css/.
    Acento del módulo Lenguaje y comprensión (frambuesa --mod-lenguaje). */
 
-.tool-header h1 { color: var(--mod-lenguaje); }
+.suite-chrome-activity h1 { color: var(--mod-lenguaje); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-lenguaje);
@@ -82,4 +82,19 @@
   color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
+}
+
+/* Tap-to-place: the chosen letter in the bank and the gap that receives it. */
+.letter-opcion.is-selected {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
+}
+
+.tile.blank[role="button"] {
+  cursor: pointer;
+}
+
+.tile.blank[role="button"]:focus-visible {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
 }

@@ -1,7 +1,7 @@
 /* Connect the Dots — tool-specific styles. Shared styles live in assets/css/.
    Coordination module accent (blue --mod-coordinacion). */
 
-.tool-header h1 { color: var(--mod-coordinacion); }
+.suite-chrome-activity h1 { color: var(--mod-coordinacion); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-coordinacion);

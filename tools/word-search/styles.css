@@ -1,6 +1,6 @@
 /* Word Search — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-lenguaje); }
+.suite-chrome-activity h1 { color: var(--mod-lenguaje); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-lenguaje);

@@ -21,6 +21,8 @@
     "explicacionCorrecta": "✅ Correct! That is what you need.",
     "explicacionIncorrectaA": "❌ That is not what you need. You need: ",
     "pista": "🤔 Try again. Read the task again: ",
+    "mochilaTitulo": "🎒 What you are taking:",
+    "mochilaVacia": "Tap what you need and it goes in here.",
   "transferencia": "This will help you get ready before starting a task at home: the school bag, the day's clothes or the ingredients for a recipe.",
   }, 'en');
 })();

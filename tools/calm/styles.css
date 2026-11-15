@@ -1,6 +1,6 @@
 ﻿/* Calm — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-emocional); }
+.suite-chrome-activity h1 { color: var(--mod-emocional); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-emocional);

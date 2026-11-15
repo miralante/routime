@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Routime — brand. The only file that sets this app's accent colours.
+   Light values are the accepted suite palette (deep green-teal). Dark
+   values are a lighter green-teal with at least 7:1 contrast on the dark
+   surfaces. The high-contrast mode uses these same accents (the shared
+   language picker no longer sets its own blue).
+   ========================================================================== */
+
+:root {
+  --accent: #08553D;
+  --accent-soft: #E0F2EA;
+}
+
+[data-theme="dark"] {
+  --accent: #8ADBBB;
+  --accent-soft: #16352A;
+}

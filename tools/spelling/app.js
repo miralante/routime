@@ -93,6 +93,8 @@
     progressText.textContent = '';
   }
 
+  /* The gap: the blank tile is a target. Tapping it (or Enter/Space on it) puts the
+     letter chosen in the bank into the gap. */
   function paintTiles(item, revealedLetter) {
     wordTiles.innerHTML = '';
     item.word.split('').forEach(function (ch, i) {
@@ -101,7 +103,20 @@
       if (i === item.blank) {
         tile.className += ' blank';
         tile.textContent = revealedLetter || '?';
-        if (revealedLetter) tile.className += ' correcta';
+        if (revealedLetter) {
+          tile.className += ' correcta';
+        } else {
+          tile.setAttribute('role', 'button');
+          tile.setAttribute('tabindex', '0');
+          tile.setAttribute('aria-label', t('gapAria'));
+          tile.addEventListener('click', placeSelected);
+          tile.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              placeSelected();
+            }
+          });
+        }
       } else {
         tile.textContent = ch;
       }
@@ -109,10 +124,14 @@
     });
   }
 
+  /* The letter chosen from the bank, waiting for the gap. */
+  var selected = null;
+
   function render() {
     var item = items[idx];
     resolved = false;
     attempts = 0;
+    selected = null;
     wordPicto.textContent = item.picto;
     paintTiles(item, null);
     feedbackEl.textContent = '';
@@ -128,13 +147,45 @@
       btn.type = 'button';
       btn.className = 'btn-opcion letter-opcion';
       btn.textContent = opt;
+      btn.setAttribute('aria-pressed', 'false');
       if (opt === '—') btn.setAttribute('aria-label', t('noLetter'));
-      btn.addEventListener('click', function () { answer(btn, opt === correctLetter, item, correctLetter); });
+      btn.addEventListener('click', function () {
+        pickLetter(btn, opt === correctLetter, item, correctLetter);
+      });
       optionsEl.appendChild(btn);
     });
 
     paintProgress();
     paintStars();
+  }
+
+  /* Step 1: choose a letter from the bank. Only the gap places it. */
+  function pickLetter(btn, isCorrect, item, correctLetter) {
+    if (resolved || btn.disabled) return;
+    optionsEl.querySelectorAll('.letter-opcion').forEach(function (b) {
+      b.classList.remove('is-selected');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('is-selected');
+    btn.setAttribute('aria-pressed', 'true');
+    selected = { btn: btn, isCorrect: isCorrect, item: item, correctLetter: correctLetter };
+    feedbackEl.className = 'feedback';
+    feedbackEl.textContent = t('placeHint');
+  }
+
+  /* Step 2: the gap receives the chosen letter. */
+  function placeSelected() {
+    if (resolved) return;
+    if (!selected) {
+      feedbackEl.className = 'feedback';
+      feedbackEl.textContent = t('pickLetterFirst');
+      return;
+    }
+    var s = selected;
+    selected = null;
+    s.btn.classList.remove('is-selected');
+    s.btn.setAttribute('aria-pressed', 'false');
+    answer(s.btn, s.isCorrect, s.item, s.correctLetter);
   }
 
   function answer(btn, isCorrect, item, correctLetter) {

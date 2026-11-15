@@ -37,7 +37,7 @@
     return t('singleExplanation').replace('{m1}', item.meanings[0]);
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'double-meaning',
     roundsKey: 'roundsCompleted',
     ui: {

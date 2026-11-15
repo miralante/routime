@@ -15,21 +15,21 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Mis Rutinas** | Repasa las rutinas típicas de la casa: mañana, cuidado personal, comidas, tareas del hogar, mascotas, tarde, salida y noche. También permite crear y guardar listas libres propias para practicar a hacer listas |
 | **La Casa** | Dos pantallas: primero eliges tareas del hogar de una lista y las pones en tu orden; luego, al abrir cada tarea, ordenas sus pasos (poner la mesa, barrer, fregar, hacer la cama, sacar la basura, regar, cuidar mascotas, vestirse, salir, volver, cargar el móvil…). También puedes añadir tareas propias a la lista (solo en esta sesión). |
 | **Situaciones** | ¿Qué haces si pasa algo? Aprende a responder ante problemas cotidianos |
-| **Señales** | Reconoce señales de peligro, baño, prohibido, salidas... |
+| **Señales** | Une cada señal de peligro, baño, prohibido, salidas... con lo que significa, en tableros de cuatro señales mezcladas |
 | **Partes del Día** | Clasifica actividades según sean de mañana, tarde o noche |
-| **¿Qué hago primero?** | Aprende a priorizar: si pasan varias cosas, qué hacer antes |
-| **¿Qué necesito?** | Elige qué útiles hacer falta preparar antes de una tarea |
+| **¿Qué hago primero?** | Aprende a priorizar: si pasan varias cosas, toca primero lo que hay que hacer antes y después ordena el resto en una cola numerada. Solo se comprueba el primer toque. |
+| **¿Qué necesito?** | Toca qué útiles hacen falta para una tarea y se guardan en tu mochila |
 | **¿Dónde lo guardo?** | Aprende dónde se guardan las cosas en casa |
 | **Lista de Tareas** | Ordena tareas del día en el orden correcto. El nivel 3 enseña y entrena a planificarse: crea, guarda, abre y borra varias listas propias, añadiendo, reordenando, marcando y quitando tareas en cada una |
 | **Mi agenda** | Prepara una cita o tarea: orden, materiales y momento adecuado |
-| **Emergencias** | Reconoce emergencias reales, practica llamar al 112 y qué hacer y qué decir si te quedas encerrado en el ascensor |
+| **Emergencias** | Pon cada situación en su caja (emergencia, urgente o no es una emergencia), elige qué haces, practica llamar al 112 y qué hacer y qué decir si te quedas encerrado en el ascensor |
 | **Mientras Llega la Ayuda** | Qué hacer tras llamar al 112 mientras llega la ambulancia, los bomberos o la policía: salir, no mover al herido, presionar la herida, posición lateral |
 | **Antes de la Emergencia** | Prepara en casa con la familia lo que tiene que estar listo: 112 escrito, dirección visible, detector de humo, pastillas fuera de alcance, llaves de luz y gas |
-| **Teléfonos Importantes** | Aprende que el 112 sirve para policía, bomberos y emergencia médica |
+| **Teléfonos Importantes** | Aprende que el 112 sirve para policía, bomberos y emergencia médica, y escríbelo tú con los botones |
 | **Mis Datos** | Repasa tu dirección y tu teléfono, y los de tu familia (configurados antes por quien te ayuda) |
 | **Comida Sana** | Clasifica alimentos en "cada día" o "de vez en cuando" y descubre cómo te sientan |
 | **Se lo Cuento al Médico** | Practica poner en palabras sencillas en primera persona un síntoma del cuerpo (dónde, qué, desde cuándo) para que el médico lo entienda |
-| **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a una persona de confianza o llamar al 112 |
+| **Mi Botiquín** | Practica el cuidado cotidiano en casa (lavar, frío, tirita, descansar) y aprende cuándo pedir ayuda a una persona de confianza o llamar al 112. Toca lo que harías y se guarda en tu lista del botiquín |
 | **Normas del Cole y Civismo** | Practica las normas del aula, del cole y de los sitios públicos (pedir la palabra, hacer cola, reciclar, cruzar con el semáforo en verde, apagar la luz, mediar en una pelea, incluir a alguien excluido) |
 
 ---
@@ -63,7 +63,7 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 |-----------|-------------|
 | **Parejas** | Encuentra las cartas que son iguales |
 | **Diferencias** | Encuentra las diferencias entre dos imágenes casi iguales |
-| **¿Qué falta?** | Mira una serie de objetos y adivina cuál falta |
+| **¿Qué falta?** | Mira una serie de objetos, y cuando uno desaparece, elígelo y colócalo en su hueco |
 | **Ecos** | Repite secuencias de sonidos o colores como Simón dice |
 | **Giros y Espejos** | Identifica figuras giradas o reflejadas |
 | **Los Bloques** | Copia un modelo de construcción en una cuadrícula |
@@ -89,8 +89,8 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 | **Categorías** | Clasifica palabras en grupos (animales, frutas...) |
 | **La Frase** | Completa frases diciendo quién, qué o dónde |
 | **Vocabulario por tema** | Aprende vocabulario adulto por bloques (vida autónoma, salud, social) y niveles de dificultad |
-| **Diccionario** | Aprende palabras difíciles con un significado sencillo y un ejemplo |
-| **Completa la Palabra** | Elige la letra que falta para escribir bien la palabra |
+| **Diccionario** | Aprende palabras difíciles con un significado sencillo y un ejemplo, y une cada palabra con su significado |
+| **Completa la Palabra** | Elige la letra que falta y colócala en el hueco para escribir bien la palabra |
 | **Ortografía en Colores** | Escribe la oración entera y mira cada letra coloreada: verde si está bien, rosa si está mal, subrayado si falta |
 | **Sopa de Letras** | Busca palabras temáticas escondidas en un tablero, con niveles y pistas que pintan letras |
 
@@ -133,10 +133,10 @@ Routime tiene **68 actividades** organizadas en **7 módulos** según el tipo de
 
 | Actividad | Descripción |
 |-----------|-------------|
-| **La Calle** | Cruzar la calle, transporte público, qué hacer si te pierdes |
+| **La Calle** | Cruzar la calle, transporte público, qué hacer si te pierdes. Toca la opción más segura y se guarda en tu lista de lo que harías |
 | **La Compra** | Aprende las secciones del supermercado y la lista de la compra |
 | **La Tienda** | Usa dinero real en una compra: pagar, recibir cambio, controlar gastos |
-| **¿Qué me pongo?** | Elige la ropa adecuada según el tiempo que hace |
+| **¿Qué me pongo?** | Toca la ropa adecuada según el tiempo que hace y se va a tu lista de lo que te pones |
 
 ---
 

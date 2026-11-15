@@ -2,7 +2,7 @@
    Shared styles live in assets/css/.
    Acento del módulo Autonomía y hogar (verde --mod-secuencia). */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);

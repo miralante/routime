@@ -1,6 +1,6 @@
 /* Coloring — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-coordinacion); }
+.suite-chrome-activity h1 { color: var(--mod-coordinacion); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-coordinacion);

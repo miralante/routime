@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Que falta? | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
+    <link rel="stylesheet" href="../../assets/css/brand.css?v=routime-v8ddb1744">
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v6633600f">
-  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-vcdcf216d">
-  <link rel="stylesheet" href="styles.css?v=routime-v43524abe">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v893c9285">
+  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-v29c29c27">
+  <link rel="stylesheet" href="styles.css?v=routime-v3948d8d1">
 </head>
 <body>
   <div class="container">
-    <div data-suite-header></div>
-    <header class="tool-header">
+    <div data-suite-header data-suite-logo="../../assets/img/icono.svg?v=routime-va8882152" data-suite-byline></div>
+    <div class="suite-chrome-activity" data-suite-activity>
       <a href="../../" class="back-link">&larr; Volver</a>
       <h1>Routime</h1>
-      <span class="stars" id="stars">&starf; 0</span>
-    </header>
+    </div>
+    <span class="stars" data-suite-stars id="stars">&starf; 0</span>
 
     <section id="startScreen" class="hidden pila centered">
       <div class="fila centered-fila">
@@ -66,16 +67,16 @@
   </div>
 
   <script src="../../assets/js/utils.js?v=routime-v77352015"></script>
-  <script src="../../assets/js/i18n.js?v=routime-v88a87e95"></script>
+  <script src="../../assets/js/i18n.js?v=routime-v7c89fa6e"></script>
   <script src="../../assets/js/storage.js?v=routime-va4fa64ee"></script>
   <script src="../../assets/js/feedback.js?v=routime-v688a6c9c"></script>
-  <script src="strings.es.js?v=routime-v79ca34eb"></script>
-  <script src="strings.en.js?v=routime-v40118a5a"></script>
+  <script src="strings.es.js?v=routime-v06a89f7f"></script>
+  <script src="strings.en.js?v=routime-vbe93473a"></script>
   <script src="data.js?v=routime-v86084914"></script>
   <script src="../../assets/js/stars-engine.js?v=routime-v8d4a7ee6"></script>
   <script src="../../assets/js/stars-strings.js?v=routime-v37bc0c34"></script>
   <script src="../../assets/js/activity-glue.js?v=routime-v688dd286"></script>
-  <script src="app.js?v=routime-v04d72ac2"></script>
+  <script src="app.js?v=routime-vdf1a49d8"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});
@@ -84,6 +85,6 @@
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
   <script src="../../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
   <script src="../../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
-  <script src="../../assets/js/suite-chrome.js?v=routime-v40aa8123"></script>
+  <script src="../../assets/js/suite-chrome.js?v=routime-v231fe1de"></script>
 </body>
 </html>

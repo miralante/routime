@@ -81,6 +81,7 @@
   function render() {
     solved = false;
     faltante = null;
+    selected = null;
     feedbackEl.textContent = '';
     feedbackEl.className = 'feedback';
     explanationWrap.classList.add('hidden');
@@ -117,7 +118,7 @@
     stageTextEl.textContent = App.i18n.t('pregunta');
     pintarObjetos(alongGap);
     btnReady.classList.add('hidden');
-    zonaBotonEl.classList.add('hidden');
+    /* The scene stays on screen: its empty slot is the gap the object goes into. */
     zoneQuestionEl.classList.remove('hidden');
 
     var distractores = App.utils.shuffle(
@@ -136,9 +137,62 @@
       btn.className = 'btn-opcion opcion-picto';
       btn.textContent = op.picto;
       btn.setAttribute('aria-label', App.i18n.t('ariaObjeto'));
-      btn.addEventListener('click', function () { answer(btn, op.isCorrect); });
+      btn.setAttribute('aria-pressed', 'false');
+      btn.addEventListener('click', function () { pickObject(btn, op.isCorrect); });
       optionsEl.appendChild(btn);
     });
+    bindGap(i);
+    feedbackEl.className = 'feedback';
+    feedbackEl.textContent = App.i18n.t('placeIntro');
+  }
+
+  /* The gap: the empty slot. Tapping it puts the object chosen below into it. */
+  var gapIdx = -1;
+  var selected = null;
+
+  function bindGap(i) {
+    gapIdx = i;
+    var slot = objetosEl.querySelectorAll('.objeto')[i];
+    if (!slot) return;
+    slot.setAttribute('role', 'button');
+    slot.setAttribute('tabindex', '0');
+    slot.setAttribute('aria-label', App.i18n.t('gapAria'));
+    slot.addEventListener('click', placeSelected);
+    slot.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        placeSelected();
+      }
+    });
+  }
+
+  /* Step 1: choose an object from the tray. */
+  function pickObject(btn, isCorrect) {
+    if (solved || btn.disabled) return;
+    optionsEl.querySelectorAll('.opcion-picto').forEach(function (b) {
+      b.classList.remove('is-selected');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('is-selected');
+    btn.setAttribute('aria-pressed', 'true');
+    selected = { btn: btn, isCorrect: isCorrect };
+    feedbackEl.className = 'feedback';
+    feedbackEl.textContent = App.i18n.t('placeHint');
+  }
+
+  /* Step 2: the gap receives the chosen object. */
+  function placeSelected() {
+    if (solved) return;
+    if (!selected) {
+      feedbackEl.className = 'feedback';
+      feedbackEl.textContent = App.i18n.t('pickFirst');
+      return;
+    }
+    var s = selected;
+    selected = null;
+    s.btn.classList.remove('is-selected');
+    s.btn.setAttribute('aria-pressed', 'false');
+    answer(s.btn, s.isCorrect);
   }
 
   function showExplanation(isCorrect) {
@@ -162,8 +216,10 @@
     if (isCorrect) {
       showExplanation(isCorrect);
       solved = true;
+      /* The scene is complete again: the object goes back into its gap. */
+      pintarObjetos(sceneCurrent);
       btn.classList.add('correcta');
-      App.feedback.markCorrect(btn, App.utils.$$('#opciones .btn-opcion'));
+      App.feedback.markCorrect(btn, App.utils.$$('#options .btn-opcion'));
       App.feedback.success(feedbackEl);
       progress.stars += 1;
       if (App.feedback && App.feedback.star) App.feedback.star();

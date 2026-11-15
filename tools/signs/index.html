@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Senales de trafico | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
+    <link rel="stylesheet" href="../../assets/css/brand.css?v=routime-v8ddb1744">
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v6633600f">
-  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-vcdcf216d">
-  <link rel="stylesheet" href="styles.css?v=routime-v7a0458f4">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v893c9285">
+  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-v29c29c27">
+  <link rel="stylesheet" href="styles.css?v=routime-v26fcef5a">
 </head>
 <body>
   <div class="container">
-    <div data-suite-header></div>
-    <header class="tool-header">
+    <div data-suite-header data-suite-logo="../../assets/img/icono.svg?v=routime-va8882152" data-suite-byline></div>
+    <div class="suite-chrome-activity" data-suite-activity>
       <a href="../../" class="back-link">&larr; Volver</a>
       <h1>Routime</h1>
-      <span class="stars" id="stars">&starf; 0</span>
-    </header>
+    </div>
+    <span class="stars" data-suite-stars id="stars">&starf; 0</span>
 
     <section id="startScreen" class="hidden pila centered">
       <div class="row centered-row">
@@ -36,12 +37,11 @@
         <span class="progress-text" id="progressText"></span>
         <span class="dificultad" id="level"></span>
       </div>
-      <div class="card centered stack">
-        <div id="senalVisual" class="senal-display"></div>
-        <p id="senalNombre" class="senal-name"></p>
+      <p class="instruccion" id="tableroInstruccion" aria-live="polite"></p>
+      <div class="tablero" id="tablero">
+        <div class="tablero-senales" id="senales"></div>
+        <div class="tablero-significados" id="significados"></div>
       </div>
-      <button type="button" class="btn btn-audio" id="listenBtn">&#128266;</button>
-      <div class="options stack" id="options"></div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
       <div class="row explanation hidden" id="explanationWrap">
         <p id="explanation" aria-live="polite"></p>
@@ -62,18 +62,18 @@
   </div>
 
   <script src="../../assets/js/utils.js?v=routime-v77352015"></script>
-  <script src="../../assets/js/i18n.js?v=routime-v88a87e95"></script>
+  <script src="../../assets/js/i18n.js?v=routime-v7c89fa6e"></script>
   <script src="../../assets/js/storage.js?v=routime-va4fa64ee"></script>
   <script src="../../assets/js/feedback.js?v=routime-v688a6c9c"></script>
-  <script src="strings.es.js?v=routime-vb45d31b2"></script>
-  <script src="strings.en.js?v=routime-v22fa839a"></script>
+  <script src="strings.es.js?v=routime-v4d7e1fdd"></script>
+  <script src="strings.en.js?v=routime-v980a334c"></script>
   <script src="data.js?v=routime-v9d752b92"></script>
   <script src="../../assets/js/stars-engine.js?v=routime-v8d4a7ee6"></script>
   <script src="../../assets/js/stars-strings.js?v=routime-v37bc0c34"></script>
   <script src="../../assets/js/achievements-engine.js?v=routime-v53655f03"></script>
-  <script src="../../assets/js/achievements.js?v=routime-v6d1dd839"></script>
-  <script src="../../assets/js/activity-play.js?v=routime-vc110ea8f"></script>
-  <script src="app.js?v=routime-vfc39aeb1"></script>
+  <script src="../../assets/js/achievements.js?v=routime-va132beba"></script>
+  <script src="../../assets/js/activity-play.js?v=routime-v06c2852e"></script>
+  <script src="app.js?v=routime-v0dd9da11"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("../../sw.js").catch(function () {});
@@ -82,6 +82,6 @@
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
   <script src="../../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
   <script src="../../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
-  <script src="../../assets/js/suite-chrome.js?v=routime-v40aa8123"></script>
+  <script src="../../assets/js/suite-chrome.js?v=routime-v231fe1de"></script>
 </body>
 </html>

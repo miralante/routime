@@ -2,7 +2,7 @@
    Acento del módulo Memoria y atención (naranja --mod-memoria).
    Colores de bloque (c-R/c-B/c-Y) con contraste alto sobre fondo claro. */
 
-.tool-header h1 { color: var(--mod-memoria); }
+.suite-chrome-activity h1 { color: var(--mod-memoria); }
 
 .btn:not(.btn-secundario) {
   background: var(--mod-memoria);

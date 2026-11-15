@@ -1,5 +1,5 @@
 /* Sexual Health — tool-specific styles. */
-.tool-header h1 { color: var(--mod-cuerpo); }
+.suite-chrome-activity h1 { color: var(--mod-cuerpo); }
 .btn:not(.btn-secundario):not(.btn-audio) { background: var(--mod-cuerpo); }
 .centered-row { justify-content: center; }
 .instruccion { font-size: var(--texto-base); }

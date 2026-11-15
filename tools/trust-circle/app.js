@@ -59,7 +59,7 @@
     if (levelEl) levelEl.textContent = level.nombre + ' · ' + level.descripcion;
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'trust-circle',
     roundsKey: 'roundsCompleted',
     autoStart: false,

@@ -20,6 +20,8 @@
      summary(n, stars)  closing text (optional; default ui.roundDone)     onEnd(play)   hook after the closing screen is shown (optional)
      autoStart     false: the page's start screen (ui.start) shows first and
                    ui.play begins the round (default true: the round starts now)
+     pairedStart   true (with autoStart false): the start screen stays on the left
+                   while the round is played on the right, from 768px (design.md-style pair)
      ui            selectors (ids with #) of the page elements:
                    game, end, feedback, explanationWrap, explanation, btnNext,
                    progressFill, progressText, stars, summary, btnRepeat
@@ -61,7 +63,21 @@
     var solved = false;
     var attempts = 0;
     var controls = [];
+    /* config.collect: the right choices of the round are listed in a box above the options. */
+    var collect = config.collect === true;
+    var collectId = 'pl-collect';
     var current = null;
+
+    /* config.pairedStart: the start screen (the instruction) stays on the left while the round is played
+       on the right (see .flow-pair in components.css). Below 768px they stack. */
+    var pair = null;
+    if (config.pairedStart && el.start && el.game) {
+      pair = document.createElement('div');
+      pair.className = 'flow-pair';
+      el.start.parentNode.insertBefore(pair, el.start);
+      pair.appendChild(el.start);
+      pair.appendChild(el.game);
+    }
 
     function save() { App.storage.set(toolId, progress); }
 
@@ -93,16 +109,56 @@
     function showGame() {
       if (el.end) el.end.classList.add('hidden');
       if (el.game) el.game.classList.remove('hidden');
+      if (pair) {
+        el.start.classList.remove('hidden');
+        if (el.play) el.play.classList.add('hidden');
+        pair.classList.add('paired');
+      }
     }
 
     function showEnd() {
       if (el.game) el.game.classList.add('hidden');
       if (el.end) el.end.classList.remove('hidden');
+      if (pair) {
+        el.start.classList.add('hidden');
+        if (el.play) el.play.classList.remove('hidden');
+        pair.classList.remove('paired');
+      }
+    }
+
+    /* The list of the right choices: each right answer's text goes in a box above the options. */
+    function collectChoice(control) {
+      if (!collect || !control) return;
+      var box = document.getElementById(collectId);
+      if (!box) {
+        box = document.createElement('div');
+        box.id = collectId;
+        box.className = 'mochila';
+        box.setAttribute('aria-live', 'polite');
+        var title = document.createElement('p');
+        title.className = 'mochila-titulo';
+        title.textContent = App.i18n.t('core.collectTitle');
+        box.appendChild(title);
+        var host = control.parentNode;
+        if (host && host.parentNode) host.parentNode.insertBefore(box, host);
+      }
+      var chip = document.createElement('span');
+      chip.className = 'mochila-item';
+      chip.textContent = control.textContent;
+      box.appendChild(chip);
+    }
+
+    function clearCollect() {
+      var box = document.getElementById(collectId);
+      if (!box) return;
+      var chips = box.querySelectorAll('.mochila-item');
+      for (var i = 0; i < chips.length; i += 1) chips[i].remove();
     }
 
     /* A new round: the items, the replay list emptied, the first item drawn. */
     function start() {
       items = config.items(progress);
+      clearCollect();
       idx = 0;
       roundHits = 0;
       replaying = false;
@@ -138,6 +194,7 @@
         solved = true;
         if (info.control) info.control.classList.add('correcta');
         if (info.control) App.feedback.markCorrect(info.control, controls);
+        if (info.control) collectChoice(info.control);
         else controls.forEach(function (c) { c.disabled = true; });
         if (el.feedback) App.feedback.success(el.feedback);
         if (App.feedback.star) App.feedback.star();
@@ -193,6 +250,7 @@
           ? config.summary(roundHits, progress.stars)
           : App.i18n.t('ui.roundDone').replace('{n}', roundHits).replace('{stars}', progress.stars);
         App.feedback.paintReward(el.summary, progress.stars, summaryText);
+        paintStarLine(el.summary);
       }
       App.feedback.celebrate(App.i18n.t('core.roundComplete'));
       if (App.achievements) App.achievements.onActivityFinished();
@@ -207,7 +265,7 @@
     if (config.autoStart === false) {
       if (el.start) el.start.classList.remove('hidden');
       if (el.play) el.play.addEventListener('click', function () {
-        if (el.start) el.start.classList.add('hidden');
+        if (el.start && !pair) el.start.classList.add('hidden');
         start();
       });
     } else {
@@ -218,4 +276,3 @@
     return api;
   };
 })();
-        paintStarLine(el.summary);

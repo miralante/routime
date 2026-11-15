@@ -53,7 +53,7 @@
     levelEl.textContent = level.name + ' · ' + level.descripcion;
   }
 
-  var play = App.activityPlay({
+  var play = App.activityPlay({ collect: true,
     toolId: 'entre-amigos',
     roundsKey: 'roundsCompleted',
     ui: {

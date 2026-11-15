@@ -1,6 +1,6 @@
 ﻿/* Signs — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);
@@ -67,4 +67,58 @@
   font-size: 1.1rem;
   color: var(--color-texto-suave, #555);
   max-width: 480px;
+}
+
+/* The board: four signs on one side, their meanings (in a new order) on the other. */
+.tablero {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.tablero-senales {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.tablero-significados {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.sign-tile {
+  position: relative;
+  min-width: 80px;
+  min-height: 80px;
+  padding: 6px;
+  border: 3px solid var(--color-borde);
+  border-radius: var(--radio-grande);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+.sign-tile.is-selected {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+.sign-tile.is-matched {
+  border-color: var(--color-acierto);
+  background: var(--color-acierto-suave);
+  color: var(--color-texto);
+}
+.sign-tile.is-matched::after {
+  content: '✓';
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  color: var(--color-acierto);
+  font-size: 1rem;
+  font-weight: 800;
+}
+.sign-tile:disabled { cursor: default; }
+@media (min-width: 640px) {
+  .tablero { flex-direction: row; align-items: flex-start; }
+  .tablero-senales { flex: 0 0 auto; flex-direction: column; flex-wrap: nowrap; }
+  .tablero-significados { flex: 1 1 auto; }
 }

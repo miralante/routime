@@ -1,7 +1,7 @@
 /* Dictionary — tool-specific styles. Shared styles live in assets/css/.
    Acento del módulo Lenguaje y comprensión (frambuesa --mod-lenguaje). */
 
-.tool-header h1 { color: var(--mod-lenguaje); }
+.suite-chrome-activity h1 { color: var(--mod-lenguaje); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-lenguaje);
@@ -47,4 +47,42 @@
   font-size: 1.1rem;
   color: var(--color-texto-suave, #555);
   max-width: 480px;
+}
+
+/* Matching board: the words on the left, their meanings on the right. */
+.pareja-columna {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+#quizOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.pareja-palabra,
+.pareja-significado {
+  min-height: 56px;
+  padding: 10px 12px;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* The instruction of the board is read in the word area, at reading size. */
+#quizWordDisplay {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  line-height: 1.3;
+}
+
+.pareja-palabra {
+  font-weight: 700;
+}
+
+.pareja-palabra.is-selected {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
 }

@@ -59,59 +59,101 @@
   }
 
   function showExplanation(labelKey, text) {
-    $('#explanation').textContent = '';
+    $('#explanation').textContent = App.i18n.t(labelKey) + ' ' + text;
     $('#explanationWrap').classList.remove('hidden');
   }
+
+  /* The steps of the plan are put in order: the tray holds them shuffled, the
+     slots take them in the order they happen. Tapping the next step places it;
+     tapping another step is a wrong try. */
+  var steps = [];
+  var nextStep = 0;
 
   function renderCase() {
     var currentCase = cases[caseIndex];
     solved = false;
     attempts = 0;
-    $('#caseIcon').textContent = '';
-    $('#caseText').textContent = '';
-    $('#feedback').textContent = '';
+    nextStep = 0;
+    steps = currentCase.steps.slice();
+
+    $('#caseIcon').textContent = currentCase.icon;
+    $('#caseText').textContent = currentCase.scenario;
+    $('#feedback').textContent = App.i18n.t('orderIntro');
     $('#feedback').className = 'feedback';
     $('#explanation').textContent = '';
     $('#explanationWrap').classList.add('hidden');
     $('#nextButton').classList.add('hidden');
-    $('#options').innerHTML = '';
     $('#progressFill').style.width = ((caseIndex / cases.length) * 100) + '%';
     $('#progressText').textContent = '';
 
-    App.utils.shuffle(currentCase.choices.slice()).forEach(function (choice) {
+    var options = $('#options');
+    options.innerHTML = '';
+
+    var slots = document.createElement('div');
+    slots.className = 'agenda-slots';
+    steps.forEach(function (step, i) {
+      var slot = document.createElement('div');
+      slot.className = 'agenda-slot';
+      slot.setAttribute('aria-label', App.i18n.t('slotLabel').replace('{n}', String(i + 1)));
+      slot.textContent = String(i + 1) + '. ';
+      slot.dataset.index = String(i);
+      options.appendChild(slot);
+      slots.appendChild(slot);
+    });
+    options.appendChild(slots);
+
+    var tray = document.createElement('div');
+    tray.className = 'agenda-tray';
+    App.utils.shuffle(steps.map(function (step, i) { return { text: step, index: i }; })).forEach(function (item) {
       var button = document.createElement('button');
       button.type = 'button';
-      button.className = 'btn-opcion';
-      button.textContent = choice.textContent;
-      button.addEventListener('click', function () {
-        answer(button, choice, currentCase);
-      });
-      $('#options').appendChild(button);
+      button.className = 'btn-opcion agenda-step';
+      button.textContent = item.text;
+      button.dataset.index = String(item.index);
+      button.addEventListener('click', function () { placeStep(button, item.index, currentCase); });
+      tray.appendChild(button);
     });
+    options.appendChild(tray);
 
+    paintSlots();
   }
 
-  function answer(button, choice, currentCase) {
-    if (solved) return;
+  function paintSlots() {
+    var slots = App.utils.$$('#options .agenda-slot');
+    slots.forEach(function (slot, i) {
+      slot.textContent = String(i + 1) + '. ' + (i < nextStep ? steps[i] : '');
+      slot.classList.toggle('is-filled', i < nextStep);
+    });
+  }
 
-    if (!choice.correct) {
+  function placeStep(button, index, currentCase) {
+    if (solved || button.disabled) return;
+    if (index !== nextStep) {
+      /* The wrong step is not disabled: it stays in the tray, to be placed later. */
       attempts += 1;
-      var answerAfterHint = attempts > 1;
       button.classList.add('animo');
-      button.disabled = true;
       App.feedback.encourage($('#feedback'));
-      showExplanation('hintLabel', currentCase.hint);
-      App.feedback.lockUntilAck(App.utils.$$('#options .btn-opcion'), $('#explanationWrap'), function () {
-        if (answerAfterHint) showExplanation('explanationLabel', choice.explanation);
-      });
+      if (attempts === 1) {
+        showExplanation('hintLabel', currentCase.hint);
+      } else {
+        showExplanation('explanationLabel', App.i18n.t('nextStepLabel') + ' ' + steps[nextStep]);
+      }
+      App.feedback.lockUntilAck(App.utils.$$('#options .agenda-step'), $('#explanationWrap'));
       return;
     }
-
-    solved = true;
     button.classList.add('correcta');
-    App.feedback.markCorrect(button, App.utils.$$('#options .btn-opcion'));
+    button.disabled = true;
+    nextStep += 1;
+    paintSlots();
+    if (nextStep < steps.length) {
+      $('#feedback').className = 'feedback';
+      $('#feedback').textContent = App.i18n.t('orderNext');
+      return;
+    }
+    solved = true;
     App.feedback.success($('#feedback'));
-    showExplanation('explanationLabel', choice.explanation);
+    $('#feedback').textContent = App.i18n.t('orderDone');
+    showExplanation('explanationLabel', currentCase.explanation);
     $('#nextButton').classList.remove('hidden');
     $('#nextButton').focus();
   }
@@ -152,6 +194,7 @@
   });
 
   paintStars();
-  // Iniciar directamente la actividad
-  startGame();
+  /* After DOMContentLoaded, so App.i18n has already translated the page (its own listener runs first). */
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startGame);
+  else startGame();
 })();

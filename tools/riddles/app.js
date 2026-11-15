@@ -16,7 +16,7 @@
   var textEl = $('#textoPregunta');
   var optionsEl = $('#options');
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'riddles',
     roundsKey: 'rounds',
     reinforce: true,

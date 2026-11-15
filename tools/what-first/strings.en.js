@@ -18,9 +18,14 @@
     "proximoNivel": "Next step: {n}",
     "btnMenu": "Back to start",
     "btnOtroNivel": "Choose another level",
-    "explicacionCorrecta": "✅ Correct! That is what you should do first.",
+    "explicacionOrden": "✅ Well done! This is the order: {orden}.",
+    "explicacionIncorrectaPaso": "❌ Not yet. What comes now is: ",
     "explicacionIncorrectaA": "❌ That is not first. The first thing is: ",
     "pista": "🤔 Try again. Think about the situation again: ",
+    "fasePrimero": "Tap what you would do first.",
+    "faseDespues": "Now tap what you would do next.",
+    "faseUltimo": "Last, tap what is left.",
+    "colaItem": "{n}. {texto}",
   "transferencia": "This will help you decide what to do first when several things pile up: at home, at school or when it is time to go out.",
   }, 'en');
 })();

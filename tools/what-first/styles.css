@@ -1,7 +1,7 @@
 /* What Do I Do First? — tool-specific styles. Shared styles live in assets/css/.
    Acento del módulo Autonomía y hogar (verde --mod-secuencia). */
 
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-secuencia);
@@ -41,4 +41,24 @@
   color: var(--color-texto-suave, #555);
   max-width: 480px;
 }
+}
+
+/* The queue: the tasks in the order the person chose, numbered. */
+.cola {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.cola:empty { display: none; }
+.cola li {
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--radio);
+  background: var(--mod-secuencia-suave);
+  font-weight: 700;
+  text-align: left;
 }

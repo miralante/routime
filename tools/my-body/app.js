@@ -57,7 +57,7 @@
     return item.textContent || item.text;
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'mi-cuerpo-avisa',
     roundsKey: 'roundsCompleted',
     ui: {

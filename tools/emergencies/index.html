@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emergencias | Routime</title>
   <meta name="theme-color" content="#FAF7F2">
+    <link rel="stylesheet" href="../../assets/css/brand.css?v=routime-v8ddb1744">
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=routime-v32fbcfdc">
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
-  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v6633600f">
-  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-vcdcf216d">
-  <link rel="stylesheet" href="styles.css?v=routime-v610dc3b7">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=routime-v893c9285">
+  <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-v29c29c27">
+  <link rel="stylesheet" href="styles.css?v=routime-v85c2e2b7">
 </head>
 <body>
   <div class="container">
-    <div data-suite-header></div>
-    <header class="tool-header">
+    <div data-suite-header data-suite-logo="../../assets/img/icono.svg?v=routime-va8882152" data-suite-byline></div>
+    <div class="suite-chrome-activity" data-suite-activity>
       <a href="../../" class="back-link" data-i18n="core.back">← Volver</a>
       <h1 data-i18n="title">🚨 Emergencias</h1>
-      <span class="stars" id="stars">⭐ 0</span>
-    </header>
+    </div>
+    <span class="stars" data-suite-stars id="stars">⭐ 0</span>
 
     <!-- Screen: menu of the 3 activities -->
     <section id="menuScreen" class="pila">
@@ -60,8 +61,9 @@
       <div class="card centered pila">
         <div class="situacion-picto" id="situacionPicto"></div>
         <p class="text-principal" id="situacionTexto" data-i18n="core.loading">Cargando…</p>      </div>
-      <h2 class="pregunta centered" data-i18n="pregunta">¿Qué haces?</h2>
-      <div class="pila" id="opcionesReconocer"></div>
+      <h2 class="pregunta centered" id="faseReconocer" aria-live="polite"></h2>
+      <div class="pila" id="cajasReconocer"></div>
+      <div class="pila hidden" id="opcionesReconocer"></div>
       <div class="feedback" id="feedbackReconocer" aria-live="polite"></div>
       <div class="row explicacion hidden" id="explicacionReconocerWrap">
         <p id="explicacionReconocer" aria-live="polite"></p>
@@ -139,16 +141,16 @@
   </div>
 
   <script src="../../assets/js/utils.js?v=routime-v77352015"></script>
-  <script src="../../assets/js/i18n.js?v=routime-v88a87e95"></script>
+  <script src="../../assets/js/i18n.js?v=routime-v7c89fa6e"></script>
   <script src="../../assets/js/storage.js?v=routime-va4fa64ee"></script>
   <script src="../../assets/js/feedback.js?v=routime-v688a6c9c"></script>
-  <script src="strings.es.js?v=routime-vcbb0ef41"></script>
-  <script src="strings.en.js?v=routime-v99f6dedb"></script>
-  <script src="data.js?v=routime-v3c297ee0"></script>
+  <script src="strings.es.js?v=routime-vfb128136"></script>
+  <script src="strings.en.js?v=routime-v572bb625"></script>
+  <script src="data.js?v=routime-v35ac248e"></script>
   <script src="../../assets/js/stars-engine.js?v=routime-v8d4a7ee6"></script>
   <script src="../../assets/js/stars-strings.js?v=routime-v37bc0c34"></script>
   <script src="../../assets/js/activity-glue.js?v=routime-v688dd286"></script>
-  <script src="app.js?v=routime-vdf70025c"></script>
+  <script src="app.js?v=routime-v0b9db7d5"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});
@@ -157,7 +159,7 @@
 <script src="../../assets/js/sw-update.js?v=routime-v6d6b3d4b" defer></script>
   <script src="../../assets/js/locale-picker-config.js?v=routime-v455c271e"></script>
   <script src="../../assets/js/locale-picker.js?v=routime-v8851c7df" defer></script>
-  <script src="../../assets/js/suite-chrome.js?v=routime-v40aa8123"></script>
+  <script src="../../assets/js/suite-chrome.js?v=routime-v231fe1de"></script>
 </body>
 </html>
 

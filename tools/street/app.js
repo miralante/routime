@@ -14,6 +14,7 @@
   var situationPictoEl = $('#situacionPicto');
   var situationTextEl = $('#situacionTexto');
   var optionsEl = $('#options');
+  var mochilaEl = $('#mochila');
   var currentLevel = null;
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
@@ -28,6 +29,7 @@
     toolId: 'la-calle',
     roundsKey: 'roundsCompleted',
     autoStart: false,
+    pairedStart: true,
     ui: {
       start: '#startScreen',
       play: '#btnPlay',
@@ -51,6 +53,16 @@
       situationPictoEl.textContent = item.picto;
       situationTextEl.textContent = item.situacion;
       optionsEl.innerHTML = '';
+      /* The safe choices of the round, as a list: what the person would do to stay safe. */
+      mochilaEl.innerHTML = '';
+      var title = document.createElement('p');
+      title.className = 'mochila-titulo';
+      title.textContent = App.i18n.t('mochilaTitulo');
+      mochilaEl.appendChild(title);
+      var empty = document.createElement('p');
+      empty.className = 'mochila-vacia';
+      empty.textContent = App.i18n.t('mochilaVacia');
+      mochilaEl.appendChild(empty);
       var buttons = [];
       App.utils.shuffle(item.options.map(function (opt, i) {
         return { text: opt, isCorrect: i === item.correcta };
@@ -61,6 +73,13 @@
         btn.textContent = op.text;
         btn.addEventListener('click', function () {
           /* The hint points back to the situation; the explanation names the safe option. */
+          if (op.isCorrect) {
+            empty.remove();
+            var chip = document.createElement('span');
+            chip.className = 'mochila-item';
+            chip.textContent = op.text;
+            mochilaEl.appendChild(chip);
+          }
           play.attempt(op.isCorrect, {
             control: btn,
             hint: App.i18n.t('pista') + '"' + item.situacion + '"',

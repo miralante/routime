@@ -17,7 +17,7 @@
 
   function bank() { return DATA[App.i18n.locale()] || DATA.es; }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'comedy-club',
     roundsKey: 'rounds',
     ui: {

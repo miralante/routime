@@ -21,6 +21,8 @@
     "explicacionCorrecta": "✅ Correct! Those clothes are right for that weather.",
     "explicacionIncorrectaA": "❌ Those clothes are not right. The correct answer is: ",
     "pista": "🤔 Try again. Think about the weather: ",
+    "mochilaTitulo": "👕 What you are wearing:",
+    "mochilaVacia": "Tap the clothes you would wear and they go in here.",
   "transferencia": "This will help you get dressed on your own each day: look out the window, see what the weather is like and pick the clothes that suit it best.",
   }, 'en');
 })();

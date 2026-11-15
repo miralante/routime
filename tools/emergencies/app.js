@@ -4,10 +4,13 @@
    Datos en data.js (DATA.reconocer, DATA.llamadas, DATA.ascensor).
    Tres actividades elegibles desde un menú (regla 10: una acción
    principal por pantalla):
-   - "¿Es una emergencia?": quiz de 3 options (motor de Situaciones)
-     que mezcla emergencias reales con cosas que no lo son, para que
-     el contraste enseñe a distinguir. Sin niveles: la mezcla de
-     dificultad es a propósito (contraste didáctico), no progresión.
+   - "¿Es una emergencia?": dos pasos. Primero, la persona pone la
+     situación en una de tres cajas (emergencia, urgente, no es una
+     emergencia). Después elige qué hace, entre tres acciones, como
+     antes. Las situaciones mezclan emergencias reales con cosas que no
+     lo son, para que el contraste enseñe a distinguir. Sin niveles: la
+     mezcla de dificultad es a propósito (contraste didáctico), no
+     progresión.
    - "Practica la llamada": ordenar 3 steps (motor de Lista de
      Tareas) siempre en el mismo orden — name, qué pasa, dónde
      estás — cambiando solo la emergencia descrita, para aprender la
@@ -83,6 +86,13 @@
   var progressRFill = $('#progressReconocerFill');
   var progressRText = $('#progressReconocerText');
   var btnNextRecognize = $('#btnSiguienteReconocer');
+  var faseReconocerEl = $('#faseReconocer');
+  var cajasReconocerEl = $('#cajasReconocer');
+  var boxOkR = false;
+  var attemptsBoxR = 0;
+  /* The first step asks what kind of situation it is; the three boxes are these kinds. */
+  var BOX_KEYS = { emergency: 'boxEmergency', urgent: 'boxUrgent', none: 'boxNone' };
+  var TYPE_KEYS = { emergency: 'tipoEmergency', urgent: 'tipoUrgent', none: 'tipoNone' };
 
   function startRecognize() {
     activityCurrent = 'reconocer';
@@ -103,7 +113,9 @@
   function renderRecognize() {
     var item = itemsRecognize[idxR];
     resueltoR = false;
+    boxOkR = false;
     attemptsR = 0;
+    attemptsBoxR = 0;
     situationPictoEl.textContent = item.picto;
     situationTextEl.textContent = item.situacion;
     feedbackREl.textContent = '';
@@ -112,7 +124,62 @@
     explanationREl.textContent = '';
     btnNextRecognize.classList.add('hidden');
     optionsREl.innerHTML = '';
+    optionsREl.classList.add('hidden');
+    paintBoxes(item);
 
+    paintProgressR();
+    renderStars();
+  }
+
+  /* Step 1: the person sorts the situation into one of three boxes. Each box is a game move: a right one
+     opens the actions, a wrong one gets the hint and waits for «Entendido» (no punishment). */
+  function paintBoxes(item) {
+    faseReconocerEl.textContent = App.i18n.t('faseTipo');
+    cajasReconocerEl.innerHTML = '';
+    cajasReconocerEl.classList.remove('hidden');
+    App.utils.shuffle(['emergency', 'urgent', 'none']).forEach(function (tipo) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-opcion';
+      btn.setAttribute('data-tipo', tipo);
+      btn.textContent = App.i18n.t(BOX_KEYS[tipo]);
+      btn.addEventListener('click', function () { answerBox(btn, tipo, item); });
+      cajasReconocerEl.appendChild(btn);
+    });
+  }
+
+  function answerBox(btn, tipo, item) {
+    if (boxOkR || btn.disabled) return;
+    if (tipo === item.tipo) {
+      boxOkR = true;
+      btn.classList.add('correcta');
+      App.feedback.markCorrect(btn, App.utils.$$('#cajasReconocer .btn-opcion'));
+      App.feedback.success(feedbackREl);
+      explanationREl.textContent = App.i18n.t('boxRight');
+      explanationRWrap.classList.remove('hidden');
+      showActions(item);
+      return;
+    }
+    attemptsBoxR += 1;
+    var explainAfterHint = attemptsBoxR > 1;
+    explanationREl.textContent = App.i18n.t('pista') + '"' + item.situacion + '"';
+    explanationRWrap.classList.remove('hidden');
+    btn.classList.add('animo');
+    btn.disabled = true;
+    App.feedback.encourage(feedbackREl);
+    App.feedback.lockUntilAck(App.utils.$$('#cajasReconocer .btn-opcion'), explanationRWrap, function () {
+      if (!explainAfterHint) return;
+      explanationREl.textContent = App.i18n.t('boxExplain').replace('{tipo}', App.i18n.t(TYPE_KEYS[item.tipo]));
+      explanationRWrap.classList.remove('hidden');
+    });
+  }
+
+  /* Step 2: the three actions of the situation, as before. */
+  function showActions(item) {
+    cajasReconocerEl.classList.add('hidden');
+    faseReconocerEl.textContent = App.i18n.t('faseAccion');
+    optionsREl.innerHTML = '';
+    optionsREl.classList.remove('hidden');
     var options = App.utils.shuffle(item.options.map(function (opt, i) {
       return { text: opt, isCorrect: i === item.correcta };
     }));
@@ -124,9 +191,6 @@
       btn.addEventListener('click', function () { answerRecognize(btn, op.isCorrect, item); });
       optionsREl.appendChild(btn);
     });
-
-    paintProgressR();
-    renderStars();
   }
 
   function showExplanationR(isCorrect, item) {

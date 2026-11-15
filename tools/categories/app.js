@@ -23,7 +23,7 @@
     return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'categorias',
     roundsKey: 'roundsCompleted',
     ui: {

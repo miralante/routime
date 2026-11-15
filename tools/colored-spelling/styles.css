@@ -6,7 +6,7 @@
      - gris con subrayado (letra que falta en la oración)
    Nunca se usa rojo agresivo: SPEC §3.1 ("el error nunca castiga"). */
 
-.tool-header h1 { color: var(--mod-lenguaje); }
+.suite-chrome-activity h1 { color: var(--mod-lenguaje); }
 
 .btn:not(.btn-secundario):not(.btn-audio) {
   background: var(--mod-lenguaje);

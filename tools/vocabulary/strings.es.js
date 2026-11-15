@@ -25,6 +25,10 @@
     "correctFull": "✅ ¡Correcto!",
     "wrongExplanationPrefix": "❌ El significado es:",
     "hint": "🤔 Pista con el ejemplo:",
+    "matchInstruction": "Une cada palabra con su significado: toca una palabra y luego su significado.",
+    "matchPickMeaning": "Ahora toca el significado de esa palabra.",
+    "matchPickWordFirst": "Primero toca una palabra.",
+    "matchRight": "✅ ¡Muy bien! Esa pareja es correcta.",
     "chooseAnotherBlock": "Elegir otro bloque",
     "finalSummary": "Has ganado {n} estrellas en esta ronda. Ahora tienes {total} estrellas en total.",
     "transferencia": "Ahora recordarás mejor las palabras por temas. Te servirá para hablar de cocina, ropa, familia y otros temas del día a día."

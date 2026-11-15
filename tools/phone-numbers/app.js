@@ -164,34 +164,104 @@
     quizNextBtn.classList.add('hidden');
     quizOptions.innerHTML = '';
 
-    var options = App.utils.shuffle(item.options.map(function (opt, i) {
-      return { text: opt, isCorrect: i === item.correcta };
-    }));
-    options.forEach(function (op) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.text;
-      btn.addEventListener('click', function () { answerQuiz(btn, op.isCorrect, item); });
-      quizOptions.appendChild(btn);
-    });
+    /* The child writes the number with the keypad: the number is built, not picked. */
+    quizTyped = '';
+    quizFeedback.textContent = t('quizTypeNumber');
+    buildKeypad();
 
     paintQuizProgress();
     paintStars();
   }
 
-  function showQuizExplanation(item) {
+  /* ---------- Keypad: the digits typed, the keys 0–9, erase and check ---------- */
+
+  var quizTyped = '';
+  var quizDisplay = null;
+  var quizKeys = [];
+  var quizCheckKey = null;
+  var KEYPAD_MAX_DIGITS = 3;
+
+  function buildKeypad() {
+    quizOptions.innerHTML = '';
+    quizDisplay = document.createElement('p');
+    quizDisplay.className = 'answer-display';
+    quizDisplay.setAttribute('aria-live', 'polite');
+    quizOptions.appendChild(quizDisplay);
+
+    var pad = document.createElement('div');
+    pad.className = 'answer-pad';
+    quizKeys = [];
+    function addKey(label, aria, action, extra) {
+      var key = document.createElement('button');
+      key.type = 'button';
+      key.className = 'btn-opcion answer-key' + (extra ? ' ' + extra : '');
+      key.textContent = label;
+      if (aria) key.setAttribute('aria-label', aria);
+      key.addEventListener('click', action);
+      pad.appendChild(key);
+      quizKeys.push(key);
+      return key;
+    }
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9'].forEach(function (d) {
+      addKey(d, null, function () { press(d); });
+    });
+    addKey('⌫', t('eraseDigit'), erase, 'answer-key-erase');
+    addKey('0', null, function () { press('0'); });
+    quizCheckKey = addKey('✓', t('checkNumber'), checkTyped, 'answer-key-check');
+    quizOptions.appendChild(pad);
+    paintTyped();
+  }
+
+  function paintTyped() {
+    if (quizDisplay) quizDisplay.textContent = quizTyped;
+  }
+
+  function press(digit) {
+    if (quizResolved || quizTyped.length >= KEYPAD_MAX_DIGITS) return;
+    quizTyped += digit;
+    paintTyped();
+  }
+
+  function erase() {
+    if (quizResolved) return;
+    quizTyped = quizTyped.slice(0, -1);
+    paintTyped();
+  }
+
+  /* Keyboard support: digits, Backspace to erase, Enter to check. */
+  document.addEventListener('keydown', function (event) {
+    if (quizResolved || quizScreen.classList.contains('hidden') || !quizDisplay) return;
+    if (/^[0-9]$/.test(event.key)) { press(event.key); event.preventDefault(); }
+    else if (event.key === 'Backspace') { erase(); event.preventDefault(); }
+    else if (event.key === 'Enter') { checkTyped(); event.preventDefault(); }
+  });
+
+  function checkTyped() {
+    if (quizResolved) return;
+    if (quizTyped === '') {
+      quizFeedback.className = 'feedback';
+      quizFeedback.textContent = t('quizTypeNumber');
+      return;
+    }
+    answerQuiz(quizTyped === CORRECT_NUMBER);
+  }
+
+  function showQuizExplanation() {
     quizExplanation.textContent = t('correctExplanation');
     quizExplanationWrap.classList.remove('hidden');
   }
 
-  function answerQuiz(btn, isCorrect, item) {
-    if (quizResolved) return;
+  /* The emergency number in every country this app covers: always 112. */
+  var CORRECT_NUMBER = '112';
+
+  function answerQuiz(isCorrect) {
+    var item = quizItems[quizIdx];
     if (isCorrect) {
-      showQuizExplanation(item);
+      showQuizExplanation();
       quizResolved = true;
-      btn.classList.add('correcta');
-      App.feedback.markCorrect(btn, App.utils.$$('#quizOptions .btn-opcion'));
+      quizDisplay.classList.add('correcta');
+      quizCheckKey.classList.add('correcta');
+      quizKeys.forEach(function (key) { key.disabled = true; });
       App.feedback.success(quizFeedback);
       progress.stars += 1;
       quizCorrectCount += 1;
@@ -205,10 +275,10 @@
         quizExplanation.textContent = t('hint') + '"' + item.situacion + '"';
         quizExplanationWrap.classList.remove('hidden');
       } else {
-        showQuizExplanation(item);
+        showQuizExplanation();
       }
-      btn.classList.add('animo');
-      btn.disabled = true;
+      quizTyped = '';
+      paintTyped();
       App.feedback.encourage(quizFeedback);
       App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap);
     }

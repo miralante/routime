@@ -1,6 +1,6 @@
 ﻿/* Categories — tool-specific styles. Shared styles live in assets/css/. */
 
-.tool-header h1 { color: var(--mod-lenguaje); }
+.suite-chrome-activity h1 { color: var(--mod-lenguaje); }
 
 /* --mod-lenguaje es un acento de frente: en oscuro es un rosa claro
    (#F09BC0) pensado para texto sobre fondo oscuro, asi que al usarlo

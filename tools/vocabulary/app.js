@@ -256,24 +256,30 @@
 
   /* ---------- Test ---------- */
 
+  /* ---------- Test: a board of four pairs, word and meaning ----------
+     The child taps a word and then its meaning. A right pair stays marked;
+     a wrong one only asks to read again (hint, then the meaning). */
+  var BOARD_SIZE = 4;
+  var quizBoards = [];
+  var boardIdx = 0;
+  var quizSelectedWord = null;
+  var quizMatched = 0;
+  var quizMissed = {};
+  var quizAttempts = 0;
+
   function paintQuizProgress() {
-    var total = items.length;
-    quizProgressFill.style.width = ((idx / total) * 100) + '%';
+    var total = quizBoards.length;
+    quizProgressFill.style.width = ((boardIdx / total) * 100) + '%';
     quizProgressText.textContent = '';
   }
 
-  function distractorsFor(item, n) {
-    var others = poolRound.filter(function (w) {
-      return w.word.toLowerCase() !== item.word.toLowerCase();
-    });
-    return App.utils.shuffle(others).slice(0, n);
-  }
-
   function renderQuiz() {
-    var item = items[idx];
-    solved = false;
-    attempts = 0;
-    quizWordDisplay.textContent = item.word;
+    var board = quizBoards[boardIdx];
+    quizSelectedWord = null;
+    quizMatched = 0;
+    quizMissed = {};
+    quizAttempts = 0;
+    quizWordDisplay.textContent = t('matchInstruction');
     quizFeedback.textContent = '';
     quizFeedback.className = 'feedback';
     quizExplanationWrap.classList.add('hidden');
@@ -281,71 +287,100 @@
     quizNextBtn.classList.add('hidden');
     quizOptions.innerHTML = '';
 
-    var options = App.utils.shuffle(
-      [{ word: item.word, definition: item.definition, correct: true }].concat(
-        distractorsFor(item, 2).map(function (d) {
-          return { word: d.word, definition: d.definition, correct: false };
-        })
-      )
-    );
+    var wordsCol = document.createElement('div');
+    wordsCol.className = 'pareja-columna pareja-palabras';
+    var meaningsCol = document.createElement('div');
+    meaningsCol.className = 'pareja-columna pareja-significados';
 
-    options.forEach(function (op) {
+    board.forEach(function (item) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'btn-opcion';
-      btn.textContent = op.definition;
-      btn.addEventListener('click', function () { respond(btn, op, item); });
-      quizOptions.appendChild(btn);
+      btn.className = 'btn-opcion pareja-palabra';
+      btn.textContent = item.word;
+      btn.addEventListener('click', function () { pickWord(item, btn); });
+      wordsCol.appendChild(btn);
     });
+    App.utils.shuffle(board.slice()).forEach(function (item) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-opcion pareja-significado';
+      btn.textContent = item.definition;
+      btn.addEventListener('click', function () { pickMeaning(item, btn); });
+      meaningsCol.appendChild(btn);
+    });
+    quizOptions.appendChild(wordsCol);
+    quizOptions.appendChild(meaningsCol);
 
     paintQuizProgress();
     paintStars();
   }
 
-  function showExplanation(item, wasCorrect) {
-    if (wasCorrect) {
-      quizExplanation.textContent = t('correctFull');
-    } else {
-      quizExplanation.textContent =
-        t('wrongExplanationPrefix') + ' ' + item.definition + '.';
+  /* Step 1: a word. */
+  function pickWord(item, btn) {
+    if (btn.disabled) return;
+    if (quizSelectedWord) quizSelectedWord.button.classList.remove('is-selected');
+    quizSelectedWord = { item: item, button: btn };
+    btn.classList.add('is-selected');
+    quizFeedback.className = 'feedback';
+    quizFeedback.textContent = t('matchPickMeaning');
+  }
+
+  /* Step 2: its meaning. */
+  function pickMeaning(item, btn) {
+    if (btn.disabled) return;
+    if (!quizSelectedWord) {
+      quizFeedback.className = 'feedback';
+      quizFeedback.textContent = t('matchPickWordFirst');
+      return;
     }
-    quizExplanationWrap.classList.remove('hidden');
-  }
-
-  function showHint(item) {
-    quizExplanation.textContent = t('hint') + ' ' + item.example;
-    quizExplanationWrap.classList.remove('hidden');
-  }
-
-  function respond(btn, op, item) {
-    if (solved) return;
-    if (op.correct) {
-      solved = true;
+    var chosen = quizSelectedWord;
+    var wordBtn = chosen.button;
+    wordBtn.classList.remove('is-selected');
+    quizSelectedWord = null;
+    if (chosen.item.word === item.word) {
+      wordBtn.classList.add('correcta');
       btn.classList.add('correcta');
-      App.feedback.markCorrect(btn, App.utils.$$('#quizOptions .btn-opcion'));
-      App.feedback.success(quizFeedback);
-      showExplanation(item, true);
-      progress.stars += 1;
-      roundHits += 1;
-      save();
-      paintStars();
-      quizNextBtn.classList.remove('hidden');
-      quizNextBtn.focus();
-    } else {
-      attempts += 1;
-      var answerAfterHint = attempts > 1;
-      showHint(item);
-      /* Reveal the explanation only after the hint is acknowledged. */
-      btn.classList.add('animo');
+      wordBtn.disabled = true;
       btn.disabled = true;
-      App.feedback.encourage(quizFeedback);
-      App.feedback.lockUntilAck(App.utils.$$('#quizOptions .btn-opcion'), quizExplanationWrap, function () { if (answerAfterHint) showExplanation(item, false); });
+      quizMatched += 1;
+      if (!quizMissed[item.word]) {
+        progress.stars += 1;
+        roundHits += 1;
+        save();
+        paintStars();
+      }
+      App.feedback.success(quizFeedback);
+      quizFeedback.textContent = t('matchRight');
+      if (quizMatched === BOARD_SIZE) finishBoard();
+      return;
     }
+    answerWrong(wordBtn, btn, chosen.item);
+  }
+
+  function answerWrong(wordBtn, meaningBtn, item) {
+    quizAttempts += 1;
+    quizMissed[item.word] = true;
+    wordBtn.classList.add('animo');
+    meaningBtn.classList.add('animo');
+    App.feedback.encourage(quizFeedback);
+    quizExplanation.textContent = quizAttempts === 1
+      ? t('hint') + ' ' + item.example
+      : t('wrongExplanationPrefix') + ' ' + item.word + ': ' + item.definition + '.';
+    quizExplanationWrap.classList.remove('hidden');
+    setTimeout(function () {
+      wordBtn.classList.remove('animo');
+      meaningBtn.classList.remove('animo');
+    }, 900);
+  }
+
+  function finishBoard() {
+    quizNextBtn.classList.remove('hidden');
+    quizNextBtn.focus();
   }
 
   function nextQuiz() {
-    idx += 1;
-    if (idx >= items.length) {
+    boardIdx += 1;
+    if (boardIdx >= quizBoards.length) {
       finishRound();
     } else {
       renderQuiz();
@@ -353,7 +388,9 @@
   }
 
   function startQuiz() {
-    idx = 0;
+    quizBoards = [];
+    for (var i = 0; i < items.length; i += BOARD_SIZE) quizBoards.push(items.slice(i, i + BOARD_SIZE));
+    boardIdx = 0;
     showScreen('quiz');
     renderQuiz();
   }

@@ -13,6 +13,7 @@
   var $ = App.utils.$;
   var textQuestionEl = $('#questionText');
   var optionsEl = $('#options');
+  var mochilaEl = $('#mochila');
   var levelEl = $('#level');
   var currentLevel = null;
 
@@ -48,6 +49,16 @@
     mount: function (item, play) {
       textQuestionEl.textContent = item.textContent;
       optionsEl.innerHTML = '';
+      /* The bag of the task: what the person has put in it so far. */
+      mochilaEl.innerHTML = '';
+      var title = document.createElement('p');
+      title.className = 'mochila-titulo';
+      title.textContent = App.i18n.t('mochilaTitulo');
+      mochilaEl.appendChild(title);
+      var empty = document.createElement('p');
+      empty.className = 'mochila-vacia';
+      empty.textContent = App.i18n.t('mochilaVacia');
+      mochilaEl.appendChild(empty);
       var buttons = [];
       App.utils.shuffle(item.options.map(function (opt, i) {
         return { texto: opt, isCorrect: i === item.correct };
@@ -58,6 +69,14 @@
         btn.textContent = op.texto;
         btn.addEventListener('click', function () {
           /* The hint points back to the task already on screen. */
+          if (op.isCorrect) {
+            /* The right thing goes into the bag: a chip in it, the same word. */
+            empty.remove();
+            var chip = document.createElement('span');
+            chip.className = 'mochila-item';
+            chip.textContent = op.texto;
+            mochilaEl.appendChild(chip);
+          }
           play.attempt(op.isCorrect, {
             control: btn,
             hint: App.i18n.t('pista') + '"' + item.textContent + '"',

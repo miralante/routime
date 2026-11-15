@@ -21,6 +21,8 @@
     "explicacionCorrecta": "✅ ¡Correcto! Eso es lo que necesitas.",
     "explicacionIncorrectaA": "❌ Eso no es lo que necesitas. Necesitas: ",
     "pista": "🤔 Prueba otra vez. Vuelve a leer la tarea: ",
+    "mochilaTitulo": "🎒 Lo que llevas:",
+    "mochilaVacia": "Toca lo que necesitas y se guarda aquí.",
   "transferencia": "Esto te servirá para preparar lo que hace falta antes de empezar una tarea en casa: la mochila del cole, la ropa del día o los ingredientes de una receta.",
   }, 'es');
 })();

@@ -1,5 +1,5 @@
 /* Social Safety — tool-specific styles. */
-.tool-header h1 { color: var(--mod-secuencia); }
+.suite-chrome-activity h1 { color: var(--mod-secuencia); }
 .btn:not(.btn-secundario):not(.btn-audio) { background: var(--mod-secuencia); }
 .row { display: flex; align-items: center; gap: var(--espacio); flex-wrap: wrap; }
 .centered, .centered-row { text-align: center; justify-content: center; }

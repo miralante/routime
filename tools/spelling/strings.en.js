@@ -8,7 +8,10 @@
 
   App.i18n.register({
     "title": "🔡 Complete the Word",
-    "instruction": "Look at the word and choose the missing letter to spell it correctly.",
+    "instruction": "Look at the word, tap a letter and then the gap to place it.",
+    "placeHint": "Now tap the gap in the word.",
+    "pickLetterFirst": "First tap a letter.",
+    "gapAria": "Gap: tap to place the chosen letter",
     "btnJugar": "Play!",
     "palabra": "word",
     "palabras": "words",

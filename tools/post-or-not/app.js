@@ -24,7 +24,7 @@
     return levels[Math.min(progress.roundsCompleted || 0, levels.length - 1)];
   }
 
-  App.activityPlay({
+  App.activityPlay({ collect: true,
     toolId: 'lo-publico',
     roundsKey: 'roundsCompleted',
     ui: {

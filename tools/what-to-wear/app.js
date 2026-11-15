@@ -14,6 +14,7 @@
   var situationPictoEl = $('#situacionPicto');
   var situationTextEl = $('#situacionTexto');
   var optionsEl = $('#options');
+  var mochilaEl = $('#mochila');
   var levelEl = $('#level');
   var currentLevel = null;
 
@@ -50,6 +51,16 @@
       situationPictoEl.textContent = item.picto;
       situationTextEl.textContent = item.situacion;
       optionsEl.innerHTML = '';
+      /* What the person is wearing for this weather: the right clothes go in the list. */
+      mochilaEl.innerHTML = '';
+      var title = document.createElement('p');
+      title.className = 'mochila-titulo';
+      title.textContent = App.i18n.t('mochilaTitulo');
+      mochilaEl.appendChild(title);
+      var empty = document.createElement('p');
+      empty.className = 'mochila-vacia';
+      empty.textContent = App.i18n.t('mochilaVacia');
+      mochilaEl.appendChild(empty);
       var buttons = [];
       App.utils.shuffle(item.opciones.map(function (opt, i) {
         return { texto: opt, isCorrect: i === item.correcta };
@@ -60,6 +71,13 @@
         btn.textContent = op.texto;
         btn.addEventListener('click', function () {
           /* The hint points back to the situation already on screen. */
+          if (op.isCorrect) {
+            empty.remove();
+            var chip = document.createElement('span');
+            chip.className = 'mochila-item';
+            chip.textContent = op.texto;
+            mochilaEl.appendChild(chip);
+          }
           play.attempt(op.isCorrect, {
             control: btn,
             hint: App.i18n.t('pista') + '"' + item.situacion + '"',

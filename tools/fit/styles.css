@@ -13,7 +13,7 @@
    normal. La info crítica (dónde está el hueco) se sigue viendo por
    forma y contorno, no solo por color. */
 
-.tool-header h1 { color: var(--mod-memoria); }
+.suite-chrome-activity h1 { color: var(--mod-memoria); }
 
 .btn:not(.btn-secundario):not(.btn-control) {
   background: var(--mod-memoria);

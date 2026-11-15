@@ -6,7 +6,7 @@
    mediante --acento; aqui asumimos que el body viene sin esa
    variable y usamos el color institucional por defecto. */
 
-.tool-header h1 {
+.suite-chrome-activity h1 {
   margin: 0 0 var(--espacio-2);
 }
 
@@ -206,4 +206,41 @@
   font-size: 1.1rem;
   color: var(--color-texto-suave, #555);
   max-width: 480px;
+}
+
+/* Matching board: the words on the left, their meanings on the right. */
+.pareja-columna {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+#quizOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.pareja-palabra,
+.pareja-significado {
+  min-height: 56px;
+  padding: 10px 12px;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.pareja-palabra {
+  font-weight: 700;
+}
+
+.pareja-palabra.is-selected {
+  outline: 3px solid var(--mod-coordinacion);
+  outline-offset: 2px;
+}
+
+#quizWordDisplay {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  line-height: 1.3;
 }
