@@ -18,7 +18,6 @@
   var gameScreen = $('#gameScreen');
   var startScreen = $('#startScreen');
   var pair = App.utils.pairStart(startScreen, gameScreen, $('#btnPlay'));
-  var endScreen = $('#endScreen');
   var modelEl = $('#gridModelo');
   var boardEl = $('#gridTuyo');
   var paletteEl = $('#paleta');
@@ -257,21 +256,25 @@
     }
   }
 
+  /* "Ya tienes X estrellas · A por las Y estrellas": X is the stars now, Y the next goal. */
+  function starsGoal(total) {
+    if (!window.ApptonomiaStars) return '';
+    return App.i18n.t('core.starsReached').replace('{n}', total) + ' · ' +
+      App.i18n.t('core.starsGoal').replace('{n}', window.ApptonomiaStars.goalFor(total));
+  }
+
+  /* The round ends with the achievement screen: "A por más" plays again. */
   function endRound() {
     progress.roundsCompleted += 1;
     progress.completed[currentLevel.id] = (progress.completed[currentLevel.id] || 0) + 1;
     save();
     pair.leave(false);
-    App.utils.showEnd(gameScreen, endScreen);
-    $('#endSummary').textContent = App.i18n.t('resumenFinal', { n: roundHits, total: progress.stars });
-    App.i18n.applyTo('#transferencia');
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'));
+    gameScreen.classList.add('hidden');
+    App.feedback.celebrate(App.i18n.t('core.roundComplete'), startGame, starsGoal(progress.stars));
   }
 
   /* Events */
   btnNext.addEventListener('click', next);
-  var btnRepeat = $('#repeatBtn');
-  if (btnRepeat) btnRepeat.addEventListener('click', function () { startGame(); });
   var btnOtherLevel = $('#btnOtherLevel');
   if (btnOtherLevel) btnOtherLevel.addEventListener('click', function () {
     App.utils.goMenu();
