@@ -14,7 +14,7 @@
   var startScreen = $('#startScreen');
   var levelsScreen = $('#levelsScreen');
   var gameScreen = $('#gameScreen');
-  var endScreen = $('#endScreen');
+  var repeatBtn = $('#btnRepeat');
   var pair = App.utils.pairStart(startScreen, gameScreen, [$('#topics')]);
   var topicsEl = $('#topics');
   var levelEl = $('#dificultad');
@@ -24,7 +24,6 @@
   var feedbackEl = $('#feedback');
   var hintBtn = $('#hintBtn');
   var starsEl = $('#stars');
-  var finalSummaryEl = $('#finalSummary');
 
   /* Persistent progress */
   var progress = App.storage.getWithStars(TOOL_ID);
@@ -58,7 +57,7 @@
   }
 
   function show(screen) {
-    [startScreen, levelsScreen, gameScreen, endScreen].forEach(function (s) {
+    [startScreen, levelsScreen, gameScreen].forEach(function (s) {
       if (s) s.classList.toggle('hidden', s !== screen);
     });
   }
@@ -167,6 +166,7 @@
     feedbackEl.className = 'feedback';
     paintWords();
     paintBoard();
+    repeatBtn.classList.add('hidden');
     show(gameScreen);
     pair.enter();
     renderLevel();
@@ -331,19 +331,24 @@
 
   /* ---------- End of the game ---------- */
 
+  /* The achievement screen is the only closing screen: it closes and the board
+     stays on screen. «Jugar otra vez» appears under the board. */
   function finish() {
     progress.roundsCompleted += 1;
     var earned = level.stars || 1;
     progress.stars += earned;
     save();
     paintStars();
-    var summary = t('finalSummary').replace('{n}', earned).replace('{total}', progress.stars);
-    finalSummaryEl.textContent = summary;
-    $('#transferencia').textContent = '';
-    App.feedback.celebrate(App.i18n.t('core.roundComplete'), function () {
-      pair.leave(false);
-      show(endScreen);
-    });
+    pair.leave(false);
+    repeatBtn.classList.remove('hidden');
+    App.feedback.celebrate(
+      App.i18n.t('core.roundComplete') + ' ' + t('transferencia'),
+      null,
+      window.ApptonomiaStars.line(progress.stars, {
+        reached: App.i18n.t('core.starsReached'),
+        goal: App.i18n.t('core.starsGoal')
+      })
+    );
   }
 
   /* ---------- Events ---------- */

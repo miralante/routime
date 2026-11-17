@@ -30,7 +30,6 @@
     "letterAria": "Letter {letter}, row {row}, column {column}",
     "wordFound": "You found \"{word}\"!",
     "notAligned": "The two letters must be on the same line.",
-    "finalSummary": "You earned stars. You now have {total} stars.",
     "repeatedSummary": "You already had the stars for this level. Great job again!",
     "contexto": "You are looking for a word hidden in a letter board. Read calmly and swipe over it.",
     "pista": "🤔 Look at the first letter of the word and find it on the board.",

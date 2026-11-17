@@ -92,10 +92,6 @@
 
 .big-emoji { font-size: 96px; }
 
-#endScreen { padding-top: 48px; }
-
-#endScreen .btn { align-self: center; min-width: 280px; }
-
 @media (prefers-reduced-motion: no-preference) {
   .cell.hint { animation: pulse 1.2s ease-in-out 3; }
   @keyframes pulse {
@@ -103,10 +99,4 @@
     50% { transform: scale(1.15); }
   }
 
-#endScreen .transferencia {
-  margin: 8px auto 24px;
-  font-size: 1.1rem;
-  color: var(--color-texto-suave, #555);
-  max-width: 480px;
-}
 }

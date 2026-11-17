@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../assets/css/base.css?v=routime-v24767fa6">
   <link rel="stylesheet" href="../../assets/css/components.css?v=routime-vdbdbf17e">
   <link rel="stylesheet" href="../../assets/css/locale-picker.css?v=routime-v29c29c27">
-  <link rel="stylesheet" href="styles.css?v=routime-v472cad00">
+  <link rel="stylesheet" href="styles.css?v=routime-vd09199f2">
 </head>
 <body>
   <div class="container">
@@ -46,15 +46,7 @@
         <button type="button" class="btn btn-secondary btn-hint" id="hintBtn" data-i18n="hint">💡 Pista</button>
       </div>
       <div class="feedback" id="feedback" aria-live="polite"></div>
-    </section>
-
-    <!-- End screen -->
-    <section id="endScreen" class="hidden centered pila" aria-live="polite">
-      <div class="big-emoji" aria-hidden="true">🎉</div>
-      <h2 data-i18n="core.roundComplete">¡Ronda completada!</h2>
-      <p id="finalSummary"></p>
-      <p id="transferencia" class="transferencia" data-i18n="transferencia"></p>
-      <button type="button" class="btn" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
+      <button type="button" class="btn hidden" id="btnRepeat" data-i18n="core.playAgain">Jugar otra vez</button>
     </section>
     </main>
     <footer data-suite-footer data-suite-base="../../" data-suite-settings></footer>
@@ -64,13 +56,13 @@
   <script src="../../assets/js/i18n.js?v=routime-v43297537"></script>
   <script src="../../assets/js/storage.js?v=routime-va4fa64ee"></script>
   <script src="../../assets/js/feedback.js?v=routime-v74030dfe"></script>
-  <script src="strings.es.js?v=routime-vb1721f4c"></script>
-  <script src="strings.en.js?v=routime-va9afa168"></script>
+  <script src="strings.es.js?v=routime-v1e2ce879"></script>
+  <script src="strings.en.js?v=routime-v512c91df"></script>
   <script src="data.js?v=routime-va342ef8a"></script>
   <script src="../../assets/js/stars-engine.js?v=routime-v8d4a7ee6"></script>
   <script src="../../assets/js/stars-strings.js?v=routime-v37bc0c34"></script>
   <script src="../../assets/js/activity-glue.js?v=routime-v688dd286"></script>
-  <script src="app.js?v=routime-vc6807d70"></script>
+  <script src="app.js?v=routime-v6251ebc7"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('../../sw.js').catch(function () {});

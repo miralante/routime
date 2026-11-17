@@ -30,7 +30,6 @@
     "letterAria": "Letra {letter}, fila {row}, columna {column}",
     "wordFound": "¡Has encontrado «{word}»!",
     "notAligned": "Las dos letras deben estar en la misma línea.",
-    "finalSummary": "Has ganado estrellas. Ahora tienes {total} estrellas.",
     "repeatedSummary": "Ya tenías las estrellas de este nivel. ¡Muy bien otra vez!",
     "contexto": "Estás buscando una palabra escondida en un tablero de letras. Tienes que leer con calma y pasar el dedo sobre ella.",
     "pista": "🤔 Mira la primera letra de la palabra y búscala en el tablero.",

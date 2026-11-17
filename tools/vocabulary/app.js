@@ -406,7 +406,10 @@
       .replace('{n}', roundHits)
       .replace('{total}', progress.stars);
     $('#transferencia').textContent = '';
-    App.feedback.celebrar(t('core.roundComplete'));
+    App.feedback.celebrate(t('core.roundComplete'), null, window.ApptonomiaStars.line(progress.stars, {
+      reached: t('core.starsReached'),
+      goal: t('core.starsGoal')
+    }));
   }
 
   function goStart() {
