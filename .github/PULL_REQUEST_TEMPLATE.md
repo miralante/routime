@@ -6,7 +6,7 @@
 
 ## Comprobaciones
 
-- [ ] `node scripts/check.js` pasa en local.
+- [ ] `npm run lint` pasa en local.
 - [ ] Si has modificado archivos del shell de la app, has actualizado
       la documentación canónica correspondiente (`doc/es/`).
 - [ ] Si has cambiado contenido de producto, los strings `es`/`en`
