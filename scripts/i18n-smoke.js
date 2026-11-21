@@ -49,13 +49,13 @@ function cargar(slug, loc) {
   vm.runInContext(fs.readFileSync(path.join(dir, 'data.js'), 'utf8'), sb, { filename: 'data.js' });
   vm.runInContext(fs.readFileSync(path.join(dir, 'strings.' + loc + '.js'), 'utf8'), sb, { filename: 'strings.' + loc + '.js' });
   /* Read the global DATA (declared via `var` in the new data.js) and
-     the result of App.i18n.datos() — the legacy {es, en} shape. */
-  vm.runInContext(';this.__DATA__ = (typeof DATA !== "undefined") ? DATA : undefined; this.__DATOS__ = App.i18n.datos();', sb);
+     the result of App.i18n.dataByLocale() — the legacy {es, en} shape. */
+  vm.runInContext(';this.__DATA__ = (typeof DATA !== "undefined") ? DATA : undefined; this.__DATOS__ = App.i18n.dataByLocale();', sb);
   return { sb: sb, neutral: sb.__DATA__, datos: sb.__DATOS__ };
 }
 
 function construirDatos(neutral, datos, loc) {
-  /* datos is the legacy {es, en} tree from App.i18n.datos() — already
+  /* datos is the legacy {es, en} tree from App.i18n.dataByLocale() — already
      merged. We pick the active locale and return it as the unified
      data tree app.js reads. */
   return (datos && datos[loc]) || {};
@@ -105,7 +105,7 @@ function validar(slug) {
     try { r = cargar(slug, loc); }
     catch (e) { fallos.push('[' + loc + '] no carga: ' + e.message); return; }
     if (!r.neutral) { fallos.push('[' + loc + '] data.js no expone DATA'); return; }
-    if (!r.datos || !r.datos[loc]) { fallos.push('[' + loc + '] App.i18n.datos() no devuelve árbol para ' + loc); return; }
+    if (!r.datos || !r.datos[loc]) { fallos.push('[' + loc + '] App.i18n.dataByLocale() no devuelve árbol para ' + loc); return; }
     var datos = construirDatos(r.neutral, r.datos, loc);
     validarArbol(datos, slug, loc, fallos);
   });

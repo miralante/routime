@@ -9,9 +9,13 @@
 :root {
   --accent: #08553D;
   --accent-soft: #E0F2EA;
+  --accent-2: #8A5A00;
+  --accent-2-soft: #F7EFDD;
 }
 
 [data-theme="dark"] {
   --accent: #8ADBBB;
   --accent-soft: #16352A;
+  --accent-2: #F0C277;
+  --accent-2-soft: #3A2E17;
 }

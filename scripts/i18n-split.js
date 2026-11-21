@@ -235,7 +235,7 @@ function renderStrings(locale, root, uiKeys) {
     '       app shell. Resolved by App.i18n.t(\'title\') etc.',
     '     - data: <tree> — the translated text for the activity',
     '       data. Resolved by App.i18n.data(\'data\') and merged',
-    '       with the structure from data.js by App.i18n.datos().',
+    '       with the structure from data.js by App.i18n.dataByLocale().',
     '   ============================================================ */',
     '(function () {',
     "  'use strict';",
@@ -333,7 +333,7 @@ function refactor(slugOrPath, dryRun) {
     '   For backward compatibility with the legacy app.js pattern\n' +
     '   `DATOS = DATA[App.i18n.locale()] || DATA.es`, the global\n' +
     '   DATA is re-bound at the end of this file to the legacy\n' +
-    '   {es, en} shape via App.i18n.datos(). app.js does not need\n' +
+    '   {es, en} shape via App.i18n.dataByLocale(). app.js does not need\n' +
     '   to change.\n' +
     '   ============================================================ */\n' +
     'var DATA = ' + renderNeutral(neutralRoot, 0) + ';\n' +
@@ -341,7 +341,7 @@ function refactor(slugOrPath, dryRun) {
     '  try {\n' +
     '    App.i18n.registerStructure(DATA);\n' +
     '    /* Rebuild the legacy {es, en} shape so app.js keeps working. */\n' +
-    '    DATA = App.i18n.datos();\n' +
+    '    DATA = App.i18n.dataByLocale();\n' +
     '  } catch (e) { /* i18n not loaded yet; nothing to do */ }\n' +
     '})();\n';
   /* Preserve any UI keys that lived in the original strings.<locale>.js

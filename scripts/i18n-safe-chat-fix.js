@@ -78,7 +78,7 @@ function main() {
     '     normas: [{ picto, texto }, ...]\n' +
     '   }\n' +
     '   app.js usa DATA[App.i18n.locale()] || DATA.es (forma legacy\n' +
-    '   reconstruida por App.i18n.datos()).\n' +
+    '   reconstruida por App.i18n.dataByLocale()).\n' +
     '   El getter sobre opciones seguras vive en app.js (side effect DOM).\n' +
     '   ============================================================ */\n' +
     renderData(DATA);

@@ -68,9 +68,8 @@ things suffice here:
   `about/`, `legal/`) ships its own real `index.html` and Cloudflare
   resolves `/tools/pairs/` to `tools/pairs/index.html` automatically.
 - **Cache headers live in `_headers`** at the repo root. Cloudflare
-  reads it on every deploy. HTML entry points and `sw.js` are forced
-  to `must-revalidate`; fingerprinted JS/CSS/images get a 1-year
-  immutable cache. When you change cache policy, edit `_headers`,
+  reads it on every deploy. every file is served
+  `no-cache, must-revalidate`. When you change cache policy, edit `_headers`,
   not the dashboard.
 - **`manifest.json` and `sw.js` must use relative paths** (start `./`)
   so the app works on any host without changes.

@@ -95,9 +95,8 @@ are bundled in the repo.
 
 The site uses a [`_headers`](_headers) file at the repo root to set
 security headers (CSP, X-Frame-Options, Referrer-Policy) and a
-cache policy: HTML entry points, `404.html`, the manifest and
-`sw.js` are forced to `must-revalidate` so the PWA shell can
-update; fingerprinted JS/CSS/images get a 1-year immutable cache.
+cache policy: every file is served `no-cache, must-revalidate`, so the
+PWA shell and assets are revalidated on each request.
 Cloudflare reads this file on every deploy and applies the rules
 automatically — no dashboard configuration needed.
 
