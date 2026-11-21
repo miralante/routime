@@ -54,7 +54,7 @@ Spanish, in Easy Reading format.
 
 The app is served as a static site on **Cloudflare Pages** via the
 Git connector (`miralante/Routime` → `Routime` → branch
-`master`). Canonical URL: **https://Routime.pages.dev**. Operational
+`main`). Canonical URL: **https://Routime.pages.dev**. Operational
 details — dashboard configuration, why there is no `wrangler.toml` or
 `_redirects`, naming requirements, rollback, custom domain setup, and
 the SW note — live in [`CLOUDFLARE.md`](../../CLOUDFLARE.md). Five
@@ -76,7 +76,7 @@ things suffice here:
   so the app works on any host without changes.
 - **One-time setup lives in the dashboard**, not in the repo: project
   name `Routime`, framework preset `None`, build output `.`,
-  production branch `master`.
+  production branch `main`.
 
 The service worker **never caches or serves redirects.** The `fetch`
 handler in `sw.js` only caches responses with `status === 200` and
@@ -1129,7 +1129,7 @@ Cloudflare picks up `_headers` automatically. See `CLOUDFLARE.md` at
 the repository root for the full setup.
 
 There is no custom GitHub Actions workflow and no CLI deploy script: pushes
-to `master` trigger the build through the Cloudflare Git connector, and pull
+to `main` trigger the build through the Cloudflare Git connector, and pull
 requests get an automatic preview channel (`https://<hash>.Routime.pages.dev`).
 A redeploy is just a push, and a rollback is done from the Cloudflare
 dashboard (Workers & Pages → `Routime` → Deployments).

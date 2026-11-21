@@ -54,7 +54,7 @@ Aplicación web de terapia ocupacional para personas con discapacidad intelectua
 
 La app se sirve como sitio estático en **Cloudflare Pages** mediante
 el conector de Git (`miralante/Routime` → `Routime` → rama
-`master`). URL canónica: **https://Routime.pages.dev**. El detalle
+`main`). URL canónica: **https://Routime.pages.dev**. El detalle
 operativo — configuración del dashboard, por qué no hay `wrangler.toml`
 ni `_redirects`, requisitos de nombres, rollback, dominio
 personalizado y la nota sobre el SW — vive en
@@ -78,7 +78,7 @@ cosas:
   por `./`) para que la app funcione en cualquier host sin tocarlos.
 - **La configuración puntual vive en el panel** de Cloudflare, no en
   el repo: nombre de proyecto `Routime`, framework preset `None`,
-  directorio de salida `.`, rama de producción `master`.
+  directorio de salida `.`, rama de producción `main`.
 
 El service worker **nunca cachea ni sirve redirecciones.** El handler
 `fetch` de `sw.js` solo guarda en caché respuestas con `status === 200`
@@ -1163,7 +1163,7 @@ Cloudflare recoge `_headers` automáticamente. Consulta `CLOUDFLARE.md`
 en la raíz del repo para la configuración completa.
 
 No hay workflow personalizado de GitHub Actions ni script CLI de despliegue:
-los pushes a `master` disparan el build a través del conector Git de
+los pushes a `main` disparan el build a través del conector Git de
 Cloudflare, y los pull requests reciben un canal de preview automático
 (`https://<hash>.Routime.pages.dev`). Redesplegar es hacer push, y
 cualquier rollback se hace desde el dashboard de Cloudflare
